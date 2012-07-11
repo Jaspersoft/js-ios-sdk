@@ -1,0 +1,811 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C5A3E54515A46E140092981A /* JSServerProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A3E54315A46E140092981A /* JSServerProfile.m */; };
+		C5A3E54615A46E140092981A /* JSServerProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A3E54415A46E140092981A /* JSServerProfile.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F504DD731594DE9C008DC35C /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F55A30AC1594832100B58DD9 /* libxml2.dylib */; };
+		F51E1E751594BCF000D99EE3 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F55A30AC1594832100B58DD9 /* libxml2.dylib */; };
+		F51E1E7B1594BE9100D99EE3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F55A30991594819C00B58DD9 /* Foundation.framework */; };
+		F555AAFA1598E2E7005A3689 /* ASIWebPageRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = F555AAF81598E2E7005A3689 /* ASIWebPageRequest.h */; };
+		F555AAFB1598E2E7005A3689 /* ASIWebPageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F555AAF91598E2E7005A3689 /* ASIWebPageRequest.m */; };
+		F55A309A1594819C00B58DD9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F55A30991594819C00B58DD9 /* Foundation.framework */; };
+		F55A30AB1594831D00B58DD9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F55A30AA1594831D00B58DD9 /* UIKit.framework */; };
+		F55A30EE1594852900B58DD9 /* JSClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30B01594852900B58DD9 /* JSClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A30EF1594852900B58DD9 /* JSClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30B11594852900B58DD9 /* JSClient.m */; };
+		F55A30F01594852900B58DD9 /* JSConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30B21594852900B58DD9 /* JSConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A30F11594852900B58DD9 /* JSInputControlQueryDataRow.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30B31594852900B58DD9 /* JSInputControlQueryDataRow.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A30F21594852900B58DD9 /* JSInputControlQueryDataRow.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30B41594852900B58DD9 /* JSInputControlQueryDataRow.m */; };
+		F55A30F31594852900B58DD9 /* JSOperationResult.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30B51594852900B58DD9 /* JSOperationResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A30F41594852900B58DD9 /* JSOperationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30B61594852900B58DD9 /* JSOperationResult.m */; };
+		F55A30F51594852900B58DD9 /* JSReportExecution.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30B71594852900B58DD9 /* JSReportExecution.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A30F61594852900B58DD9 /* JSReportExecution.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30B81594852900B58DD9 /* JSReportExecution.m */; };
+		F55A30F71594852900B58DD9 /* JSResourceDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30B91594852900B58DD9 /* JSResourceDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A30F81594852900B58DD9 /* JSResourceDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30BA1594852900B58DD9 /* JSResourceDescriptor.m */; };
+		F55A30F91594852900B58DD9 /* JSResourceParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30BB1594852900B58DD9 /* JSResourceParameter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A30FA1594852900B58DD9 /* JSResourceParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30BC1594852900B58DD9 /* JSResourceParameter.m */; };
+		F55A30FB1594852900B58DD9 /* JSResourceProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30BD1594852900B58DD9 /* JSResourceProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A30FC1594852900B58DD9 /* JSResourceProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30BE1594852900B58DD9 /* JSResourceProperty.m */; };
+		F55A30FD1594852900B58DD9 /* JSUIBaseRepositoryViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30BF1594852900B58DD9 /* JSUIBaseRepositoryViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A30FE1594852900B58DD9 /* JSUIBaseRepositoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30C01594852900B58DD9 /* JSUIBaseRepositoryViewController.m */; };
+		F55A30FF1594852900B58DD9 /* JSUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30C11594852900B58DD9 /* JSUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A31001594852900B58DD9 /* JSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30C21594852900B58DD9 /* JSUtils.m */; };
+		F55A31011594852900B58DD9 /* JSXMLUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30C31594852900B58DD9 /* JSXMLUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A31021594852900B58DD9 /* JSXMLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30C41594852900B58DD9 /* JSXMLUtils.m */; };
+		F55A31031594852900B58DD9 /* JSBooleanInputControlCell.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30C61594852900B58DD9 /* JSBooleanInputControlCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A31041594852900B58DD9 /* JSBooleanInputControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30C71594852900B58DD9 /* JSBooleanInputControlCell.m */; };
+		F55A31051594852900B58DD9 /* JSDateInputControlCell.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30C81594852900B58DD9 /* JSDateInputControlCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A31061594852900B58DD9 /* JSDateInputControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30C91594852900B58DD9 /* JSDateInputControlCell.m */; };
+		F55A31071594852900B58DD9 /* JSDatePickerView.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30CA1594852900B58DD9 /* JSDatePickerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A31081594852900B58DD9 /* JSDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30CB1594852900B58DD9 /* JSDatePickerView.m */; };
+		F55A31091594852900B58DD9 /* JSDateTimeInputControlCell.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30CC1594852900B58DD9 /* JSDateTimeInputControlCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A310A1594852900B58DD9 /* JSDateTimeInputControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30CD1594852900B58DD9 /* JSDateTimeInputControlCell.m */; };
+		F55A310B1594852900B58DD9 /* JSDateTimeSelectorViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30CE1594852900B58DD9 /* JSDateTimeSelectorViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A310C1594852900B58DD9 /* JSDateTimeSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30CF1594852900B58DD9 /* JSDateTimeSelectorViewController.m */; };
+		F55A310D1594852900B58DD9 /* JSInputControlCell.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30D01594852900B58DD9 /* JSInputControlCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A310E1594852900B58DD9 /* JSInputControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30D11594852900B58DD9 /* JSInputControlCell.m */; };
+		F55A310F1594852900B58DD9 /* JSListSelectorViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30D21594852900B58DD9 /* JSListSelectorViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A31101594852900B58DD9 /* JSListSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30D31594852900B58DD9 /* JSListSelectorViewController.m */; };
+		F55A31111594852900B58DD9 /* JSMultiselectListInputControlCell.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30D41594852900B58DD9 /* JSMultiselectListInputControlCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A31121594852900B58DD9 /* JSMultiselectListInputControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30D51594852900B58DD9 /* JSMultiselectListInputControlCell.m */; };
+		F55A31131594852900B58DD9 /* JSNumberInputControlCell.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30D61594852900B58DD9 /* JSNumberInputControlCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A31141594852900B58DD9 /* JSNumberInputControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30D71594852900B58DD9 /* JSNumberInputControlCell.m */; };
+		F55A31151594852900B58DD9 /* JSSingleSelectListInputControlCell.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30D81594852900B58DD9 /* JSSingleSelectListInputControlCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A31161594852900B58DD9 /* JSSingleSelectListInputControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30D91594852900B58DD9 /* JSSingleSelectListInputControlCell.m */; };
+		F55A31171594852900B58DD9 /* JSTextInputControlCell.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30DA1594852900B58DD9 /* JSTextInputControlCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A31181594852900B58DD9 /* JSTextInputControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30DB1594852900B58DD9 /* JSTextInputControlCell.m */; };
+		F55A31191594852900B58DD9 /* JSUILoadingView.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30DD1594852900B58DD9 /* JSUILoadingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A311A1594852900B58DD9 /* JSUILoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30DE1594852900B58DD9 /* JSUILoadingView.m */; };
+		F55A311B1594852900B58DD9 /* JSUIReportUnitParametersViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30DF1594852900B58DD9 /* JSUIReportUnitParametersViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A311C1594852900B58DD9 /* JSUIReportUnitParametersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30E01594852900B58DD9 /* JSUIReportUnitParametersViewController.m */; };
+		F55A311D1594852900B58DD9 /* JSUIReportUnitViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30E11594852900B58DD9 /* JSUIReportUnitViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A311E1594852900B58DD9 /* JSUIReportUnitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30E21594852900B58DD9 /* JSUIReportUnitViewController.m */; };
+		F55A311F1594852900B58DD9 /* JSUIRepositoryViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30E41594852900B58DD9 /* JSUIRepositoryViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A31201594852900B58DD9 /* JSUIRepositoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30E51594852900B58DD9 /* JSUIRepositoryViewController.m */; };
+		F55A31211594852900B58DD9 /* JSUIResourcePicker.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30E61594852900B58DD9 /* JSUIResourcePicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A31221594852900B58DD9 /* JSUIResourcePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30E71594852900B58DD9 /* JSUIResourcePicker.m */; };
+		F55A31231594852900B58DD9 /* JSUIResourcePreviewController.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30E81594852900B58DD9 /* JSUIResourcePreviewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A31241594852900B58DD9 /* JSUIResourcePreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30E91594852900B58DD9 /* JSUIResourcePreviewController.m */; };
+		F55A31251594852900B58DD9 /* JSUIResourceViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30EA1594852900B58DD9 /* JSUIResourceViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A31261594852900B58DD9 /* JSUIResourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30EB1594852900B58DD9 /* JSUIResourceViewController.m */; };
+		F55A31271594852900B58DD9 /* JSUISearchViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = F55A30EC1594852900B58DD9 /* JSUISearchViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55A31281594852900B58DD9 /* JSUISearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F55A30ED1594852900B58DD9 /* JSUISearchViewController.m */; };
+		F56B74751598DC81002D1A76 /* ASIAuthenticationDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = F56B74231598DC81002D1A76 /* ASIAuthenticationDialog.h */; };
+		F56B74761598DC81002D1A76 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = F56B74241598DC81002D1A76 /* ASIAuthenticationDialog.m */; };
+		F56B74771598DC81002D1A76 /* ASICacheDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = F56B74251598DC81002D1A76 /* ASICacheDelegate.h */; };
+		F56B74781598DC81002D1A76 /* ASIDataCompressor.h in Headers */ = {isa = PBXBuildFile; fileRef = F56B74261598DC81002D1A76 /* ASIDataCompressor.h */; };
+		F56B74791598DC81002D1A76 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = F56B74271598DC81002D1A76 /* ASIDataCompressor.m */; };
+		F56B747A1598DC81002D1A76 /* ASIDataDecompressor.h in Headers */ = {isa = PBXBuildFile; fileRef = F56B74281598DC81002D1A76 /* ASIDataDecompressor.h */; };
+		F56B747B1598DC81002D1A76 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = F56B74291598DC81002D1A76 /* ASIDataDecompressor.m */; };
+		F56B747C1598DC81002D1A76 /* ASIDownloadCache.h in Headers */ = {isa = PBXBuildFile; fileRef = F56B742A1598DC81002D1A76 /* ASIDownloadCache.h */; };
+		F56B747D1598DC81002D1A76 /* ASIDownloadCache.m in Sources */ = {isa = PBXBuildFile; fileRef = F56B742B1598DC81002D1A76 /* ASIDownloadCache.m */; };
+		F56B747E1598DC81002D1A76 /* ASIFormDataRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = F56B742C1598DC81002D1A76 /* ASIFormDataRequest.h */; };
+		F56B747F1598DC81002D1A76 /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F56B742D1598DC81002D1A76 /* ASIFormDataRequest.m */; };
+		F56B74801598DC81002D1A76 /* ASIHTTPRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = F56B742E1598DC81002D1A76 /* ASIHTTPRequest.h */; };
+		F56B74811598DC81002D1A76 /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F56B742F1598DC81002D1A76 /* ASIHTTPRequest.m */; };
+		F56B74821598DC81002D1A76 /* ASIHTTPRequestConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = F56B74301598DC81002D1A76 /* ASIHTTPRequestConfig.h */; };
+		F56B74831598DC81002D1A76 /* ASIHTTPRequestDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = F56B74311598DC81002D1A76 /* ASIHTTPRequestDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F56B74841598DC81002D1A76 /* ASIInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = F56B74321598DC81002D1A76 /* ASIInputStream.h */; };
+		F56B74851598DC81002D1A76 /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = F56B74331598DC81002D1A76 /* ASIInputStream.m */; };
+		F56B74861598DC81002D1A76 /* ASINetworkQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = F56B74341598DC81002D1A76 /* ASINetworkQueue.h */; };
+		F56B74871598DC81002D1A76 /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = F56B74351598DC81002D1A76 /* ASINetworkQueue.m */; };
+		F56B74881598DC81002D1A76 /* ASIProgressDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = F56B74361598DC81002D1A76 /* ASIProgressDelegate.h */; };
+		F56B74C61598DCD4002D1A76 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = F56B74C41598DCD4002D1A76 /* Reachability.h */; };
+		F56B74C71598DCD4002D1A76 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = F56B74C51598DCD4002D1A76 /* Reachability.m */; };
+		F5A5D6CB15A2EB65000F40B8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5A5D6CA15A2EB65000F40B8 /* CFNetwork.framework */; };
+		F5A5D6CE15A2EB80000F40B8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5A5D6CD15A2EB80000F40B8 /* SystemConfiguration.framework */; };
+		F5A5D6D015A2EB8A000F40B8 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5A5D6CF15A2EB8A000F40B8 /* MobileCoreServices.framework */; };
+		F5A5D6D215A2EBBD000F40B8 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F5A5D6D115A2EBBD000F40B8 /* libz.dylib */; };
+		F5D490DB159855A0002D4B50 /* libjasperserver-mobile-ASIHTTPRequest-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F51E1E7A1594BE9100D99EE3 /* libjasperserver-mobile-ASIHTTPRequest-ios.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F5D490D81598559D002D4B50 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F55A308D1594819C00B58DD9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F51E1E791594BE9100D99EE3;
+			remoteInfo = "jasperserver-mobile-ASIHTTPRequest-ios";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C5A3E54315A46E140092981A /* JSServerProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSServerProfile.m; sourceTree = "<group>"; };
+		C5A3E54415A46E140092981A /* JSServerProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSServerProfile.h; sourceTree = "<group>"; };
+		F51E1E7A1594BE9100D99EE3 /* libjasperserver-mobile-ASIHTTPRequest-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libjasperserver-mobile-ASIHTTPRequest-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F51E1E7E1594BE9100D99EE3 /* jasperserver-mobile-ASIHTTPRequest-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "jasperserver-mobile-ASIHTTPRequest-ios-Prefix.pch"; sourceTree = "<group>"; };
+		F555AAF81598E2E7005A3689 /* ASIWebPageRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIWebPageRequest.h; sourceTree = "<group>"; };
+		F555AAF91598E2E7005A3689 /* ASIWebPageRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIWebPageRequest.m; sourceTree = "<group>"; };
+		F55A30961594819C00B58DD9 /* libjasperserver-mobile-sdk-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libjasperserver-mobile-sdk-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F55A30991594819C00B58DD9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F55A309D1594819D00B58DD9 /* jasperserver-mobile-sdk-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "jasperserver-mobile-sdk-ios-Prefix.pch"; sourceTree = "<group>"; };
+		F55A30AA1594831D00B58DD9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		F55A30AC1594832100B58DD9 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		F55A30B01594852900B58DD9 /* JSClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSClient.h; sourceTree = "<group>"; };
+		F55A30B11594852900B58DD9 /* JSClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSClient.m; sourceTree = "<group>"; };
+		F55A30B21594852900B58DD9 /* JSConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSConstants.h; sourceTree = "<group>"; };
+		F55A30B31594852900B58DD9 /* JSInputControlQueryDataRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSInputControlQueryDataRow.h; sourceTree = "<group>"; };
+		F55A30B41594852900B58DD9 /* JSInputControlQueryDataRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSInputControlQueryDataRow.m; sourceTree = "<group>"; };
+		F55A30B51594852900B58DD9 /* JSOperationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSOperationResult.h; sourceTree = "<group>"; };
+		F55A30B61594852900B58DD9 /* JSOperationResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSOperationResult.m; sourceTree = "<group>"; };
+		F55A30B71594852900B58DD9 /* JSReportExecution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportExecution.h; sourceTree = "<group>"; };
+		F55A30B81594852900B58DD9 /* JSReportExecution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportExecution.m; sourceTree = "<group>"; };
+		F55A30B91594852900B58DD9 /* JSResourceDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResourceDescriptor.h; sourceTree = "<group>"; };
+		F55A30BA1594852900B58DD9 /* JSResourceDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceDescriptor.m; sourceTree = "<group>"; };
+		F55A30BB1594852900B58DD9 /* JSResourceParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResourceParameter.h; sourceTree = "<group>"; };
+		F55A30BC1594852900B58DD9 /* JSResourceParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceParameter.m; sourceTree = "<group>"; };
+		F55A30BD1594852900B58DD9 /* JSResourceProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResourceProperty.h; sourceTree = "<group>"; };
+		F55A30BE1594852900B58DD9 /* JSResourceProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceProperty.m; sourceTree = "<group>"; };
+		F55A30BF1594852900B58DD9 /* JSUIBaseRepositoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSUIBaseRepositoryViewController.h; sourceTree = "<group>"; };
+		F55A30C01594852900B58DD9 /* JSUIBaseRepositoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSUIBaseRepositoryViewController.m; sourceTree = "<group>"; };
+		F55A30C11594852900B58DD9 /* JSUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSUtils.h; sourceTree = "<group>"; };
+		F55A30C21594852900B58DD9 /* JSUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSUtils.m; sourceTree = "<group>"; };
+		F55A30C31594852900B58DD9 /* JSXMLUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSXMLUtils.h; sourceTree = "<group>"; };
+		F55A30C41594852900B58DD9 /* JSXMLUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSXMLUtils.m; sourceTree = "<group>"; };
+		F55A30C61594852900B58DD9 /* JSBooleanInputControlCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSBooleanInputControlCell.h; sourceTree = "<group>"; };
+		F55A30C71594852900B58DD9 /* JSBooleanInputControlCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBooleanInputControlCell.m; sourceTree = "<group>"; };
+		F55A30C81594852900B58DD9 /* JSDateInputControlCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDateInputControlCell.h; sourceTree = "<group>"; };
+		F55A30C91594852900B58DD9 /* JSDateInputControlCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDateInputControlCell.m; sourceTree = "<group>"; };
+		F55A30CA1594852900B58DD9 /* JSDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDatePickerView.h; sourceTree = "<group>"; };
+		F55A30CB1594852900B58DD9 /* JSDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDatePickerView.m; sourceTree = "<group>"; };
+		F55A30CC1594852900B58DD9 /* JSDateTimeInputControlCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDateTimeInputControlCell.h; sourceTree = "<group>"; };
+		F55A30CD1594852900B58DD9 /* JSDateTimeInputControlCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDateTimeInputControlCell.m; sourceTree = "<group>"; };
+		F55A30CE1594852900B58DD9 /* JSDateTimeSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDateTimeSelectorViewController.h; sourceTree = "<group>"; };
+		F55A30CF1594852900B58DD9 /* JSDateTimeSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDateTimeSelectorViewController.m; sourceTree = "<group>"; };
+		F55A30D01594852900B58DD9 /* JSInputControlCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSInputControlCell.h; sourceTree = "<group>"; };
+		F55A30D11594852900B58DD9 /* JSInputControlCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSInputControlCell.m; sourceTree = "<group>"; };
+		F55A30D21594852900B58DD9 /* JSListSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSListSelectorViewController.h; sourceTree = "<group>"; };
+		F55A30D31594852900B58DD9 /* JSListSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSListSelectorViewController.m; sourceTree = "<group>"; };
+		F55A30D41594852900B58DD9 /* JSMultiselectListInputControlCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMultiselectListInputControlCell.h; sourceTree = "<group>"; };
+		F55A30D51594852900B58DD9 /* JSMultiselectListInputControlCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMultiselectListInputControlCell.m; sourceTree = "<group>"; };
+		F55A30D61594852900B58DD9 /* JSNumberInputControlCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSNumberInputControlCell.h; sourceTree = "<group>"; };
+		F55A30D71594852900B58DD9 /* JSNumberInputControlCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSNumberInputControlCell.m; sourceTree = "<group>"; };
+		F55A30D81594852900B58DD9 /* JSSingleSelectListInputControlCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSSingleSelectListInputControlCell.h; sourceTree = "<group>"; };
+		F55A30D91594852900B58DD9 /* JSSingleSelectListInputControlCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSSingleSelectListInputControlCell.m; sourceTree = "<group>"; };
+		F55A30DA1594852900B58DD9 /* JSTextInputControlCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTextInputControlCell.h; sourceTree = "<group>"; };
+		F55A30DB1594852900B58DD9 /* JSTextInputControlCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTextInputControlCell.m; sourceTree = "<group>"; };
+		F55A30DD1594852900B58DD9 /* JSUILoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSUILoadingView.h; sourceTree = "<group>"; };
+		F55A30DE1594852900B58DD9 /* JSUILoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSUILoadingView.m; sourceTree = "<group>"; };
+		F55A30DF1594852900B58DD9 /* JSUIReportUnitParametersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSUIReportUnitParametersViewController.h; sourceTree = "<group>"; };
+		F55A30E01594852900B58DD9 /* JSUIReportUnitParametersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSUIReportUnitParametersViewController.m; sourceTree = "<group>"; };
+		F55A30E11594852900B58DD9 /* JSUIReportUnitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSUIReportUnitViewController.h; sourceTree = "<group>"; };
+		F55A30E21594852900B58DD9 /* JSUIReportUnitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSUIReportUnitViewController.m; sourceTree = "<group>"; };
+		F55A30E31594852900B58DD9 /* JSUIReportUnitViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JSUIReportUnitViewController.xib; sourceTree = "<group>"; };
+		F55A30E41594852900B58DD9 /* JSUIRepositoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSUIRepositoryViewController.h; sourceTree = "<group>"; };
+		F55A30E51594852900B58DD9 /* JSUIRepositoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSUIRepositoryViewController.m; sourceTree = "<group>"; };
+		F55A30E61594852900B58DD9 /* JSUIResourcePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSUIResourcePicker.h; sourceTree = "<group>"; };
+		F55A30E71594852900B58DD9 /* JSUIResourcePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSUIResourcePicker.m; sourceTree = "<group>"; };
+		F55A30E81594852900B58DD9 /* JSUIResourcePreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSUIResourcePreviewController.h; sourceTree = "<group>"; };
+		F55A30E91594852900B58DD9 /* JSUIResourcePreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSUIResourcePreviewController.m; sourceTree = "<group>"; };
+		F55A30EA1594852900B58DD9 /* JSUIResourceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSUIResourceViewController.h; sourceTree = "<group>"; };
+		F55A30EB1594852900B58DD9 /* JSUIResourceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSUIResourceViewController.m; sourceTree = "<group>"; };
+		F55A30EC1594852900B58DD9 /* JSUISearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSUISearchViewController.h; sourceTree = "<group>"; };
+		F55A30ED1594852900B58DD9 /* JSUISearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSUISearchViewController.m; sourceTree = "<group>"; };
+		F56B74231598DC81002D1A76 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
+		F56B74241598DC81002D1A76 /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
+		F56B74251598DC81002D1A76 /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
+		F56B74261598DC81002D1A76 /* ASIDataCompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIDataCompressor.h; sourceTree = "<group>"; };
+		F56B74271598DC81002D1A76 /* ASIDataCompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIDataCompressor.m; sourceTree = "<group>"; };
+		F56B74281598DC81002D1A76 /* ASIDataDecompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIDataDecompressor.h; sourceTree = "<group>"; };
+		F56B74291598DC81002D1A76 /* ASIDataDecompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIDataDecompressor.m; sourceTree = "<group>"; };
+		F56B742A1598DC81002D1A76 /* ASIDownloadCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIDownloadCache.h; sourceTree = "<group>"; };
+		F56B742B1598DC81002D1A76 /* ASIDownloadCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIDownloadCache.m; sourceTree = "<group>"; };
+		F56B742C1598DC81002D1A76 /* ASIFormDataRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIFormDataRequest.h; sourceTree = "<group>"; };
+		F56B742D1598DC81002D1A76 /* ASIFormDataRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIFormDataRequest.m; sourceTree = "<group>"; };
+		F56B742E1598DC81002D1A76 /* ASIHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIHTTPRequest.h; sourceTree = "<group>"; };
+		F56B742F1598DC81002D1A76 /* ASIHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIHTTPRequest.m; sourceTree = "<group>"; };
+		F56B74301598DC81002D1A76 /* ASIHTTPRequestConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIHTTPRequestConfig.h; sourceTree = "<group>"; };
+		F56B74311598DC81002D1A76 /* ASIHTTPRequestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIHTTPRequestDelegate.h; sourceTree = "<group>"; };
+		F56B74321598DC81002D1A76 /* ASIInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIInputStream.h; sourceTree = "<group>"; };
+		F56B74331598DC81002D1A76 /* ASIInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIInputStream.m; sourceTree = "<group>"; };
+		F56B74341598DC81002D1A76 /* ASINetworkQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASINetworkQueue.h; sourceTree = "<group>"; };
+		F56B74351598DC81002D1A76 /* ASINetworkQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASINetworkQueue.m; sourceTree = "<group>"; };
+		F56B74361598DC81002D1A76 /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
+		F56B74C41598DCD4002D1A76 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		F56B74C51598DCD4002D1A76 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		F5A5D6CA15A2EB65000F40B8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		F5A5D6CD15A2EB80000F40B8 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		F5A5D6CF15A2EB8A000F40B8 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		F5A5D6D115A2EBBD000F40B8 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F51E1E771594BE9100D99EE3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F504DD731594DE9C008DC35C /* libxml2.dylib in Frameworks */,
+				F51E1E7B1594BE9100D99EE3 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F55A30931594819C00B58DD9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5A5D6D215A2EBBD000F40B8 /* libz.dylib in Frameworks */,
+				F5A5D6D015A2EB8A000F40B8 /* MobileCoreServices.framework in Frameworks */,
+				F5A5D6CE15A2EB80000F40B8 /* SystemConfiguration.framework in Frameworks */,
+				F5A5D6CB15A2EB65000F40B8 /* CFNetwork.framework in Frameworks */,
+				F5D490DB159855A0002D4B50 /* libjasperserver-mobile-ASIHTTPRequest-ios.a in Frameworks */,
+				F51E1E751594BCF000D99EE3 /* libxml2.dylib in Frameworks */,
+				F55A30AB1594831D00B58DD9 /* UIKit.framework in Frameworks */,
+				F55A309A1594819C00B58DD9 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F51E1E7C1594BE9100D99EE3 /* jasperserver-mobile-ASIHTTPRequest-ios */ = {
+			isa = PBXGroup;
+			children = (
+				F51E1E7D1594BE9100D99EE3 /* Supporting Files */,
+			);
+			path = "jasperserver-mobile-ASIHTTPRequest-ios";
+			sourceTree = "<group>";
+		};
+		F51E1E7D1594BE9100D99EE3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F51E1E7E1594BE9100D99EE3 /* jasperserver-mobile-ASIHTTPRequest-ios-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F555AAF71598E2E7005A3689 /* ASIWebPageRequest */ = {
+			isa = PBXGroup;
+			children = (
+				F555AAF81598E2E7005A3689 /* ASIWebPageRequest.h */,
+				F555AAF91598E2E7005A3689 /* ASIWebPageRequest.m */,
+			);
+			path = ASIWebPageRequest;
+			sourceTree = "<group>";
+		};
+		F55A308B1594819C00B58DD9 = {
+			isa = PBXGroup;
+			children = (
+				F55A30AE1594852900B58DD9 /* Classes */,
+				F55A31291594854D00B58DD9 /* Other Classes */,
+				F55A309B1594819D00B58DD9 /* jasperserver-mobile-sdk-ios */,
+				F51E1E7C1594BE9100D99EE3 /* jasperserver-mobile-ASIHTTPRequest-ios */,
+				F55A30981594819C00B58DD9 /* Frameworks */,
+				F55A30971594819C00B58DD9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F55A30971594819C00B58DD9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F55A30961594819C00B58DD9 /* libjasperserver-mobile-sdk-ios.a */,
+				F51E1E7A1594BE9100D99EE3 /* libjasperserver-mobile-ASIHTTPRequest-ios.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F55A30981594819C00B58DD9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F55A30AC1594832100B58DD9 /* libxml2.dylib */,
+				F5A5D6D115A2EBBD000F40B8 /* libz.dylib */,
+				F5A5D6CA15A2EB65000F40B8 /* CFNetwork.framework */,
+				F5A5D6CF15A2EB8A000F40B8 /* MobileCoreServices.framework */,
+				F5A5D6CD15A2EB80000F40B8 /* SystemConfiguration.framework */,
+				F55A30AA1594831D00B58DD9 /* UIKit.framework */,
+				F55A30991594819C00B58DD9 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F55A309B1594819D00B58DD9 /* jasperserver-mobile-sdk-ios */ = {
+			isa = PBXGroup;
+			children = (
+				F55A309C1594819D00B58DD9 /* Supporting Files */,
+			);
+			path = "jasperserver-mobile-sdk-ios";
+			sourceTree = "<group>";
+		};
+		F55A309C1594819D00B58DD9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F55A309D1594819D00B58DD9 /* jasperserver-mobile-sdk-ios-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F55A30AE1594852900B58DD9 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F55A30AF1594852900B58DD9 /* JSClient */,
+				F55A30C51594852900B58DD9 /* JSInputControls */,
+				F55A30DC1594852900B58DD9 /* JSUIComponents */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		F55A30AF1594852900B58DD9 /* JSClient */ = {
+			isa = PBXGroup;
+			children = (
+				C5A3E54315A46E140092981A /* JSServerProfile.m */,
+				C5A3E54415A46E140092981A /* JSServerProfile.h */,
+				F55A30B01594852900B58DD9 /* JSClient.h */,
+				F55A30B11594852900B58DD9 /* JSClient.m */,
+				F55A30B21594852900B58DD9 /* JSConstants.h */,
+				F55A30B31594852900B58DD9 /* JSInputControlQueryDataRow.h */,
+				F55A30B41594852900B58DD9 /* JSInputControlQueryDataRow.m */,
+				F55A30B51594852900B58DD9 /* JSOperationResult.h */,
+				F55A30B61594852900B58DD9 /* JSOperationResult.m */,
+				F55A30B71594852900B58DD9 /* JSReportExecution.h */,
+				F55A30B81594852900B58DD9 /* JSReportExecution.m */,
+				F55A30B91594852900B58DD9 /* JSResourceDescriptor.h */,
+				F55A30BA1594852900B58DD9 /* JSResourceDescriptor.m */,
+				F55A30BB1594852900B58DD9 /* JSResourceParameter.h */,
+				F55A30BC1594852900B58DD9 /* JSResourceParameter.m */,
+				F55A30BD1594852900B58DD9 /* JSResourceProperty.h */,
+				F55A30BE1594852900B58DD9 /* JSResourceProperty.m */,
+				F55A30BF1594852900B58DD9 /* JSUIBaseRepositoryViewController.h */,
+				F55A30C01594852900B58DD9 /* JSUIBaseRepositoryViewController.m */,
+				F55A30C11594852900B58DD9 /* JSUtils.h */,
+				F55A30C21594852900B58DD9 /* JSUtils.m */,
+				F55A30C31594852900B58DD9 /* JSXMLUtils.h */,
+				F55A30C41594852900B58DD9 /* JSXMLUtils.m */,
+			);
+			path = JSClient;
+			sourceTree = "<group>";
+		};
+		F55A30C51594852900B58DD9 /* JSInputControls */ = {
+			isa = PBXGroup;
+			children = (
+				F55A30C61594852900B58DD9 /* JSBooleanInputControlCell.h */,
+				F55A30C71594852900B58DD9 /* JSBooleanInputControlCell.m */,
+				F55A30C81594852900B58DD9 /* JSDateInputControlCell.h */,
+				F55A30C91594852900B58DD9 /* JSDateInputControlCell.m */,
+				F55A30CA1594852900B58DD9 /* JSDatePickerView.h */,
+				F55A30CB1594852900B58DD9 /* JSDatePickerView.m */,
+				F55A30CC1594852900B58DD9 /* JSDateTimeInputControlCell.h */,
+				F55A30CD1594852900B58DD9 /* JSDateTimeInputControlCell.m */,
+				F55A30CE1594852900B58DD9 /* JSDateTimeSelectorViewController.h */,
+				F55A30CF1594852900B58DD9 /* JSDateTimeSelectorViewController.m */,
+				F55A30D01594852900B58DD9 /* JSInputControlCell.h */,
+				F55A30D11594852900B58DD9 /* JSInputControlCell.m */,
+				F55A30D21594852900B58DD9 /* JSListSelectorViewController.h */,
+				F55A30D31594852900B58DD9 /* JSListSelectorViewController.m */,
+				F55A30D41594852900B58DD9 /* JSMultiselectListInputControlCell.h */,
+				F55A30D51594852900B58DD9 /* JSMultiselectListInputControlCell.m */,
+				F55A30D61594852900B58DD9 /* JSNumberInputControlCell.h */,
+				F55A30D71594852900B58DD9 /* JSNumberInputControlCell.m */,
+				F55A30D81594852900B58DD9 /* JSSingleSelectListInputControlCell.h */,
+				F55A30D91594852900B58DD9 /* JSSingleSelectListInputControlCell.m */,
+				F55A30DA1594852900B58DD9 /* JSTextInputControlCell.h */,
+				F55A30DB1594852900B58DD9 /* JSTextInputControlCell.m */,
+			);
+			path = JSInputControls;
+			sourceTree = "<group>";
+		};
+		F55A30DC1594852900B58DD9 /* JSUIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				F55A30DD1594852900B58DD9 /* JSUILoadingView.h */,
+				F55A30DE1594852900B58DD9 /* JSUILoadingView.m */,
+				F55A30DF1594852900B58DD9 /* JSUIReportUnitParametersViewController.h */,
+				F55A30E01594852900B58DD9 /* JSUIReportUnitParametersViewController.m */,
+				F55A30E11594852900B58DD9 /* JSUIReportUnitViewController.h */,
+				F55A30E21594852900B58DD9 /* JSUIReportUnitViewController.m */,
+				F55A30E31594852900B58DD9 /* JSUIReportUnitViewController.xib */,
+				F55A30E41594852900B58DD9 /* JSUIRepositoryViewController.h */,
+				F55A30E51594852900B58DD9 /* JSUIRepositoryViewController.m */,
+				F55A30E61594852900B58DD9 /* JSUIResourcePicker.h */,
+				F55A30E71594852900B58DD9 /* JSUIResourcePicker.m */,
+				F55A30E81594852900B58DD9 /* JSUIResourcePreviewController.h */,
+				F55A30E91594852900B58DD9 /* JSUIResourcePreviewController.m */,
+				F55A30EA1594852900B58DD9 /* JSUIResourceViewController.h */,
+				F55A30EB1594852900B58DD9 /* JSUIResourceViewController.m */,
+				F55A30EC1594852900B58DD9 /* JSUISearchViewController.h */,
+				F55A30ED1594852900B58DD9 /* JSUISearchViewController.m */,
+			);
+			path = JSUIComponents;
+			sourceTree = "<group>";
+		};
+		F55A31291594854D00B58DD9 /* Other Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F56B74C31598DCD4002D1A76 /* Reachability */,
+				F55A312A1594854D00B58DD9 /* ASIHTTPRequest */,
+			);
+			path = "Other Classes";
+			sourceTree = "<group>";
+		};
+		F55A312A1594854D00B58DD9 /* ASIHTTPRequest */ = {
+			isa = PBXGroup;
+			children = (
+				F56B74231598DC81002D1A76 /* ASIAuthenticationDialog.h */,
+				F56B74241598DC81002D1A76 /* ASIAuthenticationDialog.m */,
+				F56B74251598DC81002D1A76 /* ASICacheDelegate.h */,
+				F56B74261598DC81002D1A76 /* ASIDataCompressor.h */,
+				F56B74271598DC81002D1A76 /* ASIDataCompressor.m */,
+				F56B74281598DC81002D1A76 /* ASIDataDecompressor.h */,
+				F56B74291598DC81002D1A76 /* ASIDataDecompressor.m */,
+				F56B742A1598DC81002D1A76 /* ASIDownloadCache.h */,
+				F56B742B1598DC81002D1A76 /* ASIDownloadCache.m */,
+				F56B742C1598DC81002D1A76 /* ASIFormDataRequest.h */,
+				F56B742D1598DC81002D1A76 /* ASIFormDataRequest.m */,
+				F56B742E1598DC81002D1A76 /* ASIHTTPRequest.h */,
+				F56B742F1598DC81002D1A76 /* ASIHTTPRequest.m */,
+				F56B74301598DC81002D1A76 /* ASIHTTPRequestConfig.h */,
+				F56B74311598DC81002D1A76 /* ASIHTTPRequestDelegate.h */,
+				F56B74321598DC81002D1A76 /* ASIInputStream.h */,
+				F56B74331598DC81002D1A76 /* ASIInputStream.m */,
+				F56B74341598DC81002D1A76 /* ASINetworkQueue.h */,
+				F56B74351598DC81002D1A76 /* ASINetworkQueue.m */,
+				F56B74361598DC81002D1A76 /* ASIProgressDelegate.h */,
+				F555AAF71598E2E7005A3689 /* ASIWebPageRequest */,
+			);
+			path = ASIHTTPRequest;
+			sourceTree = "<group>";
+		};
+		F56B74C31598DCD4002D1A76 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				F56B74C41598DCD4002D1A76 /* Reachability.h */,
+				F56B74C51598DCD4002D1A76 /* Reachability.m */,
+			);
+			path = Reachability;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		F51E1E781594BE9100D99EE3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F56B74831598DC81002D1A76 /* ASIHTTPRequestDelegate.h in Headers */,
+				F56B74751598DC81002D1A76 /* ASIAuthenticationDialog.h in Headers */,
+				F56B74771598DC81002D1A76 /* ASICacheDelegate.h in Headers */,
+				F56B74781598DC81002D1A76 /* ASIDataCompressor.h in Headers */,
+				F56B747A1598DC81002D1A76 /* ASIDataDecompressor.h in Headers */,
+				F56B747C1598DC81002D1A76 /* ASIDownloadCache.h in Headers */,
+				F56B747E1598DC81002D1A76 /* ASIFormDataRequest.h in Headers */,
+				F56B74801598DC81002D1A76 /* ASIHTTPRequest.h in Headers */,
+				F56B74821598DC81002D1A76 /* ASIHTTPRequestConfig.h in Headers */,
+				F56B74841598DC81002D1A76 /* ASIInputStream.h in Headers */,
+				F56B74861598DC81002D1A76 /* ASINetworkQueue.h in Headers */,
+				F56B74881598DC81002D1A76 /* ASIProgressDelegate.h in Headers */,
+				F56B74C61598DCD4002D1A76 /* Reachability.h in Headers */,
+				F555AAFA1598E2E7005A3689 /* ASIWebPageRequest.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F55A30941594819C00B58DD9 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5A3E54615A46E140092981A /* JSServerProfile.h in Headers */,
+				F55A30EE1594852900B58DD9 /* JSClient.h in Headers */,
+				F55A30F01594852900B58DD9 /* JSConstants.h in Headers */,
+				F55A30F11594852900B58DD9 /* JSInputControlQueryDataRow.h in Headers */,
+				F55A30F31594852900B58DD9 /* JSOperationResult.h in Headers */,
+				F55A30F51594852900B58DD9 /* JSReportExecution.h in Headers */,
+				F55A30F71594852900B58DD9 /* JSResourceDescriptor.h in Headers */,
+				F55A30F91594852900B58DD9 /* JSResourceParameter.h in Headers */,
+				F55A30FB1594852900B58DD9 /* JSResourceProperty.h in Headers */,
+				F55A30FD1594852900B58DD9 /* JSUIBaseRepositoryViewController.h in Headers */,
+				F55A30FF1594852900B58DD9 /* JSUtils.h in Headers */,
+				F55A31011594852900B58DD9 /* JSXMLUtils.h in Headers */,
+				F55A31031594852900B58DD9 /* JSBooleanInputControlCell.h in Headers */,
+				F55A31051594852900B58DD9 /* JSDateInputControlCell.h in Headers */,
+				F55A31071594852900B58DD9 /* JSDatePickerView.h in Headers */,
+				F55A31091594852900B58DD9 /* JSDateTimeInputControlCell.h in Headers */,
+				F55A310B1594852900B58DD9 /* JSDateTimeSelectorViewController.h in Headers */,
+				F55A310D1594852900B58DD9 /* JSInputControlCell.h in Headers */,
+				F55A310F1594852900B58DD9 /* JSListSelectorViewController.h in Headers */,
+				F55A31111594852900B58DD9 /* JSMultiselectListInputControlCell.h in Headers */,
+				F55A31131594852900B58DD9 /* JSNumberInputControlCell.h in Headers */,
+				F55A31151594852900B58DD9 /* JSSingleSelectListInputControlCell.h in Headers */,
+				F55A31171594852900B58DD9 /* JSTextInputControlCell.h in Headers */,
+				F55A31191594852900B58DD9 /* JSUILoadingView.h in Headers */,
+				F55A311B1594852900B58DD9 /* JSUIReportUnitParametersViewController.h in Headers */,
+				F55A311D1594852900B58DD9 /* JSUIReportUnitViewController.h in Headers */,
+				F55A311F1594852900B58DD9 /* JSUIRepositoryViewController.h in Headers */,
+				F55A31211594852900B58DD9 /* JSUIResourcePicker.h in Headers */,
+				F55A31231594852900B58DD9 /* JSUIResourcePreviewController.h in Headers */,
+				F55A31251594852900B58DD9 /* JSUIResourceViewController.h in Headers */,
+				F55A31271594852900B58DD9 /* JSUISearchViewController.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		F51E1E791594BE9100D99EE3 /* jasperserver-mobile-ASIHTTPRequest-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F51E1E821594BE9100D99EE3 /* Build configuration list for PBXNativeTarget "jasperserver-mobile-ASIHTTPRequest-ios" */;
+			buildPhases = (
+				F51E1E761594BE9100D99EE3 /* Sources */,
+				F51E1E771594BE9100D99EE3 /* Frameworks */,
+				F51E1E781594BE9100D99EE3 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "jasperserver-mobile-ASIHTTPRequest-ios";
+			productName = "jasperserver-mobile-ASIHTTPRequest-ios";
+			productReference = F51E1E7A1594BE9100D99EE3 /* libjasperserver-mobile-ASIHTTPRequest-ios.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		F55A30951594819C00B58DD9 /* jasperserver-mobile-sdk-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F55A30A31594819D00B58DD9 /* Build configuration list for PBXNativeTarget "jasperserver-mobile-sdk-ios" */;
+			buildPhases = (
+				F55A30921594819C00B58DD9 /* Sources */,
+				F55A30931594819C00B58DD9 /* Frameworks */,
+				F55A30941594819C00B58DD9 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F5D490D91598559D002D4B50 /* PBXTargetDependency */,
+			);
+			name = "jasperserver-mobile-sdk-ios";
+			productName = "jasperserver-mobile-sdk-ios";
+			productReference = F55A30961594819C00B58DD9 /* libjasperserver-mobile-sdk-ios.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F55A308D1594819C00B58DD9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = F55A30901594819C00B58DD9 /* Build configuration list for PBXProject "jasperserver-mobile-sdk-ios" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F55A308B1594819C00B58DD9;
+			productRefGroup = F55A30971594819C00B58DD9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F55A30951594819C00B58DD9 /* jasperserver-mobile-sdk-ios */,
+				F51E1E791594BE9100D99EE3 /* jasperserver-mobile-ASIHTTPRequest-ios */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F51E1E761594BE9100D99EE3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F56B74761598DC81002D1A76 /* ASIAuthenticationDialog.m in Sources */,
+				F56B74791598DC81002D1A76 /* ASIDataCompressor.m in Sources */,
+				F56B747B1598DC81002D1A76 /* ASIDataDecompressor.m in Sources */,
+				F56B747D1598DC81002D1A76 /* ASIDownloadCache.m in Sources */,
+				F56B747F1598DC81002D1A76 /* ASIFormDataRequest.m in Sources */,
+				F56B74811598DC81002D1A76 /* ASIHTTPRequest.m in Sources */,
+				F56B74851598DC81002D1A76 /* ASIInputStream.m in Sources */,
+				F56B74871598DC81002D1A76 /* ASINetworkQueue.m in Sources */,
+				F56B74C71598DCD4002D1A76 /* Reachability.m in Sources */,
+				F555AAFB1598E2E7005A3689 /* ASIWebPageRequest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F55A30921594819C00B58DD9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F55A30EF1594852900B58DD9 /* JSClient.m in Sources */,
+				F55A30F21594852900B58DD9 /* JSInputControlQueryDataRow.m in Sources */,
+				F55A30F41594852900B58DD9 /* JSOperationResult.m in Sources */,
+				F55A30F61594852900B58DD9 /* JSReportExecution.m in Sources */,
+				F55A30F81594852900B58DD9 /* JSResourceDescriptor.m in Sources */,
+				F55A30FA1594852900B58DD9 /* JSResourceParameter.m in Sources */,
+				F55A30FC1594852900B58DD9 /* JSResourceProperty.m in Sources */,
+				F55A30FE1594852900B58DD9 /* JSUIBaseRepositoryViewController.m in Sources */,
+				F55A31001594852900B58DD9 /* JSUtils.m in Sources */,
+				F55A31021594852900B58DD9 /* JSXMLUtils.m in Sources */,
+				F55A31041594852900B58DD9 /* JSBooleanInputControlCell.m in Sources */,
+				F55A31061594852900B58DD9 /* JSDateInputControlCell.m in Sources */,
+				F55A31081594852900B58DD9 /* JSDatePickerView.m in Sources */,
+				F55A310A1594852900B58DD9 /* JSDateTimeInputControlCell.m in Sources */,
+				F55A310C1594852900B58DD9 /* JSDateTimeSelectorViewController.m in Sources */,
+				F55A310E1594852900B58DD9 /* JSInputControlCell.m in Sources */,
+				F55A31101594852900B58DD9 /* JSListSelectorViewController.m in Sources */,
+				F55A31121594852900B58DD9 /* JSMultiselectListInputControlCell.m in Sources */,
+				F55A31141594852900B58DD9 /* JSNumberInputControlCell.m in Sources */,
+				F55A31161594852900B58DD9 /* JSSingleSelectListInputControlCell.m in Sources */,
+				F55A31181594852900B58DD9 /* JSTextInputControlCell.m in Sources */,
+				F55A311A1594852900B58DD9 /* JSUILoadingView.m in Sources */,
+				F55A311C1594852900B58DD9 /* JSUIReportUnitParametersViewController.m in Sources */,
+				F55A311E1594852900B58DD9 /* JSUIReportUnitViewController.m in Sources */,
+				F55A31201594852900B58DD9 /* JSUIRepositoryViewController.m in Sources */,
+				F55A31221594852900B58DD9 /* JSUIResourcePicker.m in Sources */,
+				F55A31241594852900B58DD9 /* JSUIResourcePreviewController.m in Sources */,
+				F55A31261594852900B58DD9 /* JSUIResourceViewController.m in Sources */,
+				F55A31281594852900B58DD9 /* JSUISearchViewController.m in Sources */,
+				C5A3E54515A46E140092981A /* JSServerProfile.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F5D490D91598559D002D4B50 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F51E1E791594BE9100D99EE3 /* jasperserver-mobile-ASIHTTPRequest-ios */;
+			targetProxy = F5D490D81598559D002D4B50 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		F51E1E831594BE9100D99EE3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/jasperserver_mobile_ASIHTTPRequest_ios.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "jasperserver-mobile-ASIHTTPRequest-ios/jasperserver-mobile-ASIHTTPRequest-ios-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SDKROOT)/usr/include/libxml2\"/**",
+					"\"/usr/lib/libxml2.dylib\"/**",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRIVATE_HEADERS_FOLDER_PATH = "/include/jasperserver-mobile-sdk-ios/private";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "/include/jasperserver-mobile-sdk-ios";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		F51E1E841594BE9100D99EE3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/jasperserver_mobile_ASIHTTPRequest_ios.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "jasperserver-mobile-ASIHTTPRequest-ios/jasperserver-mobile-ASIHTTPRequest-ios-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SDKROOT)/usr/include/libxml2\"/**",
+					"\"/usr/lib/libxml2.dylib\"/**",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRIVATE_HEADERS_FOLDER_PATH = "/include/jasperserver-mobile-sdk-ios/private";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "/include/jasperserver-mobile-sdk-ios";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		F55A30A11594819D00B58DD9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		F55A30A21594819D00B58DD9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F55A30A41594819D00B58DD9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/jasperserver_mobile_sdk_ios.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "jasperserver-mobile-sdk-ios/jasperserver-mobile-sdk-ios-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SDKROOT)/usr/include/libxml2\"/**",
+					"\"/usr/lib/libxml2.dylib\"/**",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRIVATE_HEADERS_FOLDER_PATH = "/include/jasperserver-mobile-sdk-ios/private";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "/include/jasperserver-mobile-sdk-ios";
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		F55A30A51594819D00B58DD9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/jasperserver_mobile_sdk_ios.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "jasperserver-mobile-sdk-ios/jasperserver-mobile-sdk-ios-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SDKROOT)/usr/include/libxml2\"/**",
+					"\"/usr/lib/libxml2.dylib\"/**",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRIVATE_HEADERS_FOLDER_PATH = "/include/jasperserver-mobile-sdk-ios/private";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "/include/jasperserver-mobile-sdk-ios";
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F51E1E821594BE9100D99EE3 /* Build configuration list for PBXNativeTarget "jasperserver-mobile-ASIHTTPRequest-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F51E1E831594BE9100D99EE3 /* Debug */,
+				F51E1E841594BE9100D99EE3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F55A30901594819C00B58DD9 /* Build configuration list for PBXProject "jasperserver-mobile-sdk-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F55A30A11594819D00B58DD9 /* Debug */,
+				F55A30A21594819D00B58DD9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F55A30A31594819D00B58DD9 /* Build configuration list for PBXNativeTarget "jasperserver-mobile-sdk-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F55A30A41594819D00B58DD9 /* Debug */,
+				F55A30A51594819D00B58DD9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F55A308D1594819C00B58DD9 /* Project object */;
+}
