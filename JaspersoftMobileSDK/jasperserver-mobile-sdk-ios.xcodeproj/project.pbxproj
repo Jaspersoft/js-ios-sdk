@@ -228,12 +228,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5A5D6D215A2EBBD000F40B8 /* libz.dylib in Frameworks */,
-				F5A5D6D015A2EB8A000F40B8 /* MobileCoreServices.framework in Frameworks */,
-				F5A5D6CE15A2EB80000F40B8 /* SystemConfiguration.framework in Frameworks */,
-				F5A5D6CB15A2EB65000F40B8 /* CFNetwork.framework in Frameworks */,
 				F5D490DB159855A0002D4B50 /* libjasperserver-mobile-ASIHTTPRequest-ios.a in Frameworks */,
 				F51E1E751594BCF000D99EE3 /* libxml2.dylib in Frameworks */,
+				F5A5D6D215A2EBBD000F40B8 /* libz.dylib in Frameworks */,
+				F5A5D6CB15A2EB65000F40B8 /* CFNetwork.framework in Frameworks */,
+				F5A5D6D015A2EB8A000F40B8 /* MobileCoreServices.framework in Frameworks */,
+				F5A5D6CE15A2EB80000F40B8 /* SystemConfiguration.framework in Frameworks */,
 				F55A30AB1594831D00B58DD9 /* UIKit.framework in Frameworks */,
 				F55A309A1594819C00B58DD9 /* Foundation.framework in Frameworks */,
 			);
