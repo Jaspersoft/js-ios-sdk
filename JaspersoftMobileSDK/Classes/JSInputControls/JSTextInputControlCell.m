@@ -100,12 +100,29 @@
 	return NO;
 }
 
+-(BOOL)textField:(UITextField *)txtField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    NSString *newValue = nil;
+    
+    if(range.length > 0){
+        newValue = [[NSString alloc] initWithString:[txtField.text substringToIndex:txtField.text.length - 1]];
+    } else {
+        newValue = [[NSString alloc] initWithFormat:@"%@%@", txtField.text, string];
+    }
+    
+    NSLog(@"new selectedValue: %@", newValue);
+    
+    [super setSelectedValue:newValue];
+    [newValue release];
+    
+    return YES;
+}
+
 
 -(void)setSelectedValue:(id)vals
 {
 	[super setSelectedValue:vals];
-	textField.text = (self.selectedValue == nil) ? @"" : self.selectedValue;
-	
+    textField.text = self.selectedValue ?: @"";
 }
 
 
