@@ -175,7 +175,6 @@
 		F55A30E01594852900B58DD9 /* JSUIReportUnitParametersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSUIReportUnitParametersViewController.m; sourceTree = "<group>"; };
 		F55A30E11594852900B58DD9 /* JSUIReportUnitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSUIReportUnitViewController.h; sourceTree = "<group>"; };
 		F55A30E21594852900B58DD9 /* JSUIReportUnitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSUIReportUnitViewController.m; sourceTree = "<group>"; };
-		F55A30E31594852900B58DD9 /* JSUIReportUnitViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JSUIReportUnitViewController.xib; sourceTree = "<group>"; };
 		F55A30E41594852900B58DD9 /* JSUIRepositoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSUIRepositoryViewController.h; sourceTree = "<group>"; };
 		F55A30E51594852900B58DD9 /* JSUIRepositoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSUIRepositoryViewController.m; sourceTree = "<group>"; };
 		F55A30E61594852900B58DD9 /* JSUIResourcePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSUIResourcePicker.h; sourceTree = "<group>"; };
@@ -212,6 +211,7 @@
 		F5A5D6CD15A2EB80000F40B8 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		F5A5D6CF15A2EB8A000F40B8 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		F5A5D6D115A2EBBD000F40B8 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		F5D7A0B115C038F90091C95B /* JSUIReportUnitViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JSUIReportUnitViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -272,6 +272,7 @@
 			children = (
 				F55A30AE1594852900B58DD9 /* Classes */,
 				F55A31291594854D00B58DD9 /* Other Classes */,
+				F5D7A0B015C038F90091C95B /* Resources */,
 				F55A309B1594819D00B58DD9 /* jasperserver-mobile-sdk-ios */,
 				F51E1E7C1594BE9100D99EE3 /* jasperserver-mobile-ASIHTTPRequest-ios */,
 				F55A30981594819C00B58DD9 /* Frameworks */,
@@ -396,7 +397,6 @@
 				F55A30E01594852900B58DD9 /* JSUIReportUnitParametersViewController.m */,
 				F55A30E11594852900B58DD9 /* JSUIReportUnitViewController.h */,
 				F55A30E21594852900B58DD9 /* JSUIReportUnitViewController.m */,
-				F55A30E31594852900B58DD9 /* JSUIReportUnitViewController.xib */,
 				F55A30E41594852900B58DD9 /* JSUIRepositoryViewController.h */,
 				F55A30E51594852900B58DD9 /* JSUIRepositoryViewController.m */,
 				F55A30E61594852900B58DD9 /* JSUIResourcePicker.h */,
@@ -455,6 +455,14 @@
 				F56B74C51598DCD4002D1A76 /* Reachability.m */,
 			);
 			path = Reachability;
+			sourceTree = "<group>";
+		};
+		F5D7A0B015C038F90091C95B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F5D7A0B115C038F90091C95B /* JSUIReportUnitViewController.xib */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
