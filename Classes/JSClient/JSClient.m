@@ -96,17 +96,18 @@
 @implementation JSClient
 
 @synthesize  jsServerProfile;
+@synthesize  timeOutsForMethods;
 @synthesize  timeOut;
 
 
 // The GL view is stored in the nib file. When it's unarchived it's sent -initWithCoder:
 - (id)init {
 	
-	if( (self=[super init]) ) {
-		//requestsAndDelegates = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, NULL, NULL);
+	if(self = [super init]) {
 		requestCallBacks = [[NSMutableArray alloc] initWithCapacity:0];
         authenticated = FALSE;
-        self.timeOut = 15000;
+        self.timeOut = 15;
+        self.timeOutsForMethods = [[NSMutableDictionary alloc] initWithCapacity:0];
 	}
 	
 	return self;
@@ -301,7 +302,7 @@
 	
     [request setUsername: [[self jsServerProfile] getUsernameWithOrgId]];  
 	[request setPassword: [[self jsServerProfile] password]];
-    [request setTimeOutSeconds:self.timeOut];
+    [request setTimeOutSeconds: [self getTimeOutForMethod:@"resources"] ?: self.timeOut];
     if (!authenticated) 
     {
         [request setShouldPresentCredentialsBeforeChallenge: NO];
@@ -439,7 +440,7 @@
 	
     [request setUsername: [[self jsServerProfile] getUsernameWithOrgId]];    
 	[request setPassword: [[self jsServerProfile] password]];
-    [request setTimeOutSeconds:self.timeOut];
+    [request setTimeOutSeconds: [self getTimeOutForMethod:@"resources"] ?: self.timeOut];
     if (!authenticated) 
     {
         [request setShouldPresentCredentialsBeforeChallenge: NO];
@@ -461,7 +462,7 @@
 	
     [request setUsername: [[self jsServerProfile] getUsernameWithOrgId]];    
 	[request setPassword: [[self jsServerProfile] password]];
-    [request setTimeOutSeconds:self.timeOut];
+    [request setTimeOutSeconds: [self getTimeOutForMethod:@"resourceInfo"] ?: self.timeOut];
     if (!authenticated) 
     {
         [request setShouldPresentCredentialsBeforeChallenge: NO];
@@ -627,7 +628,7 @@
 	
     [request setUsername: [[self jsServerProfile] getUsernameWithOrgId]];    
 	[request setPassword: [[self jsServerProfile] password]];
-    [request setTimeOutSeconds:self.timeOut];
+    [request setTimeOutSeconds: [self getTimeOutForMethod:@"resourceInfo"] ?: self.timeOut];
     if (!authenticated) 
     {
         [request setShouldPresentCredentialsBeforeChallenge: NO];
@@ -652,7 +653,7 @@
     	
     [request setUsername: [[self jsServerProfile] getUsernameWithOrgId]];    
 	[request setPassword: [[self jsServerProfile] password]];
-    [request setTimeOutSeconds:self.timeOut];
+    [request setTimeOutSeconds: [self getTimeOutForMethod:@"resourceFile"] ?: self.timeOut];
      if (!authenticated) 
      {
          [request setShouldPresentCredentialsBeforeChallenge: NO];
@@ -693,7 +694,7 @@
 	
     [request setUsername: [[self jsServerProfile] getUsernameWithOrgId]];    
 	[request setPassword: [[self jsServerProfile] password]];
-    [request setTimeOutSeconds:self.timeOut];
+    [request setTimeOutSeconds: [self getTimeOutForMethod:@"resourceFile"] ?: self.timeOut];
     
     if (!authenticated) 
     {
@@ -769,7 +770,7 @@
 	
     [request setUsername: [[self jsServerProfile] getUsernameWithOrgId]];    
 	[request setPassword: [[self jsServerProfile] password]];
-    [request setTimeOutSeconds:self.timeOut];
+    [request setTimeOutSeconds: [self getTimeOutForMethod:@"reportRun"] ?: self.timeOut];
     
     
     if (!authenticated) 
@@ -935,7 +936,7 @@
 	
     [request setUsername: [[self jsServerProfile] getUsernameWithOrgId]];    
 	[request setPassword: [[self jsServerProfile] password]];
-    [request setTimeOutSeconds:self.timeOut];
+    [request setTimeOutSeconds: [self getTimeOutForMethod:@"reportRun"] ?: self.timeOut];
     
     if (!authenticated) 
     {
@@ -961,7 +962,7 @@
 	
     [request setUsername: [[self jsServerProfile] getUsernameWithOrgId]];    
 	[request setPassword: [[self jsServerProfile] password]];
-    [request setTimeOutSeconds:self.timeOut];
+    [request setTimeOutSeconds: [self getTimeOutForMethod:@"reportFile"] ?: self.timeOut];
     if (!authenticated) 
     {
         [request setShouldPresentCredentialsBeforeChallenge: NO];
@@ -1002,7 +1003,7 @@
 	
     [request setUsername: [[self jsServerProfile] getUsernameWithOrgId]];    
 	[request setPassword: [[self jsServerProfile] password]];
-    [request setTimeOutSeconds:self.timeOut];
+    [request setTimeOutSeconds: [self getTimeOutForMethod:@"reportFile"] ?: self.timeOut];
     if (!authenticated) 
     {
         [request setShouldPresentCredentialsBeforeChallenge: NO];
@@ -1049,7 +1050,7 @@
 	
     [request setUsername: [[self jsServerProfile] getUsernameWithOrgId]];    
 	[request setPassword: [[self jsServerProfile] password]];
-    [request setTimeOutSeconds:self.timeOut];
+    [request setTimeOutSeconds: [self getTimeOutForMethod:@"resourceCreate"] ?: self.timeOut];
     if (!authenticated) 
     {
         [request setShouldPresentCredentialsBeforeChallenge: NO];
@@ -1100,7 +1101,7 @@
 	    
     [request setUsername: [[self jsServerProfile] getUsernameWithOrgId]];    
 	[request setPassword: [[self jsServerProfile] password]];
-    [request setTimeOutSeconds:self.timeOut];
+    [request setTimeOutSeconds: [self getTimeOutForMethod:@"resourceModify"] ?: self.timeOut];
     if (!authenticated) 
     {
         [request setShouldPresentCredentialsBeforeChallenge: NO];
@@ -1136,7 +1137,7 @@
     
     [request setUsername: [[self jsServerProfile] getUsernameWithOrgId]];    
 	[request setPassword: [[self jsServerProfile] password]];
-    [request setTimeOutSeconds:self.timeOut];
+    [request setTimeOutSeconds: [self getTimeOutForMethod:@"resourceDelete"] ?: self.timeOut];
     if (!authenticated) 
     {
         [request setShouldPresentCredentialsBeforeChallenge: NO];
@@ -1508,6 +1509,19 @@
 	
 }
 
+//////////////  HELPER FUNCTIONS  //////////////////////
+
+- (void)setTimeOut:(NSInteger)methodTimeOut forMethod:(NSString *)methodName {
+    [self.timeOutsForMethods setObject:[NSNumber numberWithInteger:methodTimeOut] forKey:methodName];
+}
+
+- (void)removeTimeOutForMethod:(NSString *)methodName {
+    [self.timeOutsForMethods removeObjectForKey:methodName];
+}
+
+- (NSInteger)getTimeOutForMethod:(NSString *)methodName {
+    return [[self.timeOutsForMethods objectForKey:methodName] integerValue];
+}
 
 @end
 
