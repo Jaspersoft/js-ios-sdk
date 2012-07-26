@@ -75,9 +75,24 @@
  */
 @property(nonatomic, retain) JSServerProfile *jsServerProfile;
 
-/** Time out for your server calls (default 15000 milliseconds)
+/** Dictionary of time outs for different methods (asynchronous rest call methods 
+ *  inside this class). Key is the method's first part of
+ *  name (example: resources, reportRun, reportFile)
+ */
+@property(nonatomic, retain) NSMutableDictionary *timeOutsForMethods;
+ 
+/** Main time out for your server calls (default 15000 milliseconds). This timeout will
+ *  be used by default if timeOutsForMethods for called method equals nil
  */
 @property(nonatomic) int timeOut;
+
+/** Helper methods for adding/removing/getting custom timeouts for specified method. 
+ *  Parameter methodName is the method's first part of name (example: resources, 
+ *  reportRun, reportFile etc)
+ */
+- (void)setTimeOut:(NSInteger)methodTimeOut forMethod:(NSString *)methodName;
+- (void)removeTimeOutForMethod:(NSString *)methodName;
+- (NSInteger)getTimeOutForMethod:(NSString *)methodName;
 
 /** Creates a new JSClient with the specified Jasper Server profile.
  */
