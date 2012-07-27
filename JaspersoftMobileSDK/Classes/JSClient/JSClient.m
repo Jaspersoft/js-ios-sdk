@@ -27,6 +27,7 @@
 //  Jaspersoft
 //
 //  Created by Giulio Toffoli on 4/9/11.
+//  Modified by Vlad Zavadskii on 7/27/12.
 //  Copyright 2011 Jaspersoft Corp.. All rights reserved.
 //
 
@@ -124,10 +125,6 @@
 }
 
 -(void)dealloc {
-
-	//CFRelease( requestsAndDelegates );
-	//requestsAndDelegates = nil;
-	
 	[requestCallBacks release];
 	requestCallBacks = nil;
     [jsServerProfile release];
@@ -145,7 +142,7 @@
     NSLog(@"Finished request %@", [request url]);
     
     // Use when fetching text data
-	//if (requestsAndDelegates == nil) return;
+	// if (requestsAndDelegates == nil) return;
 	
 	// Look for the request
 	JSCallBack *myCallBack = nil;
@@ -368,13 +365,8 @@
 }
     
 - (void)resources:(NSString *)uri withArguments:(NSDictionary *)args responseDelegate:(id <JSResponseDelegate>)responseDelegate {
-	
-    if ([uri isEqualToString:@""])
-    {
-       // uri = @"/";
-    }
     
-    NSLog(@"REquesting url: %@", uri);
+    NSLog(@"Requesting url: %@", uri);
 	
 	NSMutableString *urlString = [NSMutableString stringWithFormat:@"%@/rest/resources%@", [jsServerProfile baseUrl], uri];
 	
@@ -852,41 +844,6 @@
     
     NSURL *url = [NSURL URLWithString: urlString];
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
-
-    
-    
-    //------
-    
-    
-//	NSString *urlString = [NSString stringWithFormat:@"%@/rest/report%@", baseUrl, uri];
-//	
-//	NSURL *url = [NSURL URLWithString: urlString];
-//	ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
-//	
-//	if (args != nil)
-//	{
-//		NSEnumerator *enumerator = [args keyEnumerator];
-//		id objKey;
-//		while ((objKey = [enumerator nextObject])) {
-//			
-//			id value = [args objectForKey:objKey];
-//			
-//			if ([value isKindOfClass: [NSArray class]])
-//		    {
-//				NSArray *values = (NSArray *)value;
-//				for (int i=0; i< [values count]; ++i)
-//				{
-//					[request addPostValue:[values objectAtIndex:i] forKey:objKey];
-//				}
-//		    }
-//			else {
-//				[request addPostValue:value forKey:objKey];
-//                NSLog(@"Adding post variable: %@=%@",objKey, value);
-//			}
-//			
-//		}
-//	}
-	
     
     // Prepare the resource descriptor for which we want to run the report....
     
@@ -956,8 +913,6 @@
 	
 	NSURL *url = [NSURL URLWithString: [NSString stringWithFormat:@"%@/rest/report%@&file=%@", [jsServerProfile baseUrl], uuid, identifier]];
 	
-	
-	
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
 	
     [request setUsername: [[self jsServerProfile] getUsernameWithOrgId]];    
@@ -989,8 +944,7 @@
 	
 	NSURL *url = [NSURL URLWithString: [NSString stringWithFormat:@"%@/rest/report/%@?file=%@", [jsServerProfile baseUrl], uuid, identifier]];
 	
-	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
-	
+	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];	
 	
 	// Bind the delegate to the request....
 	JSCallBack *callBack = [[JSCallBack alloc] init];
@@ -1057,11 +1011,7 @@
     }
 	[request setDelegate: self];
 	[request startAsynchronous];
-    
-    
 }
-
-
 
 
 /*******************************************
@@ -1263,8 +1213,6 @@
 }
 
 
-
-
 -(JSOperationResult *)parseReportRunResponse:(ASIHTTPRequest *)request
 {
     JSOperationResult *operationResult = nil;
@@ -1332,12 +1280,7 @@
     return operationResult;
 }
 
-
-
-
-
 //////////////  PARSING FUNCTIONS  //////////////////////
-
 
 -(JSOperationResult *)parseResponse:(NSString *)response {
 
@@ -1376,9 +1319,6 @@
 	xmlFree(doc);
 	return operationResult;
 }
-
-
-
 
 
 // Read all the nodes of type resourceDescriptor that are siblings or children of a given xml node
@@ -1458,24 +1398,12 @@
 				}
 
 			}
-			/*
-			else if (!xmlStrcmp(child_node->name, BAD_CAST "parameter"))
-			{
-				jasperserver_parameter_t *parameter = NULL;
-				parameter = jasperserver_read_parameter(child_node);
-				if (res)
-				{
-					jasperserver_list_append((jasperserver_list_t **)(&res->parameters), (jasperserver_list_t *)parameter);    
-				}
-			} */
         }
 	}
 	
 	return rd;
 	
 }
-
-
 
 
 -(JSResourceProperty *)parseResourceProperty:(xmlNode *)node {
