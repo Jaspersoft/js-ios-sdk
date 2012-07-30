@@ -100,6 +100,10 @@
 @synthesize  timeOutsForMethods;
 @synthesize  timeOut;
 
+// Clears ASIHTTRequest session. This prvents caching of authentication credentials
++(void)clearSession {
+    [ASIHTTPRequest clearSession];
+}
 
 // The GL view is stored in the nib file. When it's unarchived it's sent -initWithCoder:
 - (id)init {

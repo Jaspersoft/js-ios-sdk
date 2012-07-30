@@ -70,6 +70,9 @@
     bool authenticated;
 }
 
+/** Clear session after changing authentication credentials
+ */
++(void)clearSession;
 
 /** The jasperserver profile
  */
