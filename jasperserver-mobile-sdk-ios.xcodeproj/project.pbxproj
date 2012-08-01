@@ -671,9 +671,9 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRIVATE_HEADERS_FOLDER_PATH = "/include/jasperserver-mobile-sdk-ios/private";
+				PRIVATE_HEADERS_FOLDER_PATH = "../../Headers/jasperserver-mobile-sdk-ios/Private";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "/include/jasperserver-mobile-sdk-ios";
+				PUBLIC_HEADERS_FOLDER_PATH = "../../Headers/jasperserver-mobile-sdk-ios";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -692,9 +692,9 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRIVATE_HEADERS_FOLDER_PATH = "/include/jasperserver-mobile-sdk-ios/private";
+				PRIVATE_HEADERS_FOLDER_PATH = "../../Headers/jasperserver-mobile-sdk-ios/Private";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "/include/jasperserver-mobile-sdk-ios";
+				PUBLIC_HEADERS_FOLDER_PATH = "../../Headers/jasperserver-mobile-sdk-ios";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -717,7 +717,9 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRIVATE_HEADERS_FOLDER_PATH = "../../Headers/jasperserver-mobile-sdk-ios/Private";
+				PUBLIC_HEADERS_FOLDER_PATH = "../../Headers/jasperserver-mobile-sdk-ios";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -733,7 +735,9 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRIVATE_HEADERS_FOLDER_PATH = "../../Headers/jasperserver-mobile-sdk-ios/Private";
+				PUBLIC_HEADERS_FOLDER_PATH = "../../Headers/jasperserver-mobile-sdk-ios";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -749,13 +753,14 @@
 					"\"$(SDKROOT)/usr/include/libxml2\"/**",
 					"\"/usr/lib/libxml2.dylib\"/**",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
 				);
-				PRIVATE_HEADERS_FOLDER_PATH = "/include/jasperserver-mobile-sdk-ios/private";
+				PRIVATE_HEADERS_FOLDER_PATH = "../../Headers/jasperserver-mobile-sdk-ios/Private";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "/include/jasperserver-mobile-sdk-ios";
+				PUBLIC_HEADERS_FOLDER_PATH = "../../Headers/jasperserver-mobile-sdk-ios";
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -771,13 +776,14 @@
 					"\"$(SDKROOT)/usr/include/libxml2\"/**",
 					"\"/usr/lib/libxml2.dylib\"/**",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
 				);
-				PRIVATE_HEADERS_FOLDER_PATH = "/include/jasperserver-mobile-sdk-ios/private";
+				PRIVATE_HEADERS_FOLDER_PATH = "../../Headers/jasperserver-mobile-sdk-ios/Private";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "/include/jasperserver-mobile-sdk-ios";
+				PUBLIC_HEADERS_FOLDER_PATH = "../../Headers/jasperserver-mobile-sdk-ios";
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
