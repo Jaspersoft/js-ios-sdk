@@ -378,7 +378,7 @@
 			}
 		}
 		else {
-			UIAlertView *uiView =[[[UIAlertView alloc] initWithTitle:@"" message:@"The report does not contain any page" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
+			UIAlertView *uiView =[[[UIAlertView alloc] initWithTitle:@"" message:@"The report is empty" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
 			[uiView show];
 		}
 
