@@ -59,7 +59,6 @@
 		F5EA57B715D1AC4F003416D1 /* JSServerProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = F5EA57A015D1AC4F003416D1 /* JSServerProfile.h */; };
 		F5EA57B815D1AC4F003416D1 /* JSServerProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EA57A115D1AC4F003416D1 /* JSServerProfile.m */; };
 		F5EA57B915D1AC4F003416D1 /* JSUIBaseRepositoryViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = F5EA57A215D1AC4F003416D1 /* JSUIBaseRepositoryViewController.h */; };
-		F5EA57BA15D1AC4F003416D1 /* JSUIBaseRepositoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EA57A315D1AC4F003416D1 /* JSUIBaseRepositoryViewController.m */; };
 		F5EA57BB15D1AC4F003416D1 /* JSUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = F5EA57A415D1AC4F003416D1 /* JSUtils.h */; };
 		F5EA57BC15D1AC4F003416D1 /* JSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EA57A515D1AC4F003416D1 /* JSUtils.m */; };
 		F5EA57BD15D1AC4F003416D1 /* JSXMLUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = F5EA57A615D1AC4F003416D1 /* JSXMLUtils.h */; };
@@ -472,7 +471,6 @@
 				F5EA57B415D1AC4F003416D1 /* JSResourceParameter.m in Sources */,
 				F5EA57B615D1AC4F003416D1 /* JSResourceProperty.m in Sources */,
 				F5EA57B815D1AC4F003416D1 /* JSServerProfile.m in Sources */,
-				F5EA57BA15D1AC4F003416D1 /* JSUIBaseRepositoryViewController.m in Sources */,
 				F5EA57BC15D1AC4F003416D1 /* JSUtils.m in Sources */,
 				F5EA57BE15D1AC4F003416D1 /* JSXMLUtils.m in Sources */,
 			);
