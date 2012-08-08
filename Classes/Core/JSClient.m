@@ -64,6 +64,8 @@
 
 -(void)dealloc
 {
+    [request release];
+    [delegate release];
 	[super dealloc];
 }
 @end
@@ -111,8 +113,8 @@
 	if(self = [super init]) {
 		requestCallBacks = [[NSMutableArray alloc] initWithCapacity:0];
         authenticated = FALSE;
-        self.timeOut = 15;
-        self.timeOutsForMethods = [[NSMutableDictionary alloc] initWithCapacity:0];
+        timeOut = 15;
+        timeOutsForMethods = [[NSMutableDictionary alloc] initWithCapacity:0];
 	}
 	
 	return self;
@@ -133,6 +135,8 @@
 	requestCallBacks = nil;
     [jsServerProfile release];
     jsServerProfile = nil;
+    [timeOutsForMethods release];
+    timeOutsForMethods = nil;
 	[super dealloc];
 }
 
@@ -498,16 +502,9 @@
                 if (err->domain == XML_FROM_PARSER && err->code == XML_ERR_INVALID_CHAR)
                 {
                     // Try to load the file in a different way, this is probably a charset problem...
-                    doc = xmlReadFile([tempFile UTF8String], "iso-8859-1", 0);                      
-                    if (doc == nil) 
-                    {
-                        err = xmlGetLastError();
-                        //char *msg = err->message;
-                    }
+                    doc = xmlReadFile([tempFile UTF8String], "iso-8859-1", 0);
                 }
             }
-            
-            
             
         }
         else
@@ -1240,7 +1237,7 @@
         
         xmlNode *rootNode = xmlDocGetRootElement(doc);
         
-        JSReportExecution *reportExecution = [[JSReportExecution alloc] init];
+        JSReportExecution *reportExecution = [[[JSReportExecution alloc] init] autorelease];
         
         [reportExecution setUuid:[JSXMLUtils getValueFromNode: doc xPathQuery: @"/report/uuid"]];
         [reportExecution setUri:[JSXMLUtils getValueFromNode: doc xPathQuery: @"/report/uri"]];
