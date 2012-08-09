@@ -28,6 +28,7 @@
 #define JS_TYPE_REPORTUNIT               @"reportUnit"
 #define JS_TYPE_REPORTOPTIONS            @"ReportOptionsResource"
 #define JS_TYPE_DATASOURCE               @"datasource"
+#define JS_TYPE_DASHBOARD                @"dashboard"
 #define JS_TYPE_DATASOURCE_JDBC          @"jdbc"
 #define JS_TYPE_DATASOURCE_JNDI          @"jndi"
 #define JS_TYPE_DATASOURCE_BEAN          @"bean"
