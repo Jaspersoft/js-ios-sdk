@@ -987,7 +987,7 @@
     
     
     [request setRequestMethod: @"PUT"];
-	[request addPostValue:xml forKey: @"ResourceDescriptor"];
+    [request appendPostData:[xml dataUsingEncoding:NSUTF8StringEncoding]];
 	
 	if (data != nil)
     {
@@ -1034,7 +1034,7 @@
     
     
     [request setRequestMethod: @"POST"];
-	[request addPostValue:xml forKey: @"ResourceDescriptor"];
+    [request appendPostData:[xml dataUsingEncoding:NSUTF8StringEncoding]];
 	
 	if (data != nil)
     {
