@@ -81,7 +81,7 @@
 		F597696E15E3C882004165A7 /* RestKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F597696715E3C877004165A7 /* RestKit.framework */; };
 		F597697715E3C9C0004165A7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F597697315E3C9AB004165A7 /* Cocoa.framework */; };
 		F597697915E3C9EF004165A7 /* JSSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = F597697815E3C9EF004165A7 /* JSSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F597697A15E3C9EF004165A7 /* JSSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = F597697815E3C9EF004165A7 /* JSSerializer.h */; };
+		F597697A15E3C9EF004165A7 /* JSSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = F597697815E3C9EF004165A7 /* JSSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597697D15E3CA2B004165A7 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F597696315E3C877004165A7 /* libRestKit.a */; };
 /* End PBXBuildFile section */
 
@@ -400,13 +400,14 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F597691115E3C826004165A7 /* JSConstants.h in Headers */,
-				F597691515E3C826004165A7 /* JSOperationResult.h in Headers */,
 				F597691915E3C826004165A7 /* JSProfile.h in Headers */,
 				F597691D15E3C826004165A7 /* JSRequest.h in Headers */,
 				F597692115E3C826004165A7 /* JSRESTBase.h in Headers */,
 				F597692515E3C826004165A7 /* JSRESTReport.h in Headers */,
 				F597692915E3C826004165A7 /* JSRESTResource.h in Headers */,
+				F597691515E3C826004165A7 /* JSOperationResult.h in Headers */,
+				F597691115E3C826004165A7 /* JSConstants.h in Headers */,
+				F597697A15E3C9EF004165A7 /* JSSerializer.h in Headers */,
 				F597694415E3C826004165A7 /* JSReportAttachment.h in Headers */,
 				F597694815E3C826004165A7 /* JSReportDescriptor.h in Headers */,
 				F597694C15E3C826004165A7 /* JSResourceDescriptor.h in Headers */,
@@ -417,7 +418,6 @@
 				F597693515E3C826004165A7 /* JSRestKitManagerFactory.h in Headers */,
 				F597693B15E3C826004165A7 /* JSXMLSerializer.h in Headers */,
 				F597694015E3C826004165A7 /* XMLWriter.h in Headers */,
-				F597697A15E3C9EF004165A7 /* JSSerializer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -672,7 +672,9 @@
 					"-ObjC",
 					"-all_load",
 				);
+				PRIVATE_HEADERS_FOLDER_PATH = "../../Headers/jaspersoft-sdk/Private";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "../../Headers/jaspersoft-sdk";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -688,7 +690,9 @@
 					"-ObjC",
 					"-all_load",
 				);
+				PRIVATE_HEADERS_FOLDER_PATH = "../../Headers/jaspersoft-sdk/Private";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "../../Headers/jaspersoft-sdk";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -718,6 +722,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -747,6 +752,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
@@ -770,6 +776,7 @@
 				F59768CC15E3C75F004165A7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F59768E315E3C777004165A7 /* Build configuration list for PBXNativeTarget "jaspersoft-sdk-framework" */ = {
 			isa = XCConfigurationList;
@@ -778,6 +785,7 @@
 				F59768E515E3C777004165A7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
