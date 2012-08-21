@@ -1,0 +1,785 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F59768C115E3C75F004165A7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F59768C015E3C75F004165A7 /* Foundation.framework */; };
+		F59768DE15E3C777004165A7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F59768DC15E3C777004165A7 /* InfoPlist.strings */; };
+		F597691015E3C826004165A7 /* JSConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768E815E3C826004165A7 /* JSConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597691115E3C826004165A7 /* JSConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768E815E3C826004165A7 /* JSConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597691215E3C826004165A7 /* JSConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768E915E3C826004165A7 /* JSConstants.m */; };
+		F597691315E3C826004165A7 /* JSConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768E915E3C826004165A7 /* JSConstants.m */; };
+		F597691415E3C826004165A7 /* JSOperationResult.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768EA15E3C826004165A7 /* JSOperationResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597691515E3C826004165A7 /* JSOperationResult.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768EA15E3C826004165A7 /* JSOperationResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597691615E3C826004165A7 /* JSOperationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768EB15E3C826004165A7 /* JSOperationResult.m */; };
+		F597691715E3C826004165A7 /* JSOperationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768EB15E3C826004165A7 /* JSOperationResult.m */; };
+		F597691815E3C826004165A7 /* JSProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768EC15E3C826004165A7 /* JSProfile.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597691915E3C826004165A7 /* JSProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768EC15E3C826004165A7 /* JSProfile.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597691A15E3C826004165A7 /* JSProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768ED15E3C826004165A7 /* JSProfile.m */; };
+		F597691B15E3C826004165A7 /* JSProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768ED15E3C826004165A7 /* JSProfile.m */; };
+		F597691C15E3C826004165A7 /* JSRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768EE15E3C826004165A7 /* JSRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597691D15E3C826004165A7 /* JSRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768EE15E3C826004165A7 /* JSRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597691E15E3C826004165A7 /* JSRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768EF15E3C826004165A7 /* JSRequest.m */; };
+		F597691F15E3C826004165A7 /* JSRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768EF15E3C826004165A7 /* JSRequest.m */; };
+		F597692015E3C826004165A7 /* JSRESTBase.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F015E3C826004165A7 /* JSRESTBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597692115E3C826004165A7 /* JSRESTBase.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F015E3C826004165A7 /* JSRESTBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597692215E3C826004165A7 /* JSRESTBase.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F115E3C826004165A7 /* JSRESTBase.m */; };
+		F597692315E3C826004165A7 /* JSRESTBase.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F115E3C826004165A7 /* JSRESTBase.m */; };
+		F597692415E3C826004165A7 /* JSRESTReport.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F215E3C826004165A7 /* JSRESTReport.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597692515E3C826004165A7 /* JSRESTReport.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F215E3C826004165A7 /* JSRESTReport.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597692615E3C826004165A7 /* JSRESTReport.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F315E3C826004165A7 /* JSRESTReport.m */; };
+		F597692715E3C826004165A7 /* JSRESTReport.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F315E3C826004165A7 /* JSRESTReport.m */; };
+		F597692815E3C826004165A7 /* JSRESTResource.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F415E3C826004165A7 /* JSRESTResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597692915E3C826004165A7 /* JSRESTResource.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F415E3C826004165A7 /* JSRESTResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597692A15E3C826004165A7 /* JSRESTResource.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F515E3C826004165A7 /* JSRESTResource.m */; };
+		F597692B15E3C826004165A7 /* JSRESTResource.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F515E3C826004165A7 /* JSRESTResource.m */; };
+		F597692C15E3C826004165A7 /* JSClassesMappingRulesHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F715E3C826004165A7 /* JSClassesMappingRulesHelper.h */; };
+		F597692D15E3C826004165A7 /* JSClassesMappingRulesHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F715E3C826004165A7 /* JSClassesMappingRulesHelper.h */; };
+		F597692E15E3C826004165A7 /* JSClassesMappingRulesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F815E3C826004165A7 /* JSClassesMappingRulesHelper.m */; };
+		F597692F15E3C826004165A7 /* JSClassesMappingRulesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F815E3C826004165A7 /* JSClassesMappingRulesHelper.m */; };
+		F597693015E3C826004165A7 /* JSRequestBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F915E3C826004165A7 /* JSRequestBuilder.h */; };
+		F597693115E3C826004165A7 /* JSRequestBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F915E3C826004165A7 /* JSRequestBuilder.h */; };
+		F597693215E3C826004165A7 /* JSRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768FA15E3C826004165A7 /* JSRequestBuilder.m */; };
+		F597693315E3C826004165A7 /* JSRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768FA15E3C826004165A7 /* JSRequestBuilder.m */; };
+		F597693415E3C826004165A7 /* JSRestKitManagerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768FB15E3C826004165A7 /* JSRestKitManagerFactory.h */; };
+		F597693515E3C826004165A7 /* JSRestKitManagerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768FB15E3C826004165A7 /* JSRestKitManagerFactory.h */; };
+		F597693615E3C826004165A7 /* JSRestKitManagerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768FC15E3C826004165A7 /* JSRestKitManagerFactory.m */; };
+		F597693715E3C826004165A7 /* JSRestKitManagerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768FC15E3C826004165A7 /* JSRestKitManagerFactory.m */; };
+		F597693A15E3C826004165A7 /* JSXMLSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768FE15E3C826004165A7 /* JSXMLSerializer.h */; };
+		F597693B15E3C826004165A7 /* JSXMLSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768FE15E3C826004165A7 /* JSXMLSerializer.h */; };
+		F597693C15E3C826004165A7 /* JSXMLSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768FF15E3C826004165A7 /* JSXMLSerializer.m */; };
+		F597693D15E3C826004165A7 /* JSXMLSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768FF15E3C826004165A7 /* JSXMLSerializer.m */; };
+		F597693E15E3C826004165A7 /* ClassesMappingRules.plist in Resources */ = {isa = PBXBuildFile; fileRef = F597690115E3C826004165A7 /* ClassesMappingRules.plist */; };
+		F597693F15E3C826004165A7 /* XMLWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690315E3C826004165A7 /* XMLWriter.h */; };
+		F597694015E3C826004165A7 /* XMLWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690315E3C826004165A7 /* XMLWriter.h */; };
+		F597694115E3C826004165A7 /* XMLWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690415E3C826004165A7 /* XMLWriter.m */; };
+		F597694215E3C826004165A7 /* XMLWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690415E3C826004165A7 /* XMLWriter.m */; };
+		F597694315E3C826004165A7 /* JSReportAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690615E3C826004165A7 /* JSReportAttachment.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597694415E3C826004165A7 /* JSReportAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690615E3C826004165A7 /* JSReportAttachment.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597694515E3C826004165A7 /* JSReportAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690715E3C826004165A7 /* JSReportAttachment.m */; };
+		F597694615E3C826004165A7 /* JSReportAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690715E3C826004165A7 /* JSReportAttachment.m */; };
+		F597694715E3C826004165A7 /* JSReportDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690815E3C826004165A7 /* JSReportDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597694815E3C826004165A7 /* JSReportDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690815E3C826004165A7 /* JSReportDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597694915E3C826004165A7 /* JSReportDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690915E3C826004165A7 /* JSReportDescriptor.m */; };
+		F597694A15E3C826004165A7 /* JSReportDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690915E3C826004165A7 /* JSReportDescriptor.m */; };
+		F597694B15E3C826004165A7 /* JSResourceDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690A15E3C826004165A7 /* JSResourceDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597694C15E3C826004165A7 /* JSResourceDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690A15E3C826004165A7 /* JSResourceDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597694D15E3C826004165A7 /* JSResourceDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690B15E3C826004165A7 /* JSResourceDescriptor.m */; };
+		F597694E15E3C826004165A7 /* JSResourceDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690B15E3C826004165A7 /* JSResourceDescriptor.m */; };
+		F597694F15E3C826004165A7 /* JSResourceParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690C15E3C826004165A7 /* JSResourceParameter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597695015E3C826004165A7 /* JSResourceParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690C15E3C826004165A7 /* JSResourceParameter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597695115E3C826004165A7 /* JSResourceParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690D15E3C826004165A7 /* JSResourceParameter.m */; };
+		F597695215E3C826004165A7 /* JSResourceParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690D15E3C826004165A7 /* JSResourceParameter.m */; };
+		F597695315E3C826004165A7 /* JSResourceProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690E15E3C826004165A7 /* JSResourceProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597695415E3C826004165A7 /* JSResourceProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690E15E3C826004165A7 /* JSResourceProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597695515E3C826004165A7 /* JSResourceProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690F15E3C826004165A7 /* JSResourceProperty.m */; };
+		F597695615E3C826004165A7 /* JSResourceProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690F15E3C826004165A7 /* JSResourceProperty.m */; };
+		F597696E15E3C882004165A7 /* RestKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F597696715E3C877004165A7 /* RestKit.framework */; };
+		F597697715E3C9C0004165A7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F597697315E3C9AB004165A7 /* Cocoa.framework */; };
+		F597697915E3C9EF004165A7 /* JSSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = F597697815E3C9EF004165A7 /* JSSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597697A15E3C9EF004165A7 /* JSSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = F597697815E3C9EF004165A7 /* JSSerializer.h */; };
+		F597697D15E3CA2B004165A7 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F597696315E3C877004165A7 /* libRestKit.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F597696215E3C877004165A7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F597695715E3C877004165A7 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160D1614564E810060A5C5;
+			remoteInfo = RestKit;
+		};
+		F597696415E3C877004165A7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F597695715E3C877004165A7 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160D2614564E820060A5C5;
+			remoteInfo = RestKitTests;
+		};
+		F597696615E3C877004165A7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F597695715E3C877004165A7 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160E62145651060060A5C5;
+			remoteInfo = RestKitFramework;
+		};
+		F597696815E3C877004165A7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F597695715E3C877004165A7 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160E78145651060060A5C5;
+			remoteInfo = RestKitFrameworkTests;
+		};
+		F597696A15E3C877004165A7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F597695715E3C877004165A7 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 259C301615128079003066A2;
+			remoteInfo = RestKitResources;
+		};
+		F597696C15E3C87D004165A7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F597695715E3C877004165A7 /* RestKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 25160E61145651060060A5C5;
+			remoteInfo = RestKitFramework;
+		};
+		F597697B15E3CA28004165A7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F597695715E3C877004165A7 /* RestKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 25160D1514564E810060A5C5;
+			remoteInfo = RestKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F59768BD15E3C75F004165A7 /* libjaspersoft-sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libjaspersoft-sdk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F59768C015E3C75F004165A7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F59768C415E3C75F004165A7 /* jaspersoft-sdk-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "jaspersoft-sdk-Prefix.pch"; sourceTree = "<group>"; };
+		F59768D215E3C777004165A7 /* jaspersoft-sdk-framework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "jaspersoft-sdk-framework.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F59768DB15E3C777004165A7 /* jaspersoft-sdk-framework-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "jaspersoft-sdk-framework-Info.plist"; sourceTree = "<group>"; };
+		F59768DD15E3C777004165A7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F59768DF15E3C777004165A7 /* jaspersoft-sdk-framework-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "jaspersoft-sdk-framework-Prefix.pch"; sourceTree = "<group>"; };
+		F59768E815E3C826004165A7 /* JSConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSConstants.h; sourceTree = "<group>"; };
+		F59768E915E3C826004165A7 /* JSConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSConstants.m; sourceTree = "<group>"; };
+		F59768EA15E3C826004165A7 /* JSOperationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSOperationResult.h; sourceTree = "<group>"; };
+		F59768EB15E3C826004165A7 /* JSOperationResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSOperationResult.m; sourceTree = "<group>"; };
+		F59768EC15E3C826004165A7 /* JSProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSProfile.h; sourceTree = "<group>"; };
+		F59768ED15E3C826004165A7 /* JSProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSProfile.m; sourceTree = "<group>"; };
+		F59768EE15E3C826004165A7 /* JSRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSRequest.h; sourceTree = "<group>"; };
+		F59768EF15E3C826004165A7 /* JSRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSRequest.m; sourceTree = "<group>"; };
+		F59768F015E3C826004165A7 /* JSRESTBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSRESTBase.h; sourceTree = "<group>"; };
+		F59768F115E3C826004165A7 /* JSRESTBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSRESTBase.m; sourceTree = "<group>"; };
+		F59768F215E3C826004165A7 /* JSRESTReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSRESTReport.h; sourceTree = "<group>"; };
+		F59768F315E3C826004165A7 /* JSRESTReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSRESTReport.m; sourceTree = "<group>"; };
+		F59768F415E3C826004165A7 /* JSRESTResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSRESTResource.h; sourceTree = "<group>"; };
+		F59768F515E3C826004165A7 /* JSRESTResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSRESTResource.m; sourceTree = "<group>"; };
+		F59768F715E3C826004165A7 /* JSClassesMappingRulesHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSClassesMappingRulesHelper.h; sourceTree = "<group>"; };
+		F59768F815E3C826004165A7 /* JSClassesMappingRulesHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSClassesMappingRulesHelper.m; sourceTree = "<group>"; };
+		F59768F915E3C826004165A7 /* JSRequestBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSRequestBuilder.h; sourceTree = "<group>"; };
+		F59768FA15E3C826004165A7 /* JSRequestBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSRequestBuilder.m; sourceTree = "<group>"; };
+		F59768FB15E3C826004165A7 /* JSRestKitManagerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSRestKitManagerFactory.h; sourceTree = "<group>"; };
+		F59768FC15E3C826004165A7 /* JSRestKitManagerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSRestKitManagerFactory.m; sourceTree = "<group>"; };
+		F59768FE15E3C826004165A7 /* JSXMLSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSXMLSerializer.h; sourceTree = "<group>"; };
+		F59768FF15E3C826004165A7 /* JSXMLSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSXMLSerializer.m; sourceTree = "<group>"; };
+		F597690115E3C826004165A7 /* ClassesMappingRules.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ClassesMappingRules.plist; sourceTree = "<group>"; };
+		F597690315E3C826004165A7 /* XMLWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLWriter.h; sourceTree = "<group>"; };
+		F597690415E3C826004165A7 /* XMLWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLWriter.m; sourceTree = "<group>"; };
+		F597690615E3C826004165A7 /* JSReportAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportAttachment.h; sourceTree = "<group>"; };
+		F597690715E3C826004165A7 /* JSReportAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportAttachment.m; sourceTree = "<group>"; };
+		F597690815E3C826004165A7 /* JSReportDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportDescriptor.h; sourceTree = "<group>"; };
+		F597690915E3C826004165A7 /* JSReportDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportDescriptor.m; sourceTree = "<group>"; };
+		F597690A15E3C826004165A7 /* JSResourceDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResourceDescriptor.h; sourceTree = "<group>"; };
+		F597690B15E3C826004165A7 /* JSResourceDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceDescriptor.m; sourceTree = "<group>"; };
+		F597690C15E3C826004165A7 /* JSResourceParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResourceParameter.h; sourceTree = "<group>"; };
+		F597690D15E3C826004165A7 /* JSResourceParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceParameter.m; sourceTree = "<group>"; };
+		F597690E15E3C826004165A7 /* JSResourceProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResourceProperty.h; sourceTree = "<group>"; };
+		F597690F15E3C826004165A7 /* JSResourceProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceProperty.m; sourceTree = "<group>"; };
+		F597695715E3C877004165A7 /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
+		F597697315E3C9AB004165A7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		F597697515E3C9B1004165A7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		F597697815E3C9EF004165A7 /* JSSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSSerializer.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F59768BA15E3C75F004165A7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F597697D15E3CA2B004165A7 /* libRestKit.a in Frameworks */,
+				F59768C115E3C75F004165A7 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F59768CE15E3C777004165A7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F597697715E3C9C0004165A7 /* Cocoa.framework in Frameworks */,
+				F597696E15E3C882004165A7 /* RestKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F59768B215E3C75E004165A7 = {
+			isa = PBXGroup;
+			children = (
+				F597695715E3C877004165A7 /* RestKit.xcodeproj */,
+				F59768E615E3C826004165A7 /* Classes */,
+				F59768C215E3C75F004165A7 /* jaspersoft-sdk */,
+				F59768D915E3C777004165A7 /* jaspersoft-sdk-framework */,
+				F59768BF15E3C75F004165A7 /* Frameworks */,
+				F59768BE15E3C75F004165A7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F59768BE15E3C75F004165A7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F59768BD15E3C75F004165A7 /* libjaspersoft-sdk.a */,
+				F59768D215E3C777004165A7 /* jaspersoft-sdk-framework.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F59768BF15E3C75F004165A7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F597697515E3C9B1004165A7 /* SystemConfiguration.framework */,
+				F597697315E3C9AB004165A7 /* Cocoa.framework */,
+				F59768C015E3C75F004165A7 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F59768C215E3C75F004165A7 /* jaspersoft-sdk */ = {
+			isa = PBXGroup;
+			children = (
+				F59768C315E3C75F004165A7 /* Supporting Files */,
+			);
+			path = "jaspersoft-sdk";
+			sourceTree = "<group>";
+		};
+		F59768C315E3C75F004165A7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F59768C415E3C75F004165A7 /* jaspersoft-sdk-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F59768D915E3C777004165A7 /* jaspersoft-sdk-framework */ = {
+			isa = PBXGroup;
+			children = (
+				F59768DA15E3C777004165A7 /* Supporting Files */,
+			);
+			path = "jaspersoft-sdk-framework";
+			sourceTree = "<group>";
+		};
+		F59768DA15E3C777004165A7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F59768DB15E3C777004165A7 /* jaspersoft-sdk-framework-Info.plist */,
+				F59768DC15E3C777004165A7 /* InfoPlist.strings */,
+				F59768DF15E3C777004165A7 /* jaspersoft-sdk-framework-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F59768E615E3C826004165A7 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F59768E715E3C826004165A7 /* Core */,
+				F597690515E3C826004165A7 /* ObjectMappings */,
+				F59768F615E3C826004165A7 /* Helpers */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		F59768E715E3C826004165A7 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				F59768EC15E3C826004165A7 /* JSProfile.h */,
+				F59768ED15E3C826004165A7 /* JSProfile.m */,
+				F59768F015E3C826004165A7 /* JSRESTBase.h */,
+				F59768F115E3C826004165A7 /* JSRESTBase.m */,
+				F59768F215E3C826004165A7 /* JSRESTReport.h */,
+				F59768F315E3C826004165A7 /* JSRESTReport.m */,
+				F59768F415E3C826004165A7 /* JSRESTResource.h */,
+				F59768F515E3C826004165A7 /* JSRESTResource.m */,
+				F59768EA15E3C826004165A7 /* JSOperationResult.h */,
+				F59768EB15E3C826004165A7 /* JSOperationResult.m */,
+				F59768E815E3C826004165A7 /* JSConstants.h */,
+				F59768E915E3C826004165A7 /* JSConstants.m */,
+				F59768EE15E3C826004165A7 /* JSRequest.h */,
+				F59768EF15E3C826004165A7 /* JSRequest.m */,
+				F597697815E3C9EF004165A7 /* JSSerializer.h */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		F59768F615E3C826004165A7 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F59768F715E3C826004165A7 /* JSClassesMappingRulesHelper.h */,
+				F59768F815E3C826004165A7 /* JSClassesMappingRulesHelper.m */,
+				F59768F915E3C826004165A7 /* JSRequestBuilder.h */,
+				F59768FA15E3C826004165A7 /* JSRequestBuilder.m */,
+				F59768FB15E3C826004165A7 /* JSRestKitManagerFactory.h */,
+				F59768FC15E3C826004165A7 /* JSRestKitManagerFactory.m */,
+				F59768FE15E3C826004165A7 /* JSXMLSerializer.h */,
+				F59768FF15E3C826004165A7 /* JSXMLSerializer.m */,
+				F597690015E3C826004165A7 /* MappingConfiguration */,
+				F597690215E3C826004165A7 /* XMLWriter */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		F597690015E3C826004165A7 /* MappingConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				F597690115E3C826004165A7 /* ClassesMappingRules.plist */,
+			);
+			path = MappingConfiguration;
+			sourceTree = "<group>";
+		};
+		F597690215E3C826004165A7 /* XMLWriter */ = {
+			isa = PBXGroup;
+			children = (
+				F597690315E3C826004165A7 /* XMLWriter.h */,
+				F597690415E3C826004165A7 /* XMLWriter.m */,
+			);
+			path = XMLWriter;
+			sourceTree = "<group>";
+		};
+		F597690515E3C826004165A7 /* ObjectMappings */ = {
+			isa = PBXGroup;
+			children = (
+				F597690615E3C826004165A7 /* JSReportAttachment.h */,
+				F597690715E3C826004165A7 /* JSReportAttachment.m */,
+				F597690815E3C826004165A7 /* JSReportDescriptor.h */,
+				F597690915E3C826004165A7 /* JSReportDescriptor.m */,
+				F597690A15E3C826004165A7 /* JSResourceDescriptor.h */,
+				F597690B15E3C826004165A7 /* JSResourceDescriptor.m */,
+				F597690C15E3C826004165A7 /* JSResourceParameter.h */,
+				F597690D15E3C826004165A7 /* JSResourceParameter.m */,
+				F597690E15E3C826004165A7 /* JSResourceProperty.h */,
+				F597690F15E3C826004165A7 /* JSResourceProperty.m */,
+			);
+			path = ObjectMappings;
+			sourceTree = "<group>";
+		};
+		F597695815E3C877004165A7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F597696315E3C877004165A7 /* libRestKit.a */,
+				F597696515E3C877004165A7 /* RestKitTests.octest */,
+				F597696715E3C877004165A7 /* RestKit.framework */,
+				F597696915E3C877004165A7 /* RestKitFrameworkTests.octest */,
+				F597696B15E3C877004165A7 /* RestKitResources.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		F59768BB15E3C75F004165A7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F597691815E3C826004165A7 /* JSProfile.h in Headers */,
+				F597692015E3C826004165A7 /* JSRESTBase.h in Headers */,
+				F597692415E3C826004165A7 /* JSRESTReport.h in Headers */,
+				F597692815E3C826004165A7 /* JSRESTResource.h in Headers */,
+				F597691415E3C826004165A7 /* JSOperationResult.h in Headers */,
+				F597691015E3C826004165A7 /* JSConstants.h in Headers */,
+				F597691C15E3C826004165A7 /* JSRequest.h in Headers */,
+				F597697915E3C9EF004165A7 /* JSSerializer.h in Headers */,
+				F597694315E3C826004165A7 /* JSReportAttachment.h in Headers */,
+				F597694715E3C826004165A7 /* JSReportDescriptor.h in Headers */,
+				F597694B15E3C826004165A7 /* JSResourceDescriptor.h in Headers */,
+				F597694F15E3C826004165A7 /* JSResourceParameter.h in Headers */,
+				F597695315E3C826004165A7 /* JSResourceProperty.h in Headers */,
+				F597692C15E3C826004165A7 /* JSClassesMappingRulesHelper.h in Headers */,
+				F597693015E3C826004165A7 /* JSRequestBuilder.h in Headers */,
+				F597693415E3C826004165A7 /* JSRestKitManagerFactory.h in Headers */,
+				F597693A15E3C826004165A7 /* JSXMLSerializer.h in Headers */,
+				F597693F15E3C826004165A7 /* XMLWriter.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F59768CF15E3C777004165A7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F597691115E3C826004165A7 /* JSConstants.h in Headers */,
+				F597691515E3C826004165A7 /* JSOperationResult.h in Headers */,
+				F597691915E3C826004165A7 /* JSProfile.h in Headers */,
+				F597691D15E3C826004165A7 /* JSRequest.h in Headers */,
+				F597692115E3C826004165A7 /* JSRESTBase.h in Headers */,
+				F597692515E3C826004165A7 /* JSRESTReport.h in Headers */,
+				F597692915E3C826004165A7 /* JSRESTResource.h in Headers */,
+				F597694415E3C826004165A7 /* JSReportAttachment.h in Headers */,
+				F597694815E3C826004165A7 /* JSReportDescriptor.h in Headers */,
+				F597694C15E3C826004165A7 /* JSResourceDescriptor.h in Headers */,
+				F597695015E3C826004165A7 /* JSResourceParameter.h in Headers */,
+				F597695415E3C826004165A7 /* JSResourceProperty.h in Headers */,
+				F597692D15E3C826004165A7 /* JSClassesMappingRulesHelper.h in Headers */,
+				F597693115E3C826004165A7 /* JSRequestBuilder.h in Headers */,
+				F597693515E3C826004165A7 /* JSRestKitManagerFactory.h in Headers */,
+				F597693B15E3C826004165A7 /* JSXMLSerializer.h in Headers */,
+				F597694015E3C826004165A7 /* XMLWriter.h in Headers */,
+				F597697A15E3C9EF004165A7 /* JSSerializer.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		F59768BC15E3C75F004165A7 /* jaspersoft-sdk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F59768CA15E3C75F004165A7 /* Build configuration list for PBXNativeTarget "jaspersoft-sdk" */;
+			buildPhases = (
+				F59768B915E3C75F004165A7 /* Sources */,
+				F59768BA15E3C75F004165A7 /* Frameworks */,
+				F59768BB15E3C75F004165A7 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F597697C15E3CA28004165A7 /* PBXTargetDependency */,
+			);
+			name = "jaspersoft-sdk";
+			productName = "jaspersoft-sdk";
+			productReference = F59768BD15E3C75F004165A7 /* libjaspersoft-sdk.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		F59768D115E3C777004165A7 /* jaspersoft-sdk-framework */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F59768E315E3C777004165A7 /* Build configuration list for PBXNativeTarget "jaspersoft-sdk-framework" */;
+			buildPhases = (
+				F59768CD15E3C777004165A7 /* Sources */,
+				F59768CE15E3C777004165A7 /* Frameworks */,
+				F59768CF15E3C777004165A7 /* Headers */,
+				F59768D015E3C777004165A7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F597696D15E3C87D004165A7 /* PBXTargetDependency */,
+			);
+			name = "jaspersoft-sdk-framework";
+			productName = "jaspersoft-sdk-framework";
+			productReference = F59768D215E3C777004165A7 /* jaspersoft-sdk-framework.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F59768B415E3C75E004165A7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = F59768B715E3C75E004165A7 /* Build configuration list for PBXProject "jaspersoft-sdk" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F59768B215E3C75E004165A7;
+			productRefGroup = F59768BE15E3C75F004165A7 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F597695815E3C877004165A7 /* Products */;
+					ProjectRef = F597695715E3C877004165A7 /* RestKit.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				F59768BC15E3C75F004165A7 /* jaspersoft-sdk */,
+				F59768D115E3C777004165A7 /* jaspersoft-sdk-framework */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F597696315E3C877004165A7 /* libRestKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRestKit.a;
+			remoteRef = F597696215E3C877004165A7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F597696515E3C877004165A7 /* RestKitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RestKitTests.octest;
+			remoteRef = F597696415E3C877004165A7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F597696715E3C877004165A7 /* RestKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RestKit.framework;
+			remoteRef = F597696615E3C877004165A7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F597696915E3C877004165A7 /* RestKitFrameworkTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RestKitFrameworkTests.octest;
+			remoteRef = F597696815E3C877004165A7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F597696B15E3C877004165A7 /* RestKitResources.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RestKitResources.bundle;
+			remoteRef = F597696A15E3C877004165A7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F59768D015E3C777004165A7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F59768DE15E3C777004165A7 /* InfoPlist.strings in Resources */,
+				F597693E15E3C826004165A7 /* ClassesMappingRules.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F59768B915E3C75F004165A7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F597691215E3C826004165A7 /* JSConstants.m in Sources */,
+				F597691615E3C826004165A7 /* JSOperationResult.m in Sources */,
+				F597691A15E3C826004165A7 /* JSProfile.m in Sources */,
+				F597691E15E3C826004165A7 /* JSRequest.m in Sources */,
+				F597692215E3C826004165A7 /* JSRESTBase.m in Sources */,
+				F597692615E3C826004165A7 /* JSRESTReport.m in Sources */,
+				F597692A15E3C826004165A7 /* JSRESTResource.m in Sources */,
+				F597692E15E3C826004165A7 /* JSClassesMappingRulesHelper.m in Sources */,
+				F597693215E3C826004165A7 /* JSRequestBuilder.m in Sources */,
+				F597693615E3C826004165A7 /* JSRestKitManagerFactory.m in Sources */,
+				F597693C15E3C826004165A7 /* JSXMLSerializer.m in Sources */,
+				F597694115E3C826004165A7 /* XMLWriter.m in Sources */,
+				F597694515E3C826004165A7 /* JSReportAttachment.m in Sources */,
+				F597694915E3C826004165A7 /* JSReportDescriptor.m in Sources */,
+				F597694D15E3C826004165A7 /* JSResourceDescriptor.m in Sources */,
+				F597695115E3C826004165A7 /* JSResourceParameter.m in Sources */,
+				F597695515E3C826004165A7 /* JSResourceProperty.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F59768CD15E3C777004165A7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F597691315E3C826004165A7 /* JSConstants.m in Sources */,
+				F597691715E3C826004165A7 /* JSOperationResult.m in Sources */,
+				F597691B15E3C826004165A7 /* JSProfile.m in Sources */,
+				F597691F15E3C826004165A7 /* JSRequest.m in Sources */,
+				F597692315E3C826004165A7 /* JSRESTBase.m in Sources */,
+				F597692715E3C826004165A7 /* JSRESTReport.m in Sources */,
+				F597692B15E3C826004165A7 /* JSRESTResource.m in Sources */,
+				F597692F15E3C826004165A7 /* JSClassesMappingRulesHelper.m in Sources */,
+				F597693315E3C826004165A7 /* JSRequestBuilder.m in Sources */,
+				F597693715E3C826004165A7 /* JSRestKitManagerFactory.m in Sources */,
+				F597693D15E3C826004165A7 /* JSXMLSerializer.m in Sources */,
+				F597694215E3C826004165A7 /* XMLWriter.m in Sources */,
+				F597694615E3C826004165A7 /* JSReportAttachment.m in Sources */,
+				F597694A15E3C826004165A7 /* JSReportDescriptor.m in Sources */,
+				F597694E15E3C826004165A7 /* JSResourceDescriptor.m in Sources */,
+				F597695215E3C826004165A7 /* JSResourceParameter.m in Sources */,
+				F597695615E3C826004165A7 /* JSResourceProperty.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F597696D15E3C87D004165A7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RestKitFramework;
+			targetProxy = F597696C15E3C87D004165A7 /* PBXContainerItemProxy */;
+		};
+		F597697C15E3CA28004165A7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RestKit;
+			targetProxy = F597697B15E3CA28004165A7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F59768DC15E3C777004165A7 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F59768DD15E3C777004165A7 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F59768C815E3C75F004165A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		F59768C915E3C75F004165A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F59768CB15E3C75F004165A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/jaspersoft_sdk.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "jaspersoft-sdk/jaspersoft-sdk-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		F59768CC15E3C75F004165A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/jaspersoft_sdk.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "jaspersoft-sdk/jaspersoft-sdk-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		F59768E415E3C777004165A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "jaspersoft-sdk-framework/jaspersoft-sdk-framework-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
+				INFOPLIST_FILE = "jaspersoft-sdk-framework/jaspersoft-sdk-framework-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		F59768E515E3C777004165A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "jaspersoft-sdk-framework/jaspersoft-sdk-framework-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
+				INFOPLIST_FILE = "jaspersoft-sdk-framework/jaspersoft-sdk-framework-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F59768B715E3C75E004165A7 /* Build configuration list for PBXProject "jaspersoft-sdk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F59768C815E3C75F004165A7 /* Debug */,
+				F59768C915E3C75F004165A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F59768CA15E3C75F004165A7 /* Build configuration list for PBXNativeTarget "jaspersoft-sdk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F59768CB15E3C75F004165A7 /* Debug */,
+				F59768CC15E3C75F004165A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F59768E315E3C777004165A7 /* Build configuration list for PBXNativeTarget "jaspersoft-sdk-framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F59768E415E3C777004165A7 /* Debug */,
+				F59768E515E3C777004165A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F59768B415E3C75E004165A7 /* Project object */;
+}
