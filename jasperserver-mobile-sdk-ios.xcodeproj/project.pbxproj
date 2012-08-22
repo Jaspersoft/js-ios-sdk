@@ -65,7 +65,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		F5D490D81598559D002D4B50 /* PBXContainerItemProxy */ = {
+		CA431B4115D460F5009AF041 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F55A308D1594819C00B58DD9 /* Project object */;
 			proxyType = 1;
@@ -111,7 +111,6 @@
 		F5A5D6CF15A2EB8A000F40B8 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		F5A5D6D115A2EBBD000F40B8 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		F5B91FF015D3D46A000CF3E6 /* JSConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSConstants.h; sourceTree = "<group>"; };
-		F5D7A0B115C038F90091C95B /* JSUIReportUnitViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JSUIReportUnitViewController.xib; sourceTree = "<group>"; };
 		F5EA579115D1AC4F003416D1 /* JSClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSClient.h; sourceTree = "<group>"; };
 		F5EA579215D1AC4F003416D1 /* JSClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSClient.m; sourceTree = "<group>"; };
 		F5EA579415D1AC4F003416D1 /* JSInputControlQueryDataRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSInputControlQueryDataRow.h; sourceTree = "<group>"; };
@@ -296,7 +295,6 @@
 		F5D7A0B015C038F90091C95B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				F5D7A0B115C038F90091C95B /* JSUIReportUnitViewController.xib */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -402,7 +400,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				F5D490D91598559D002D4B50 /* PBXTargetDependency */,
+				CA431B4215D460F5009AF041 /* PBXTargetDependency */,
 			);
 			name = "jasperserver-mobile-sdk-ios";
 			productName = "jasperserver-mobile-sdk-ios";
@@ -473,10 +471,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		F5D490D91598559D002D4B50 /* PBXTargetDependency */ = {
+		CA431B4215D460F5009AF041 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F51E1E791594BE9100D99EE3 /* jasperserver-mobile-ASIHTTPRequest-ios */;
-			targetProxy = F5D490D81598559D002D4B50 /* PBXContainerItemProxy */;
+			targetProxy = CA431B4115D460F5009AF041 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
