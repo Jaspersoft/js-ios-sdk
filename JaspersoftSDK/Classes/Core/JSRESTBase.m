@@ -22,6 +22,9 @@ static NSString * const _keyContentType = @"Content-Type";
 // Default value for timeout interval
 static NSTimeInterval const defaultTimeoutInterval = 120;
 
+// Helper template message for indicating that request was finished successfully
+static NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
+
 // RestKit's reachability observer for checking internet connection in general
 static RKReachabilityObserver *networkReachabilityObserver;
 
@@ -252,6 +255,7 @@ static RKReachabilityObserver *networkReachabilityObserver;
 
 - (void)callRequestFinishedCallBackForRestKitRequest:(id)restKitRequest result:(JSOperationResult *)result {
     JSCallBack *callBack = [self callBackByRestKitRequest:restKitRequest removeFromCallBacks:true];
+    NSLog(_requestFinishedTemplateMessage, [[restKitRequest URL] absoluteString]);
     
     // Set different parameters for association from our request to result
     if (callBack.request.downloadDestinationPath) {
@@ -300,14 +304,5 @@ static RKReachabilityObserver *networkReachabilityObserver;
         [self callRequestFinishedCallBackForRestKitRequest:request result:result];
     }
 }
-
-//- (void)request:(RKRequest *)request didReceiveData:(NSInteger)bytesReceived totalBytesReceived:(NSInteger)totalBytesReceived totalBytesExpectedToReceive:(NSInteger)totalBytesExpectedToReceive {
-////    JSCallBack *callBack = [self getCallBackByRequest:request removeFromCallBacks:false];
-////    
-////    if ([callBack.delegate respondsToSelector:@selector(didReceiveData:totalBytesReceived:totalBytesExpectedToReceive:)]) {
-////        [callBack.delegate didReceiveData:bytesReceived totalBytesReceived:totalBytesReceived totalBytesExpectedToReceive:totalBytesExpectedToReceive];
-////    }
-//    
-//}
 
 @end
