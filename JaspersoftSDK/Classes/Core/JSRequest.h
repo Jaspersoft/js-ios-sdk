@@ -25,6 +25,37 @@ typedef enum {
  */
 typedef void(^JSRequestFinishedBlock)(JSOperationResult *result);
 
+
+#if TARGET_OS_IPHONE
+/**
+ Background Request Policy
+ 
+ On iOS 4.x and higher, UIKit provides support for continuing activities for a
+ limited amount of time in the background. (This is wrapper for RestKit library which provides simple support for
+ continuing a request when in the background).
+ */
+typedef enum {
+    /**
+     Take no action with regards to backgrounding
+     */
+    JSRequestBackgroundPolicyNone,
+    /**
+     Cancel the request on transition to the background
+     */
+    JSRequestBackgroundPolicyCancel,
+    /**
+     Continue the request in the background until time expires
+     */
+    JSRequestBackgroundPolicyContinue,
+    /**
+     Stop the request and place it back on the queue. It will fire when the app
+     reopens.
+     */
+    JSRequestBackgroundPolicyRequeue
+} JSRequestBackgroundPolicy;
+
+#endif
+
 /** 
  This protocol must be implemented by objects that
  want to call the REST services asynchronously.
@@ -57,6 +88,13 @@ typedef void(^JSRequestFinishedBlock)(JSOperationResult *result);
 @property (nonatomic, copy) JSRequestFinishedBlock finishedBlock;
 @property (nonatomic, assign) BOOL responseAsObjects;
 @property (nonatomic, retain) NSString *downloadDestinationPath;
+
+#if TARGET_OS_IPHONE
+/**
+ The policy to take on transition to the background (iOS 4.x and higher only)
+ */
+@property (nonatomic, assign) JSRequestBackgroundPolicy requestBackgroundPolicy;
+#endif
 
 - (JSRequest *)usingBlock:(void (^)(JSRequest *request))block;
 

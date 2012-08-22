@@ -88,6 +88,10 @@ static RKReachabilityObserver *networkReachabilityObserver;
 @synthesize requestCallBacks = _requestCallBacks;
 @synthesize timeoutInterval = _timeoutInterval;
 
+#if TARGET_OS_IPHONE
+@synthesize requestBackgroundPolicy = _requestBackgroundPolicy;
+#endif
+
 + (void)initialize {
     networkReachabilityObserver = [RKReachabilityObserver reachabilityObserverForInternet];
 }
@@ -116,6 +120,10 @@ static RKReachabilityObserver *networkReachabilityObserver;
         self.serverProfile = [profile copy];
         self.requestCallBacks = [[NSMutableArray alloc] init];
         self.timeoutInterval = defaultTimeoutInterval;
+        
+#if TARGET_OS_IPHONE
+        self.requestBackgroundPolicy = JSRequestBackgroundPolicyCancel;
+#endif
     }
     
     return self;
@@ -171,7 +179,7 @@ static RKReachabilityObserver *networkReachabilityObserver;
     
     // Bridge between RestKit's delegate and JSRequestDelegate
     [restKitRequest setDelegate:self];
-    
+        
     switch (request.method) {
         case JSRequestMethodPOST:
             [restKitRequest setMethod:RKRequestMethodPOST];
@@ -189,6 +197,28 @@ static RKReachabilityObserver *networkReachabilityObserver;
         default:
             [restKitRequest setMethod:RKRequestMethodGET];
     }
+
+#if TARGET_OS_IPHONE
+    JSRequestBackgroundPolicy requestBackgroundPolicy = request.requestBackgroundPolicy ?: self.requestBackgroundPolicy;
+    switch (requestBackgroundPolicy) {
+        case JSRequestBackgroundPolicyNone:
+            [restKitRequest setBackgroundPolicy:RKRequestBackgroundPolicyNone];
+            break;
+            
+        case JSRequestBackgroundPolicyContinue:
+            [restKitRequest setBackgroundPolicy:RKRequestBackgroundPolicyContinue];
+            break;
+            
+        case JSRequestBackgroundPolicyRequeue:
+            [restKitRequest setBackgroundPolicy:RKRequestBackgroundPolicyRequeue];
+            break;
+            
+        case JSRequestBackgroundPolicyCancel:
+        default:
+            [restKitRequest setBackgroundPolicy:RKRequestBackgroundPolicyCancel];
+            break;
+    }
+#endif
     
     // Add callback for RKRequest instance
     [self.requestCallBacks addObject:[[JSCallBack alloc] initWithRestKitRequest:restKitRequest request:request delegate:request.delegate finishedBlock:request.finishedBlock]];

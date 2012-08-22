@@ -1,5 +1,3 @@
-
-
 //
 //  JSClient.h
 //  RestKitDemo
@@ -44,6 +42,14 @@
  Default value is 120s
  */
 @property (nonatomic, assign) NSTimeInterval timeoutInterval;
+
+#if TARGET_OS_IPHONE
+/**
+ The policy to take on transition to the background (iOS 4.x and higher only)
+ Default: JSRequestBackgroundPolicyCancel
+ */
+@property (nonatomic, assign) JSRequestBackgroundPolicy requestBackgroundPolicy;
+#endif
 
 /** 
  Initialization with JSProfile instance.
