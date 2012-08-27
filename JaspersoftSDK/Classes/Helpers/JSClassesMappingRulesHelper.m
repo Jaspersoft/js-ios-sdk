@@ -24,7 +24,9 @@ NSString * const JSKeyMappingType = @"type";
 NSString * const JSKeyIsAttr = @"isAttr";
 NSString * const JSKeyUseNodeInSerialization = @"useNodeInSerialization";
 
-// URI path and extension for ClassMappingRules.plist file
+// URI path and extension for SDK bundle and ClassMappingRules.plist file
+NSString * const _jaspersoftSDKBundleName = @"jaspersoft-sdk-resources";
+NSString * const _jaspersoftSDKBundleExtenstion = @"bundle";
 NSString * const _classesMappingRulesPath = @"ClassesMappingRules";
 NSString * const _classesMappingRulesExtension = @"plist";
 
@@ -35,10 +37,17 @@ NSString * const _classesMappingRulesExtension = @"plist";
     static NSDictionary *_loadedRules = nil;
     
     if (!_loadedRules) {
-        // Load rules from file and sort them by isAttr key (if key isAttr equals YES then rule goes to top).
-        // Instead there will be runtime exception in JSXMLSerializer when 
-        // it will try to write XML attribute after writing next XML node
-        _loadedRules = [self sortByIsAttrKeyMappingRules:[NSMutableDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:_classesMappingRulesPath ofType:_classesMappingRulesExtension]]];
+        // Load SDK bundle which contains ClassesMappingRules.plist file
+        NSURL *jaspersoftSDKBundleURL = [[NSBundle mainBundle] URLForResource:_jaspersoftSDKBundleName withExtension:_jaspersoftSDKBundleExtenstion];
+        
+        if (jaspersoftSDKBundleURL) {
+            // Load rules from file and sort them by isAttr key (if key isAttr equals YES then rule goes to top).
+            // Instead there will be runtime exception in JSXMLSerializer when 
+            // it will try to write XML attribute after writing next XML node
+            _loadedRules = [self sortByIsAttrKeyMappingRules:[NSMutableDictionary dictionaryWithContentsOfFile:[[NSBundle bundleWithURL:jaspersoftSDKBundleURL] pathForResource:_classesMappingRulesPath ofType:_classesMappingRulesExtension]]];
+        } else {
+            @throw([NSException exceptionWithName:@"FileNotFoundException" reason:[NSString stringWithFormat:@"SDK \"%@.%@\" file was not found. You should copy this file from SDK directly to your project and add it to section \"Copy Bundle Resources\" in main target", _jaspersoftSDKBundleName, _jaspersoftSDKBundleExtenstion] userInfo:nil]);
+        }
     }
 
     return _loadedRules;
