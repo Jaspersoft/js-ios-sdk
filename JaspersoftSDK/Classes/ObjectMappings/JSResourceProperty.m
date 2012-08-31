@@ -2,7 +2,7 @@
 //  JSResourceProperty.m
 //  RestKitDemo
 //
-//  Created by Vlad Zavadskii on 05.07.12.
+//  Created by Vlad Zavadskyi on 05.07.12.
 //  Copyright (c) 2012 Jaspersoft. All rights reserved.
 //
 

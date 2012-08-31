@@ -2,7 +2,7 @@
 //  JSRESTResources.h
 //  RestKitDemo
 //
-//  Created by Vlad Zavadskii on 13.07.12.
+//  Created by Vlad Zavadskyi on 13.07.12.
 //  Copyright (c) 2012 Jaspersoft. All rights reserved.
 //
 
@@ -11,21 +11,21 @@
 #import <Foundation/Foundation.h>
 
 /**
- The <code>JSRESTResource</code> class provides wrapper methods for 
- <code>JSRESTBase</code> to interact with the <b>repository</b> JasperReports 
- server REST API. This object puts at disposal a set of methods for getting list 
- of resources, getting single resource (also getting with query data), creating, 
- modifying and deleting resource (all sending methods are asynchronous and use
- base sendRequest method from <code>JSRESTBase</code> class). 
+ Provides wrapper methods for <code>JSRESTBase</code> to interact with the 
+ <b>repository</b> JasperReports server REST API. This object puts at disposal
+ a set of methods for getting list of resources, getting single resource (also 
+ getting with query data), creating, modifying and deleting resource (all sending 
+ methods are asynchronous and use base sendRequest method from <code>JSRESTBase</code>
+ class). 
  
- <code>JSRESTResource</code> contains two types of methods which differs by last 
- parameter: first type uses delegate and puts request result into it, second type 
- uses pre-configuration block for setting additional parameters of JSRequest object. 
- Pre-configuration block implicitly supports finishedBlock usage instead delegate
- object (or use them both), setting custom timeoutInterval, custom query parameters,
+ Contains two types of methods which differs by last parameter: first type uses 
+ delegate and puts request result into it, second type uses pre-configuration 
+ block for setting additional parameters of JSRequest object. Pre-configuration 
+ block implicitly supports finishedBlock usage instead delegate object (or use
+ them both), setting custom timeoutInterval, custom query parameters, 
  requestBackgroundPolicy etc.
  
- @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Vlad Zavadskyi vZavadskyi@jaspersoft.com
  @since 1.0
  */
 @interface JSRESTResource : JSRESTBase

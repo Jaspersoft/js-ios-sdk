@@ -2,18 +2,18 @@
 //  JSOperationResult.h
 //  RestKitDemo
 //
-//  Created by Vlad Zavadskii on 12.07.12.
+//  Created by Vlad Zavadskyi on 12.07.12.
 //  Copyright (c) 2012 Jaspersoft. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
 /**
- The <code>JSOperationResult</code> class uses to hold the different results
- of a REST call to JasperReports server. Result can be a list of object (single 
- object represents as list with one object) or binary data (downloaded file)
+ Uses to hold the different results of a REST call to JasperReports server. Result 
+ can be a list of object (single object represents as list with one object) or 
+ binary data (downloaded file)
  
- @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Vlad Zavadskyi vZavadskyi@jaspersoft.com
  @since 1.0
  */
 @interface JSOperationResult : NSObject

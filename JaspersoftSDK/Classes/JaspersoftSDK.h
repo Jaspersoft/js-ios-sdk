@@ -2,7 +2,7 @@
 //  JaspersoftSDK.h
 //  jaspersoft-sdk
 //
-//  Created by Vlad Zavadskii on 28.08.12.
+//  Created by Vlad Zavadskyi on 28.08.12.
 //  Copyright (c) 2012 Jaspersoft. All rights reserved.
 //
 

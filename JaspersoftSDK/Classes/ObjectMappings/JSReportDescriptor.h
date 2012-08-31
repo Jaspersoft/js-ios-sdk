@@ -2,16 +2,16 @@
 //  JSReportDescriptor.h
 //  RestKitDemo
 //
-//  Created by Vlad Zavadskii on 06.08.12.
+//  Created by Vlad Zavadskyi on 06.08.12.
 //  Copyright (c) 2012 Jaspersoft. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
 /**
- This class represents a report descriptor entity for convenient XML serialization process.
+ Represents a report descriptor entity for convenient XML serialization process
  
- @author Vlad Zavadskii
+ @author Vlad Zavadskyi
  @version 1.0
  */
 @interface JSReportDescriptor : NSObject

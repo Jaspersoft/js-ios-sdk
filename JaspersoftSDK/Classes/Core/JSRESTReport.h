@@ -2,7 +2,7 @@
 //  JSRESTReport.h
 //  RestKitDemo
 //
-//  Created by Vlad Zavadskii on 06.08.12.
+//  Created by Vlad Zavadskyi on 06.08.12.
 //  Copyright (c) 2012 Jaspersoft. All rights reserved.
 //
 
@@ -12,20 +12,19 @@
 #import <Foundation/Foundation.h>
 
 /**
- The <code>JSRESTReport</code> class provides wrapper methods for 
- <code>JSRESTBase</code> to interact with the <b>report</b> JasperReports 
- server REST API. This object puts at disposal a set of methods for running reports 
- and downloading report files (all sending methods are asynchronous and use
- base sendRequest method from <code>JSRESTBase</code> class).
+ Provides wrapper methods for <code>JSRESTBase</code> to interact with the 
+ <b>report</b> JasperReports server REST API. This object puts at disposal a set 
+ of methods for running reports and downloading report files (all sending methods 
+ are asynchronous and use base sendRequest method from <code>JSRESTBase</code> class).
  
- <code>JSRESTReport</code> contains two types of methods which differs by last 
- parameter: first type uses delegate and puts request result into it, second type 
- uses pre-configuration block for setting additional parameters of JSRequest object. 
- Pre-configuration block implicitly supports finishedBlock usage instead delegate
- object (or use them both), setting custom timeoutInterval, custom query parameters,
+ Contains two types of methods which differs by last parameter: first type uses 
+ delegate and puts request result into it, second type uses pre-configuration 
+ block for setting additional parameters of JSRequest object. Pre-configuration 
+ block implicitly supports finishedBlock usage instead delegate object (or use
+ them both), setting custom timeoutInterval, custom query parameters, 
  requestBackgroundPolicy etc.
  
- @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Vlad Zavadskyi vZavadskyi@jaspersoft.com
  @since 1.0
  */
 @interface JSRESTReport : JSRESTBase
@@ -43,6 +42,7 @@
  @param reportParams An input control params uses to generate report with different data
  @param format The format of the report output. Possible values: PDF, HTML, XLS, RTF, CSV,
  XML, JRPRINT
+ 
  **Default**: PDF
  @param delegate A delegate object to inform of the results
  */
@@ -56,6 +56,7 @@
  @param reportParams An input control params uses to generate report with different data
  @param format The format of the report output. Possible values: PDF, HTML, XLS, RTF, CSV,
  XML, JRPRINT
+ 
  **Default**: PDF
  @param block The block to execute with the request before sending it for processing
  */
@@ -68,6 +69,7 @@
  @param resourceDescriptor The resource descriptor of this report
  @param format The format of the report output. Possible values: PDF, HTML, XLS, RTF, CSV,
  XML, JRPRINT
+ 
  **Default**: PDF
  @param delegate A delegate object to inform of the results
  */
@@ -80,6 +82,7 @@
  @param resourceDescriptor The resource descriptor of this report
  @param format The format of the report output. Possible values: PDF, HTML, XLS, RTF, CSV,
  XML, JRPRINT
+ 
  **Default**: PDF
  @param block The block to execute with the request before sending it for processing
  */

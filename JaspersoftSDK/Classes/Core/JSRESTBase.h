@@ -2,7 +2,7 @@
 //  JSClient.h
 //  RestKitDemo
 //
-//  Created by Vlad Zavadskii on 03.07.12.
+//  Created by Vlad Zavadskyi on 03.07.12.
 //  Copyright (c) 2012 Jaspersoft. All rights reserved.
 //
 
@@ -12,16 +12,15 @@
 #import <Foundation/Foundation.h>
 
 /**
- The <code>JSRESTBase</code> class provides methods which interacts with the 
- JasperReports Server REST API. The object puts at disposal a set of methods
- for sending JSRequests for different API parts, different types of cancel 
- request(s). To send a proper request to server JSRequest instance should be 
- configured. For this purposes JSRESTResource, JSRESTReport helper classes was
- provided which do all this configuration in easier way for specific API parts
- (i.e. repository, reports etc).
+ Provides methods which interacts with the JasperReports Server REST API. The 
+ object puts at disposal a set of methods for sending JSRequests for different 
+ API parts, different types of cancel request(s). To send a proper request to
+ server JSRequest instance should be configured. For this purposes JSRESTResource, 
+ JSRESTReport helper classes was provided which do all this configuration in easier
+ way for specific API parts (i.e. repository, reports etc).
  @todo Provide helper classes for job and administration services
  
- @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Vlad Zavadskyi vZavadskyi@jaspersoft.com
  @since 1.0
 */
 @interface JSRESTBase : NSObject
@@ -42,6 +41,7 @@
 /** 
  The serializer instance uses to convert object to encoded string 
  (i.e. XML, JSON, etc) for PUT/POST request
+ 
  **Default**: JSXMLSerializer
  */
 @property (nonatomic, retain) id<JSSerializer> serializer;
@@ -49,6 +49,7 @@
 /**
  The timeout interval which will be used as default value for all requests if
  they does not provide its own timeout interval
+ 
  **Default**: 120.0 seconds
  */
 @property (nonatomic, assign) NSTimeInterval timeoutInterval;
@@ -56,6 +57,7 @@
 #if TARGET_OS_IPHONE
 /**
  The policy to take on transition to the background (iOS 4.x and higher only)
+ 
  **Default**: JSRequestBackgroundPolicyCancel
  */
 @property (nonatomic, assign) JSRequestBackgroundPolicy requestBackgroundPolicy;

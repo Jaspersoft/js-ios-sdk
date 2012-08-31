@@ -2,17 +2,16 @@
 //  JSResourceProperty.h
 //  RestKitDemo
 //
-//  Created by Vlad Zavadskii on 05.07.12.
+//  Created by Vlad Zavadskyi on 05.07.12.
 //  Copyright (c) 2012 Jaspersoft. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
 /**
- This class represents a resource property entity for convenient XML serialization process.
+ Represents a resource property entity for convenient XML serialization process.
  
- @page JSResourceProperty.h
- @author Vlad Zavadskii
+ @author Vlad Zavadskyi
  @version 1.0
  */
 @interface JSResourceProperty : NSObject

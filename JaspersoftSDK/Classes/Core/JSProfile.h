@@ -2,17 +2,16 @@
 //  JSProfile.h
 //  RestKitDemo
 //
-//  Created by Vlad Zavadskii on 03.07.12.
+//  Created by Vlad Zavadskyi on 03.07.12.
 //  Copyright (c) 2012 Jaspersoft. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
 /** 
- The <code>JSProfile</code> class uses to store connection details for 
- JasperReports server.
+ Uses to store connection details for JasperReports server
  
- @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Vlad Zavadskyi vZavadskyi@jaspersoft.com
  @since version 1.0
  */
 @interface JSProfile : NSObject <NSCopying>

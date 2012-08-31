@@ -2,7 +2,7 @@
 //  JSRequest.h
 //  RestKitDemo
 //
-//  Created by Vlad Zavadskii on 10.08.12.
+//  Created by Vlad Zavadskyi on 10.08.12.
 //  Copyright (c) 2012 Jaspersoft. All rights reserved.
 //
 
@@ -72,19 +72,62 @@ typedef enum {
 @end
 
 /**
- The class models the request portion of an HTTP request/response cycle. Used by 
+ Models the request portion of an HTTP request/response cycle. Used by 
  <code>JSRESTBase</code> class to send requests
  
- @see JSRESTBase#sendRequest
+ @see JSRESTBase#sendRequest:
  */
 @interface JSRequest : NSObject
 
+/**
+ The URI this request is loading
+ */
 @property (nonatomic, retain) NSString *uri;
+
+/**
+ The HTTP body used for this request. Uses only for POST and PUT HTTP methods.
+ Automatically will be serialized as string in the format (i.e XML, JSON, etc) provided 
+ by the serializer
+ 
+ @see JSSerializer
+ @see JSXMLSerializer
+ @see JSRESTBase#serializer
+ */
 @property (nonatomic, retain) id body;
+
+/**
+ A collection of parameters of the request. Automatically will be added to URL
+ */
 @property (nonatomic, retain) NSDictionary *params;
+
+/**
+ The timeout interval within which the request should be cancelled if no data
+ has been received.
+ 
+ The timeout timer is cancelled as soon as we start receiving data and are
+ expecting the request to finish
+ 
+ **Default**: 120.0 seconds (defined in <code>JSRESTBase</code> class)
+ */
 @property (nonatomic, assign) NSTimeInterval timeoutInterval;
+
+/**
+ The HTTP method
+ */
 @property (nonatomic, assign) JSRequestMethod method;
+
+/**
+ The delegate to inform when the request is completed. If the object implements 
+ the <code>JSRequestDelegate</code> protocol and if object is not <code>nil</code>, 
+ it will receive request result (instance of <code>JSOperationResult</code> class)
+ */
 @property (nonatomic, retain) id<JSRequestDelegate> delegate;
+
+/**
+ A finishedBlock invoke when the request is completed. If block is not 
+ <code>nil</code>, it will receive request result (instance of
+ <code>JSOperationResult</code> class). Provides as analogue to delegate object
+ */
 @property (nonatomic, copy) JSRequestFinishedBlock finishedBlock;
 @property (nonatomic, assign) BOOL responseAsObjects;
 @property (nonatomic, retain) NSString *downloadDestinationPath;
