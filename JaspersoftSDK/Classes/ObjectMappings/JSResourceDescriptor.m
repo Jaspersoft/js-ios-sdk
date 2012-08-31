@@ -11,7 +11,6 @@
 
 @interface JSResourceDescriptor()
 
-// Helper property used by other methods (instead using [JSConstants sharedInstance] each time)
 @property JSConstants *constants;
 
 @end
@@ -39,7 +38,9 @@
 }
 
 - (BOOL)isDataSource {
-    NSArray *wsTypeDatasources = [NSArray arrayWithObjects:self.constants.WS_TYPE_DATASOURCE, self.constants.WS_TYPE_JDBC, self.constants.WS_TYPE_JNDI, self.constants.WS_TYPE_BEAN, self.constants.WS_TYPE_CUSTOM, nil];
+    NSArray *wsTypeDatasources = [NSArray arrayWithObjects:self.constants.WS_TYPE_DATASOURCE, 
+                                  self.constants.WS_TYPE_JDBC, self.constants.WS_TYPE_JNDI, 
+                                  self.constants.WS_TYPE_BEAN, self.constants.WS_TYPE_CUSTOM, nil];
     return [wsTypeDatasources containsObject:self.wsType];
 }
 

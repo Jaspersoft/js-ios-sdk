@@ -24,7 +24,7 @@
  them both), setting custom timeoutInterval, custom query parameters, 
  requestBackgroundPolicy etc.
  
- @author Vlad Zavadskyi vZavadskyi@jaspersoft.com
+ @author Vlad Zavadskyi vzavadskii@jaspersoft.com
  @since 1.0
  */
 @interface JSRESTReport : JSRESTBase

@@ -13,7 +13,7 @@
  can be a list of object (single object represents as list with one object) or 
  binary data (downloaded file)
  
- @author Vlad Zavadskyi vZavadskyi@jaspersoft.com
+ @author Vlad Zavadskyi vzavadskii@jaspersoft.com
  @since 1.0
  */
 @interface JSOperationResult : NSObject

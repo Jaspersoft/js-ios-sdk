@@ -20,7 +20,7 @@
  way for specific API parts (i.e. repository, reports etc).
  @todo Provide helper classes for job and administration services
  
- @author Vlad Zavadskyi vZavadskyi@jaspersoft.com
+ @author Vlad Zavadskyi vzavadskii@jaspersoft.com
  @since 1.0
 */
 @interface JSRESTBase : NSObject

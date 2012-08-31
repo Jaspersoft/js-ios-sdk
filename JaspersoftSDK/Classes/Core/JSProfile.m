@@ -20,8 +20,11 @@
     return [self initWithAlias:nil username:nil password:nil organization:nil serverUrl:nil];
 }
 
-- (id)initWithAlias:(NSString *)alias username:(NSString *)username password:(NSString *)password 
-      organization:(NSString *)organization serverUrl:(NSString *)serverUrl {
+- (id)initWithAlias:(NSString *)alias 
+           username:(NSString *)username 
+           password:(NSString *)password 
+       organization:(NSString *)organization 
+          serverUrl:(NSString *)serverUrl {
     if (self = [super init]) {
         self.alias = alias;
         self.username = username;

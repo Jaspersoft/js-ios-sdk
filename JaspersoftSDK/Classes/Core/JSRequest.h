@@ -126,10 +126,20 @@ typedef enum {
 /**
  A finishedBlock invoke when the request is completed. If block is not 
  <code>nil</code>, it will receive request result (instance of
- <code>JSOperationResult</code> class). Provides as analogue to delegate object
+ <code>JSOperationResult</code> class). Provided as analogue to delegate object
  */
 @property (nonatomic, copy) JSRequestFinishedBlock finishedBlock;
+
+/** 
+ The responseAsObjects indicates if response result should be serialized and
+ returned as a list of objects instead plain text
+ */
 @property (nonatomic, assign) BOOL responseAsObjects;
+
+/**
+ The save path of downloaded file. This is an additional parameter which helps
+ to determine which file will be downloaded (because all requests are asynchronous)
+ */
 @property (nonatomic, retain) NSString *downloadDestinationPath;
 
 #if TARGET_OS_IPHONE
@@ -139,6 +149,14 @@ typedef enum {
 @property (nonatomic, assign) JSRequestBackgroundPolicy requestBackgroundPolicy;
 #endif
 
+/**
+ Pre-configures request via block. Block implicitly supports finishedBlock usage 
+ instead delegate object (or use them both), setting custom timeoutInterval, 
+ custom query parameters, requestBackgroundPolicy etc. Some of request parameters
+ can be configured only by using block
+ 
+ @param block The block to execute with the request before sending it
+ */
 - (JSRequest *)usingBlock:(void (^)(JSRequest *request))block;
 
 @end

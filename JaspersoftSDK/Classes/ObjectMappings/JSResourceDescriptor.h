@@ -12,7 +12,7 @@
 /**
  Represents a resource descriptor entity for convenient XML serialization process.
  
- @author Vlad Zavadskyi
+ @author Vlad Zavadskyi vzavadskii@jaspersoft.com
  @version 1.0
  */
 @interface JSResourceDescriptor : NSObject
@@ -28,11 +28,44 @@
 @property (nonatomic, retain) NSArray *childResourceDescriptors; 
 @property (nonatomic, retain) NSArray *parameters;
 
+/**
+ Looks the wsType of the resource descriptor and return YES
+ if it is one of the following: datasource, jdbc, jndi, bean, custom.
+ 
+ @return <code>YES</code> if it is data source, <code>NO</code> otherwise.
+ */
 - (BOOL)isDataSource;
+
+/**
+ Gets a valid data source resource from a resource descriptor
+ 
+ @return The data source resource, or <code>nil</code> if no data source is found.
+ */
 - (JSResourceDescriptor *)resourceDescriptorDataSource;
+
+/**
+ Gets a valid data source uri from a resource descriptor
+ 
+ @param dataSource Data source resource
+ @return The data source uri, or <code>nil</code> if no data source is found.
+ */
 - (NSString *)resourceDescriptorDataSourceURI:(JSResourceDescriptor *)dataSource;
+
+/**
+ Gets the property with the specified name
+ 
+ @param name The property name
+ @return Property with the specified name, or <code>nil</code> if the property is not found
+ */
 - (JSResourceProperty *)propertyByName:(NSString *)name;
+
+/**
+ Gets the query data of a query-based input control
+ 
+ @return The query data as list of JSResourceProperty objects
+ */
 - (NSArray *)inputControlQueryData;
+
 - (NSString *)description;
 
 @end

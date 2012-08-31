@@ -11,7 +11,7 @@
 /**
  Represents a resource parameter entity for convenient XML serialization process.
  
- @author Vlad Zavadskyi
+ @author Vlad Zavadskyi vzavadskii@jaspersoft.com
  @version 1.0
  */
 @interface JSResourceParameter : NSObject

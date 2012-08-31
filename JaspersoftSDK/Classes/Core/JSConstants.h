@@ -11,7 +11,7 @@
 /**
  Provides helping constants for different types of resources and API parts
  
- @author Vlad Zavadskyi vZavadskyi@jaspersoft.com
+ @author Vlad Zavadskyi vzavadskii@jaspersoft.com
  @since 1.0
  */
 @interface JSConstants : NSObject
