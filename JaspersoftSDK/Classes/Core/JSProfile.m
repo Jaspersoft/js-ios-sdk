@@ -10,24 +10,24 @@
 
 @implementation JSProfile
 
-@synthesize alias;
-@synthesize serverUrl;
-@synthesize username;
-@synthesize password;
-@synthesize organization;
+@synthesize alias = _alias;
+@synthesize serverUrl = _serverUrl;
+@synthesize username = _username;
+@synthesize password = _password;
+@synthesize organization = _organization;
 
 - (id)init {
     return [self initWithAlias:nil username:nil password:nil organization:nil serverUrl:nil];
 }
 
-- (id)initWithAlias:(NSString *)anAlias username:(NSString *)user password:(NSString *)pass 
-      organization:(NSString *)org serverUrl:(NSString *)url {
+- (id)initWithAlias:(NSString *)alias username:(NSString *)username password:(NSString *)password 
+      organization:(NSString *)organization serverUrl:(NSString *)serverUrl {
     if (self = [super init]) {
-        self.alias = anAlias;
-        self.username = user;
-        self.password = pass;
-        self.organization = org;
-        self.serverUrl = url;
+        self.alias = alias;
+        self.username = username;
+        self.password = password;
+        self.organization = organization;
+        self.serverUrl = serverUrl;
     }
     
     return self;

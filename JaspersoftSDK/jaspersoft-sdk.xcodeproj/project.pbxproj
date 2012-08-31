@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F596020315ECCC9300B62DFD /* JaspersoftSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = F596020215ECCC9300B62DFD /* JaspersoftSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F596020415ECCCA900B62DFD /* JaspersoftSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = F596020215ECCC9300B62DFD /* JaspersoftSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F59768C115E3C75F004165A7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F59768C015E3C75F004165A7 /* Foundation.framework */; };
 		F597691015E3C826004165A7 /* JSConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768E815E3C826004165A7 /* JSConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597691115E3C826004165A7 /* JSConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768E815E3C826004165A7 /* JSConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -138,6 +140,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F596020215ECCC9300B62DFD /* JaspersoftSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JaspersoftSDK.h; sourceTree = "<group>"; };
 		F59768BD15E3C75F004165A7 /* libjaspersoft-sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libjaspersoft-sdk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F59768C015E3C75F004165A7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F59768D215E3C777004165A7 /* jaspersoft-sdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "jaspersoft-sdk.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -256,6 +259,7 @@
 		F59768E615E3C826004165A7 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F596020215ECCC9300B62DFD /* JaspersoftSDK.h */,
 				F59768E715E3C826004165A7 /* Core */,
 				F597690515E3C826004165A7 /* ObjectMappings */,
 				F59768F615E3C826004165A7 /* Helpers */,
@@ -276,11 +280,11 @@
 				F59768F515E3C826004165A7 /* JSRESTResource.m */,
 				F59768EA15E3C826004165A7 /* JSOperationResult.h */,
 				F59768EB15E3C826004165A7 /* JSOperationResult.m */,
-				F59768E815E3C826004165A7 /* JSConstants.h */,
-				F59768E915E3C826004165A7 /* JSConstants.m */,
 				F59768EE15E3C826004165A7 /* JSRequest.h */,
 				F59768EF15E3C826004165A7 /* JSRequest.m */,
 				F597697815E3C9EF004165A7 /* JSSerializer.h */,
+				F59768E815E3C826004165A7 /* JSConstants.h */,
+				F59768E915E3C826004165A7 /* JSConstants.m */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -322,8 +326,6 @@
 		F597690515E3C826004165A7 /* ObjectMappings */ = {
 			isa = PBXGroup;
 			children = (
-				F597690615E3C826004165A7 /* JSReportAttachment.h */,
-				F597690715E3C826004165A7 /* JSReportAttachment.m */,
 				F597690815E3C826004165A7 /* JSReportDescriptor.h */,
 				F597690915E3C826004165A7 /* JSReportDescriptor.m */,
 				F597690A15E3C826004165A7 /* JSResourceDescriptor.h */,
@@ -332,6 +334,8 @@
 				F597690D15E3C826004165A7 /* JSResourceParameter.m */,
 				F597690E15E3C826004165A7 /* JSResourceProperty.h */,
 				F597690F15E3C826004165A7 /* JSResourceProperty.m */,
+				F597690615E3C826004165A7 /* JSReportAttachment.h */,
+				F597690715E3C826004165A7 /* JSReportAttachment.m */,
 			);
 			path = ObjectMappings;
 			sourceTree = "<group>";
@@ -377,19 +381,20 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F596020315ECCC9300B62DFD /* JaspersoftSDK.h in Headers */,
 				F597691815E3C826004165A7 /* JSProfile.h in Headers */,
 				F597692015E3C826004165A7 /* JSRESTBase.h in Headers */,
 				F597692415E3C826004165A7 /* JSRESTReport.h in Headers */,
 				F597692815E3C826004165A7 /* JSRESTResource.h in Headers */,
 				F597691415E3C826004165A7 /* JSOperationResult.h in Headers */,
-				F597691015E3C826004165A7 /* JSConstants.h in Headers */,
 				F597691C15E3C826004165A7 /* JSRequest.h in Headers */,
 				F597697915E3C9EF004165A7 /* JSSerializer.h in Headers */,
-				F597694315E3C826004165A7 /* JSReportAttachment.h in Headers */,
+				F597691015E3C826004165A7 /* JSConstants.h in Headers */,
 				F597694715E3C826004165A7 /* JSReportDescriptor.h in Headers */,
 				F597694B15E3C826004165A7 /* JSResourceDescriptor.h in Headers */,
 				F597694F15E3C826004165A7 /* JSResourceParameter.h in Headers */,
 				F597695315E3C826004165A7 /* JSResourceProperty.h in Headers */,
+				F597694315E3C826004165A7 /* JSReportAttachment.h in Headers */,
 				F597692C15E3C826004165A7 /* JSClassesMappingRulesHelper.h in Headers */,
 				F597693015E3C826004165A7 /* JSRequestBuilder.h in Headers */,
 				F597693415E3C826004165A7 /* JSRestKitManagerFactory.h in Headers */,
@@ -402,19 +407,20 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F596020415ECCCA900B62DFD /* JaspersoftSDK.h in Headers */,
 				F597691915E3C826004165A7 /* JSProfile.h in Headers */,
-				F597691D15E3C826004165A7 /* JSRequest.h in Headers */,
 				F597692115E3C826004165A7 /* JSRESTBase.h in Headers */,
 				F597692515E3C826004165A7 /* JSRESTReport.h in Headers */,
 				F597692915E3C826004165A7 /* JSRESTResource.h in Headers */,
 				F597691515E3C826004165A7 /* JSOperationResult.h in Headers */,
-				F597691115E3C826004165A7 /* JSConstants.h in Headers */,
+				F597691D15E3C826004165A7 /* JSRequest.h in Headers */,
 				F597697A15E3C9EF004165A7 /* JSSerializer.h in Headers */,
-				F597694415E3C826004165A7 /* JSReportAttachment.h in Headers */,
+				F597691115E3C826004165A7 /* JSConstants.h in Headers */,
 				F597694815E3C826004165A7 /* JSReportDescriptor.h in Headers */,
 				F597694C15E3C826004165A7 /* JSResourceDescriptor.h in Headers */,
 				F597695015E3C826004165A7 /* JSResourceParameter.h in Headers */,
 				F597695415E3C826004165A7 /* JSResourceProperty.h in Headers */,
+				F597694415E3C826004165A7 /* JSReportAttachment.h in Headers */,
 				F597692D15E3C826004165A7 /* JSClassesMappingRulesHelper.h in Headers */,
 				F597693115E3C826004165A7 /* JSRequestBuilder.h in Headers */,
 				F597693515E3C826004165A7 /* JSRestKitManagerFactory.h in Headers */,

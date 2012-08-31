@@ -8,7 +8,7 @@
 
 #import "JSConstants.h"
 
-// Shared constants instance
+// Shared constants instance. This is a singleton
 static JSConstants *_sharedInstance;
 
 @implementation JSConstants
@@ -164,7 +164,7 @@ static JSConstants *_sharedInstance;
     return aBOOL ? @"true" : @"false";
 }
 
-#pragma mark - 
+#pragma mark -
 #pragma mark Constants initializers
 
 - (void)setWSConstants {

@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 /**
- The JSSerializer protocol declares method that a class must implement so that it can provide 
- support of representing object as string
+ The JSSerializer protocol declares method that a class must implement so that it 
+ can provide support of representing object as string
  */
 @protocol JSSerializer <NSObject>
 
@@ -19,7 +19,7 @@
 /**
  Returns an object representation of the string encoded in the
  format provided by the serializer (i.e. JSON, XML, etc).
-*/
+ */
 - (NSString *)stringFromObject:(id)object;
 
 @end

@@ -3,7 +3,7 @@
 //  RestKitDemo
 //
 //  Created by Vlad Zavadskii on 12.07.12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Jaspersoft. All rights reserved.
 //
 
 #import "JSOperationResult.h"
@@ -18,7 +18,8 @@
 @synthesize MIMEType = _MIMEType;
 @synthesize downloadDestinationPath = _downloadDestinationPath;
 
-- (id)initWithStatusCode:(NSInteger)statusCode allHeaderFields:(NSDictionary *)allHeaderFields MIMEType:(NSString *)MIMEType error:(NSError *)error {
+- (id)initWithStatusCode:(NSInteger)statusCode allHeaderFields:(NSDictionary *)allHeaderFields
+                MIMEType:(NSString *)MIMEType error:(NSError *)error {
     if (self = [super init]) {
         _statusCode = statusCode;
         _allHeaderFields = allHeaderFields;

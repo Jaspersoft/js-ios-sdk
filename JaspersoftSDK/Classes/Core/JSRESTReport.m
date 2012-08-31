@@ -15,7 +15,7 @@
 // JS REST prefix for report uri
 static NSString * const _reportUri = @"/report";
 
-// Report query uses for setting output format (i.e PDF, HTML, etc) 
+// Report query used for setting output format (i.e PDF, HTML, etc) 
 // and path for images (current dir) when exporting report in HTML
 static NSString * const _baseReportQuery = @"?IMAGES_URI=./&RUN_OUTPUT_FORMAT=";
 
@@ -39,25 +39,33 @@ static JSRESTReport *_sharedInstance;
 }
 
 #pragma mark -
-#pragma mark Public methods
+#pragma mark Public methods for report API
 
-- (void)runReport:(NSString *)uri reportParams:(NSDictionary *)reportParams format:(NSString *)format delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullRunReportUri:uri format:format] method:JSRequestMethodPUT] delegate:delegate] body:[self resourceDescriptorForUri:uri withReportParams:reportParams]];
+- (void)runReport:(NSString *)uri reportParams:(NSDictionary *)reportParams 
+           format:(NSString *)format delegate:(id<JSRequestDelegate>)delegate {
+    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullRunReportUri:uri format:format] method:JSRequestMethodPUT] 
+                                  delegate:delegate] body:[self resourceDescriptorForUri:uri withReportParams:reportParams]];
     [self sendRequest:builder.request];
 }
 
-- (void)runReport:(NSString *)uri reportParams:(NSDictionary *)reportParams format:(NSString *)format usingBlock:(void (^)(JSRequest *request))block {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullRunReportUri:uri format:format] method:JSRequestMethodPUT] body:[self resourceDescriptorForUri:uri withReportParams:reportParams]];
+- (void)runReport:(NSString *)uri reportParams:(NSDictionary *)reportParams 
+           format:(NSString *)format usingBlock:(void (^)(JSRequest *request))block {
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullRunReportUri:uri format:format] method:JSRequestMethodPUT] 
+                                 body:[self resourceDescriptorForUri:uri withReportParams:reportParams]];
     [self sendRequest:[builder.request usingBlock:block]];
 }
 
-- (void)runReport:(JSResourceDescriptor *)resourceDescriptor format:(NSString *)format delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullRunReportUri:resourceDescriptor.uriString format:format] method:JSRequestMethodPUT] delegate:delegate] body:resourceDescriptor];
+- (void)runReport:(JSResourceDescriptor *)resourceDescriptor format:(NSString *)format
+         delegate:(id<JSRequestDelegate>)delegate {
+    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullRunReportUri:resourceDescriptor.uriString format:format] 
+                                                            method:JSRequestMethodPUT] delegate:delegate] body:resourceDescriptor];
     [self sendRequest:builder.request];
 }
 
-- (void)runReport:(JSResourceDescriptor *)resourceDescriptor format:(NSString *)format usingBlock:(void (^)(JSRequest *request))block {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullRunReportUri:resourceDescriptor.uriString format:format] method:JSRequestMethodPUT] body:resourceDescriptor];
+- (void)runReport:(JSResourceDescriptor *)resourceDescriptor format:(NSString *)format 
+       usingBlock:(void (^)(JSRequest *request))block {
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullRunReportUri:resourceDescriptor.uriString format:format] 
+                                                           method:JSRequestMethodPUT] body:resourceDescriptor];
     [self sendRequest:[builder.request usingBlock:block]];
 }
 
@@ -80,7 +88,7 @@ static JSRESTReport *_sharedInstance;
     return [NSString stringWithFormat:@"%@%@%@%@", _reportUri, (uri ?: @""), _baseReportQuery, format];
 }
 
-// Creates resource descriptor with report parameters (getted from IC)
+// Creates resource descriptor with report parameters (retrieved from IC)
 - (JSResourceDescriptor *)resourceDescriptorForUri:(NSString *)uri withReportParams:(NSDictionary *)reportParams {
     JSConstants *constants = [JSConstants sharedInstance];
     
@@ -113,25 +121,26 @@ static JSRESTReport *_sharedInstance;
         }
     }
     
-    // Parameters for resource descriptor will be used by JSXMLSerializer to create proper XML for sending 
+    // Parameters for resource descriptor uses by JSXMLSerializer to create proper XML for sending 
     resourceDescriptor.parameters = resourceParameters;
     
     return resourceDescriptor;
 }
 
 // Creates request and configures request for downloading files including save files to path
-- (JSRequest *)requestForUUID:(NSString *)uuid fileName:(NSString *)fileName path:(NSString *)path delegate:(id<JSRequestDelegate>)delegate usingBlock:(void (^)(JSRequest *request))block {
+- (JSRequest *)requestForUUID:(NSString *)uuid fileName:(NSString *)fileName path:(NSString *)path
+                     delegate:(id<JSRequestDelegate>)delegate usingBlock:(void (^)(JSRequest *request))block {
     JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullDownloadReportFileUri:uuid] method:JSRequestMethodGET];
     [[builder params:[NSDictionary dictionaryWithObjectsAndKeys:fileName, @"file", nil]] responseAsObjects:NO];
     [builder downloadDestinationPath:path];
     
     JSRequest *request = block ? [builder.request usingBlock:block] : builder.request;
     
-    // Store finished block passed from client to request via block (usingBlock: method)
+    // Store finished block passed from client to request (via "usingBlock:" method)
     JSRequestFinishedBlock clientFinishedBlock = request.finishedBlock;
     
-    // After sending request and getting rest kit response this block will be called FIRST!
-    // And inside we pass result directly to delegate OR to clientFinishedBlock (if it was provided)
+    // After sending request and getting RestKit's response this block will be called
+    // before delegate or clientFinishedBlock (if it was provided)
     request.finishedBlock = ^(JSOperationResult *result) {
         // Write receive file to specified directory path
         if (!result.error) {

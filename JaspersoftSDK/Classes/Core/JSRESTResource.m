@@ -35,29 +35,7 @@ static JSRESTResource *_sharedInstance;
 }
 
 #pragma mark -
-#pragma mark Public methods
-
-- (void)resource:(NSString *)uri delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:JSRequestMethodGET] delegate:delegate];
-    [self sendRequest:builder.request];
-}
-
-- (void)resource:(NSString *)uri usingBlock:(void (^)(JSRequest *request))block {
-    JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:JSRequestMethodGET];
-    [self sendRequest:[builder.request usingBlock:block]];
-}
-
-- (void)resourceWithQueryData:(NSString *)uri datasourceUri:(NSString *)datasourceUri resourceParameters:(NSArray *)resourceParameters delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:JSRequestMethodGET] delegate:delegate];
-    [builder params:[self paramsForICQueryDataByDatasourceUri:datasourceUri resourceParameters:resourceParameters]];
-    [self sendRequest:builder.request];
-}
-         
-- (void)resourceWithQueryData:(NSString *)uri datasourceUri:(NSString *)datasourceUri resourceParameters:(NSArray *)resourceParameters usingBlock:(void (^)(JSRequest *request))block {
-    JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:JSRequestMethodGET];
-    [builder params:[self paramsForICQueryDataByDatasourceUri:datasourceUri resourceParameters:resourceParameters]];
-    [self sendRequest:[builder.request usingBlock:block]];
-}
+#pragma mark Public methods for resources API
 
 - (void)resources:(NSString *)uri delegate:(id<JSRequestDelegate>)delegate {
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourcesUri:uri] method:JSRequestMethodGET] delegate:delegate];
@@ -80,6 +58,34 @@ static JSRESTResource *_sharedInstance;
        recursive:(BOOL)recursive limit:(NSInteger)limit usingBlock:(void (^)(JSRequest *request))block {
     JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:JSRequestMethodGET];
     [builder params:[self createParamsForResources:query type:type recursive:recursive limit:limit]];
+    [self sendRequest:[builder.request usingBlock:block]];
+}
+
+- (void)resourceWithQueryData:(NSString *)uri datasourceUri:(NSString *)datasourceUri 
+           resourceParameters:(NSArray *)resourceParameters delegate:(id<JSRequestDelegate>)delegate {
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:JSRequestMethodGET] delegate:delegate];
+    [builder params:[self paramsForICQueryDataByDatasourceUri:datasourceUri resourceParameters:resourceParameters]];
+    [self sendRequest:builder.request];
+}
+
+- (void)resourceWithQueryData:(NSString *)uri datasourceUri:(NSString *)datasourceUri 
+           resourceParameters:(NSArray *)resourceParameters usingBlock:(void (^)(JSRequest *request))block {
+    JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:JSRequestMethodGET];
+    [builder params:[self paramsForICQueryDataByDatasourceUri:datasourceUri resourceParameters:resourceParameters]];
+    [self sendRequest:[builder.request usingBlock:block]];
+}
+
+#pragma mark -
+#pragma mark Public methods for resource API
+
+- (void)resource:(NSString *)uri delegate:(id<JSRequestDelegate>)delegate {
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:JSRequestMethodGET] delegate:delegate];
+    [self sendRequest:builder.request];
+}
+
+- (void)resource:(NSString *)uri usingBlock:(void (^)(JSRequest *request))block {
+    JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourceUri:uri] 
+                                                          method:JSRequestMethodGET];
     [self sendRequest:[builder.request usingBlock:block]];
 }
 
@@ -117,7 +123,7 @@ static JSRESTResource *_sharedInstance;
     [self sendRequest:[builder.request usingBlock:block]];
 }
 
-#pragma mark - 
+#pragma mark -
 #pragma mark Private methods
 
 // Creates NSMutableDictionary params for resources by query, type, recursive, limit arguments

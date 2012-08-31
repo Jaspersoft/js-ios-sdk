@@ -12,7 +12,6 @@
 /**
  This class represents a resource descriptor entity for convenient XML serialization process.
  
- @file
  @author Vlad Zavadskii
  @version 1.0
  */

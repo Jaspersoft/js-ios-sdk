@@ -12,7 +12,12 @@
 
 + (JSConstants *)sharedInstance;
 
-// Get standart booleans (true/false instead YES/NO) as string for JS server
+/**
+ Get string representation for Boolean value
+ 
+ @param aBool A Boolean value
+ @return A new string @"true" or @"false" depends on provided Boolean value
+ */
 - (NSString *)stringFromBOOL:(BOOL)aBOOL;
 
 // WebService types
