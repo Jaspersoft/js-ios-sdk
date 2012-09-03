@@ -16,14 +16,15 @@ static NSString * const _keyClass = @"class";
 
 @implementation JSRestKitManagerFactory
 
-// Already mapped rules for different classes. Uses if we creating different JSREST classes (version of cache)
+// Already mapped rules for different classes. Uses for creating different JSREST
+// classes (version of cache)
 + (NSDictionary *)restKitObjectMappings {
     static NSMutableDictionary *_restKitObjectMappings = nil;
     
     if (!_restKitObjectMappings) {
         _restKitObjectMappings = [[NSMutableDictionary alloc] init];
         
-        // Loaded mapping rules from ClassesMappingRules.plist file
+        // Load mapping rules from mapping file
         NSDictionary *mappingRules = [JSClassesMappingRulesHelper loadedRules];
         
         for (NSString *className in mappingRules.keyEnumerator) {
@@ -38,7 +39,7 @@ static NSString * const _keyClass = @"class";
                                                      mappingPaths, _keyPaths, 
                                                      nil];
             
-            // Set mapping result to class
+            // Set mapping result for class
             [_restKitObjectMappings setObject:pathsAndMappingForClass forKey:objectClass];
         }    
     }
@@ -46,7 +47,7 @@ static NSString * const _keyClass = @"class";
     return _restKitObjectMappings;
 }
 
-// Create mapping object for class (by name) using mapping rules from dictionary
+// Creates RestKit's mapping object for class (by name) using mapping rules from dictionary
 + (RKObjectMapping *)mappingForClass:(Class)objectClass forMappingRules:(NSDictionary *)mappingRules {
     
     // Get class name from Class object (for example: JSResourceDescriptor class -> @"JSResourceDescriptor")
@@ -58,10 +59,10 @@ static NSString * const _keyClass = @"class";
     // Iterate true all mapping rule defined for specified class (by "className")
     for (NSDictionary *mappingRule in [[mappingRules objectForKey:className] objectForKey:JSKeyMappingRules]) {
         
-        // Check if we have "property" type of mapping - map "node" in xml to "attr" property) in class 
+        // Check if we have "property" type of mapping in class 
         if ([[mappingRule objectForKey:JSKeyMappingType] isEqualToString:JSPropertyMappingType]) {
             
-            // Set property type of mapping (from xmlNode in xml to property in class)
+            // Set property type of mapping (maps xmlNode in xml to property in class)
             [mapping mapKeyPath:[mappingRule objectForKey:JSKeyNode] toAttribute:[mappingRule objectForKey:JSKeyProperty]];
             
         // Check if we have nested objects and 1:n/1:1 relations between them
@@ -100,7 +101,6 @@ static NSString * const _keyClass = @"class";
     }
 }
 
-// Create RKObjectManager with mappings for specified classes
 + (RKObjectManager *)createRestKitObjectManagerForClasses:(NSArray *)classes {
     if (!classes.count) {
         return nil;
@@ -108,10 +108,11 @@ static NSString * const _keyClass = @"class";
     
     NSDictionary *restKitObjectMappings = [self restKitObjectMappings];    
     
-    // Creates RKObjectManager for loading and mapping encoded response (i.e XML, JSON etc) directly to objects
+    // Creates RKObjectManager for loading and mapping encoded response (i.e XML, JSON etc.) 
+    // directly to objects
     RKObjectManager *restKitObjectManager = [[RKObjectManager alloc] init];
     
-    // Set all mapping rules for classes to RestKit's object manager
+    // Set all mapping rules for provided classes to RestKit's object manager
     for (Class objectClass in classes) {
         NSDictionary *pathsAndMappingForClass = [restKitObjectMappings objectForKey:objectClass];
         RKObjectMapping *mapping = [pathsAndMappingForClass objectForKey:_keyMapping];

@@ -12,7 +12,6 @@
 
 @interface JSXMLSerializer()
 
-// Loaded mapping rules from ClassesMappingRules.plist file
 @property (nonatomic, retain) NSDictionary *mappingRules;
 
 @end
@@ -35,9 +34,9 @@
     NSString *className = NSStringFromClass([object class]);
     NSArray *loadedRules = [[self.mappingRules objectForKey:className] objectForKey:JSKeyMappingRules];
     NSString *rootNode = [[self.mappingRules objectForKey:className] objectForKey:JSKeyRootNode];
-    // Status if parent node was closed for preventing serializing wrong XML format
+    // Shows if parent node was closed for preventing serializing wrong XML format
     // In example wrong XML can be "<resourceDescriptor <resourceProperty></resourceProperty></resourceDescriptor>"
-    // where 1-st element was not closed
+    // where 1-st element wasn't closed
     BOOL isParentNodeWasClosed = NO;
 
     [writer writeStartElement:rootNode];
@@ -49,14 +48,13 @@
         BOOL isBodyOfElement = [node isEqualToString:rootNode];
         id propertyValue = [object valueForKey:[mappingRule objectForKey:JSKeyProperty]];
         
-        // Check what is the mapping type (relation or property) as propertyValue can be NSString, NSNumber or NSArray
+        // Check what is the mapping type (relation or property)
         if ([mappingType isEqualToString:JSPropertyMappingType] && propertyValue) {
             // Check if we have an attribute in XML (i.e. <node attribute="value">...)
             if ([[mappingRule objectForKey:JSKeyIsAttr] boolValue]) {
                 [writer writeAttribute:node value:[propertyValue description]];
             } else {
-                // Writing next element automatically closed parent node. 
-                // Here parent node was closed
+                // Writing next element
                 isParentNodeWasClosed = YES;
                 if (!isBodyOfElement) {
                     [writer writeStartElement:node];
@@ -70,7 +68,7 @@
             }
         } else if ([mappingType isEqualToString:JSRelationMappingType] && [propertyValue count]) {
             // Check if parent node for children nodes should be written
-            // (i.e. <elements><element1></element1>...</elements> where <elements> is parent node
+            // (i.e. <elements><element1></element1>...</elements> where <elements> is a parent node
             BOOL useNodeInSerialization = [[mappingRule objectForKey:JSKeyUseNodeInSerialization] boolValue];
             if(useNodeInSerialization) {
                 [writer writeStartElement:node];
@@ -79,7 +77,6 @@
             
             // Recursive generate XML for children nodes
             for (id child in propertyValue) {
-                // Close parent node if it was not done before
                 if (!isParentNodeWasClosed) {
                     [writer writeCloseStartElement];
                     isParentNodeWasClosed = YES;

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-// Mapping types in ClassMappingRules.plist property file
+// Mapping types defined in ClassMappingRules.plist property file (mapping file)
 extern NSString * const JSPropertyMappingType;
 extern NSString * const JSRelationMappingType;
 
@@ -22,11 +22,30 @@ extern NSString * const JSKeyMappingType;
 extern NSString * const JSKeyIsAttr;
 extern NSString * const JSKeyUseNodeInSerialization;
 
-// Helper class which loads data from ClassesMappingRules.plist file (contains mapping rules for GET and 
-// PUT objects using REST service). Class also provides "constants" for accessing elements in file
+/**
+ @cond EXCLUDE_JS_CLASSES_MAPPING_RULES_HELPER
+ 
+ Loads and represents as dictonary data from <b>ClassesMappingRules.plist</b> file.
+ This file (can be found by path /Classes/Helpers/MappingConfiguration/) contains
+ classes mapping rules (all classes from <b>ObjectMappings</b> group).
+ 
+ Class mapping rule describes how returned HTTP response (in JSON, XML and other
+ formats) should be mapped directly to this class (i.e. describes how XML should
+ be mapped to JSResourceDescriptor, JSReportDescriptor etc.)
+ 
+ @author Vlad Zavadskyi vzavadskii@jaspersoft.com
+ @since 1.0
+ */
 @interface JSClassesMappingRulesHelper : NSObject
 
-// Returns all loaded rules from file ClassesMappingRules.plist
+/**
+ Returns a dictionary of loaded classes mapping rules from file 
+ <b>ClassesMappingRules.plist</b>
+ 
+ @return A dictionary of classes mapping rules
+ */
 + (NSDictionary *)loadedRules;
 
 @end
+
+/** @endcond */

@@ -15,7 +15,7 @@
 // JS REST prefix for report uri
 static NSString * const _reportUri = @"/report";
 
-// Report query used for setting output format (i.e PDF, HTML, etc) 
+// Report query used for setting output format (i.e PDF, HTML, etc.) 
 // and path for images (current dir) when exporting report in HTML
 static NSString * const _baseReportQuery = @"?IMAGES_URI=./&RUN_OUTPUT_FORMAT=";
 

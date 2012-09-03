@@ -86,7 +86,7 @@ typedef enum {
 
 /**
  The HTTP body used for this request. Uses only for POST and PUT HTTP methods.
- Automatically will be serialized as string in the format (i.e XML, JSON, etc) provided 
+ Automatically will be serialized as string in the format (i.e XML, JSON, etc.) provided 
  by the serializer
  
  @see JSSerializer

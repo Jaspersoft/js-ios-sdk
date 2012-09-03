@@ -89,7 +89,7 @@
 - (void)runReport:(JSResourceDescriptor *)resourceDescriptor format:(NSString *)format usingBlock:(void (^)(JSRequest *request))block;
 
 /**
- Downloadssspecified report file, once a report has been generated, and saves it
+ Downloads specified report file, once a report has been generated, and saves it
  to specified path (path should also inlude name of the file)
  
  @param uuid The Universally Unique Identifier. As a side effect of storing the report 

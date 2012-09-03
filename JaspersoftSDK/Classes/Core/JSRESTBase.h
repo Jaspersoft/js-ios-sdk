@@ -17,7 +17,7 @@
  API parts, different types of cancel request(s). To send a proper request to
  server JSRequest instance should be configured. For this purposes JSRESTResource, 
  JSRESTReport helper classes was provided which do all this configuration in easier
- way for specific API parts (i.e. repository, reports etc).
+ way for specific API parts (i.e. repository, reports etc.)
  @todo Provide helper classes for job and administration services
  
  @author Vlad Zavadskyi vzavadskii@jaspersoft.com
@@ -40,7 +40,7 @@
 
 /** 
  The serializer instance uses to convert object to encoded string 
- (i.e. XML, JSON, etc) for PUT/POST request
+ (i.e. XML, JSON, etc.) for PUT/POST request
  
  **Default**: JSXMLSerializer
  */
@@ -70,7 +70,8 @@
  Class mapping rule describes how returned HTTP response (in JSON, XML and other
  formats) should be mapped directly to this class.
  
- @param profile The profile contains server connection details 
+ @param profile The profile contains server connection details
+ @param classes A list of classes for which mapping rules will be created
  @return A fully configured JSRESTBase instance include mapping rules
  */
 - (id)initWithProfile:(JSProfile *)profile classesForMappings:(NSArray *)classes;
