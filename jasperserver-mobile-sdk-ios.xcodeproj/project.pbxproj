@@ -585,12 +585,14 @@
 				PUBLIC_HEADERS_FOLDER_PATH = "../../Headers/jasperserver-mobile-sdk-ios";
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "";
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
 		};
 		F55A30A51594819D00B58DD9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DSTROOT = /tmp/jasperserver_mobile_sdk_ios.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "jasperserver-mobile-sdk-ios/jasperserver-mobile-sdk-ios-Prefix.pch";
@@ -608,6 +610,7 @@
 				PUBLIC_HEADERS_FOLDER_PATH = "../../Headers/jasperserver-mobile-sdk-ios";
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "";
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
 		};
