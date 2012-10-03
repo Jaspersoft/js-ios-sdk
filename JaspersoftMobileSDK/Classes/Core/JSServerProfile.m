@@ -1,7 +1,7 @@
 /*
  * Jaspersoft Mobile SDK
  * Copyright (C) 2001 - 2012 Jaspersoft Corporation. All rights reserved.
- * http://www.jasperforge.org/projects/mobile
+ * http://community.jaspersoft.com/project/mobile-sdk-ios
  *
  * Unless you have purchased a commercial license agreement from Jaspersoft,
  * the following license terms apply:
@@ -24,10 +24,7 @@
 
 //
 //  JSServerProfile.m
-//  JaspersoftMobileSDK
-//
-//  Created by Volodya Sabadosh on 7/3/12.
-//  Copyright (c) 2012 Jaspersoft Corp. All rights reserved.
+//  Jaspersoft Corporation
 //
 
 #import "JSServerProfile.h"

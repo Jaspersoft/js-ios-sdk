@@ -1,7 +1,7 @@
 /*
  * Jaspersoft Mobile SDK
  * Copyright (C) 2001 - 2011 Jaspersoft Corporation. All rights reserved.
- * http://www.jasperforge.org/projects/mobile
+ * http://community.jaspersoft.com/project/mobile-sdk-ios
  *
  * Unless you have purchased a commercial license agreement from Jaspersoft,
  * the following license terms apply:
@@ -24,10 +24,7 @@
 
 //
 //  JSUtils.m
-//  Jaspersoft
-//
-//  Created by Giulio Toffoli on 9/21/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Jaspersoft Corporation
 //
 
 #import "JSUtils.h"
@@ -35,7 +32,6 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 
 @implementation JSUtils
-
 
 /** 
  * Look inside a resource descriptor's children to find a valid data source resource.
@@ -49,7 +45,7 @@
  * @return the datasource uri or nil if no datasource is found.
  *
  */
-+(NSString *)findDataSourceUri:(JSResourceDescriptor *)rd withClient: (JSClient *)client
++ (NSString *)findDataSourceUri:(JSResourceDescriptor *)rd withClient: (JSClient *)client
 {
     
     //NSLog(@"1. Looking for datasources in %@",[rd name]);
@@ -131,7 +127,7 @@
  * @return the datasource uri or nil if no datasource is found.
  *
  */
-+(bool)isDataSourceResource:(JSResourceDescriptor *)rd
++ (bool)isDataSourceResource:(JSResourceDescriptor *)rd
 {
     if (rd == nil) return NO;
     
@@ -142,12 +138,9 @@
     if ([[rd wsType] isEqualToString: JS_TYPE_DATASOURCE_JNDI])   return YES;
     
     return false;
-    
-    
-    
 }
 
-+(bool)checkNetwork:(bool) showMessage client: (JSClient *)client
++ (bool)checkNetwork:(bool) showMessage client: (JSClient *)client
 {
         SCNetworkReachabilityFlags flags;
         
@@ -177,11 +170,5 @@
     
         return false;
 }
-
-
-
-
-
-
 
 @end

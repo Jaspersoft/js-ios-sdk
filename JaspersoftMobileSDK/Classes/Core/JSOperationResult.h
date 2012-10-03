@@ -1,7 +1,7 @@
 /*
  * Jaspersoft Mobile SDK
  * Copyright (C) 2001 - 2011 Jaspersoft Corporation. All rights reserved.
- * http://www.jasperforge.org/projects/mobile
+ * http://community.jaspersoft.com/project/mobile-sdk-ios
  *
  * Unless you have purchased a commercial license agreement from Jaspersoft,
  * the following license terms apply:
@@ -23,11 +23,8 @@
  */
 
 //
-//  OperationResult.h
-//  Jaspersoft
-//
-//  Created by Giulio Toffoli on 4/9/11.
-//  Copyright 2011 Jaspersoft Corp.. All rights reserved.
+//  JSOperationResult.h
+//  Jaspersoft Corporation
 //
 
 #import "JSResourceDescriptor.h"
@@ -36,12 +33,10 @@
 /** 
  * Result of a call.
  * The JSOperationResult object holds the result of a REST call to JasperReports Server.
- * 
+ *
+ * @since version 1.0
  */
 @interface JSOperationResult : NSObject {
-	
-	
-
 }
 
 /** The HTTP code returned by this call.

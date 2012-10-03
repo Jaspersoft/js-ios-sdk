@@ -1,7 +1,7 @@
 /*
  * Jaspersoft Mobile SDK
  * Copyright (C) 2001 - 2011 Jaspersoft Corporation. All rights reserved.
- * http://www.jasperforge.org/projects/mobile
+ * http://community.jaspersoft.com/project/mobile-sdk-ios
  *
  * Unless you have purchased a commercial license agreement from Jaspersoft,
  * the following license terms apply:
@@ -24,44 +24,35 @@
 
 //
 //  JSResourceProperty.m
-//  Jaspersoft
-//
-//  Created by Giulio Toffoli on 4/28/11.
-//  Copyright 2011 Jaspersoft Corp.. All rights reserved.
+//  Jaspersoft Corporation
 //
 
 #import "JSResourceProperty.h"
-
 
 @implementation JSResourceProperty
 
 @synthesize name, value, resourceProperties;
 
-
-+(id)resourceProperty {
-	
++ (id)resourceProperty {
 	return [[[self alloc] init] autorelease];
 }
 
 
--(id)init {
-	
+- (id)init {
 	if (self = [super init]) {
-		
 		resourceProperties = [[NSMutableArray alloc] initWithCapacity:0];
 	}
 	return self;
 }
 
 
--(void)dealloc {
-	
+- (void)dealloc {	
 	[resourceProperties release];
 	[super dealloc];	
 }
 
 
--(NSString *)getPropertyValue:(NSString *)pname
+- (NSString *)getPropertyValue:(NSString *)pname
 {
 	JSResourceProperty *r = [self getPropertyByName: pname];
 	if (r != nil) return [r value];
@@ -70,7 +61,7 @@
 }
 
 
--(JSResourceProperty *)getPropertyByName:(NSString *)pname
+- (JSResourceProperty *)getPropertyByName:(NSString *)pname
 {
 	if (pname == nil) return nil;
 	

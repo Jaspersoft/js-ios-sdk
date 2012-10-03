@@ -1,7 +1,7 @@
 /*
  * Jaspersoft Mobile SDK
  * Copyright (C) 2001 - 2011 Jaspersoft Corporation. All rights reserved.
- * http://www.jasperforge.org/projects/mobile
+ * http://community.jaspersoft.com/project/mobile-sdk-ios
  *
  * Unless you have purchased a commercial license agreement from Jaspersoft,
  * the following license terms apply:
@@ -24,20 +24,22 @@
 
 //
 //  JSReportExecution.h
-//  Jaspersoft
-//
-//  Created by Giulio Toffoli on 7/18/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Jaspersoft Corporation
 //
 
 #import <Foundation/Foundation.h>
 
-
+/**
+ * Result of a call.
+ * The JSReportExecution object holds data for report descriptor
+ *
+ * @since version 1.0
+ */
 @interface JSReportExecution : NSObject {
-    
     NSMutableArray *fileNames;
     NSMutableArray *fileTypes;
 }
+
 /** The unique identified of this report execution
  */
 @property(retain, nonatomic) NSString *uuid;

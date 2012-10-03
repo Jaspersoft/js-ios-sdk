@@ -1,7 +1,7 @@
 /*
  * Jaspersoft Mobile SDK
  * Copyright (C) 2001 - 2011 Jaspersoft Corporation. All rights reserved.
- * http://www.jasperforge.org/projects/mobile
+ * http://community.jaspersoft.com/project/mobile-sdk-ios
  *
  * Unless you have purchased a commercial license agreement from Jaspersoft,
  * the following license terms apply:
@@ -24,24 +24,23 @@
 
 //
 //  JSResourceProperty.h
-//  Jaspersoft
-//
-//  Created by Giulio Toffoli on 4/28/11.
-//  Copyright 2011 Jaspersoft Corp.. All rights reserved.
+//  Jaspersoft Corporation
 //
 
-
-
+/**
+ * The JSResourceProperty object holds property value for resource descriptor
+ *
+ * @since version 1.0
+ */
 @interface JSResourceProperty : NSObject {
-
 }
+
 @property(nonatomic, retain) NSString *name;
 @property(nonatomic, retain) NSString *value;
 @property(nonatomic, retain) NSMutableArray *resourceProperties;
 
-+(id)resourceProperty;
--(NSString *)getPropertyValue:(NSString *)pname;
--(JSResourceProperty *)getPropertyByName:(NSString *)pname;
-							   
++ (id)resourceProperty;
+- (NSString *)getPropertyValue:(NSString *)pname;
+- (JSResourceProperty *)getPropertyByName:(NSString *)pname;
 
 @end

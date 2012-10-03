@@ -1,7 +1,7 @@
 /*
  * Jaspersoft Mobile SDK
  * Copyright (C) 2001 - 2011 Jaspersoft Corporation. All rights reserved.
- * http://www.jasperforge.org/projects/mobile
+ * http://community.jaspersoft.com/project/mobile-sdk-ios
  *
  * Unless you have purchased a commercial license agreement from Jaspersoft,
  * the following license terms apply:
@@ -23,11 +23,8 @@
  */
 
 //
-//  ResourceDescriptor.m
-//  Jaspersoft
-//
-//  Created by Giulio Toffoli on 4/10/11.
-//  Copyright 2011 Jaspersoft Corp.. All rights reserved.
+//  JSResourceDescriptor.m
+//  Jaspersoft Corporation
 //
 
 #import "JSResourceDescriptor.h"
@@ -37,7 +34,7 @@
 
 @synthesize name, value;
 
--(id)initWithName: (NSString *)aName andValue: (NSString *)aValue
+- (id)initWithName: (NSString *)aName andValue: (NSString *)aValue
 {
 	if (self = [self init])
 	{
@@ -48,7 +45,7 @@
 	return self;
 }
 
--(void)dealloc
+- (void)dealloc
 {
 	[value autorelease];
 	[name autorelease];
@@ -69,14 +66,13 @@
 @synthesize  resourceProperties;
 @synthesize  resourceParameters;
 
-+(id)resourceDescriptor {
++ (id)resourceDescriptor {
 
 	return [[[self alloc] init] autorelease];
 }
 
 
--(id) init {
-
+- (id)init {
 	self = [super init];
     
     resourceProperties = [[NSMutableArray alloc] initWithCapacity:0];
@@ -87,9 +83,8 @@
 	return self;	
 }
 
--(void)dealloc
+- (void)dealloc
 {
-	
 	[resourceProperties release];
 	[resourceDescriptors release];
     [resourceParameters release];

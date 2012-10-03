@@ -1,7 +1,7 @@
 /*
  * Jaspersoft Mobile SDK
  * Copyright (C) 2001 - 2011 Jaspersoft Corporation. All rights reserved.
- * http://www.jasperforge.org/projects/mobile
+ * http://community.jaspersoft.com/project/mobile-sdk-ios
  *
  * Unless you have purchased a commercial license agreement from Jaspersoft,
  * the following license terms apply:
@@ -24,33 +24,25 @@
 
 //
 //  JSResourceParameter.m
-//  Jaspersoft
-//
-//  Created by Giulio Toffoli on 9/5/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Jaspersoft Corporation
 //
 
 #import "JSResourceParameter.h"
-
 
 @implementation JSResourceParameter
 @synthesize name;
 @synthesize value;
 @synthesize isListItem;
 
-
-+(id)resourceParameter {
++ (id)resourceParameter {
 	
 	return [[[self alloc] init] autorelease];
 }
 
-
--(id)init {
-	
+- (id)init {
 	self = [super init];
 	isListItem = FALSE;
 	return self;
 }
-
 
 @end
