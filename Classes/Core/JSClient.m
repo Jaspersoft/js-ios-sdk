@@ -1,7 +1,7 @@
 /*
  * Jaspersoft Mobile SDK
  * Copyright (C) 2001 - 2011 Jaspersoft Corporation. All rights reserved.
- * http://www.jasperforge.org/projects/mobile
+ * http://community.jaspersoft.com/project/mobile-sdk-ios
  *
  * Unless you have purchased a commercial license agreement from Jaspersoft,
  * the following license terms apply:
@@ -24,11 +24,7 @@
 
 //
 //  JSClient.m
-//  Jaspersoft
-//
-//  Created by Giulio Toffoli on 4/9/11.
-//  Modified by Vlad Zavadskii on 7/27/12.
-//  Copyright 2011 Jaspersoft Corp.. All rights reserved.
+//  Jaspersoft Corporation
 //
 
 #import "JSClient.h"
@@ -49,9 +45,11 @@
 
 @interface JSCallBack : NSObject {
 }
+
 @property(nonatomic, retain) ASIHTTPRequest *request;
 @property(nonatomic, retain) id <JSResponseDelegate> delegate;
 @property(nonatomic) int callBackType;
+
 @end
 
 @implementation JSCallBack : NSObject

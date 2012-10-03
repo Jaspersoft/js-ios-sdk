@@ -1,7 +1,7 @@
 /*
  * Jaspersoft Mobile SDK
  * Copyright (C) 2001 - 2011 Jaspersoft Corporation. All rights reserved.
- * http://www.jasperforge.org/projects/mobile
+ * http://community.jaspersoft.com/project/mobile-sdk-ios
  *
  * Unless you have purchased a commercial license agreement from Jaspersoft,
  * the following license terms apply:
@@ -24,21 +24,16 @@
 
 //
 //  JSReportExecution.m
-//  Jaspersoft
-//
-//  Created by Giulio Toffoli on 7/18/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Jaspersoft Corporation
 //
 
 #import "JSReportExecution.h"
-
 
 @implementation JSReportExecution
 
 @synthesize uuid, uri, totalPages, fileNames, fileTypes;
 
-
--(id)init
+- (id)init
 {
     self = [super init];
     fileNames = [[NSMutableArray alloc] init];
@@ -47,7 +42,7 @@
     return self;
 }
 
--(void)dealloc
+- (void)dealloc
 {
     [fileNames release];
     [fileTypes release];

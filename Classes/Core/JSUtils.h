@@ -1,7 +1,7 @@
 /*
  * Jaspersoft Mobile SDK
  * Copyright (C) 2001 - 2011 Jaspersoft Corporation. All rights reserved.
- * http://www.jasperforge.org/projects/mobile
+ * http://community.jaspersoft.com/project/mobile-sdk-ios
  *
  * Unless you have purchased a commercial license agreement from Jaspersoft,
  * the following license terms apply:
@@ -24,10 +24,7 @@
 
 //
 //  JSUtils.h
-//  Jaspersoft
-//
-//  Created by Giulio Toffoli on 9/21/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Jaspersoft Corporation
 //
 
 #import "JSResourceDescriptor.h"
@@ -35,10 +32,13 @@
 #import "JSClient.h"
 
 
+/**
+ * Provides different helper methods
+ *
+ * @since 1.0
+ */
 @interface JSUtils : NSObject {
-    
 }
-
 
 /** 
  * Look inside a resource descriptor's children to find a valid data source resource.
@@ -52,8 +52,7 @@
  * @return the datasource uri or nil if no datasource is found.
  *
  */
-+(NSString *)findDataSourceUri:(JSResourceDescriptor *)rd withClient: (JSClient *)client;
-
++ (NSString *)findDataSourceUri:(JSResourceDescriptor *)rd withClient: (JSClient *)client;
 
 /** 
  * There are many type of resources that are actually data sources.
@@ -70,10 +69,8 @@
  * @return the datasource uri or nil if no datasource is found.
  *
  */
-+(bool)isDataSourceResource:(JSResourceDescriptor *)rd;
++ (bool)isDataSourceResource:(JSResourceDescriptor *)rd;
 
-
-
-+(bool)checkNetwork:(bool) showMessage client: (JSClient *)client;
++ (bool)checkNetwork:(bool) showMessage client: (JSClient *)client;
 
 @end

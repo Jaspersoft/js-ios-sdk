@@ -1,7 +1,7 @@
 /*
  * Jaspersoft Mobile SDK
  * Copyright (C) 2001 - 2011 Jaspersoft Corporation. All rights reserved.
- * http://www.jasperforge.org/projects/mobile
+ * http://community.jaspersoft.com/project/mobile-sdk-ios
  *
  * Unless you have purchased a commercial license agreement from Jaspersoft,
  * the following license terms apply:
@@ -23,15 +23,11 @@
  */
 
 //
-//  OperationResult.m
-//  Jaspersoft
-//
-//  Created by Giulio Toffoli on 4/9/11.
-//  Copyright 2011 Jaspersoft Corp.. All rights reserved.
+//  JSOperationResult.m
+//  Jaspersoft Corporation
 //
 
 #import "JSOperationResult.h"
-
 
 @implementation JSOperationResult
 
@@ -40,7 +36,6 @@
 @synthesize  error;
 @synthesize  resourceDescriptors;
 @synthesize  reportExecution;
-
 
 + (id)operationResultWithReturnCode:(int)code message:(NSString *)msg
 {
@@ -51,9 +46,7 @@
 	return op;
 }
 
-
--(id)init {
-
+- (id)init {
 	if( (self=[super init]) ) {
 		returnCode = -1;
 				

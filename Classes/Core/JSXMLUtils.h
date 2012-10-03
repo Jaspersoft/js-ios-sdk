@@ -1,7 +1,7 @@
 /*
  * Jaspersoft Mobile SDK
  * Copyright (C) 2001 - 2011 Jaspersoft Corporation. All rights reserved.
- * http://www.jasperforge.org/projects/mobile
+ * http://community.jaspersoft.com/project/mobile-sdk-ios
  *
  * Unless you have purchased a commercial license agreement from Jaspersoft,
  * the following license terms apply:
@@ -23,27 +23,27 @@
  */
 
 //
-//  XMLUtils.h
-//  Jaspersoft
+//  JSXMLUtils.h
+//  Jaspersoft Corporation
 //
-//  Created by Giulio Toffoli on 4/10/11.
-//  Copyright 2011 Jaspersoft Corp.. All rights reserved.
-//
-
 
 #import <libxml/tree.h>
 #import <libxml/parser.h>
 #import <libxml/xpath.h>
 #import <libxml/xpathInternals.h>
 
+/**
+ * Provides methods for getting different parts of response returned in XML format
+ *
+ * @since 1.0
+ */
 @interface JSXMLUtils : NSObject {
-
 }
 
 // Return a string gived a node and an xpath query
-+(NSString *)getValueFromNode:(xmlDocPtr)doc xPathQuery:(NSString *)query;
-+(NSInteger)getIntValueFromNode:(xmlDocPtr)doc xPathQuery:(NSString *)query;
-+(NSString *)getNodeValue:(xmlNode *)node;
-+(NSString *)getAttribute:(const xmlChar *)name ofNode:(xmlNode *)node;
++ (NSString *)getValueFromNode:(xmlDocPtr)doc xPathQuery:(NSString *)query;
++ (NSInteger)getIntValueFromNode:(xmlDocPtr)doc xPathQuery:(NSString *)query;
++ (NSString *)getNodeValue:(xmlNode *)node;
++ (NSString *)getAttribute:(const xmlChar *)name ofNode:(xmlNode *)node;
 
 @end

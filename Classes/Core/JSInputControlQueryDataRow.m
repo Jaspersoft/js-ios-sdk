@@ -1,7 +1,7 @@
 /*
  * Jaspersoft Mobile SDK
  * Copyright (C) 2001 - 2011 Jaspersoft Corporation. All rights reserved.
- * http://www.jasperforge.org/projects/mobile
+ * http://community.jaspersoft.com/project/mobile-sdk-ios
  *
  * Unless you have purchased a commercial license agreement from Jaspersoft,
  * the following license terms apply:
@@ -24,20 +24,16 @@
 
 //
 //  JSInputControlQueryDataRow.m
-//  Jaspersoft
-//
-//  Created by Giulio Toffoli on 6/2/11.
-//  Copyright 2011 Jaspersoft Corp.. All rights reserved.
+//  Jaspersoft Corporation
 //
 
 #import "JSInputControlQueryDataRow.h"
-
 
 @implementation JSInputControlQueryDataRow
 
 @synthesize value, labels;
 
--(id)initWithValue:(NSString *)val labels:(NSMutableArray *)theLabels
+- (id)initWithValue:(NSString *)val labels:(NSMutableArray *)theLabels
 {
 	if (self = [self init])
 	{

@@ -1,7 +1,7 @@
 /*
  * Jaspersoft Mobile SDK
  * Copyright (C) 2001 - 2011 Jaspersoft Corporation. All rights reserved.
- * http://www.jasperforge.org/projects/mobile
+ * http://community.jaspersoft.com/project/mobile-sdk-ios
  *
  * Unless you have purchased a commercial license agreement from Jaspersoft,
  * the following license terms apply:
@@ -23,31 +23,31 @@
  */
 
 //
-//  ResourceDescriptor.h
-//  Jaspersoft
-//
-//  Created by Giulio Toffoli on 4/10/11.
-//  Copyright 2011 Jaspersoft Corp.. All rights reserved.
+//  JSResourceDescriptor.h
+//  Jaspersoft Corporation
 //
 
 #import "JSResourceProperty.h"
 #import "JSInputControlQueryDataRow.h"
 
-
 @interface JSListItem : NSObject {
-	
 }
+
 @property(retain, nonatomic) NSString *name;
 @property(retain, nonatomic) NSString *value;
 
--(id)initWithName: (NSString *)aName andValue: (NSString *)aValue;
+- (id)initWithName: (NSString *)aName andValue: (NSString *)aValue;
 
 @end
 
-
+/**
+ * Result of a call.
+ * The JSResourceDescriptor object holds data for resource descriptor
+ *
+ * @since version 1.0
+ */
 @interface JSResourceDescriptor : NSObject {
 }
-
 
 @property(nonatomic, retain) NSString *name;
 @property(nonatomic, retain) NSString *label;
@@ -60,7 +60,6 @@
 @property(nonatomic, retain) NSMutableArray *resourceParameters;
 
 +(id)resourceDescriptor;
-
 
 // Return the value of the provided property name
 // If the property is not found, it returns nil
@@ -82,7 +81,6 @@
 // Return the list of queryDataRow of this ResourceDescriptor.
 // The List of query data row is stored in the JS_PROP_QUERY_DATA -> JS_PROP_QUERY_DATA_ROW(s) resource properties.
 - (NSArray *)queryData;
-
 
 @end
 

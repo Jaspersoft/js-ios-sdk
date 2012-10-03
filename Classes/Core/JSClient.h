@@ -1,7 +1,7 @@
 /*
  * Jaspersoft Mobile SDK
  * Copyright (C) 2001 - 2011 Jaspersoft Corporation. All rights reserved.
- * http://www.jasperforge.org/projects/mobile
+ * http://community.jaspersoft.com/project/mobile-sdk-ios
  *
  * Unless you have purchased a commercial license agreement from Jaspersoft,
  * the following license terms apply:
@@ -24,10 +24,7 @@
 
 //
 //  JSClient.h
-//  Jaspersoft
-//
-//  Created by Giulio Toffoli on 4/9/11.
-//  Copyright 2011 Jaspersoft Corp.. All rights reserved.
+//  Jaspersoft Corporation
 //
 
 #import <UIKit/UIKit.h>
@@ -38,23 +35,22 @@
 #import "JSConstants.h"
 #import "JSServerProfile.h"
 
-
 /** This protocol must be implemented by objects that want to call the REST services asynchronously.
  *
+ *  @since version 1.0
  */
 @protocol JSResponseDelegate <NSObject>
 
 /** This method is invoked when the request is complete. The result of the request can be checked looking at the JSOperationResult passed as parameter.
  * 
  */
--(void)requestFinished:(JSOperationResult *)op;
-
+- (void)requestFinished:(JSOperationResult *)op;
 
 /** This method is invoked when the request is complete and the user requested a file (i.e. the file of a resource of a file of a generated report).
  * 
  */
 @optional
--(void)fileRequestFinished:(NSString *)path contentType:(NSString *)contentType;
+- (void)fileRequestFinished:(NSString *)path contentType:(NSString *)contentType;
 
 @end
 
@@ -72,7 +68,7 @@
 
 /** Clear session after changing authentication credentials
  */
-+(void)clearSession;
++ (void)clearSession;
 
 /** The jasperserver profile
  */
