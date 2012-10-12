@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'jaspersoft-sdk' target in the 'jaspersoft-sdk' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif
