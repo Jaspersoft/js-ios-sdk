@@ -1,7 +1,0 @@
-//
-// Prefix header for all source files of the 'jasperserver-mobile-ASIHTTPRequest-ios' target in the 'jasperserver-mobile-ASIHTTPRequest-ios' project
-//
-
-#ifdef __OBJC__
-    #import <Foundation/Foundation.h>
-#endif
