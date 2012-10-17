@@ -1,4 +1,4 @@
-Jaspersoft Mobile SDK for iOS version 1.2 Readme
+Jaspersoft Mobile SDK for iOS version 1.3 Readme
 
 Welcome to the Jaspersoft Mobile SDK for iOS the toolkit you can use to develop native iOS applications to execute and view reports from your phone or tablet using the Jaspersoft Mobile SDK for iOS.
 
