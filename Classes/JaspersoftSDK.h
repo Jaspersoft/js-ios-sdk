@@ -2,9 +2,6 @@
 //  JaspersoftSDK.h
 //  jaspersoft-sdk
 //
-//  Created by Vlad Zavadskii on 28.08.12.
-//  Copyright (c) 2012 Jaspersoft. All rights reserved.
-//
 
 #import "JSProfile.h"
 #import "JSRESTReport.h"

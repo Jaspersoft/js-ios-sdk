@@ -13,7 +13,7 @@
  Provides method that represents object as string in the XML format
  
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
- @since 1.0
+ @since 1.3
  */
 @interface JSXMLSerializer : NSObject <JSSerializer>
 

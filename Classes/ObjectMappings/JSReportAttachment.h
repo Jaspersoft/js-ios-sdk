@@ -12,7 +12,7 @@
  Represents a report attachment entity for convenient XML serialization process
  
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
- @version 1.0
+ @since 1.3
  */
 @interface JSReportAttachment : NSObject
 

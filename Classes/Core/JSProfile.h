@@ -12,7 +12,8 @@
  Uses to store connection details for JasperReports server
  
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
- @since version 1.0
+ 
+ @since 1.1
  */
 @interface JSProfile : NSObject <NSCopying>
 

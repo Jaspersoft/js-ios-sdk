@@ -17,7 +17,8 @@
  Server REST API resources via HTTP
  
  @author Volodya Sabadosh vsabadosh@jaspersoft.com
- @since 1.0
+ @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @since 1.3
  */
 @interface JSRestKitManagerFactory : NSObject
 
