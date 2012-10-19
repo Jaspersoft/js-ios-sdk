@@ -12,7 +12,7 @@
  Uses to store connection details for JasperReports server
  
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
- 
+ @version $Id$
  @since 1.1
  */
 @interface JSProfile : NSObject <NSCopying>
