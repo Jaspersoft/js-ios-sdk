@@ -12,8 +12,9 @@
 /**
  Represents a resource descriptor entity for convenient XML serialization process.
  
+ @author Giulio Toffoli giulio@jaspersoft.com
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
- @version 1.0
+ @since 1.0
  */
 @interface JSResourceDescriptor : NSObject
 

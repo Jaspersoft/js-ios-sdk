@@ -11,6 +11,9 @@
 /**
  Declares method that a class must implement so that it can provide support of 
  representing object as string
+ 
+ @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @since 1.3
  */
 @protocol JSSerializer <NSObject>
 

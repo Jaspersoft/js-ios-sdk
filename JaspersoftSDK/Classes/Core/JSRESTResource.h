@@ -26,7 +26,7 @@
  requestBackgroundPolicy etc.
  
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
- @since 1.0
+ @since 1.3
  */
 @interface JSRESTResource : JSRESTBase
 

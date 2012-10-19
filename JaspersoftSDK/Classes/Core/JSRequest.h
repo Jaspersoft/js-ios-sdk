@@ -73,6 +73,8 @@ typedef enum {
  Models the request portion of an HTTP request/response cycle. Used by 
  <code>JSRESTBase</code> class to send requests
  
+ @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @since 1.3
  @see JSRESTBase#sendRequest:
  */
 @interface JSRequest : NSObject

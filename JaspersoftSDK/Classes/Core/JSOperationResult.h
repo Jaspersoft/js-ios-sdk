@@ -15,6 +15,7 @@
  can be a list of object (single object represents as list with one object) or 
  binary data (downloaded file)
  
+ @author Giulio Toffoli giulio@jaspersoft.com 
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @since 1.0
  */

@@ -21,7 +21,8 @@
  @todo Provide helper classes for job and administration services
  
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
- @since 1.0
+ @author Ivan Gadzhega  igadzhega@jaspersoft.com
+ @since 1.3
 */
 @interface JSRESTBase : NSObject
 
