@@ -8,6 +8,7 @@
 
 #import "JSProfile.h"
 
+/** @version $Id$ */
 @implementation JSProfile
 
 @synthesize alias = _alias;
