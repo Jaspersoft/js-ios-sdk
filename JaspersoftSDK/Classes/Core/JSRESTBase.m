@@ -64,7 +64,7 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 
 @end
 
-// Hidden implementation of RKObjectLoaderDelegate protocol and private properties
+// Hidden implementation of RKObjectLoaderDelesgate protocol and private properties
 @interface JSRESTBase() <RKObjectLoaderDelegate>
 
 // RestKit's RKClient instance for simple GET/POST/PUT/DELETE requests.
@@ -271,8 +271,8 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
     JSCallBack *callBack = nil;
     
     for (int i = 0; i < self.requestCallBacks.count; i++) {
-        callBack = [self.requestCallBacks objectAtIndex:i];
-        if (callBack.restKitRequest == restKitRequest) {
+        if ([[self.requestCallBacks objectAtIndex:i] restKitRequest] == restKitRequest) {
+            callBack = [self.requestCallBacks objectAtIndex:i];
             if (remove) {
                 [self.requestCallBacks removeObjectAtIndex:i];
             }
