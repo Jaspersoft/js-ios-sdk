@@ -15,7 +15,7 @@
 @synthesize childResourceProperties = _childResourceProperties;
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Resource Property - Name: %@; Value: %@, Child Resource Properties Count: %i", self.name, self.value, self.childResourceProperties.count];
+    return [NSString stringWithFormat:@"Resource Property - Name: %@; Value: %@, Child Resource Properties Count: %lu", self.name, self.value, (unsigned long)self.childResourceProperties.count];
 }
 
 @end

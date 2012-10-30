@@ -96,9 +96,9 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Resource Descriptor - Name: %@; WsType: %@; UriString: %@; IsNew: %@; Label: %@; Description: %@; CreationDate: %@; Parameters Count: %i; Resource Properties Count: %i; Child Resource Descriptors Count: %i", 
+    return [NSString stringWithFormat:@"Resource Descriptor - Name: %@; WsType: %@; UriString: %@; IsNew: %@; Label: %@; Description: %@; CreationDate: %@; Parameters Count: %lu; Resource Properties Count: %lu; Child Resource Descriptors Count: %lu", 
             self.name, self.wsType, self.uriString, self.isNew, self.label, self.resourceDescription, 
-            self.creationDate, self.parameters.count, self.resourceProperties.count, self.childResourceDescriptors.count];
+            self.creationDate, (unsigned long)self.parameters.count, (unsigned long)self.resourceProperties.count, (unsigned long)self.childResourceDescriptors.count];
 }
 
 @end
