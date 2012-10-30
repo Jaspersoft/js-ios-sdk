@@ -41,8 +41,8 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Status Code: %i; AllHeaderFields %@; MIMEType %@; Error: %@", 
-            self.statusCode, self.allHeaderFields, self.MIMEType, self.error];
+    return [NSString stringWithFormat:@"Status Code: %lu; AllHeaderFields %@; MIMEType %@; Error: %@", 
+            (unsigned long)self.statusCode, self.allHeaderFields, self.MIMEType, self.error];
 }
 
 @end
