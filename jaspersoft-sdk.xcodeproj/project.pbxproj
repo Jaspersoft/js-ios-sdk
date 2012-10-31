@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F518491016409D0600920B79 /* JRSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = F518490E16409D0600920B79 /* JRSwizzle.h */; };
+		F518491116409D0600920B79 /* JRSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = F518490E16409D0600920B79 /* JRSwizzle.h */; };
+		F518491216409D0600920B79 /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = F518490F16409D0600920B79 /* JRSwizzle.m */; };
+		F518491316409D0600920B79 /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = F518490F16409D0600920B79 /* JRSwizzle.m */; };
+		F51849161640A1A400920B79 /* RKURL+RKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F51849141640A1A400920B79 /* RKURL+RKAdditions.h */; };
+		F51849171640A1A400920B79 /* RKURL+RKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F51849141640A1A400920B79 /* RKURL+RKAdditions.h */; };
+		F51849181640A1A400920B79 /* RKURL+RKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F51849151640A1A400920B79 /* RKURL+RKAdditions.m */; };
+		F51849191640A1A400920B79 /* RKURL+RKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F51849151640A1A400920B79 /* RKURL+RKAdditions.m */; };
 		F5785E8D1619FDA500C19BAB /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5785E821619FD8E00C19BAB /* libRestKit.a */; };
 		F5785E901619FDAE00C19BAB /* RestKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5785E861619FD8E00C19BAB /* RestKit.framework */; };
 		F596020315ECCC9300B62DFD /* JaspersoftSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = F596020215ECCC9300B62DFD /* JaspersoftSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -140,6 +148,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F518490E16409D0600920B79 /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
+		F518490F16409D0600920B79 /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSwizzle.m; sourceTree = "<group>"; };
+		F51849141640A1A400920B79 /* RKURL+RKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RKURL+RKAdditions.h"; sourceTree = "<group>"; };
+		F51849151640A1A400920B79 /* RKURL+RKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RKURL+RKAdditions.m"; sourceTree = "<group>"; };
 		F5785E761619FD8E00C19BAB /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
 		F596020215ECCC9300B62DFD /* JaspersoftSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JaspersoftSDK.h; sourceTree = "<group>"; };
 		F59768BD15E3C75F004165A7 /* libjaspersoft-sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libjaspersoft-sdk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -224,6 +236,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F518490D16409D0600920B79 /* JRSwizzle */ = {
+			isa = PBXGroup;
+			children = (
+				F518490E16409D0600920B79 /* JRSwizzle.h */,
+				F518490F16409D0600920B79 /* JRSwizzle.m */,
+			);
+			path = JRSwizzle;
+			sourceTree = "<group>";
+		};
 		F5785E771619FD8E00C19BAB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -312,8 +333,11 @@
 				F59768FC15E3C826004165A7 /* JSRestKitManagerFactory.m */,
 				F59768FE15E3C826004165A7 /* JSXMLSerializer.h */,
 				F59768FF15E3C826004165A7 /* JSXMLSerializer.m */,
+				F51849141640A1A400920B79 /* RKURL+RKAdditions.h */,
+				F51849151640A1A400920B79 /* RKURL+RKAdditions.m */,
 				F597690015E3C826004165A7 /* MappingConfiguration */,
 				F597690215E3C826004165A7 /* XMLWriter */,
+				F518490D16409D0600920B79 /* JRSwizzle */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -400,6 +424,8 @@
 				F597693415E3C826004165A7 /* JSRestKitManagerFactory.h in Headers */,
 				F597693A15E3C826004165A7 /* JSXMLSerializer.h in Headers */,
 				F597693F15E3C826004165A7 /* XMLWriter.h in Headers */,
+				F518491016409D0600920B79 /* JRSwizzle.h in Headers */,
+				F51849161640A1A400920B79 /* RKURL+RKAdditions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,6 +452,8 @@
 				F597693515E3C826004165A7 /* JSRestKitManagerFactory.h in Headers */,
 				F597693B15E3C826004165A7 /* JSXMLSerializer.h in Headers */,
 				F597694015E3C826004165A7 /* XMLWriter.h in Headers */,
+				F518491116409D0600920B79 /* JRSwizzle.h in Headers */,
+				F51849171640A1A400920B79 /* RKURL+RKAdditions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -615,6 +643,8 @@
 				F597694D15E3C826004165A7 /* JSResourceDescriptor.m in Sources */,
 				F597695115E3C826004165A7 /* JSResourceParameter.m in Sources */,
 				F597695515E3C826004165A7 /* JSResourceProperty.m in Sources */,
+				F518491216409D0600920B79 /* JRSwizzle.m in Sources */,
+				F51849181640A1A400920B79 /* RKURL+RKAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -639,6 +669,8 @@
 				F597694E15E3C826004165A7 /* JSResourceDescriptor.m in Sources */,
 				F597695215E3C826004165A7 /* JSResourceParameter.m in Sources */,
 				F597695615E3C826004165A7 /* JSResourceProperty.m in Sources */,
+				F518491316409D0600920B79 /* JRSwizzle.m in Sources */,
+				F51849191640A1A400920B79 /* RKURL+RKAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
