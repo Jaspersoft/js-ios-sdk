@@ -158,7 +158,14 @@ static JSRESTResource *_sharedInstance;
     [configuredParams setObject:datasourceUri forKey:@"IC_GET_QUERY_DATA"];
     for (JSResourceParameter *resourceParameter in resourceParameters) {
         NSString *paramKey = [NSString stringWithFormat:([resourceParameter.isListItem boolValue] ? @"PL_%@" : @"P_%@"), resourceParameter.name];
-        [configuredParams setObject:resourceParameter.value forKey:paramKey];
+        
+        if (resourceParameter.isListItem) {
+            NSMutableArray *values = [configuredParams objectForKey:paramKey] ?: [[NSMutableArray alloc] init];
+            [values addObject:resourceParameter.value];
+            [configuredParams setObject:values forKey:paramKey];
+        } else {
+            [configuredParams setObject:resourceParameter.value forKey:paramKey];
+        }
     }
     
     return configuredParams;

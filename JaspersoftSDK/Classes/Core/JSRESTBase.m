@@ -9,8 +9,9 @@
 #import "JSRESTBase.h"
 #import "JSXMLSerializer.h"
 #import "JSRestKitManagerFactory.h"
+#import "JRSwizzle.h"
+#import "RKURL+RKAdditions.h"
 #import <RestKit/RestKit.h>
-#import <RestKit/RKURL.h>
 
 // Prefix for REST service uri
 static NSString * const _restServiceUri = @"/rest";
@@ -95,6 +96,8 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 
 + (void)initialize {
     _networkReachabilityObserver = [RKReachabilityObserver reachabilityObserverForInternet];
+    [RKURL jr_swizzleMethod:@selector(initWithBaseURL:resourcePath:queryParameters:)
+                 withMethod:@selector(initWithBaseURLFixed:resourcePath:queryParameters:) error:nil];
 }
 
 + (BOOL)isNetworkReachable {
@@ -262,7 +265,16 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 
 // Gets full uri includes _restServiceUri prefix 
 - (NSString *)fullUri:(NSString *)uri {
-    return [NSString stringWithFormat:@"%@%@", _restServiceUri, (uri ?: @"")];
+    uri = [NSString stringWithFormat:@"%@%@", _restServiceUri, (uri ?: @"")];
+    
+    // Remove all [] for query params (i.e. query &PL_Country_multi_select[]=Mexico&PL_Country_multi_select[]=USA will
+    // be changed to &PL_Country_multi_select=Mexico&PL_Country_multi_select=USA without any [])
+    NSString *brackets = @"[]";
+    if ([uri rangeOfString:brackets].location != NSNotFound) {
+        uri = [uri stringByReplacingOccurrencesOfString:brackets withString:@""];
+    }
+
+    return uri;
 }
 
 // Gets callBack by request (RKRequest or RKObjectLoader) and deletes it from 
