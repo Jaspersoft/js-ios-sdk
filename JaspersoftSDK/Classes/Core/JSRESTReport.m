@@ -52,7 +52,7 @@ static JSRESTReport *_sharedInstance;
 
 - (void)runReport:(NSString *)uri reportParams:(NSDictionary *)reportParams 
            format:(NSString *)format delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullRunReportUri:uri format:format] method:JSRequestMethodPUT] 
+    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullRunReportUri:uri] method:JSRequestMethodPUT]
                                   delegate:delegate] body:[self resourceDescriptorForUri:uri withReportParams:reportParams]];
     [builder params:[self runReportQueryParams:format]];
     [self sendRequest:builder.request];
@@ -60,7 +60,7 @@ static JSRESTReport *_sharedInstance;
 
 - (void)runReport:(NSString *)uri reportParams:(NSDictionary *)reportParams 
            format:(NSString *)format usingBlock:(void (^)(JSRequest *request))block {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullRunReportUri:uri format:format] method:JSRequestMethodPUT] 
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullRunReportUri:uri] method:JSRequestMethodPUT] 
                                  body:[self resourceDescriptorForUri:uri withReportParams:reportParams]];
     [builder params:[self runReportQueryParams:format]];
     [self sendRequest:[builder.request usingBlock:block]];
@@ -68,7 +68,7 @@ static JSRESTReport *_sharedInstance;
 
 - (void)runReport:(JSResourceDescriptor *)resourceDescriptor format:(NSString *)format
          delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullRunReportUri:resourceDescriptor.uriString format:format] 
+    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullRunReportUri:resourceDescriptor.uriString] 
                                                             method:JSRequestMethodPUT] delegate:delegate] body:resourceDescriptor];
     [builder params:[self runReportQueryParams:format]];
     [self sendRequest:builder.request];
@@ -76,7 +76,7 @@ static JSRESTReport *_sharedInstance;
 
 - (void)runReport:(JSResourceDescriptor *)resourceDescriptor format:(NSString *)format 
        usingBlock:(void (^)(JSRequest *request))block {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullRunReportUri:resourceDescriptor.uriString format:format] 
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullRunReportUri:resourceDescriptor.uriString] 
                                                            method:JSRequestMethodPUT] body:resourceDescriptor];
     [builder params:[self runReportQueryParams:format]];
     [self sendRequest:[builder.request usingBlock:block]];
@@ -97,7 +97,7 @@ static JSRESTReport *_sharedInstance;
     return [NSString stringWithFormat:@"%@/%@", _reportUri, uuid];
 }
 
-- (NSString *)fullRunReportUri:(NSString *)uri format:(NSString *)format {
+- (NSString *)fullRunReportUri:(NSString *)uri {
     return [NSString stringWithFormat:@"%@%@", _reportUri, (uri ?: @"")];
 }
 
