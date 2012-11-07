@@ -15,13 +15,15 @@
 // will be published
 - (id)initWithBaseURLFixed:(NSURL *)theBaseURL resourcePath:(NSString *)theResourcePath queryParameters:(NSDictionary *)theQueryParameters {
     // Merge any existing query parameters with the incoming dictionary
-    NSString *resourcePathQueryParameters = nil;
+    NSString *resourcePathQueryParameters = [NSString stringWithString:theResourcePath ?: @""];
     NSRange chopRange = [resourcePathQueryParameters rangeOfString:@"?"];
     if (chopRange.length > 0) {
         chopRange.location+=1; // we want inclusive chopping up *through* "?"
         if (chopRange.location < [resourcePathQueryParameters length]) {
             resourcePathQueryParameters = [resourcePathQueryParameters substringFromIndex:chopRange.location];
         }
+    } else {
+        resourcePathQueryParameters = nil;
     }
     
     NSMutableString *mergedQueryParameters = [[NSMutableString alloc] init];
