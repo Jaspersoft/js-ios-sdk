@@ -25,9 +25,9 @@
 @property (nonatomic, retain) NSString *label;
 @property (nonatomic, retain) NSString *resourceDescription;
 @property (nonatomic, retain) NSNumber *creationDate;
-@property (nonatomic, retain) NSArray *resourceProperties;
-@property (nonatomic, retain) NSArray *childResourceDescriptors; 
-@property (nonatomic, retain) NSArray *parameters;
+@property (nonatomic, retain) NSArray /*<JSResourceProperty>*/ *resourceProperties;
+@property (nonatomic, retain) NSArray /*<JSResourceDescriptor>*/ *childResourceDescriptors;
+@property (nonatomic, retain) NSArray /*<JSResourceParameter>*/ *parameters;
 
 /**
  Looks the wsType of the resource descriptor and return YES
