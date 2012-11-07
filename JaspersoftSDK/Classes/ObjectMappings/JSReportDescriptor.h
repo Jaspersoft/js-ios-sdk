@@ -22,7 +22,7 @@
 @property (nonatomic, retain) NSNumber *totalPages;
 @property (nonatomic, retain) NSNumber *startPage;
 @property (nonatomic, retain) NSNumber *endPage;
-@property (nonatomic, retain) NSArray *attachments;
+@property (nonatomic, retain) NSArray /*<JSReportAttachment>*/ *attachments;
 
 - (NSString *)description;
 

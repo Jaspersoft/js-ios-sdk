@@ -19,7 +19,7 @@
 
 @property (nonatomic, retain) NSString *name;
 @property (nonatomic, retain) NSString *value;
-@property (nonatomic, retain) NSArray *childResourceProperties; 
+@property (nonatomic, retain) NSArray /*<JSResourceProperty>*/ *childResourceProperties;
 
 - (NSString *)description;
 
