@@ -182,12 +182,12 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
         restKitRequest = [self.restKitClient requestWithResourcePath:fullUri];
     }
     
-    NSString *body = nil;
+    NSData *body = nil;
     if (request.method == JSRequestMethodPOST || request.method == JSRequestMethodPUT) {
-        body = [self.serializer stringFromObject:request.body];
+        body = [[self.serializer stringFromObject:request.body] dataUsingEncoding:NSUTF8StringEncoding];
     }
     
-    [restKitRequest setHTTPBodyString:body];
+    [restKitRequest setHTTPBody:body];
     [restKitRequest setTimeoutInterval:(request.timeoutInterval ?: self.timeoutInterval)];
     [restKitRequest setDelegate:self];
     
