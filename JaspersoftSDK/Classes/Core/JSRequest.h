@@ -55,7 +55,7 @@ typedef enum {
 #endif
 
 /** 
- This protocol must be implemented by objects that want to call the REST services
+ This protocol must be implemented by objects used to retrieve request result asynchronously
  */
 @protocol JSRequestDelegate <NSObject>  
 
