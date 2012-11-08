@@ -10,6 +10,8 @@
 #import <Foundation/Foundation.h>
 
 /**
+ @cond EXCLUDE_JS_XML_SERIALIZER
+
  Provides method that represents object as string in the XML format
  
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
@@ -26,3 +28,5 @@
 - (NSString *)stringFromObject:(id)object;
 
 @end
+
+/** @endcond */
