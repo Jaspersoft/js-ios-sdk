@@ -1,6 +1,6 @@
 //
 //  JSRestKitManagerFactory.m
-//  RestKitDemo
+//  jaspersoft-sdk
 //
 //  Created by Volodya Sabadosh on 7/17/12.
 //  Copyright (c) 2012 Jaspersoft. All rights reserved.
