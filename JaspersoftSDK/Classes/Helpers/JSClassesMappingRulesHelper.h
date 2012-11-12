@@ -1,6 +1,6 @@
 //
 //  JSClassMappingRulesHelper.h
-//  RestKitDemo
+//  jaspersoft-sdk
 //
 //  Created by Vlad Zavadskii on 29.07.12.
 //  Copyright (c) 2012 Jaspersoft. All rights reserved.

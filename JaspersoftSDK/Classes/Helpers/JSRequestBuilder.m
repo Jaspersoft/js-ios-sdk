@@ -1,6 +1,6 @@
 //
 //  JSRequestBuilder.m
-//  RestKitDemo
+//  jaspersoft-sdk
 //
 //  Created by Vlad Zavadskii on 10.08.12.
 //  Copyright (c) 2012 Jaspersoft. All rights reserved.
