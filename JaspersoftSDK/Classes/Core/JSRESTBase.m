@@ -13,6 +13,7 @@
 #import "JSRestKitManagerFactory.h"
 #import "JRSwizzle.h"
 #import "RKURL+RKAdditions.h"
+#import "RKRequest+RKAdditions.h"
 #import <RestKit/RestKit.h>
 #import <RestKit/RKMIMETypes.h>
 
@@ -99,6 +100,8 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
     _networkReachabilityObserver = [RKReachabilityObserver reachabilityObserverForInternet];
     [RKURL jr_swizzleMethod:@selector(initWithBaseURL:resourcePath:queryParameters:)
                  withMethod:@selector(initWithBaseURLFixed:resourcePath:queryParameters:) error:nil];
+    [RKRequest jr_swizzleMethod:@selector(prepareURLRequest)
+                 withMethod:@selector(prepareURLRequestWithTimeoutInterval) error:nil];
 }
 
 + (BOOL)isNetworkReachable {
