@@ -3125,7 +3125,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = (
+					armv6,
+					armv7,
+					armv7s,
+				);
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3139,8 +3143,9 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "armv7 armv7s armv6";
 			};
 			name = Debug;
 		};
@@ -3148,27 +3153,41 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = (
+					armv6,
+					armv7,
+					armv7s,
+				);
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv7 armv7s armv6";
 			};
 			name = Release;
 		};
 		25160D3B14564E820060A5C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					armv6,
+					armv7,
+					armv7s,
+				);
 				"ARCHS[sdk=iphoneos*]" = (
 					armv6,
 					armv7,
 				);
-				"ARCHS[sdk=iphoneos6.0]" = "$(ARCHS_STANDARD_32_BIT)";
+				"ARCHS[sdk=iphoneos6.0]" = (
+					armv6,
+					armv7,
+					armv7s,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Code/Support/RestKit-Prefix.pch";
 				HEADER_SEARCH_PATHS = "${SDKROOT}/usr/include/libxml2";
@@ -3180,17 +3199,27 @@
 				PUBLIC_HEADERS_FOLDER_PATH = ../../Headers/RestKit;
 				SKIP_INSTALL = YES;
 				SYMROOT = "$(SRCROOT)/Build/Products";
+				VALID_ARCHS = "armv7 armv7s armv6";
 			};
 			name = Debug;
 		};
 		25160D3C14564E820060A5C5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					armv6,
+					armv7,
+					armv7s,
+				);
 				"ARCHS[sdk=iphoneos*]" = (
 					armv6,
 					armv7,
 				);
-				"ARCHS[sdk=iphoneos6.0]" = "$(ARCHS_STANDARD_32_BIT)";
+				"ARCHS[sdk=iphoneos6.0]" = (
+					armv6,
+					armv7,
+					armv7s,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Code/Support/RestKit-Prefix.pch";
 				HEADER_SEARCH_PATHS = "${SDKROOT}/usr/include/libxml2";
@@ -3202,6 +3231,7 @@
 				PUBLIC_HEADERS_FOLDER_PATH = ../../Headers/RestKit;
 				SKIP_INSTALL = YES;
 				SYMROOT = "$(SRCROOT)/Build/Products";
+				VALID_ARCHS = "armv7 armv7s armv6";
 			};
 			name = Release;
 		};
