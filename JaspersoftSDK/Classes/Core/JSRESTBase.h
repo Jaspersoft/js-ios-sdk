@@ -87,6 +87,12 @@
  */
 - (void)sendRequest:(JSRequest *)request;
 
+/**
+ Gets server information details
+ 
+ @return the ServerInfo value
+ @since 1.4
+ */
 - (JSServerInfo *)serverInfo;
 
 /** 
