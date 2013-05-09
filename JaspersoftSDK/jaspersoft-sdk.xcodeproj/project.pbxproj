@@ -884,11 +884,7 @@
 		F59768CB15E3C75F004165A7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					armv6,
-					armv7,
-					armv7s,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DSTROOT = /tmp/jaspersoft_sdk.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Support/jaspersoft-sdk-Prefix.pch";
@@ -901,18 +897,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "../../Headers/jaspersoft-sdk";
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = "armv7 armv7s armv6";
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
 		};
 		F59768CC15E3C75F004165A7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					armv6,
-					armv7,
-					armv7s,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DSTROOT = /tmp/jaspersoft_sdk.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Support/jaspersoft-sdk-Prefix.pch";
@@ -925,7 +917,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "../../Headers/jaspersoft-sdk";
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = "armv7 armv7s armv6";
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
 		};
