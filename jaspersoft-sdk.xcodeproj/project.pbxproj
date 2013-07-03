@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		F51D6A2A178417990079AE50 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F51D6A1F1784171F0079AE50 /* libRestKit.a */; };
+		F51D6A2D178417A00079AE50 /* RestKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F51D6A231784171F0079AE50 /* RestKit.framework */; };
 		F5285B0016487ECF00089F3F /* JRSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = F5285AFE16487ECF00089F3F /* JRSwizzle.h */; };
 		F5285B0116487ECF00089F3F /* JRSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = F5285AFE16487ECF00089F3F /* JRSwizzle.h */; };
 		F5285B0216487ECF00089F3F /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = F5285AFF16487ECF00089F3F /* JRSwizzle.m */; };
@@ -53,7 +55,6 @@
 		F568247B1642A67E00CC4015 /* JSInputControlOption.h in Headers */ = {isa = PBXBuildFile; fileRef = F56824781642A67C00CC4015 /* JSInputControlOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F568247C1642A67E00CC4015 /* JSInputControlOption.m in Sources */ = {isa = PBXBuildFile; fileRef = F56824791642A67D00CC4015 /* JSInputControlOption.m */; };
 		F568247D1642A67E00CC4015 /* JSInputControlOption.m in Sources */ = {isa = PBXBuildFile; fileRef = F56824791642A67D00CC4015 /* JSInputControlOption.m */; };
-		F5759036174E3C2400C355C1 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BAFB901655573F00AF9C6B /* libRestKit.a */; };
 		F596020315ECCC9300B62DFD /* JaspersoftSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = F596020215ECCC9300B62DFD /* JaspersoftSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F596020415ECCCA900B62DFD /* JaspersoftSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = F596020215ECCC9300B62DFD /* JaspersoftSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597691015E3C826004165A7 /* JSConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768E815E3C826004165A7 /* JSConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -135,7 +136,6 @@
 		F5AE53DF16518C58004207E1 /* JSValidationRules.h in Headers */ = {isa = PBXBuildFile; fileRef = F5AE53DC16518C58004207E1 /* JSValidationRules.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5AE53E016518C58004207E1 /* JSValidationRules.m in Sources */ = {isa = PBXBuildFile; fileRef = F5AE53DD16518C58004207E1 /* JSValidationRules.m */; };
 		F5AE53E116518C58004207E1 /* JSValidationRules.m in Sources */ = {isa = PBXBuildFile; fileRef = F5AE53DD16518C58004207E1 /* JSValidationRules.m */; };
-		F5BAFBB51655930B00AF9C6B /* RestKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BAFB941655573F00AF9C6B /* RestKit.framework */; };
 		F5DDD7AB164029EC005BBE7C /* JSServerInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F5DDD7A9164029EC005BBE7C /* JSServerInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5DDD7AC164029EC005BBE7C /* JSServerInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F5DDD7A9164029EC005BBE7C /* JSServerInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5DDD7AD164029EC005BBE7C /* JSServerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F5DDD7AA164029EC005BBE7C /* JSServerInfo.m */; };
@@ -145,49 +145,49 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		F5BAFB8F1655573F00AF9C6B /* PBXContainerItemProxy */ = {
+		F51D6A1E1784171F0079AE50 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F5BAFB841655573F00AF9C6B /* RestKit.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 25160D1614564E810060A5C5;
 			remoteInfo = RestKit;
 		};
-		F5BAFB911655573F00AF9C6B /* PBXContainerItemProxy */ = {
+		F51D6A201784171F0079AE50 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F5BAFB841655573F00AF9C6B /* RestKit.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 25160D2614564E820060A5C5;
 			remoteInfo = RestKitTests;
 		};
-		F5BAFB931655573F00AF9C6B /* PBXContainerItemProxy */ = {
+		F51D6A221784171F0079AE50 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F5BAFB841655573F00AF9C6B /* RestKit.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 25160E62145651060060A5C5;
 			remoteInfo = RestKitFramework;
 		};
-		F5BAFB951655573F00AF9C6B /* PBXContainerItemProxy */ = {
+		F51D6A241784171F0079AE50 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F5BAFB841655573F00AF9C6B /* RestKit.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 25160E78145651060060A5C5;
 			remoteInfo = RestKitFrameworkTests;
 		};
-		F5BAFB971655573F00AF9C6B /* PBXContainerItemProxy */ = {
+		F51D6A261784171F0079AE50 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F5BAFB841655573F00AF9C6B /* RestKit.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 259C301615128079003066A2;
 			remoteInfo = RestKitResources;
 		};
-		F5BAFB991655574F00AF9C6B /* PBXContainerItemProxy */ = {
+		F51D6A28178417950079AE50 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F5BAFB841655573F00AF9C6B /* RestKit.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 25160D1514564E810060A5C5;
 			remoteInfo = RestKit;
 		};
-		F5BAFBB31655930500AF9C6B /* PBXContainerItemProxy */ = {
+		F51D6A2B1784179C0079AE50 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F5BAFB841655573F00AF9C6B /* RestKit.xcodeproj */;
 			proxyType = 1;
@@ -270,7 +270,7 @@
 		F5AE53AE165169F6004207E1 /* JSDateTimeFormatValidationRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDateTimeFormatValidationRule.m; sourceTree = "<group>"; };
 		F5AE53DC16518C58004207E1 /* JSValidationRules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSValidationRules.h; sourceTree = "<group>"; };
 		F5AE53DD16518C58004207E1 /* JSValidationRules.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSValidationRules.m; sourceTree = "<group>"; };
-		F5BAFB841655573F00AF9C6B /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
+		F5BAFB841655573F00AF9C6B /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = Vendor/RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
 		F5DDD7A9164029EC005BBE7C /* JSServerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSServerInfo.h; sourceTree = "<group>"; };
 		F5DDD7AA164029EC005BBE7C /* JSServerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSServerInfo.m; sourceTree = "<group>"; };
 		F5F68E0A15E55EC000270103 /* jaspersoft-sdk-resources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jaspersoft-sdk-resources.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -284,7 +284,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5759036174E3C2400C355C1 /* libRestKit.a in Frameworks */,
+				F51D6A2A178417990079AE50 /* libRestKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,7 +292,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5BAFBB51655930B00AF9C6B /* RestKit.framework in Frameworks */,
+				F51D6A2D178417A00079AE50 /* RestKit.framework in Frameworks */,
 				F597697715E3C9C0004165A7 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -308,6 +308,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F51D6A171784171F0079AE50 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F51D6A1F1784171F0079AE50 /* libRestKit.a */,
+				F51D6A211784171F0079AE50 /* RestKitTests.octest */,
+				F51D6A231784171F0079AE50 /* RestKit.framework */,
+				F51D6A251784171F0079AE50 /* RestKitFrameworkTests.octest */,
+				F51D6A271784171F0079AE50 /* RestKitResources.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		F5285AFD16487ECF00089F3F /* JRSwizzle */ = {
 			isa = PBXGroup;
 			children = (
@@ -504,18 +516,6 @@
 			name = Validation;
 			sourceTree = "<group>";
 		};
-		F5BAFB851655573F00AF9C6B /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F5BAFB901655573F00AF9C6B /* libRestKit.a */,
-				F5BAFB921655573F00AF9C6B /* RestKitTests.octest */,
-				F5BAFB941655573F00AF9C6B /* RestKit.framework */,
-				F5BAFB961655573F00AF9C6B /* RestKitFrameworkTests.octest */,
-				F5BAFB981655573F00AF9C6B /* RestKitResources.bundle */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		F5F68E0C15E55EC000270103 /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -617,7 +617,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				F5BAFB9A1655574F00AF9C6B /* PBXTargetDependency */,
+				F51D6A29178417950079AE50 /* PBXTargetDependency */,
 			);
 			name = "jaspersoft-sdk";
 			productName = "jaspersoft-sdk";
@@ -636,7 +636,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				F5BAFBB41655930500AF9C6B /* PBXTargetDependency */,
+				F51D6A2C1784179C0079AE50 /* PBXTargetDependency */,
 			);
 			name = "jaspersoft-sdk-framework";
 			productName = "jaspersoft-sdk-framework";
@@ -681,7 +681,7 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = F5BAFB851655573F00AF9C6B /* Products */;
+					ProductGroup = F51D6A171784171F0079AE50 /* Products */;
 					ProjectRef = F5BAFB841655573F00AF9C6B /* RestKit.xcodeproj */;
 				},
 			);
@@ -696,39 +696,39 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		F5BAFB901655573F00AF9C6B /* libRestKit.a */ = {
+		F51D6A1F1784171F0079AE50 /* libRestKit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libRestKit.a;
-			remoteRef = F5BAFB8F1655573F00AF9C6B /* PBXContainerItemProxy */;
+			remoteRef = F51D6A1E1784171F0079AE50 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		F5BAFB921655573F00AF9C6B /* RestKitTests.octest */ = {
+		F51D6A211784171F0079AE50 /* RestKitTests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = RestKitTests.octest;
-			remoteRef = F5BAFB911655573F00AF9C6B /* PBXContainerItemProxy */;
+			remoteRef = F51D6A201784171F0079AE50 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		F5BAFB941655573F00AF9C6B /* RestKit.framework */ = {
+		F51D6A231784171F0079AE50 /* RestKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = RestKit.framework;
-			remoteRef = F5BAFB931655573F00AF9C6B /* PBXContainerItemProxy */;
+			remoteRef = F51D6A221784171F0079AE50 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		F5BAFB961655573F00AF9C6B /* RestKitFrameworkTests.octest */ = {
+		F51D6A251784171F0079AE50 /* RestKitFrameworkTests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = RestKitFrameworkTests.octest;
-			remoteRef = F5BAFB951655573F00AF9C6B /* PBXContainerItemProxy */;
+			remoteRef = F51D6A241784171F0079AE50 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		F5BAFB981655573F00AF9C6B /* RestKitResources.bundle */ = {
+		F51D6A271784171F0079AE50 /* RestKitResources.bundle */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = RestKitResources.bundle;
-			remoteRef = F5BAFB971655573F00AF9C6B /* PBXContainerItemProxy */;
+			remoteRef = F51D6A261784171F0079AE50 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -862,15 +862,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		F5BAFB9A1655574F00AF9C6B /* PBXTargetDependency */ = {
+		F51D6A29178417950079AE50 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = RestKit;
-			targetProxy = F5BAFB991655574F00AF9C6B /* PBXContainerItemProxy */;
+			targetProxy = F51D6A28178417950079AE50 /* PBXContainerItemProxy */;
 		};
-		F5BAFBB41655930500AF9C6B /* PBXTargetDependency */ = {
+		F51D6A2C1784179C0079AE50 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = RestKitFramework;
-			targetProxy = F5BAFBB31655930500AF9C6B /* PBXContainerItemProxy */;
+			targetProxy = F51D6A2B1784179C0079AE50 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
