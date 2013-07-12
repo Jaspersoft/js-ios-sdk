@@ -4,6 +4,7 @@
 //
 
 #import "JSProfile.h"
+#import "JSRESTBase.h"
 #import "JSRESTReport.h"
 #import "JSRESTResource.h"
 #import "JSOperationResult.h"

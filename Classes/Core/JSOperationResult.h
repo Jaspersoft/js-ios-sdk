@@ -11,18 +11,18 @@
 @class JSRequest;
 
 /**
- Uses to hold the different results of a REST call to JasperReports server. Result 
- can be a list of object (single object represents as list with one object) or 
+ Uses to hold the different results of a REST call to JasperReports server. Result
+ can be a list of object (single object represents as list with one object) or
  binary data (downloaded file)
  
- @author Giulio Toffoli giulio@jaspersoft.com 
+ @author Giulio Toffoli giulio@jaspersoft.com
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @since 1.0
  */
 @interface JSOperationResult : NSObject
 
 /**
- A list of objects coming from the call (i.e. if the call is of type GET /resource 
+ A list of objects coming from the call (i.e. if the call is of type GET /resource
  or GET /resources, this list contains the JSResourceDescriptor objects returned
  from the call)
  */
@@ -39,7 +39,7 @@
 @property (nonatomic, retain) NSString *bodyAsString;
 
 /**
- The sent request associated with this result. This is an additional parameter 
+ The sent request associated with this result. This is an additional parameter
  which helps to determine which request was sent (because all they are asynchronous).
  */
 @property (nonatomic, retain) JSRequest *request;
@@ -57,8 +57,8 @@
 @property (nonatomic, readonly) NSError *error;
 
 /**
- The response HTTP code. This is a standard HTTP protocol code. Codes like 2xx are all ok. 
- 4xx are client errors, 5xx are server errors (even if sometimes these errors may 
+ The response HTTP code. This is a standard HTTP protocol code. Codes like 2xx are all ok.
+ 4xx are client errors, 5xx are server errors (even if sometimes these errors may
  happen due to a wrong request)
  */
 @property (nonatomic, readonly) NSInteger statusCode;
@@ -70,7 +70,7 @@
 
 /**
  The MIME Type of the response body
-*/
+ */
 @property (nonatomic, readonly) NSString *MIMEType;
 
 /**
@@ -83,5 +83,40 @@
  @return A configured JSOperationResult instance
  */
 - (id)initWithStatusCode:(NSInteger)statusCode allHeaderFields:(NSDictionary *)allHeaderFields MIMEType:(NSString *)MIMEType error:(NSError *)error;
+
+/**
+ Indicates an HTTP response code between 200 and 299
+ 
+ @return YES if the HTTP response code is between 200 and 299
+ */
+- (BOOL)isSuccessful;
+
+/**
+ Indicates an HTTP response code between 400 and 599
+ 
+ @return YES if the HTTP response code is between 400 and 599
+ */
+- (BOOL)isError;
+
+/**
+ Indicates an invalid HTTP response code less than 100 or greater than 600
+ 
+ @return YES if the HTTP response code is less than 100 or greater than 600
+ */
+- (BOOL)isInvalid;
+
+/**
+ Indicates an HTTP response code between 100 and 199
+ 
+ @return YES if the HTTP response code is between 100 and 199
+ */
+- (BOOL)isInformational;
+
+/**
+ Indicates an HTTP response code between 300 and 399
+ 
+ @return YES if the HTTP response code is between 300 and 399
+ */
+- (BOOL)isRedirection;
 
 @end
