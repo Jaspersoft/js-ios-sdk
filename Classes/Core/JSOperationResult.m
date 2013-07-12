@@ -41,6 +41,26 @@
     return self.request.downloadDestinationPath;
 }
 
+- (BOOL)isInvalid {
+    return self.statusCode < 100 || self.statusCode > 600;
+}
+
+- (BOOL)isInformational {
+    return self.statusCode >= 100 && self.statusCode < 200;
+}
+
+- (BOOL)isSuccessful {
+    return self.statusCode >= 200 && self.statusCode < 300;
+}
+
+- (BOOL)isRedirection {
+    return self.statusCode >= 300 && self.statusCode < 400;
+}
+
+- (BOOL)isError {
+    return self.statusCode >= 400 && self.statusCode < 600;
+}
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"Status Code: %lu; AllHeaderFields %@; MIMEType %@; Error: %@", 
             (unsigned long)self.statusCode, self.allHeaderFields, self.MIMEType, self.error];
