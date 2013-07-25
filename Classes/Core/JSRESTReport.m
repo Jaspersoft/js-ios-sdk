@@ -215,7 +215,7 @@ static JSRESTReport *_sharedInstance;
                                                                                   value:subReportValue]];
             }
         } else if([reportValue isKindOfClass:[NSDate class]]) {
-            NSString *intervalAsString = [NSString stringWithFormat:@"%lld", [NSNumber numberWithDouble:[reportValue timeIntervalSince1970]].longLongValue];
+            NSString *intervalAsString = [NSString stringWithFormat:@"%lld", [NSNumber numberWithDouble:[reportValue timeIntervalSince1970] * 1000.0f].longLongValue];
             [resourceParameters addObject:[[JSResourceParameter alloc] initWithName:reportParam
                                                                          isListItem:[constants.class stringFromBOOL:NO]
                                                                               value:intervalAsString]];
