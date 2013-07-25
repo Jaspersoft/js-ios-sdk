@@ -362,10 +362,13 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 
 // Deletes all cookies for specified server
 - (void)deleteCookiesForServer:(JSProfile *)serverProfile {
-    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage]; 
-    if (serverProfile.serverUrl) {
-        NSArray *cookies = [cookieStorage cookiesForURL:[NSURL URLWithString:serverProfile.serverUrl]];
-        for (NSHTTPCookie *cookie in cookies) {
+    if (!serverProfile.serverUrl) return;
+    
+    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSString *host = [[NSURL URLWithString:serverProfile.serverUrl] host];
+    
+    for (NSHTTPCookie *cookie in cookieStorage.cookies) {
+        if ([cookie.domain isEqualToString:host]) {
             [cookieStorage deleteCookie:cookie];
         }
     }
