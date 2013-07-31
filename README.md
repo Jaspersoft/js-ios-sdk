@@ -10,7 +10,7 @@ General Information
 --------------------
 
 Please see the Jaspersoft Mobile SDK for iOS Community project page:
-http://community.jaspersoft.com/projects/mobile-sdk-ios
+http://community.jaspersoft.com/project/mobile-sdk-ios
 
 Source Build
 --------------------
