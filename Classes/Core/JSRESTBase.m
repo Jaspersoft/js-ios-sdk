@@ -127,13 +127,6 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 }
 
 + (BOOL)isNetworkReachable {
-    // Checks if reachability was determined
-    if (!_networkReachabilityObserver.isReachabilityDetermined) {
-        // Wait 0.1 second for reachability response (otherwise it wan't work)
-        // Strange solution I know but delegate is not an option too :)
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-    }
-    
     return _networkReachabilityObserver.isReachabilityDetermined && _networkReachabilityObserver.isNetworkReachable;
 }
 
@@ -299,7 +292,7 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
     for (int i = 0; i < self.requestCallBacks.count; i++) {
         callBack = [self.requestCallBacks objectAtIndex:i];
         if (callBack.request.delegate == delegate) {
-            [callBack.restKitRequest cancel];
+            [self.restKitClient.requestQueue cancelRequest:callBack.restKitRequest];
             [indexesOfRemovingCallBacks addIndex:i];
         }
     }
@@ -308,10 +301,7 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 }
 
 - (void)cancelAllRequests {
-    for (JSCallBack *callBack in self.requestCallBacks) {
-        [callBack.restKitRequest cancel];
-    }
-    
+    [self.restKitClient.requestQueue cancelAllRequests];
     [self.requestCallBacks removeAllObjects];
 }
 
