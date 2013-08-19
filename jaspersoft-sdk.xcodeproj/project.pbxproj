@@ -43,6 +43,10 @@
 		F55C4606166CD74B00D71C80 /* RKRequest+RKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F55C4603166CD74B00D71C80 /* RKRequest+RKAdditions.h */; };
 		F55C4607166CD74B00D71C80 /* RKRequest+RKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F55C4604166CD74B00D71C80 /* RKRequest+RKAdditions.m */; };
 		F55C4608166CD74B00D71C80 /* RKRequest+RKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F55C4604166CD74B00D71C80 /* RKRequest+RKAdditions.m */; };
+		F55D621C17BE66E600EC320F /* JSInputControlWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = F55D621A17BE66E500EC320F /* JSInputControlWrapper.h */; };
+		F55D621D17BE66E600EC320F /* JSInputControlWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = F55D621A17BE66E500EC320F /* JSInputControlWrapper.h */; };
+		F55D621E17BE66E600EC320F /* JSInputControlWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F55D621B17BE66E600EC320F /* JSInputControlWrapper.m */; };
+		F55D621F17BE66E600EC320F /* JSInputControlWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F55D621B17BE66E600EC320F /* JSInputControlWrapper.m */; };
 		F568246A1642996D00CC4015 /* JSInputControlDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F56824681642996D00CC4015 /* JSInputControlDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F568246B1642996D00CC4015 /* JSInputControlDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F56824681642996D00CC4015 /* JSInputControlDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F568246C1642996D00CC4015 /* JSInputControlDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F56824691642996D00CC4015 /* JSInputControlDescriptor.m */; };
@@ -207,6 +211,8 @@
 		F53B1048164AC43300042976 /* JSReportParametersList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportParametersList.m; sourceTree = "<group>"; };
 		F55C4603166CD74B00D71C80 /* RKRequest+RKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RKRequest+RKAdditions.h"; sourceTree = "<group>"; };
 		F55C4604166CD74B00D71C80 /* RKRequest+RKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RKRequest+RKAdditions.m"; sourceTree = "<group>"; };
+		F55D621A17BE66E500EC320F /* JSInputControlWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSInputControlWrapper.h; sourceTree = "<group>"; };
+		F55D621B17BE66E600EC320F /* JSInputControlWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSInputControlWrapper.m; sourceTree = "<group>"; };
 		F56824681642996D00CC4015 /* JSInputControlDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSInputControlDescriptor.h; sourceTree = "<group>"; };
 		F56824691642996D00CC4015 /* JSInputControlDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSInputControlDescriptor.m; sourceTree = "<group>"; };
 		F56824721642A2A200CC4015 /* JSInputControlState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSInputControlState.h; sourceTree = "<group>"; };
@@ -501,6 +507,8 @@
 				F56824731642A2A300CC4015 /* JSInputControlState.m */,
 				F56824781642A67C00CC4015 /* JSInputControlOption.h */,
 				F56824791642A67D00CC4015 /* JSInputControlOption.m */,
+				F55D621A17BE66E500EC320F /* JSInputControlWrapper.h */,
+				F55D621B17BE66E600EC320F /* JSInputControlWrapper.m */,
 			);
 			name = InputControl;
 			sourceTree = "<group>";
@@ -563,6 +571,7 @@
 				F5285B0016487ECF00089F3F /* JRSwizzle.h in Headers */,
 				F5285B0616487EFF00089F3F /* RKURL+RKAdditions.h in Headers */,
 				F55C4605166CD74B00D71C80 /* RKRequest+RKAdditions.h in Headers */,
+				F55D621C17BE66E600EC320F /* JSInputControlWrapper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,6 +609,7 @@
 				F5285B0116487ECF00089F3F /* JRSwizzle.h in Headers */,
 				F5285B0716487EFF00089F3F /* RKURL+RKAdditions.h in Headers */,
 				F55C4606166CD74B00D71C80 /* RKRequest+RKAdditions.h in Headers */,
+				F55D621D17BE66E600EC320F /* JSInputControlWrapper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -814,6 +824,7 @@
 				F5AE53B1165169F6004207E1 /* JSDateTimeFormatValidationRule.m in Sources */,
 				F5AE53E016518C58004207E1 /* JSValidationRules.m in Sources */,
 				F55C4607166CD74B00D71C80 /* RKRequest+RKAdditions.m in Sources */,
+				F55D621E17BE66E600EC320F /* JSInputControlWrapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -849,6 +860,7 @@
 				F5AE53B2165169F6004207E1 /* JSDateTimeFormatValidationRule.m in Sources */,
 				F5AE53E116518C58004207E1 /* JSValidationRules.m in Sources */,
 				F55C4608166CD74B00D71C80 /* RKRequest+RKAdditions.m in Sources */,
+				F55D621F17BE66E600EC320F /* JSInputControlWrapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
