@@ -45,27 +45,26 @@
 @property (nonatomic, readonly) NSString *NOTHING_SUBSTITUTE;
 @property (nonatomic, readonly) NSString *NOTHING_SUBSTITUTE_LABEL;
 
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *label;
-@property (nonatomic, strong) NSString *uri;
+@property (nonatomic, retain) NSString *name;
+@property (nonatomic, retain) NSString *label;
+@property (nonatomic, retain) NSString *uri;
 
 @property (nonatomic, assign) NSInteger type;
 @property (nonatomic, assign) NSInteger dataType;
-@property (nonatomic, strong) NSString *dataTypeUri;
+@property (nonatomic, retain) NSString *dataTypeUri;
 
 @property (nonatomic, assign) BOOL isMandatory;
 @property (nonatomic, assign) BOOL isReadOnly;
 @property (nonatomic, assign) BOOL isVisible;
 
-@property (nonatomic, strong) NSString *query;
-@property (nonatomic, strong) NSString *dataSourceUri;
-@property (nonatomic, strong) NSMutableArray /*<NSString>*/ *parameterDependencies;
+@property (nonatomic, retain) NSString *query;
+@property (nonatomic, retain) NSString *dataSourceUri;
+@property (nonatomic, retain) NSMutableArray /*<NSString>*/ *parameterDependencies;
 
-@property (nonatomic, strong) NSMutableArray /*<JSInputControlWrapper>*/ *masterDependencies;
-@property (nonatomic, strong) NSMutableArray /*<JSInputControlWrapper>*/ *slaveDependencies;
+@property (nonatomic, retain) NSMutableArray /*<JSInputControlWrapper>*/ *masterDependencies;
+@property (nonatomic, retain) NSMutableArray /*<JSInputControlWrapper>*/ *slaveDependencies;
 
-@property (nonatomic, strong) NSMutableArray /*<JSResourceProperty>*/ *listOfValues;
-@property (nonatomic, strong) NSMutableArray /*<JSResourceParameter>*/ *listOfSelectedValues;
+@property (nonatomic, retain) NSMutableArray /*<JSResourceProperty>*/ *listOfValues;
 
 - (id)initWithResourceDescriptor:(JSResourceDescriptor *)resourceDescriptor;
 

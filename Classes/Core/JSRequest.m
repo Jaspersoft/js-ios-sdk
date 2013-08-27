@@ -30,6 +30,7 @@
 
 #import "JSRequest.h"
 
+// TODO: add request success and request finish delegate methods
 @implementation JSRequest
 
 @synthesize uri = _uri;

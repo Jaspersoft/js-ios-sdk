@@ -35,19 +35,24 @@ static JSConstants *constants;
 
 @implementation JSInputControlWrapper
 
-+ (void)initialize
-{
++ (void)initialize {
     constants = [JSConstants sharedInstance];
 }
 
-- (id)initWithResourceDescriptor:(JSResourceDescriptor *)resourceDescriptor
-{
-    if (self = [self init]) [self configure:resourceDescriptor];
+- (id)initWithResourceDescriptor:(JSResourceDescriptor *)resourceDescriptor {
+    if (self = [self init]) {
+        self.parameterDependencies = [[NSMutableArray alloc] init];
+        self.slaveDependencies = [[NSMutableArray alloc] init];
+        self.masterDependencies = [[NSMutableArray alloc] init];
+        self.listOfValues = [[NSMutableArray alloc] init];
+        
+        [self configure:resourceDescriptor];
+    }
+    
     return self;
 }
 
-- (void)configure:(JSResourceDescriptor *)resourceDescriptor
-{
+- (void)configure:(JSResourceDescriptor *)resourceDescriptor {
     _NULL_SUBSTITUTE = @"~NULL~";
     _NULL_SUBSTITUTE_LABEL = @"[Null]";
     _NOTHING_SUBSTITUTE = @"~NOTHING~";
@@ -147,8 +152,7 @@ static JSConstants *constants;
 
 #pragma mark - Private
 
-- (void)resolveICDependenciesByRegex:(NSString *)pattern
-{
+- (void)resolveICDependenciesByRegex:(NSString *)pattern {
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:NULL];
     NSArray *matches = [regex matchesInString:self.query options:0 range:NSMakeRange(0, self.query.length)];
     

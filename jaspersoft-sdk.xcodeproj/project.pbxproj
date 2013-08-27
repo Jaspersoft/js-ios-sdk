@@ -389,6 +389,7 @@
 			children = (
 				F59768EC15E3C826004165A7 /* JSProfile.h */,
 				F59768ED15E3C826004165A7 /* JSProfile.m */,
+				F597697815E3C9EF004165A7 /* JSSerializer.h */,
 				F59768F015E3C826004165A7 /* JSRESTBase.h */,
 				F59768F115E3C826004165A7 /* JSRESTBase.m */,
 				F59768F215E3C826004165A7 /* JSRESTReport.h */,
@@ -399,7 +400,6 @@
 				F59768EB15E3C826004165A7 /* JSOperationResult.m */,
 				F59768EE15E3C826004165A7 /* JSRequest.h */,
 				F59768EF15E3C826004165A7 /* JSRequest.m */,
-				F597697815E3C9EF004165A7 /* JSSerializer.h */,
 				F59768E815E3C826004165A7 /* JSConstants.h */,
 				F59768E915E3C826004165A7 /* JSConstants.m */,
 			);
@@ -559,6 +559,7 @@
 				F568246A1642996D00CC4015 /* JSInputControlDescriptor.h in Headers */,
 				F56824741642A2A300CC4015 /* JSInputControlState.h in Headers */,
 				F568247A1642A67E00CC4015 /* JSInputControlOption.h in Headers */,
+				F55D621C17BE66E600EC320F /* JSInputControlWrapper.h in Headers */,
 				F53B1043164A9EE400042976 /* JSReportParameter.h in Headers */,
 				F53B1049164AC43400042976 /* JSReportParametersList.h in Headers */,
 				F5AE53AF165169F6004207E1 /* JSDateTimeFormatValidationRule.h in Headers */,
@@ -597,6 +598,7 @@
 				F568246B1642996D00CC4015 /* JSInputControlDescriptor.h in Headers */,
 				F56824751642A2A300CC4015 /* JSInputControlState.h in Headers */,
 				F568247B1642A67E00CC4015 /* JSInputControlOption.h in Headers */,
+				F55D621D17BE66E600EC320F /* JSInputControlWrapper.h in Headers */,
 				F53B1044164A9EE400042976 /* JSReportParameter.h in Headers */,
 				F53B104A164AC43400042976 /* JSReportParametersList.h in Headers */,
 				F5AE53B0165169F6004207E1 /* JSDateTimeFormatValidationRule.h in Headers */,
