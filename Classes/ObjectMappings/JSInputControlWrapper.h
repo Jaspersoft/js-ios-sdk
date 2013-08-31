@@ -66,6 +66,50 @@
 
 @property (nonatomic, retain) NSMutableArray /*<JSResourceProperty>*/ *listOfValues;
 
+/**
+ Adds an Input Control as a slave dependency. This method uses CFMutableArray (without
+ retaining) instead of NSMutableArray to avoid memory leaks because of circular references
+ 
+ @param inputControl An instance of JSInputControlWrapper
+ */
+- (void)addSlaveDependency:(JSInputControlWrapper *)inputControl;
+
+/**
+ Gets slave dependencies from CFMutableArray
+ 
+ @return An array of slave dependencies
+ */
+- (NSArray *)getSlaveDependencies;
+
+/**
+ Removes an Input Control from slave dependencies (uses CFMutableArray)
+ 
+ @param inputControl An instance of JSInputControlWrapper
+ */
+- (void)removeSlaveDependency:(JSInputControlWrapper *)inputControl;
+
+/**
+ Adds an Input Control as master dependency. This method uses CFMutableArray (without
+ retaining) instead of NSMutableArray to avoid memory leaks because of circular references
+ 
+ @param inputControl An instance of JSInputControlWrapper
+ */
+- (void)addMasterDependency:(JSInputControlWrapper *)inputControl;
+
+/**
+ Gets master dependencies from CFMutableArray
+ 
+ @return An array of master dependencies
+ */
+- (NSArray *)getMasterDependencies;
+
+/**
+ Removes Input Control from master dependencies (uses CFMutableArray)
+ 
+ @param inputControl An instance of JSInputControlWrapper
+ */
+- (void)removeMasterDependency:(JSInputControlWrapper *)inputControl;
+
 - (id)initWithResourceDescriptor:(JSResourceDescriptor *)resourceDescriptor;
 
 @end

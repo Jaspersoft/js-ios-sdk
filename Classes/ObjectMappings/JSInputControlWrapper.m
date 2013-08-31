@@ -33,35 +33,60 @@
 
 static JSConstants *constants;
 
+@interface JSInputControlWrapper() {
+@private
+    CFMutableArrayRef _slaveDependenciesRef;
+    CFMutableArrayRef _masterDependenciesRef;
+}
+@end
+
 @implementation JSInputControlWrapper
 
 + (void)initialize {
     constants = [JSConstants sharedInstance];
 }
 
+#pragma mark - Initialization
+
 - (id)initWithResourceDescriptor:(JSResourceDescriptor *)resourceDescriptor {
     if (self = [self init]) {
-        self.parameterDependencies = [[NSMutableArray alloc] init];
-        self.slaveDependencies = [[NSMutableArray alloc] init];
-        self.masterDependencies = [[NSMutableArray alloc] init];
-        self.listOfValues = [[NSMutableArray alloc] init];
-        
+        self.parameterDependencies = [NSMutableArray array];
+        self.slaveDependencies = [NSMutableArray array];
+        self.masterDependencies = [NSMutableArray array];
+        self.listOfValues = [NSMutableArray array];
+
+        _slaveDependenciesRef = CFArrayCreateMutable(NULL, 0, NULL);
+        _masterDependenciesRef = CFArrayCreateMutable(NULL, 0, NULL);
+
         [self configure:resourceDescriptor];
     }
-    
+
     return self;
 }
+
+- (void)dealloc {
+    CFRelease(_slaveDependenciesRef);
+    CFRelease(_masterDependenciesRef);
+
+    [self.masterDependencies removeAllObjects];
+    [self.slaveDependencies removeAllObjects];
+    [self.parameterDependencies removeAllObjects];
+    [self.listOfValues removeAllObjects];
+}
+
+
+#pragma mark - JSInputControlWrapper
 
 - (void)configure:(JSResourceDescriptor *)resourceDescriptor {
     _NULL_SUBSTITUTE = @"~NULL~";
     _NULL_SUBSTITUTE_LABEL = @"[Null]";
     _NOTHING_SUBSTITUTE = @"~NOTHING~";
     _NOTHING_SUBSTITUTE_LABEL = @"---";
-    
+
     self.name = resourceDescriptor.name;
     self.label = resourceDescriptor.label;
     self.uri = resourceDescriptor.uriString;
-    
+
     // Set properties
     for (JSResourceProperty *property in resourceDescriptor.resourceProperties) {
         NSString *name = property.name;
@@ -75,7 +100,7 @@ static JSConstants *constants;
             self.isVisible = property.value.boolValue;
         }
     }
-    
+
     // Get query and datasource URI
     for (JSResourceDescriptor *childResourceDescriptor in resourceDescriptor.childResourceDescriptors) {
         if ([childResourceDescriptor.wsType isEqualToString:constants.WS_TYPE_QUERY]) {
@@ -85,7 +110,7 @@ static JSConstants *constants;
             break;
         }
     }
-    
+
     // Data type for single value input control
     if (self.type == constants.IC_TYPE_SINGLE_VALUE) {
         for (JSResourceDescriptor *childResourceDescriptor in resourceDescriptor.childResourceDescriptors) {
@@ -100,19 +125,19 @@ static JSConstants *constants;
             }
         }
     }
-    
+
     // Get parameters that input control depends on
     if (self.query.length > 0) {
         [self resolveICDependenciesByRegex:@"\\$P\\{\\s*([\\w]*)\\s*\\}"];
         [self resolveICDependenciesByRegex:@"\\$P!\\{\\s*([\\w]*)\\s*\\}"];
         [self resolveICDependenciesByRegex:@"\\$X\\{[^{}]*,\\s*([\\w]*)\\s*\\}"];
     }
-    
+
     if (self.type == constants.IC_TYPE_SINGLE_SELECT_LIST_OF_VALUES ||
-        self.type == constants.IC_TYPE_SINGLE_SELECT_LIST_OF_VALUES_RADIO ||
-        self.type == constants.IC_TYPE_MULTI_SELECT_LIST_OF_VALUES ||
-        self.type == constants.IC_TYPE_MULTI_SELECT_LIST_OF_VALUES_CHECKBOX) {
-        
+            self.type == constants.IC_TYPE_SINGLE_SELECT_LIST_OF_VALUES_RADIO ||
+            self.type == constants.IC_TYPE_MULTI_SELECT_LIST_OF_VALUES ||
+            self.type == constants.IC_TYPE_MULTI_SELECT_LIST_OF_VALUES_CHECKBOX) {
+
         for (JSResourceDescriptor *childResourceDescriptor in resourceDescriptor.childResourceDescriptors) {
             if ([childResourceDescriptor.wsType isEqualToString:constants.WS_TYPE_LOV]) {
                 JSResourceProperty *resourceProperty = [childResourceDescriptor propertyByName:constants.PROP_LOV];
@@ -120,12 +145,12 @@ static JSConstants *constants;
                 break;
             }
         }
-        
+
     } else if (self.type == constants.IC_TYPE_SINGLE_SELECT_QUERY ||
-               self.type == constants.IC_TYPE_SINGLE_SELECT_QUERY_RADIO ||
-               self.type == constants.IC_TYPE_MULTI_SELECT_QUERY ||
-               self.type == constants.IC_TYPE_MULTI_SELECT_QUERY_CHECKBOX) {
-        
+            self.type == constants.IC_TYPE_SINGLE_SELECT_QUERY_RADIO ||
+            self.type == constants.IC_TYPE_MULTI_SELECT_QUERY ||
+            self.type == constants.IC_TYPE_MULTI_SELECT_QUERY_CHECKBOX) {
+
         JSResourceProperty *queryDataProperty = [resourceDescriptor propertyByName:constants.PROP_QUERY_DATA];
         if (queryDataProperty) {
             NSArray *queryData = queryDataProperty.childResourceProperties;
@@ -133,7 +158,7 @@ static JSConstants *constants;
             for (JSResourceProperty *queryDataRow in queryData) {
                 JSResourceProperty *property = [[JSResourceProperty alloc] init];
                 property.name = queryDataRow.value;
-                
+
                 NSMutableString *value = [NSMutableString string];
                 // Cols
                 for (JSResourceProperty *queryDataCol in queryDataRow.childResourceProperties) {
@@ -142,7 +167,7 @@ static JSConstants *constants;
                         [value appendString:queryDataCol.value];
                     }
                 }
-                
+
                 property.value = value;
                 [self.listOfValues addObject:property];
             }
@@ -150,12 +175,57 @@ static JSConstants *constants;
     }
 }
 
+- (void)addSlaveDependency:(JSInputControlWrapper *)inputControl {
+    [self addInputControl:inputControl toArray:_slaveDependenciesRef];
+}
+
+- (void)removeSlaveDependency:(JSInputControlWrapper *)inputControl {
+    [self removeInputControl:inputControl fromArray:_slaveDependenciesRef];
+}
+
+- (NSArray *)getSlaveDependencies {
+    return (__bridge NSArray*) _slaveDependenciesRef;
+}
+
+- (void)addMasterDependency:(JSInputControlWrapper *)inputControl {
+    [self addInputControl:inputControl toArray:_masterDependenciesRef];
+}
+
+- (void)removeMasterDependency:(JSInputControlWrapper *)inputControl {
+    [self removeInputControl:inputControl fromArray:_masterDependenciesRef];
+}
+
+- (NSArray *)getMasterDependencies {
+    return (__bridge NSArray*) _masterDependenciesRef;
+}
+
 #pragma mark - Private
+
+- (void)addInputControl:(JSInputControlWrapper *)inputControl toArray:(CFMutableArrayRef)array {
+    const void *value = (__bridge const void *) (inputControl);
+    CFIndex index = [self indexOfValue:value inArray:array];
+    if (index == -1) {
+        CFArrayAppendValue(array, value);
+    }
+}
+
+- (void)removeInputControl:(JSInputControlWrapper *)inputControl fromArray:(CFMutableArrayRef)array {
+    CFIndex index = [self indexOfValue:(__bridge const void *) (inputControl) inArray:array];
+    if (index != -1) {
+        CFArrayRemoveValueAtIndex(array, index);
+    }
+}
+
+- (CFIndex)indexOfValue:(const void *)value inArray:(CFMutableArrayRef)array {
+    CFIndex count = CFArrayGetCount(array);
+    CFRange range = CFRangeMake(0, count);
+    return CFArrayGetFirstIndexOfValue(array, range, value);
+}
 
 - (void)resolveICDependenciesByRegex:(NSString *)pattern {
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:NULL];
     NSArray *matches = [regex matchesInString:self.query options:0 range:NSMakeRange(0, self.query.length)];
-    
+
     NSString *dependency;
     for (NSTextCheckingResult *result in matches) {
         dependency = [self.query substringWithRange:[result rangeAtIndex:1]];
