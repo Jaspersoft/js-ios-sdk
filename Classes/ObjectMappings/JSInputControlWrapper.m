@@ -31,6 +31,11 @@
 #import "JSInputControlWrapper.h"
 #import "JSConstants.h"
 
+NSString * const JS_IC_NULL_SUBSTITUTE = @"~NULL~";
+NSString * const JS_IC_NULL_SUBSTITUTE_LABEL = @"[Null]";
+NSString * const JS_IC_NOTHING_SUBSTITUTE = @"~NOTHING~";
+NSString * const JS_IC_NOTHING_SUBSTITUTE_LABEL = @"---";
+
 static JSConstants *constants;
 
 @interface JSInputControlWrapper() {
@@ -78,11 +83,6 @@ static JSConstants *constants;
 #pragma mark - JSInputControlWrapper
 
 - (void)configure:(JSResourceDescriptor *)resourceDescriptor {
-    _NULL_SUBSTITUTE = @"~NULL~";
-    _NULL_SUBSTITUTE_LABEL = @"[Null]";
-    _NOTHING_SUBSTITUTE = @"~NOTHING~";
-    _NOTHING_SUBSTITUTE_LABEL = @"---";
-
     self.name = resourceDescriptor.name;
     self.label = resourceDescriptor.label;
     self.uri = resourceDescriptor.uriString;

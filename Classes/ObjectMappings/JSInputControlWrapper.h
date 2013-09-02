@@ -31,6 +31,11 @@
 #import <Foundation/Foundation.h>
 #import "JSResourceDescriptor.h"
 
+extern NSString * const JS_IC_NULL_SUBSTITUTE;
+extern NSString * const JS_IC_NULL_SUBSTITUTE_LABEL;
+extern NSString * const JS_IC_NOTHING_SUBSTITUTE;
+extern NSString * const JS_IC_NOTHING_SUBSTITUTE_LABEL;
+
 /**
  This is a helper class for working with input control entities, independent of type and UI appearance.
 
@@ -38,12 +43,6 @@
  @since 1.6
  */
 @interface JSInputControlWrapper : NSObject
-
-// Constants
-@property (nonatomic, readonly) NSString *NULL_SUBSTITUTE;
-@property (nonatomic, readonly) NSString *NULL_SUBSTITUTE_LABEL;
-@property (nonatomic, readonly) NSString *NOTHING_SUBSTITUTE;
-@property (nonatomic, readonly) NSString *NOTHING_SUBSTITUTE_LABEL;
 
 @property (nonatomic, retain) NSString *name;
 @property (nonatomic, retain) NSString *label;
