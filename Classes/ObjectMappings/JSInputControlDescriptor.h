@@ -50,7 +50,7 @@
 @property (nonatomic, retain) JSInputControlState *state;
 @property (nonatomic, retain) JSValidationRules *validationRules;
 
-// This is temporary properties used as fix for RestKit bug? The problem is that if
+// This is temporary properties used as fix for bug. The problem is that if
 // slave dependencies in Input Control Descriptor XML contains 2 and more values
 // (i.e. <slaveDependencies><controlId>Cascading_name_single_select</controlId>
 // <controlId>Cascading_state_multi_select</controlId></slaveDependencies>)
@@ -59,7 +59,7 @@
 // (i.e. <slaveDependencies><controlId>Cascading_name_single_select</controlId></slaveDependencies>)
 // the result of the mapping will be "nil".
 //
-// In this case "those" single input control id maps to NSString instead NSArray
+// In this case "those" single id maps to NSString class instead NSArray class
 @property (nonatomic, retain) NSString *masterSingleInputControlID;
 @property (nonatomic, retain) NSString *slaveSingleInputControlID;
 

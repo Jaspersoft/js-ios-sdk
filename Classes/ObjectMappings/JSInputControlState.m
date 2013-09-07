@@ -35,10 +35,11 @@
 @synthesize uuid = _uuid;
 @synthesize uri = _uri;
 @synthesize value = _value;
+@synthesize error = _error;
 @synthesize options = _options;
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Input Control State - uuid: %@; URI: %@; Value: %@; Options Count: %lu", self.uuid, self.uri, self.value, (unsigned long)self.options.count];
+    return [NSString stringWithFormat:@"Input Control State - uuid: %@; URI: %@; Value: %@; Error: %@; Options Count: %lu", self.uuid, self.uri, self.value, self.error, (unsigned long)self.options.count];
 }
 
 @end
