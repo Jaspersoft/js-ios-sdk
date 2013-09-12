@@ -203,7 +203,7 @@ static JSRESTReport *_sharedInstance;
     }
 
     if (initialValuesOnly) {
-        [fullReportsUri stringByAppendingString:constants.REST_VALUES_URI];
+        fullReportsUri = [fullReportsUri stringByAppendingString:constants.REST_VALUES_URI];
     }
     
     return fullReportsUri;
