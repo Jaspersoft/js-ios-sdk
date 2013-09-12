@@ -197,7 +197,31 @@
 - (void)inputControlsForReport:(NSString *)reportUri usingBlock:(void (^)(JSRequest *request))block;
 
 /**
- Gets the states with updated values for input controls with specified IDs and according to specified parameters
+ Gets the list of states of input controls with specified IDs for the report with specified URI and according to selected values
+
+ @param reportUri repository URI of the report
+ @param ids list of input controls IDs
+ @param selectedValues list of input controls selected values
+ @param delegate A delegate object to inform of the results
+
+ @since 1.6
+ */
+- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues delegate:(id<JSRequestDelegate>)delegate;
+
+/**
+ Gets the list of states of input controls with specified IDs for the report with specified URI and according to selected values
+
+ @param reportUri repository URI of the report
+ @param ids list of input controls IDs
+ @param selectedValues list of input controls selected values
+ @param block The block to execute with the request before sending it for processing
+
+ @since 1.6
+ */
+- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues usingBlock:(void (^)(JSRequest *request))block;
+
+/**
+ Gets the states with updated values for input controls with specified IDs and according to selected values
  
  @param reportUri repository URI of the report
  @param ids list of input controls IDs
@@ -210,7 +234,7 @@
                     selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues delegate:(id<JSRequestDelegate>)delegate;
 
 /**
- Gets the states with updated values for input controls with specified IDs and according to specified parameters
+ Gets the states with updated values for input controls with specified IDs and according to selected values
  
  @param reportUri repository URI of the report
  @param ids list of input controls IDs

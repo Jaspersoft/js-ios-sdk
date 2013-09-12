@@ -32,17 +32,10 @@
 #import "JSRequestBuilder.h"
 #import "JSResourceParameter.h"
 #import "JSReportDescriptor.h"
-#import "JSReportParameter.h"
 #import "JSReportParametersList.h"
 #import "JSRESTReport.h"
-#import "JSInputControlDescriptor.h"
 #import "JSInputControlOption.h"
-#import "JSInputControlState.h"
 #import <RestKit/NSString+RKAdditions.h>
-
-// Report query used for setting output format (i.e PDF, HTML, etc.)
-// and path for images (current dir) when exporting report in HTML
-static NSString * const _baseReportQuery = @"?IMAGES_URI=./&RUN_OUTPUT_FORMAT=";
 
 // Report query used for setting output format (i.e PDF, HTML, etc.)
 // and path for images (current dir) when exporting report in HTML
@@ -157,24 +150,32 @@ static JSRESTReport *_sharedInstance;
 }
 
 - (void)inputControlsForReport:(NSString *)reportUri delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullReportsUriForIC:reportUri includingDependencies:nil] method:JSRequestMethodGET]
-                                  restVersion:JSRESTVersion_2] delegate:delegate];
-    [self sendRequest:builder.request];
+    [self inputControlsForReport:reportUri ids:nil selectedValues:nil delegate:delegate];
 }
 
 - (void)inputControlsForReport:(NSString *)reportUri usingBlock:(void (^)(JSRequest *))block {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullReportsUriForIC:reportUri includingDependencies:nil] method:JSRequestMethodGET]
-                                 restVersion:JSRESTVersion_2];
-    [self sendRequest:[builder.request usingBlock:block]];
+    [self inputControlsForReport:reportUri ids:nil selectedValues:nil usingBlock:block];
+}
+
+- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues delegate:(id<JSRequestDelegate>)delegate {
+    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:NO] method:JSRequestMethodPOST]
+    restVersion:JSRESTVersion_2] delegate:delegate];
+    [self sendRequest:[builder body:[[JSReportParametersList alloc] initWithReportParameters:selectedValues]].request];
+}
+
+- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues usingBlock:(void (^)(JSRequest *request))block {
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:NO] method:JSRequestMethodPOST]
+            restVersion:JSRESTVersion_2];
+    [self sendRequest:[[builder body:[[JSReportParametersList alloc] initWithReportParameters:selectedValues]].request usingBlock:block]];
 }
 
 - (void)updatedInputControlsValues:(NSString *)reportUri ids:(NSArray *)ids selectedValues:(NSArray *)selectedValues delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullReportsUriForIC:reportUri includingDependencies:ids] method:JSRequestMethodPOST] delegate:delegate] restVersion:JSRESTVersion_2];
+    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:YES] method:JSRequestMethodPOST] delegate:delegate] restVersion:JSRESTVersion_2];
     [self sendRequest:[builder body:[[JSReportParametersList alloc] initWithReportParameters:selectedValues]].request];
 }
 
 - (void)updatedInputControlsValues:(NSString *)reportUri ids:(NSArray *)ids selectedValues:(NSArray *)selectedValues usingBlock:(void (^)(JSRequest *))block {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullReportsUriForIC:reportUri includingDependencies:ids] method:JSRequestMethodPOST] restVersion:JSRESTVersion_2];
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:YES] method:JSRequestMethodPOST] restVersion:JSRESTVersion_2];
     [self sendRequest:[[builder body:[[JSReportParametersList alloc] initWithReportParameters:selectedValues]].request usingBlock:block]];
 }
 
@@ -189,7 +190,7 @@ static JSRESTReport *_sharedInstance;
     return [NSString stringWithFormat:@"%@%@", [JSConstants sharedInstance].REST_REPORT_URI, (uri ?: @"")];
 }
 
-- (NSString *)fullReportsUriForIC:(NSString *)uri includingDependencies:(NSArray *)dependencies {
+- (NSString *)fullReportsUriForIC:(NSString *)uri withInputControls:(NSArray *)dependencies initialValuesOnly:(BOOL)initialValuesOnly {
     JSConstants *constants = [JSConstants sharedInstance];
     NSString *fullReportsUri = [NSString stringWithFormat:@"%@%@%@", constants.REST_REPORTS_URI, (uri ?: @""), constants.REST_INPUT_CONTROLS_URI];
     
@@ -198,7 +199,11 @@ static JSRESTReport *_sharedInstance;
         for (NSString *dependency in dependencies) {
             [dependenciesUriPart appendFormat:@"%@;", dependency];
         }
-        fullReportsUri = [fullReportsUri stringByAppendingFormat:@"%@%@", dependenciesUriPart, constants.REST_VALUES_URI];
+        fullReportsUri = [fullReportsUri stringByAppendingString:dependenciesUriPart];
+    }
+
+    if (initialValuesOnly) {
+        [fullReportsUri stringByAppendingString:constants.REST_VALUES_URI];
     }
     
     return fullReportsUri;
