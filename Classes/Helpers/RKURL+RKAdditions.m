@@ -32,7 +32,6 @@
 
 @implementation RKURL (RKAdditions)
 
-// Here are some black metamagic. Please watch carefuly...
 // Notice: this is TEMP fix and will be removed as soon as new version of RestKit
 // will be published
 - (id)initWithBaseURLFixed:(NSURL *)theBaseURL resourcePath:(NSString *)theResourcePath queryParameters:(NSDictionary *)theQueryParameters {

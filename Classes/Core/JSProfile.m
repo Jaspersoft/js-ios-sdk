@@ -29,8 +29,6 @@
 //
 
 #import "JSProfile.h"
-#import "JSRESTBase.h"
-#import "JSRequestBuilder.h"
 
 @implementation JSProfile
 
@@ -65,7 +63,7 @@
     _serverUrl = ([serverUrl characterAtIndex:serverUrl.length - 1] == '/') ? [serverUrl substringToIndex:serverUrl.length - 1] : serverUrl;
 }
 
-- (NSString *)getUsenameWithOrganization {
+- (NSString *)getUsernameWithOrganization {
     if ([self.organization length] != 0) {
         return [NSString stringWithFormat:@"%@|%@", self.username, self.organization];
     }

@@ -55,7 +55,7 @@
 // (i.e. <slaveDependencies><controlId>Cascading_name_single_select</controlId>
 // <controlId>Cascading_state_multi_select</controlId></slaveDependencies>)
 // mapping will be performed correctly and as a result there will be NSArray with
-// 2 or more objecs. But, if slave dependencies contains only 1 object
+// 2 or more objects. But, if slave dependencies contains only 1 object
 // (i.e. <slaveDependencies><controlId>Cascading_name_single_select</controlId></slaveDependencies>)
 // the result of the mapping will be "nil".
 //

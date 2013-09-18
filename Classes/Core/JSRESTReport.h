@@ -122,7 +122,7 @@
 
 /**
  Downloads specified report file, once a report has been generated, and saves it
- to specified path (path should also inlude name of the file)
+ to specified path (path should also include name of the file)
  
  @param uuid The Universally Unique Identifier. As a side effect of storing the report
  output in the user session, the UUID in the URI is visible only to the currently
@@ -135,7 +135,7 @@
 
 /**
  Downloads specified report file, once a report has been generated, and saves it
- to specified path (path should also inlude name of the file)
+ to specified path (path should also include name of the file)
  
  @param uuid The Universally Unique Identifier. As a side effect of storing the report
  output in the user session, the UUID in the URI is visible only to the currently
@@ -156,7 +156,7 @@
  using this url.
  
  @param resourceDescriptor resource descriptor of this report with included list of
- report parameter/input control values (setted list of JSResourceParameter inside descriptor)
+ report parameter/input control values (list of JSResourceParameter inside descriptor)
  @param page a positive integer value used to output a specific page or 0 to output all pages
  @param format the format of the report output. Possible values: PDF, HTML, XLS, RTF, CSV, XML.
  @return the report url

@@ -30,9 +30,17 @@
 
 #import <RestKit/RestKit.h>
 
+/**
+ @cond EXCLUDE_RK_REQUEST_ADDITIONS
+
+ @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @since 1.3
+ */
 @interface RKRequest (RKAdditions)
 
 // Setup the NSURLRequest. The request must be prepared right before dispatching
 - (BOOL)prepareURLRequestWithTimeoutInterval;
 
 @end
+
+/** @endcond */

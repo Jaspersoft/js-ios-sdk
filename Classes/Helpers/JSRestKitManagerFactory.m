@@ -36,13 +36,13 @@ static NSString * const _keyMapping = @"mapping";
 static NSString * const _keyPaths = @"paths";
 static NSString * const _keyClass = @"class";
 
+static NSMutableDictionary *_restKitObjectMappings;
+
 @implementation JSRestKitManagerFactory
 
-// Already mapped rules for different classes. Uses for creating different JSREST
-// classes (version of cache)
+// Already mapped rules for different classes. Uses for creating different REST classes
 + (NSDictionary *)restKitObjectMappings {
-    static NSMutableDictionary *_restKitObjectMappings = nil;
-    
+
     if (!_restKitObjectMappings) {
         _restKitObjectMappings = [[NSMutableDictionary alloc] init];
         
@@ -63,6 +63,7 @@ static NSString * const _keyClass = @"class";
             
             // Set mapping result for class
             [_restKitObjectMappings setObject:pathsAndMappingForClass forKey:className];
+            [pathsAndMappingForClass release];
         }    
     }
     
@@ -101,14 +102,14 @@ static NSString * const _keyClass = @"class";
                 RKObjectMapping *relationMapping = [[[self restKitObjectMappings] objectForKey:relationClassName]
                                                     objectForKey:_keyMapping] ?: [self mappingForClass:NSClassFromString([mappingRule objectForKey:_keyClass]) forMappingRules:mappingRules];
                 
-                // Recursively set relation type of mapping 
-                [mapping mapKeyPath:[mappingRule objectForKey:JSKeyNode] toRelationship:[mappingRule objectForKey:JSKeyProperty] 
+                // Recursively set relation type of mapping
+                [mapping mapKeyPath:[mappingRule objectForKey:JSKeyNode] toRelationship:[mappingRule objectForKey:JSKeyProperty]
                         withMapping:relationMapping];
-                
             } else {
-                // Add "mapping" of parent class if parrent class has relation on himself 
+                // Add "mapping" of parent class if parent class has relation on himself
                 [mapping mapKeyPath:[mappingRule objectForKey:JSKeyNode] toRelationship:[mappingRule objectForKey:JSKeyProperty]
                         withMapping:mapping];
+                [mapping release];
             }
         }
     }
@@ -126,7 +127,7 @@ static NSString * const _keyClass = @"class";
 + (RKObjectManager *)createRestKitObjectManagerForClasses:(NSArray *)classes {
     // Creates RKObjectManager for loading and mapping encoded response (i.e XML, JSON etc.)
     // directly to objects
-    RKObjectManager *restKitObjectManager = [[RKObjectManager alloc] init];
+    RKObjectManager *restKitObjectManager = [[[RKObjectManager alloc] init] autorelease];
     
     if (classes.count) {
         NSDictionary *restKitObjectMappings = [self restKitObjectMappings];
@@ -138,6 +139,9 @@ static NSString * const _keyClass = @"class";
             [self setObjectMapping:restKitObjectManager mapping:mapping forKeyPaths:[pathsAndMappingForClass objectForKey:_keyPaths]];
         }
     }
+    
+    [_restKitObjectMappings release];
+    _restKitObjectMappings = nil;
     
     return restKitObjectManager;    
 }

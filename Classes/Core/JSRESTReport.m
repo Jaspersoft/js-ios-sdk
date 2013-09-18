@@ -224,7 +224,7 @@ static JSRESTReport *_sharedInstance;
     resourceDescriptor.uriString = uri;
     resourceDescriptor.wsType = constants.WS_TYPE_REPORT_UNIT;
     
-    // Return resource descriptor if no any other params was provideds
+    // Return resource descriptor if no any other params was provided
     if (!reportParams.count) {
         return resourceDescriptor;
     }

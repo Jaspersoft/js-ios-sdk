@@ -95,6 +95,6 @@
  
  @return A new string contains server account username and server organization id
  */
-- (NSString *)getUsenameWithOrganization;
+- (NSString *)getUsernameWithOrganization;
 
 @end

@@ -56,7 +56,7 @@ typedef void(^JSRequestFinishedBlock)(JSOperationResult *result);
  */
 typedef enum {
     /**
-     Take no action with regards to backgrounding
+     Take no action with regards to background
      */
     JSRequestBackgroundPolicyNone,
     /**
@@ -155,7 +155,7 @@ typedef enum {
  the <code>JSRequestDelegate</code> protocol and if object is not <code>nil</code>,
  it will receive request result (instance of <code>JSOperationResult</code> class)
  */
-@property (nonatomic, retain) id<JSRequestDelegate> delegate;
+@property (nonatomic, weak) id <JSRequestDelegate> delegate;
 
 /**
  A finishedBlock invoke when the request is completed. If block is not
@@ -184,7 +184,7 @@ typedef enum {
 #endif
 
 /**
- Determing asynchronous nature of request
+ Determine asynchronous nature of request
  
  **Default**: YES
  */

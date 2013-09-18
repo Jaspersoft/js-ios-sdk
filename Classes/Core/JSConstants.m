@@ -171,16 +171,12 @@ static JSConstants *_sharedInstance;
         
 		return _sharedInstance;
 	}
-    
-	return nil;
 }
 
 + (id)alloc {
 	@synchronized([JSConstants class]) {
         return [super alloc];
 	}
-    
-	return nil;
 }
 
 - (id)init {
@@ -190,7 +186,7 @@ static JSConstants *_sharedInstance;
         [self setDTConstants];
         [self setICConstants];
         [self setGeneralPROPConstants];
-        [self setFileresourcePROPConstants];
+        [self setFileResourcePROPConstants];
         [self setDatasourcePROPConstants];
         [self setReportUnitPROPConstants];
         [self setDataTypePROPConstants];
@@ -212,7 +208,7 @@ static JSConstants *_sharedInstance;
 }
 
 #pragma mark -
-#pragma mark Constants initializers
+#pragma mark Constants initialization
 
 - (void)setWSConstants {
     WS_TYPE_ACCESS_GRANT_SCHEMA = @"accessGrantSchema";
@@ -279,7 +275,7 @@ static JSConstants *_sharedInstance;
     PROP_CREATION_DATE = @"PROP_CREATION_DATE";
 }
 
-- (void)setFileresourcePROPConstants {
+- (void)setFileResourcePROPConstants {
     PROP_FILERESOURCE_HAS_DATA = @"PROP_HAS_DATA";
     PROP_FILERESOURCE_IS_REFERENCE = @"PROP_IS_REFERENCE";
     PROP_FILERESOURCE_REFERENCE_URI = @"PROP_REFERENCE_URI";

@@ -95,8 +95,8 @@
 		F597693315E3C826004165A7 /* JSRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768FA15E3C826004165A7 /* JSRequestBuilder.m */; };
 		F597693415E3C826004165A7 /* JSRestKitManagerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768FB15E3C826004165A7 /* JSRestKitManagerFactory.h */; };
 		F597693515E3C826004165A7 /* JSRestKitManagerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768FB15E3C826004165A7 /* JSRestKitManagerFactory.h */; };
-		F597693615E3C826004165A7 /* JSRestKitManagerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768FC15E3C826004165A7 /* JSRestKitManagerFactory.m */; };
-		F597693715E3C826004165A7 /* JSRestKitManagerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768FC15E3C826004165A7 /* JSRestKitManagerFactory.m */; };
+		F597693615E3C826004165A7 /* JSRestKitManagerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768FC15E3C826004165A7 /* JSRestKitManagerFactory.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F597693715E3C826004165A7 /* JSRestKitManagerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768FC15E3C826004165A7 /* JSRestKitManagerFactory.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F597693A15E3C826004165A7 /* JSXMLSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768FE15E3C826004165A7 /* JSXMLSerializer.h */; };
 		F597693B15E3C826004165A7 /* JSXMLSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768FE15E3C826004165A7 /* JSXMLSerializer.h */; };
 		F597693C15E3C826004165A7 /* JSXMLSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768FF15E3C826004165A7 /* JSXMLSerializer.m */; };
@@ -805,7 +805,6 @@
 				F597692A15E3C826004165A7 /* JSRESTResource.m in Sources */,
 				F597692E15E3C826004165A7 /* JSClassesMappingRulesHelper.m in Sources */,
 				F597693215E3C826004165A7 /* JSRequestBuilder.m in Sources */,
-				F597693615E3C826004165A7 /* JSRestKitManagerFactory.m in Sources */,
 				F597693C15E3C826004165A7 /* JSXMLSerializer.m in Sources */,
 				F597694115E3C826004165A7 /* XMLWriter.m in Sources */,
 				F597694515E3C826004165A7 /* JSReportAttachment.m in Sources */,
@@ -825,6 +824,7 @@
 				F5AE53E016518C58004207E1 /* JSValidationRules.m in Sources */,
 				F55C4607166CD74B00D71C80 /* RKRequest+RKAdditions.m in Sources */,
 				F5E4801617CD768A00B2BF62 /* JSInputControlWrapper.m in Sources */,
+				F597693615E3C826004165A7 /* JSRestKitManagerFactory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -841,7 +841,6 @@
 				F597692B15E3C826004165A7 /* JSRESTResource.m in Sources */,
 				F597692F15E3C826004165A7 /* JSClassesMappingRulesHelper.m in Sources */,
 				F597693315E3C826004165A7 /* JSRequestBuilder.m in Sources */,
-				F597693715E3C826004165A7 /* JSRestKitManagerFactory.m in Sources */,
 				F597693D15E3C826004165A7 /* JSXMLSerializer.m in Sources */,
 				F597694215E3C826004165A7 /* XMLWriter.m in Sources */,
 				F597694615E3C826004165A7 /* JSReportAttachment.m in Sources */,
@@ -861,6 +860,7 @@
 				F5AE53E116518C58004207E1 /* JSValidationRules.m in Sources */,
 				F55C4608166CD74B00D71C80 /* RKRequest+RKAdditions.m in Sources */,
 				F5E4801717CD768A00B2BF62 /* JSInputControlWrapper.m in Sources */,
+				F597693715E3C826004165A7 /* JSRestKitManagerFactory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

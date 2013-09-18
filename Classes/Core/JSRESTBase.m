@@ -36,8 +36,6 @@
 #import "JRSwizzle.h"
 #import "RKURL+RKAdditions.h"
 #import "RKRequest+RKAdditions.h"
-#import <RestKit/RestKit.h>
-#import <RestKit/RKMIMETypes.h>
 
 // Access key and value for content-type / charset
 static NSString * const _charsetUTF8 = @"UTF-8";
@@ -60,7 +58,7 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 // JSRequest instance contains delegate object and finished block so actually this 
 // instance is bridge between RestKit's delegate and library delegate (or finished block)
 // Also JSRequest class uses for setting additional parameters to JSOperationResult
-// instance (i.e. downloadDestinationPath for files) which we wan't to associate
+// instance (i.e. downloadDestinationPath for files) which we want to associate
 // with returned response (but it cannot be done in any other way).
 @interface JSCallBack : NSObject
 
@@ -89,11 +87,11 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 
 @end
 
-// Hidden implementation of RKObjectLoaderDelesgate protocol and private properties
+// Hidden implementation of RKObjectLoaderDelegate protocol and private properties
 @interface JSRESTBase() <RKObjectLoaderDelegate>
 
 // RestKit's RKClient instance for simple GET/POST/PUT/DELETE requests.
-// Also this class uses for base HTTP autnetication
+// Also this class uses for base HTTP authentication
 @property (nonatomic, retain) RKClient *restKitClient;
 
 // RestKit's RKObjectManager instance for mapping response (in JSON, XML and other
@@ -119,7 +117,7 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 #endif
 
 + (void)initialize {
-    _networkReachabilityObserver = [RKReachabilityObserver reachabilityObserverForInternet];
+    _networkReachabilityObserver = [RKReachabilityObserver reachabilityObserverForInternet];    
     [RKURL jr_swizzleMethod:@selector(initWithBaseURL:resourcePath:queryParameters:)
                  withMethod:@selector(initWithBaseURLFixed:resourcePath:queryParameters:) error:nil];
     [RKRequest jr_swizzleMethod:@selector(prepareURLRequest)
@@ -137,6 +135,8 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
     if (self = [super init]) {
         self.restKitClient = [[RKClient alloc] init];
         self.restKitClient.authenticationType = RKRequestAuthenticationTypeHTTPBasic;
+        self.restKitClient.cachePolicy = RKRequestCachePolicyNone;
+        self.restKitClient.requestCache.storagePolicy = RKRequestCacheStoragePolicyDisabled;
         
         // Sets default content-type and charset for RKClient. This is required step or
         // there will be an parsing error
@@ -174,7 +174,7 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
     // Sets authentication. This will also change authentication for 
     // RKObjectManager instance
     self.restKitClient.baseURL = [RKURL URLWithString:serverProfile.serverUrl];
-    self.restKitClient.username = [serverProfile getUsenameWithOrganization];
+    self.restKitClient.username = [serverProfile getUsernameWithOrganization];
     self.restKitClient.password = serverProfile.password;
 }
 
@@ -200,9 +200,9 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
         fullUri = [self fullUri:request.uri restVersion:request.restVersion];
     }
     
-    // Request can be RKRequest or RKOjbectLoader depends on request method (GET or POST/PUT)
-    id restKitRequest = nil;
-    
+    // Request can be RKRequest or RKObjectLoader depends on request method (GET or POST/PUT)
+    RKRequest *restKitRequest = nil;
+
     // Checks what type or RestKit's request to create: RKObjectLoader or RKRequest
     if (request.responseAsObjects) {
         restKitRequest = [self.restKitObjectManager loaderWithResourcePath:fullUri];
@@ -353,12 +353,14 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 }
 
 // Initializes result with helping properties: http status code, 
-// returned header fields and mimetype
+// returned header fields and MIMEType
 - (JSOperationResult *)operationResultWithResponse:(RKResponse *)response error:(NSError *)error {
-    return [[JSOperationResult alloc] initWithStatusCode:response.statusCode
+    JSOperationResult *result = [[JSOperationResult alloc] initWithStatusCode:response.statusCode
                                          allHeaderFields:response.allHeaderFields
-                                                MIMEType:response.MIMEType 
+                                                MIMEType:response.MIMEType
                                                    error:error];
+    result.body = response.body;
+    return result;
 }
 
 - (void)callRequestFinishedCallBackForRestKitRequest:(id)restKitRequest result:(JSOperationResult *)result {

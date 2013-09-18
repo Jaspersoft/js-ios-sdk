@@ -132,7 +132,7 @@
 /**
  Sets asynchronous for request
  
- @param asynchronous Determing asynchronous nature of request
+ @param asynchronous Determine asynchronous nature of request
  @return The request builder
  */
 - (JSRequestBuilder *)asynchronous:(BOOL)asynchronous;

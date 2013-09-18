@@ -42,12 +42,11 @@ extern NSString * const JSKeyNode;
 extern NSString * const JSKeyProperty;
 extern NSString * const JSKeyMappingType;
 extern NSString * const JSKeyIsAttr;
-extern NSString * const JSKeyUseNodeInSerialization;
 
 /**
  @cond EXCLUDE_JS_CLASSES_MAPPING_RULES_HELPER
  
- Loads and represents as dictonary data from <b>ClassesMappingRules.plist</b> file.
+ Loads and represents as dictionary data from <b>ClassesMappingRules.plist</b> file.
  This file (can be found by path /Classes/Helpers/MappingConfiguration/) contains
  classes mapping rules (all classes from <b>ObjectMappings</b> group).
  
