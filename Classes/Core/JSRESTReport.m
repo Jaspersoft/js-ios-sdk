@@ -117,7 +117,7 @@ static JSRESTReport *_sharedInstance;
     
     NSMutableDictionary *queryParams = [[NSMutableDictionary alloc] init];
     if (page > 0) {
-        [queryParams setObject:[NSNumber numberWithInt:page] forKey:@"page"];
+        [queryParams setObject:[NSNumber numberWithInteger:page] forKey:@"page"];
     }
     
     for (JSResourceParameter *parameter in resourceDescriptor.parameters) {
