@@ -1,4 +1,4 @@
-Jaspersoft Mobile SDK for iOS version 1.5
+Jaspersoft Mobile SDK for iOS version 1.6
 Copyright (C) 2011 - 2013 Jaspersoft Corporation. All rights reserved.
 http://community.jaspersoft.com/projects/mobile-sdk-ios
 
@@ -27,6 +27,7 @@ THIRD PARTY COMPONENTS
 This software includes third party software subject to the associated copyrights, as follows:
 - RestKit v0.10.3 (Apache) - http://restkit.org/
 - JRSwizzle v1.0 (MIT) - https://github.com/rentzsch/jrswizzle
+- XMLWriter (MIT) - http://code.google.com/p/xswi/
 
 The text of licenses for the above software is included with the
 Jaspersoft Mobile SDK for iOS package, in the /docs/licenses folder.
