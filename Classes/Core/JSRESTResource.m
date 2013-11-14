@@ -30,12 +30,22 @@
 
 #import "JSConstants.h"
 #import "JSRequestBuilder.h"
+#import "JSResourceLookup.h"
 #import "JSResourceDescriptor.h"
 #import "JSResourceParameter.h"
 #import "JSRESTResource.h"
+#import "JSParamsBuilder.h"
 
 // Shared (1-st initialized) resource instance
 static JSRESTResource *_sharedInstance;
+
+// HTTP parameters
+static NSString * const _parameterQuery = @"q";
+static NSString * const _parameterFolderUri = @"folderUri";
+static NSString * const _parameterType = @"type";
+static NSString * const _parameterLimit = @"limit";
+static NSString * const _parameterOffset = @"offset";
+static NSString * const _parameterRecursive = @"recursive";
 
 @implementation JSRESTResource
 
@@ -44,7 +54,7 @@ static JSRESTResource *_sharedInstance;
 }
 
 - (id)initWithProfile:(JSProfile *)profile {
-    NSArray *classesForMappings = [[NSArray alloc] initWithObjects:[JSResourceDescriptor class], nil];
+    NSArray *classesForMappings = [[NSArray alloc] initWithObjects:[JSResourceDescriptor class], [JSResourceLookup class], nil];
     
     if ((self = [super initWithProfile:profile classesForMappings:classesForMappings]) && !_sharedInstance) {
         _sharedInstance = self;
@@ -73,15 +83,27 @@ static JSRESTResource *_sharedInstance;
 - (void)resources:(NSString *)uri query:(NSString *)query types:(NSArray *)types
         recursive:(BOOL)recursive limit:(NSInteger)limit delegate:(id<JSRequestDelegate>)delegate {
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourcesUri:uri] method:JSRequestMethodGET] delegate:delegate];
-    [builder params:[self createParamsForResources:query types:types recursive:recursive limit:limit]];
-    [self sendRequest:builder.request];
+    
+    JSParamsBuilder *paramsBuilder = [[JSParamsBuilder alloc] init];
+    [[[paramsBuilder addParameter:_parameterQuery withStringValue:query]
+        addParameter:_parameterType withArrayValue:types]
+        addParameter:_parameterLimit withIntegerValue:limit];
+    if (recursive) [paramsBuilder addParameter:_parameterRecursive withStringValue:[JSConstants stringFromBOOL:recursive]];
+    
+    [self sendRequest:[builder params:paramsBuilder.params].request];
 }
 
 - (void)resources:(NSString *)uri query:(NSString *)query types:(NSArray *)types
         recursive:(BOOL)recursive limit:(NSInteger)limit usingBlock:(void (^)(JSRequest *request))block {
     JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourcesUri:uri] method:JSRequestMethodGET];
-    [builder params:[self createParamsForResources:query types:types recursive:recursive limit:limit]];
-    [self sendRequest:[builder.request usingBlock:block]];
+    
+    JSParamsBuilder *paramsBuilder = [[JSParamsBuilder alloc] init];
+    [[[paramsBuilder addParameter:_parameterQuery withStringValue:query]
+        addParameter:_parameterType withArrayValue:types]
+        addParameter:_parameterLimit withIntegerValue:limit];
+    if (recursive) [paramsBuilder addParameter:_parameterRecursive withStringValue:[JSConstants stringFromBOOL:recursive]];
+    
+    [self sendRequest:[[builder params:paramsBuilder.params].request usingBlock:block]];
 }
 
 - (void)resourceWithQueryData:(NSString *)uri datasourceUri:(NSString *)datasourceUri
@@ -95,6 +117,45 @@ static JSRESTResource *_sharedInstance;
            resourceParameters:(NSArray *)resourceParameters usingBlock:(void (^)(JSRequest *request))block {
     JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:JSRequestMethodGET];
     [builder params:[self paramsForICQueryDataByDatasourceUri:datasourceUri resourceParameters:resourceParameters]];
+    [self sendRequest:[builder.request usingBlock:block]];
+}
+
+#pragma mark -
+#pragma mark Public methods for REST V2 resources API
+
+- (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types
+              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit delegate:(id<JSRequestDelegate>)delegate {
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[JSConstants sharedInstance].REST_RESOURCES_URI method:JSRequestMethodGET]
+                                 restVersion:JSRESTVersion_2];
+    
+    JSParamsBuilder *paramsBuilder = [[JSParamsBuilder alloc] init];
+    [[[[[[[paramsBuilder addParameter:_parameterFolderUri withStringValue:folderUri]
+        addParameter:_parameterQuery withStringValue:query]
+        addParameter:_parameterType withArrayValue:types]
+        addParameter:_parameterLimit withIntegerValue:limit]
+        addParameter:_parameterRecursive withStringValue:[JSConstants stringFromBOOL:recursive]]
+        addParameter:_parameterOffset withIntegerValue:offset]
+        addParameter:_parameterLimit withIntegerValue:limit];
+    
+    [[builder params:paramsBuilder.params] delegate:delegate];
+    [self sendRequest:builder.request];
+}
+
+- (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types
+              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit usingBlock:(void (^)(JSRequest *request))block {
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[JSConstants sharedInstance].REST_RESOURCES_URI method:JSRequestMethodGET]
+                                 restVersion:JSRESTVersion_2];
+    
+    JSParamsBuilder *paramsBuilder = [[JSParamsBuilder alloc] init];
+    [[[[[[[paramsBuilder addParameter:_parameterFolderUri withStringValue:folderUri]
+        addParameter:_parameterQuery withStringValue:query]
+        addParameter:_parameterType withArrayValue:types]
+        addParameter:_parameterLimit withIntegerValue:limit]
+        addParameter:_parameterRecursive withStringValue:[JSConstants stringFromBOOL:recursive]]
+        addParameter:_parameterOffset withIntegerValue:offset]
+        addParameter:_parameterLimit withIntegerValue:limit];
+    
+    [builder params:paramsBuilder.params];
     [self sendRequest:[builder.request usingBlock:block]];
 }
 
@@ -138,7 +199,6 @@ static JSRESTResource *_sharedInstance;
 - (void)deleteResource:(NSString *)uri delegate:(id<JSRequestDelegate>)delegate {
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:JSRequestMethodDELETE] delegate:delegate];
     [self sendRequest:builder.request];
-    
 }
 
 - (void)deleteResource:(NSString *)uri usingBlock:(void (^)(JSRequest *request))block {
@@ -149,24 +209,18 @@ static JSRESTResource *_sharedInstance;
 #pragma mark -
 #pragma mark Private methods
 
-// Creates NSMutableDictionary params for resources by query, type, recursive, limit arguments
-- (NSMutableDictionary *)createParamsForResources:(NSString *)query types:(NSArray *)types recursive:(BOOL)recursive limit:(NSInteger)limit {
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    
-    if (query && query.length) {
-        [params setObject:query forKey:@"q"];
+- (void)addParameter:(NSString *)parameter withStringValue:(NSString *)value toDictionary:(NSMutableDictionary *)params
+{
+    if (value && value.length) {
+        [params setObject:value forKey:parameter];
     }
-    if (types && types.count) {
-        [params setObject:types forKey:@"type"];
+}
+
+- (void)addParameter:(NSString *)parameter withIntegerValue:(NSInteger)value toDictionary:(NSMutableDictionary *)params
+{
+    if (value) {
+        [params setObject:[NSNumber numberWithInteger:value] forKey:parameter];
     }
-    if (recursive) {
-        [params setObject:@"true" forKey:@"recursive"];
-    }
-    if (limit && limit > 0) {
-        [params setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
-    }
-    
-    return params;
 }
 
 - (NSDictionary *)paramsForICQueryDataByDatasourceUri:(NSString *)datasourceUri resourceParameters:(NSArray *)resourceParameters {

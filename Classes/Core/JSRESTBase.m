@@ -271,18 +271,23 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 
 - (JSServerInfo *)serverInfo {
     if (!self.serverProfile.serverInfo) {
-        JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[JSConstants sharedInstance].REST_SERVER_INFO_URI
-                                                               method:JSRequestMethodGET] restVersion:JSRESTVersion_2];
-        [self sendRequest:[[[builder timeoutInterval:2] asynchronous:NO].request usingBlock:^(JSRequest *request) {
-            request.finishedBlock = ^(JSOperationResult *result) {
-                if (!result.error && result.objects.count) {
-                    self.serverProfile.serverInfo = [result.objects objectAtIndex:0];
-                }
-            };
-        }]];
+        JSRequest *request = [self serverInfoRequest:NO];
+        request.finishedBlock = ^(JSOperationResult *result) {
+            [self setServerInfo:result];
+        };
+        [self sendRequest:request];
     }
-    
+
     return self.serverProfile.serverInfo;
+}
+
+- (void)serverInfo:(id<JSRequestDelegate>)delegate {
+    JSRequest *request = [self serverInfoRequest:YES];
+    request.finishedBlock = ^(JSOperationResult *result) {
+        result = [self setServerInfo:result];
+        [delegate requestFinished:result];
+    };
+    [self sendRequest:request];
 }
 
 - (void)cancelRequestsWithDelegate:(id<JSRequestDelegate>)delegate {
@@ -386,6 +391,31 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
             [cookieStorage deleteCookie:cookie];
         }
     }
+}
+
+- (JSRequest *)serverInfoRequest:(BOOL)isAsynchronous {
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[JSConstants sharedInstance].REST_SERVER_INFO_URI
+                                                           method:JSRequestMethodGET] restVersion:JSRESTVersion_2];
+    [builder asynchronous:isAsynchronous];
+
+    return builder.request;
+}
+
+- (JSOperationResult *)setServerInfo:(JSOperationResult *)result {
+    if (result.isError && result.statusCode != 404) return result;
+
+    if (result.objects.count) {
+        self.serverProfile.serverInfo = [result.objects objectAtIndex:0];
+    } else {
+        self.serverProfile.serverInfo = [[JSServerInfo alloc] init];
+
+        result = [[JSOperationResult alloc] initWithStatusCode:203
+                                               allHeaderFields:result.allHeaderFields
+                                                      MIMEType:result.MIMEType
+                                                         error:nil];
+    }
+
+    return result;
 }
 
 #pragma mark -

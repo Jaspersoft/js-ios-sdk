@@ -144,6 +144,14 @@
 		F5E4801517CD768A00B2BF62 /* JSInputControlWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E4801217CD768A00B2BF62 /* JSInputControlWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5E4801617CD768A00B2BF62 /* JSInputControlWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E4801317CD768A00B2BF62 /* JSInputControlWrapper.m */; };
 		F5E4801717CD768A00B2BF62 /* JSInputControlWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E4801317CD768A00B2BF62 /* JSInputControlWrapper.m */; };
+		F5EA36AE18337B4A00E09E10 /* JSResourceLookup.h in Headers */ = {isa = PBXBuildFile; fileRef = F5EA36AC18337B4A00E09E10 /* JSResourceLookup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5EA36AF18337B4A00E09E10 /* JSResourceLookup.h in Headers */ = {isa = PBXBuildFile; fileRef = F5EA36AC18337B4A00E09E10 /* JSResourceLookup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5EA36B018337B4A00E09E10 /* JSResourceLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EA36AD18337B4A00E09E10 /* JSResourceLookup.m */; };
+		F5EA36B118337B4A00E09E10 /* JSResourceLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EA36AD18337B4A00E09E10 /* JSResourceLookup.m */; };
+		F5EA36C31834510200E09E10 /* JSParamsBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F5EA36C11834510200E09E10 /* JSParamsBuilder.h */; };
+		F5EA36C41834510200E09E10 /* JSParamsBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F5EA36C11834510200E09E10 /* JSParamsBuilder.h */; };
+		F5EA36C51834510200E09E10 /* JSParamsBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EA36C21834510200E09E10 /* JSParamsBuilder.m */; };
+		F5EA36C61834510200E09E10 /* JSParamsBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EA36C21834510200E09E10 /* JSParamsBuilder.m */; };
 		F5F68E0B15E55EC000270103 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F597697315E3C9AB004165A7 /* Cocoa.framework */; };
 		F5F68E1A15E5725700270103 /* ClassesMappingRules.plist in Resources */ = {isa = PBXBuildFile; fileRef = F597690115E3C826004165A7 /* ClassesMappingRules.plist */; };
 /* End PBXBuildFile section */
@@ -279,6 +287,10 @@
 		F5DDD7AA164029EC005BBE7C /* JSServerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSServerInfo.m; sourceTree = "<group>"; };
 		F5E4801217CD768A00B2BF62 /* JSInputControlWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSInputControlWrapper.h; sourceTree = "<group>"; };
 		F5E4801317CD768A00B2BF62 /* JSInputControlWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSInputControlWrapper.m; sourceTree = "<group>"; };
+		F5EA36AC18337B4A00E09E10 /* JSResourceLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResourceLookup.h; sourceTree = "<group>"; };
+		F5EA36AD18337B4A00E09E10 /* JSResourceLookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceLookup.m; sourceTree = "<group>"; };
+		F5EA36C11834510200E09E10 /* JSParamsBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSParamsBuilder.h; sourceTree = "<group>"; };
+		F5EA36C21834510200E09E10 /* JSParamsBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSParamsBuilder.m; sourceTree = "<group>"; };
 		F5F68E0A15E55EC000270103 /* jaspersoft-sdk-resources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jaspersoft-sdk-resources.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5F68E0D15E55EC000270103 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		F5F68E0E15E55EC000270103 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -411,6 +423,8 @@
 			children = (
 				F59768F715E3C826004165A7 /* JSClassesMappingRulesHelper.h */,
 				F59768F815E3C826004165A7 /* JSClassesMappingRulesHelper.m */,
+				F5EA36C11834510200E09E10 /* JSParamsBuilder.h */,
+				F5EA36C21834510200E09E10 /* JSParamsBuilder.m */,
 				F59768F915E3C826004165A7 /* JSRequestBuilder.h */,
 				F59768FA15E3C826004165A7 /* JSRequestBuilder.m */,
 				F59768FB15E3C826004165A7 /* JSRestKitManagerFactory.h */,
@@ -451,16 +465,7 @@
 				F5AE53AB16516870004207E1 /* InputControl */,
 				F5AE53A5165164D7004207E1 /* Server */,
 				F5AE53AA165164E8004207E1 /* Report */,
-				F597690815E3C826004165A7 /* JSReportDescriptor.h */,
-				F597690915E3C826004165A7 /* JSReportDescriptor.m */,
-				F597690A15E3C826004165A7 /* JSResourceDescriptor.h */,
-				F597690B15E3C826004165A7 /* JSResourceDescriptor.m */,
-				F597690C15E3C826004165A7 /* JSResourceParameter.h */,
-				F597690D15E3C826004165A7 /* JSResourceParameter.m */,
-				F597690E15E3C826004165A7 /* JSResourceProperty.h */,
-				F597690F15E3C826004165A7 /* JSResourceProperty.m */,
-				F597690615E3C826004165A7 /* JSReportAttachment.h */,
-				F597690715E3C826004165A7 /* JSReportAttachment.m */,
+				F5EA36B518337B6F00E09E10 /* Resource */,
 			);
 			path = ObjectMappings;
 			sourceTree = "<group>";
@@ -489,8 +494,12 @@
 		F5AE53AA165164E8004207E1 /* Report */ = {
 			isa = PBXGroup;
 			children = (
+				F597690815E3C826004165A7 /* JSReportDescriptor.h */,
+				F597690915E3C826004165A7 /* JSReportDescriptor.m */,
 				F53B1041164A9EE400042976 /* JSReportParameter.h */,
 				F53B1042164A9EE400042976 /* JSReportParameter.m */,
+				F597690615E3C826004165A7 /* JSReportAttachment.h */,
+				F597690715E3C826004165A7 /* JSReportAttachment.m */,
 				F53B1047164AC43100042976 /* JSReportParametersList.h */,
 				F53B1048164AC43300042976 /* JSReportParametersList.m */,
 			);
@@ -524,6 +533,21 @@
 			name = Validation;
 			sourceTree = "<group>";
 		};
+		F5EA36B518337B6F00E09E10 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				F597690A15E3C826004165A7 /* JSResourceDescriptor.h */,
+				F597690B15E3C826004165A7 /* JSResourceDescriptor.m */,
+				F597690C15E3C826004165A7 /* JSResourceParameter.h */,
+				F597690D15E3C826004165A7 /* JSResourceParameter.m */,
+				F597690E15E3C826004165A7 /* JSResourceProperty.h */,
+				F597690F15E3C826004165A7 /* JSResourceProperty.m */,
+				F5EA36AC18337B4A00E09E10 /* JSResourceLookup.h */,
+				F5EA36AD18337B4A00E09E10 /* JSResourceLookup.m */,
+			);
+			name = Resource;
+			sourceTree = "<group>";
+		};
 		F5F68E0C15E55EC000270103 /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -551,6 +575,7 @@
 				F597697915E3C9EF004165A7 /* JSSerializer.h in Headers */,
 				F597691015E3C826004165A7 /* JSConstants.h in Headers */,
 				F597694715E3C826004165A7 /* JSReportDescriptor.h in Headers */,
+				F5EA36AE18337B4A00E09E10 /* JSResourceLookup.h in Headers */,
 				F597694B15E3C826004165A7 /* JSResourceDescriptor.h in Headers */,
 				F597694F15E3C826004165A7 /* JSResourceParameter.h in Headers */,
 				F597695315E3C826004165A7 /* JSResourceProperty.h in Headers */,
@@ -572,6 +597,7 @@
 				F5285B0016487ECF00089F3F /* JRSwizzle.h in Headers */,
 				F5285B0616487EFF00089F3F /* RKURL+RKAdditions.h in Headers */,
 				F55C4605166CD74B00D71C80 /* RKRequest+RKAdditions.h in Headers */,
+				F5EA36C31834510200E09E10 /* JSParamsBuilder.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,6 +614,7 @@
 				F597691D15E3C826004165A7 /* JSRequest.h in Headers */,
 				F597697A15E3C9EF004165A7 /* JSSerializer.h in Headers */,
 				F597691115E3C826004165A7 /* JSConstants.h in Headers */,
+				F5EA36AF18337B4A00E09E10 /* JSResourceLookup.h in Headers */,
 				F597694815E3C826004165A7 /* JSReportDescriptor.h in Headers */,
 				F597694C15E3C826004165A7 /* JSResourceDescriptor.h in Headers */,
 				F597695015E3C826004165A7 /* JSResourceParameter.h in Headers */,
@@ -610,6 +637,7 @@
 				F5285B0116487ECF00089F3F /* JRSwizzle.h in Headers */,
 				F5285B0716487EFF00089F3F /* RKURL+RKAdditions.h in Headers */,
 				F55C4606166CD74B00D71C80 /* RKRequest+RKAdditions.h in Headers */,
+				F5EA36C41834510200E09E10 /* JSParamsBuilder.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -816,9 +844,11 @@
 				F568246C1642996D00CC4015 /* JSInputControlDescriptor.m in Sources */,
 				F56824761642A2A300CC4015 /* JSInputControlState.m in Sources */,
 				F568247C1642A67E00CC4015 /* JSInputControlOption.m in Sources */,
+				F5EA36B018337B4A00E09E10 /* JSResourceLookup.m in Sources */,
 				F5285B0216487ECF00089F3F /* JRSwizzle.m in Sources */,
 				F5285B0816487EFF00089F3F /* RKURL+RKAdditions.m in Sources */,
 				F53B1045164A9EE400042976 /* JSReportParameter.m in Sources */,
+				F5EA36C51834510200E09E10 /* JSParamsBuilder.m in Sources */,
 				F53B104B164AC43400042976 /* JSReportParametersList.m in Sources */,
 				F5AE53B1165169F6004207E1 /* JSDateTimeFormatValidationRule.m in Sources */,
 				F5AE53E016518C58004207E1 /* JSValidationRules.m in Sources */,
@@ -852,9 +882,11 @@
 				F568246D1642996D00CC4015 /* JSInputControlDescriptor.m in Sources */,
 				F56824771642A2A300CC4015 /* JSInputControlState.m in Sources */,
 				F568247D1642A67E00CC4015 /* JSInputControlOption.m in Sources */,
+				F5EA36B118337B4A00E09E10 /* JSResourceLookup.m in Sources */,
 				F5285B0316487ECF00089F3F /* JRSwizzle.m in Sources */,
 				F5285B0916487EFF00089F3F /* RKURL+RKAdditions.m in Sources */,
 				F53B1046164A9EE400042976 /* JSReportParameter.m in Sources */,
+				F5EA36C61834510200E09E10 /* JSParamsBuilder.m in Sources */,
 				F53B104C164AC43400042976 /* JSReportParametersList.m in Sources */,
 				F5AE53B2165169F6004207E1 /* JSDateTimeFormatValidationRule.m in Sources */,
 				F5AE53E116518C58004207E1 /* JSValidationRules.m in Sources */,
