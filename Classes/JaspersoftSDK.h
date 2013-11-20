@@ -37,6 +37,7 @@
 #import "JSSerializer.h"
 #import "JSConstants.h"
 #import "JSReportDescriptor.h"
+#import "JSResourceLookup.h"
 #import "JSResourceDescriptor.h"
 #import "JSResourceParameter.h"
 #import "JSResourceProperty.h"
