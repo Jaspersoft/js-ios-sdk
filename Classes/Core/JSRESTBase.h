@@ -117,6 +117,14 @@
  */
 - (JSServerInfo *)serverInfo;
 
+/**
+ Gets server information details asynchronously
+
+ @param delegate The delegate object
+ @since 1.7
+ */
+- (void)serverInfo:(id<JSRequestDelegate>)delegate;
+
 /** 
  Cancels all requests for specified delegate object
  

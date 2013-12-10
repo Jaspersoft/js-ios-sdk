@@ -39,7 +39,7 @@
  different parts of request
  
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
- @since version 1.3
+ @since 1.3
  */
 @interface JSRequestBuilder : NSObject
 

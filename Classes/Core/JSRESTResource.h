@@ -109,7 +109,7 @@
  @param uri The repository URI (i.e. /reports/samples/)
  @param query Match only resources having the specified text in the name or 
  description (can be <code>nil</code>)
- @param types Match only resources of the given type (can be <code>nil</code>)
+ @param types Match only resources of the given types (can be <code>nil</code>)
  @param recursive Get the resources recursively and not only in the specified URI.
  Used only when a search criteria is specified, either query or type 
  (can be <code>nil</code>)
@@ -205,5 +205,48 @@
  @param block The block to execute with the request before sending it for processing
  */
 - (void)deleteResource:(NSString *)uri usingBlock:(void (^)(JSRequest *request))block;
+
+//---------------------------------------------------------------------
+// The Resources Service v2
+//---------------------------------------------------------------------
+
+/**
+ Gets the list of resource lookups for the resources available in the specified
+ folder and matching the specified parameters
+ 
+ @param uri The repository URI (i.e. /reports/samples/)
+ @param query Match only resources having the specified text in the name or
+ description (can be <code>nil</code>)
+ @param types Match only resources of the given types (can be <code>nil</code>)
+ @param recursive Get the resources recursively (can be <code>nil</code>)
+ @param offset Start index for requested page
+ @param limit The maximum number of items returned to the client. The default
+ is 0 (can be <code>nil</code>), meaning no limit
+ @param delegate A delegate object to inform of the results
+ 
+ @since 1.7
+ */
+- (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types
+              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit delegate:(id<JSRequestDelegate>)delegate;
+
+/**
+ Gets the list of resource lookups for the resources available in the specified
+ folder and matching the specified parameters
+ 
+ @param uri The repository URI (i.e. /reports/samples/)
+ @param query Match only resources having the specified text in the name or
+ description (can be <code>nil</code>)
+ @param types Match only resources of the given types (can be <code>nil</code>)
+ @param recursive Get the resources recursively (can be <code>nil</code>)
+ @param offset Start index for requested page
+ @param limit The maximum number of items returned to the client. The default
+ is 0 (can be <code>nil</code>), meaning no limit
+ @param block The block to execute with the request before sending it for processing
+ 
+ @since 1.7
+ */
+- (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types
+              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit usingBlock:(void (^)(JSRequest *request))block;
+
 
 @end

@@ -86,7 +86,7 @@ typedef enum {
 typedef enum {
     JSRESTVersion_1,
     JSRESTVersion_2
-}  JSRESTVersion;
+} JSRESTVersion;
 
 /**
  This protocol must be implemented by objects used to retrieve request result asynchronously

@@ -153,6 +153,7 @@ static JSConstants *_sharedInstance;
 @synthesize REST_SERVER_INFO_URI;
 @synthesize VERSION_CODE_UNKNOWN;
 @synthesize VERSION_CODE_EMERALD;
+@synthesize VERSION_CODE_EMERALD_TWO;
 @synthesize ICD_TYPE_BOOL;
 @synthesize ICD_TYPE_SINGLE_VALUE_TEXT;
 @synthesize ICD_TYPE_SINGLE_VALUE_NUMBER;
@@ -371,6 +372,8 @@ static JSConstants *_sharedInstance;
 - (void)setUPVersionCodes {
     VERSION_CODE_UNKNOWN = 0;
     VERSION_CODE_EMERALD = 50000;
+    VERSION_CODE_EMERALD_TWO = 50500;
+    
 }
 
 - (void)setUPInputControlDescriptorTypes {
