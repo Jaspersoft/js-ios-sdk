@@ -1,4 +1,4 @@
-Jaspersoft Mobile SDK for iOS version 1.6
+Jaspersoft Mobile SDK for iOS version 1.7
 Copyright (C) 2011 - 2013 Jaspersoft Corporation. All rights reserved.
 http://community.jaspersoft.com/projects/mobile-sdk-ios
 
