@@ -104,6 +104,11 @@ typedef enum {
 @end
 
 /**
+ The block to execute with the request before sending it for processing
+ */
+typedef void(^JSRequestConfigurationBlock)(JSRequest *request);
+
+/**
  Models the request portion of an HTTP request/response cycle. Used by
  <code>JSRESTBase</code> class to send requests
  
@@ -205,6 +210,6 @@ typedef enum {
  
  @param block The block to execute with the request before sending it
  */
-- (JSRequest *)usingBlock:(void (^)(JSRequest *request))block;
+- (JSRequest *)usingBlock:(JSRequestConfigurationBlock)block;
 
 @end

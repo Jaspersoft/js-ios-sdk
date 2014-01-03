@@ -82,7 +82,7 @@
  @param uri The repository URI (i.e. /reports/samples/)
  @param block The block to execute with the request before sending it for processing
  */
-- (void)resources:(NSString *)uri usingBlock:(void (^)(JSRequest *request))block;
+- (void)resources:(NSString *)uri usingBlock:(JSRequestConfigurationBlock)block;
 
 /**
  Gets the list of resource descriptors for the resources available in the specified 
@@ -118,7 +118,7 @@
  @param block The block to execute with the request before sending it for processing
  */
 - (void)resources:(NSString *)uri query:(NSString *)query types:(NSArray *)types 
-       recursive:(BOOL)recursive limit:(NSInteger)limit usingBlock:(void (^)(JSRequest *request))block;
+       recursive:(BOOL)recursive limit:(NSInteger)limit usingBlock:(JSRequestConfigurationBlock)block;
 
 /**
  Gets the query data of a query-based input control, according to specified parameters.
@@ -140,7 +140,7 @@
  @param block The block to execute with the request before sending it for processing
  */
 - (void)resourceWithQueryData:(NSString *)uri datasourceUri:(NSString *)datasourceUri 
-           resourceParameters:(NSArray *)resourceParameters usingBlock:(void (^)(JSRequest *request))block;
+           resourceParameters:(NSArray *)resourceParameters usingBlock:(JSRequestConfigurationBlock)block;
 
 /**
  Gets the resource descriptor for the resource with specified URI.
@@ -156,7 +156,7 @@
  @param uri The repository URI (i.e. /reports/samples/)
  @param block The block to execute with the request before sending it for processing
  */
-- (void)resource:(NSString *)uri usingBlock:(void (^)(JSRequest *request))block;
+- (void)resource:(NSString *)uri usingBlock:(JSRequestConfigurationBlock)block;
 
 /**
  Creates the resource with specified JSResourceDescriptor
@@ -172,7 +172,7 @@
  @param resource JSResourceDescriptor of resource being modified
  @param block The block to execute with the request before sending it for processing
  */
-- (void)createResource:(JSResourceDescriptor *)resource usingBlock:(void (^)(JSRequest *request))block;
+- (void)createResource:(JSResourceDescriptor *)resource usingBlock:(JSRequestConfigurationBlock)block;
 
 /**
  Modifies the resource with specified JSResourceDescriptor
@@ -188,7 +188,7 @@
  @param resource JSResourceDescriptor of resource being modified
  @param block The block to execute with the request before sending it for processing
  */
-- (void)modifyResource:(JSResourceDescriptor *)resource usingBlock:(void (^)(JSRequest *request))block;
+- (void)modifyResource:(JSResourceDescriptor *)resource usingBlock:(JSRequestConfigurationBlock)block;
 
 /**
  Deletes the resource with the specified URI
@@ -204,7 +204,7 @@
  @param uri The repository URI (i.e. /reports/samples/)
  @param block The block to execute with the request before sending it for processing
  */
-- (void)deleteResource:(NSString *)uri usingBlock:(void (^)(JSRequest *request))block;
+- (void)deleteResource:(NSString *)uri usingBlock:(JSRequestConfigurationBlock)block;
 
 //---------------------------------------------------------------------
 // The Resources Service v2
@@ -246,7 +246,7 @@
  @since 1.7
  */
 - (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types
-              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit usingBlock:(void (^)(JSRequest *request))block;
+              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit usingBlock:(JSRequestConfigurationBlock)block;
 
 
 @end

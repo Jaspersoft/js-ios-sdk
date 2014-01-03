@@ -151,6 +151,7 @@ static JSConstants *_sharedInstance;
 @synthesize REST_INPUT_CONTROLS_URI;
 @synthesize REST_VALUES_URI;
 @synthesize REST_SERVER_INFO_URI;
+@synthesize REST_REPORT_EXECUTION_URI;
 @synthesize VERSION_CODE_UNKNOWN;
 @synthesize VERSION_CODE_EMERALD;
 @synthesize VERSION_CODE_EMERALD_TWO;
@@ -367,6 +368,7 @@ static JSConstants *_sharedInstance;
     REST_INPUT_CONTROLS_URI = @"/inputControls";
     REST_VALUES_URI = @"/values";
     REST_SERVER_INFO_URI = @"/serverInfo";
+    REST_REPORT_EXECUTION_URI = @"/reportExecutions";
 }
 
 - (void)setUPVersionCodes {

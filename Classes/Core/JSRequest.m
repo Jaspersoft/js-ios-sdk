@@ -61,7 +61,7 @@
     return self;
 }
 
-- (JSRequest *)usingBlock:(void (^)(JSRequest *request))block {
+- (JSRequest *)usingBlock:(JSRequestConfigurationBlock)block {
     block(self);
     return self;
 }

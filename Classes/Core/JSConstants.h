@@ -262,6 +262,7 @@
 @property (nonatomic, readonly) NSString *REST_INPUT_CONTROLS_URI;
 @property (nonatomic, readonly) NSString *REST_VALUES_URI;
 @property (nonatomic, readonly) NSString *REST_SERVER_INFO_URI;
+@property (nonatomic, readonly) NSString *REST_REPORT_EXECUTION_URI;
 /** @} */
 
 /**

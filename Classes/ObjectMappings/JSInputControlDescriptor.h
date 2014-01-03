@@ -59,7 +59,7 @@
 // (i.e. <slaveDependencies><controlId>Cascading_name_single_select</controlId></slaveDependencies>)
 // the result of the mapping will be "nil".
 //
-// In this case "those" single id maps to NSString class instead NSArray class
+// In this case "those" single id maps to NSString class instead of NSArray class
 @property (nonatomic, retain) NSString *masterSingleInputControlID;
 @property (nonatomic, retain) NSString *slaveSingleInputControlID;
 

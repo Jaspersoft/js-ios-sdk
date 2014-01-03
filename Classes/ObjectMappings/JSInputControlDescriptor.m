@@ -97,8 +97,4 @@
     return values;
 }
 
-- (NSString *)description {
-    return [NSString stringWithFormat:@"Report Descriptor - uuid: %@; URI: %@; Mandatory: %@; Read Only %@; Type: %@; Visible: %@;\n\tState: %@, Master Dependencies: %@, Slave Dependencies: %@", self.uuid, self.uri, self.mandatory, self.readOnly, self.type, self.visible, self.state, self.masterDependencies, self.slaveDependencies];
-}
-
 @end

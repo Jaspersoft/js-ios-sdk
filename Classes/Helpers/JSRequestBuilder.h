@@ -118,7 +118,6 @@
  @return The request builder
  */
 - (JSRequestBuilder *)responseAsObjects:(BOOL)responseAsObjects;
-
 /**
  Sets downloadDestinationPath for request
  

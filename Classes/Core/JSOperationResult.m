@@ -83,9 +83,4 @@
     return self.statusCode >= 400 && self.statusCode < 600;
 }
 
-- (NSString *)description {
-    return [NSString stringWithFormat:@"Status Code: %lu; AllHeaderFields %@; MIMEType %@; Error: %@", 
-            (unsigned long)self.statusCode, self.allHeaderFields, self.MIMEType, self.error];
-}
-
 @end

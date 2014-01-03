@@ -46,9 +46,4 @@
     return self;
 }
 
-- (NSString *)description {
-    return [NSString stringWithFormat:@"Resource Parameter - Name: %@; Is List Item: %@; Value: %@", 
-            self.name, self.isListItem, self.value];
-}
-
 @end

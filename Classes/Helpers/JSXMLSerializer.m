@@ -77,14 +77,13 @@
             if ([[mappingRule objectForKey:JSKeyIsAttr] boolValue]) {
                 [writer writeAttribute:node value:[propertyValue description]];
             } else {
-                
                 if ([propertyValue isKindOfClass:[NSArray class]]) {
                     for (id value in propertyValue) {
                         [writer writeStartElement:node];
                         [writer writeCData:value];
                         [writer writeEndElement];
                     }
-                } else {
+                } else if ([[propertyValue description] length]) {
                     isParentNodeWasClosed = YES;
                     if (!isBodyOfElement) {
                         [writer writeStartElement:node];
@@ -98,6 +97,14 @@
                 }
             }
         } else if ([mappingType isEqualToString:JSRelationMappingType] && [propertyValue count]) {
+            NSMutableArray *elements = [[node componentsSeparatedByString:@"."] mutableCopy];
+            [elements removeLastObject];
+            
+            for (NSString *element in elements) {
+                [writer writeStartElement:element];
+                [writer writeCloseStartElement];
+            }
+            
             // Recursive generate XML for children nodes
             for (id child in propertyValue) {
                 if (!isParentNodeWasClosed) {
@@ -105,6 +112,10 @@
                     isParentNodeWasClosed = YES;
                 }
                 [writer write:[self stringFromObject:child]];
+            }
+            
+            for (NSString *element in elements) {
+                [writer writeEndElement:element];
             }
         }
     }

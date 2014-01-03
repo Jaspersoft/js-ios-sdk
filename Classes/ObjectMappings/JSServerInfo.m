@@ -40,10 +40,6 @@
 @synthesize licenseType = _licenseType;
 @synthesize version = _version;
 
-- (NSString *)description {
-    return [NSString stringWithFormat:@"Server Info - Build: %@; Edition: %@; Edition Name: %@; Expiration: %@; Features: %@; License Type: %@; Version: %@", self.build, self.edition, self.editionName, self.expiration, self.features, self.licenseType, self.version];
-}
-
 - (NSInteger)versionAsInteger {
     NSInteger intVersion = 0;
     

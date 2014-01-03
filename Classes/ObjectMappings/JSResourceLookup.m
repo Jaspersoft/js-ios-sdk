@@ -41,9 +41,4 @@
 @synthesize creationDate = _creationDate;
 @synthesize updateDate = _updateDate;
 
-- (NSString *)description {
-    return [NSString stringWithFormat:@"Resource Lookup - Label: %@; URI: %@; Resource Description: %@; Resource Type: %@; Version: %@; Permission Mark: %@; Creation Date: %@; Update Date: %@",
-            self.label, self.uri, self.resourceDescription, self.resourceType, self.version, self.permissionMask, self.creationDate, self.updateDate];
-}
-
 @end

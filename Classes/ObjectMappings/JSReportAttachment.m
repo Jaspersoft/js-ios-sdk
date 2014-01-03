@@ -35,8 +35,4 @@
 @synthesize type = _type;
 @synthesize name = _name;
 
-- (NSString *)description {
-    return [NSString stringWithFormat:@"Report Attachment - type: %@; name: %@", self.type, self.name];
-}
-
 @end

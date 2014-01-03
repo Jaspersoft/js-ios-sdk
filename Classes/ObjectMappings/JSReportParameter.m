@@ -44,9 +44,4 @@
     return self;
 }
 
-- (NSString *)description {
-    return [NSString stringWithFormat:@"Report Parameter - Name: %@; Value: %@",
-            self.name, self.value];
-}
-
 @end

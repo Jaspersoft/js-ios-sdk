@@ -137,6 +137,7 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
         self.restKitClient.authenticationType = RKRequestAuthenticationTypeHTTPBasic;
         self.restKitClient.cachePolicy = RKRequestCachePolicyNone;
         self.restKitClient.requestCache.storagePolicy = RKRequestCacheStoragePolicyDisabled;
+        self.restKitClient.disableCertificateValidation = YES;
         
         // Sets default content-type and charset for RKClient. This is required step or
         // there will be an parsing error

@@ -39,8 +39,4 @@
 @synthesize endPage = _endPage;
 @synthesize attachments = _attachments;
 
-- (NSString *)description {
-    return [NSString stringWithFormat:@"Report Descriptor - uuid: %@; Original URI: %@; Total Pages: %@; Start Page: %@; End Page: %@; Attachments Count: %lu", self.uuid, self.originalUri, self.totalPages, self.startPage, self.endPage, (unsigned long)self.attachments.count];
-}
-
 @end

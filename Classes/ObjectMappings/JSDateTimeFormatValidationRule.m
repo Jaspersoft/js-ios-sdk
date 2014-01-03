@@ -35,8 +35,4 @@
 @synthesize errorMessage = _errorMessage;
 @synthesize format = _format;
 
-- (NSString *)description {
-    return [NSString stringWithFormat:@"Date Time Format Validation Rule - Error Message: %@; Format: %@", self.errorMessage, self.format];
-}
-
 @end

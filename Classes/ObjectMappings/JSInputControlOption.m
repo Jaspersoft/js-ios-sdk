@@ -36,8 +36,4 @@
 @synthesize value = _value;
 @synthesize selected = _selected;
 
-- (NSString *)description {
-    return [NSString stringWithFormat:@"Input Control Option - Label: %@; Value: %@; Selected: %@", self.label, self.value, self.selected];
-}
-
 @end
