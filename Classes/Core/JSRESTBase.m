@@ -167,9 +167,9 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 }
 
 - (void)setServerProfile:(JSProfile *)serverProfile {
-    // Delete cookies for servers. If don't do this old credentials will be used 
+    // Delete cookies for current server profile. If don't do this old credentials will be used
     // instead new one
-    [self deleteCookiesForServer:_serverProfile];    
+    [self deleteCookies];
     _serverProfile = serverProfile;
     
     // Sets authentication. This will also change authentication for 
@@ -311,6 +311,22 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
     [self.requestCallBacks removeAllObjects];
 }
 
+- (NSArray *)cookies {
+    if (!self.serverProfile.serverUrl) return nil;
+
+    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSString *host = [[NSURL URLWithString:self.serverProfile.serverUrl] host];
+
+    NSMutableArray *cookies = [NSMutableArray array];
+    for (NSHTTPCookie *cookie in cookieStorage.cookies) {
+        if ([cookie.domain isEqualToString:host]) {
+            [cookies addObject:cookie];
+        }
+    }
+
+    return cookies;
+}
+
 #pragma mark -
 #pragma mark Private methods
 
@@ -381,16 +397,10 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 }
 
 // Deletes all cookies for specified server
-- (void)deleteCookiesForServer:(JSProfile *)serverProfile {
-    if (!serverProfile.serverUrl) return;
-    
+- (void)deleteCookies {
     NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    NSString *host = [[NSURL URLWithString:serverProfile.serverUrl] host];
-    
-    for (NSHTTPCookie *cookie in cookieStorage.cookies) {
-        if ([cookie.domain isEqualToString:host]) {
-            [cookieStorage deleteCookie:cookie];
-        }
+    for (NSHTTPCookie *cookie in self.cookies) {
+        [cookieStorage deleteCookie:cookie];
     }
 }
 

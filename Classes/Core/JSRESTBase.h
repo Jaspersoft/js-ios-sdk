@@ -87,6 +87,13 @@
 @property (nonatomic, assign) JSRequestBackgroundPolicy requestBackgroundPolicy;
 #endif
 
+/**
+ An NSArray of NSHTTPCookie objects
+
+ @since 1.8
+ */
+@property (nonatomic, readonly) NSArray *cookies;
+
 /** 
  Returns a rest base instance with provided server profile (for authentication) 
  and list of classes for which mapping rules will be created. 

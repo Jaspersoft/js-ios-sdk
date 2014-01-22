@@ -234,6 +234,11 @@ static JSRESTReport *_sharedInstance;
     [self sendRequest:[[builder body:executionRequest].request usingBlock:block]];
 }
 
+- (NSString *)generateReportOutputUrl:(NSString *)requestId exportOutput:(NSString *)exportOutput {
+    JSConstants *constants = [JSConstants sharedInstance];
+    return [NSString stringWithFormat:@"%@%@%@/%@/exports/%@/outputResource", self.serverProfile.serverUrl, constants.REST_SERVICES_V2_URI, constants.REST_REPORT_EXECUTION_URI, requestId, exportOutput];
+}
+
 - (void)getReportExecutionMetadata:(NSString *)requestId delegate:(id<JSRequestDelegate>)delegate {
     NSString *uri = [self fullReportExecutionUri:requestId];
     JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:uri method:JSRequestMethodGET] restVersion:JSRESTVersion_2] delegate:delegate];

@@ -293,6 +293,17 @@
          attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray /*<JSReportParameter>*/ *)parameters usingBlock:(JSRequestConfigurationBlock)block;
 
 /**
+ Generates the report output url
+
+ @param requestId A <b>requestId</b> parameter of the report execution response
+ @param exportOutput Export parameters as string in the correct format: {reportFormat};pages={pageOrPagesRange};attachmentsPrefix={attachmentsPrefixUrlEncodedValue}
+ @return A generated report output url
+
+ @since 1.8
+*/
+- (NSString *)generateReportOutputUrl:(NSString *)requestId exportOutput:(NSString *)exportOutput;
+
+/**
  Gets report execution metadata by request id
  
  @param requestId A <b>requestId</b> parameter of the report execution response
