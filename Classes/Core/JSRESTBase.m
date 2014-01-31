@@ -420,10 +420,12 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
     } else {
         self.serverProfile.serverInfo = [[JSServerInfo alloc] init];
 
+        JSRequest *request = result.request;
         result = [[JSOperationResult alloc] initWithStatusCode:203
                                                allHeaderFields:result.allHeaderFields
                                                       MIMEType:result.MIMEType
                                                          error:nil];
+        result.request = request;
     }
 
     return result;

@@ -365,7 +365,7 @@
  
  @since 1.8
  */
-- (void)saveReportOutput:(NSString *)requestId exportOutput:(NSString *)exportOutput path:(NSString *)path block:(JSRequestConfigurationBlock)block;
+- (void)saveReportOutput:(NSString *)requestId exportOutput:(NSString *)exportOutput path:(NSString *)path usingBlock:(JSRequestConfigurationBlock)block;
 
 /**
  Downloads report attachment and saves it by specified path
@@ -389,6 +389,6 @@
  
  @since 1.8
  */
-- (void)saveReportAttachment:(NSString *)requestId exportOutput:(NSString *)exportOutput attachmentName:(NSString *)attachmentName path:(NSString *)path block:(JSRequestConfigurationBlock)block;
+- (void)saveReportAttachment:(NSString *)requestId exportOutput:(NSString *)exportOutput attachmentName:(NSString *)attachmentName path:(NSString *)path usingBlock:(JSRequestConfigurationBlock)block;
 
 @end

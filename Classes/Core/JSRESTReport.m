@@ -272,7 +272,7 @@ static JSRESTReport *_sharedInstance;
     [self sendRequest:request];
 }
 
-- (void)saveReportOutput:(NSString *)requestId exportOutput:(NSString *)exportOutput path:(NSString *)path block:(JSRequestConfigurationBlock)block {
+- (void)saveReportOutput:(NSString *)requestId exportOutput:(NSString *)exportOutput path:(NSString *)path usingBlock:(JSRequestConfigurationBlock)block {
     exportOutput = [self encodeAttachmentsPrefix:exportOutput];
     NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/outputResource", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, exportOutput];
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:JSRequestMethodGET] restVersion:JSRESTVersion_2];
@@ -290,7 +290,7 @@ static JSRESTReport *_sharedInstance;
     [self sendRequest:request];
 }
 
-- (void)saveReportAttachment:(NSString *)requestId exportOutput:(NSString *)exportOutput attachmentName:(NSString *)attachmentName path:(NSString *)path block:(JSRequestConfigurationBlock)block {
+- (void)saveReportAttachment:(NSString *)requestId exportOutput:(NSString *)exportOutput attachmentName:(NSString *)attachmentName path:(NSString *)path usingBlock:(JSRequestConfigurationBlock)block {
     exportOutput = [self encodeAttachmentsPrefix:exportOutput];
     NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/attachments/%@", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, exportOutput, attachmentName];
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:JSRequestMethodGET] restVersion:JSRESTVersion_2];

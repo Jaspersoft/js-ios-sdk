@@ -271,6 +271,7 @@
  */
 @property (nonatomic, readonly) NSInteger VERSION_CODE_UNKNOWN;
 @property (nonatomic, readonly) NSInteger VERSION_CODE_EMERALD;
+@property (nonatomic, readonly) NSInteger VERSION_CODE_EMERALD_V2;
 @property (nonatomic, readonly) NSInteger VERSION_CODE_EMERALD_TWO;
 /** @} */
 
