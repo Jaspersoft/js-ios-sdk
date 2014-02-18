@@ -31,6 +31,8 @@
 #import <RestKit/RestKit.h>
 #import "RKRequest+RKAdditions.h"
 
+#pragma GCC diagnostic ignored "-Wundeclared-selector"
+
 @implementation RKRequest (RKAdditions)
 
 // Setup the NSURLRequest. The request must be prepared right before dispatching

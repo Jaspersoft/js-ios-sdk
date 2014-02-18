@@ -77,8 +77,11 @@
  
  **Default**: PDF
  @param delegate A delegate object to inform of the results
+
+ @deprecated
  */
-- (void)runReport:(NSString *)uri reportParams:(NSDictionary *)reportParams format:(NSString *)format delegate:(id<JSRequestDelegate>)delegate;
+- (void)runReport:(NSString *)uri reportParams:(NSDictionary *)reportParams format:(NSString *)format delegate:(id<JSRequestDelegate>)delegate
+__deprecated;
 
 /**
  Runs the report and generates the specified output. The response contains report descriptor
@@ -91,8 +94,11 @@
  
  **Default**: PDF
  @param block The block to execute with the request before sending it for processing
+
+ @deprecated
  */
-- (void)runReport:(NSString *)uri reportParams:(NSDictionary *)reportParams format:(NSString *)format usingBlock:(JSRequestConfigurationBlock)block;
+- (void)runReport:(NSString *)uri reportParams:(NSDictionary *)reportParams format:(NSString *)format usingBlock:(JSRequestConfigurationBlock)block
+__deprecated;
 
 /**
  Runs the report and generates the specified output. The response contains report descriptor
@@ -104,8 +110,11 @@
  
  **Default**: PDF
  @param delegate A delegate object to inform of the results
+
+ @deprecated
  */
-- (void)runReport:(JSResourceDescriptor *)resourceDescriptor format:(NSString *)format delegate:(id<JSRequestDelegate>)delegate;
+- (void)runReport:(JSResourceDescriptor *)resourceDescriptor format:(NSString *)format delegate:(id<JSRequestDelegate>)delegate
+__deprecated;
 
 /**
  Runs the report and generates the specified output. The response contains report descriptor
@@ -117,8 +126,11 @@
  
  **Default**: PDF
  @param block The block to execute with the request before sending it for processing
+
+ @deprecated
  */
-- (void)runReport:(JSResourceDescriptor *)resourceDescriptor format:(NSString *)format usingBlock:(JSRequestConfigurationBlock)block;
+- (void)runReport:(JSResourceDescriptor *)resourceDescriptor format:(NSString *)format usingBlock:(JSRequestConfigurationBlock)block
+__deprecated;
 
 /**
  Downloads specified report file, once a report has been generated, and saves it
@@ -130,8 +142,11 @@
  @param fileName One of the file names specified in the report xml
  @param path The path where generated report will be saved
  @param delegate A delegate object to inform of the results
+
+ @deprecated
  */
-- (void)reportFile:(NSString *)uuid fileName:(NSString *)fileName path:(NSString *)path delegate:(id<JSRequestDelegate>)delegate;
+- (void)reportFile:(NSString *)uuid fileName:(NSString *)fileName path:(NSString *)path delegate:(id<JSRequestDelegate>)delegate
+__deprecated;
 
 /**
  Downloads specified report file, once a report has been generated, and saves it
@@ -144,7 +159,8 @@
  @param path The path where generated report will be saved
  @param block The block to execute with the request before sending it for processing
  */
-- (void)reportFile:(NSString *)uuid fileName:(NSString *)fileName path:(NSString *)path usingBlock:(JSRequestConfigurationBlock)block;
+- (void)reportFile:(NSString *)uuid fileName:(NSString *)fileName path:(NSString *)path usingBlock:(JSRequestConfigurationBlock)block
+__deprecated;
 
 //---------------------------------------------------------------------
 // The Report Service v2
