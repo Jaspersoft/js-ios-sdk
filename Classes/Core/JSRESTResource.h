@@ -1,6 +1,6 @@
 /*
  * Jaspersoft Mobile SDK
- * Copyright (C) 2011 - 2013 Jaspersoft Corporation. All rights reserved.
+ * Copyright (C) 2011 - 2014 Jaspersoft Corporation. All rights reserved.
  * http://community.jaspersoft.com/project/mobile-sdk-ios
  * 
  * Unless you have purchased a commercial license agreement from Jaspersoft,
@@ -214,7 +214,7 @@
  Gets the list of resource lookups for the resources available in the specified
  folder and matching the specified parameters
  
- @param uri The repository URI (i.e. /reports/samples/)
+ @param folderUri The repository URI (i.e. /reports/samples/)
  @param query Match only resources having the specified text in the name or
  description (can be <code>nil</code>)
  @param types Match only resources of the given types (can be <code>nil</code>)
@@ -233,7 +233,7 @@
  Gets the list of resource lookups for the resources available in the specified
  folder and matching the specified parameters
  
- @param uri The repository URI (i.e. /reports/samples/)
+ @param folderUri The repository URI (i.e. /reports/samples/)
  @param query Match only resources having the specified text in the name or
  description (can be <code>nil</code>)
  @param types Match only resources of the given types (can be <code>nil</code>)

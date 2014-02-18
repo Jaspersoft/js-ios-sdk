@@ -1,6 +1,6 @@
 /*
  * Jaspersoft Mobile SDK
- * Copyright (C) 2011 - 2013 Jaspersoft Corporation. All rights reserved.
+ * Copyright (C) 2011 - 2014 Jaspersoft Corporation. All rights reserved.
  * http://community.jaspersoft.com/project/mobile-sdk-ios
  *
  * Unless you have purchased a commercial license agreement from Jaspersoft,
@@ -168,8 +168,10 @@
 /**
  Generates the report url to receive all pages report output in HTML format.
  
- @param resourceDescriptor resource descriptor of this report
- @param parameters list of report parameter/input control values
+ @param uri The resource descriptor uri
+ @param reportParams list of report parameter/input control values
+ @param page a positive integer value used to output a specific page or 0 to output all pages
+ @param format the format of the report output. Possible values: PDF, HTML, XLS, RTF, CSV, XML.
  @return the report url
  
  @since 1.4
@@ -374,6 +376,7 @@
  @param exportOutput Export parameters as string in the correct format: {reportFormat};pages={pageOrPagesRange};attachmentsPrefix={attachmentsPrefixUrlEncodedValue}
  @param attachmentName A name of report attachment
  @param path The path where the report output will be saved
+ @param delegate A delegate object to inform of the results
  
  @since 1.8
  */
@@ -385,6 +388,7 @@
  @param requestId A <b>requestId</b> parameter of the report execution response
  @param exportOutput Export parameters as string in the correct format: {reportFormat};pages={pageOrPagesRange};attachmentsPrefix={attachmentsPrefixUrlEncodedValue}
  @param attachmentName A name of report attachment
+ @param path The path where the report output will be saved
  @param block The block to execute with the request before sending it for processing
  
  @since 1.8
