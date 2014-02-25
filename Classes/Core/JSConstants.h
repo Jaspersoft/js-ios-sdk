@@ -1,6 +1,6 @@
 /*
  * Jaspersoft Mobile SDK
- * Copyright (C) 2011 - 2013 Jaspersoft Corporation. All rights reserved.
+ * Copyright (C) 2011 - 2014 Jaspersoft Corporation. All rights reserved.
  * http://community.jaspersoft.com/project/mobile-sdk-ios
  * 
  * Unless you have purchased a commercial license agreement from Jaspersoft,
@@ -47,7 +47,7 @@
 /**
  Get string representation for Boolean value
  
- @param aBool A Boolean value
+ @param aBOOL A Boolean value
  @return A new string @"true" or @"false" depends on provided Boolean value
  */
 + (NSString *)stringFromBOOL:(BOOL)aBOOL;
@@ -262,6 +262,7 @@
 @property (nonatomic, readonly) NSString *REST_INPUT_CONTROLS_URI;
 @property (nonatomic, readonly) NSString *REST_VALUES_URI;
 @property (nonatomic, readonly) NSString *REST_SERVER_INFO_URI;
+@property (nonatomic, readonly) NSString *REST_REPORT_EXECUTION_URI;
 /** @} */
 
 /**
@@ -270,6 +271,7 @@
  */
 @property (nonatomic, readonly) NSInteger VERSION_CODE_UNKNOWN;
 @property (nonatomic, readonly) NSInteger VERSION_CODE_EMERALD;
+@property (nonatomic, readonly) NSInteger VERSION_CODE_EMERALD_V2;
 @property (nonatomic, readonly) NSInteger VERSION_CODE_EMERALD_TWO;
 /** @} */
 

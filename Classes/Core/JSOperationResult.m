@@ -1,6 +1,6 @@
 /*
  * Jaspersoft Mobile SDK
- * Copyright (C) 2011 - 2013 Jaspersoft Corporation. All rights reserved.
+ * Copyright (C) 2011 - 2014 Jaspersoft Corporation. All rights reserved.
  * http://community.jaspersoft.com/project/mobile-sdk-ios
  * 
  * Unless you have purchased a commercial license agreement from Jaspersoft,
@@ -81,11 +81,6 @@
 
 - (BOOL)isError {
     return self.statusCode >= 400 && self.statusCode < 600;
-}
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"Status Code: %lu; AllHeaderFields %@; MIMEType %@; Error: %@", 
-            (unsigned long)self.statusCode, self.allHeaderFields, self.MIMEType, self.error];
 }
 
 @end

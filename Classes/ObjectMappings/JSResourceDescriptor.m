@@ -1,6 +1,6 @@
 /*
  * Jaspersoft Mobile SDK
- * Copyright (C) 2011 - 2013 Jaspersoft Corporation. All rights reserved.
+ * Copyright (C) 2011 - 2014 Jaspersoft Corporation. All rights reserved.
  * http://community.jaspersoft.com/project/mobile-sdk-ios
  * 
  * Unless you have purchased a commercial license agreement from Jaspersoft,
@@ -115,12 +115,6 @@
     }
     
     return listOfValues;
-}
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"Resource Descriptor - Name: %@; WsType: %@; UriString: %@; IsNew: %@; Label: %@; Description: %@; CreationDate: %@; Parameters Count: %lu; Resource Properties Count: %lu; Child Resource Descriptors Count: %lu", 
-            self.name, self.wsType, self.uriString, self.isNew, self.label, self.resourceDescription, 
-            self.creationDate, (unsigned long)self.parameters.count, (unsigned long)self.resourceProperties.count, (unsigned long)self.childResourceDescriptors.count];
 }
 
 @end

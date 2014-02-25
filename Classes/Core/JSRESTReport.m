@@ -1,6 +1,6 @@
 /*
  * Jaspersoft Mobile SDK
- * Copyright (C) 2011 - 2013 Jaspersoft Corporation. All rights reserved.
+ * Copyright (C) 2011 - 2014 Jaspersoft Corporation. All rights reserved.
  * http://community.jaspersoft.com/project/mobile-sdk-ios
  * 
  * Unless you have purchased a commercial license agreement from Jaspersoft,
@@ -32,10 +32,14 @@
 #import "JSRequestBuilder.h"
 #import "JSResourceParameter.h"
 #import "JSReportDescriptor.h"
+#import "JSReportExecutionRequest.h"
+#import "JSReportExecutionResponse.h"
 #import "JSReportParametersList.h"
 #import "JSRESTReport.h"
 #import "JSInputControlOption.h"
 #import <RestKit/NSString+RKAdditions.h>
+
+#import "JSReportExecutionRequest.h"
 
 // Report query used for setting output format (i.e PDF, HTML, etc.)
 // and path for images (current dir) when exporting report in HTML
@@ -53,7 +57,8 @@ static JSRESTReport *_sharedInstance;
 
 - (id)initWithProfile:(JSProfile *)profile {
     NSArray *classesForMappings = [[NSArray alloc] initWithObjects:[JSReportDescriptor class],
-                                   [JSInputControlDescriptor class], [JSInputControlOption class], [JSInputControlState class], nil];
+                                   [JSInputControlDescriptor class], [JSInputControlOption class], [JSInputControlState class],
+                                   [JSReportExecutionRequest class], [JSReportExecutionResponse class], [JSExecutionStatus class], nil];
     
     if ((self = [super initWithProfile:profile classesForMappings:classesForMappings]) && !_sharedInstance) {
         _sharedInstance = self;
@@ -78,7 +83,7 @@ static JSRESTReport *_sharedInstance;
 }
 
 - (void)runReport:(NSString *)uri reportParams:(NSDictionary *)reportParams
-           format:(NSString *)format usingBlock:(void (^)(JSRequest *request))block {
+           format:(NSString *)format usingBlock:(JSRequestConfigurationBlock)block {
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullRunReportUri:uri] method:JSRequestMethodPUT]
                                  body:[self resourceDescriptorForUri:uri withReportParams:reportParams]];
     [builder params:[self runReportQueryParams:format]];
@@ -94,7 +99,7 @@ static JSRESTReport *_sharedInstance;
 }
 
 - (void)runReport:(JSResourceDescriptor *)resourceDescriptor format:(NSString *)format
-       usingBlock:(void (^)(JSRequest *request))block {
+       usingBlock:(JSRequestConfigurationBlock)block {
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullRunReportUri:resourceDescriptor.uriString]
                                                            method:JSRequestMethodPUT] body:resourceDescriptor];
     [builder params:[self runReportQueryParams:format]];
@@ -102,11 +107,17 @@ static JSRESTReport *_sharedInstance;
 }
 
 - (void)reportFile:(NSString *)uuid fileName:(NSString *)fileName path:(NSString *)path delegate:(id<JSRequestDelegate>)delegate {
-    [self sendRequest:[self requestForUUID:uuid fileName:fileName path:path delegate:delegate usingBlock:nil]];
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullDownloadReportFileUri:uuid] method:JSRequestMethodGET] delegate:delegate];
+    [[[builder params:[NSDictionary dictionaryWithObjectsAndKeys:fileName, @"file", nil]] responseAsObjects:NO] downloadDestinationPath:path];
+    JSRequest *request = [self configureRequestToSaveFile:builder.request];
+    [self sendRequest:request];
 }
 
-- (void)reportFile:(NSString *)uuid fileName:(NSString *)fileName path:(NSString *)path usingBlock:(void (^)(JSRequest *request))block {
-    [self sendRequest:[self requestForUUID:uuid fileName:fileName path:path delegate:nil usingBlock:block]];
+- (void)reportFile:(NSString *)uuid fileName:(NSString *)fileName path:(NSString *)path usingBlock:(JSRequestConfigurationBlock)block {
+    JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullDownloadReportFileUri:uuid] method:JSRequestMethodGET];
+    [[[builder params:[NSDictionary dictionaryWithObjectsAndKeys:fileName, @"file", nil]] responseAsObjects:NO] downloadDestinationPath:path];
+    JSRequest *request = [self configureRequestToSaveFile:[builder.request usingBlock:block]];
+    [self sendRequest:request];
 }
 
 #pragma mark -
@@ -163,7 +174,7 @@ static JSRESTReport *_sharedInstance;
     [self sendRequest:[builder body:[[JSReportParametersList alloc] initWithReportParameters:selectedValues]].request];
 }
 
-- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues usingBlock:(void (^)(JSRequest *request))block {
+- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues usingBlock:(JSRequestConfigurationBlock)block {
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:NO] method:JSRequestMethodPOST]
             restVersion:JSRESTVersion_2];
     [self sendRequest:[[builder body:[[JSReportParametersList alloc] initWithReportParameters:selectedValues]].request usingBlock:block]];
@@ -179,8 +190,124 @@ static JSRESTReport *_sharedInstance;
     [self sendRequest:[[builder body:[[JSReportParametersList alloc] initWithReportParameters:selectedValues]].request usingBlock:block]];
 }
 
+- (void)runReportExecution:(NSString *)reportUnitUri async:(BOOL)async outputFormat:(NSString *)outputFormat
+               interactive:(BOOL)interactive freshData:(BOOL)freshData saveDataSnapshot:(BOOL)saveDataSnapshot
+          ignorePagination:(BOOL)ignorePagination transformerKey:(NSString *)transformerKey pages:(NSString *)pages
+         attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray /*<JSReportParameter>*/ *)parameters delegate:(id<JSRequestDelegate>)delegate {
+    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullReportExecutionUri:nil] method:JSRequestMethodPOST] restVersion:JSRESTVersion_2] delegate:delegate];
+    
+    JSReportExecutionRequest *executionRequest = [[JSReportExecutionRequest alloc] init];
+    executionRequest.reportUnitUri = reportUnitUri;
+    executionRequest.async = [JSConstants stringFromBOOL:async];
+    executionRequest.interactive = [JSConstants stringFromBOOL:interactive];
+    executionRequest.freshData = [JSConstants stringFromBOOL:freshData];
+    executionRequest.saveDataSnapshot = [JSConstants stringFromBOOL:saveDataSnapshot];
+    executionRequest.ignorePagination = [JSConstants stringFromBOOL:ignorePagination];
+    executionRequest.outputFormat = outputFormat;
+    executionRequest.transformerKey = transformerKey;
+    executionRequest.pages = pages;
+    executionRequest.attachmentsPrefix = attachmentsPrefix;
+    executionRequest.parameters = parameters;
+    
+    [self sendRequest:[builder body:executionRequest].request];
+}
+
+- (void)runReportExecution:(NSString *)reportUnitUri async:(BOOL)async outputFormat:(NSString *)outputFormat
+               interactive:(BOOL)interactive freshData:(BOOL)freshData saveDataSnapshot:(BOOL)saveDataSnapshot
+          ignorePagination:(BOOL)ignorePagination transformerKey:(NSString *)transformerKey pages:(NSString *)pages
+         attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray /*<JSReportParameter>*/ *)parameters usingBlock:(JSRequestConfigurationBlock)block {
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullReportExecutionUri:nil] method:JSRequestMethodPOST] restVersion:JSRESTVersion_2];
+    
+    JSReportExecutionRequest *executionRequest = [[JSReportExecutionRequest alloc] init];
+    executionRequest.reportUnitUri = reportUnitUri;
+    executionRequest.async = [JSConstants stringFromBOOL:async];
+    executionRequest.interactive = [JSConstants stringFromBOOL:interactive];
+    executionRequest.freshData = [JSConstants stringFromBOOL:freshData];
+    executionRequest.saveDataSnapshot = [JSConstants stringFromBOOL:saveDataSnapshot];
+    executionRequest.ignorePagination = [JSConstants stringFromBOOL:ignorePagination];
+    executionRequest.outputFormat = outputFormat;
+    executionRequest.transformerKey = transformerKey;
+    executionRequest.pages = pages;
+    executionRequest.attachmentsPrefix = attachmentsPrefix;
+    executionRequest.parameters = parameters;
+    
+    [self sendRequest:[[builder body:executionRequest].request usingBlock:block]];
+}
+
+- (NSString *)generateReportOutputUrl:(NSString *)requestId exportOutput:(NSString *)exportOutput {
+    JSConstants *constants = [JSConstants sharedInstance];
+    return [NSString stringWithFormat:@"%@%@%@/%@/exports/%@/outputResource", self.serverProfile.serverUrl, constants.REST_SERVICES_V2_URI, constants.REST_REPORT_EXECUTION_URI, requestId, exportOutput];
+}
+
+- (void)getReportExecutionMetadata:(NSString *)requestId delegate:(id<JSRequestDelegate>)delegate {
+    NSString *uri = [self fullReportExecutionUri:requestId];
+    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:uri method:JSRequestMethodGET] restVersion:JSRESTVersion_2] delegate:delegate];
+    [self sendRequest:builder.request];
+}
+
+- (void)getReportExecutionMetadata:(NSString *)requestId usingBlock:(JSRequestConfigurationBlock)block {
+    NSString *uri = [self fullReportExecutionUri:requestId];
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:JSRequestMethodGET] restVersion:JSRESTVersion_2];
+    [self sendRequest:[builder.request usingBlock:block]];
+}
+
+- (void)getReportExecutionStatus:(NSString *)requestId delegate:(id<JSRequestDelegate>)delegate {
+    NSString *uri = [NSString stringWithFormat:@"%@/status", [self fullReportExecutionUri:requestId]];
+    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:uri method:JSRequestMethodGET] restVersion:JSRESTVersion_2] delegate:delegate];
+    [self sendRequest:builder.request];
+}
+
+- (void)getReportExecutionStatus:(NSString *)requestId usingBlock:(JSRequestConfigurationBlock)block {
+    NSString *uri = [NSString stringWithFormat:@"%@/status", [self fullReportExecutionUri:requestId]];
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:JSRequestMethodGET] restVersion:JSRESTVersion_2];
+    [self sendRequest:[builder.request usingBlock:block]];
+}
+
+- (void)saveReportOutput:(NSString *)requestId exportOutput:(NSString *)exportOutput path:(NSString *)path delegate:(id<JSRequestDelegate>)delegate {
+    exportOutput = [self encodeAttachmentsPrefix:exportOutput];
+    NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/outputResource", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, exportOutput];
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:JSRequestMethodGET] restVersion:JSRESTVersion_2];
+    [[[builder downloadDestinationPath:path] responseAsObjects:NO] delegate:delegate];
+    JSRequest *request = [self configureRequestToSaveFile:builder.request];
+    [self sendRequest:request];
+}
+
+- (void)saveReportOutput:(NSString *)requestId exportOutput:(NSString *)exportOutput path:(NSString *)path usingBlock:(JSRequestConfigurationBlock)block {
+    exportOutput = [self encodeAttachmentsPrefix:exportOutput];
+    NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/outputResource", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, exportOutput];
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:JSRequestMethodGET] restVersion:JSRESTVersion_2];
+    [[builder downloadDestinationPath:path] responseAsObjects:NO];
+    JSRequest *request = [self configureRequestToSaveFile:[builder.request usingBlock:block]];
+    [self sendRequest:request];
+}
+
+- (void)saveReportAttachment:(NSString *)requestId exportOutput:(NSString *)exportOutput attachmentName:(NSString *)attachmentName path:(NSString *)path delegate:(id<JSRequestDelegate>)delegate {
+    exportOutput = [self encodeAttachmentsPrefix:exportOutput];
+    NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/attachments/%@", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, exportOutput, attachmentName];
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:JSRequestMethodGET] restVersion:JSRESTVersion_2];
+    [[[builder downloadDestinationPath:path] responseAsObjects:NO] delegate:delegate];
+    JSRequest *request = [self configureRequestToSaveFile:builder.request];
+    [self sendRequest:request];
+}
+
+- (void)saveReportAttachment:(NSString *)requestId exportOutput:(NSString *)exportOutput attachmentName:(NSString *)attachmentName path:(NSString *)path usingBlock:(JSRequestConfigurationBlock)block {
+    exportOutput = [self encodeAttachmentsPrefix:exportOutput];
+    NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/attachments/%@", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, exportOutput, attachmentName];
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:JSRequestMethodGET] restVersion:JSRESTVersion_2];
+    [[builder downloadDestinationPath:path] responseAsObjects:NO];
+    JSRequest *request = [self configureRequestToSaveFile:builder.request];
+    [self sendRequest:request];
+}
+
 #pragma mark -
 #pragma mark Private methods
+
+- (NSString *)fullReportExecutionUri:(NSString *)requestId {
+    NSString *reportExecutionUri = [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI;
+    
+    if (!requestId.length) return reportExecutionUri;
+    return [NSString stringWithFormat:@"%@/%@", reportExecutionUri, requestId];
+}
 
 - (NSString *)fullDownloadReportFileUri:(NSString *)uuid {
     return [NSString stringWithFormat:@"%@/%@", [JSConstants sharedInstance].REST_REPORT_URI, uuid];
@@ -259,36 +386,49 @@ static JSRESTReport *_sharedInstance;
     return resourceDescriptor;
 }
 
-// Creates request and configures request for downloading files including save files to path
-- (JSRequest *)requestForUUID:(NSString *)uuid fileName:(NSString *)fileName path:(NSString *)path
-                     delegate:(id<JSRequestDelegate>)delegate usingBlock:(void (^)(JSRequest *request))block {
-    JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullDownloadReportFileUri:uuid] method:JSRequestMethodGET];
-    [[builder params:[NSDictionary dictionaryWithObjectsAndKeys:fileName, @"file", nil]] responseAsObjects:NO];
-    [builder downloadDestinationPath:path];
+- (JSRequest *)configureRequestToSaveFile:(JSRequest *)request {
+    __weak id <JSRequestDelegate> delegate = request.delegate;
+    __weak JSRequestFinishedBlock finishedBlock = request.finishedBlock;
     
-    JSRequest *request = block ? [builder.request usingBlock:block] : builder.request;
+    // Set delegate in request to nil to avoid 2 delegate invocations
+    request.delegate = nil;
     
-    // Store finished block passed from client to request (via "usingBlock:" method)
-    JSRequestFinishedBlock clientFinishedBlock = request.finishedBlock;
-    
-    // After sending request and getting RestKit's response this block will be called
-    // before delegate or clientFinishedBlock (if it was provided)
+    // Set save finishedBlock
     request.finishedBlock = ^(JSOperationResult *result) {
         // Write receive file to specified directory path
         if (!result.error) {
-            [result.body writeToFile:path atomically:YES];
-        }
-        
-        if (clientFinishedBlock) {
-            clientFinishedBlock(result);
+            [result.body writeToFile:result.downloadDestinationPath atomically:YES];
         }
         
         if (delegate) {
             [delegate requestFinished:result];
         }
+        
+        if (finishedBlock) {
+            // Call original finishedBlock
+            finishedBlock(result);
+        }
     };
     
     return request;
+}
+
+// TODO: refactor, find better way to make URL encoded string
+- (NSString *)encodeAttachmentsPrefix:(NSString *)exportOutput {
+    NSRange prefixRange = [exportOutput rangeOfString:@"attachmentsPrefix="];
+    
+    if (prefixRange.location != NSNotFound) {
+        NSInteger location = prefixRange.location + prefixRange.length;
+        NSRange valueRange = NSMakeRange(location, exportOutput.length - location);
+        NSString *value = [exportOutput substringWithRange:valueRange];
+        if (value.length) {
+            CFStringRef encodedValue = CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) value, NULL, (CFStringRef) @"!*’();:@&=+$,/?%#[]", kCFStringEncodingUTF8);
+            value = CFBridgingRelease(encodedValue);
+            exportOutput = [exportOutput stringByReplacingCharactersInRange:valueRange withString:value];
+        }
+    }
+    
+    return exportOutput;
 }
 
 @end

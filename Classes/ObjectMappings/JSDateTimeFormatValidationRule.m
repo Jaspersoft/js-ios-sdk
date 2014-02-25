@@ -1,6 +1,6 @@
 /*
  * Jaspersoft Mobile SDK
- * Copyright (C) 2011 - 2013 Jaspersoft Corporation. All rights reserved.
+ * Copyright (C) 2011 - 2014 Jaspersoft Corporation. All rights reserved.
  * http://community.jaspersoft.com/project/mobile-sdk-ios
  * 
  * Unless you have purchased a commercial license agreement from Jaspersoft,
@@ -34,9 +34,5 @@
 
 @synthesize errorMessage = _errorMessage;
 @synthesize format = _format;
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"Date Time Format Validation Rule - Error Message: %@; Format: %@", self.errorMessage, self.format];
-}
 
 @end

@@ -1,6 +1,6 @@
 /*
  * Jaspersoft Mobile SDK
- * Copyright (C) 2011 - 2013 Jaspersoft Corporation. All rights reserved.
+ * Copyright (C) 2011 - 2014 Jaspersoft Corporation. All rights reserved.
  * http://community.jaspersoft.com/project/mobile-sdk-ios
  * 
  * Unless you have purchased a commercial license agreement from Jaspersoft,
@@ -35,9 +35,5 @@
 @synthesize label = _label;
 @synthesize value = _value;
 @synthesize selected = _selected;
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"Input Control Option - Label: %@; Value: %@; Selected: %@", self.label, self.value, self.selected];
-}
 
 @end

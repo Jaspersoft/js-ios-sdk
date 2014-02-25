@@ -1,6 +1,6 @@
 /*
  * Jaspersoft Mobile SDK
- * Copyright (C) 2011 - 2013 Jaspersoft Corporation. All rights reserved.
+ * Copyright (C) 2011 - 2014 Jaspersoft Corporation. All rights reserved.
  * http://community.jaspersoft.com/project/mobile-sdk-ios
  * 
  * Unless you have purchased a commercial license agreement from Jaspersoft,
@@ -151,8 +151,10 @@ static JSConstants *_sharedInstance;
 @synthesize REST_INPUT_CONTROLS_URI;
 @synthesize REST_VALUES_URI;
 @synthesize REST_SERVER_INFO_URI;
+@synthesize REST_REPORT_EXECUTION_URI;
 @synthesize VERSION_CODE_UNKNOWN;
 @synthesize VERSION_CODE_EMERALD;
+@synthesize VERSION_CODE_EMERALD_V2;
 @synthesize VERSION_CODE_EMERALD_TWO;
 @synthesize ICD_TYPE_BOOL;
 @synthesize ICD_TYPE_SINGLE_VALUE_TEXT;
@@ -367,13 +369,14 @@ static JSConstants *_sharedInstance;
     REST_INPUT_CONTROLS_URI = @"/inputControls";
     REST_VALUES_URI = @"/values";
     REST_SERVER_INFO_URI = @"/serverInfo";
+    REST_REPORT_EXECUTION_URI = @"/reportExecutions";
 }
 
 - (void)setUPVersionCodes {
     VERSION_CODE_UNKNOWN = 0;
     VERSION_CODE_EMERALD = 50000;
+    VERSION_CODE_EMERALD_V2 = 50200;
     VERSION_CODE_EMERALD_TWO = 50500;
-    
 }
 
 - (void)setUPInputControlDescriptorTypes {

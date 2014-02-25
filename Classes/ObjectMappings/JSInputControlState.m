@@ -1,6 +1,6 @@
 /*
  * Jaspersoft Mobile SDK
- * Copyright (C) 2011 - 2013 Jaspersoft Corporation. All rights reserved.
+ * Copyright (C) 2011 - 2014 Jaspersoft Corporation. All rights reserved.
  * http://community.jaspersoft.com/project/mobile-sdk-ios
  * 
  * Unless you have purchased a commercial license agreement from Jaspersoft,
@@ -37,9 +37,5 @@
 @synthesize value = _value;
 @synthesize error = _error;
 @synthesize options = _options;
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"Input Control State - uuid: %@; URI: %@; Value: %@; Error: %@; Options Count: %lu", self.uuid, self.uri, self.value, self.error, (unsigned long)self.options.count];
-}
 
 @end

@@ -1,6 +1,6 @@
 /*
  * Jaspersoft Mobile SDK
- * Copyright (C) 2011 - 2013 Jaspersoft Corporation. All rights reserved.
+ * Copyright (C) 2011 - 2014 Jaspersoft Corporation. All rights reserved.
  * http://community.jaspersoft.com/project/mobile-sdk-ios
  * 
  * Unless you have purchased a commercial license agreement from Jaspersoft,
@@ -38,9 +38,5 @@
 @synthesize startPage = _startPage;
 @synthesize endPage = _endPage;
 @synthesize attachments = _attachments;
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"Report Descriptor - uuid: %@; Original URI: %@; Total Pages: %@; Start Page: %@; End Page: %@; Attachments Count: %lu", self.uuid, self.originalUri, self.totalPages, self.startPage, self.endPage, (unsigned long)self.attachments.count];
-}
 
 @end

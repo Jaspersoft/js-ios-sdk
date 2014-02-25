@@ -1,6 +1,6 @@
 /*
  * Jaspersoft Mobile SDK
- * Copyright (C) 2011 - 2013 Jaspersoft Corporation. All rights reserved.
+ * Copyright (C) 2011 - 2014 Jaspersoft Corporation. All rights reserved.
  * http://community.jaspersoft.com/project/mobile-sdk-ios
  * 
  * Unless you have purchased a commercial license agreement from Jaspersoft,
@@ -137,6 +137,7 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
         self.restKitClient.authenticationType = RKRequestAuthenticationTypeHTTPBasic;
         self.restKitClient.cachePolicy = RKRequestCachePolicyNone;
         self.restKitClient.requestCache.storagePolicy = RKRequestCacheStoragePolicyDisabled;
+        self.restKitClient.disableCertificateValidation = YES;
         
         // Sets default content-type and charset for RKClient. This is required step or
         // there will be an parsing error
@@ -166,9 +167,9 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 }
 
 - (void)setServerProfile:(JSProfile *)serverProfile {
-    // Delete cookies for servers. If don't do this old credentials will be used 
+    // Delete cookies for current server profile. If don't do this old credentials will be used
     // instead new one
-    [self deleteCookiesForServer:_serverProfile];    
+    [self deleteCookies];
     _serverProfile = serverProfile;
     
     // Sets authentication. This will also change authentication for 
@@ -310,6 +311,22 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
     [self.requestCallBacks removeAllObjects];
 }
 
+- (NSArray *)cookies {
+    if (!self.serverProfile.serverUrl) return nil;
+
+    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSString *host = [[NSURL URLWithString:self.serverProfile.serverUrl] host];
+
+    NSMutableArray *cookies = [NSMutableArray array];
+    for (NSHTTPCookie *cookie in cookieStorage.cookies) {
+        if ([cookie.domain isEqualToString:host]) {
+            [cookies addObject:cookie];
+        }
+    }
+
+    return cookies;
+}
+
 #pragma mark -
 #pragma mark Private methods
 
@@ -380,16 +397,10 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 }
 
 // Deletes all cookies for specified server
-- (void)deleteCookiesForServer:(JSProfile *)serverProfile {
-    if (!serverProfile.serverUrl) return;
-    
+- (void)deleteCookies {
     NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    NSString *host = [[NSURL URLWithString:serverProfile.serverUrl] host];
-    
-    for (NSHTTPCookie *cookie in cookieStorage.cookies) {
-        if ([cookie.domain isEqualToString:host]) {
-            [cookieStorage deleteCookie:cookie];
-        }
+    for (NSHTTPCookie *cookie in self.cookies) {
+        [cookieStorage deleteCookie:cookie];
     }
 }
 
@@ -409,10 +420,12 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
     } else {
         self.serverProfile.serverInfo = [[JSServerInfo alloc] init];
 
+        JSRequest *request = result.request;
         result = [[JSOperationResult alloc] initWithStatusCode:203
                                                allHeaderFields:result.allHeaderFields
                                                       MIMEType:result.MIMEType
                                                          error:nil];
+        result.request = request;
     }
 
     return result;
