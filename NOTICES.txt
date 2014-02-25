@@ -1,6 +1,6 @@
 Jaspersoft Mobile SDK for iOS version 1.8
 Copyright (C) 2011 - 2014 Jaspersoft Corporation. All rights reserved.
-http://community.jaspersoft.com/projects/mobile-sdk-ios
+http://community.jaspersoft.com/project/mobile-sdk-ios
 
 Unless you have purchased a commercial license agreement from Jaspersoft,
 the following license terms apply:
@@ -30,7 +30,7 @@ This software includes third party software subject to the associated copyrights
 - XMLWriter (MIT) - http://code.google.com/p/xswi/
 
 The text of licenses for the above software is included with the
-Jaspersoft Mobile SDK for iOS package, in the /docs/licenses folder.
+Jaspersoft Mobile SDK for iOS package, in the /licenses folder.
 
 
 

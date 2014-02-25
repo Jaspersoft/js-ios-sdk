@@ -15,4 +15,4 @@ http://community.jaspersoft.com/project/mobile-sdk-ios
 Source Build
 --------------------
 
-See the SDK Install Guide (/docs/iOSSDKInstallGuide.pdf) for detailed instructions.
+See the SDK Install Guide (http://community.jaspersoft.com/documentation) for detailed instructions.

@@ -18,3 +18,5 @@ DerivedData
 
 # Universal lib build
 jaspersoft-sdk-lib
+
+*.xccheckout
