@@ -413,7 +413,7 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 }
 
 - (JSOperationResult *)setServerInfo:(JSOperationResult *)result {
-    if (result.isError && result.statusCode != 404) return result;
+    if (result.error || (result.isError && result.statusCode != 404)) return result;
 
     if (result.objects.count) {
         self.serverProfile.serverInfo = [result.objects objectAtIndex:0];
