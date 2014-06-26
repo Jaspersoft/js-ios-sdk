@@ -248,5 +248,46 @@
 - (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types
               recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit usingBlock:(JSRequestConfigurationBlock)block;
 
+/**
+ Gets the list of resource lookups for the resources available in the specified
+ folder and matching the specified parameters
+ 
+ @param folderUri The repository URI (i.e. /reports/samples/)
+ @param query Match only resources having the specified text in the name or
+ description (can be <code>nil</code>)
+ @param types Match only resources of the given types (can be <code>nil</code>)
+ @param sortBy Represents a field in the results to sort by: uri, label, description, 
+ type, creationDate, updateDate, accessTime, or popularity (based on access events).
+ @param recursive Get the resources recursively (can be <code>nil</code>)
+ @param offset Start index for requested page
+ @param limit The maximum number of items returned to the client. The default
+ is 0 (can be <code>nil</code>), meaning no limit
+ @param delegate A delegate object to inform of the results
+ 
+ @since 1.8
+ */
+- (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types sortBy:(NSString *)sortBy
+              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit delegate:(id<JSRequestDelegate>)delegate;
+
+/**
+ Gets the list of resource lookups for the resources available in the specified
+ folder and matching the specified parameters
+ 
+ @param folderUri The repository URI (i.e. /reports/samples/)
+ @param query Match only resources having the specified text in the name or
+ description (can be <code>nil</code>)
+ @param types Match only resources of the given types (can be <code>nil</code>)
+ @param sortBy Represents a field in the results to sort by: uri, label, description,
+ type, creationDate, updateDate, accessTime, or popularity (based on access events).
+ @param recursive Get the resources recursively (can be <code>nil</code>)
+ @param offset Start index for requested page
+ @param limit The maximum number of items returned to the client. The default
+ is 0 (can be <code>nil</code>), meaning no limit
+ @param block The block to execute with the request before sending it for processing
+ 
+ @since 1.8
+ */
+- (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types sortBy:(NSString *)sortBy
+              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit usingBlock:(JSRequestConfigurationBlock)block;
 
 @end

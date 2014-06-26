@@ -46,7 +46,7 @@
 }
 
 - (JSParamsBuilder *)addParameter:(NSString *)parameter withStringValue:(NSString *)value {
-    if (value && value.length) {
+    if (value.length) {
         [self.parameters setObject:value forKey:parameter];
     }
     return self;

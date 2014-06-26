@@ -46,6 +46,7 @@ static NSString * const _parameterType = @"type";
 static NSString * const _parameterLimit = @"limit";
 static NSString * const _parameterOffset = @"offset";
 static NSString * const _parameterRecursive = @"recursive";
+static NSString * const _parameterSortBy = @"sortBy";
 
 // HTTP resources search parameters
 
@@ -127,35 +128,47 @@ static NSString * const _parameterRecursive = @"recursive";
 
 - (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types
               recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit delegate:(id<JSRequestDelegate>)delegate {
+    [self resourceLookups:folderUri query:query types:types sortBy:nil recursive:recursive offset:offset limit:limit delegate:delegate];
+}
+
+- (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types
+              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit usingBlock:(JSRequestConfigurationBlock)block {
+    [self resourceLookups:folderUri query:query types:types sortBy:nil recursive:recursive offset:offset limit:limit usingBlock:block];
+}
+
+- (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types sortBy:(NSString *)sortBy
+              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit delegate:(id<JSRequestDelegate>)delegate {
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[JSConstants sharedInstance].REST_RESOURCES_URI method:JSRequestMethodGET]
                                  restVersion:JSRESTVersion_2];
     
     JSParamsBuilder *paramsBuilder = [[JSParamsBuilder alloc] init];
-    [[[[[[[paramsBuilder addParameter:_parameterFolderUri withStringValue:folderUri]
-        addParameter:_parameterQuery withStringValue:query]
-        addParameter:_parameterType withArrayValue:types]
-        addParameter:_parameterLimit withIntegerValue:limit]
-        addParameter:_parameterRecursive withStringValue:[JSConstants stringFromBOOL:recursive]]
-        addParameter:_parameterOffset withIntegerValue:offset]
-        addParameter:_parameterLimit withIntegerValue:limit];
+    [[[[[[[[paramsBuilder addParameter:_parameterFolderUri withStringValue:folderUri]
+            addParameter:_parameterQuery withStringValue:query]
+            addParameter:_parameterType withArrayValue:types]
+            addParameter:_parameterSortBy withStringValue:sortBy]
+            addParameter:_parameterLimit withIntegerValue:limit]
+            addParameter:_parameterRecursive withStringValue:[JSConstants stringFromBOOL:recursive]]
+            addParameter:_parameterOffset withIntegerValue:offset]
+            addParameter:_parameterLimit withIntegerValue:limit];
     
     [[builder params:paramsBuilder.params] delegate:delegate];
     [self sendRequest:builder.request];
 }
 
-- (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types
+- (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types sortBy:(NSString *)sortBy
               recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit usingBlock:(JSRequestConfigurationBlock)block {
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[JSConstants sharedInstance].REST_RESOURCES_URI method:JSRequestMethodGET]
                                  restVersion:JSRESTVersion_2];
     
     JSParamsBuilder *paramsBuilder = [[JSParamsBuilder alloc] init];
-    [[[[[[[paramsBuilder addParameter:_parameterFolderUri withStringValue:folderUri]
-        addParameter:_parameterQuery withStringValue:query]
-        addParameter:_parameterType withArrayValue:types]
-        addParameter:_parameterLimit withIntegerValue:limit]
-        addParameter:_parameterRecursive withStringValue:[JSConstants stringFromBOOL:recursive]]
-        addParameter:_parameterOffset withIntegerValue:offset]
-        addParameter:_parameterLimit withIntegerValue:limit];
+    [[[[[[[[paramsBuilder addParameter:_parameterFolderUri withStringValue:folderUri]
+            addParameter:_parameterQuery withStringValue:query]
+            addParameter:_parameterType withArrayValue:types]
+            addParameter:_parameterSortBy withStringValue:sortBy]
+            addParameter:_parameterLimit withIntegerValue:limit]
+            addParameter:_parameterRecursive withStringValue:[JSConstants stringFromBOOL:recursive]]
+            addParameter:_parameterOffset withIntegerValue:offset]
+            addParameter:_parameterLimit withIntegerValue:limit];
     
     [builder params:paramsBuilder.params];
     [self sendRequest:[builder.request usingBlock:block]];
