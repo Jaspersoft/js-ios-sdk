@@ -33,6 +33,10 @@
 		37455F666750D1962B6ED6CB /* JSReportExecutionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 374555044AD45FB4F352A96F /* JSReportExecutionRequest.m */; };
 		F51D6A2A178417990079AE50 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F51D6A1F1784171F0079AE50 /* libRestKit.a */; };
 		F51D6A2D178417A00079AE50 /* RestKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F51D6A231784171F0079AE50 /* RestKit.framework */; };
+		F520FF89196FEE53009435C2 /* JSMandatoryValidationRule.h in Headers */ = {isa = PBXBuildFile; fileRef = F520FF87196FEE53009435C2 /* JSMandatoryValidationRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F520FF8A196FEE53009435C2 /* JSMandatoryValidationRule.h in Headers */ = {isa = PBXBuildFile; fileRef = F520FF87196FEE53009435C2 /* JSMandatoryValidationRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F520FF8B196FEE53009435C2 /* JSMandatoryValidationRule.m in Sources */ = {isa = PBXBuildFile; fileRef = F520FF88196FEE53009435C2 /* JSMandatoryValidationRule.m */; };
+		F520FF8C196FEE53009435C2 /* JSMandatoryValidationRule.m in Sources */ = {isa = PBXBuildFile; fileRef = F520FF88196FEE53009435C2 /* JSMandatoryValidationRule.m */; };
 		F523D78518635EB000B93D3F /* JSExecutionStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = F523D78318635EB000B93D3F /* JSExecutionStatus.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F523D78618635EB000B93D3F /* JSExecutionStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = F523D78318635EB000B93D3F /* JSExecutionStatus.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F523D78718635EB000B93D3F /* JSExecutionStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = F523D78418635EB000B93D3F /* JSExecutionStatus.m */; };
@@ -242,6 +246,8 @@
 		374556F481BE36B761B5FDDF /* JSReportOutputResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportOutputResource.m; sourceTree = "<group>"; };
 		374558828353F4E8E6F29C17 /* JSReportExecutionResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportExecutionResponse.m; sourceTree = "<group>"; };
 		37455C26CA9D110D7CBD29A2 /* JSExportExecution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSExportExecution.m; sourceTree = "<group>"; };
+		F520FF87196FEE53009435C2 /* JSMandatoryValidationRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMandatoryValidationRule.h; sourceTree = "<group>"; };
+		F520FF88196FEE53009435C2 /* JSMandatoryValidationRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMandatoryValidationRule.m; sourceTree = "<group>"; };
 		F523D78318635EB000B93D3F /* JSExecutionStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSExecutionStatus.h; sourceTree = "<group>"; };
 		F523D78418635EB000B93D3F /* JSExecutionStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSExecutionStatus.m; sourceTree = "<group>"; };
 		F5285AFE16487ECF00089F3F /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
@@ -591,6 +597,8 @@
 			children = (
 				F5AE53AD165169F6004207E1 /* JSDateTimeFormatValidationRule.h */,
 				F5AE53AE165169F6004207E1 /* JSDateTimeFormatValidationRule.m */,
+				F520FF87196FEE53009435C2 /* JSMandatoryValidationRule.h */,
+				F520FF88196FEE53009435C2 /* JSMandatoryValidationRule.m */,
 				F5AE53DC16518C58004207E1 /* JSValidationRules.h */,
 				F5AE53DD16518C58004207E1 /* JSValidationRules.m */,
 			);
@@ -660,6 +668,7 @@
 				F5E4801417CD768A00B2BF62 /* JSInputControlWrapper.h in Headers */,
 				37455ABDDD4368D267B50469 /* JSReportExecutionResponse.h in Headers */,
 				F5D0923818586E4E00C5AEFC /* JSErrorDescriptor.h in Headers */,
+				F520FF89196FEE53009435C2 /* JSMandatoryValidationRule.h in Headers */,
 				F523D78518635EB000B93D3F /* JSExecutionStatus.h in Headers */,
 				F597692C15E3C826004165A7 /* JSClassesMappingRulesHelper.h in Headers */,
 				F597693015E3C826004165A7 /* JSRequestBuilder.h in Headers */,
@@ -708,6 +717,7 @@
 				F5E4801517CD768A00B2BF62 /* JSInputControlWrapper.h in Headers */,
 				374556B8DCFAAB42E47D5F04 /* JSReportExecutionResponse.h in Headers */,
 				F523D78618635EB000B93D3F /* JSExecutionStatus.h in Headers */,
+				F520FF8A196FEE53009435C2 /* JSMandatoryValidationRule.h in Headers */,
 				F5D0923918586E4E00C5AEFC /* JSErrorDescriptor.h in Headers */,
 				F597692D15E3C826004165A7 /* JSClassesMappingRulesHelper.h in Headers */,
 				F597693115E3C826004165A7 /* JSRequestBuilder.h in Headers */,
@@ -923,6 +933,7 @@
 				F5DDD7AD164029EC005BBE7C /* JSServerInfo.m in Sources */,
 				F523D78718635EB000B93D3F /* JSExecutionStatus.m in Sources */,
 				F568246C1642996D00CC4015 /* JSInputControlDescriptor.m in Sources */,
+				F520FF8B196FEE53009435C2 /* JSMandatoryValidationRule.m in Sources */,
 				F56824761642A2A300CC4015 /* JSInputControlState.m in Sources */,
 				F568247C1642A67E00CC4015 /* JSInputControlOption.m in Sources */,
 				F5EA36B018337B4A00E09E10 /* JSResourceLookup.m in Sources */,
@@ -967,6 +978,7 @@
 				F5DDD7AE164029EC005BBE7C /* JSServerInfo.m in Sources */,
 				F523D78818635EB000B93D3F /* JSExecutionStatus.m in Sources */,
 				F568246D1642996D00CC4015 /* JSInputControlDescriptor.m in Sources */,
+				F520FF8C196FEE53009435C2 /* JSMandatoryValidationRule.m in Sources */,
 				F56824771642A2A300CC4015 /* JSInputControlState.m in Sources */,
 				F568247D1642A67E00CC4015 /* JSInputControlOption.m in Sources */,
 				F5EA36B118337B4A00E09E10 /* JSResourceLookup.m in Sources */,

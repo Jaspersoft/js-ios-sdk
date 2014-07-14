@@ -33,5 +33,6 @@
 @implementation JSValidationRules
 
 @synthesize dateTimeFormatValidationRule = _dateTimeFormatValidationRule;
+@synthesize mandatoryValidationRule = _mandatoryValidationRule;
 
 @end

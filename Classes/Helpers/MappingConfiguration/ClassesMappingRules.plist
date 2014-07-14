@@ -705,6 +705,16 @@
 				<key>class</key>
 				<string>JSDateTimeFormatValidationRule</string>
 			</dict>
+			<dict>
+				<key>type</key>
+				<string>relation</string>
+				<key>node</key>
+				<string>mandatoryValidationRule</string>
+				<key>prop</key>
+				<string>mandatoryValidationRule</string>
+				<key>class</key>
+				<string>JSMandatoryValidationRule</string>
+			</dict>
 		</array>
 	</dict>
 	<key>JSDateTimeFormatValidationRule</key>
@@ -726,6 +736,20 @@
 				<string>format</string>
 				<key>prop</key>
 				<string>format</string>
+			</dict>
+		</array>
+	</dict>
+	<key>JSMandatoryValidationRule</key>
+	<dict>
+		<key>mappingRules</key>
+		<array>
+			<dict>
+				<key>type</key>
+				<string>property</string>
+				<key>node</key>
+				<string>errorMessage</string>
+				<key>prop</key>
+				<string>errorMessage</string>
 			</dict>
 		</array>
 	</dict>
