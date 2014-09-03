@@ -32,9 +32,11 @@
 
 /**
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev agubarev@jaspersoft.com
  @since 1.4
  */
-@interface JSInputControlOption : NSObject
+
+@interface JSInputControlOption : NSObject <NSCopying>
 
 @property (nonatomic, retain) NSString *label;
 @property (nonatomic, retain) NSString *value;

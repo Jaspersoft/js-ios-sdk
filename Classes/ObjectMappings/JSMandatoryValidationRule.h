@@ -32,9 +32,11 @@
 
 /**
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev agubarev@jaspersoft.com
  @since 1.9
  */
-@interface JSMandatoryValidationRule : NSObject
+
+@interface JSMandatoryValidationRule : NSObject <NSCopying>
 
 @property (nonatomic, retain) NSString *errorMessage;
 

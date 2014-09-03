@@ -97,4 +97,32 @@
     return values;
 }
 
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone {
+    if ([self isMemberOfClass: [JSInputControlDescriptor class]]) {
+        JSInputControlDescriptor *newInputControlDescriptor = [[self class] allocWithZone:zone];
+        newInputControlDescriptor.uuid                  = [self.uuid copyWithZone:zone];
+        newInputControlDescriptor.label                 = [self.label copyWithZone:zone];
+        newInputControlDescriptor.mandatory             = [self.mandatory copyWithZone:zone];
+        newInputControlDescriptor.readOnly              = [self.readOnly copyWithZone:zone];
+        newInputControlDescriptor.type                  = [self.type copyWithZone:zone];
+        newInputControlDescriptor.uri                   = [self.uri copyWithZone:zone];
+        newInputControlDescriptor.visible               = [self.visible copyWithZone:zone];
+        newInputControlDescriptor.state                 = [self.state copyWithZone:zone];
+        newInputControlDescriptor.validationRules       = [self.validationRules copyWithZone:zone];
+        newInputControlDescriptor.masterSingleInputControlID = [self.masterSingleInputControlID copyWithZone:zone];
+        newInputControlDescriptor.slaveSingleInputControlID = [self.slaveSingleInputControlID copyWithZone:zone];
+        if (self.masterDependencies) {
+            newInputControlDescriptor.masterDependencies    = [[NSArray alloc] initWithArray:self.masterDependencies copyItems:YES];
+        }
+        if (self.slaveDependencies) {
+            newInputControlDescriptor.slaveDependencies     = [[NSArray alloc] initWithArray:self.slaveDependencies copyItems:YES];
+        }
+        return newInputControlDescriptor;
+    } else {
+        NSString *messageString = [NSString stringWithFormat:@"You need to implement \"copyWithZone:\" method in %@",NSStringFromClass([self class])];
+        @throw [NSException exceptionWithName:@"Method implementation is missing" reason:messageString userInfo:nil];
+    }
+}
 @end

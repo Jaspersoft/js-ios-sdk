@@ -34,9 +34,11 @@
 
 /**
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev agubarev@jaspersoft.com
  @since 1.4
  */
-@interface JSValidationRules : NSObject
+
+@interface JSValidationRules : NSObject <NSCopying>
 
 @property (nonatomic, retain) JSDateTimeFormatValidationRule *dateTimeFormatValidationRule;
 @property (nonatomic, retain) JSMandatoryValidationRule *mandatoryValidationRule;

@@ -42,7 +42,9 @@ extern NSString * const JS_IC_NOTHING_SUBSTITUTE_LABEL;
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @since 1.6
  */
-@interface JSInputControlWrapper : NSObject
+
+__attribute__((deprecated("Use 'JSInputControlDescriptor' class")))
+@interface JSInputControlWrapper : NSObject 
 
 @property (nonatomic, retain) NSString *name;
 @property (nonatomic, retain) NSString *label;

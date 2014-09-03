@@ -32,9 +32,11 @@
 
 /**
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev agubarev@jaspersoft.com
  @since 1.4
  */
-@interface JSInputControlState : NSObject
+
+@interface JSInputControlState : NSObject <NSCopying>
 
 @property (nonatomic, retain) NSString *uuid;
 @property (nonatomic, retain) NSString *uri;

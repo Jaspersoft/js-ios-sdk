@@ -35,4 +35,17 @@
 @synthesize dateTimeFormatValidationRule = _dateTimeFormatValidationRule;
 @synthesize mandatoryValidationRule = _mandatoryValidationRule;
 
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone {
+    if ([self isMemberOfClass: [JSValidationRules class]]) {
+        JSValidationRules *newValidationRules = [[self class] allocWithZone:zone];
+        newValidationRules.dateTimeFormatValidationRule = [self.dateTimeFormatValidationRule copyWithZone:zone];
+        newValidationRules.mandatoryValidationRule = [self.mandatoryValidationRule copyWithZone:zone];
+        return newValidationRules;
+    } else {
+        NSString *messageString = [NSString stringWithFormat:@"You need to implement \"copyWithZone:\" method in %@",NSStringFromClass([self class])];
+        @throw [NSException exceptionWithName:@"Method implementation is missing" reason:messageString userInfo:nil];
+    }
+}
 @end

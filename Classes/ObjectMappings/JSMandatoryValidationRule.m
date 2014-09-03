@@ -34,4 +34,16 @@
 
 @synthesize errorMessage = _errorMessage;
 
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone {
+    if ([self isMemberOfClass: [JSMandatoryValidationRule class]]) {
+        JSMandatoryValidationRule *newandatoryValidationRule = [[self class] allocWithZone:zone];
+        newandatoryValidationRule.errorMessage = [self.errorMessage copyWithZone:zone];
+        return newandatoryValidationRule;
+    } else {
+        NSString *messageString = [NSString stringWithFormat:@"You need to implement \"copyWithZone:\" method in \"%@\" subclass",NSStringFromClass([self class])];
+        @throw [NSException exceptionWithName:@"Method implementation is missing" reason:messageString userInfo:nil];
+    }
+}
 @end
