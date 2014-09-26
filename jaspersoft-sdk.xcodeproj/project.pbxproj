@@ -1142,7 +1142,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "../../Headers/jaspersoft-sdk";
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = "i386 armv7 armv7s x86_64";
+				VALID_ARCHS = "i386 armv7 armv7s x86_64 arm64";
 			};
 			name = Debug;
 		};
@@ -1162,7 +1162,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "../../Headers/jaspersoft-sdk";
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = "i386 armv7 armv7s x86_64";
+				VALID_ARCHS = "i386 armv7 armv7s x86_64 arm64";
 			};
 			name = Release;
 		};
