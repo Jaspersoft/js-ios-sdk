@@ -45,7 +45,7 @@
 // write namespace attribute to stream
 - (void) writeNamespaceToStream:(NSString*)prefix namespaceURI:(NSString*)namespaceURI;
 // write a length of text to the stream with escaping
-- (void) writeEscapeCharacters:(const UniChar*)characters length:(int)length;
+- (void) writeEscapeCharacters:(const UniChar*)characters length:(NSInteger)length;
 @end
 
 
@@ -101,7 +101,7 @@ static NSString *const XSI_NAMESPACE_URI_PREFIX = @"xsi";
 		[namespaceCounts addObject:previousCount];
 	} else {
 		// the count has changed, save the it
-		NSNumber* count = [NSNumber numberWithInt:[namespaceURIs count]];
+		NSNumber* count = [NSNumber numberWithInteger:[namespaceURIs count]];
 	
 		[namespaceCounts addObject:count];
 	}
@@ -580,9 +580,9 @@ static NSString *const XSI_NAMESPACE_URI_PREFIX = @"xsi";
 			@throw([NSException exceptionWithName:@"XMLWriterException" reason:[NSString stringWithFormat:@"Could not allocate data buffer of %i unicode characters", 256] userInfo:NULL]);
 		}
 		
-		int count = 0;
+		NSInteger count = 0;
 		do {
-			int length;
+			NSInteger length;
 			if(count + 256 < [value length]) {
 				length = 256;
 			} else {
@@ -600,7 +600,7 @@ static NSString *const XSI_NAMESPACE_URI_PREFIX = @"xsi";
 	}
 }
 
-- (void)writeEscapeCharacters:(const UniChar*)characters length:(int)length {
+- (void)writeEscapeCharacters:(const UniChar*)characters length:(NSInteger)length {
 	int rangeStart = 0;
 	int rangeLength = 0;
 	
