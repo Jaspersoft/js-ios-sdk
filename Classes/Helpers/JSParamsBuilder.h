@@ -46,27 +46,24 @@
  
  @param parameter Parameter name
  @param value Parameter value
- @return The params builder
  */
-- (JSParamsBuilder *)addParameter:(NSString *)parameter withStringValue:(NSString *)value;
+- (void)addParameter:(NSString *)parameter withStringValue:(NSString *)value;
 
 /**
  Adds a parameter with a specified integer value only if value is bigger then 0
  
  @param parameter Parameter name
  @param value Parameter value
- @return The params builder
  */
-- (JSParamsBuilder *)addParameter:(NSString *)parameter withIntegerValue:(NSInteger)value;
+- (void)addParameter:(NSString *)parameter withIntegerValue:(NSInteger)value;
 
 /**
  Adds a parameter with a specified array value only if value is not nil or empty
  
  @param parameter Parameter name
  @param value Parameter value
- @return The params builder
  */
-- (JSParamsBuilder *)addParameter:(NSString *)parameter withArrayValue:(NSArray *)value;
+- (void)addParameter:(NSString *)parameter withArrayValue:(NSArray *)value;
 
 /** Returns a dictionary with added parameters */
 - (NSDictionary *)params;

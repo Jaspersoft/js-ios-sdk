@@ -40,18 +40,15 @@
 @synthesize licenseType = _licenseType;
 @synthesize version = _version;
 
-- (NSInteger)versionAsInteger {
-    NSInteger intVersion = 0;
-    
-    if (self.version) {
-        NSArray *numbers = [self.version componentsSeparatedByString:@"."];
-        for (NSInteger i = 0; i < numbers.count; i++) {
-            NSInteger exp = (numbers.count - 1 - i) * 2;
-            intVersion += [[numbers objectAtIndex:i] integerValue] * pow(10, exp);
-        }
+- (float)versionAsFloat
+{
+    NSString *simplyVersionString = self.version;
+    NSRange firstDotRange = [self.version rangeOfString:@"."];
+    if (firstDotRange.location != NSNotFound) {
+        NSRange minorVersionRange = NSMakeRange(firstDotRange.location + firstDotRange.length, self.version.length - (firstDotRange.location + firstDotRange.length));
+        simplyVersionString = [self.version stringByReplacingOccurrencesOfString:@"." withString:@"" options:NSCaseInsensitiveSearch range:minorVersionRange];
     }
-    
-    return intVersion;
+    return [simplyVersionString floatValue];
 }
 
 @end

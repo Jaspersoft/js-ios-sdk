@@ -45,25 +45,22 @@
     return self;
 }
 
-- (JSParamsBuilder *)addParameter:(NSString *)parameter withStringValue:(NSString *)value {
+- (void)addParameter:(NSString *)parameter withStringValue:(NSString *)value {
     if (value.length) {
         [self.parameters setObject:value forKey:parameter];
     }
-    return self;
 }
 
-- (JSParamsBuilder *)addParameter:(NSString *)parameter withIntegerValue:(NSInteger)value {
+- (void)addParameter:(NSString *)parameter withIntegerValue:(NSInteger)value {
     if (value > 0) {
         [self.parameters setObject:[NSNumber numberWithInteger:value] forKey:parameter];
     }
-    return self;
 }
 
-- (JSParamsBuilder *)addParameter:(NSString *)parameter withArrayValue:(NSArray *)value {
+- (void)addParameter:(NSString *)parameter withArrayValue:(NSArray *)value {
     if (value && value.count) {
         [self.parameters setObject:value forKey:parameter];
     }
-    return self;
 }
 
 - (NSDictionary *)params {

@@ -32,6 +32,7 @@
 
 /**
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev agubarev@jaspersoft.com
  @since 1.4
  */
 @interface JSServerInfo : NSObject
@@ -44,6 +45,6 @@
 @property (nonatomic, retain) NSString *licenseType;
 @property (nonatomic, retain) NSString *version;
 
-- (NSInteger)versionAsInteger;
+- (float)versionAsFloat;
 
 @end

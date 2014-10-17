@@ -35,6 +35,8 @@
  
  @author Giulio Toffoli giulio@jaspersoft.com
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev agubarev@jaspersoft.com
+
  @since 1.0
  */
 @interface JSConstants : NSObject
@@ -269,10 +271,13 @@
  @name JS Version Codes
  @{
  */
-@property (nonatomic, readonly) NSInteger VERSION_CODE_UNKNOWN;
-@property (nonatomic, readonly) NSInteger VERSION_CODE_EMERALD;
-@property (nonatomic, readonly) NSInteger VERSION_CODE_EMERALD_V2;
-@property (nonatomic, readonly) NSInteger VERSION_CODE_EMERALD_TWO;
+@property (nonatomic, readonly) float SERVER_VERSION_CODE_UNKNOWN;
+@property (nonatomic, readonly) float SERVER_VERSION_CODE_EMERALD_5_0_0;
+@property (nonatomic, readonly) float SERVER_VERSION_CODE_EMERALD_5_2_0;
+@property (nonatomic, readonly) float SERVER_VERSION_CODE_EMERALD_5_5_0;
+@property (nonatomic, readonly) float SERVER_VERSION_CODE_EMERALD_5_6_0;
+@property (nonatomic, readonly) float SERVER_VERSION_CODE_AMBER_6_0_0;
+
 /** @} */
 
 /**

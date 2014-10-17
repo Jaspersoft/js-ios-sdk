@@ -48,6 +48,8 @@
  requestBackgroundPolicy etc.
  
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev agubarev@jaspersoft.com
+
  @since 1.3
  */
 @interface JSRESTResource : JSRESTBase
