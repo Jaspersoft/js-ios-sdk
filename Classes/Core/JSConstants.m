@@ -158,6 +158,8 @@ static JSConstants *_sharedInstance;
 @synthesize SERVER_VERSION_CODE_EMERALD_5_5_0;
 @synthesize SERVER_VERSION_CODE_EMERALD_5_6_0;
 @synthesize SERVER_VERSION_CODE_AMBER_6_0_0;
+@synthesize SERVER_EDITION_CE;
+@synthesize SERVER_EDITION_PRO;
 @synthesize ICD_TYPE_BOOL;
 @synthesize ICD_TYPE_SINGLE_VALUE_TEXT;
 @synthesize ICD_TYPE_SINGLE_VALUE_NUMBER;
@@ -202,6 +204,7 @@ static JSConstants *_sharedInstance;
         [self setContentTypeConstants];
         [self setRESTURIPrefixes];
         [self setUPVersionCodes];
+        [self setUPServerEditions];
         [self setUPInputControlDescriptorTypes];
 	}
     
@@ -381,6 +384,11 @@ static JSConstants *_sharedInstance;
     SERVER_VERSION_CODE_EMERALD_5_5_0 = 5.5;
     SERVER_VERSION_CODE_EMERALD_5_6_0 = 5.6;
     SERVER_VERSION_CODE_AMBER_6_0_0 = 6.0;
+}
+
+- (void)setUPServerEditions {
+    SERVER_EDITION_CE = @"CE";
+    SERVER_EDITION_PRO = @"PRO";
 }
 
 - (void)setUPInputControlDescriptorTypes {

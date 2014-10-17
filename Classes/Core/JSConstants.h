@@ -281,6 +281,15 @@
 /** @} */
 
 /**
+ @name JS Editions
+ @{
+ */
+@property (nonatomic, readonly) NSString *SERVER_EDITION_CE;
+@property (nonatomic, readonly) NSString *SERVER_EDITION_PRO;
+
+/** @} */
+
+/**
  @name Input Control Descriptor Types
  @{
  */
