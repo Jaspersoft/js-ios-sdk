@@ -139,6 +139,10 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
         self.restKitClient.requestCache.storagePolicy = RKRequestCacheStoragePolicyDisabled;
         self.restKitClient.disableCertificateValidation = YES;
         
+        // Add locale to request
+        [self.restKitClient setValue:[NSString stringWithFormat:@"%@", [[NSLocale preferredLanguages] componentsJoinedByString:@", "]] forHTTPHeaderField:@"Accept-Language"];
+        [self.restKitClient setValue:[NSString stringWithFormat:@"%@", [[NSTimeZone systemTimeZone] abbreviation]] forHTTPHeaderField:@"Accept-Timezone"];
+        
         // Sets default content-type and charset for RKClient. This is required step or
         // there will be an parsing error
         [self.restKitClient setValue:RKMIMETypeXML forHTTPHeaderField:_keyContentType];
@@ -167,10 +171,11 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 }
 
 - (void)setServerProfile:(JSProfile *)serverProfile {
+    _serverProfile = serverProfile;
+    
     // Delete cookies for current server profile. If don't do this old credentials will be used
     // instead new one
     [self deleteCookies];
-    _serverProfile = serverProfile;
     
     // Sets authentication. This will also change authentication for 
     // RKObjectManager instance
