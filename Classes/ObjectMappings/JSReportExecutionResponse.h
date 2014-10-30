@@ -44,7 +44,7 @@
 @property (nonatomic, retain) NSNumber *currentPage;
 @property (nonatomic, retain) NSString *reportURI;
 @property (nonatomic, retain) NSString *requestId;
-@property (nonatomic, retain) NSArray /*<JSExportExecution>*/ *exports;
+@property (nonatomic, retain) NSArray /*<JSExportExecutionResponse>*/ *exports;
 @property (nonatomic, retain) JSExecutionStatus *status;
 @property (nonatomic, retain) JSErrorDescriptor *errorDescriptor;
 

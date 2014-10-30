@@ -48,6 +48,7 @@
  requestBackgroundPolicy etc.
  
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev agubarev@jaspersoft.com
  @since 1.3
  */
 @interface JSRESTReport : JSRESTBase
@@ -309,6 +310,37 @@ __deprecated;
                interactive:(BOOL)interactive freshData:(BOOL)freshData saveDataSnapshot:(BOOL)saveDataSnapshot
           ignorePagination:(BOOL)ignorePagination transformerKey:(NSString *)transformerKey pages:(NSString *)pages
          attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray /*<JSReportParameter>*/ *)parameters usingBlock:(JSRequestConfigurationBlock)block;
+
+/**
+ Run Export Execution
+ 
+ @param requestId A <b>requestId</b> parameter of the report execution response
+ @param outputFormat Report output format (e.g. html, pdf etc.)
+ @param pages Single page number of pages range in a format "{startPageNumber}-{endPageNumber}"
+ @param allowInlineScripts Affects HTML export only. If true, then inline scripts are allowed, otherwise no inline script is included to the HTML export output.
+ @param attachmentsPrefix URL prefix for report attachments. This parameter matter for HTML output only. Placeholders {contextPath}, {reportExecutionId} and {exportOptions} can be used. They are replaced in runtime by corresponding values
+
+ @param delegate A delegate object to inform of the results
+ 
+ @since 1.9
+ */
+- (void)runExportExecution:(NSString *)requestId outputFormat:(NSString *)outputFormat pages:(NSString *)pages
+        allowInlineScripts:(BOOL)allowInlineScripts attachmentsPrefix:(NSString *)attachmentsPrefix delegate:(id<JSRequestDelegate>)delegate;
+
+/**
+ Run Export Execution
+ 
+ @param requestId A <b>requestId</b> parameter of the report execution response
+ @param outputFormat Report output format (e.g. html, pdf etc.)
+ @param pages Single page number of pages range in a format "{startPageNumber}-{endPageNumber}"
+ @param allowInlineScripts Affects HTML export only. If true, then inline scripts are allowed, otherwise no inline script is included to the HTML export output.
+ @param attachmentsPrefix URL prefix for report attachments. This parameter matter for HTML output only. Placeholders {contextPath}, {reportExecutionId} and {exportOptions} can be used. They are replaced in runtime by corresponding values
+ @param block The block to execute with the request before sending it for processing
+ 
+ @since 1.9
+ */
+- (void)runExportExecution:(NSString *)requestId outputFormat:(NSString *)outputFormat pages:(NSString *)pages
+        allowInlineScripts:(BOOL)allowInlineScripts attachmentsPrefix:(NSString *)attachmentsPrefix usingBlock:(JSRequestConfigurationBlock)block;
 
 /**
  Generates the report output url

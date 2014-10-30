@@ -19,4 +19,8 @@ DerivedData
 # Universal lib build
 jaspersoft-sdk-lib
 
+# Resource bundle
+jaspersoft-sdk-resources.bundle
+jaspersoft-sdk-resources.bundle/*
+
 *.xccheckout

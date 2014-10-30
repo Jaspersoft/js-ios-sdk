@@ -24,28 +24,24 @@
  */
 
 //
-//  JSExport.h
+//  JSReportExecutionRequest.h
 //  Jaspersoft Corporation
 //
 
+/**
+ Represents a export execution request descriptor for convenient XML serialization process
+ 
+ @author Alexey Gubarev agubarev@jaspersoft.com
+ @since 1.9
+ */
+
 #import <Foundation/Foundation.h>
 
-#import "JSErrorDescriptor.h"
-#import "JSExecutionStatus.h"
-#import "JSReportOutputResource.h"
-
-/**
- Represents an export entity for convenient XML serialization process
- 
- @author Vlad Zavadskii vzavadskii@jaspersoft.com
- @since 1.8
- */
-@interface JSExportExecution : NSObject
-
-@property (nonatomic, retain) NSString *uuid;
-@property (nonatomic, retain) JSExecutionStatus *status;
-@property (nonatomic, retain) JSErrorDescriptor *errorDescriptor;
-@property (nonatomic, retain) JSReportOutputResource *outputResource;
-@property (nonatomic, retain) NSArray /*<JSOutputResource*/ *attachments;
+@interface JSExportExecutionRequest : NSObject
+@property (nonatomic, retain) NSString *outputFormat;
+@property (nonatomic, retain) NSString *pages;
+@property (nonatomic, retain) NSString *attachmentsPrefix;
+@property (nonatomic, retain) NSString *allowInlineScripts;
+@property (nonatomic, retain) NSString *baseUrl;
 
 @end

@@ -24,22 +24,28 @@
  */
 
 //
-//  JSErrorDescriptor.h
+//  JSExport.h
 //  Jaspersoft Corporation
 //
 
 #import <Foundation/Foundation.h>
 
-/**
- Represents an error descriptor for convenient XML serialization process
+#import "JSErrorDescriptor.h"
+#import "JSExecutionStatus.h"
+#import "JSReportOutputResource.h"
 
+/**
+ Represents an export entity for convenient XML serialization process
+ 
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @since 1.8
  */
-@interface JSErrorDescriptor : NSObject
+@interface JSExportExecutionResponse : NSObject
 
-@property (nonatomic, retain) NSString *message;
-@property (nonatomic, retain) NSString *errorCode;
-@property (nonatomic, retain) NSArray /*<NSString>*/ *parameters;
+@property (nonatomic, retain) NSString *uuid;
+@property (nonatomic, retain) JSExecutionStatus *status;
+@property (nonatomic, retain) JSErrorDescriptor *errorDescriptor;
+@property (nonatomic, retain) JSReportOutputResource *outputResource;
+@property (nonatomic, retain) NSArray /*<JSOutputResource*/ *attachments;
 
 @end

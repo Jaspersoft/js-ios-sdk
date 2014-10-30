@@ -73,6 +73,7 @@
         [constants.ICD_TYPE_SINGLE_VALUE_TEXT isEqualToString:type] ||
         [constants.ICD_TYPE_SINGLE_VALUE_NUMBER isEqualToString:type] ||
         [constants.ICD_TYPE_SINGLE_VALUE_DATE isEqualToString:type] ||
+        [constants.ICD_TYPE_SINGLE_VALUE_TIME isEqualToString:type] ||
         [constants.ICD_TYPE_SINGLE_VALUE_DATETIME isEqualToString:type]) {
         if (self.state.value) {
             [values addObject:self.state.value];

@@ -41,6 +41,7 @@
 static NSString * const _charsetUTF8 = @"UTF-8";
 static NSString * const _keyCharset = @"Charset";
 static NSString * const _keyContentType = @"Content-Type";
+static NSString * const _keyResponceType = @"Accept";
 
 // Default value for timeout interval
 static NSTimeInterval const _defaultTimeoutInterval = 120;
@@ -146,6 +147,8 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
         // Sets default content-type and charset for RKClient. This is required step or
         // there will be an parsing error
         [self.restKitClient setValue:RKMIMETypeXML forHTTPHeaderField:_keyContentType];
+        [self.restKitClient setValue:RKMIMETypeXML forHTTPHeaderField:_keyResponceType];
+
         [self.restKitClient setValue:_charsetUTF8 forHTTPHeaderField:_keyCharset];
         
         // Passed classes including JSServerInfo class
@@ -268,6 +271,7 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
     // Creates bridge between RestKit's delegate and SDK delegate
     [self.requestCallBacks addObject:[[JSCallBack alloc] initWithRestKitRequest:restKitRequest request:request]];
     
+    
     if (request.asynchronous) {
         [restKitRequest send];
     } else {
@@ -387,6 +391,7 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
                                                 MIMEType:response.MIMEType
                                                    error:error];
     result.body = response.body;
+    result.bodyAsString = response.bodyAsString;
     return result;
 }
 
@@ -483,7 +488,7 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 #pragma mark -
 #pragma mark RKRequestDelegate protocol callbacks
 
-- (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response {
+- (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response {    
     // This method also calls for RKObjectLoader so here we need to check if 
     // object is not loader. Not very good approach to use isKindOfClass. 
     // Temp solution

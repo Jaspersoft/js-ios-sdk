@@ -24,18 +24,17 @@
  */
 
 //
-//  JSExport.m
+//  JSReportExecutionRequest.h
 //  Jaspersoft Corporation
 //
 
-#import "JSExportExecution.h"
+#import "JSExportExecutionRequest.h"
 
-@implementation JSExportExecution
-
-@synthesize uuid = _uuid;
-@synthesize status = _status;
-@synthesize errorDescriptor = _errorDescriptor;
-@synthesize outputResource = _outputResource;
-@synthesize attachments = _attachments;
+@implementation JSExportExecutionRequest
+@synthesize outputFormat = _outputFormat;
+@synthesize pages = _pages;
+@synthesize attachmentsPrefix = _attachmentsPrefix;
+@synthesize allowInlineScripts = _allowInlineScripts;
+@synthesize baseUrl = _baseUrl;
 
 @end

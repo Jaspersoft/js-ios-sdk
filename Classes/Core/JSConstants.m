@@ -152,6 +152,8 @@ static JSConstants *_sharedInstance;
 @synthesize REST_VALUES_URI;
 @synthesize REST_SERVER_INFO_URI;
 @synthesize REST_REPORT_EXECUTION_URI;
+@synthesize REST_EXPORT_EXECUTION_URI;
+@synthesize REST_EXPORT_EXECUTION_ATTACHMENTS_PREFIX_URI;
 @synthesize SERVER_VERSION_CODE_UNKNOWN;
 @synthesize SERVER_VERSION_CODE_EMERALD_5_0_0;
 @synthesize SERVER_VERSION_CODE_EMERALD_5_2_0;
@@ -164,6 +166,7 @@ static JSConstants *_sharedInstance;
 @synthesize ICD_TYPE_SINGLE_VALUE_TEXT;
 @synthesize ICD_TYPE_SINGLE_VALUE_NUMBER;
 @synthesize ICD_TYPE_SINGLE_VALUE_DATE;
+@synthesize ICD_TYPE_SINGLE_VALUE_TIME;
 @synthesize ICD_TYPE_SINGLE_VALUE_DATETIME;
 @synthesize ICD_TYPE_SINGLE_SELECT;
 @synthesize ICD_TYPE_SINGLE_SELECT_RADIO;
@@ -375,6 +378,8 @@ static JSConstants *_sharedInstance;
     REST_VALUES_URI = @"/values";
     REST_SERVER_INFO_URI = @"/serverInfo";
     REST_REPORT_EXECUTION_URI = @"/reportExecutions";
+    REST_EXPORT_EXECUTION_URI = @"/exports";
+    REST_EXPORT_EXECUTION_ATTACHMENTS_PREFIX_URI = @"/reportExecutions/{reportExecutionId}/exports/{exportExecutionId}/attachments/";
 }
 
 - (void)setUPVersionCodes {
@@ -396,6 +401,7 @@ static JSConstants *_sharedInstance;
     ICD_TYPE_SINGLE_VALUE_TEXT = @"singleValueText";
     ICD_TYPE_SINGLE_VALUE_NUMBER = @"singleValueNumber";
     ICD_TYPE_SINGLE_VALUE_DATE = @"singleValueDate";
+    ICD_TYPE_SINGLE_VALUE_TIME = @"singleValueTime";
     ICD_TYPE_SINGLE_VALUE_DATETIME = @"singleValueDatetime";
     ICD_TYPE_SINGLE_SELECT = @"singleSelect";
     ICD_TYPE_SINGLE_SELECT_RADIO = @"singleSelectRadio";

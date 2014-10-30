@@ -34,6 +34,9 @@
 #import "JSReportDescriptor.h"
 #import "JSReportExecutionRequest.h"
 #import "JSReportExecutionResponse.h"
+#import "JSExportExecutionRequest.h"
+#import "JSExportExecutionResponse.h"
+
 #import "JSReportParametersList.h"
 #import "JSRESTReport.h"
 #import "JSInputControlOption.h"
@@ -58,7 +61,7 @@ static JSRESTReport *_sharedInstance;
 - (id)initWithProfile:(JSProfile *)profile {
     NSArray *classesForMappings = [[NSArray alloc] initWithObjects:[JSReportDescriptor class],
                                    [JSInputControlDescriptor class], [JSInputControlOption class], [JSInputControlState class],
-                                   [JSReportExecutionRequest class], [JSReportExecutionResponse class], [JSExecutionStatus class], nil];
+                                   [JSReportExecutionRequest class], [JSReportExecutionResponse class], [JSExportExecutionRequest class], [JSExportExecutionResponse class], [JSExecutionStatus class], nil];
     
     if ((self = [super initWithProfile:profile classesForMappings:classesForMappings]) && !_sharedInstance) {
         _sharedInstance = self;
@@ -234,6 +237,43 @@ static JSRESTReport *_sharedInstance;
     [self sendRequest:[[builder body:executionRequest].request usingBlock:block]];
 }
 
+- (void)runExportExecution:(NSString *)requestId outputFormat:(NSString *)outputFormat pages:(NSString *)pages
+        allowInlineScripts:(BOOL)allowInlineScripts attachmentsPrefix:(NSString *)attachmentsPrefix delegate:(id<JSRequestDelegate>)delegate{
+    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullExportExecutionUri:requestId] method:JSRequestMethodPOST] restVersion:JSRESTVersion_2] delegate:delegate];
+    
+    JSExportExecutionRequest *executionRequest = [[JSExportExecutionRequest alloc] init];
+    executionRequest.outputFormat = outputFormat;
+    executionRequest.pages = pages;
+    if (self.serverInfo.versionAsFloat >= [JSConstants sharedInstance].SERVER_VERSION_CODE_EMERALD_5_6_0) {
+        executionRequest.baseUrl = self.serverProfile.serverUrl;
+        if (attachmentsPrefix) {
+            JSConstants *constants = [JSConstants sharedInstance];
+            executionRequest.attachmentsPrefix = [NSString stringWithFormat:@"%@%@%@", self.serverProfile.serverUrl, constants.REST_SERVICES_V2_URI, attachmentsPrefix];
+        }
+    }
+    executionRequest.allowInlineScripts = [JSConstants stringFromBOOL:allowInlineScripts];
+    [self sendRequest:[builder body:executionRequest].request];
+}
+
+- (void)runExportExecution:(NSString *)requestId outputFormat:(NSString *)outputFormat pages:(NSString *)pages
+        allowInlineScripts:(BOOL)allowInlineScripts attachmentsPrefix:(NSString *)attachmentsPrefix usingBlock:(JSRequestConfigurationBlock)block {
+    
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullExportExecutionUri:requestId] method:JSRequestMethodPOST] restVersion:JSRESTVersion_2];
+    
+    JSExportExecutionRequest *executionRequest = [[JSExportExecutionRequest alloc] init];
+    executionRequest.outputFormat = outputFormat;
+    executionRequest.pages = pages;
+    if (self.serverInfo.versionAsFloat >= [JSConstants sharedInstance].SERVER_VERSION_CODE_EMERALD_5_6_0) {
+        executionRequest.baseUrl = self.serverProfile.serverUrl;
+        if (attachmentsPrefix) {
+            JSConstants *constants = [JSConstants sharedInstance];
+            executionRequest.attachmentsPrefix = [NSString stringWithFormat:@"%@%@%@", self.serverProfile.serverUrl, constants.REST_SERVICES_V2_URI, attachmentsPrefix];
+        }
+    }
+    executionRequest.baseUrl = self.serverProfile.serverUrl;
+    [self sendRequest:[[builder body:executionRequest].request usingBlock:block]];
+}
+
 - (NSString *)generateReportOutputUrl:(NSString *)requestId exportOutput:(NSString *)exportOutput {
     JSConstants *constants = [JSConstants sharedInstance];
     return [NSString stringWithFormat:@"%@%@%@/%@/exports/%@/outputResource", self.serverProfile.serverUrl, constants.REST_SERVICES_V2_URI, constants.REST_REPORT_EXECUTION_URI, requestId, exportOutput];
@@ -334,6 +374,10 @@ static JSRESTReport *_sharedInstance;
     }
     
     return fullReportsUri;
+}
+
+- (NSString *)fullExportExecutionUri:(NSString *)requestId {
+    return [NSString stringWithFormat:@"%@/%@%@", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, [JSConstants sharedInstance].REST_EXPORT_EXECUTION_URI];
 }
 
 - (NSDictionary *)runReportQueryParams:(NSString *)format {

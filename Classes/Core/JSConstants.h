@@ -265,6 +265,9 @@
 @property (nonatomic, readonly) NSString *REST_VALUES_URI;
 @property (nonatomic, readonly) NSString *REST_SERVER_INFO_URI;
 @property (nonatomic, readonly) NSString *REST_REPORT_EXECUTION_URI;
+@property (nonatomic, readonly) NSString *REST_EXPORT_EXECUTION_URI;
+@property (nonatomic, readonly) NSString *REST_EXPORT_EXECUTION_ATTACHMENTS_PREFIX_URI;
+
 /** @} */
 
 /**
@@ -297,6 +300,7 @@
 @property (nonatomic, readonly) NSString *ICD_TYPE_SINGLE_VALUE_TEXT;
 @property (nonatomic, readonly) NSString *ICD_TYPE_SINGLE_VALUE_NUMBER;
 @property (nonatomic, readonly) NSString *ICD_TYPE_SINGLE_VALUE_DATE;
+@property (nonatomic, readonly) NSString *ICD_TYPE_SINGLE_VALUE_TIME;
 @property (nonatomic, readonly) NSString *ICD_TYPE_SINGLE_VALUE_DATETIME;
 @property (nonatomic, readonly) NSString *ICD_TYPE_SINGLE_SELECT;
 @property (nonatomic, readonly) NSString *ICD_TYPE_SINGLE_SELECT_RADIO;
