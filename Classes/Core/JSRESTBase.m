@@ -147,7 +147,7 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
         // Sets default content-type and charset for RKClient. This is required step or
         // there will be an parsing error
         [self.restKitClient setValue:RKMIMETypeXML forHTTPHeaderField:_keyContentType];
-        [self.restKitClient setValue:RKMIMETypeXML forHTTPHeaderField:_keyResponceType];
+        [self.restKitClient setValue:[JSConstants sharedInstance].REST_SDK_MIMETYPE_USED forHTTPHeaderField:_keyResponceType];
 
         [self.restKitClient setValue:_charsetUTF8 forHTTPHeaderField:_keyCharset];
         

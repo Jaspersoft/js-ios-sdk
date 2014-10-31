@@ -394,28 +394,36 @@ __deprecated;
 - (void)getReportExecutionStatus:(NSString *)requestId usingBlock:(JSRequestConfigurationBlock)block;
 
 /**
- Downloads report output and saves it by specified path
+ Loads report output and saves it by specified path if needed
  
  @param requestId A <b>requestId</b> parameter of the report execution response
- @param exportOutput Export parameters as string in the correct format: {reportFormat};pages={pageOrPagesRange};attachmentsPrefix={attachmentsPrefixUrlEncodedValue}
- @param path The path where the report output will be saved
+ @param exportOutput Export parameters as string:
+    - for JRS version smaller 5.6.0 it should be in the follow format: {reportFormat};pages={pageOrPagesRange};attachmentsPrefix={attachmentsPrefixUrlEncodedValue};
+    - for JRS version 5.6.0 and greater it should be GUID string;
+ @param loadForSaving If TRUE, report output will be saved by path
+ @param path The path where the report output will be saved. Ignored, if loadForSaving is FALSE.
  @param delegate A delegate object to inform of the results
  
- @since 1.8
+ @since 1.9
  */
-- (void)saveReportOutput:(NSString *)requestId exportOutput:(NSString *)exportOutput path:(NSString *)path delegate:(id<JSRequestDelegate>)delegate;
+- (void)loadReportOutput:(NSString *)requestId exportOutput:(NSString *)exportOutput
+           loadForSaving:(BOOL)loadForSaving path:(NSString *)path delegate:(id<JSRequestDelegate>)delegate;
 
 /**
- Downloads report output and saves it by specified path
+ Loads report output and saves it by specified path if needed
  
  @param requestId A <b>requestId</b> parameter of the report execution response
- @param exportOutput Export parameters as string in the correct format: {reportFormat};pages={pageOrPagesRange};attachmentsPrefix={attachmentsPrefixUrlEncodedValue}
- @param path The path where the report output will be saved
- @param block The block to execute with the request before sending it for processing
+ @param exportOutput Export parameters as string:
+    - for JRS version smaller 5.6.0 it should be in the follow format: {reportFormat};pages={pageOrPagesRange};attachmentsPrefix={attachmentsPrefixUrlEncodedValue};
+    - for JRS version 5.6.0 and greater it should be GUID string; @param loadForSaving If TRUE, report output will be saved by path
+ @param loadForSaving If TRUE, report output will be saved by path
+ @param path The path where the report output will be saved. Ignored, if loadForSaving is FALSE.
+ @param delegate A delegate object to inform of the results
  
- @since 1.8
+ @since 1.9
  */
-- (void)saveReportOutput:(NSString *)requestId exportOutput:(NSString *)exportOutput path:(NSString *)path usingBlock:(JSRequestConfigurationBlock)block;
+- (void)loadReportOutput:(NSString *)requestId exportOutput:(NSString *)exportOutput
+           loadForSaving:(BOOL)loadForSaving path:(NSString *)path usingBlock:(JSRequestConfigurationBlock)block;
 
 /**
  Downloads report attachment and saves it by specified path

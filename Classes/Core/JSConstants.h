@@ -252,6 +252,14 @@
 /** @} */
 
 /**
+ @name REST API Preferences
+ @{
+ */
+@property (nonatomic, readonly) NSString *REST_SDK_MIMETYPE_USED;
+
+/** @} */
+
+/**
  @name REST URI Prefixes
  @{
  */
