@@ -29,7 +29,7 @@
 //
 
 #import "JSConstants.h"
-#import "RKMIMETypes.h"
+#import <RestKit/RKMIMETypes.h>
 
 // Shared constants instance. This is a singleton
 static JSConstants *_sharedInstance;
@@ -144,6 +144,7 @@ static JSConstants *_sharedInstance;
 @synthesize CONTENT_TYPE_CSV;
 @synthesize CONTENT_TYPE_IMG;
 @synthesize REST_SDK_MIMETYPE_USED;
+@synthesize REST_SDK_CHARSET_USED;
 @synthesize REST_SERVICES_URI;
 @synthesize REST_SERVICES_V2_URI;
 @synthesize REST_RESOURCE_URI;
@@ -154,6 +155,7 @@ static JSConstants *_sharedInstance;
 @synthesize REST_VALUES_URI;
 @synthesize REST_SERVER_INFO_URI;
 @synthesize REST_REPORT_EXECUTION_URI;
+@synthesize REST_REPORT_EXECUTION_STATUS_URI;
 @synthesize REST_EXPORT_EXECUTION_URI;
 @synthesize REST_EXPORT_EXECUTION_ATTACHMENTS_PREFIX_URI;
 @synthesize SERVER_VERSION_CODE_UNKNOWN;
@@ -207,6 +209,7 @@ static JSConstants *_sharedInstance;
         [self setQueryPROPConstants];
         [self setOLAPPROPConstants];
         [self setContentTypeConstants];
+        [self setRESTAPIPreferences];
         [self setRESTURIPrefixes];
         [self setUPVersionCodes];
         [self setUPServerEditions];
@@ -369,8 +372,12 @@ static JSConstants *_sharedInstance;
     CONTENT_TYPE_IMG = @"img";
 }
 
-- (void)setRESTURIPrefixes {
+- (void)setRESTAPIPreferences {
     REST_SDK_MIMETYPE_USED = RKMIMETypeXML;
+    REST_SDK_CHARSET_USED = @"UTF-8";
+}
+
+- (void)setRESTURIPrefixes {
     REST_SERVICES_URI = @"/rest";
     REST_SERVICES_V2_URI = @"/rest_v2";
     REST_RESOURCE_URI = @"/resource";
@@ -381,6 +388,7 @@ static JSConstants *_sharedInstance;
     REST_VALUES_URI = @"/values";
     REST_SERVER_INFO_URI = @"/serverInfo";
     REST_REPORT_EXECUTION_URI = @"/reportExecutions";
+    REST_REPORT_EXECUTION_STATUS_URI = @"/status";
     REST_EXPORT_EXECUTION_URI = @"/exports";
     REST_EXPORT_EXECUTION_ATTACHMENTS_PREFIX_URI = @"/reportExecutions/{reportExecutionId}/exports/{exportExecutionId}/attachments/";
 }

@@ -256,6 +256,8 @@
  @{
  */
 @property (nonatomic, readonly) NSString *REST_SDK_MIMETYPE_USED;
+@property (nonatomic, readonly) NSString *REST_SDK_CHARSET_USED;
+
 
 /** @} */
 
@@ -273,6 +275,7 @@
 @property (nonatomic, readonly) NSString *REST_VALUES_URI;
 @property (nonatomic, readonly) NSString *REST_SERVER_INFO_URI;
 @property (nonatomic, readonly) NSString *REST_REPORT_EXECUTION_URI;
+@property (nonatomic, readonly) NSString *REST_REPORT_EXECUTION_STATUS_URI;
 @property (nonatomic, readonly) NSString *REST_EXPORT_EXECUTION_URI;
 @property (nonatomic, readonly) NSString *REST_EXPORT_EXECUTION_ATTACHMENTS_PREFIX_URI;
 

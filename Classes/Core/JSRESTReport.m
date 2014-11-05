@@ -238,6 +238,20 @@ static JSRESTReport *_sharedInstance;
     [self sendRequest:[[builder body:executionRequest].request usingBlock:block]];
 }
 
+
+- (void)cancelReportExecution:(NSString *)requestId delegate:(id<JSRequestDelegate>)delegate {
+    NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:[JSConstants sharedInstance].REST_REPORT_EXECUTION_STATUS_URI];
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:JSRequestMethodPUT] restVersion:JSRESTVersion_2];
+    [builder delegate:delegate];
+    [self sendRequest:builder.request];
+}
+
+- (void)cancelReportExecution:(NSString *)requestId usingBlock:(JSRequestConfigurationBlock)block {
+    NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:[JSConstants sharedInstance].REST_REPORT_EXECUTION_STATUS_URI];
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:JSRequestMethodPUT] restVersion:JSRESTVersion_2];
+    [self sendRequest:[builder.request usingBlock:block]];
+}
+
 - (void)runExportExecution:(NSString *)requestId outputFormat:(NSString *)outputFormat pages:(NSString *)pages
         allowInlineScripts:(BOOL)allowInlineScripts attachmentsPrefix:(NSString *)attachmentsPrefix delegate:(id<JSRequestDelegate>)delegate{
     JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullExportExecutionUri:requestId] method:JSRequestMethodPOST] restVersion:JSRESTVersion_2] delegate:delegate];
@@ -293,13 +307,13 @@ static JSRESTReport *_sharedInstance;
 }
 
 - (void)getReportExecutionStatus:(NSString *)requestId delegate:(id<JSRequestDelegate>)delegate {
-    NSString *uri = [NSString stringWithFormat:@"%@/status", [self fullReportExecutionUri:requestId]];
+    NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:[JSConstants sharedInstance].REST_REPORT_EXECUTION_STATUS_URI];
     JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:uri method:JSRequestMethodGET] restVersion:JSRESTVersion_2] delegate:delegate];
     [self sendRequest:builder.request];
 }
 
 - (void)getReportExecutionStatus:(NSString *)requestId usingBlock:(JSRequestConfigurationBlock)block {
-    NSString *uri = [NSString stringWithFormat:@"%@/status", [self fullReportExecutionUri:requestId]];
+    NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:[JSConstants sharedInstance].REST_REPORT_EXECUTION_STATUS_URI];
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:JSRequestMethodGET] restVersion:JSRESTVersion_2];
     [self sendRequest:[builder.request usingBlock:block]];
 }

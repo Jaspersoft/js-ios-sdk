@@ -122,6 +122,7 @@
 		<key>mappingPaths</key>
 		<array>
 			<string>resources.resourceLookup</string>
+			<string>folder</string>
 		</array>
 		<key>mappingRules</key>
 		<array>
@@ -1108,6 +1109,10 @@
 	</dict>
 	<key>JSErrorDescriptor</key>
 	<dict>
+		<key>mappingPaths</key>
+		<array>
+			<string>errorDescriptor</string>
+		</array>
 		<key>mappingRules</key>
 		<array>
 			<dict>

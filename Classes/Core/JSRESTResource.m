@@ -127,6 +127,25 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 #pragma mark -
 #pragma mark Public methods for REST V2 resources API
 
+- (void)getResourceLookup:(NSString *)resourceURI delegate:(id<JSRequestDelegate>)delegate {
+    NSString *uri = [JSConstants sharedInstance].REST_RESOURCES_URI;
+    if (resourceURI && ![resourceURI isEqualToString:@"/"]) {
+        uri = [uri stringByAppendingString:resourceURI];
+    }
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:JSRequestMethodGET] restVersion:JSRESTVersion_2];
+    [builder delegate:delegate];
+    [self sendRequest:builder.request additionalHTTPHeaderFields:@{kJMRequestResponceType : @"application/repository.folder+xml"}];
+}
+
+- (void)getResourceLookup:(NSString *)resourceURI usingBlock:(JSRequestConfigurationBlock)block {
+    NSString *uri = [JSConstants sharedInstance].REST_RESOURCES_URI;
+    if (resourceURI && ![resourceURI isEqualToString:@"/"]) {
+        uri = [uri stringByAppendingString:resourceURI];
+    }
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:JSRequestMethodGET] restVersion:JSRESTVersion_2];
+    [self sendRequest:[builder.request usingBlock:block] additionalHTTPHeaderFields:@{kJMRequestResponceType : @"application/repository.folder+xml"}];
+}
+
 - (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types
               recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit delegate:(id<JSRequestDelegate>)delegate {
     [self resourceLookups:folderUri query:query types:types sortBy:nil recursive:recursive offset:offset limit:limit delegate:delegate];
@@ -160,7 +179,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 - (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types sortBy:(NSString *)sortBy
               recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit usingBlock:(JSRequestConfigurationBlock)block {
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[JSConstants sharedInstance].REST_RESOURCES_URI method:JSRequestMethodGET]
-                                 restVersion:JSRESTVersion_2];
+                                 restVersion:JSRESTVersion_2];    
     
     JSParamsBuilder *paramsBuilder = [[JSParamsBuilder alloc] init];
     [paramsBuilder addParameter:_parameterFolderUri withStringValue:folderUri];

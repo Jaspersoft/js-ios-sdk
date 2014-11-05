@@ -45,8 +45,15 @@
  
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @author Ivan Gadzhega  igadzhega@jaspersoft.com
+ @author Alexey Gubarev  ogubarie@tibco.com
+
  @since 1.3
 */
+
+extern NSString * const kJMRequestCharset;
+extern NSString * const kJMRequestContentType;
+extern NSString * const kJMRequestResponceType;
+
 @interface JSRESTBase : NSObject
 
 /**
@@ -115,6 +122,18 @@
  @param request Models the request portion of an HTTP request/response cycle.
  */
 - (void)sendRequest:(JSRequest *)request;
+
+/**
+ Sends asynchronous request. Result will be passed as <code>JSOperationResult</code>
+ instance to delegate object or finishedBlock (or both also) provided in
+ <code>JSRequest</code> object
+ 
+ @param request Models the request portion of an HTTP request/response cycle.
+ @param headerFields Additional HTTP header fields for sending request.
+
+ @since 1.9
+ */
+- (void)sendRequest:(JSRequest *)request additionalHTTPHeaderFields:(NSDictionary *)headerFields;
 
 /**
  Gets server information details

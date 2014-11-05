@@ -30,6 +30,10 @@
 
 #import "JSRestKitManagerFactory.h"
 #import "JSClassesMappingRulesHelper.h"
+#import "JSErrorDescriptor.h"
+#import <RestKit/RKErrorMessage.h>
+#import <RestKit/RKObjectMappingProvider+Contexts.h>
+
 
 // Helper keys for _restKitObjectMappings dictionary
 static NSString * const _keyMapping = @"mapping";
@@ -137,14 +141,26 @@ static NSMutableDictionary *_restKitObjectMappings;
             NSDictionary *pathsAndMappingForClass = [restKitObjectMappings objectForKey:NSStringFromClass(objectClass)];
             RKObjectMapping *mapping = [pathsAndMappingForClass objectForKey:_keyMapping];
             [self setObjectMapping:restKitObjectManager mapping:mapping forKeyPaths:[pathsAndMappingForClass objectForKey:_keyPaths]];
+            
+            // Add custom error mapping class JSErrorDescriptor
+            if ([JSErrorDescriptor class] == objectClass) {
+                [self addCuctomErrorObjectMapping:restKitObjectManager mapping:mapping forKeyPaths:[pathsAndMappingForClass objectForKey:_keyPaths]];
+            }
         }
     }
-    
+
     [_restKitObjectMappings release];
     _restKitObjectMappings = nil;
     
     return restKitObjectManager;    
 }
 
++ (void) addCuctomErrorObjectMapping:(RKObjectManager *)manager mapping:(RKObjectMapping *)mapping forKeyPaths:(NSArray *)paths {
+    [manager.mappingProvider setErrorMapping:nil];
+    [manager.mappingProvider setValue:[NSMutableDictionary dictionary] forContext:RKObjectMappingProviderContextErrors];
+    for (NSString *path in paths) {
+        [manager.mappingProvider setMapping:mapping forKeyPath:path context:RKObjectMappingProviderContextErrors];
+    }
+}
 
 @end

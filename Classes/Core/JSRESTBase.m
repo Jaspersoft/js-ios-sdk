@@ -38,10 +38,9 @@
 #import "RKRequest+RKAdditions.h"
 
 // Access key and value for content-type / charset
-static NSString * const _charsetUTF8 = @"UTF-8";
-static NSString * const _keyCharset = @"Charset";
-static NSString * const _keyContentType = @"Content-Type";
-static NSString * const _keyResponceType = @"Accept";
+NSString * const kJMRequestCharset = @"Charset";
+NSString * const kJMRequestContentType = @"Content-Type";
+NSString * const kJMRequestResponceType = @"Accept";
 
 // Default value for timeout interval
 static NSTimeInterval const _defaultTimeoutInterval = 120;
@@ -146,10 +145,10 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
         
         // Sets default content-type and charset for RKClient. This is required step or
         // there will be an parsing error
-        [self.restKitClient setValue:RKMIMETypeXML forHTTPHeaderField:_keyContentType];
-        [self.restKitClient setValue:[JSConstants sharedInstance].REST_SDK_MIMETYPE_USED forHTTPHeaderField:_keyResponceType];
+        [self.restKitClient setValue:[JSConstants sharedInstance].REST_SDK_MIMETYPE_USED forHTTPHeaderField:kJMRequestContentType];
+        [self.restKitClient setValue:[JSConstants sharedInstance].REST_SDK_MIMETYPE_USED forHTTPHeaderField:kJMRequestResponceType];
 
-        [self.restKitClient setValue:_charsetUTF8 forHTTPHeaderField:_keyCharset];
+        [self.restKitClient setValue:[JSConstants sharedInstance].REST_SDK_CHARSET_USED forHTTPHeaderField:kJMRequestCharset];
         
         // Passed classes including JSServerInfo class
         NSMutableArray *classesForMappings = [[NSMutableArray alloc] initWithObjects:[JSServerInfo class], nil];
@@ -200,6 +199,10 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 #pragma mark Public methods
 
 - (void)sendRequest:(JSRequest *)request {
+    [self sendRequest:request additionalHTTPHeaderFields:nil];
+}
+
+- (void)sendRequest:(JSRequest *)request additionalHTTPHeaderFields:(NSDictionary *)headerFields{
     // Full uri path with query params
     NSString *fullUri = nil;
     if (request.params.count) {
@@ -211,7 +214,7 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
     
     // Request can be RKRequest or RKObjectLoader depends on request method (GET or POST/PUT)
     RKRequest *restKitRequest = nil;
-
+    
     // Checks what type or RestKit's request to create: RKObjectLoader or RKRequest
     if (request.responseAsObjects) {
         restKitRequest = [self.restKitObjectManager loaderWithResourcePath:fullUri];
@@ -222,6 +225,12 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
     NSData *body = nil;
     if (request.body && (request.method == JSRequestMethodPOST || request.method == JSRequestMethodPUT)) {
         body = [[self.serializer stringFromObject:request.body] dataUsingEncoding:NSUTF8StringEncoding];
+    }
+    
+    if (headerFields && [headerFields count]) {
+        NSMutableDictionary *headerFieldsDictionary = [NSMutableDictionary dictionaryWithDictionary:restKitRequest.additionalHTTPHeaders];
+        [headerFieldsDictionary addEntriesFromDictionary:headerFields];
+        [restKitRequest setAdditionalHTTPHeaders:headerFieldsDictionary];
     }
     
     [restKitRequest setHTTPBody:body];
@@ -453,6 +462,8 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     JSOperationResult *result = nil;
     NSString *mapperKeyPath = nil;
+    NSArray *RKObjectMapperErrorObjects = [error.userInfo objectForKey:RKObjectMapperErrorObjectsKey];
+    
     
     // Get mapper key path from error.userInfo dictionary
     for (NSString *key in error.userInfo.allKeys) {
@@ -481,7 +492,9 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
     } else {
         result = [self operationResultWithResponse:objectLoader.response error:error];
     }
-
+    
+    result.objects = RKObjectMapperErrorObjects;
+    
     [self callRequestFinishedCallBackForRestKitRequest:objectLoader result:result];
 }
 
@@ -492,6 +505,7 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
     // This method also calls for RKObjectLoader so here we need to check if 
     // object is not loader. Not very good approach to use isKindOfClass. 
     // Temp solution
+    
     if (![request isKindOfClass:[RKObjectLoader class]]) {
         JSOperationResult *result = [self operationResultWithResponse:response error:nil];
         // Used for downloading files

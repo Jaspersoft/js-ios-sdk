@@ -312,6 +312,26 @@ __deprecated;
          attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray /*<JSReportParameter>*/ *)parameters usingBlock:(JSRequestConfigurationBlock)block;
 
 /**
+ Cancel Report Execution
+ 
+ @param requestId A <b>requestId</b> parameter of the report execution response
+ @param delegate A delegate object to inform of the results
+ 
+ @since 1.9
+ */
+- (void)cancelReportExecution:(NSString *)requestId delegate:(id<JSRequestDelegate>)delegate;
+
+/**
+ Cancel Report Execution
+ 
+ @param requestId A <b>requestId</b> parameter of the report execution response
+ @param block The block to execute with the request before sending it for processing
+ 
+ @since 1.9
+ */
+- (void)cancelReportExecution:(NSString *)requestId usingBlock:(JSRequestConfigurationBlock)block;
+
+/**
  Run Export Execution
  
  @param requestId A <b>requestId</b> parameter of the report execution response

@@ -213,6 +213,28 @@
 //---------------------------------------------------------------------
 
 /**
+ Gets resource lookup for resource.
+ 
+ @param resourceURI The repository URI (i.e. /reports/samples/)
+ @param delegate A delegate object to inform of the results
+
+ @since 1.9
+ */
+
+- (void)getResourceLookup:(NSString *)resourceURI delegate:(id<JSRequestDelegate>)delegate;
+
+/**
+ Gets resource lookup for resource.
+ 
+ @param resourceURI The repository URI (i.e. /reports/samples/)
+ @param block The block to execute with the request before sending it for processing
+ 
+ @since 1.9
+ */
+- (void)getResourceLookup:(NSString *)resourceURI usingBlock:(JSRequestConfigurationBlock)block;
+
+
+/**
  Gets the list of resource lookups for the resources available in the specified
  folder and matching the specified parameters
  
