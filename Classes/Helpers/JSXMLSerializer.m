@@ -69,6 +69,9 @@
         NSString *node = [mappingRule objectForKey:JSKeyNode];        
         // Check if this is a body of an XML element (i.e. <element>body</element>)
         BOOL isBodyOfElement = [node isEqualToString:rootNode];
+        if ([mappingRule objectForKey:JSKeyIsBodyOfElement]) {
+            isBodyOfElement = [[mappingRule objectForKey:JSKeyIsBodyOfElement] boolValue];
+        }
         id propertyValue = [object valueForKey:[mappingRule objectForKey:JSKeyProperty]];
         
         // Check what is the mapping type (relation or property)

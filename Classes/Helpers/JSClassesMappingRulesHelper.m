@@ -42,6 +42,7 @@ NSString * const JSKeyNode = @"node";
 NSString * const JSKeyProperty = @"prop";
 NSString * const JSKeyMappingType = @"type";
 NSString * const JSKeyIsAttr = @"isAttr";
+NSString * const JSKeyIsBodyOfElement = @"isBody";
 
 // URI path and extension for SDK bundle and mapping file
 NSString * const _jaspersoftSDKBundleName = @"jaspersoft-sdk-resources";

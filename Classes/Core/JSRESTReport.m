@@ -242,14 +242,18 @@ static JSRESTReport *_sharedInstance;
 - (void)cancelReportExecution:(NSString *)requestId delegate:(id<JSRequestDelegate>)delegate {
     NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:[JSConstants sharedInstance].REST_REPORT_EXECUTION_STATUS_URI];
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:JSRequestMethodPUT] restVersion:JSRESTVersion_2];
+    JSExecutionStatus *reportExecutoionStatus = [[JSExecutionStatus alloc] init];
+    reportExecutoionStatus.status = @"cancelled";
     [builder delegate:delegate];
-    [self sendRequest:builder.request];
+    [self sendRequest:[builder body:reportExecutoionStatus].request];
 }
 
 - (void)cancelReportExecution:(NSString *)requestId usingBlock:(JSRequestConfigurationBlock)block {
     NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:[JSConstants sharedInstance].REST_REPORT_EXECUTION_STATUS_URI];
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:JSRequestMethodPUT] restVersion:JSRESTVersion_2];
-    [self sendRequest:[builder.request usingBlock:block]];
+    JSExecutionStatus *reportExecutoionStatus = [[JSExecutionStatus alloc] init];
+    reportExecutoionStatus.status = @"cancelled";
+    [self sendRequest:[[builder body:reportExecutoionStatus].request usingBlock:block]];
 }
 
 - (void)runExportExecution:(NSString *)requestId outputFormat:(NSString *)outputFormat pages:(NSString *)pages

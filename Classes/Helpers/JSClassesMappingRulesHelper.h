@@ -42,6 +42,7 @@ extern NSString * const JSKeyNode;
 extern NSString * const JSKeyProperty;
 extern NSString * const JSKeyMappingType;
 extern NSString * const JSKeyIsAttr;
+extern NSString * const JSKeyIsBodyOfElement;
 
 /**
  @cond EXCLUDE_JS_CLASSES_MAPPING_RULES_HELPER

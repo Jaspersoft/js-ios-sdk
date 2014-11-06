@@ -964,6 +964,8 @@
 				<string>status</string>
 				<key>isAttr</key>
 				<false/>
+				<key>isBody</key>
+				<true/>
 			</dict>
 		</array>
 	</dict>
