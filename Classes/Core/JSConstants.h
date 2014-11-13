@@ -68,6 +68,7 @@
 @property (nonatomic, readonly) NSString *WS_TYPE_DATASOURCE;
 @property (nonatomic, readonly) NSString *WS_TYPE_DATATYPE;
 @property (nonatomic, readonly) NSString *WS_TYPE_DASHBOARD;
+@property (nonatomic, readonly) NSString *WS_TYPE_DASHBOARD_LEGACY;
 @property (nonatomic, readonly) NSString *WS_TYPE_DASHBOARD_STATE;
 @property (nonatomic, readonly) NSString *WS_TYPE_DOMAIN;
 @property (nonatomic, readonly) NSString *WS_TYPE_DOMAIN_TOPIC;
