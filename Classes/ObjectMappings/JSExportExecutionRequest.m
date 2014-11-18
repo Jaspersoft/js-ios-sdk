@@ -34,7 +34,6 @@
 @synthesize outputFormat = _outputFormat;
 @synthesize pages = _pages;
 @synthesize attachmentsPrefix = _attachmentsPrefix;
-@synthesize allowInlineScripts = _allowInlineScripts;
 @synthesize baseUrl = _baseUrl;
 
 @end

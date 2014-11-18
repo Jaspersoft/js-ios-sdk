@@ -337,15 +337,14 @@ __deprecated;
  @param requestId A <b>requestId</b> parameter of the report execution response
  @param outputFormat Report output format (e.g. html, pdf etc.)
  @param pages Single page number of pages range in a format "{startPageNumber}-{endPageNumber}"
- @param allowInlineScripts Affects HTML export only. If true, then inline scripts are allowed, otherwise no inline script is included to the HTML export output.
  @param attachmentsPrefix URL prefix for report attachments. This parameter matter for HTML output only. Placeholders {contextPath}, {reportExecutionId} and {exportOptions} can be used. They are replaced in runtime by corresponding values
-
+ 
  @param delegate A delegate object to inform of the results
  
  @since 1.9
  */
 - (void)runExportExecution:(NSString *)requestId outputFormat:(NSString *)outputFormat pages:(NSString *)pages
-        allowInlineScripts:(BOOL)allowInlineScripts attachmentsPrefix:(NSString *)attachmentsPrefix delegate:(id<JSRequestDelegate>)delegate;
+         attachmentsPrefix:(NSString *)attachmentsPrefix delegate:(id<JSRequestDelegate>)delegate;
 
 /**
  Run Export Execution
@@ -353,14 +352,13 @@ __deprecated;
  @param requestId A <b>requestId</b> parameter of the report execution response
  @param outputFormat Report output format (e.g. html, pdf etc.)
  @param pages Single page number of pages range in a format "{startPageNumber}-{endPageNumber}"
- @param allowInlineScripts Affects HTML export only. If true, then inline scripts are allowed, otherwise no inline script is included to the HTML export output.
  @param attachmentsPrefix URL prefix for report attachments. This parameter matter for HTML output only. Placeholders {contextPath}, {reportExecutionId} and {exportOptions} can be used. They are replaced in runtime by corresponding values
  @param block The block to execute with the request before sending it for processing
  
  @since 1.9
  */
 - (void)runExportExecution:(NSString *)requestId outputFormat:(NSString *)outputFormat pages:(NSString *)pages
-        allowInlineScripts:(BOOL)allowInlineScripts attachmentsPrefix:(NSString *)attachmentsPrefix usingBlock:(JSRequestConfigurationBlock)block;
+         attachmentsPrefix:(NSString *)attachmentsPrefix usingBlock:(JSRequestConfigurationBlock)block;
 
 /**
  Generates the report output url

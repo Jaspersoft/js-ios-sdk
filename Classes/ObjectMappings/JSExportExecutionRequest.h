@@ -41,7 +41,6 @@
 @property (nonatomic, retain) NSString *outputFormat;
 @property (nonatomic, retain) NSString *pages;
 @property (nonatomic, retain) NSString *attachmentsPrefix;
-@property (nonatomic, retain) NSString *allowInlineScripts;
 @property (nonatomic, retain) NSString *baseUrl;
 
 @end

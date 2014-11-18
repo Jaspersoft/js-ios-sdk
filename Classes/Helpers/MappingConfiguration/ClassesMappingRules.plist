@@ -1009,16 +1009,6 @@
 				<key>type</key>
 				<string>property</string>
 				<key>node</key>
-				<string>allowInlineScripts</string>
-				<key>prop</key>
-				<string>allowInlineScripts</string>
-				<key>isAttr</key>
-				<false/>
-			</dict>
-			<dict>
-				<key>type</key>
-				<string>property</string>
-				<key>node</key>
 				<string>baseUrl</string>
 				<key>prop</key>
 				<string>baseUrl</string>
