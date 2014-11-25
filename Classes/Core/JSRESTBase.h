@@ -50,9 +50,9 @@
  @since 1.3
 */
 
-extern NSString * const kJMRequestCharset;
-extern NSString * const kJMRequestContentType;
-extern NSString * const kJMRequestResponceType;
+extern NSString * const kJSRequestCharset;
+extern NSString * const kJSRequestContentType;
+extern NSString * const kJSRequestResponceType;
 
 @interface JSRESTBase : NSObject
 

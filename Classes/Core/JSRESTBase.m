@@ -38,9 +38,9 @@
 #import "RKRequest+RKAdditions.h"
 
 // Access key and value for content-type / charset
-NSString * const kJMRequestCharset = @"Charset";
-NSString * const kJMRequestContentType = @"Content-Type";
-NSString * const kJMRequestResponceType = @"Accept";
+NSString * const kJSRequestCharset = @"Charset";
+NSString * const kJSRequestContentType = @"Content-Type";
+NSString * const kJSRequestResponceType = @"Accept";
 
 // Default value for timeout interval
 static NSTimeInterval const _defaultTimeoutInterval = 120;
@@ -145,10 +145,10 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
         
         // Sets default content-type and charset for RKClient. This is required step or
         // there will be an parsing error
-        [self.restKitClient setValue:[JSConstants sharedInstance].REST_SDK_MIMETYPE_USED forHTTPHeaderField:kJMRequestContentType];
-        [self.restKitClient setValue:[JSConstants sharedInstance].REST_SDK_MIMETYPE_USED forHTTPHeaderField:kJMRequestResponceType];
+        [self.restKitClient setValue:[JSConstants sharedInstance].REST_SDK_MIMETYPE_USED forHTTPHeaderField:kJSRequestContentType];
+        [self.restKitClient setValue:[JSConstants sharedInstance].REST_SDK_MIMETYPE_USED forHTTPHeaderField:kJSRequestResponceType];
 
-        [self.restKitClient setValue:[JSConstants sharedInstance].REST_SDK_CHARSET_USED forHTTPHeaderField:kJMRequestCharset];
+        [self.restKitClient setValue:[JSConstants sharedInstance].REST_SDK_CHARSET_USED forHTTPHeaderField:kJSRequestCharset];
         
         // Passed classes including JSServerInfo class
         NSMutableArray *classesForMappings = [[NSMutableArray alloc] initWithObjects:[JSServerInfo class], nil];

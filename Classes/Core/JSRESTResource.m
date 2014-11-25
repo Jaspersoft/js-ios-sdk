@@ -134,7 +134,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
     }
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:JSRequestMethodGET] restVersion:JSRESTVersion_2];
     [builder delegate:delegate];
-    [self sendRequest:builder.request additionalHTTPHeaderFields:@{kJMRequestResponceType : @"application/repository.folder+xml"}];
+    [self sendRequest:builder.request additionalHTTPHeaderFields:@{kJSRequestResponceType : @"application/repository.folder+xml"}];
 }
 
 - (void)getResourceLookup:(NSString *)resourceURI usingBlock:(JSRequestConfigurationBlock)block {
@@ -143,7 +143,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
         uri = [uri stringByAppendingString:resourceURI];
     }
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:JSRequestMethodGET] restVersion:JSRESTVersion_2];
-    [self sendRequest:[builder.request usingBlock:block] additionalHTTPHeaderFields:@{kJMRequestResponceType : @"application/repository.folder+xml"}];
+    [self sendRequest:[builder.request usingBlock:block] additionalHTTPHeaderFields:@{kJSRequestResponceType : @"application/repository.folder+xml"}];
 }
 
 - (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types
