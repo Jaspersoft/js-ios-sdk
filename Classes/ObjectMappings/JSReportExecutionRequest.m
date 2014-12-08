@@ -43,5 +43,6 @@
 @synthesize pages = _pages;
 @synthesize attachmentsPrefix = _attachmentsPrefix;
 @synthesize parameters = _parameters;
+@synthesize baseURL = _baseURL;
 
 @end

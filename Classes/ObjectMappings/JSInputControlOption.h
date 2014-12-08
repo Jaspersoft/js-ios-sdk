@@ -32,7 +32,7 @@
 
 /**
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
- @author Alexey Gubarev agubarev@jaspersoft.com
+ @author Alexey Gubarev ogubarie@tibco.com
  @since 1.4
  */
 

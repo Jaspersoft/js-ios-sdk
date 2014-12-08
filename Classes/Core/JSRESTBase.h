@@ -45,7 +45,7 @@
  
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @author Ivan Gadzhega  igadzhega@jaspersoft.com
- @author Alexey Gubarev  ogubarie@tibco.com
+ @author Alexey Gubarev ogubarie@tibco.com
 
  @since 1.3
 */

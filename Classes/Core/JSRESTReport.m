@@ -212,7 +212,10 @@ static JSRESTReport *_sharedInstance;
     executionRequest.pages = pages;
     executionRequest.attachmentsPrefix = attachmentsPrefix;
     executionRequest.parameters = parameters;
-    
+    if (self.serverInfo.versionAsFloat >= [JSConstants sharedInstance].SERVER_VERSION_CODE_EMERALD_5_6_0) {
+        executionRequest.baseURL = self.serverProfile.serverUrl;
+    }
+
     [self sendRequest:[builder body:executionRequest].request];
 }
 
@@ -234,7 +237,9 @@ static JSRESTReport *_sharedInstance;
     executionRequest.pages = pages;
     executionRequest.attachmentsPrefix = attachmentsPrefix;
     executionRequest.parameters = parameters;
-    
+    if (self.serverInfo.versionAsFloat >= [JSConstants sharedInstance].SERVER_VERSION_CODE_EMERALD_5_6_0) {
+        executionRequest.baseURL = self.serverProfile.serverUrl;
+    }
     [self sendRequest:[[builder body:executionRequest].request usingBlock:block]];
 }
 
@@ -324,7 +329,7 @@ static JSRESTReport *_sharedInstance;
 - (void)loadReportOutput:(NSString *)requestId exportOutput:(NSString *)exportOutput
            loadForSaving:(BOOL)loadForSaving path:(NSString *)path delegate:(id<JSRequestDelegate>)delegate {
     exportOutput = [self encodeAttachmentsPrefix:exportOutput];
-    NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/outputResource", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, exportOutput];
+    NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/outputResource?sessionDecorator=no&decorate=no#", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, exportOutput];
     JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:uri method:JSRequestMethodGET] restVersion:JSRESTVersion_2] delegate:delegate];
     JSRequest *request = nil;
     if (loadForSaving) {
