@@ -64,6 +64,15 @@
     return _slaveDependencies;
 }
 
+- (NSString *)errorString{
+    if (self.validationRules.mandatoryValidationRule && self.state.value == nil) {
+        return self.validationRules.mandatoryValidationRule.errorMessage;
+    } else if ([self.state.error length]) {
+        return self.state.error;
+    }
+    return nil;
+}
+
 - (NSArray *)selectedValues {
     NSMutableArray *values = [[NSMutableArray alloc] init];
     JSConstants *constants = [JSConstants sharedInstance];

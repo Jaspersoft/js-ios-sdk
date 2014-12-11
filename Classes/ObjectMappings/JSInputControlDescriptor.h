@@ -66,4 +66,11 @@
 
 - (NSArray *)selectedValues;
 
+/**
+ Returns error string for current input control descriptor, according to validation rules and state error.
+ 
+ @return error string for current input control descriptor, according to validation rules and state error
+ */
+- (NSString *)errorString;
+
 @end
