@@ -146,6 +146,7 @@ static JSConstants *_sharedInstance;
 @synthesize CONTENT_TYPE_IMG;
 @synthesize REST_SDK_MIMETYPE_USED;
 @synthesize REST_SDK_CHARSET_USED;
+@synthesize REST_JRS_LOCALE_SUPPORTED;
 @synthesize REST_SERVICES_URI;
 @synthesize REST_SERVICES_V2_URI;
 @synthesize REST_RESOURCE_URI;
@@ -377,6 +378,14 @@ static JSConstants *_sharedInstance;
 - (void)setRESTAPIPreferences {
     REST_SDK_MIMETYPE_USED = RKMIMETypeXML;
     REST_SDK_CHARSET_USED = @"UTF-8";
+    REST_JRS_LOCALE_SUPPORTED = @{@"en" : @"en-US",
+                                  @"de" : @"de",
+                                  @"ja" : @"ja",
+                                  @"es" : @"es",
+                                  @"fr" : @"fr",
+                                  @"it" : @"it",
+                                  @"zh" : @"zh-CN",
+                                  @"pt" : @"pt-BR"};
 }
 
 - (void)setRESTURIPrefixes {

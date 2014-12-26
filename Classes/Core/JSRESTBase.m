@@ -140,7 +140,15 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
         self.restKitClient.disableCertificateValidation = YES;
         
         // Add locale to request
-        [self.restKitClient setValue:[NSString stringWithFormat:@"%@", [[NSLocale preferredLanguages] componentsJoinedByString:@", "]] forHTTPHeaderField:@"Accept-Language"];
+        NSString *currentLanguage = [[NSLocale preferredLanguages] objectAtIndex:0];
+        NSInteger dividerPosition = [currentLanguage rangeOfString:@"_"].location;
+        if (dividerPosition != NSNotFound) {
+            currentLanguage = [currentLanguage substringToIndex:dividerPosition];
+        }
+        NSString *currentLocale = [[JSConstants sharedInstance].REST_JRS_LOCALE_SUPPORTED objectForKey:currentLanguage];
+        if (currentLocale) {
+            [self.restKitClient setValue:currentLocale forHTTPHeaderField:@"Accept-Language"];
+        }
         [self.restKitClient setValue:[NSString stringWithFormat:@"%@", [[NSTimeZone systemTimeZone] abbreviation]] forHTTPHeaderField:@"Accept-Timezone"];
         
         // Sets default content-type and charset for RKClient. This is required step or
