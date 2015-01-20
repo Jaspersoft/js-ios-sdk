@@ -52,7 +52,7 @@
 - (id)initWithUri:(NSString *)uri {
     if (self = [super init]) {
         self.uri = uri;
-        self.method = JSRequestMethodGET;
+        self.method = RKRequestMethodGET;
         self.responseAsObjects = YES;
         self.asynchronous = YES;
         self.restVersion = JSRESTVersion_1;

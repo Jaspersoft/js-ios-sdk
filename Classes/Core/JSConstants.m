@@ -29,7 +29,7 @@
 //
 
 #import "JSConstants.h"
-#import <RestKit/RKMIMETypes.h>
+#import "RKMIMETypes.h"
 
 // Shared constants instance. This is a singleton
 static JSConstants *_sharedInstance;

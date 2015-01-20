@@ -28,17 +28,20 @@
 //  Jaspersoft Corporation
 //
 
+
 #import "JSRestKitManagerFactory.h"
 #import "JSClassesMappingRulesHelper.h"
 #import "JSErrorDescriptor.h"
-#import <RestKit/RKErrorMessage.h>
-#import <RestKit/RKObjectMappingProvider+Contexts.h>
 
+// Access key and value for content-type / charset
+NSString * const kJSRequestCharset = @"Charset";
+NSString * const kJSRequestContentType = @"Content-Type";
+NSString * const kJSRequestResponceType = @"Accept";
 
 // Helper keys for _restKitObjectMappings dictionary
-static NSString * const _keyMapping = @"mapping";
-static NSString * const _keyPaths = @"paths";
-static NSString * const _keyClass = @"class";
+NSString * const _keyMapping = @"mapping";
+NSString * const _keyPaths = @"paths";
+NSString * const _keyClass = @"class";
 
 static NSMutableDictionary *_restKitObjectMappings;
 
@@ -60,15 +63,14 @@ static NSMutableDictionary *_restKitObjectMappings;
             NSArray *mappingPaths = [[mappingRules objectForKey:className] objectForKey:JSKeyMappingPaths];
             
             // Initialize next structure: { @"mapping" : rkObjectMapping, @"paths" : nsArrayOfPaths }
-            NSDictionary *pathsAndMappingForClass = [[NSDictionary alloc] initWithObjectsAndKeys:
+            NSDictionary *pathsAndMappingForClass = [NSDictionary dictionaryWithObjectsAndKeys:
                                                      mapping, _keyMapping,
                                                      mappingPaths, _keyPaths, 
                                                      nil];
             
             // Set mapping result for class
             [_restKitObjectMappings setObject:pathsAndMappingForClass forKey:className];
-            [pathsAndMappingForClass release];
-        }    
+        }
     }
     
     return _restKitObjectMappings;
@@ -113,7 +115,6 @@ static NSMutableDictionary *_restKitObjectMappings;
                 // Add "mapping" of parent class if parent class has relation on himself
                 [mapping mapKeyPath:[mappingRule objectForKey:JSKeyNode] toRelationship:[mappingRule objectForKey:JSKeyProperty]
                         withMapping:mapping];
-                [mapping release];
             }
         }
     }
@@ -128,10 +129,10 @@ static NSMutableDictionary *_restKitObjectMappings;
     }
 }
 
-+ (RKObjectManager *)createRestKitObjectManagerForClasses:(NSArray *)classes {
++ (RKObjectManager *)createRestKitObjectManagerForClasses:(NSArray *)classes andServerProfile:(JSProfile *)serverProfile{
     // Creates RKObjectManager for loading and mapping encoded response (i.e XML, JSON etc.)
     // directly to objects
-    RKObjectManager *restKitObjectManager = [[[RKObjectManager alloc] init] autorelease];
+    RKObjectManager *restKitObjectManager = [RKObjectManager new];
     
     if (classes.count) {
         NSDictionary *restKitObjectMappings = [self restKitObjectMappings];
@@ -148,8 +149,27 @@ static NSMutableDictionary *_restKitObjectMappings;
             }
         }
     }
+    [restKitObjectManager.HTTPClient setAuthorizationHeaderWithUsername:serverProfile.username password:serverProfile.password];
+    restKitObjectManager.HTTPClient.allowsInvalidSSLCertificate = YES;
+    
+    // Add locale to object manager
+    NSString *currentLanguage = [[NSLocale preferredLanguages] objectAtIndex:0];
+    NSInteger dividerPosition = [currentLanguage rangeOfString:@"_"].location;
+    if (dividerPosition != NSNotFound) {
+        currentLanguage = [currentLanguage substringToIndex:dividerPosition];
+    }
+    NSString *currentLocale = [[JSConstants sharedInstance].REST_JRS_LOCALE_SUPPORTED objectForKey:currentLanguage];
+    if (currentLocale) {
+        [restKitObjectManager.HTTPClient setDefaultHeader:@"Accept-Language" value:currentLocale];
+    }
+    [restKitObjectManager.HTTPClient setDefaultHeader:@"Accept-Timezone" value:[NSString stringWithFormat:@"%@", [[NSTimeZone systemTimeZone] abbreviation]]];
+    
+    
+    // Sets default content-type and charset to object manager
+    [restKitObjectManager.HTTPClient setDefaultHeader:kJSRequestCharset value:[JSConstants sharedInstance].REST_SDK_CHARSET_USED];
+    restKitObjectManager.requestSerializationMIMEType = [JSConstants sharedInstance].REST_SDK_MIMETYPE_USED;
+    [restKitObjectManager setAcceptHeaderWithMIMEType:[JSConstants sharedInstance].REST_SDK_MIMETYPE_USED];
 
-    [_restKitObjectMappings release];
     _restKitObjectMappings = nil;
     
     return restKitObjectManager;    

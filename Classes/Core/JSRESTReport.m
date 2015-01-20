@@ -41,7 +41,6 @@
 #import "JSReportParametersList.h"
 #import "JSRESTReport.h"
 #import "JSInputControlOption.h"
-#import <RestKit/NSString+RKAdditions.h>
 
 #import "JSReportExecutionRequest.h"
 
@@ -145,9 +144,12 @@ static JSRESTReport *_sharedInstance;
         }
     }
     
-    NSString *url = [[NSString stringWithFormat:@"%@%@%@%@.%@", self.serverProfile.serverUrl,
-                      constants.REST_SERVICES_V2_URI, constants.REST_REPORTS_URI,
-                      resourceDescriptor.uriString, format] stringByAppendingQueryParameters:queryParams];
+    NSString *url = [NSString stringWithFormat:@"%@%@%@%@.%@", self.serverProfile.serverUrl,
+                     constants.REST_SERVICES_V2_URI, constants.REST_REPORTS_URI,
+                     resourceDescriptor.uriString, format];
+
+    NSString *queryString = RKURLEncodedStringFromDictionaryWithEncoding(queryParams, NSUTF8StringEncoding);
+    url = [url stringByAppendingFormat:([url rangeOfString:@"?"].location == NSNotFound) ? @"?%@" : @"&%@" ,queryString];
     
     // TODO: remove code duplication...
     // Remove all [] for query params (i.e. query &PL_Country_multi_select[]=Mexico&PL_Country_multi_select[]=USA will

@@ -33,23 +33,13 @@
 #import "JSXMLSerializer.h"
 #import "JSRequestBuilder.h"
 #import "JSRestKitManagerFactory.h"
-#import "JRSwizzle.h"
-#import "RKURL+RKAdditions.h"
-#import "RKRequest+RKAdditions.h"
 
-// Access key and value for content-type / charset
-NSString * const kJSRequestCharset = @"Charset";
-NSString * const kJSRequestContentType = @"Content-Type";
-NSString * const kJSRequestResponceType = @"Accept";
 
 // Default value for timeout interval
 static NSTimeInterval const _defaultTimeoutInterval = 120;
 
 // Helper template message indicates that request was finished successfully
 static NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
-
-// RestKit's reachability observer for checking internet connection
-static RKReachabilityObserver *_networkReachabilityObserver;
 
 // Key element for RestKit's mapping path. Can be found inside error.userInfo dictionary
 static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
@@ -63,49 +53,40 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 @interface JSCallBack : NSObject
 
 @property (nonatomic, retain) JSRequest *request;
-@property (nonatomic, retain) id restKitRequest;
+@property (nonatomic, retain) id restKitOperation;
 
-- (id)initWithRestKitRequest:(id)restKitRequest 
+- (id)initWithRestKitOperation:(id)restKitOperation
                      request:(JSRequest *)request;
 
 @end
 
 @implementation JSCallBack
-
-@synthesize request = _request;
-@synthesize restKitRequest = _restKitRequest;
-
-- (id)initWithRestKitRequest:(id)restKitRequest 
-                     request:(JSRequest *)request {
+- (id)initWithRestKitOperation:(id)restKitOperation request:(JSRequest *)request {
     if (self = [super init]) {
         self.request = request;
-        self.restKitRequest = restKitRequest;
+        self.restKitOperation = restKitOperation;
     }
-    
     return self;
 }
 
 @end
 
 // Hidden implementation of RKObjectLoaderDelegate protocol and private properties
-@interface JSRESTBase() <RKObjectLoaderDelegate>
-
-// RestKit's RKClient instance for simple GET/POST/PUT/DELETE requests.
-// Also this class uses for base HTTP authentication
-@property (nonatomic, retain) RKClient *restKitClient;
+@interface JSRESTBase()
 
 // RestKit's RKObjectManager instance for mapping response (in JSON, XML and other
 // formats) directly to object
-@property (nonatomic, retain) RKObjectManager *restKitObjectManager;
+@property (nonatomic, strong) RKObjectManager *restKitObjectManager;
 
 // List of JSCallBack instances
-@property (nonatomic, retain) NSMutableArray *requestCallBacks;
+@property (nonatomic, strong) NSMutableArray *requestCallBacks;
+
+// List of classes For Mappings
+@property (nonatomic, strong) NSArray *classesForMappings;
 
 @end
 
 @implementation JSRESTBase
-
-@synthesize restKitClient = _restKitClient;
 @synthesize restKitObjectManager = _restKitObjectManager;
 @synthesize serverProfile = _serverProfile;
 @synthesize serializer = _serializer;
@@ -116,58 +97,15 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 @synthesize requestBackgroundPolicy = _requestBackgroundPolicy;
 #endif
 
-+ (void)initialize {
-    _networkReachabilityObserver = [RKReachabilityObserver reachabilityObserverForInternet];    
-    [RKURL jr_swizzleMethod:@selector(initWithBaseURL:resourcePath:queryParameters:)
-                 withMethod:@selector(initWithBaseURLFixed:resourcePath:queryParameters:) error:nil];
-    [RKRequest jr_swizzleMethod:@selector(prepareURLRequest)
-                 withMethod:@selector(prepareURLRequestWithTimeoutInterval) error:nil];
-}
-
-+ (BOOL)isNetworkReachable {
-    return _networkReachabilityObserver.isReachabilityDetermined && _networkReachabilityObserver.isNetworkReachable;
-}
-
 #pragma mark -
 #pragma mark Initialization
 
 - (id)initWithProfile:(JSProfile *)profile classesForMappings:(NSArray *)classes {
     if (self = [super init]) {
-        self.restKitClient = [[RKClient alloc] init];
-        self.restKitClient.authenticationType = RKRequestAuthenticationTypeHTTPBasic;
-        self.restKitClient.cachePolicy = RKRequestCachePolicyNone;
-        self.restKitClient.requestCache.storagePolicy = RKRequestCacheStoragePolicyDisabled;
-        self.restKitClient.disableCertificateValidation = YES;
+        [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
         
-        // Add locale to request
-        NSString *currentLanguage = [[NSLocale preferredLanguages] objectAtIndex:0];
-        NSInteger dividerPosition = [currentLanguage rangeOfString:@"_"].location;
-        if (dividerPosition != NSNotFound) {
-            currentLanguage = [currentLanguage substringToIndex:dividerPosition];
-        }
-        NSString *currentLocale = [[JSConstants sharedInstance].REST_JRS_LOCALE_SUPPORTED objectForKey:currentLanguage];
-        if (currentLocale) {
-            [self.restKitClient setValue:currentLocale forHTTPHeaderField:@"Accept-Language"];
-        }
-        [self.restKitClient setValue:[NSString stringWithFormat:@"%@", [[NSTimeZone systemTimeZone] abbreviation]] forHTTPHeaderField:@"Accept-Timezone"];
-        
-        // Sets default content-type and charset for RKClient. This is required step or
-        // there will be an parsing error
-        [self.restKitClient setValue:[JSConstants sharedInstance].REST_SDK_MIMETYPE_USED forHTTPHeaderField:kJSRequestContentType];
-        [self.restKitClient setValue:[JSConstants sharedInstance].REST_SDK_MIMETYPE_USED forHTTPHeaderField:kJSRequestResponceType];
-
-        [self.restKitClient setValue:[JSConstants sharedInstance].REST_SDK_CHARSET_USED forHTTPHeaderField:kJSRequestCharset];
-        
-        // Passed classes including JSServerInfo class
-        NSMutableArray *classesForMappings = [[NSMutableArray alloc] initWithObjects:[JSServerInfo class], nil];
-        [classesForMappings addObjectsFromArray:classes];
-        
-        self.restKitObjectManager = [JSRestKitManagerFactory createRestKitObjectManagerForClasses:classesForMappings];
-        self.restKitObjectManager.client = self.restKitClient;
-        self.serverProfile = [profile copy];
-        self.requestCallBacks = [[NSMutableArray alloc] init];
+        self.classesForMappings = classes;
         self.timeoutInterval = _defaultTimeoutInterval;
-        
 #if TARGET_OS_IPHONE
         self.requestBackgroundPolicy = JSRequestBackgroundPolicyCancel;
 #endif
@@ -187,11 +125,7 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
     // instead new one
     [self deleteCookies];
     
-    // Sets authentication. This will also change authentication for 
-    // RKObjectManager instance
-    self.restKitClient.baseURL = [RKURL URLWithString:serverProfile.serverUrl];
-    self.restKitClient.username = [serverProfile getUsernameWithOrganization];
-    self.restKitClient.password = serverProfile.password;
+    [self configureRestKitObjectManager];
 }
 
 // Initializes default serializer if no other was provided
@@ -212,87 +146,42 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 
 - (void)sendRequest:(JSRequest *)request additionalHTTPHeaderFields:(NSDictionary *)headerFields{
     // Full uri path with query params
-    NSString *fullUri = nil;
-    if (request.params.count) {
-        fullUri = [self fullUri:[request.uri stringByAppendingQueryParameters:request.params]
-                    restVersion:request.restVersion];
-    } else {
-        fullUri = [self fullUri:request.uri restVersion:request.restVersion];
-    }
+    NSString *fullUri = [self fullUri:request.uri restVersion:request.restVersion];
     
-    // Request can be RKRequest or RKObjectLoader depends on request method (GET or POST/PUT)
-    RKRequest *restKitRequest = nil;
+    RKObjectRequestOperation *operation = [self.restKitObjectManager appropriateObjectRequestOperationWithObject:request.body method:request.method path:fullUri parameters:request.params];
+    [operation setCompletionBlockWithSuccess:nil failure:nil];
+
     
-    // Checks what type or RestKit's request to create: RKObjectLoader or RKRequest
-    if (request.responseAsObjects) {
-        restKitRequest = [self.restKitObjectManager loaderWithResourcePath:fullUri];
-    } else {
-        restKitRequest = [self.restKitClient requestWithResourcePath:fullUri];
-    }
-    
-    NSData *body = nil;
-    if (request.body && (request.method == JSRequestMethodPOST || request.method == JSRequestMethodPUT)) {
-        body = [[self.serializer stringFromObject:request.body] dataUsingEncoding:NSUTF8StringEncoding];
-    }
-    
-    if (headerFields && [headerFields count]) {
-        NSMutableDictionary *headerFieldsDictionary = [NSMutableDictionary dictionaryWithDictionary:restKitRequest.additionalHTTPHeaders];
-        [headerFieldsDictionary addEntriesFromDictionary:headerFields];
-        [restKitRequest setAdditionalHTTPHeaders:headerFieldsDictionary];
-    }
-    
-    [restKitRequest setHTTPBody:body];
-    [restKitRequest setTimeoutInterval:(request.timeoutInterval ?: self.timeoutInterval)];
-    [restKitRequest setDelegate:self];
-    
-    switch (request.method) {
-        case JSRequestMethodPOST:
-            [restKitRequest setMethod:RKRequestMethodPOST];
-            break;
-            
-        case JSRequestMethodPUT:
-            [restKitRequest setMethod:RKRequestMethodPUT];
-            break;
-            
-        case JSRequestMethodDELETE:
-            [restKitRequest setMethod:RKRequestMethodDELETE];
-            break;
-            
-        case JSRequestMethodGET:
-        default:
-            [restKitRequest setMethod:RKRequestMethodGET];
-    }
-    
-#if TARGET_OS_IPHONE
-    JSRequestBackgroundPolicy requestBackgroundPolicy = request.requestBackgroundPolicy ?: self.requestBackgroundPolicy;
-    switch (requestBackgroundPolicy) {
-        case JSRequestBackgroundPolicyNone:
-            [restKitRequest setBackgroundPolicy:RKRequestBackgroundPolicyNone];
-            break;
-            
-        case JSRequestBackgroundPolicyContinue:
-            [restKitRequest setBackgroundPolicy:RKRequestBackgroundPolicyContinue];
-            break;
-            
-        case JSRequestBackgroundPolicyRequeue:
-            [restKitRequest setBackgroundPolicy:RKRequestBackgroundPolicyRequeue];
-            break;
-            
-        case JSRequestBackgroundPolicyCancel:
-        default:
-            [restKitRequest setBackgroundPolicy:RKRequestBackgroundPolicyCancel];
-            break;
-    }
-#endif
+//    // Checks what type or RestKit's request to create: RKObjectLoader or RKRequest
+//    if (request.responseAsObjects) {
+//        restKitRequest = [self.restKitObjectManager loaderWithResourcePath:fullUri];
+//    } else {
+//        restKitRequest = [self.restKitClient requestWithResourcePath:fullUri];
+//    }
+//    
+//    NSData *body = nil;
+//    if (request.body && (request.method == JSRequestMethodPOST || request.method == JSRequestMethodPUT)) {
+//        body = [[self.serializer stringFromObject:request.body] dataUsingEncoding:NSUTF8StringEncoding];
+//    }
+//    
+//    if (headerFields && [headerFields count]) {
+//        NSMutableDictionary *headerFieldsDictionary = [NSMutableDictionary dictionaryWithDictionary:restKitRequest.additionalHTTPHeaders];
+//        [headerFieldsDictionary addEntriesFromDictionary:headerFields];
+//        [restKitRequest setAdditionalHTTPHeaders:headerFieldsDictionary];
+//    }
+//    
+//    [restKitRequest setHTTPBody:body];
+//    [restKitRequest setTimeoutInterval:(request.timeoutInterval ?: self.timeoutInterval)];
+//    [restKitRequest setDelegate:self];
+//
     
     // Creates bridge between RestKit's delegate and SDK delegate
-    [self.requestCallBacks addObject:[[JSCallBack alloc] initWithRestKitRequest:restKitRequest request:request]];
+    [self.requestCallBacks addObject:[[JSCallBack alloc] initWithRestKitOperation:operation request:request]];
     
-    
-    if (request.asynchronous) {
-        [restKitRequest send];
-    } else {
-        [restKitRequest sendSynchronously];
+    [operation start];
+
+    if (!request.asynchronous) {
+        [operation waitUntilFinished];
     }
 }
 
@@ -333,9 +222,14 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 }
 
 - (void)cancelAllRequests {
-    [self.restKitClient.requestQueue cancelAllRequests];
+    [[RKObjectManager sharedManager].operationQueue cancelAllOperations];
     [self.requestCallBacks removeAllObjects];
 }
+
+- (BOOL)isNetworkReachable {
+    return (self.restKitObjectManager.HTTPClient.networkReachabilityStatus > 0);
+}
+
 
 - (NSArray *)cookies {
     if (!self.serverProfile.serverUrl) return nil;
@@ -355,6 +249,11 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 
 #pragma mark -
 #pragma mark Private methods
+
+- (void)configureRestKitObjectManager {
+    self.restKitObjectManager = [JSRestKitManagerFactory createRestKitObjectManagerForClasses:self.classesForMappings andServerProfile:(JSProfile *)serverProfile];
+    self.requestCallBacks = [[NSMutableArray alloc] init];
+}
 
 // Gets full uri (including rest prefix)
 - (NSString *)fullUri:(NSString *)uri restVersion:(JSRESTVersion)restVersion {
@@ -402,15 +301,15 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 
 // Initializes result with helping properties: http status code, 
 // returned header fields and MIMEType
-- (JSOperationResult *)operationResultWithResponse:(RKResponse *)response error:(NSError *)error {
-    JSOperationResult *result = [[JSOperationResult alloc] initWithStatusCode:response.statusCode
-                                         allHeaderFields:response.allHeaderFields
-                                                MIMEType:response.MIMEType
-                                                   error:error];
-    result.body = response.body;
-    result.bodyAsString = response.bodyAsString;
-    return result;
-}
+//- (JSOperationResult *)operationResultWithResponse:(RKResponse *)response error:(NSError *)error {
+//    JSOperationResult *result = [[JSOperationResult alloc] initWithStatusCode:response.statusCode
+//                                         allHeaderFields:response.allHeaderFields
+//                                                MIMEType:response.MIMEType
+//                                                   error:error];
+//    result.body = response.body;
+//    result.bodyAsString = response.bodyAsString;
+//    return result;
+//}
 
 - (void)callRequestFinishedCallBackForRestKitRequest:(id)restKitRequest result:(JSOperationResult *)result {
     JSCallBack *callBack = [self callBackByRestKitRequest:restKitRequest removeFromCallBacks:true];
@@ -458,78 +357,84 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
     return result;
 }
 
-#pragma mark -
-#pragma mark RKObjectLoaderDelegate protocol callbacks
-
-- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
-    JSOperationResult *result = [self operationResultWithResponse:objectLoader.response error:nil];
-    result.objects = objects;
-    [self callRequestFinishedCallBackForRestKitRequest:objectLoader result:result];
+- (NSArray *)classesForMappings {
+    NSMutableArray *classesArray = [NSMutableArray arrayWithArray:_classesForMappings];
+    [classesArray addObject:[JSServerInfo class]];
+    return classesArray;
 }
 
-- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-    JSOperationResult *result = nil;
-    NSString *mapperKeyPath = nil;
-    NSArray *RKObjectMapperErrorObjects = [error.userInfo objectForKey:RKObjectMapperErrorObjectsKey];
-    
-    
-    // Get mapper key path from error.userInfo dictionary
-    for (NSString *key in error.userInfo.allKeys) {
-        id value = [error.userInfo objectForKey:key];
-        if ([value respondsToSelector:@selector(isEqualToString:)] && 
-            [value isEqualToString:_keyRKObjectMapperKeyPath]) {
-            mapperKeyPath = key;
-            break;
-        }
-    }
-    
-    // If we have an error (most of all mapping) but response was success (server returned body)
-    // error with server message will be created
-    if (objectLoader.response.isClientError && 
-        objectLoader.response.bodyAsString.length) {
-        NSMutableDictionary *errorDetail = [[NSMutableDictionary alloc] init];
-        [errorDetail setObject:objectLoader.response.bodyAsString forKey:NSLocalizedDescriptionKey];
-        error = [NSError errorWithDomain:error.domain code:error.code userInfo:errorDetail];
-    }
-    
-    // Check if response is not an empty XML list (i.e. <resourceDescriptors></resourceDescriptors>).
-    // RestKit interpret this as mapping error
-    if ([mapperKeyPath isEqualToString:@""]) {
-        result = [self operationResultWithResponse:objectLoader.response error:nil];
-        result.objects = [NSArray array];
-    } else {
-        result = [self operationResultWithResponse:objectLoader.response error:error];
-    }
-    
-    result.objects = RKObjectMapperErrorObjects;
-    
-    [self callRequestFinishedCallBackForRestKitRequest:objectLoader result:result];
-}
-
-#pragma mark -
-#pragma mark RKRequestDelegate protocol callbacks
-
-- (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response {    
-    // This method also calls for RKObjectLoader so here we need to check if 
-    // object is not loader. Not very good approach to use isKindOfClass. 
-    // Temp solution
-    
-    if (![request isKindOfClass:[RKObjectLoader class]]) {
-        JSOperationResult *result = [self operationResultWithResponse:response error:nil];
-        // Used for downloading files
-        result.body = response.body;
-        result.bodyAsString = response.bodyAsString;
-        [self callRequestFinishedCallBackForRestKitRequest:request result:result];
-    }
-}
-
-- (void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error {
-    // This method also calls for RKObjectLoader so here we need to check if object
-    // is not loader or response was timed out (error.code should be equals 5 in this case)
-    if (![request isKindOfClass:[RKObjectLoader class]] || error.code == RKRequestConnectionTimeoutError) {
-        JSOperationResult *result = [self operationResultWithResponse:request.response error:error];
-        [self callRequestFinishedCallBackForRestKitRequest:request result:result];
-    }
-}
+//#pragma mark -
+//#pragma mark RKObjectLoaderDelegate protocol callbacks
+//
+//- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
+//    JSOperationResult *result = [self operationResultWithResponse:objectLoader.response error:nil];
+//    result.objects = objects;
+//    [self callRequestFinishedCallBackForRestKitRequest:objectLoader result:result];
+//}
+//
+//- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
+//    JSOperationResult *result = nil;
+//    NSString *mapperKeyPath = nil;
+//    NSArray *RKObjectMapperErrorObjects = [error.userInfo objectForKey:RKObjectMapperErrorObjectsKey];
+//    
+//    
+//    // Get mapper key path from error.userInfo dictionary
+//    for (NSString *key in error.userInfo.allKeys) {
+//        id value = [error.userInfo objectForKey:key];
+//        if ([value respondsToSelector:@selector(isEqualToString:)] && 
+//            [value isEqualToString:_keyRKObjectMapperKeyPath]) {
+//            mapperKeyPath = key;
+//            break;
+//        }
+//    }
+//    
+//    // If we have an error (most of all mapping) but response was success (server returned body)
+//    // error with server message will be created
+//    if (objectLoader.response.isClientError && 
+//        objectLoader.response.bodyAsString.length) {
+//        NSMutableDictionary *errorDetail = [[NSMutableDictionary alloc] init];
+//        [errorDetail setObject:objectLoader.response.bodyAsString forKey:NSLocalizedDescriptionKey];
+//        error = [NSError errorWithDomain:error.domain code:error.code userInfo:errorDetail];
+//    }
+//    
+//    // Check if response is not an empty XML list (i.e. <resourceDescriptors></resourceDescriptors>).
+//    // RestKit interpret this as mapping error
+//    if ([mapperKeyPath isEqualToString:@""]) {
+//        result = [self operationResultWithResponse:objectLoader.response error:nil];
+//        result.objects = [NSArray array];
+//    } else {
+//        result = [self operationResultWithResponse:objectLoader.response error:error];
+//    }
+//    
+//    result.objects = RKObjectMapperErrorObjects;
+//    
+//    [self callRequestFinishedCallBackForRestKitRequest:objectLoader result:result];
+//}
+//
+//#pragma mark -
+//#pragma mark RKRequestDelegate protocol callbacks
+//
+//- (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response {    
+//    // This method also calls for RKObjectLoader so here we need to check if 
+//    // object is not loader. Not very good approach to use isKindOfClass. 
+//    // Temp solution
+//    
+//    if (![request isKindOfClass:[RKObjectLoader class]]) {
+//        JSOperationResult *result = [self operationResultWithResponse:response error:nil];
+//        // Used for downloading files
+//        result.body = response.body;
+//        result.bodyAsString = response.bodyAsString;
+//        [self callRequestFinishedCallBackForRestKitRequest:request result:result];
+//    }
+//}
+//
+//- (void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error {
+//    // This method also calls for RKObjectLoader so here we need to check if object
+//    // is not loader or response was timed out (error.code should be equals 5 in this case)
+//    if (![request isKindOfClass:[RKObjectLoader class]] || error.code == RKRequestConnectionTimeoutError) {
+//        JSOperationResult *result = [self operationResultWithResponse:request.response error:error];
+//        [self callRequestFinishedCallBackForRestKitRequest:request result:result];
+//    }
+//}
 
 @end

@@ -28,9 +28,13 @@
 //  Jaspersoft Corporation
 //
 
-#import <RestKit/RestKit.h>
-#import <Foundation/Foundation.h>
+extern NSString * const kJSRequestCharset;
+extern NSString * const kJSRequestContentType;
+extern NSString * const kJSRequestResponceType;
 
+
+#import <Foundation/Foundation.h>
+#import "JSProfile.h"
 /** 
  @cond EXCLUDE_JS_REST_KIT_MANAGER_FACTORY
 
@@ -52,9 +56,10 @@
  formats) should be mapped directly to this class.
  
  @param classes A list of classes for which mapping rules will be created
+ @param serverProfile A server profile for configuring RestKitObjectManager
  @return A configured object manager
  */
-+ (RKObjectManager *)createRestKitObjectManagerForClasses:(NSArray *)classes;
++ (RKObjectManager *)createRestKitObjectManagerForClasses:(NSArray *)classes andServerProfile:(JSProfile *)serverProfile;
 
 @end
 

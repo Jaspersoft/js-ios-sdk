@@ -31,16 +31,6 @@
 #import "JSOperationResult.h"
 
 /**
- Supported HTTP methods
- */
-typedef enum {
-    JSRequestMethodGET,
-    JSRequestMethodPOST,
-    JSRequestMethodPUT,
-    JSRequestMethodDELETE
-} JSRequestMethod;
-
-/**
  This block invoked when the request is complete.
  Provided as analogue to JSResponseDelegate protocol
  */
@@ -153,7 +143,7 @@ typedef void(^JSRequestConfigurationBlock)(JSRequest *request);
 /**
  The HTTP method
  */
-@property (nonatomic, assign) JSRequestMethod method;
+@property (nonatomic, assign) RKRequestMethod method;
 
 /**
  The delegate to inform when the request is completed. If the object implements

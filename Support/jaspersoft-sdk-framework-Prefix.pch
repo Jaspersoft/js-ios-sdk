@@ -4,4 +4,6 @@
 
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
+    #import <RestKit/RestKit.h>
+    #import "JSConstants.h"
 #endif

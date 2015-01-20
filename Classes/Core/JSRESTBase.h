@@ -50,18 +50,7 @@
  @since 1.3
 */
 
-extern NSString * const kJSRequestCharset;
-extern NSString * const kJSRequestContentType;
-extern NSString * const kJSRequestResponceType;
-
 @interface JSRESTBase : NSObject
-
-/**
- Checks if network is available
- 
- @return A boolean value represents network is availability
- */
-+ (BOOL)isNetworkReachable;
 
 /**
  The server profile instance contains connection details for 
@@ -162,5 +151,13 @@ extern NSString * const kJSRequestResponceType;
  Cancels all requests 
  */
 - (void)cancelAllRequests;
+
+
+/**
+ Checks if network is available
+ 
+ @return A boolean value represents network is availability
+ */
+- (BOOL)isNetworkReachable;
 
 @end
