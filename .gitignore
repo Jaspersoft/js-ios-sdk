@@ -24,3 +24,8 @@ jaspersoft-sdk-resources.bundle
 jaspersoft-sdk-resources.bundle/*
 
 *.xccheckout
+
+#CocoaPods
+Pods
+Podfile.lock
+jaspersoft-sdk.xcworkspace
