@@ -55,7 +55,7 @@
  @param method The HTTP method
  @return A configured JSRequestBuilder instance for further request building
  */
-+ (JSRequestBuilder *)requestWithUri:(NSString *)uri method:(JSRequestMethod)method;
++ (JSRequestBuilder *)requestWithUri:(NSString *)uri method:(RKRequestMethod)method;
 
 /**
  Returns a new builder contains initialized request with provided uri and HTTP method
@@ -64,7 +64,7 @@
  @param method The HTTP method
  @return A configured JSRequestBuilder instance for further request building
  */
-- (JSRequestBuilder *)requestWithUri:(NSString *)uri method:(JSRequestMethod)method;
+- (JSRequestBuilder *)requestWithUri:(NSString *)uri method:(RKRequestMethod)method;
 
 /**
  Sets body for the request

@@ -20,8 +20,6 @@
 				<string>name</string>
 				<key>prop</key>
 				<string>name</string>
-				<key>isAttr</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -30,8 +28,6 @@
 				<string>wsType</string>
 				<key>prop</key>
 				<string>wsType</string>
-				<key>isAttr</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -40,8 +36,6 @@
 				<string>uriString</string>
 				<key>prop</key>
 				<string>uriString</string>
-				<key>isAttr</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -50,8 +44,6 @@
 				<string>isNew</string>
 				<key>prop</key>
 				<string>isNew</string>
-				<key>isAttr</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -60,8 +52,6 @@
 				<string>label</string>
 				<key>prop</key>
 				<string>label</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -70,8 +60,6 @@
 				<string>description</string>
 				<key>prop</key>
 				<string>resourceDescription</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -80,8 +68,6 @@
 				<string>creationDate</string>
 				<key>prop</key>
 				<string>creationDate</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -133,8 +119,6 @@
 				<string>label</string>
 				<key>prop</key>
 				<string>label</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -143,8 +127,6 @@
 				<string>uri</string>
 				<key>prop</key>
 				<string>uri</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -153,8 +135,6 @@
 				<string>description</string>
 				<key>prop</key>
 				<string>resourceDescription</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -163,8 +143,6 @@
 				<string>resourceType</string>
 				<key>prop</key>
 				<string>resourceType</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -173,8 +151,6 @@
 				<string>version</string>
 				<key>prop</key>
 				<string>version</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -183,8 +159,6 @@
 				<string>permissionMask</string>
 				<key>prop</key>
 				<string>permissionMask</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -193,8 +167,6 @@
 				<string>creationDate</string>
 				<key>prop</key>
 				<string>creationDate</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -203,8 +175,6 @@
 				<string>updateDate</string>
 				<key>prop</key>
 				<string>updateDate</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 		</array>
 	</dict>
@@ -221,8 +191,6 @@
 				<string>name</string>
 				<key>prop</key>
 				<string>name</string>
-				<key>isAttr</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -231,8 +199,6 @@
 				<string>value</string>
 				<key>prop</key>
 				<string>value</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -259,8 +225,6 @@
 				<string>name</string>
 				<key>prop</key>
 				<string>name</string>
-				<key>isAttr</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -269,8 +233,6 @@
 				<string>isListItem</string>
 				<key>prop</key>
 				<string>isListItem</string>
-				<key>isAttr</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -279,8 +241,6 @@
 				<string>parameter</string>
 				<key>prop</key>
 				<string>value</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 		</array>
 	</dict>
@@ -565,8 +525,6 @@
 				<string>id</string>
 				<key>prop</key>
 				<string>uuid</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -575,8 +533,6 @@
 				<string>uri</string>
 				<key>prop</key>
 				<string>uri</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -585,8 +541,6 @@
 				<string>value</string>
 				<key>prop</key>
 				<string>value</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -595,8 +549,6 @@
 				<string>error</string>
 				<key>prop</key>
 				<string>error</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -621,8 +573,6 @@
 				<string>label</string>
 				<key>prop</key>
 				<string>label</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -631,8 +581,6 @@
 				<string>value</string>
 				<key>prop</key>
 				<string>value</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -641,8 +589,6 @@
 				<string>selected</string>
 				<key>prop</key>
 				<string>selected</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 		</array>
 	</dict>
@@ -659,8 +605,6 @@
 				<string>name</string>
 				<key>prop</key>
 				<string>name</string>
-				<key>isAttr</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -669,8 +613,6 @@
 				<string>value</string>
 				<key>prop</key>
 				<string>value</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 		</array>
 	</dict>
@@ -767,8 +709,6 @@
 				<string>reportUnitUri</string>
 				<key>prop</key>
 				<string>reportUnitUri</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -777,8 +717,6 @@
 				<string>async</string>
 				<key>prop</key>
 				<string>async</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -787,8 +725,6 @@
 				<string>outputFormat</string>
 				<key>prop</key>
 				<string>outputFormat</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -797,8 +733,6 @@
 				<string>interactive</string>
 				<key>prop</key>
 				<string>interactive</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -807,8 +741,6 @@
 				<string>freshData</string>
 				<key>prop</key>
 				<string>freshData</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -817,8 +749,6 @@
 				<string>saveDataSnapshot</string>
 				<key>prop</key>
 				<string>saveDataSnapshot</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -827,8 +757,6 @@
 				<string>ignorePagination</string>
 				<key>prop</key>
 				<string>ignorePagination</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -837,8 +765,6 @@
 				<string>transformerKey</string>
 				<key>prop</key>
 				<string>transformerKey</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -847,8 +773,6 @@
 				<string>pages</string>
 				<key>prop</key>
 				<string>pages</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -857,8 +781,6 @@
 				<string>attachmentsPrefix</string>
 				<key>prop</key>
 				<string>attachmentsPrefix</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -962,10 +884,6 @@
 				<string>description</string>
 				<key>prop</key>
 				<string>status</string>
-				<key>isAttr</key>
-				<false/>
-				<key>isBody</key>
-				<true/>
 			</dict>
 		</array>
 	</dict>
@@ -982,8 +900,6 @@
 				<string>outputFormat</string>
 				<key>prop</key>
 				<string>outputFormat</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -992,8 +908,6 @@
 				<string>pages</string>
 				<key>prop</key>
 				<string>pages</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -1002,8 +916,6 @@
 				<string>attachmentsPrefix</string>
 				<key>prop</key>
 				<string>attachmentsPrefix</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 			<dict>
 				<key>type</key>
@@ -1012,8 +924,6 @@
 				<string>baseUrl</string>
 				<key>prop</key>
 				<string>baseUrl</string>
-				<key>isAttr</key>
-				<false/>
 			</dict>
 		</array>
 	</dict>

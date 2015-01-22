@@ -75,18 +75,18 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 #pragma mark Public methods for resources API
 
 - (void)resources:(NSString *)uri delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourcesUri:uri] method:JSRequestMethodGET] delegate:delegate];
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourcesUri:uri] method:RKRequestMethodGET] delegate:delegate];
     [self sendRequest:builder.request];
 }
 
 - (void)resources:(NSString *)uri usingBlock:(JSRequestConfigurationBlock)block {
-    JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourcesUri:uri] method:JSRequestMethodGET];
+    JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourcesUri:uri] method:RKRequestMethodGET];
     [self sendRequest:[builder.request usingBlock:block]];
 }
 
 - (void)resources:(NSString *)uri query:(NSString *)query types:(NSArray *)types
         recursive:(BOOL)recursive limit:(NSInteger)limit delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourcesUri:uri] method:JSRequestMethodGET] delegate:delegate];
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourcesUri:uri] method:RKRequestMethodGET] delegate:delegate];
     
     JSParamsBuilder *paramsBuilder = [[JSParamsBuilder alloc] init];
     [paramsBuilder addParameter:_parameterQuery withStringValue:query];
@@ -99,7 +99,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 
 - (void)resources:(NSString *)uri query:(NSString *)query types:(NSArray *)types
         recursive:(BOOL)recursive limit:(NSInteger)limit usingBlock:(JSRequestConfigurationBlock)block {
-    JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourcesUri:uri] method:JSRequestMethodGET];
+    JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourcesUri:uri] method:RKRequestMethodGET];
     
     JSParamsBuilder *paramsBuilder = [[JSParamsBuilder alloc] init];
     [paramsBuilder addParameter:_parameterQuery withStringValue:query];
@@ -112,14 +112,14 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 
 - (void)resourceWithQueryData:(NSString *)uri datasourceUri:(NSString *)datasourceUri
            resourceParameters:(NSArray *)resourceParameters delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:JSRequestMethodGET] delegate:delegate];
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:RKRequestMethodGET] delegate:delegate];
     [builder params:[self paramsForICQueryDataByDatasourceUri:datasourceUri resourceParameters:resourceParameters]];
     [self sendRequest:builder.request];
 }
 
 - (void)resourceWithQueryData:(NSString *)uri datasourceUri:(NSString *)datasourceUri
            resourceParameters:(NSArray *)resourceParameters usingBlock:(JSRequestConfigurationBlock)block {
-    JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:JSRequestMethodGET];
+    JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:RKRequestMethodGET];
     [builder params:[self paramsForICQueryDataByDatasourceUri:datasourceUri resourceParameters:resourceParameters]];
     [self sendRequest:[builder.request usingBlock:block]];
 }
@@ -132,7 +132,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
     if (resourceURI && ![resourceURI isEqualToString:@"/"]) {
         uri = [uri stringByAppendingString:resourceURI];
     }
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:JSRequestMethodGET] restVersion:JSRESTVersion_2];
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:RKRequestMethodGET] restVersion:JSRESTVersion_2];
     [builder delegate:delegate];
     [self sendRequest:builder.request additionalHTTPHeaderFields:@{kJSRequestResponceType : @"application/repository.folder+xml"}];
 }
@@ -142,7 +142,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
     if (resourceURI && ![resourceURI isEqualToString:@"/"]) {
         uri = [uri stringByAppendingString:resourceURI];
     }
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:JSRequestMethodGET] restVersion:JSRESTVersion_2];
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:RKRequestMethodGET] restVersion:JSRESTVersion_2];
     [self sendRequest:[builder.request usingBlock:block] additionalHTTPHeaderFields:@{kJSRequestResponceType : @"application/repository.folder+xml"}];
 }
 
@@ -158,7 +158,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 
 - (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types sortBy:(NSString *)sortBy
               recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[JSConstants sharedInstance].REST_RESOURCES_URI method:JSRequestMethodGET]
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[JSConstants sharedInstance].REST_RESOURCES_URI method:RKRequestMethodGET]
                                  restVersion:JSRESTVersion_2];
     
     JSParamsBuilder *paramsBuilder = [[JSParamsBuilder alloc] init];
@@ -178,7 +178,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 
 - (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types sortBy:(NSString *)sortBy
               recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit usingBlock:(JSRequestConfigurationBlock)block {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[JSConstants sharedInstance].REST_RESOURCES_URI method:JSRequestMethodGET]
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[JSConstants sharedInstance].REST_RESOURCES_URI method:RKRequestMethodGET]
                                  restVersion:JSRESTVersion_2];    
     
     JSParamsBuilder *paramsBuilder = [[JSParamsBuilder alloc] init];
@@ -200,46 +200,46 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 #pragma mark Public methods for resource API
 
 - (void)resource:(NSString *)uri delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:JSRequestMethodGET] delegate:delegate];
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:RKRequestMethodGET] delegate:delegate];
     [self sendRequest:builder.request];
 }
 
 - (void)resource:(NSString *)uri usingBlock:(JSRequestConfigurationBlock)block {
     JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourceUri:uri]
-                                                          method:JSRequestMethodGET];
+                                                          method:RKRequestMethodGET];
     [self sendRequest:[builder.request usingBlock:block]];
 }
 
 - (void)createResource:(JSResourceDescriptor *)resource delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullResourceUri:nil] method:JSRequestMethodPUT]
+    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullResourceUri:nil] method:RKRequestMethodPUT]
                                   delegate:delegate] body:resource];
     [self sendRequest:builder.request];
 }
 
 - (void)createResource:(JSResourceDescriptor *)resource usingBlock:(JSRequestConfigurationBlock)block {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourceUri:nil] method:JSRequestMethodPUT] body:resource];
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourceUri:nil] method:RKRequestMethodPUT] body:resource];
     [self sendRequest:[builder.request usingBlock:block]];
 }
 
 - (void)modifyResource:(JSResourceDescriptor *)resource delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullResourceUri:resource.uriString] method:JSRequestMethodPOST]
+    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullResourceUri:resource.uriString] method:RKRequestMethodPOST]
                                   delegate:delegate] body:resource];
     [self sendRequest:builder.request];
 }
 
 - (void)modifyResource:(JSResourceDescriptor *)resource usingBlock:(JSRequestConfigurationBlock)block {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourceUri:resource.uriString] method:JSRequestMethodPOST]
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourceUri:resource.uriString] method:RKRequestMethodPOST]
                                  body:resource];
     [self sendRequest:[builder.request usingBlock:block]];
 }
 
 - (void)deleteResource:(NSString *)uri delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:JSRequestMethodDELETE] delegate:delegate];
+    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:RKRequestMethodDELETE] delegate:delegate];
     [self sendRequest:builder.request];
 }
 
 - (void)deleteResource:(NSString *)uri usingBlock:(JSRequestConfigurationBlock)block {
-    JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:JSRequestMethodDELETE];
+    JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:RKRequestMethodDELETE];
     [self sendRequest:[builder.request usingBlock:block]];
 }
 

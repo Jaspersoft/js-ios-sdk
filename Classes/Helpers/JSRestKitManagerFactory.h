@@ -28,13 +28,9 @@
 //  Jaspersoft Corporation
 //
 
-extern NSString * const kJSRequestCharset;
-extern NSString * const kJSRequestContentType;
-extern NSString * const kJSRequestResponceType;
-
-
 #import <Foundation/Foundation.h>
 #import "JSProfile.h"
+
 /** 
  @cond EXCLUDE_JS_REST_KIT_MANAGER_FACTORY
 

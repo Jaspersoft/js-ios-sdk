@@ -34,11 +34,11 @@
 
 @synthesize request = _request;
 
-+ (JSRequestBuilder *)requestWithUri:(NSString *)uri method:(JSRequestMethod)method {
++ (JSRequestBuilder *)requestWithUri:(NSString *)uri method:(RKRequestMethod)method {
     return [[[self alloc] init] requestWithUri:uri method:method];
 }
 
-- (JSRequestBuilder *)requestWithUri:(NSString *)uri method:(JSRequestMethod)method {
+- (JSRequestBuilder *)requestWithUri:(NSString *)uri method:(RKRequestMethod)method {
     _request = [[JSRequest alloc] init];
     _request.uri = uri;
     _request.method = method;

@@ -34,6 +34,11 @@
 #import "JSServerInfo.h"
 #import <Foundation/Foundation.h>
 
+extern NSString * const kJSRequestCharset;
+extern NSString * const kJSRequestContentType;
+extern NSString * const kJSRequestResponceType;
+
+
 /**
  Provides methods which interacts with the JasperReports Server REST API. The 
  object puts at disposal a set of methods for sending JSRequests for different 
@@ -57,14 +62,6 @@
  JasperReports server
  */
 @property (nonatomic, retain) JSProfile *serverProfile;
-
-/** 
- The serializer instance uses to convert object to encoded string 
- (i.e. XML, JSON, etc.) for PUT/POST request
- 
- **Default**: JSXMLSerializer
- */
-@property (nonatomic, retain) id<JSSerializer> serializer;
 
 /**
  The timeout interval which will be used as default value for all requests if

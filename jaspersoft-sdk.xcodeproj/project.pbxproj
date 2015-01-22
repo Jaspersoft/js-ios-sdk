@@ -23,6 +23,7 @@
 /* Begin PBXBuildFile section */
 		088208821A01328900B6559F /* JSExportExecutionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 088208801A01328900B6559F /* JSExportExecutionRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		088208831A01328900B6559F /* JSExportExecutionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 088208811A01328900B6559F /* JSExportExecutionRequest.m */; };
+		08B8FA181A6FCEAF00E9FE60 /* weakself.h in Headers */ = {isa = PBXBuildFile; fileRef = 08B8FA171A6FCEAF00E9FE60 /* weakself.h */; };
 		3745519A3881E4804293BAE2 /* JSReportOutputResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 374556F481BE36B761B5FDDF /* JSReportOutputResource.m */; };
 		374551A212E7AB533580F50C /* JSExportExecutionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 37455C26CA9D110D7CBD29A2 /* JSExportExecutionResponse.m */; };
 		3745523E7EE2CE8C64105A1D /* JSExportExecutionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 37455C26CA9D110D7CBD29A2 /* JSExportExecutionResponse.m */; };
@@ -94,10 +95,6 @@
 		F597692915E3C826004165A7 /* JSRESTResource.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F415E3C826004165A7 /* JSRESTResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597692A15E3C826004165A7 /* JSRESTResource.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F515E3C826004165A7 /* JSRESTResource.m */; };
 		F597692B15E3C826004165A7 /* JSRESTResource.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F515E3C826004165A7 /* JSRESTResource.m */; };
-		F597692C15E3C826004165A7 /* JSClassesMappingRulesHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F715E3C826004165A7 /* JSClassesMappingRulesHelper.h */; };
-		F597692D15E3C826004165A7 /* JSClassesMappingRulesHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F715E3C826004165A7 /* JSClassesMappingRulesHelper.h */; };
-		F597692E15E3C826004165A7 /* JSClassesMappingRulesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F815E3C826004165A7 /* JSClassesMappingRulesHelper.m */; };
-		F597692F15E3C826004165A7 /* JSClassesMappingRulesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F815E3C826004165A7 /* JSClassesMappingRulesHelper.m */; };
 		F597693015E3C826004165A7 /* JSRequestBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F915E3C826004165A7 /* JSRequestBuilder.h */; };
 		F597693115E3C826004165A7 /* JSRequestBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F915E3C826004165A7 /* JSRequestBuilder.h */; };
 		F597693215E3C826004165A7 /* JSRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768FA15E3C826004165A7 /* JSRequestBuilder.m */; };
@@ -106,14 +103,6 @@
 		F597693515E3C826004165A7 /* JSRestKitManagerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768FB15E3C826004165A7 /* JSRestKitManagerFactory.h */; };
 		F597693615E3C826004165A7 /* JSRestKitManagerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768FC15E3C826004165A7 /* JSRestKitManagerFactory.m */; };
 		F597693715E3C826004165A7 /* JSRestKitManagerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768FC15E3C826004165A7 /* JSRestKitManagerFactory.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F597693A15E3C826004165A7 /* JSXMLSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768FE15E3C826004165A7 /* JSXMLSerializer.h */; };
-		F597693B15E3C826004165A7 /* JSXMLSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768FE15E3C826004165A7 /* JSXMLSerializer.h */; };
-		F597693C15E3C826004165A7 /* JSXMLSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768FF15E3C826004165A7 /* JSXMLSerializer.m */; };
-		F597693D15E3C826004165A7 /* JSXMLSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768FF15E3C826004165A7 /* JSXMLSerializer.m */; };
-		F597693F15E3C826004165A7 /* XMLWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690315E3C826004165A7 /* XMLWriter.h */; };
-		F597694015E3C826004165A7 /* XMLWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690315E3C826004165A7 /* XMLWriter.h */; };
-		F597694115E3C826004165A7 /* XMLWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690415E3C826004165A7 /* XMLWriter.m */; };
-		F597694215E3C826004165A7 /* XMLWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690415E3C826004165A7 /* XMLWriter.m */; };
 		F597694315E3C826004165A7 /* JSReportAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690615E3C826004165A7 /* JSReportAttachment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597694415E3C826004165A7 /* JSReportAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690615E3C826004165A7 /* JSReportAttachment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597694515E3C826004165A7 /* JSReportAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690715E3C826004165A7 /* JSReportAttachment.m */; };
@@ -134,7 +123,6 @@
 		F597695415E3C826004165A7 /* JSResourceProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690E15E3C826004165A7 /* JSResourceProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597695515E3C826004165A7 /* JSResourceProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690F15E3C826004165A7 /* JSResourceProperty.m */; };
 		F597695615E3C826004165A7 /* JSResourceProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690F15E3C826004165A7 /* JSResourceProperty.m */; };
-		F597697715E3C9C0004165A7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F597697315E3C9AB004165A7 /* Cocoa.framework */; };
 		F597697915E3C9EF004165A7 /* JSSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = F597697815E3C9EF004165A7 /* JSSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597697A15E3C9EF004165A7 /* JSSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = F597697815E3C9EF004165A7 /* JSSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5AE53AF165169F6004207E1 /* JSDateTimeFormatValidationRule.h in Headers */ = {isa = PBXBuildFile; fileRef = F5AE53AD165169F6004207E1 /* JSDateTimeFormatValidationRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -173,13 +161,13 @@
 		F5EA36C61834510200E09E10 /* JSParamsBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EA36C21834510200E09E10 /* JSParamsBuilder.m */; };
 		F5F173FA186486FD00779136 /* JSCore.h in Headers */ = {isa = PBXBuildFile; fileRef = F5F173F9186486FD00779136 /* JSCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5F173FB186486FD00779136 /* JSCore.h in Headers */ = {isa = PBXBuildFile; fileRef = F5F173F9186486FD00779136 /* JSCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F5F68E0B15E55EC000270103 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F597697315E3C9AB004165A7 /* Cocoa.framework */; };
 		F5F68E1A15E5725700270103 /* ClassesMappingRules.plist in Resources */ = {isa = PBXBuildFile; fileRef = F597690115E3C826004165A7 /* ClassesMappingRules.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		088208801A01328900B6559F /* JSExportExecutionRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSExportExecutionRequest.h; sourceTree = "<group>"; };
 		088208811A01328900B6559F /* JSExportExecutionRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSExportExecutionRequest.m; sourceTree = "<group>"; };
+		08B8FA171A6FCEAF00E9FE60 /* weakself.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = weakself.h; sourceTree = "<group>"; };
 		1AE65D84777378DA82ED7BA4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		374551F833EA720B59987045 /* JSReportExecutionResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportExecutionResponse.h; sourceTree = "<group>"; };
 		374555044AD45FB4F352A96F /* JSReportExecutionRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportExecutionRequest.m; sourceTree = "<group>"; };
@@ -226,17 +214,11 @@
 		F59768F315E3C826004165A7 /* JSRESTReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSRESTReport.m; sourceTree = "<group>"; };
 		F59768F415E3C826004165A7 /* JSRESTResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSRESTResource.h; sourceTree = "<group>"; };
 		F59768F515E3C826004165A7 /* JSRESTResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSRESTResource.m; sourceTree = "<group>"; };
-		F59768F715E3C826004165A7 /* JSClassesMappingRulesHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSClassesMappingRulesHelper.h; sourceTree = "<group>"; };
-		F59768F815E3C826004165A7 /* JSClassesMappingRulesHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSClassesMappingRulesHelper.m; sourceTree = "<group>"; };
 		F59768F915E3C826004165A7 /* JSRequestBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSRequestBuilder.h; sourceTree = "<group>"; };
 		F59768FA15E3C826004165A7 /* JSRequestBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSRequestBuilder.m; sourceTree = "<group>"; };
 		F59768FB15E3C826004165A7 /* JSRestKitManagerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSRestKitManagerFactory.h; sourceTree = "<group>"; };
 		F59768FC15E3C826004165A7 /* JSRestKitManagerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSRestKitManagerFactory.m; sourceTree = "<group>"; };
-		F59768FE15E3C826004165A7 /* JSXMLSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSXMLSerializer.h; sourceTree = "<group>"; };
-		F59768FF15E3C826004165A7 /* JSXMLSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSXMLSerializer.m; sourceTree = "<group>"; };
 		F597690115E3C826004165A7 /* ClassesMappingRules.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ClassesMappingRules.plist; sourceTree = "<group>"; };
-		F597690315E3C826004165A7 /* XMLWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLWriter.h; sourceTree = "<group>"; };
-		F597690415E3C826004165A7 /* XMLWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLWriter.m; sourceTree = "<group>"; };
 		F597690615E3C826004165A7 /* JSReportAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportAttachment.h; sourceTree = "<group>"; };
 		F597690715E3C826004165A7 /* JSReportAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportAttachment.m; sourceTree = "<group>"; };
 		F597690815E3C826004165A7 /* JSReportDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportDescriptor.h; sourceTree = "<group>"; };
@@ -247,8 +229,6 @@
 		F597690D15E3C826004165A7 /* JSResourceParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceParameter.m; sourceTree = "<group>"; };
 		F597690E15E3C826004165A7 /* JSResourceProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResourceProperty.h; sourceTree = "<group>"; };
 		F597690F15E3C826004165A7 /* JSResourceProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceProperty.m; sourceTree = "<group>"; };
-		F597697315E3C9AB004165A7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		F597697515E3C9B1004165A7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		F597697815E3C9EF004165A7 /* JSSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSSerializer.h; sourceTree = "<group>"; };
 		F5A8141515EBFA1900151B1D /* jaspersoft-sdk-framework-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "jaspersoft-sdk-framework-Info.plist"; sourceTree = "<group>"; };
 		F5A8141615EBFA1900151B1D /* jaspersoft-sdk-framework-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "jaspersoft-sdk-framework-Prefix.pch"; sourceTree = "<group>"; };
@@ -293,7 +273,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F597697715E3C9C0004165A7 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,7 +280,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5F68E0B15E55EC000270103 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,8 +346,6 @@
 				F5758F42174E302E00C355C1 /* MobileCoreServices.framework */,
 				F5758F40174E302800C355C1 /* Security.framework */,
 				F5758F3D174E301800C355C1 /* CFNetwork.framework */,
-				F597697515E3C9B1004165A7 /* SystemConfiguration.framework */,
-				F597697315E3C9AB004165A7 /* Cocoa.framework */,
 				F59768C015E3C75F004165A7 /* Foundation.framework */,
 				F5F68E0C15E55EC000270103 /* Other Frameworks */,
 				1AE65D84777378DA82ED7BA4 /* libPods.a */,
@@ -414,18 +390,14 @@
 		F59768F615E3C826004165A7 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				F59768F715E3C826004165A7 /* JSClassesMappingRulesHelper.h */,
-				F59768F815E3C826004165A7 /* JSClassesMappingRulesHelper.m */,
+				08B8FA171A6FCEAF00E9FE60 /* weakself.h */,
 				F5EA36C11834510200E09E10 /* JSParamsBuilder.h */,
 				F5EA36C21834510200E09E10 /* JSParamsBuilder.m */,
 				F59768F915E3C826004165A7 /* JSRequestBuilder.h */,
 				F59768FA15E3C826004165A7 /* JSRequestBuilder.m */,
 				F59768FB15E3C826004165A7 /* JSRestKitManagerFactory.h */,
 				F59768FC15E3C826004165A7 /* JSRestKitManagerFactory.m */,
-				F59768FE15E3C826004165A7 /* JSXMLSerializer.h */,
-				F59768FF15E3C826004165A7 /* JSXMLSerializer.m */,
 				F597690015E3C826004165A7 /* MappingConfiguration */,
-				F597690215E3C826004165A7 /* XMLWriter */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -436,15 +408,6 @@
 				F597690115E3C826004165A7 /* ClassesMappingRules.plist */,
 			);
 			path = MappingConfiguration;
-			sourceTree = "<group>";
-		};
-		F597690215E3C826004165A7 /* XMLWriter */ = {
-			isa = PBXGroup;
-			children = (
-				F597690315E3C826004165A7 /* XMLWriter.h */,
-				F597690415E3C826004165A7 /* XMLWriter.m */,
-			);
-			path = XMLWriter;
 			sourceTree = "<group>";
 		};
 		F597690515E3C826004165A7 /* ObjectMappings */ = {
@@ -578,6 +541,7 @@
 				F568246A1642996D00CC4015 /* JSInputControlDescriptor.h in Headers */,
 				F56824741642A2A300CC4015 /* JSInputControlState.h in Headers */,
 				F568247A1642A67E00CC4015 /* JSInputControlOption.h in Headers */,
+				08B8FA181A6FCEAF00E9FE60 /* weakself.h in Headers */,
 				F53B1043164A9EE400042976 /* JSReportParameter.h in Headers */,
 				F53B1049164AC43400042976 /* JSReportParametersList.h in Headers */,
 				F5AE53AF165169F6004207E1 /* JSDateTimeFormatValidationRule.h in Headers */,
@@ -591,11 +555,8 @@
 				F5D0923818586E4E00C5AEFC /* JSErrorDescriptor.h in Headers */,
 				F520FF89196FEE53009435C2 /* JSMandatoryValidationRule.h in Headers */,
 				F523D78518635EB000B93D3F /* JSExecutionStatus.h in Headers */,
-				F597692C15E3C826004165A7 /* JSClassesMappingRulesHelper.h in Headers */,
 				F597693015E3C826004165A7 /* JSRequestBuilder.h in Headers */,
 				F597693415E3C826004165A7 /* JSRestKitManagerFactory.h in Headers */,
-				F597693A15E3C826004165A7 /* JSXMLSerializer.h in Headers */,
-				F597693F15E3C826004165A7 /* XMLWriter.h in Headers */,
 				F5EA36C31834510200E09E10 /* JSParamsBuilder.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -637,11 +598,8 @@
 				F523D78618635EB000B93D3F /* JSExecutionStatus.h in Headers */,
 				F520FF8A196FEE53009435C2 /* JSMandatoryValidationRule.h in Headers */,
 				F5D0923918586E4E00C5AEFC /* JSErrorDescriptor.h in Headers */,
-				F597692D15E3C826004165A7 /* JSClassesMappingRulesHelper.h in Headers */,
 				F597693115E3C826004165A7 /* JSRequestBuilder.h in Headers */,
 				F597693515E3C826004165A7 /* JSRestKitManagerFactory.h in Headers */,
-				F597693B15E3C826004165A7 /* JSXMLSerializer.h in Headers */,
-				F597694015E3C826004165A7 /* XMLWriter.h in Headers */,
 				F5EA36C41834510200E09E10 /* JSParamsBuilder.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -822,10 +780,7 @@
 				F597692215E3C826004165A7 /* JSRESTBase.m in Sources */,
 				F597692615E3C826004165A7 /* JSRESTReport.m in Sources */,
 				F597692A15E3C826004165A7 /* JSRESTResource.m in Sources */,
-				F597692E15E3C826004165A7 /* JSClassesMappingRulesHelper.m in Sources */,
 				F597693215E3C826004165A7 /* JSRequestBuilder.m in Sources */,
-				F597693C15E3C826004165A7 /* JSXMLSerializer.m in Sources */,
-				F597694115E3C826004165A7 /* XMLWriter.m in Sources */,
 				F597694515E3C826004165A7 /* JSReportAttachment.m in Sources */,
 				F597694915E3C826004165A7 /* JSReportDescriptor.m in Sources */,
 				F597694D15E3C826004165A7 /* JSResourceDescriptor.m in Sources */,
@@ -865,10 +820,7 @@
 				F597692315E3C826004165A7 /* JSRESTBase.m in Sources */,
 				F597692715E3C826004165A7 /* JSRESTReport.m in Sources */,
 				F597692B15E3C826004165A7 /* JSRESTResource.m in Sources */,
-				F597692F15E3C826004165A7 /* JSClassesMappingRulesHelper.m in Sources */,
 				F597693315E3C826004165A7 /* JSRequestBuilder.m in Sources */,
-				F597693D15E3C826004165A7 /* JSXMLSerializer.m in Sources */,
-				F597694215E3C826004165A7 /* XMLWriter.m in Sources */,
 				F597694615E3C826004165A7 /* JSReportAttachment.m in Sources */,
 				F597694A15E3C826004165A7 /* JSReportDescriptor.m in Sources */,
 				F597694E15E3C826004165A7 /* JSResourceDescriptor.m in Sources */,
@@ -1023,11 +975,7 @@
 					"$(inherited)",
 				);
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-					"$(inherited)",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRIVATE_HEADERS_FOLDER_PATH = "../../Headers/jaspersoft-sdk/Private";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "../../Headers/jaspersoft-sdk";
@@ -1048,11 +996,7 @@
 					"$(inherited)",
 				);
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-					"$(inherited)",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRIVATE_HEADERS_FOLDER_PATH = "../../Headers/jaspersoft-sdk/Private";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "../../Headers/jaspersoft-sdk";

@@ -117,11 +117,7 @@ typedef void(^JSRequestConfigurationBlock)(JSRequest *request);
  The HTTP body used for this request. Uses only for POST and PUT HTTP methods.
  Automatically will be serialized as string in the format (i.e XML, JSON, etc.) provided
  by the serializer
- 
- @see JSSerializer
- @see JSXMLSerializer
- @see JSRESTBase#serializer
- */
+*/
 @property (nonatomic, retain) id body;
 
 /**
