@@ -20,8 +20,8 @@ DerivedData
 jaspersoft-sdk-lib
 
 # Resource bundle
-jaspersoft-sdk-resources.bundle
-jaspersoft-sdk-resources.bundle/*
+JaspersoftSDK-resources.bundle
+JaspersoftSDK-resources.bundle/*
 
 *.xccheckout
 

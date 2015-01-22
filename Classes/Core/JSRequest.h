@@ -29,42 +29,14 @@
 //
 
 #import "JSOperationResult.h"
+#import "RKHTTPUtilities.h"
+
 
 /**
  This block invoked when the request is complete.
  Provided as analogue to JSResponseDelegate protocol
  */
 typedef void(^JSRequestFinishedBlock)(JSOperationResult *result);
-
-#if TARGET_OS_IPHONE
-/**
- Background Request Policy
- 
- On iOS 4.x and higher, UIKit provides support for continuing activities for a
- limited amount of time in the background. (This is wrapper for RestKit library
- which provides simple support for this option)
- */
-typedef enum {
-    /**
-     Take no action with regards to background
-     */
-    JSRequestBackgroundPolicyNone,
-    /**
-     Cancel the request on transition to the background
-     */
-    JSRequestBackgroundPolicyCancel,
-    /**
-     Continue the request in the background until time expires
-     */
-    JSRequestBackgroundPolicyContinue,
-    /**
-     Stop the request and place it back on the queue. It will fire when the app
-     reopens
-     */
-    JSRequestBackgroundPolicyRequeue
-} JSRequestBackgroundPolicy;
-
-#endif
 
 /**
  Supported REST versions
@@ -166,13 +138,6 @@ typedef void(^JSRequestConfigurationBlock)(JSRequest *request);
  to determine which file will be downloaded (because all requests are asynchronous)
  */
 @property (nonatomic, retain) NSString *downloadDestinationPath;
-
-#if TARGET_OS_IPHONE
-/**
- The policy to take on transition to the background (iOS 4.x and higher only)
- */
-@property (nonatomic, assign) JSRequestBackgroundPolicy requestBackgroundPolicy;
-#endif
 
 /**
  Determine asynchronous nature of request

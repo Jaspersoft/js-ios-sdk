@@ -43,35 +43,21 @@
 #import "JSInputControlOption.h"
 
 #import "JSReportExecutionRequest.h"
+#import "RKURLEncodedSerialization.h"
 
 // Report query used for setting output format (i.e PDF, HTML, etc.)
 // and path for images (current dir) when exporting report in HTML
 static NSString * const _baseReportQueryImagesParam = @"IMAGES_URI";
 static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT";
 
-// Shared (1-st initialized) report instance
-static JSRESTReport *_sharedInstance;
-
 @implementation JSRESTReport
 
-+ (JSRESTReport *)sharedInstance {
-    return _sharedInstance;
-}
-
-- (id)initWithProfile:(JSProfile *)profile {
+- (id)init {
     NSArray *classesForMappings = [[NSArray alloc] initWithObjects:[JSReportDescriptor class],
                                    [JSInputControlDescriptor class], [JSInputControlOption class], [JSInputControlState class],
                                    [JSReportExecutionRequest class], [JSReportExecutionResponse class], [JSExportExecutionRequest class], [JSExportExecutionResponse class], [JSExecutionStatus class], [JSErrorDescriptor class], nil];
     
-    if ((self = [super initWithProfile:profile classesForMappings:classesForMappings]) && !_sharedInstance) {
-        _sharedInstance = self;
-    }
-    
-    return self;
-}
-
-- (id)init {
-    return [self initWithProfile:nil];
+    return [super initWithClassesForMappings:classesForMappings];
 }
 
 #pragma mark -

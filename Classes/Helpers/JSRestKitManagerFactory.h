@@ -30,6 +30,7 @@
 
 #import <Foundation/Foundation.h>
 #import "JSProfile.h"
+#import "RKObjectManager.h"
 
 /** 
  @cond EXCLUDE_JS_REST_KIT_MANAGER_FACTORY

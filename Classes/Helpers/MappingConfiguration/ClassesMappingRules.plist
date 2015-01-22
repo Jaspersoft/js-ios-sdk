@@ -331,6 +331,7 @@
 		<key>mappingPaths</key>
 		<array>
 			<string>serverInfo</string>
+			<string></string>
 		</array>
 		<key>mappingRules</key>
 		<array>
@@ -389,6 +390,22 @@
 				<string>version</string>
 				<key>prop</key>
 				<string>version</string>
+			</dict>
+			<dict>
+				<key>type</key>
+				<string>property</string>
+				<key>node</key>
+				<string>dateFormatPattern</string>
+				<key>prop</key>
+				<string>dateFormatPattern</string>
+			</dict>
+			<dict>
+				<key>type</key>
+				<string>property</string>
+				<key>node</key>
+				<string>datetimeFormatPattern</string>
+				<key>prop</key>
+				<string>datetimeFormatPattern</string>
 			</dict>
 		</array>
 	</dict>

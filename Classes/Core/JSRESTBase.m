@@ -33,6 +33,9 @@
 #import "JSRequestBuilder.h"
 #import "JSRestKitManagerFactory.h"
 
+#import "AFHTTPClient.h"
+#import "weakself.h"
+
 // Access key and value for content-type / charset
 NSString * const kJSRequestCharset = @"Charset";
 NSString * const kJSRequestContentType = @"Content-Type";
@@ -97,28 +100,24 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 @synthesize timeoutInterval = _timeoutInterval;
 
 #if TARGET_OS_IPHONE
-@synthesize requestBackgroundPolicy = _requestBackgroundPolicy;
 #endif
 
 #pragma mark -
 #pragma mark Initialization
 
-- (id)initWithProfile:(JSProfile *)profile classesForMappings:(NSArray *)classes {
+- (id)initWithClassesForMappings:(NSArray *)classes {
     if (self = [super init]) {
         [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
         
         self.classesForMappings = classes;
         self.timeoutInterval = _defaultTimeoutInterval;
-#if TARGET_OS_IPHONE
-        self.requestBackgroundPolicy = JSRequestBackgroundPolicyCancel;
-#endif
     }
     
     return self;
 }
 
 - (id)init {
-    return [self initWithProfile:nil classesForMappings:nil];
+    return [self initWithClassesForMappings:nil];
 }
 
 - (void)setServerProfile:(JSProfile *)serverProfile {

@@ -376,7 +376,7 @@ static JSConstants *_sharedInstance;
 }
 
 - (void)setRESTAPIPreferences {
-    REST_SDK_MIMETYPE_USED = RKMIMETypeXML;
+    REST_SDK_MIMETYPE_USED = RKMIMETypeJSON;
     REST_SDK_CHARSET_USED = @"UTF-8";
     REST_JRS_LOCALE_SUPPORTED = @{@"en" : @"en-US",
                                   @"de" : @"de",
@@ -389,8 +389,8 @@ static JSConstants *_sharedInstance;
 }
 
 - (void)setRESTURIPrefixes {
-    REST_SERVICES_URI = @"/rest";
-    REST_SERVICES_V2_URI = @"/rest_v2";
+    REST_SERVICES_URI = @"rest";
+    REST_SERVICES_V2_URI = @"rest_v2";
     REST_RESOURCE_URI = @"/resource";
     REST_RESOURCES_URI = @"/resources";
     REST_REPORT_URI = @"/report";

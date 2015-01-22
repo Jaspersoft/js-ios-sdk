@@ -60,7 +60,7 @@ NSString * const _classesMappingRulesExtension = @"plist";
 + (RKObjectManager *)createRestKitObjectManagerForClasses:(NSArray *)classes andServerProfile:(JSProfile *)serverProfile{
     // Creates RKObjectManager for loading and mapping encoded response (i.e XML, JSON etc.)
     // directly to objects
-    RKObjectManager *restKitObjectManager = [RKObjectManager new];
+    RKObjectManager *restKitObjectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:serverProfile.serverUrl]];
     [restKitObjectManager.HTTPClient setAuthorizationHeaderWithUsername:serverProfile.username password:serverProfile.password];
     restKitObjectManager.HTTPClient.allowsInvalidSSLCertificate = YES;
     
@@ -98,11 +98,13 @@ NSString * const _classesMappingRulesExtension = @"plist";
                                                              keyPath:path
                                                          statusCodes:nil]];
             }
-            [restKitObjectManager addRequestDescriptor:
-             [RKRequestDescriptor requestDescriptorWithMapping:mapping
-                                                   objectClass:objectClass
-                                                   rootKeyPath:[pathsAndMappingForClass objectForKey:JSKeyRootNode]
-                                                        method:RKRequestMethodAny]];
+            if ([pathsAndMappingForClass objectForKey:JSKeyRootNode]) {
+                [restKitObjectManager addRequestDescriptor:
+                 [RKRequestDescriptor requestDescriptorWithMapping:[mapping inverseMapping]
+                                                       objectClass:objectClass
+                                                       rootKeyPath:[pathsAndMappingForClass objectForKey:JSKeyRootNode]
+                                                            method:RKRequestMethodAny]];
+            }
         }
     }
     
@@ -128,9 +130,10 @@ NSString * const _classesMappingRulesExtension = @"plist";
             NSString *rootNode = [[mappingRules objectForKey:className] objectForKey:JSKeyRootNode];
             
             // Initialize next structure: { @"mapping" : rkObjectMapping, @"paths" : nsArrayOfPaths }
-            NSDictionary *pathsAndMappingForClass = @{_keyMapping   : mapping,
-                                                      _keyPaths     : mappingPaths,
-                                                      JSKeyRootNode : rootNode};
+            NSMutableDictionary *pathsAndMappingForClass = [NSMutableDictionary dictionaryWithObjectsAndKeys:mapping, _keyMapping, mappingPaths, _keyPaths, nil];
+            if (rootNode && rootNode.length) {
+                [pathsAndMappingForClass setObject:rootNode forKey:JSKeyRootNode];
+            }
             
             // Set mapping result for class
             [restKitObjectMappings setObject:pathsAndMappingForClass forKey:className];

@@ -54,20 +54,6 @@
 @interface JSRESTReport : JSRESTBase
 
 /**
- Returns the shared instance of the report
- */
-+ (JSRESTReport *)sharedInstance;
-
-/**
- Returns a rest report instance with provided server profile (for authentication)
- and proper classes mapping rules for <b>report</b> JasperReports server REST API
- 
- @param profile The profile contains server connection details
- @return A fully configured JSRESTReport instance include mapping rules
- */
-- (id)initWithProfile:(JSProfile *)profile;
-
-/**
  Runs the report and generates the specified output. The response contains report descriptor
  with the ID of the saved output for downloading later with a GET request.
  

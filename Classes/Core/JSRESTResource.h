@@ -55,20 +55,6 @@
 @interface JSRESTResource : JSRESTBase
 
 /**
- Returns the shared instance of the resource
- */
-+ (JSRESTResource *)sharedInstance;
-
-/** 
- Returns a rest resource instance with provided server profile (for authentication) 
- and proper classes mapping rules for <b>resource</b> JasperReports server REST API
- 
- @param profile The profile contains server connection details
- @return A fully configured JSRESTResource instance include mapping rules
- */
-- (id)initWithProfile:(JSProfile *)profile;
-
-/**
  Gets the list of resource descriptors for all resources available in the specified 
  repository URI.
  

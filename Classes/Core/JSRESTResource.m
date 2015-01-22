@@ -36,9 +36,6 @@
 #import "JSRESTResource.h"
 #import "JSParamsBuilder.h"
 
-// Shared (1-st initialized) resource instance
-static JSRESTResource *_sharedInstance;
-
 // HTTP resources search parameters
 static NSString * const _parameterQuery = @"q";
 static NSString * const _parameterFolderUri = @"folderUri";
@@ -52,23 +49,9 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 // HTTP resources search parameters
 
 @implementation JSRESTResource
-
-+ (JSRESTResource *)sharedInstance {
-    return _sharedInstance;
-}
-
-- (id)initWithProfile:(JSProfile *)profile {
-    NSArray *classesForMappings = [[NSArray alloc] initWithObjects:[JSResourceDescriptor class], [JSResourceLookup class], nil];
-    
-    if ((self = [super initWithProfile:profile classesForMappings:classesForMappings]) && !_sharedInstance) {
-        _sharedInstance = self;
-    }
-    
-    return self;
-}
-
 - (id)init {
-    return [self initWithProfile:nil];
+    NSArray *classesForMappings = [[NSArray alloc] initWithObjects:[JSResourceDescriptor class], [JSResourceLookup class], nil];
+    return [super initWithClassesForMappings:classesForMappings];
 }
 
 #pragma mark -

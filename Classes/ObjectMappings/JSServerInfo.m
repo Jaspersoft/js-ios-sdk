@@ -32,14 +32,6 @@
 
 @implementation JSServerInfo
 
-@synthesize build = _build;
-@synthesize edition = _edition;
-@synthesize editionName = _editionName;
-@synthesize expiration = _expiration;
-@synthesize features = _features;
-@synthesize licenseType = _licenseType;
-@synthesize version = _version;
-
 - (float)versionAsFloat
 {
     NSString *simplyVersionString = self.version;

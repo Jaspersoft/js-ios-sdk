@@ -29,7 +29,6 @@
 //
 
 #import "JSInputControlOption.h"
-#import "JSInputControlWrapper.h"
 
 @implementation JSInputControlOption
 

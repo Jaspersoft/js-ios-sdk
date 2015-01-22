@@ -38,7 +38,6 @@
 #import "JSInputControlDescriptor.h"
 #import "JSInputControlState.h"
 #import "JSInputControlOption.h"
-#import "JSInputControlWrapper.h"
 #import "JSReportParameter.h"
 #import "JSReportParametersList.h"
 #import "JSErrorDescriptor.h"

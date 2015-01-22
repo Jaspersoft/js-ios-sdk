@@ -45,10 +45,6 @@
 @synthesize asynchronous = _asynchronous;
 @synthesize restVersion = _restVersion;
 
-#if TARGET_OS_IPHONE
-@synthesize requestBackgroundPolicy = _requestBackgroundPolicy;
-#endif
-
 - (id)initWithUri:(NSString *)uri {
     if (self = [super init]) {
         self.uri = uri;

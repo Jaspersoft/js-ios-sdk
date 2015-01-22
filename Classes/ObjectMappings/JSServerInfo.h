@@ -44,6 +44,8 @@
 @property (nonatomic, retain) NSString *features;
 @property (nonatomic, retain) NSString *licenseType;
 @property (nonatomic, retain) NSString *version;
+@property (nonatomic, retain) NSString *dateFormatPattern;
+@property (nonatomic, retain) NSString *datetimeFormatPattern;
 
 - (float)versionAsFloat;
 

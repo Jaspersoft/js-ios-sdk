@@ -71,15 +71,6 @@ extern NSString * const kJSRequestResponceType;
  */
 @property (nonatomic, assign) NSTimeInterval timeoutInterval;
 
-#if TARGET_OS_IPHONE
-/**
- The policy to take on transition to the background (iOS 4.x and higher only)
- 
- **Default**: JSRequestBackgroundPolicyCancel
- */
-@property (nonatomic, assign) JSRequestBackgroundPolicy requestBackgroundPolicy;
-#endif
-
 /**
  An NSArray of NSHTTPCookie objects
 
@@ -88,17 +79,15 @@ extern NSString * const kJSRequestResponceType;
 @property (nonatomic, readonly) NSArray *cookies;
 
 /** 
- Returns a rest base instance with provided server profile (for authentication) 
- and list of classes for which mapping rules will be created. 
+ Returns a rest base instance with list of classes for which mapping rules will be created.
  
  Class mapping rule describes how returned HTTP response (in JSON, XML and other
  formats) should be mapped directly to this class.
  
- @param profile The profile contains server connection details
  @param classes A list of classes for which mapping rules will be created
  @return A fully configured JSRESTBase instance include mapping rules
  */
-- (id)initWithProfile:(JSProfile *)profile classesForMappings:(NSArray *)classes;
+- (id)initWithClassesForMappings:(NSArray *)classes;
 
 /**
  Sends asynchronous request. Result will be passed as <code>JSOperationResult</code> 
