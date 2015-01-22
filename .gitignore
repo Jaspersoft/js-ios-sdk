@@ -28,4 +28,4 @@ jaspersoft-sdk-resources.bundle/*
 #CocoaPods
 Pods
 Podfile.lock
-jaspersoft-sdk.xcworkspace
+JaspersoftSDK.xcworkspace

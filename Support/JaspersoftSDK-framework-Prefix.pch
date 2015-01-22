@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'jaspersoft-sdk-framework' target in the 'jaspersoft-sdk-framework' project
+// Prefix header for all source files of the 'JaspersoftSDK-framework' target in the 'JaspersoftSDK-framework' project
 //
 
 #ifdef __OBJC__

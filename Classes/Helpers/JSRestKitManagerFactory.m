@@ -51,7 +51,7 @@ NSString * const JSKeyProperty = @"prop";
 NSString * const JSKeyMappingType = @"type";
 
 // URI path and extension for SDK bundle and mapping file
-NSString * const _jaspersoftSDKBundleName = @"jaspersoft-sdk-resources";
+NSString * const _jaspersoftSDKBundleName = @"JaspersoftSDK-resources";
 NSString * const _jaspersoftSDKBundleExtension = @"bundle";
 NSString * const _classesMappingRulesPath = @"ClassesMappingRules";
 NSString * const _classesMappingRulesExtension = @"plist";

@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		F575905D174E42B500C355C1 /* jaspersoft-sdk-universal */ = {
+		F575905D174E42B500C355C1 /* JaspersoftSDK-universal */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = F5759063174E42B500C355C1 /* Build configuration list for PBXAggregateTarget "jaspersoft-sdk-universal" */;
+			buildConfigurationList = F5759063174E42B500C355C1 /* Build configuration list for PBXAggregateTarget "JaspersoftSDK-universal" */;
 			buildPhases = (
 				F575906B174E4B2B00C355C1 /* ShellScript */,
 			);
 			dependencies = (
 			);
-			name = "jaspersoft-sdk-universal";
+			name = "JaspersoftSDK-universal";
 			productName = "jaspersoft-sdk-universal";
 		};
 /* End PBXAggregateTarget section */
@@ -197,9 +197,9 @@
 		F5758F46174E303900C355C1 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		F5758F48174E303E00C355C1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F596020215ECCC9300B62DFD /* JaspersoftSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JaspersoftSDK.h; sourceTree = "<group>"; };
-		F59768BD15E3C75F004165A7 /* libjaspersoft-sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libjaspersoft-sdk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F59768BD15E3C75F004165A7 /* libJaspersoftSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJaspersoftSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F59768C015E3C75F004165A7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		F59768D215E3C777004165A7 /* jaspersoft-sdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "jaspersoft-sdk.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F59768D215E3C777004165A7 /* JaspersoftSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JaspersoftSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F59768E815E3C826004165A7 /* JSConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JSConstants.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F59768E915E3C826004165A7 /* JSConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSConstants.m; sourceTree = "<group>"; };
 		F59768EA15E3C826004165A7 /* JSOperationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JSOperationResult.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -230,11 +230,11 @@
 		F597690E15E3C826004165A7 /* JSResourceProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResourceProperty.h; sourceTree = "<group>"; };
 		F597690F15E3C826004165A7 /* JSResourceProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceProperty.m; sourceTree = "<group>"; };
 		F597697815E3C9EF004165A7 /* JSSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSSerializer.h; sourceTree = "<group>"; };
-		F5A8141515EBFA1900151B1D /* jaspersoft-sdk-framework-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "jaspersoft-sdk-framework-Info.plist"; sourceTree = "<group>"; };
-		F5A8141615EBFA1900151B1D /* jaspersoft-sdk-framework-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "jaspersoft-sdk-framework-Prefix.pch"; sourceTree = "<group>"; };
-		F5A8141715EBFA1900151B1D /* jaspersoft-sdk-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "jaspersoft-sdk-Prefix.pch"; sourceTree = "<group>"; };
-		F5A8141815EBFA1900151B1D /* jaspersoft-sdk-resources-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "jaspersoft-sdk-resources-Info.plist"; sourceTree = "<group>"; };
-		F5A8141915EBFA1900151B1D /* jaspersoft-sdk-resources-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "jaspersoft-sdk-resources-Prefix.pch"; sourceTree = "<group>"; };
+		F5A8141515EBFA1900151B1D /* JaspersoftSDK-framework-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JaspersoftSDK-framework-Info.plist"; sourceTree = "<group>"; };
+		F5A8141615EBFA1900151B1D /* JaspersoftSDK-framework-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JaspersoftSDK-framework-Prefix.pch"; sourceTree = "<group>"; };
+		F5A8141715EBFA1900151B1D /* JaspersoftSDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JaspersoftSDK-Prefix.pch"; sourceTree = "<group>"; };
+		F5A8141815EBFA1900151B1D /* JaspersoftSDK-resources-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JaspersoftSDK-resources-Info.plist"; sourceTree = "<group>"; };
+		F5A8141915EBFA1900151B1D /* JaspersoftSDK-resources-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JaspersoftSDK-resources-Prefix.pch"; sourceTree = "<group>"; };
 		F5AE53AD165169F6004207E1 /* JSDateTimeFormatValidationRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDateTimeFormatValidationRule.h; sourceTree = "<group>"; };
 		F5AE53AE165169F6004207E1 /* JSDateTimeFormatValidationRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDateTimeFormatValidationRule.m; sourceTree = "<group>"; };
 		F5AE53DC16518C58004207E1 /* JSValidationRules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSValidationRules.h; sourceTree = "<group>"; };
@@ -253,7 +253,7 @@
 		F5EA36C11834510200E09E10 /* JSParamsBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSParamsBuilder.h; sourceTree = "<group>"; };
 		F5EA36C21834510200E09E10 /* JSParamsBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSParamsBuilder.m; sourceTree = "<group>"; };
 		F5F173F9186486FD00779136 /* JSCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSCore.h; sourceTree = "<group>"; };
-		F5F68E0A15E55EC000270103 /* jaspersoft-sdk-resources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jaspersoft-sdk-resources.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5F68E0A15E55EC000270103 /* JaspersoftSDK-resources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "JaspersoftSDK-resources.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5F68E0D15E55EC000270103 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		F5F68E0E15E55EC000270103 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		F5F68E0F15E55EC000270103 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -330,9 +330,9 @@
 		F59768BE15E3C75F004165A7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F59768BD15E3C75F004165A7 /* libjaspersoft-sdk.a */,
-				F59768D215E3C777004165A7 /* jaspersoft-sdk.framework */,
-				F5F68E0A15E55EC000270103 /* jaspersoft-sdk-resources.bundle */,
+				F59768BD15E3C75F004165A7 /* libJaspersoftSDK.a */,
+				F59768D215E3C777004165A7 /* JaspersoftSDK.framework */,
+				F5F68E0A15E55EC000270103 /* JaspersoftSDK-resources.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -425,11 +425,11 @@
 		F5A8141415EBFA1900151B1D /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				F5A8141515EBFA1900151B1D /* jaspersoft-sdk-framework-Info.plist */,
-				F5A8141615EBFA1900151B1D /* jaspersoft-sdk-framework-Prefix.pch */,
-				F5A8141715EBFA1900151B1D /* jaspersoft-sdk-Prefix.pch */,
-				F5A8141815EBFA1900151B1D /* jaspersoft-sdk-resources-Info.plist */,
-				F5A8141915EBFA1900151B1D /* jaspersoft-sdk-resources-Prefix.pch */,
+				F5A8141515EBFA1900151B1D /* JaspersoftSDK-framework-Info.plist */,
+				F5A8141615EBFA1900151B1D /* JaspersoftSDK-framework-Prefix.pch */,
+				F5A8141715EBFA1900151B1D /* JaspersoftSDK-Prefix.pch */,
+				F5A8141815EBFA1900151B1D /* JaspersoftSDK-resources-Info.plist */,
+				F5A8141915EBFA1900151B1D /* JaspersoftSDK-resources-Prefix.pch */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -607,9 +607,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		F59768BC15E3C75F004165A7 /* jaspersoft-sdk */ = {
+		F59768BC15E3C75F004165A7 /* JaspersoftSDK */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F59768CA15E3C75F004165A7 /* Build configuration list for PBXNativeTarget "jaspersoft-sdk" */;
+			buildConfigurationList = F59768CA15E3C75F004165A7 /* Build configuration list for PBXNativeTarget "JaspersoftSDK" */;
 			buildPhases = (
 				5062EA71E05BB4AA8A505805 /* Check Pods Manifest.lock */,
 				F59768B915E3C75F004165A7 /* Sources */,
@@ -621,14 +621,14 @@
 			);
 			dependencies = (
 			);
-			name = "jaspersoft-sdk";
+			name = JaspersoftSDK;
 			productName = "jaspersoft-sdk";
-			productReference = F59768BD15E3C75F004165A7 /* libjaspersoft-sdk.a */;
+			productReference = F59768BD15E3C75F004165A7 /* libJaspersoftSDK.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		F59768D115E3C777004165A7 /* jaspersoft-sdk-framework */ = {
+		F59768D115E3C777004165A7 /* JaspersoftSDK-framework */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F59768E315E3C777004165A7 /* Build configuration list for PBXNativeTarget "jaspersoft-sdk-framework" */;
+			buildConfigurationList = F59768E315E3C777004165A7 /* Build configuration list for PBXNativeTarget "JaspersoftSDK-framework" */;
 			buildPhases = (
 				F59768CD15E3C777004165A7 /* Sources */,
 				F59768CE15E3C777004165A7 /* Frameworks */,
@@ -639,14 +639,14 @@
 			);
 			dependencies = (
 			);
-			name = "jaspersoft-sdk-framework";
+			name = "JaspersoftSDK-framework";
 			productName = "jaspersoft-sdk-framework";
-			productReference = F59768D215E3C777004165A7 /* jaspersoft-sdk.framework */;
+			productReference = F59768D215E3C777004165A7 /* JaspersoftSDK.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		F5F68E0915E55EC000270103 /* jaspersoft-sdk-resources */ = {
+		F5F68E0915E55EC000270103 /* JaspersoftSDK-resources */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F5F68E1715E55EC000270103 /* Build configuration list for PBXNativeTarget "jaspersoft-sdk-resources" */;
+			buildConfigurationList = F5F68E1715E55EC000270103 /* Build configuration list for PBXNativeTarget "JaspersoftSDK-resources" */;
 			buildPhases = (
 				F5F68E0615E55EC000270103 /* Sources */,
 				F5F68E0715E55EC000270103 /* Frameworks */,
@@ -657,9 +657,9 @@
 			);
 			dependencies = (
 			);
-			name = "jaspersoft-sdk-resources";
+			name = "JaspersoftSDK-resources";
 			productName = "jaspersoft-sdk-resources";
-			productReference = F5F68E0A15E55EC000270103 /* jaspersoft-sdk-resources.bundle */;
+			productReference = F5F68E0A15E55EC000270103 /* JaspersoftSDK-resources.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -670,7 +670,7 @@
 			attributes = {
 				LastUpgradeCheck = 0610;
 			};
-			buildConfigurationList = F59768B715E3C75E004165A7 /* Build configuration list for PBXProject "jaspersoft-sdk" */;
+			buildConfigurationList = F59768B715E3C75E004165A7 /* Build configuration list for PBXProject "JaspersoftSDK" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -682,10 +682,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F59768BC15E3C75F004165A7 /* jaspersoft-sdk */,
-				F59768D115E3C777004165A7 /* jaspersoft-sdk-framework */,
-				F5F68E0915E55EC000270103 /* jaspersoft-sdk-resources */,
-				F575905D174E42B500C355C1 /* jaspersoft-sdk-universal */,
+				F59768BC15E3C75F004165A7 /* JaspersoftSDK */,
+				F59768D115E3C777004165A7 /* JaspersoftSDK-framework */,
+				F5F68E0915E55EC000270103 /* JaspersoftSDK-resources */,
+				F575905D174E42B500C355C1 /* JaspersoftSDK-universal */,
 			);
 		};
 /* End PBXProject section */
@@ -867,7 +867,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "JaspersoftSDK-universal";
 			};
 			name = Debug;
 		};
@@ -880,7 +880,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "JaspersoftSDK-universal";
 			};
 			name = Release;
 		};
@@ -969,15 +969,15 @@
 			buildSettings = {
 				DSTROOT = /tmp/jaspersoft_sdk.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Support/jaspersoft-sdk-Prefix.pch";
+				GCC_PREFIX_HEADER = "Support/JaspersoftSDK-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"/**",
 					"$(inherited)",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "$(inherited)";
-				PRIVATE_HEADERS_FOLDER_PATH = "../../Headers/jaspersoft-sdk/Private";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRIVATE_HEADERS_FOLDER_PATH = ../../Headers/JaspersoftSDK/Private;
+				PRODUCT_NAME = JaspersoftSDK;
 				PUBLIC_HEADERS_FOLDER_PATH = "../../Headers/jaspersoft-sdk";
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "i386 armv7 armv7s x86_64 arm64";
@@ -990,15 +990,15 @@
 			buildSettings = {
 				DSTROOT = /tmp/jaspersoft_sdk.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Support/jaspersoft-sdk-Prefix.pch";
+				GCC_PREFIX_HEADER = "Support/JaspersoftSDK-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"/**",
 					"$(inherited)",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "$(inherited)";
-				PRIVATE_HEADERS_FOLDER_PATH = "../../Headers/jaspersoft-sdk/Private";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRIVATE_HEADERS_FOLDER_PATH = ../../Headers/JaspersoftSDK/Private;
+				PRODUCT_NAME = JaspersoftSDK;
 				PUBLIC_HEADERS_FOLDER_PATH = "../../Headers/jaspersoft-sdk";
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "i386 armv7 armv7s x86_64 arm64";
@@ -1020,13 +1020,13 @@
 				FRAMEWORK_VERSION = A;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Support/jaspersoft-sdk-framework-Prefix.pch";
+				GCC_PREFIX_HEADER = "Support/JaspersoftSDK-framework-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				HEADER_SEARCH_PATHS = (
 					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
 					"${SDKROOT}/usr/include/libxml2",
 				);
-				INFOPLIST_FILE = "Support/jaspersoft-sdk-framework-Info.plist";
+				INFOPLIST_FILE = "Support/JaspersoftSDK-framework-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1034,7 +1034,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_NAME = "jaspersoft-sdk";
+				PRODUCT_NAME = JaspersoftSDK;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "i386 x86_64";
@@ -1058,20 +1058,20 @@
 				FRAMEWORK_VERSION = A;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Support/jaspersoft-sdk-framework-Prefix.pch";
+				GCC_PREFIX_HEADER = "Support/JaspersoftSDK-framework-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				HEADER_SEARCH_PATHS = (
 					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
 					"${SDKROOT}/usr/include/libxml2",
 				);
-				INFOPLIST_FILE = "Support/jaspersoft-sdk-framework-Info.plist";
+				INFOPLIST_FILE = "Support/JaspersoftSDK-framework-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_NAME = "jaspersoft-sdk";
+				PRODUCT_NAME = JaspersoftSDK;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "i386 x86_64";
@@ -1085,13 +1085,13 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Support/jaspersoft-sdk-resources-Prefix.pch";
+				GCC_PREFIX_HEADER = "Support/JaspersoftSDK-resources-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				INFOPLIST_FILE = "Support/jaspersoft-sdk-resources-Info.plist";
+				INFOPLIST_FILE = "Support/JaspersoftSDK-resources-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "JaspersoftSDK-resources";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = bundle;
 			};
@@ -1104,13 +1104,13 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Support/jaspersoft-sdk-resources-Prefix.pch";
+				GCC_PREFIX_HEADER = "Support/JaspersoftSDK-resources-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				INFOPLIST_FILE = "Support/jaspersoft-sdk-resources-Info.plist";
+				INFOPLIST_FILE = "Support/JaspersoftSDK-resources-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "JaspersoftSDK-resources";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = bundle;
 			};
@@ -1119,7 +1119,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F5759063174E42B500C355C1 /* Build configuration list for PBXAggregateTarget "jaspersoft-sdk-universal" */ = {
+		F5759063174E42B500C355C1 /* Build configuration list for PBXAggregateTarget "JaspersoftSDK-universal" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F575905E174E42B500C355C1 /* Debug */,
@@ -1128,7 +1128,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F59768B715E3C75E004165A7 /* Build configuration list for PBXProject "jaspersoft-sdk" */ = {
+		F59768B715E3C75E004165A7 /* Build configuration list for PBXProject "JaspersoftSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F59768C815E3C75F004165A7 /* Debug */,
@@ -1137,7 +1137,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F59768CA15E3C75F004165A7 /* Build configuration list for PBXNativeTarget "jaspersoft-sdk" */ = {
+		F59768CA15E3C75F004165A7 /* Build configuration list for PBXNativeTarget "JaspersoftSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F59768CB15E3C75F004165A7 /* Debug */,
@@ -1146,7 +1146,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F59768E315E3C777004165A7 /* Build configuration list for PBXNativeTarget "jaspersoft-sdk-framework" */ = {
+		F59768E315E3C777004165A7 /* Build configuration list for PBXNativeTarget "JaspersoftSDK-framework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F59768E415E3C777004165A7 /* Debug */,
@@ -1155,7 +1155,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F5F68E1715E55EC000270103 /* Build configuration list for PBXNativeTarget "jaspersoft-sdk-resources" */ = {
+		F5F68E1715E55EC000270103 /* Build configuration list for PBXNativeTarget "JaspersoftSDK-resources" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F5F68E1815E55EC000270103 /* Debug */,
