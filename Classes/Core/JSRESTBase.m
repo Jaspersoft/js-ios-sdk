@@ -32,6 +32,8 @@
 #import "JSConstants.h"
 #import "JSRequestBuilder.h"
 #import "JSRestKitManagerFactory.h"
+#import "RKMIMETypeSerialization.h"
+
 
 #import "AFHTTPClient.h"
 #import "weakself.h"
@@ -99,15 +101,26 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 @synthesize requestCallBacks = _requestCallBacks;
 @synthesize timeoutInterval = _timeoutInterval;
 
-#if TARGET_OS_IPHONE
-#endif
-
 #pragma mark -
 #pragma mark Initialization
 
++ (void)initialize {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+        NSError *error = nil;
+        NSRegularExpression *mimeType = [NSRegularExpression regularExpressionWithPattern:@"application/(.+\\+)?json" options:NSRegularExpressionCaseInsensitive error:&error];
+        if (!error) {
+            [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:mimeType];
+        } else {
+            NSString *messageString = [NSString stringWithFormat:@"Unsupported mime type \"%@\"",mimeType.pattern];
+            @throw [NSException exceptionWithName:@"Unsupported mime type" reason:messageString userInfo:nil];
+        }
+    });
+}
+
 - (id)initWithClassesForMappings:(NSArray *)classes {
     if (self = [super init]) {
-        [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
         
         self.classesForMappings = classes;
         self.timeoutInterval = _defaultTimeoutInterval;
@@ -141,40 +154,23 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
     // Full uri path with query params
     NSString *fullUri = [self fullUri:request.uri restVersion:request.restVersion];
     NSMutableURLRequest *urlRequest = nil;
-    NSOperation *requestOperation = nil;
+    RKObjectRequestOperation *requestOperation = nil;
     
-    if (request.responseAsObjects) {
-        RKObjectRequestOperation *operation = [self.restKitObjectManager appropriateObjectRequestOperationWithObject:request.body method:request.method path:fullUri parameters:request.params];
-        urlRequest = (NSMutableURLRequest *) operation.HTTPRequestOperation.request;
-        
-        [operation setCompletionBlockWithSuccess:
-         @weakself(^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)) {
-             NSLog(@"It Worked: %@", [mappingResult array]);
-             JSOperationResult *result = [self operationResultWithOperation:operation error:nil];
-             result.objects = [mappingResult array];
-             [self sendCallbackAboutOperation:operation result:result];
-         } @weakselfend failure:
-         @weakself(^(RKObjectRequestOperation *operation, NSError *error)) {
-             NSLog(@"It Failed: %@", error);
-         } @weakselfend];
-        requestOperation = operation;
-    } else {
-        urlRequest = [self.restKitObjectManager requestWithObject:request.body method:request.method path:fullUri parameters:request.params];
-        RKHTTPRequestOperation *operation = [[RKHTTPRequestOperation alloc] initWithRequest:urlRequest];
-        
-        [operation setCompletionBlockWithSuccess:
-         @weakself(^(AFHTTPRequestOperation *operation, id responseObject)) {
-             JSOperationResult *result = [self operationResultWithOperation:operation error:nil];
-             [self sendCallbackAboutOperation:operation result:result];
+//    for (RKRequestDescriptor *descriptor in self.restKitObjectManager.requestDescriptors) {
+//        [self.restKitObjectManager removeRequestDescriptor:descriptor];
+//    }
+//    for (RKResponseDescriptor *descriptor in self.restKitObjectManager.responseDescriptors) {
+//        [self.restKitObjectManager removeResponseDescriptor:descriptor];
+//    }
+    
+//    if (request.responseAsObjects) {
+        requestOperation = [self.restKitObjectManager appropriateObjectRequestOperationWithObject:request.body method:request.method path:fullUri parameters:request.params];
+        urlRequest = (NSMutableURLRequest *) requestOperation.HTTPRequestOperation.request;
+//    } else {
+//        urlRequest = [self.restKitObjectManager requestWithObject:request.body method:request.method path:fullUri parameters:request.params];
+//        requestOperation = [[RKHTTPRequestOperation alloc] initWithRequest:urlRequest];
+//    }
 
-             NSLog(@"It Worked: %@", responseObject);
-         }@weakselfend failure:
-         @weakself(^(AFHTTPRequestOperation *operation, NSError *error)) {
-             NSLog(@"It Failed: %@", error);
-         }@weakselfend];
-        requestOperation = operation;
-    }
-    
     if ([urlRequest isKindOfClass:[NSMutableURLRequest class]]) {
         urlRequest.timeoutInterval = self.timeoutInterval;
         if (headerFields && [headerFields count]) {
@@ -188,9 +184,21 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
     [self.requestCallBacks addObject:[[JSCallBack alloc] initWithRestKitOperation:requestOperation request:request]];
     
     [requestOperation start];
-
-    if (!request.asynchronous) {
+    
+    if (request.asynchronous) {
+        [requestOperation setCompletionBlockWithSuccess:
+         @weakself(^(NSOperation *operation, RKMappingResult *mappingResult)) {
+             [self sendCallbackAboutOperation:operation];
+         } @weakselfend failure:
+         @weakself(^(NSOperation *operation, NSError *error)) {
+             [self sendCallbackAboutOperation:operation];
+         }@weakselfend];
+    } else {
+        NSInteger maxConcurrentOperationCount = self.restKitObjectManager.HTTPClient.operationQueue.maxConcurrentOperationCount;
+        self.restKitObjectManager.HTTPClient.operationQueue.maxConcurrentOperationCount = 1;
         [requestOperation waitUntilFinished];
+        self.restKitObjectManager.HTTPClient.operationQueue.maxConcurrentOperationCount = maxConcurrentOperationCount;
+        [self sendCallbackAboutOperation:requestOperation];
     }
 }
 
@@ -292,19 +300,25 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 
 // Initializes result with helping properties: http status code,
 // returned header fields and MIMEType
-- (JSOperationResult *)operationResultWithOperation:(id)restKitOperation error:(NSError *)error {
+- (JSOperationResult *)operationResultWithOperation:(id)restKitOperation{
     RKHTTPRequestOperation *httpOperation = [restKitOperation isKindOfClass:[RKObjectRequestOperation class]] ? [restKitOperation HTTPRequestOperation] : restKitOperation;
 
     JSOperationResult *result = [[JSOperationResult alloc] initWithStatusCode:httpOperation.response.statusCode
                                          allHeaderFields:httpOperation.response.allHeaderFields
                                                 MIMEType:httpOperation.response.MIMEType
-                                                   error:error];
+                                                   error:httpOperation.error];
     result.body = httpOperation.responseData;
     result.bodyAsString = httpOperation.responseString;
+    if ([restKitOperation isKindOfClass:[RKObjectRequestOperation class]]) {
+        RKObjectRequestOperation *objectOperation = (RKObjectRequestOperation *)restKitOperation;
+        result.objects = [objectOperation.mappingResult array];
+    }
     return result;
 }
 
-- (void)sendCallbackAboutOperation:(id)restKitOperation result:(JSOperationResult *)result {
+- (void)sendCallbackAboutOperation:(id)restKitOperation{
+    JSOperationResult *result = [self operationResultWithOperation:restKitOperation];
+    
     for (JSCallBack *callBack in self.requestCallBacks) {
         if (callBack.restKitOperation == restKitOperation) {
             RKHTTPRequestOperation *httpOperation = [restKitOperation isKindOfClass:[RKObjectRequestOperation class]] ? [restKitOperation HTTPRequestOperation] : restKitOperation;

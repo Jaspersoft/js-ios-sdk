@@ -63,6 +63,8 @@ NSString * const _classesMappingRulesExtension = @"plist";
     RKObjectManager *restKitObjectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:serverProfile.serverUrl]];
     [restKitObjectManager.HTTPClient setAuthorizationHeaderWithUsername:serverProfile.username password:serverProfile.password];
     restKitObjectManager.HTTPClient.allowsInvalidSSLCertificate = YES;
+    [restKitObjectManager.HTTPClient registerHTTPOperationClass:[AFXMLRequestOperation class]];
+
     
     // Add locale to object manager
     NSString *currentLanguage = [[NSLocale preferredLanguages] objectAtIndex:0];

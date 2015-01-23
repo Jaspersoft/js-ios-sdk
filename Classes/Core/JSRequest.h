@@ -93,6 +93,11 @@ typedef void(^JSRequestConfigurationBlock)(JSRequest *request);
 @property (nonatomic, retain) id body;
 
 /**
+ Expected model class for mapping responce
+ */
+@property (nonatomic, retain) Class expectedModelClass;
+
+/**
  A collection of parameters of the request. Automatically will be added to URL
  */
 @property (nonatomic, retain) NSDictionary *params;

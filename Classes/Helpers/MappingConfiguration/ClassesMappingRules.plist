@@ -109,6 +109,7 @@
 		<array>
 			<string>resources.resourceLookup</string>
 			<string>folder</string>
+			<string></string>
 		</array>
 		<key>mappingRules</key>
 		<array>
