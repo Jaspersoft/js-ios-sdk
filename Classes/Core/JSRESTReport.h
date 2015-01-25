@@ -80,11 +80,11 @@ __deprecated;
  XML, JRPRINT
  
  **Default**: PDF
- @param block The block to execute with the request before sending it for processing
+ @param block The block to inform of the results
 
  @deprecated
  */
-- (void)runReport:(NSString *)uri reportParams:(NSDictionary *)reportParams format:(NSString *)format usingBlock:(JSRequestConfigurationBlock)block
+- (void)runReport:(NSString *)uri reportParams:(NSDictionary *)reportParams format:(NSString *)format usingBlock:(JSRequestFinishedBlock)block
 __deprecated;
 
 /**
@@ -112,11 +112,11 @@ __deprecated;
  XML, JRPRINT
  
  **Default**: PDF
- @param block The block to execute with the request before sending it for processing
+ @param block The block to inform of the results
 
  @deprecated
  */
-- (void)runReport:(JSResourceDescriptor *)resourceDescriptor format:(NSString *)format usingBlock:(JSRequestConfigurationBlock)block
+- (void)runReport:(JSResourceDescriptor *)resourceDescriptor format:(NSString *)format usingBlock:(JSRequestFinishedBlock)block
 __deprecated;
 
 /**
@@ -144,9 +144,9 @@ __deprecated;
  logged in user
  @param fileName One of the file names specified in the report xml
  @param path The path where generated report will be saved
- @param block The block to execute with the request before sending it for processing
+ @param block The block to inform of the results
  */
-- (void)reportFile:(NSString *)uuid fileName:(NSString *)fileName path:(NSString *)path usingBlock:(JSRequestConfigurationBlock)block
+- (void)reportFile:(NSString *)uuid fileName:(NSString *)fileName path:(NSString *)path usingBlock:(JSRequestFinishedBlock)block
 __deprecated;
 
 //---------------------------------------------------------------------
@@ -195,11 +195,11 @@ __deprecated;
  Gets the list of input controls for the report with specified URI
  
  @param reportUri repository URI of the report
- @param block The block to execute with the request before sending it for processing
+ @param block The block to inform of the results
  
  @since 1.4
  */
-- (void)inputControlsForReport:(NSString *)reportUri usingBlock:(JSRequestConfigurationBlock)block;
+- (void)inputControlsForReport:(NSString *)reportUri usingBlock:(JSRequestFinishedBlock)block;
 
 /**
  Gets the list of states of input controls with specified IDs for the report with specified URI and according to selected values
@@ -219,11 +219,11 @@ __deprecated;
  @param reportUri repository URI of the report
  @param ids list of input controls IDs
  @param selectedValues list of input controls selected values
- @param block The block to execute with the request before sending it for processing
+ @param block The block to inform of the results
  
  @since 1.6
  */
-- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues usingBlock:(JSRequestConfigurationBlock)block;
+- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues usingBlock:(JSRequestFinishedBlock)block;
 
 /**
  Gets the states with updated values for input controls with specified IDs and according to selected values
@@ -244,12 +244,12 @@ __deprecated;
  @param reportUri repository URI of the report
  @param ids list of input controls IDs
  @param selectedValues list of input controls selected values
- @param block The block to execute with the request before sending it for processing
+ @param block The block to inform of the results
  
  @since 1.4
  */
 - (void)updatedInputControlsValues:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids
-                    selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues usingBlock:(JSRequestConfigurationBlock)block;
+                    selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues usingBlock:(JSRequestFinishedBlock)block;
 
 /**
  Executes report
@@ -288,14 +288,14 @@ __deprecated;
  @param pages Single page number of pages range in a format "{startPageNumber}-{endPageNumber}"
  @param attachmentsPrefix URL prefix for report attachments. This parameter matter for HTML output only. Placeholders {contextPath}, {reportExecutionId} and {exportOptions} can be used. They are replaced in runtime by corresponding values
  @param parameters List of input control parameters
- @param block The block to execute with the request before sending it for processing
+ @param block The block to inform of the results
  
  @since 1.8
  */
 - (void)runReportExecution:(NSString *)reportUnitUri async:(BOOL)async outputFormat:(NSString *)outputFormat
                interactive:(BOOL)interactive freshData:(BOOL)freshData saveDataSnapshot:(BOOL)saveDataSnapshot
           ignorePagination:(BOOL)ignorePagination transformerKey:(NSString *)transformerKey pages:(NSString *)pages
-         attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray /*<JSReportParameter>*/ *)parameters usingBlock:(JSRequestConfigurationBlock)block;
+         attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray /*<JSReportParameter>*/ *)parameters usingBlock:(JSRequestFinishedBlock)block;
 
 /**
  Cancel Report Execution
@@ -311,11 +311,11 @@ __deprecated;
  Cancel Report Execution
  
  @param requestId A <b>requestId</b> parameter of the report execution response
- @param block The block to execute with the request before sending it for processing
+ @param block The block to inform of the results
  
  @since 1.9
  */
-- (void)cancelReportExecution:(NSString *)requestId usingBlock:(JSRequestConfigurationBlock)block;
+- (void)cancelReportExecution:(NSString *)requestId usingBlock:(JSRequestFinishedBlock)block;
 
 /**
  Run Export Execution
@@ -339,12 +339,12 @@ __deprecated;
  @param outputFormat Report output format (e.g. html, pdf etc.)
  @param pages Single page number of pages range in a format "{startPageNumber}-{endPageNumber}"
  @param attachmentsPrefix URL prefix for report attachments. This parameter matter for HTML output only. Placeholders {contextPath}, {reportExecutionId} and {exportOptions} can be used. They are replaced in runtime by corresponding values
- @param block The block to execute with the request before sending it for processing
+ @param block The block to inform of the results
  
  @since 1.9
  */
 - (void)runExportExecution:(NSString *)requestId outputFormat:(NSString *)outputFormat pages:(NSString *)pages
-         attachmentsPrefix:(NSString *)attachmentsPrefix usingBlock:(JSRequestConfigurationBlock)block;
+         attachmentsPrefix:(NSString *)attachmentsPrefix usingBlock:(JSRequestFinishedBlock)block;
 
 /**
  Generates the report output url
@@ -371,11 +371,11 @@ __deprecated;
  Gets report execution metadata by request id
  
  @param requestId A <b>requestId</b> parameter of the report execution response
- @param block The block to execute with the request before sending it for processing
+ @param block The block to inform of the results
  
  @since 1.8
  */
-- (void)getReportExecutionMetadata:(NSString *)requestId usingBlock:(JSRequestConfigurationBlock)block;
+- (void)getReportExecutionMetadata:(NSString *)requestId usingBlock:(JSRequestFinishedBlock)block;
 
 /**
  Gets report execution status by request id
@@ -391,11 +391,11 @@ __deprecated;
  Gets report execution status by request id
  
  @param requestId A <b>requestId</b> parameter of the report execution response
- @param block The block to execute with the request before sending it for processing
+ @param block The block to inform of the results
  
  @since 1.8
  */
-- (void)getReportExecutionStatus:(NSString *)requestId usingBlock:(JSRequestConfigurationBlock)block;
+- (void)getReportExecutionStatus:(NSString *)requestId usingBlock:(JSRequestFinishedBlock)block;
 
 /**
  Loads report output and saves it by specified path if needed
@@ -427,7 +427,7 @@ __deprecated;
  @since 1.9
  */
 - (void)loadReportOutput:(NSString *)requestId exportOutput:(NSString *)exportOutput
-           loadForSaving:(BOOL)loadForSaving path:(NSString *)path usingBlock:(JSRequestConfigurationBlock)block;
+           loadForSaving:(BOOL)loadForSaving path:(NSString *)path usingBlock:(JSRequestFinishedBlock)block;
 
 /**
  Downloads report attachment and saves it by specified path
@@ -449,10 +449,10 @@ __deprecated;
  @param exportOutput Export parameters as string in the correct format: {reportFormat};pages={pageOrPagesRange};attachmentsPrefix={attachmentsPrefixUrlEncodedValue}
  @param attachmentName A name of report attachment
  @param path The path where the report output will be saved
- @param block The block to execute with the request before sending it for processing
+ @param block The block to inform of the results
  
  @since 1.8
  */
-- (void)saveReportAttachment:(NSString *)requestId exportOutput:(NSString *)exportOutput attachmentName:(NSString *)attachmentName path:(NSString *)path usingBlock:(JSRequestConfigurationBlock)block;
+- (void)saveReportAttachment:(NSString *)requestId exportOutput:(NSString *)exportOutput attachmentName:(NSString *)attachmentName path:(NSString *)path usingBlock:(JSRequestFinishedBlock)block;
 
 @end

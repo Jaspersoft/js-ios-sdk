@@ -29,12 +29,10 @@
 //
 
 #import "JSConstants.h"
-#import "JSRequestBuilder.h"
 #import "JSResourceLookup.h"
 #import "JSResourceDescriptor.h"
 #import "JSResourceParameter.h"
 #import "JSRESTResource.h"
-#import "JSParamsBuilder.h"
 
 // HTTP resources search parameters
 static NSString * const _parameterQuery = @"q";
@@ -50,7 +48,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 
 @implementation JSRESTResource
 - (id)init {
-    NSArray *classesForMappings = [[NSArray alloc] initWithObjects:[JSResourceDescriptor class], [JSResourceLookup class], nil];
+    NSArray *classesForMappings = [[NSArray alloc] initWithObjects:[JSResourceDescriptor class], [JSResourceLookup class], [JSResourceParameter class] ,nil];
     return [super initWithClassesForMappings:classesForMappings];
 }
 
@@ -62,7 +60,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
     [self sendRequest:builder.request];
 }
 
-- (void)resources:(NSString *)uri usingBlock:(JSRequestConfigurationBlock)block {
+- (void)resources:(NSString *)uri usingBlock:(JSRequestFinishedBlock)block {
     JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourcesUri:uri] method:RKRequestMethodGET];
     [self sendRequest:[builder.request usingBlock:block]];
 }
@@ -81,7 +79,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 }
 
 - (void)resources:(NSString *)uri query:(NSString *)query types:(NSArray *)types
-        recursive:(BOOL)recursive limit:(NSInteger)limit usingBlock:(JSRequestConfigurationBlock)block {
+        recursive:(BOOL)recursive limit:(NSInteger)limit usingBlock:(JSRequestFinishedBlock)block {
     JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourcesUri:uri] method:RKRequestMethodGET];
     
     JSParamsBuilder *paramsBuilder = [[JSParamsBuilder alloc] init];
@@ -101,7 +99,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 }
 
 - (void)resourceWithQueryData:(NSString *)uri datasourceUri:(NSString *)datasourceUri
-           resourceParameters:(NSArray *)resourceParameters usingBlock:(JSRequestConfigurationBlock)block {
+           resourceParameters:(NSArray *)resourceParameters usingBlock:(JSRequestFinishedBlock)block {
     JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:RKRequestMethodGET];
     [builder params:[self paramsForICQueryDataByDatasourceUri:datasourceUri resourceParameters:resourceParameters]];
     [self sendRequest:[builder.request usingBlock:block]];
@@ -120,7 +118,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
     [self sendRequest:builder.request additionalHTTPHeaderFields:@{kJSRequestResponceType : @"application/repository.folder+xml"}];
 }
 
-- (void)getResourceLookup:(NSString *)resourceURI usingBlock:(JSRequestConfigurationBlock)block {
+- (void)getResourceLookup:(NSString *)resourceURI usingBlock:(JSRequestFinishedBlock)block {
     NSString *uri = [JSConstants sharedInstance].REST_RESOURCES_URI;
     if (resourceURI && ![resourceURI isEqualToString:@"/"]) {
         uri = [uri stringByAppendingString:resourceURI];
@@ -135,7 +133,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 }
 
 - (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types
-              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit usingBlock:(JSRequestConfigurationBlock)block {
+              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit usingBlock:(JSRequestFinishedBlock)block {
     [self resourceLookups:folderUri query:query types:types sortBy:nil recursive:recursive offset:offset limit:limit usingBlock:block];
 }
 
@@ -160,7 +158,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 }
 
 - (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types sortBy:(NSString *)sortBy
-              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit usingBlock:(JSRequestConfigurationBlock)block {
+              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit usingBlock:(JSRequestFinishedBlock)block {
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[JSConstants sharedInstance].REST_RESOURCES_URI method:RKRequestMethodGET]
                                  restVersion:JSRESTVersion_2];    
     
@@ -187,7 +185,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
     [self sendRequest:builder.request];
 }
 
-- (void)resource:(NSString *)uri usingBlock:(JSRequestConfigurationBlock)block {
+- (void)resource:(NSString *)uri usingBlock:(JSRequestFinishedBlock)block {
     JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourceUri:uri]
                                                           method:RKRequestMethodGET];
     [self sendRequest:[builder.request usingBlock:block]];
@@ -199,7 +197,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
     [self sendRequest:builder.request];
 }
 
-- (void)createResource:(JSResourceDescriptor *)resource usingBlock:(JSRequestConfigurationBlock)block {
+- (void)createResource:(JSResourceDescriptor *)resource usingBlock:(JSRequestFinishedBlock)block {
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourceUri:nil] method:RKRequestMethodPUT] body:resource];
     [self sendRequest:[builder.request usingBlock:block]];
 }
@@ -210,7 +208,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
     [self sendRequest:builder.request];
 }
 
-- (void)modifyResource:(JSResourceDescriptor *)resource usingBlock:(JSRequestConfigurationBlock)block {
+- (void)modifyResource:(JSResourceDescriptor *)resource usingBlock:(JSRequestFinishedBlock)block {
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourceUri:resource.uriString] method:RKRequestMethodPOST]
                                  body:resource];
     [self sendRequest:[builder.request usingBlock:block]];
@@ -221,7 +219,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
     [self sendRequest:builder.request];
 }
 
-- (void)deleteResource:(NSString *)uri usingBlock:(JSRequestConfigurationBlock)block {
+- (void)deleteResource:(NSString *)uri usingBlock:(JSRequestFinishedBlock)block {
     JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:RKRequestMethodDELETE];
     [self sendRequest:[builder.request usingBlock:block]];
 }

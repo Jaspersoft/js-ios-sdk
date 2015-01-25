@@ -30,20 +30,11 @@
 
 #import "JSRequest.h"
 
-// TODO: add request success and request finish delegate methods
-@implementation JSRequest
+@interface JSRequest()
+@property (nonatomic, retain) NSMutableDictionary *parameters;
+@end
 
-@synthesize uri = _uri;
-@synthesize body = _body;
-@synthesize params = _params;
-@synthesize timeoutInterval = _timeoutInterval;
-@synthesize method = _method;
-@synthesize delegate = _delegate;
-@synthesize finishedBlock;
-@synthesize responseAsObjects = _responseAsObjects;
-@synthesize downloadDestinationPath = _downloadDestinationPath;
-@synthesize asynchronous = _asynchronous;
-@synthesize restVersion = _restVersion;
+@implementation JSRequest
 
 - (id)initWithUri:(NSString *)uri {
     if (self = [super init]) {
@@ -52,18 +43,36 @@
         self.responseAsObjects = YES;
         self.asynchronous = YES;
         self.restVersion = JSRESTVersion_1;
+        self.parameters = [NSMutableDictionary dictionary];
+
     }
     
     return self;
 }
 
-- (JSRequest *)usingBlock:(JSRequestConfigurationBlock)block {
-    block(self);
-    return self;
+- (void)addParameter:(NSString *)parameter withStringValue:(NSString *)value {
+    if (value.length) {
+        [self.parameters setObject:value forKey:parameter];
+    }
 }
 
-- (id)init {
-    return [self initWithUri: @""];
+- (void)addParameter:(NSString *)parameter withIntegerValue:(NSInteger)value {
+    if (value > 0) {
+        [self.parameters setObject:[NSNumber numberWithInteger:value] forKey:parameter];
+    }
+}
+
+- (void)addParameter:(NSString *)parameter withArrayValue:(NSArray *)value {
+    if (value && value.count) {
+        [self.parameters setObject:value forKey:parameter];
+    }
+}
+
+- (NSDictionary *)params {
+    if (_params) {
+        [self.parameters addEntriesFromDictionary:_params];
+    }
+    return self.parameters;
 }
 
 @end

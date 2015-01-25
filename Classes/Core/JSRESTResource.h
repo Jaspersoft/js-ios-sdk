@@ -68,9 +68,9 @@
  repository URI.
  
  @param uri The repository URI (i.e. /reports/samples/)
- @param block The block to execute with the request before sending it for processing
+ @param block The block to inform of the results
  */
-- (void)resources:(NSString *)uri usingBlock:(JSRequestConfigurationBlock)block;
+- (void)resources:(NSString *)uri usingBlock:(JSRequestFinishedBlock)block;
 
 /**
  Gets the list of resource descriptors for the resources available in the specified 
@@ -103,10 +103,10 @@
  (can be <code>nil</code>)
  @param limit The maximum number of items returned to the client. The default 
  is 0 (can be <code>nil</code>), meaning no limit 
- @param block The block to execute with the request before sending it for processing
+ @param block The block to inform of the results
  */
 - (void)resources:(NSString *)uri query:(NSString *)query types:(NSArray *)types 
-       recursive:(BOOL)recursive limit:(NSInteger)limit usingBlock:(JSRequestConfigurationBlock)block;
+       recursive:(BOOL)recursive limit:(NSInteger)limit usingBlock:(JSRequestFinishedBlock)block;
 
 /**
  Gets the query data of a query-based input control, according to specified parameters.
@@ -125,10 +125,10 @@
  @param uri The repository URI of the input control
  @param datasourceUri The repository URI of a datasource for the control
  @param resourceParameters A parameters for the input control (can be <code>nil</code>)
- @param block The block to execute with the request before sending it for processing
+ @param block The block to inform of the results
  */
 - (void)resourceWithQueryData:(NSString *)uri datasourceUri:(NSString *)datasourceUri 
-           resourceParameters:(NSArray *)resourceParameters usingBlock:(JSRequestConfigurationBlock)block;
+           resourceParameters:(NSArray *)resourceParameters usingBlock:(JSRequestFinishedBlock)block;
 
 /**
  Gets the resource descriptor for the resource with specified URI.
@@ -142,9 +142,9 @@
  Gets the resource descriptor for the resource with specified URI.
  
  @param uri The repository URI (i.e. /reports/samples/)
- @param block The block to execute with the request before sending it for processing
+ @param block The block to inform of the results
  */
-- (void)resource:(NSString *)uri usingBlock:(JSRequestConfigurationBlock)block;
+- (void)resource:(NSString *)uri usingBlock:(JSRequestFinishedBlock)block;
 
 /**
  Creates the resource with specified JSResourceDescriptor
@@ -158,9 +158,9 @@
  Creates the resource with specified JSResourceDescriptor
  
  @param resource JSResourceDescriptor of resource being modified
- @param block The block to execute with the request before sending it for processing
+ @param block The block to inform of the results
  */
-- (void)createResource:(JSResourceDescriptor *)resource usingBlock:(JSRequestConfigurationBlock)block;
+- (void)createResource:(JSResourceDescriptor *)resource usingBlock:(JSRequestFinishedBlock)block;
 
 /**
  Modifies the resource with specified JSResourceDescriptor
@@ -174,9 +174,9 @@
  Modifies the resource with specified JSResourceDescriptor
  
  @param resource JSResourceDescriptor of resource being modified
- @param block The block to execute with the request before sending it for processing
+ @param block The block to inform of the results
  */
-- (void)modifyResource:(JSResourceDescriptor *)resource usingBlock:(JSRequestConfigurationBlock)block;
+- (void)modifyResource:(JSResourceDescriptor *)resource usingBlock:(JSRequestFinishedBlock)block;
 
 /**
  Deletes the resource with the specified URI
@@ -190,9 +190,9 @@
  Deletes the resource with the specified URI
  
  @param uri The repository URI (i.e. /reports/samples/)
- @param block The block to execute with the request before sending it for processing
+ @param block The block to inform of the results
  */
-- (void)deleteResource:(NSString *)uri usingBlock:(JSRequestConfigurationBlock)block;
+- (void)deleteResource:(NSString *)uri usingBlock:(JSRequestFinishedBlock)block;
 
 //---------------------------------------------------------------------
 // The Resources Service v2
@@ -213,11 +213,11 @@
  Gets resource lookup for resource.
  
  @param resourceURI The repository URI (i.e. /reports/samples/)
- @param block The block to execute with the request before sending it for processing
+ @param block The block to inform of the results
  
  @since 1.9
  */
-- (void)getResourceLookup:(NSString *)resourceURI usingBlock:(JSRequestConfigurationBlock)block;
+- (void)getResourceLookup:(NSString *)resourceURI usingBlock:(JSRequestFinishedBlock)block;
 
 
 /**
@@ -251,12 +251,12 @@
  @param offset Start index for requested page
  @param limit The maximum number of items returned to the client. The default
  is 0 (can be <code>nil</code>), meaning no limit
- @param block The block to execute with the request before sending it for processing
+ @param block The block to inform of the results
  
  @since 1.7
  */
 - (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types
-              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit usingBlock:(JSRequestConfigurationBlock)block;
+              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit usingBlock:(JSRequestFinishedBlock)block;
 
 /**
  Gets the list of resource lookups for the resources available in the specified
@@ -293,11 +293,11 @@
  @param offset Start index for requested page
  @param limit The maximum number of items returned to the client. The default
  is 0 (can be <code>nil</code>), meaning no limit
- @param block The block to execute with the request before sending it for processing
+ @param block The block to inform of the results
  
  @since 1.8
  */
 - (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types sortBy:(NSString *)sortBy
-              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit usingBlock:(JSRequestConfigurationBlock)block;
+              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit usingBlock:(JSRequestFinishedBlock)block;
 
 @end

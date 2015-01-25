@@ -66,11 +66,6 @@ typedef enum {
 @end
 
 /**
- The block to execute with the request before sending it for processing
- */
-typedef void(^JSRequestConfigurationBlock)(JSRequest *request);
-
-/**
  Models the request portion of an HTTP request/response cycle. Used by
  <code>JSRESTBase</code> class to send requests
  
@@ -101,17 +96,6 @@ typedef void(^JSRequestConfigurationBlock)(JSRequest *request);
  A collection of parameters of the request. Automatically will be added to URL
  */
 @property (nonatomic, retain) NSDictionary *params;
-
-/**
- The timeout interval within which the request should be cancelled if no data
- has been received.
- 
- The timeout timer is cancelled as soon as we start receiving data and are
- expecting the request to finish
- 
- **Default**: 120.0 seconds (defined in JSRESTBase class)
- */
-@property (nonatomic, assign) NSTimeInterval timeoutInterval;
 
 /**
  The HTTP method
@@ -159,13 +143,35 @@ typedef void(^JSRequestConfigurationBlock)(JSRequest *request);
 @property (nonatomic, assign) JSRESTVersion restVersion;
 
 /**
- Pre-configures request via block. Block implicitly supports finishedBlock usage
- instead delegate object (or use them both), setting custom timeoutInterval,
- custom query parameters, requestBackgroundPolicy etc. Some of request parameters
- can be configured only by using block
+ Returns a request instance with predefined uri.
  
- @param block The block to execute with the request before sending it
+ @param uri A request uri
+ @return A fully configured JSRequest instance
  */
-- (JSRequest *)usingBlock:(JSRequestConfigurationBlock)block;
+- (id)initWithUri:(NSString *)uri;
+
+/**
+ Adds a parameter with a specified string value only if value is not nil or empty
+ 
+ @param parameter Parameter name
+ @param value Parameter value
+ */
+- (void)addParameter:(NSString *)parameter withStringValue:(NSString *)value;
+
+/**
+ Adds a parameter with a specified integer value only if value is bigger then 0
+ 
+ @param parameter Parameter name
+ @param value Parameter value
+ */
+- (void)addParameter:(NSString *)parameter withIntegerValue:(NSInteger)value;
+
+/**
+ Adds a parameter with a specified array value only if value is not nil or empty
+ 
+ @param parameter Parameter name
+ @param value Parameter value
+ */
+- (void)addParameter:(NSString *)parameter withArrayValue:(NSArray *)value;
 
 @end

@@ -72,7 +72,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 }
 
 - (void)runReport:(NSString *)uri reportParams:(NSDictionary *)reportParams
-           format:(NSString *)format usingBlock:(JSRequestConfigurationBlock)block {
+           format:(NSString *)format usingBlock:(JSRequestFinishedBlock)block {
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullRunReportUri:uri] method:RKRequestMethodPUT]
                                  body:[self resourceDescriptorForUri:uri withReportParams:reportParams]];
     [builder params:[self runReportQueryParams:format]];
@@ -88,7 +88,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 }
 
 - (void)runReport:(JSResourceDescriptor *)resourceDescriptor format:(NSString *)format
-       usingBlock:(JSRequestConfigurationBlock)block {
+       usingBlock:(JSRequestFinishedBlock)block {
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullRunReportUri:resourceDescriptor.uriString]
                                                            method:RKRequestMethodPUT] body:resourceDescriptor];
     [builder params:[self runReportQueryParams:format]];
@@ -102,7 +102,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     [self sendRequest:request];
 }
 
-- (void)reportFile:(NSString *)uuid fileName:(NSString *)fileName path:(NSString *)path usingBlock:(JSRequestConfigurationBlock)block {
+- (void)reportFile:(NSString *)uuid fileName:(NSString *)fileName path:(NSString *)path usingBlock:(JSRequestFinishedBlock)block {
     JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullDownloadReportFileUri:uuid] method:RKRequestMethodGET];
     [[[builder params:[NSDictionary dictionaryWithObjectsAndKeys:fileName, @"file", nil]] responseAsObjects:NO] downloadDestinationPath:path];
     JSRequest *request = [self configureRequestToSaveFile:[builder.request usingBlock:block]];
@@ -166,7 +166,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     [self sendRequest:[builder body:[[JSReportParametersList alloc] initWithReportParameters:selectedValues]].request];
 }
 
-- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues usingBlock:(JSRequestConfigurationBlock)block {
+- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues usingBlock:(JSRequestFinishedBlock)block {
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:NO] method:RKRequestMethodPOST]
                                  restVersion:JSRESTVersion_2];
     [self sendRequest:[[builder body:[[JSReportParametersList alloc] initWithReportParameters:selectedValues]].request usingBlock:block]];
@@ -210,7 +210,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 - (void)runReportExecution:(NSString *)reportUnitUri async:(BOOL)async outputFormat:(NSString *)outputFormat
                interactive:(BOOL)interactive freshData:(BOOL)freshData saveDataSnapshot:(BOOL)saveDataSnapshot
           ignorePagination:(BOOL)ignorePagination transformerKey:(NSString *)transformerKey pages:(NSString *)pages
-         attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray /*<JSReportParameter>*/ *)parameters usingBlock:(JSRequestConfigurationBlock)block {
+         attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray /*<JSReportParameter>*/ *)parameters usingBlock:(JSRequestFinishedBlock)block {
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullReportExecutionUri:nil] method:RKRequestMethodPOST] restVersion:JSRESTVersion_2];
     
     JSReportExecutionRequest *executionRequest = [[JSReportExecutionRequest alloc] init];
@@ -241,7 +241,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     [self sendRequest:[builder body:reportExecutoionStatus].request];
 }
 
-- (void)cancelReportExecution:(NSString *)requestId usingBlock:(JSRequestConfigurationBlock)block {
+- (void)cancelReportExecution:(NSString *)requestId usingBlock:(JSRequestFinishedBlock)block {
     NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:[JSConstants sharedInstance].REST_REPORT_EXECUTION_STATUS_URI];
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:RKRequestMethodPUT] restVersion:JSRESTVersion_2];
     JSExecutionStatus *reportExecutoionStatus = [[JSExecutionStatus alloc] init];
@@ -267,7 +267,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 }
 
 - (void)runExportExecution:(NSString *)requestId outputFormat:(NSString *)outputFormat pages:(NSString *)pages
-         attachmentsPrefix:(NSString *)attachmentsPrefix usingBlock:(JSRequestConfigurationBlock)block {
+         attachmentsPrefix:(NSString *)attachmentsPrefix usingBlock:(JSRequestFinishedBlock)block {
     
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullExportExecutionUri:requestId] method:RKRequestMethodPOST] restVersion:JSRESTVersion_2];
     
@@ -296,7 +296,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     [self sendRequest:builder.request];
 }
 
-- (void)getReportExecutionMetadata:(NSString *)requestId usingBlock:(JSRequestConfigurationBlock)block {
+- (void)getReportExecutionMetadata:(NSString *)requestId usingBlock:(JSRequestFinishedBlock)block {
     NSString *uri = [self fullReportExecutionUri:requestId];
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:RKRequestMethodGET] restVersion:JSRESTVersion_2];
     [self sendRequest:[builder.request usingBlock:block]];
@@ -308,7 +308,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     [self sendRequest:builder.request];
 }
 
-- (void)getReportExecutionStatus:(NSString *)requestId usingBlock:(JSRequestConfigurationBlock)block {
+- (void)getReportExecutionStatus:(NSString *)requestId usingBlock:(JSRequestFinishedBlock)block {
     NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:[JSConstants sharedInstance].REST_REPORT_EXECUTION_STATUS_URI];
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:RKRequestMethodGET] restVersion:JSRESTVersion_2];
     [self sendRequest:[builder.request usingBlock:block]];
@@ -330,7 +330,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 }
 
 - (void)loadReportOutput:(NSString *)requestId exportOutput:(NSString *)exportOutput
-           loadForSaving:(BOOL)loadForSaving path:(NSString *)path usingBlock:(JSRequestConfigurationBlock)block {
+           loadForSaving:(BOOL)loadForSaving path:(NSString *)path usingBlock:(JSRequestFinishedBlock)block {
     exportOutput = [self encodeAttachmentsPrefix:exportOutput];
     NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/outputResource", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, exportOutput];
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:RKRequestMethodGET] restVersion:JSRESTVersion_2];
@@ -353,7 +353,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     [self sendRequest:request];
 }
 
-- (void)saveReportAttachment:(NSString *)requestId exportOutput:(NSString *)exportOutput attachmentName:(NSString *)attachmentName path:(NSString *)path usingBlock:(JSRequestConfigurationBlock)block {
+- (void)saveReportAttachment:(NSString *)requestId exportOutput:(NSString *)exportOutput attachmentName:(NSString *)attachmentName path:(NSString *)path usingBlock:(JSRequestFinishedBlock)block {
     exportOutput = [self encodeAttachmentsPrefix:exportOutput];
     NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/attachments/%@", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, exportOutput, attachmentName];
     JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:RKRequestMethodGET] restVersion:JSRESTVersion_2];
