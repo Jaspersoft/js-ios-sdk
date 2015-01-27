@@ -36,7 +36,9 @@
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @since 1.8
  */
-@interface JSReportOutputResource : NSObject
+
+@protocol JSSerializationDescriptorHolder;
+@interface JSReportOutputResource : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *contentType;
 @property (nonatomic, retain) NSString *fileName;

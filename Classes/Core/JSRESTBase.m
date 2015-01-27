@@ -30,10 +30,9 @@
 
 #import "JSRESTBase.h"
 #import "JSConstants.h"
-#import "JSRequestBuilder.h"
 #import "JSRestKitManagerFactory.h"
 #import "RKMIMETypeSerialization.h"
-
+#import "JSSerializationDescriptorHolder.h"
 
 #import "AFHTTPClient.h"
 #import "weakself.h"
@@ -153,23 +152,28 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 - (void)sendRequest:(JSRequest *)request additionalHTTPHeaderFields:(NSDictionary *)headerFields{
     // Full uri path with query params
     NSString *fullUri = [self fullUri:request.uri restVersion:request.restVersion];
-    NSMutableURLRequest *urlRequest = nil;
-    RKObjectRequestOperation *requestOperation = nil;
     
-//    for (RKRequestDescriptor *descriptor in self.restKitObjectManager.requestDescriptors) {
-//        [self.restKitObjectManager removeRequestDescriptor:descriptor];
-//    }
-//    for (RKResponseDescriptor *descriptor in self.restKitObjectManager.responseDescriptors) {
-//        [self.restKitObjectManager removeResponseDescriptor:descriptor];
-//    }
+
+    for (RKRequestDescriptor *descriptor in self.restKitObjectManager.requestDescriptors) {
+        [self.restKitObjectManager removeRequestDescriptor:descriptor];
+    }
     
-//    if (request.responseAsObjects) {
-        requestOperation = [self.restKitObjectManager appropriateObjectRequestOperationWithObject:request.body method:request.method path:fullUri parameters:request.params];
-        urlRequest = (NSMutableURLRequest *) requestOperation.HTTPRequestOperation.request;
-//    } else {
-//        urlRequest = [self.restKitObjectManager requestWithObject:request.body method:request.method path:fullUri parameters:request.params];
-//        requestOperation = [[RKHTTPRequestOperation alloc] initWithRequest:urlRequest];
-//    }
+    id <JSSerializationDescriptorHolder> descriptiorHolder = request.body;
+    if (descriptiorHolder && [[descriptiorHolder class] respondsToSelector:@selector(rkRequestDescriptors)]) {
+        [self.restKitObjectManager addRequestDescriptorsFromArray:[descriptiorHolder rkRequestDescriptors]];
+    }
+    
+    NSOperation *requestOperation = nil;
+    NSMutableURLRequest *urlRequest = [self.restKitObjectManager requestWithObject:request.body method:request.method path:fullUri parameters:request.params];
+    
+    if (request.responseAsObjects) {
+        RKHTTPRequestOperation *HTTPRequestOperation = [[RKHTTPRequestOperation alloc] initWithRequest:urlRequest];
+        [self.restKitObjectManager performSelector:@selector(copyStateFromHTTPClientToHTTPRequestOperation:) withObject:HTTPRequestOperation];
+        RKObjectRequestOperation *objectRequestOperation = [[RKObjectRequestOperation alloc] initWithHTTPRequestOperation:HTTPRequestOperation responseDescriptors:[request.expectedModelClass rkResponseDescriptors]];
+        requestOperation = objectRequestOperation;
+    } else {
+        requestOperation = [[RKHTTPRequestOperation alloc] initWithRequest:urlRequest];
+    }
 
     if ([urlRequest isKindOfClass:[NSMutableURLRequest class]]) {
         urlRequest.timeoutInterval = self.timeoutInterval;
@@ -186,7 +190,7 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
     [requestOperation start];
     
     if (request.asynchronous) {
-        [requestOperation setCompletionBlockWithSuccess:
+        [((RKHTTPRequestOperation *)requestOperation) setCompletionBlockWithSuccess:
          @weakself(^(NSOperation *operation, RKMappingResult *mappingResult)) {
              [self sendCallbackAboutOperation:operation];
          } @weakselfend failure:
@@ -347,11 +351,11 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 }
 
 - (JSRequest *)serverInfoRequest:(BOOL)isAsynchronous {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[JSConstants sharedInstance].REST_SERVER_INFO_URI
-                                                           method:RKRequestMethodGET] restVersion:JSRESTVersion_2];
-    [builder asynchronous:isAsynchronous];
-
-    return builder.request;
+    JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_SERVER_INFO_URI];
+    request.expectedModelClass = [JSServerInfo class];
+    request.restVersion = JSRESTVersion_2;
+    request.asynchronous = isAsynchronous;
+    return request;
 }
 
 - (JSOperationResult *)setServerInfo:(JSOperationResult *)result {

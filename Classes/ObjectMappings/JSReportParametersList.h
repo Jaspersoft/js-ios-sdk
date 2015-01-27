@@ -34,7 +34,8 @@
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @since 1.4
  */
-@interface JSReportParametersList : NSObject
+@protocol JSSerializationDescriptorHolder;
+@interface JSReportParametersList : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSArray* /*<JSReportParameter>*/ reportParameters;
 

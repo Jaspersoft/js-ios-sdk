@@ -32,7 +32,34 @@
 
 @implementation JSReportAttachment
 
-@synthesize type = _type;
-@synthesize name = _name;
+#pragma mark - JSSerializationDescriptorHolder
++ (NSArray *)rkResponseDescriptors {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    for (NSString *keyPath in [self classMappingPathes]) {
+        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:nil
+                                                                                keyPath:keyPath
+                                                                            statusCodes:nil]];
+    }
+    
+    [descriptorsArray addObjectsFromArray:[JSReportAttachment rkResponseDescriptors]];
+    
+    return descriptorsArray;
+}
+
++ (RKObjectMapping *)classMapping {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"text": @"name",
+                                                       @"type": @"type",
+                                                       }];
+    return classMapping;
+}
+
++ (NSArray *)classMappingPathes {
+    return @[@""];
+}
+
 
 @end

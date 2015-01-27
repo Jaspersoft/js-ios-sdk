@@ -36,7 +36,9 @@
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @since 1.7
  */
-@interface JSResourceLookup : NSObject
+
+@protocol JSSerializationDescriptorHolder;
+@interface JSResourceLookup : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *label;
 @property (nonatomic, retain) NSString *uri;

@@ -40,12 +40,13 @@
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @since 1.8
  */
-@interface JSExportExecutionResponse : NSObject
+@protocol JSSerializationDescriptorHolder;
+@interface JSExportExecutionResponse : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *uuid;
 @property (nonatomic, retain) JSExecutionStatus *status;
 @property (nonatomic, retain) JSErrorDescriptor *errorDescriptor;
 @property (nonatomic, retain) JSReportOutputResource *outputResource;
-@property (nonatomic, retain) NSArray /*<JSOutputResource*/ *attachments;
+@property (nonatomic, retain) NSArray /*<JSReportAttachment*/ *attachments;
 
 @end

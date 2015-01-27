@@ -29,20 +29,40 @@
 //
 
 #import "JSReportExecutionRequest.h"
+#import "JSReportParameter.h"
 
 @implementation JSReportExecutionRequest
 
-@synthesize reportUnitUri = _reportUnitUri;
-@synthesize async = _async;
-@synthesize outputFormat = _outputFormat;
-@synthesize interactive = _interactive;
-@synthesize freshData = _freshData;
-@synthesize saveDataSnapshot = _saveDataSnapshot;
-@synthesize ignorePagination = _ignorePagination;
-@synthesize transformerKey = _transformerKey;
-@synthesize pages = _pages;
-@synthesize attachmentsPrefix = _attachmentsPrefix;
-@synthesize parameters = _parameters;
-@synthesize baseURL = _baseURL;
+#pragma mark - JSSerializationDescriptorHolder
+
++ (NSArray *)rkRequestDescriptors {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[[self classMapping] inverseMapping]
+                                                                             method:RKRequestMethodAny
+                                                                        pathPattern:nil
+                                                                            keyPath:@"reportExecutionRequest"
+                                                                        statusCodes:nil]];
+    [descriptorsArray addObjectsFromArray:[JSReportParameter rkResponseDescriptors]];
+    return descriptorsArray;
+}
+
++ (RKObjectMapping *)classMapping {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"reportUnitUri": @"reportUnitUri",
+                                                       @"async": @"async",
+                                                       @"outputFormat": @"outputFormat",
+                                                       @"interactive": @"interactive",
+                                                       @"freshData": @"freshData",
+                                                       @"saveDataSnapshot": @"saveDataSnapshot",
+                                                       @"ignorePagination": @"ignorePagination",
+                                                       @"transformerKey": @"transformerKey",
+                                                       @"pages": @"pages",
+                                                       @"attachmentsPrefix": @"attachmentsPrefix",
+                                                       @"baseURL": @"baseURL",
+                                                       @"parameters": @"parameters",
+                                                       }];
+    return classMapping;
+}
 
 @end

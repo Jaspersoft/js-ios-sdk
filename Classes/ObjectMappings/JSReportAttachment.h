@@ -36,7 +36,8 @@
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @since 1.3
  */
-@interface JSReportAttachment : NSObject
+@protocol JSSerializationDescriptorHolder;
+@interface JSReportAttachment : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *type;
 @property (nonatomic, retain) NSString *name;

@@ -9,5 +9,6 @@
     #import <MobileCoreServices/MobileCoreServices.h>
     #import <RestKit/RestKit.h>
     #import "JSConstants.h"
+    #import "JSSerializationDescriptorHolder.h"
     #import "weakself.h"
 #endif

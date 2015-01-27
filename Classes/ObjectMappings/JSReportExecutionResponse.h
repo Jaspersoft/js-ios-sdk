@@ -38,7 +38,8 @@
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @since 1.7
  */
-@interface JSReportExecutionResponse : NSObject
+@protocol JSSerializationDescriptorHolder;
+@interface JSReportExecutionResponse : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSNumber *totalPages;
 @property (nonatomic, retain) NSNumber *currentPage;

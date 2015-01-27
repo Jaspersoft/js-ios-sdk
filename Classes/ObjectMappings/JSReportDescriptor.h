@@ -37,7 +37,8 @@
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @since 1.0 (JSReportExecution)
  */
-@interface JSReportDescriptor : NSObject
+@protocol JSSerializationDescriptorHolder;
+@interface JSReportDescriptor : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *uuid;
 @property (nonatomic, retain) NSString *originalUri;

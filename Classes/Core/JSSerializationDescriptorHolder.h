@@ -24,30 +24,35 @@
  */
 
 //
-//  JSSerializer.h
+//  JSSerializationDescriptorHolder.h
 //  Jaspersoft Corporation
 //
 
 #import <Foundation/Foundation.h>
 
 /**
- Declares method that a class must implement so that it can provide support of 
+ Declares method that a class must implement so that it can provide support of
  representing object as string
  
- @author Vlad Zavadskii vzavadskii@jaspersoft.com
- @since 1.3
+ @author Alexey Gubarev ogubarie@tibco.com
+ @since 1.9
  */
-@protocol JSSerializer <NSObject>
 
-@required
+@protocol JSSerializationDescriptorHolder <NSObject>
+
+@optional
+/**
+ Returns an array of `RKRequestDescriptor` objects to be added to the manager
+ for mapping objects of the class to request.
+ @return An array of `RKRequestDescriptor` objects to be added to the manager. (i.e. JSON, XML, etc)
+ */
++ (NSArray *)rkRequestDescriptors;
 
 /**
- Returns an object representation of the string encoded in the
- format provided by the serializer (i.e. JSON, XML, etc).
- 
- @param object The object for serialization
- @return A new string representation of object
+ Returns an array of `RKResponseDescriptor` objects to be added to the manager
+ for mapping objects of the class from response.
+ @return An array of `RKResponseDescriptor` objects to be added to the manager. (i.e. JSON, XML, etc)
  */
-- (NSString *)stringFromObject:(id)object;
++ (NSArray *)rkResponseDescriptors;
 
 @end

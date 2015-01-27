@@ -35,8 +35,8 @@
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.9
  */
-
-@interface JSMandatoryValidationRule : NSObject <NSCopying>
+@protocol JSSerializationDescriptorHolder;
+@interface JSMandatoryValidationRule : NSObject <JSSerializationDescriptorHolder, NSCopying>
 
 @property (nonatomic, retain) NSString *errorMessage;
 

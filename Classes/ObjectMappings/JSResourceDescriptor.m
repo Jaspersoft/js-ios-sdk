@@ -30,6 +30,8 @@
 
 #import "JSConstants.h"
 #import "JSResourceDescriptor.h"
+#import "JSResourceProperty.h"
+#import "JSResourceParameter.h"
 
 @interface JSResourceDescriptor()
 
@@ -38,18 +40,6 @@
 @end
 
 @implementation JSResourceDescriptor
-
-@synthesize name = _name;
-@synthesize wsType = _wsType;
-@synthesize uriString = _uriString;
-@synthesize isNew = _isNew;
-@synthesize label = _label;
-@synthesize resourceDescription = _resourceDescription;
-@synthesize creationDate = _creationDate;
-@synthesize resourceProperties = _resourceProperties;
-@synthesize childResourceDescriptors = _childResourceDescriptors;
-@synthesize parameters = _parameters;
-@synthesize constants = _constants;
 
 - (id)init {
     if (self = [super init]) {
@@ -115,6 +105,54 @@
     }
     
     return listOfValues;
+}
+
+#pragma mark - JSSerializationDescriptorHolder
++ (NSArray *)rkRequestDescriptors {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[[self classMapping] inverseMapping]
+                                                                             method:RKRequestMethodAny
+                                                                        pathPattern:nil
+                                                                            keyPath:@"resourceDescriptor"
+                                                                        statusCodes:nil]];
+    return descriptorsArray;
+}
+
++ (NSArray *)rkResponseDescriptors {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    for (NSString *keyPath in [self classMappingPathes]) {
+        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:nil
+                                                                                keyPath:keyPath
+                                                                            statusCodes:nil]];
+    }
+
+    [descriptorsArray addObjectsFromArray:[JSResourceProperty rkResponseDescriptors]];
+    [descriptorsArray addObjectsFromArray:[JSResourceParameter rkResponseDescriptors]];
+
+    return descriptorsArray;
+}
+
++ (RKObjectMapping *)classMapping {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"name": @"name",
+                                                       @"wsType": @"wsType",
+                                                       @"uriString": @"uriString",
+                                                       @"isNew": @"isNew",
+                                                       @"label": @"label",
+                                                       @"description": @"resourceDescription",
+                                                       @"creationDate": @"creationDate",
+                                                       @"resourceProperty": @"resourceProperties",
+                                                       @"resourceDescriptor": @"childResourceDescriptors",
+                                                       @"parameter": @"parameters",
+                                                       }];
+    return classMapping;
+}
+
++ (NSArray *)classMappingPathes {
+    return @[@"resourceDescriptor"];
 }
 
 @end

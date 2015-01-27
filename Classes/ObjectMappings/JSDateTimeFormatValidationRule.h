@@ -35,8 +35,8 @@
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.4
  */
-
-@interface JSDateTimeFormatValidationRule : NSObject <NSCopying>
+@protocol JSSerializationDescriptorHolder;
+@interface JSDateTimeFormatValidationRule : NSObject <JSSerializationDescriptorHolder, NSCopying>
 
 @property (nonatomic, retain) NSString *errorMessage;
 @property (nonatomic, retain) NSString *format;

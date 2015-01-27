@@ -31,9 +31,28 @@
 #import "JSExportExecutionRequest.h"
 
 @implementation JSExportExecutionRequest
-@synthesize outputFormat = _outputFormat;
-@synthesize pages = _pages;
-@synthesize attachmentsPrefix = _attachmentsPrefix;
-@synthesize baseUrl = _baseUrl;
+
+#pragma mark - JSSerializationDescriptorHolder
+
++ (NSArray *)rkRequestDescriptors {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[[self classMapping] inverseMapping]
+                                                                             method:RKRequestMethodAny
+                                                                        pathPattern:nil
+                                                                            keyPath:@"export"
+                                                                        statusCodes:nil]];
+    return descriptorsArray;
+}
+
++ (RKObjectMapping *)classMapping {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"outputFormat": @"outputFormat",
+                                                       @"pages": @"pages",
+                                                       @"attachmentsPrefix": @"attachmentsPrefix",
+                                                       @"baseUrl": @"baseUrl",
+                                                       }];
+    return classMapping;
+}
 
 @end

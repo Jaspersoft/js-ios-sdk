@@ -36,7 +36,8 @@
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @since 1.8
  */
-@interface JSExecutionStatus : NSObject
+@protocol JSSerializationDescriptorHolder;
+@interface JSExecutionStatus : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *status;
 

@@ -35,8 +35,8 @@
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.4
  */
-
-@interface JSInputControlOption : NSObject <NSCopying>
+@protocol JSSerializationDescriptorHolder;
+@interface JSInputControlOption : NSObject <JSSerializationDescriptorHolder, NSCopying>
 
 @property (nonatomic, retain) NSString *label;
 @property (nonatomic, retain) NSString *value;

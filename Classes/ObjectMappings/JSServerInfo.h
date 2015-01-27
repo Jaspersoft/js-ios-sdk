@@ -35,7 +35,9 @@
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.4
  */
-@interface JSServerInfo : NSObject
+
+@protocol JSSerializationDescriptorHolder;
+@interface JSServerInfo : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *build;
 @property (nonatomic, retain) NSString *edition;

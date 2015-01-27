@@ -29,13 +29,53 @@
 //
 
 #import "JSExportExecutionResponse.h"
+#import "JSReportAttachment.h"
 
 @implementation JSExportExecutionResponse
 
-@synthesize uuid = _uuid;
-@synthesize status = _status;
-@synthesize errorDescriptor = _errorDescriptor;
-@synthesize outputResource = _outputResource;
-@synthesize attachments = _attachments;
+#pragma mark - JSSerializationDescriptorHolder
+
++ (NSArray *)rkRequestDescriptors {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[[self classMapping] inverseMapping]
+                                                                             method:RKRequestMethodAny
+                                                                        pathPattern:nil
+                                                                            keyPath:@"exportExecution"
+                                                                        statusCodes:nil]];
+    return descriptorsArray;
+}
+
++ (NSArray *)rkResponseDescriptors {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    for (NSString *keyPath in [self classMappingPathes]) {
+        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:nil
+                                                                                keyPath:keyPath
+                                                                            statusCodes:nil]];
+    }
+    [descriptorsArray addObjectsFromArray:[JSReportOutputResource rkResponseDescriptors]];
+    [descriptorsArray addObjectsFromArray:[JSExecutionStatus rkResponseDescriptors]];
+    [descriptorsArray addObjectsFromArray:[JSErrorDescriptor rkResponseDescriptors]];
+    [descriptorsArray addObjectsFromArray:[JSReportAttachment rkResponseDescriptors]];
+
+    return descriptorsArray;
+}
+
++ (RKObjectMapping *)classMapping {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"id": @"uuid",
+                                                       @"status": @"status",
+                                                       @"errorDescriptor": @"errorDescriptor",
+                                                       @"outputResource": @"outputResource",
+                                                       @"attachments": @"attachments",
+                                                       }];
+    return classMapping;
+}
+
++ (NSArray *)classMappingPathes {
+    return @[@"exportExecution"];
+}
 
 @end

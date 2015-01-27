@@ -36,7 +36,8 @@
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @since 1.8
  */
-@interface JSErrorDescriptor : NSObject
+@protocol JSSerializationDescriptorHolder;
+@interface JSErrorDescriptor : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *message;
 @property (nonatomic, retain) NSString *errorCode;

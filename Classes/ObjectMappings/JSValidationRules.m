@@ -32,8 +32,32 @@
 
 @implementation JSValidationRules
 
-@synthesize dateTimeFormatValidationRule = _dateTimeFormatValidationRule;
-@synthesize mandatoryValidationRule = _mandatoryValidationRule;
+#pragma mark - JSSerializationDescriptorHolder
+
++ (NSArray *)rkResponseDescriptors {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    for (NSString *keyPath in [self classMappingPathes]) {
+        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:nil
+                                                                                keyPath:keyPath
+                                                                            statusCodes:nil]];
+    }
+    return descriptorsArray;
+}
+
++ (RKObjectMapping *)classMapping {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"dateTimeFormatValidationRule": @"dateTimeFormatValidationRule",
+                                                       @"mandatoryValidationRule": @"mandatoryValidationRule",
+                                                       }];
+    return classMapping;
+}
+
++ (NSArray *)classMappingPathes {
+    return @[@""];
+}
 
 #pragma mark - NSCopying
 

@@ -90,7 +90,7 @@ typedef enum {
 /**
  Expected model class for mapping responce
  */
-@property (nonatomic, retain) Class expectedModelClass;
+@property (nonatomic, strong) Class <JSSerializationDescriptorHolder> expectedModelClass;
 
 /**
  A collection of parameters of the request. Automatically will be added to URL

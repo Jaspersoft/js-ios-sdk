@@ -29,14 +29,41 @@
 //
 
 #import "JSInputControlState.h"
+#import "JSInputControlOption.h"
 
 @implementation JSInputControlState
 
-@synthesize uuid = _uuid;
-@synthesize uri = _uri;
-@synthesize value = _value;
-@synthesize error = _error;
-@synthesize options = _options;
+#pragma mark - JSSerializationDescriptorHolder
+
++ (NSArray *)rkResponseDescriptors {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    for (NSString *keyPath in [self classMappingPathes]) {
+        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:nil
+                                                                                keyPath:keyPath
+                                                                            statusCodes:nil]];
+    }
+    [descriptorsArray addObjectsFromArray:[JSInputControlOption rkResponseDescriptors]];
+
+    return descriptorsArray;
+}
+
++ (RKObjectMapping *)classMapping {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"id": @"uuid",
+                                                       @"uri": @"uri",
+                                                       @"value": @"value",
+                                                       @"error": @"error",
+                                                       @"options": @"options",
+                                                       }];
+    return classMapping;
+}
+
++ (NSArray *)classMappingPathes {
+    return @[@"inputControlStateList"];
+}
 
 #pragma mark - NSCopying
 

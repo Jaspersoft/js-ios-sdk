@@ -37,15 +37,15 @@
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @since 1.0
  */
-@interface JSResourceParameter : NSObject
+@protocol JSSerializationDescriptorHolder;
+@interface JSResourceParameter : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *name;
 @property (nonatomic, retain) NSString *isListItem;
 @property (nonatomic, retain) NSString *value;
 
 /**
- Returns a configured resource parameter. Used by class implemented 
- <code>JSSerializer</code> protocol
+ Returns a configured resource parameter. 
  
  @param name The parameter name
  @param isListItem Indicates if parameter is part (item) of list

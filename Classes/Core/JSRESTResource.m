@@ -55,54 +55,50 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 #pragma mark -
 #pragma mark Public methods for resources API
 
-- (void)resources:(NSString *)uri delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourcesUri:uri] method:RKRequestMethodGET] delegate:delegate];
-    [self sendRequest:builder.request];
+- (void)createResource:(JSResourceDescriptor *)resource delegate:(id<JSRequestDelegate>)delegate {
+    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:nil]];
+    request.method = RKRequestMethodPOST;
+    request.body = resource;
+    request.delegate = delegate;
+    [self sendRequest:request];
 }
 
-- (void)resources:(NSString *)uri usingBlock:(JSRequestFinishedBlock)block {
-    JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourcesUri:uri] method:RKRequestMethodGET];
-    [self sendRequest:[builder.request usingBlock:block]];
+- (void)createResource:(JSResourceDescriptor *)resource usingBlock:(JSRequestFinishedBlock)block {
+    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:nil]];
+    request.method = RKRequestMethodPOST;
+    request.body = resource;
+    request.finishedBlock = block;
+    [self sendRequest:request];
 }
 
-- (void)resources:(NSString *)uri query:(NSString *)query types:(NSArray *)types
-        recursive:(BOOL)recursive limit:(NSInteger)limit delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourcesUri:uri] method:RKRequestMethodGET] delegate:delegate];
-    
-    JSParamsBuilder *paramsBuilder = [[JSParamsBuilder alloc] init];
-    [paramsBuilder addParameter:_parameterQuery withStringValue:query];
-    [paramsBuilder addParameter:_parameterType withArrayValue:types];
-    [paramsBuilder addParameter:_parameterLimit withIntegerValue:limit];
-    if (recursive) [paramsBuilder addParameter:_parameterRecursive withStringValue:[JSConstants stringFromBOOL:recursive]];
-    
-    [self sendRequest:[builder params:paramsBuilder.params].request];
+- (void)modifyResource:(JSResourceDescriptor *)resource delegate:(id<JSRequestDelegate>)delegate {
+    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:resource.uriString]];
+    request.method = RKRequestMethodPUT;
+    request.body = resource;
+    request.delegate = delegate;
+    [self sendRequest:request];
 }
 
-- (void)resources:(NSString *)uri query:(NSString *)query types:(NSArray *)types
-        recursive:(BOOL)recursive limit:(NSInteger)limit usingBlock:(JSRequestFinishedBlock)block {
-    JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourcesUri:uri] method:RKRequestMethodGET];
-    
-    JSParamsBuilder *paramsBuilder = [[JSParamsBuilder alloc] init];
-    [paramsBuilder addParameter:_parameterQuery withStringValue:query];
-    [paramsBuilder addParameter:_parameterType withArrayValue:types];
-    [paramsBuilder addParameter:_parameterLimit withIntegerValue:limit];
-    if (recursive) [paramsBuilder addParameter:_parameterRecursive withStringValue:[JSConstants stringFromBOOL:recursive]];
-    
-    [self sendRequest:[[builder params:paramsBuilder.params].request usingBlock:block]];
+- (void)modifyResource:(JSResourceDescriptor *)resource usingBlock:(JSRequestFinishedBlock)block {
+    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:resource.uriString]];
+    request.method = RKRequestMethodPUT;
+    request.body = resource;
+    request.finishedBlock = block;
+    [self sendRequest:request];
 }
 
-- (void)resourceWithQueryData:(NSString *)uri datasourceUri:(NSString *)datasourceUri
-           resourceParameters:(NSArray *)resourceParameters delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:RKRequestMethodGET] delegate:delegate];
-    [builder params:[self paramsForICQueryDataByDatasourceUri:datasourceUri resourceParameters:resourceParameters]];
-    [self sendRequest:builder.request];
+- (void)deleteResource:(NSString *)uri delegate:(id<JSRequestDelegate>)delegate {
+    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:uri]];
+    request.method = RKRequestMethodDELETE;
+    request.delegate = delegate;
+    [self sendRequest:request];
 }
 
-- (void)resourceWithQueryData:(NSString *)uri datasourceUri:(NSString *)datasourceUri
-           resourceParameters:(NSArray *)resourceParameters usingBlock:(JSRequestFinishedBlock)block {
-    JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:RKRequestMethodGET];
-    [builder params:[self paramsForICQueryDataByDatasourceUri:datasourceUri resourceParameters:resourceParameters]];
-    [self sendRequest:[builder.request usingBlock:block]];
+- (void)deleteResource:(NSString *)uri usingBlock:(JSRequestFinishedBlock)block {
+    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:uri]];
+    request.method = RKRequestMethodDELETE;
+    request.finishedBlock = block;
+    [self sendRequest:request];
 }
 
 #pragma mark -
@@ -113,9 +109,11 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
     if (resourceURI && ![resourceURI isEqualToString:@"/"]) {
         uri = [uri stringByAppendingString:resourceURI];
     }
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:RKRequestMethodGET] restVersion:JSRESTVersion_2];
-    [builder delegate:delegate];
-    [self sendRequest:builder.request additionalHTTPHeaderFields:@{kJSRequestResponceType : @"application/repository.folder+xml"}];
+    JSRequest *request = [[JSRequest alloc] initWithUri:uri];
+    request.restVersion = JSRESTVersion_2;
+    request.expectedModelClass = [JSResourceLookup class];
+    request.delegate = delegate;
+    [self sendRequest:request additionalHTTPHeaderFields:@{kJSRequestResponceType : @"application/repository.folder+json"}];
 }
 
 - (void)getResourceLookup:(NSString *)resourceURI usingBlock:(JSRequestFinishedBlock)block {
@@ -123,8 +121,11 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
     if (resourceURI && ![resourceURI isEqualToString:@"/"]) {
         uri = [uri stringByAppendingString:resourceURI];
     }
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:RKRequestMethodGET] restVersion:JSRESTVersion_2];
-    [self sendRequest:[builder.request usingBlock:block] additionalHTTPHeaderFields:@{kJSRequestResponceType : @"application/repository.folder+xml"}];
+    JSRequest *request = [[JSRequest alloc] initWithUri:uri];
+    request.restVersion = JSRESTVersion_2;
+    request.expectedModelClass = [JSResourceLookup class];
+    request.finishedBlock = block;
+    [self sendRequest:request additionalHTTPHeaderFields:@{kJSRequestResponceType : @"application/repository.folder+json"}];
 }
 
 - (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types
@@ -139,89 +140,42 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 
 - (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types sortBy:(NSString *)sortBy
               recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[JSConstants sharedInstance].REST_RESOURCES_URI method:RKRequestMethodGET]
-                                 restVersion:JSRESTVersion_2];
+    JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_RESOURCES_URI];
+    request.restVersion = JSRESTVersion_2;
+    request.expectedModelClass = [JSResourceLookup class];
+
+    [request addParameter:_parameterFolderUri withStringValue:folderUri];
+    [request addParameter:_parameterQuery withStringValue:query];
+    [request addParameter:_parameterType withArrayValue:types];
+    [request addParameter:_parameterSortBy withStringValue:sortBy];
+    [request addParameter:_parameterLimit withIntegerValue:limit];
+    [request addParameter:_parameterRecursive withStringValue:[JSConstants stringFromBOOL:recursive]];
+    [request addParameter:_parameterOffset withIntegerValue:offset];
+    [request addParameter:_parameterLimit withIntegerValue:limit];
+    [request addParameter:_parameterForceFullPage withStringValue:[JSConstants stringFromBOOL:YES]];
     
-    JSParamsBuilder *paramsBuilder = [[JSParamsBuilder alloc] init];
-    [paramsBuilder addParameter:_parameterFolderUri withStringValue:folderUri];
-    [paramsBuilder addParameter:_parameterQuery withStringValue:query];
-    [paramsBuilder addParameter:_parameterType withArrayValue:types];
-    [paramsBuilder addParameter:_parameterSortBy withStringValue:sortBy];
-    [paramsBuilder addParameter:_parameterLimit withIntegerValue:limit];
-    [paramsBuilder addParameter:_parameterRecursive withStringValue:[JSConstants stringFromBOOL:recursive]];
-    [paramsBuilder addParameter:_parameterOffset withIntegerValue:offset];
-    [paramsBuilder addParameter:_parameterLimit withIntegerValue:limit];
-    [paramsBuilder addParameter:_parameterForceFullPage withStringValue:[JSConstants stringFromBOOL:YES]];
-    
-    [[builder params:paramsBuilder.params] delegate:delegate];
-    [self sendRequest:builder.request];
+    request.delegate = delegate;
+    [self sendRequest:request];
 }
 
 - (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types sortBy:(NSString *)sortBy
               recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit usingBlock:(JSRequestFinishedBlock)block {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[JSConstants sharedInstance].REST_RESOURCES_URI method:RKRequestMethodGET]
-                                 restVersion:JSRESTVersion_2];    
-    
-    JSParamsBuilder *paramsBuilder = [[JSParamsBuilder alloc] init];
-    [paramsBuilder addParameter:_parameterFolderUri withStringValue:folderUri];
-    [paramsBuilder addParameter:_parameterQuery withStringValue:query];
-    [paramsBuilder addParameter:_parameterType withArrayValue:types];
-    [paramsBuilder addParameter:_parameterSortBy withStringValue:sortBy];
-    [paramsBuilder addParameter:_parameterLimit withIntegerValue:limit];
-    [paramsBuilder addParameter:_parameterRecursive withStringValue:[JSConstants stringFromBOOL:recursive]];
-    [paramsBuilder addParameter:_parameterOffset withIntegerValue:offset];
-    [paramsBuilder addParameter:_parameterLimit withIntegerValue:limit];
-    [paramsBuilder addParameter:_parameterForceFullPage withStringValue:[JSConstants stringFromBOOL:YES]];
-    
-    [builder params:paramsBuilder.params];
-    [self sendRequest:[builder.request usingBlock:block]];
-}
+    JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_RESOURCES_URI];
+    request.restVersion = JSRESTVersion_2;
+    request.expectedModelClass = [JSResourceLookup class];
 
-#pragma mark -
-#pragma mark Public methods for resource API
+    [request addParameter:_parameterFolderUri withStringValue:folderUri];
+    [request addParameter:_parameterQuery withStringValue:query];
+    [request addParameter:_parameterType withArrayValue:types];
+    [request addParameter:_parameterSortBy withStringValue:sortBy];
+    [request addParameter:_parameterLimit withIntegerValue:limit];
+    [request addParameter:_parameterRecursive withStringValue:[JSConstants stringFromBOOL:recursive]];
+    [request addParameter:_parameterOffset withIntegerValue:offset];
+    [request addParameter:_parameterLimit withIntegerValue:limit];
+    [request addParameter:_parameterForceFullPage withStringValue:[JSConstants stringFromBOOL:YES]];
 
-- (void)resource:(NSString *)uri delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:RKRequestMethodGET] delegate:delegate];
-    [self sendRequest:builder.request];
-}
-
-- (void)resource:(NSString *)uri usingBlock:(JSRequestFinishedBlock)block {
-    JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourceUri:uri]
-                                                          method:RKRequestMethodGET];
-    [self sendRequest:[builder.request usingBlock:block]];
-}
-
-- (void)createResource:(JSResourceDescriptor *)resource delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullResourceUri:nil] method:RKRequestMethodPUT]
-                                  delegate:delegate] body:resource];
-    [self sendRequest:builder.request];
-}
-
-- (void)createResource:(JSResourceDescriptor *)resource usingBlock:(JSRequestFinishedBlock)block {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourceUri:nil] method:RKRequestMethodPUT] body:resource];
-    [self sendRequest:[builder.request usingBlock:block]];
-}
-
-- (void)modifyResource:(JSResourceDescriptor *)resource delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullResourceUri:resource.uriString] method:RKRequestMethodPOST]
-                                  delegate:delegate] body:resource];
-    [self sendRequest:builder.request];
-}
-
-- (void)modifyResource:(JSResourceDescriptor *)resource usingBlock:(JSRequestFinishedBlock)block {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourceUri:resource.uriString] method:RKRequestMethodPOST]
-                                 body:resource];
-    [self sendRequest:[builder.request usingBlock:block]];
-}
-
-- (void)deleteResource:(NSString *)uri delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:RKRequestMethodDELETE] delegate:delegate];
-    [self sendRequest:builder.request];
-}
-
-- (void)deleteResource:(NSString *)uri usingBlock:(JSRequestFinishedBlock)block {
-    JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullResourceUri:uri] method:RKRequestMethodDELETE];
-    [self sendRequest:[builder.request usingBlock:block]];
+    request.finishedBlock = block;
+    [self sendRequest:request];
 }
 
 #pragma mark -

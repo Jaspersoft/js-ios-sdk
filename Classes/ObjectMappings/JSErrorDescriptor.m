@@ -32,7 +32,31 @@
 
 @implementation JSErrorDescriptor
 
-@synthesize message = _message;
-@synthesize errorCode = _errorCode;
+#pragma mark - JSSerializationDescriptorHolder
++ (NSArray *)rkResponseDescriptors {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    for (NSString *keyPath in [self classMappingPathes]) {
+        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:nil
+                                                                                keyPath:keyPath
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassServerError | RKStatusCodeClassClientError)]];
+    }
+    return descriptorsArray;
+}
+
++ (RKObjectMapping *)classMapping {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"message": @"message",
+                                                       @"errorCode": @"errorCode",
+                                                       @"parameters": @"parameters",
+                                                       }];
+    return classMapping;
+}
+
++ (NSArray *)classMappingPathes {
+    return @[@"errorDescriptor"];
+}
 
 @end

@@ -32,8 +32,7 @@
 
 @implementation JSServerInfo
 
-- (float)versionAsFloat
-{
+- (float)versionAsFloat {
     NSString *simplyVersionString = self.version;
     NSRange firstDotRange = [self.version rangeOfString:@"."];
     if (firstDotRange.location != NSNotFound) {
@@ -41,6 +40,30 @@
         simplyVersionString = [self.version stringByReplacingOccurrencesOfString:@"." withString:@"" options:NSCaseInsensitiveSearch range:minorVersionRange];
     }
     return [simplyVersionString floatValue];
+}
+
+#pragma mark - JSSerializationDescriptorHolder
+
++ (NSArray *)rkResponseDescriptors {
+    RKObjectMapping *responseMapping = [RKObjectMapping mappingForClass:self];
+    [responseMapping addAttributeMappingsFromDictionary:@{
+                                                          @"build": @"build",
+                                                          @"edition": @"edition",
+                                                          @"editionName": @"editionName",
+                                                          @"expiration": @"expiration",
+                                                          @"features": @"features",
+                                                          @"licenseType": @"licenseType",
+                                                          @"version": @"version",
+                                                          @"dateFormatPattern": @"dateFormatPattern",
+                                                          @"datetimeFormatPattern": @"datetimeFormatPattern",
+                                                          }];
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:responseMapping
+                                                                             method:RKRequestMethodAny
+                                                                        pathPattern:nil
+                                                                            keyPath:nil
+                                                                        statusCodes:nil]];
+    return descriptorsArray;
 }
 
 @end

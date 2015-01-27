@@ -44,9 +44,7 @@
 @interface JSOperationResult : NSObject
 
 /**
- A list of objects coming from the call (i.e. if the call is of type GET /resource
- or GET /resources, this list contains the JSResourceDescriptor objects returned
- from the call)
+ A list of objects coming from the call
  */
 @property (nonatomic, retain) NSArray *objects;
 

@@ -30,7 +30,7 @@
 
 #import "JSProfile.h"
 #import "JSRequest.h"
-#import "JSSerializer.h"
+#import "JSSerializationDescriptorHolder.h"
 #import "JSServerInfo.h"
 #import <Foundation/Foundation.h>
 

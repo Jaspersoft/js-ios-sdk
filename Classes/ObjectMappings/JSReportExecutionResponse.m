@@ -29,13 +29,43 @@
 //
 
 #import "JSReportExecutionResponse.h"
+#import "JSExportExecutionResponse.h"
 
 @implementation JSReportExecutionResponse
 
-@synthesize currentPage = _currentPage;
-@synthesize reportURI = _reportURI;
-@synthesize requestId = _requestId;
-@synthesize status = _status;
-@synthesize exports = _exports;
+#pragma mark - JSSerializationDescriptorHolder
++ (NSArray *)rkResponseDescriptors {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    for (NSString *keyPath in [self classMappingPathes]) {
+        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:nil
+                                                                                keyPath:keyPath
+                                                                            statusCodes:nil]];
+    }
+    [descriptorsArray addObjectsFromArray:[JSReportOutputResource rkResponseDescriptors]];
+    [descriptorsArray addObjectsFromArray:[JSExecutionStatus rkResponseDescriptors]];
+    [descriptorsArray addObjectsFromArray:[JSErrorDescriptor rkResponseDescriptors]];
+    [descriptorsArray addObjectsFromArray:[JSExportExecutionResponse rkResponseDescriptors]];
+    
+    return descriptorsArray;
+}
 
++ (RKObjectMapping *)classMapping {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"totalPages": @"totalPages",
+                                                       @"currentPage": @"currentPage",
+                                                       @"reportURI": @"reportURI",
+                                                       @"requestId": @"requestId",
+                                                       @"exports": @"exports",
+                                                       @"status": @"status",
+                                                       @"errorDescriptor": @"errorDescriptor",
+                                                       }];
+    return classMapping;
+}
+
++ (NSArray *)classMappingPathes {
+    return @[@"reportExecution"];
+}
 @end

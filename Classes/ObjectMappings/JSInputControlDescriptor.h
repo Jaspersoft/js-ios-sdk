@@ -37,7 +37,8 @@
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.4
  */
-@interface JSInputControlDescriptor : NSObject <NSCopying>
+@protocol JSSerializationDescriptorHolder;
+@interface JSInputControlDescriptor : NSObject <JSSerializationDescriptorHolder, NSCopying>
 
 @property (nonatomic, retain) NSString *uuid;
 @property (nonatomic, retain) NSString *label;

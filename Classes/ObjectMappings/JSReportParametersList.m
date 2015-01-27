@@ -29,11 +29,9 @@
 //
 
 #import "JSReportParametersList.h"
+#import "JSReportParameter.h"
 
 @implementation JSReportParametersList
-
-@synthesize reportParameters = _reportParameters;
-
 - (id)initWithReportParameters:(NSArray *)reportParameters {
     if (self = [self init]) {
         self.reportParameters = reportParameters;
@@ -42,4 +40,24 @@
     return self;
 }
 
+#pragma mark - JSSerializationDescriptorHolder
+
++ (NSArray *)rkRequestDescriptors {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[[self classMapping] inverseMapping]
+                                                                             method:RKRequestMethodAny
+                                                                        pathPattern:nil
+                                                                            keyPath:@"reportParameters"
+                                                                        statusCodes:nil]];
+    [descriptorsArray addObjectsFromArray:[JSReportParameter rkResponseDescriptors]];
+    return descriptorsArray;
+}
+
++ (RKObjectMapping *)classMapping {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"reportParameter": @"reportParameters",
+                                                       }];
+    return classMapping;
+}
 @end

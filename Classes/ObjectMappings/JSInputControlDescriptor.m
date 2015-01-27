@@ -34,20 +34,6 @@
 
 @implementation JSInputControlDescriptor
 
-@synthesize uuid = _uuid;
-@synthesize label = _label;
-@synthesize mandatory = _mandatory;
-@synthesize readOnly = _readOnly;
-@synthesize type = _type;
-@synthesize uri = _uri;
-@synthesize visible = _visible;
-@synthesize masterDependencies = _masterDependencies;
-@synthesize slaveDependencies = _slaveDependencies;
-@synthesize state = _state;
-@synthesize validationRules = _validationRules;
-@synthesize masterSingleInputControlID = _masterSingleInputControlID;
-@synthesize slaveSingleInputControlID = _slaveSingleInputControlID;
-
 - (NSArray *)masterDependencies {
     if (!_masterDependencies.count && _masterSingleInputControlID.length) {
         _masterDependencies = [[NSArray alloc] initWithObjects:_masterSingleInputControlID, nil];
@@ -106,6 +92,46 @@
     
     return values;
 }
+
+#pragma mark - JSSerializationDescriptorHolder
++ (NSArray *)rkResponseDescriptors {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    for (NSString *keyPath in [self classMappingPathes]) {
+        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:nil
+                                                                                keyPath:keyPath
+                                                                            statusCodes:nil]];
+    }
+    [descriptorsArray addObjectsFromArray:[JSInputControlOption rkResponseDescriptors]];
+    
+    return descriptorsArray;
+}
+
++ (RKObjectMapping *)classMapping {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"id": @"uuid",
+                                                       @"uri": @"uri",
+                                                       @"label": @"label",
+                                                       @"mandatory": @"mandatory",
+                                                       @"readOnly": @"readOnly",
+                                                       @"type": @"type",
+                                                       @"visible": @"visible",
+                                                       @"masterDependencies": @"masterDependencies",
+                                                       @"slaveDependencies": @"slaveDependencies",
+                                                       @"state": @"state",
+                                                       @"validationRules": @"validationRules",
+                                                       @"masterSingleInputControlID": @"masterSingleInputControlID",
+                                                       @"slaveSingleInputControlID": @"slaveSingleInputControlID",
+                                                       }];
+    return classMapping;
+}
+
++ (NSArray *)classMappingPathes {
+    return @[@"inputControl"];
+}
+
 
 #pragma mark - NSCopying
 

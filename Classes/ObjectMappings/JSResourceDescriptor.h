@@ -36,9 +36,12 @@
  
  @author Giulio Toffoli giulio@jaspersoft.com
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev ogubarie@tibco.com
+
  @since 1.0
  */
-@interface JSResourceDescriptor : NSObject
+@protocol JSSerializationDescriptorHolder;
+@interface JSResourceDescriptor : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *name;
 @property (nonatomic, retain) NSString *wsType;

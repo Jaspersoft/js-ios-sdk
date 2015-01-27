@@ -29,7 +29,6 @@
 //
 
 #import "JSConstants.h"
-#import "JSRequestBuilder.h"
 #import "JSResourceParameter.h"
 #import "JSReportDescriptor.h"
 #import "JSReportExecutionRequest.h"
@@ -58,55 +57,6 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
                                    [JSReportExecutionRequest class], [JSReportExecutionResponse class], [JSExportExecutionRequest class], [JSExportExecutionResponse class], [JSExecutionStatus class], [JSErrorDescriptor class], nil];
     
     return [super initWithClassesForMappings:classesForMappings];
-}
-
-#pragma mark -
-#pragma mark Public methods for report API
-
-- (void)runReport:(NSString *)uri reportParams:(NSDictionary *)reportParams
-           format:(NSString *)format delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullRunReportUri:uri] method:RKRequestMethodPUT]
-                                  delegate:delegate] body:[self resourceDescriptorForUri:uri withReportParams:reportParams]];
-    [builder params:[self runReportQueryParams:format]];
-    [self sendRequest:builder.request];
-}
-
-- (void)runReport:(NSString *)uri reportParams:(NSDictionary *)reportParams
-           format:(NSString *)format usingBlock:(JSRequestFinishedBlock)block {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullRunReportUri:uri] method:RKRequestMethodPUT]
-                                 body:[self resourceDescriptorForUri:uri withReportParams:reportParams]];
-    [builder params:[self runReportQueryParams:format]];
-    [self sendRequest:[builder.request usingBlock:block]];
-}
-
-- (void)runReport:(JSResourceDescriptor *)resourceDescriptor format:(NSString *)format
-         delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullRunReportUri:resourceDescriptor.uriString]
-                                                            method:RKRequestMethodPUT] delegate:delegate] body:resourceDescriptor];
-    [builder params:[self runReportQueryParams:format]];
-    [self sendRequest:builder.request];
-}
-
-- (void)runReport:(JSResourceDescriptor *)resourceDescriptor format:(NSString *)format
-       usingBlock:(JSRequestFinishedBlock)block {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullRunReportUri:resourceDescriptor.uriString]
-                                                           method:RKRequestMethodPUT] body:resourceDescriptor];
-    [builder params:[self runReportQueryParams:format]];
-    [self sendRequest:[builder.request usingBlock:block]];
-}
-
-- (void)reportFile:(NSString *)uuid fileName:(NSString *)fileName path:(NSString *)path delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullDownloadReportFileUri:uuid] method:RKRequestMethodGET] delegate:delegate];
-    [[[builder params:[NSDictionary dictionaryWithObjectsAndKeys:fileName, @"file", nil]] responseAsObjects:NO] downloadDestinationPath:path];
-    JSRequest *request = [self configureRequestToSaveFile:builder.request];
-    [self sendRequest:request];
-}
-
-- (void)reportFile:(NSString *)uuid fileName:(NSString *)fileName path:(NSString *)path usingBlock:(JSRequestFinishedBlock)block {
-    JSRequestBuilder *builder = [JSRequestBuilder requestWithUri:[self fullDownloadReportFileUri:uuid] method:RKRequestMethodGET];
-    [[[builder params:[NSDictionary dictionaryWithObjectsAndKeys:fileName, @"file", nil]] responseAsObjects:NO] downloadDestinationPath:path];
-    JSRequest *request = [self configureRequestToSaveFile:[builder.request usingBlock:block]];
-    [self sendRequest:request];
 }
 
 #pragma mark -
@@ -156,37 +106,56 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     [self inputControlsForReport:reportUri ids:nil selectedValues:nil delegate:delegate];
 }
 
-- (void)inputControlsForReport:(NSString *)reportUri usingBlock:(void (^)(JSRequest *))block {
+- (void)inputControlsForReport:(NSString *)reportUri usingBlock:(JSRequestFinishedBlock)block {
     [self inputControlsForReport:reportUri ids:nil selectedValues:nil usingBlock:block];
 }
 
-- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:NO] method:RKRequestMethodPOST]
-                                  restVersion:JSRESTVersion_2] delegate:delegate];
-    [self sendRequest:[builder body:[[JSReportParametersList alloc] initWithReportParameters:selectedValues]].request];
+- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids
+                selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues delegate:(id<JSRequestDelegate>)delegate {
+    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:NO]];
+    request.method = RKRequestMethodPOST;
+    request.restVersion = JSRESTVersion_2;
+    request.body = [[JSReportParametersList alloc] initWithReportParameters:selectedValues];
+    request.delegate = delegate;
+    [self sendRequest:request];
 }
 
-- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues usingBlock:(JSRequestFinishedBlock)block {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:NO] method:RKRequestMethodPOST]
-                                 restVersion:JSRESTVersion_2];
-    [self sendRequest:[[builder body:[[JSReportParametersList alloc] initWithReportParameters:selectedValues]].request usingBlock:block]];
+- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids
+                selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues usingBlock:(JSRequestFinishedBlock)block {
+    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:NO]];
+    request.method = RKRequestMethodPOST;
+    request.restVersion = JSRESTVersion_2;
+    request.body = [[JSReportParametersList alloc] initWithReportParameters:selectedValues];
+    request.finishedBlock = block;
+    [self sendRequest:request];
 }
 
 - (void)updatedInputControlsValues:(NSString *)reportUri ids:(NSArray *)ids selectedValues:(NSArray *)selectedValues delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:YES] method:RKRequestMethodPOST] delegate:delegate] restVersion:JSRESTVersion_2];
-    [self sendRequest:[builder body:[[JSReportParametersList alloc] initWithReportParameters:selectedValues]].request];
+    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:YES]];
+    request.method = RKRequestMethodPOST;
+    request.restVersion = JSRESTVersion_2;
+    request.body = [[JSReportParametersList alloc] initWithReportParameters:selectedValues];
+    request.delegate = delegate;
+    [self sendRequest:request];
 }
 
-- (void)updatedInputControlsValues:(NSString *)reportUri ids:(NSArray *)ids selectedValues:(NSArray *)selectedValues usingBlock:(void (^)(JSRequest *))block {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:YES] method:RKRequestMethodPOST] restVersion:JSRESTVersion_2];
-    [self sendRequest:[[builder body:[[JSReportParametersList alloc] initWithReportParameters:selectedValues]].request usingBlock:block]];
+- (void)updatedInputControlsValues:(NSString *)reportUri ids:(NSArray *)ids selectedValues:(NSArray *)selectedValues usingBlock:(JSRequestFinishedBlock)block {
+    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:YES]];
+    request.method = RKRequestMethodPOST;
+    request.restVersion = JSRESTVersion_2;
+    request.body = [[JSReportParametersList alloc] initWithReportParameters:selectedValues];
+    request.finishedBlock = block;
+    [self sendRequest:request];
 }
 
 - (void)runReportExecution:(NSString *)reportUnitUri async:(BOOL)async outputFormat:(NSString *)outputFormat
                interactive:(BOOL)interactive freshData:(BOOL)freshData saveDataSnapshot:(BOOL)saveDataSnapshot
           ignorePagination:(BOOL)ignorePagination transformerKey:(NSString *)transformerKey pages:(NSString *)pages
          attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray /*<JSReportParameter>*/ *)parameters delegate:(id<JSRequestDelegate>)delegate {
-    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullReportExecutionUri:nil] method:RKRequestMethodPOST] restVersion:JSRESTVersion_2] delegate:delegate];
+    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportExecutionUri:nil]];
+    request.method = RKRequestMethodPOST;
+    request.restVersion = JSRESTVersion_2;
+    request.delegate = delegate;
     
     JSReportExecutionRequest *executionRequest = [[JSReportExecutionRequest alloc] init];
     executionRequest.reportUnitUri = reportUnitUri;
@@ -203,15 +172,18 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     if (self.serverInfo.versionAsFloat >= [JSConstants sharedInstance].SERVER_VERSION_CODE_EMERALD_5_6_0) {
         executionRequest.baseURL = self.serverProfile.serverUrl;
     }
-
-    [self sendRequest:[builder body:executionRequest].request];
+    request.body = executionRequest;
+    [self sendRequest:request];
 }
 
 - (void)runReportExecution:(NSString *)reportUnitUri async:(BOOL)async outputFormat:(NSString *)outputFormat
                interactive:(BOOL)interactive freshData:(BOOL)freshData saveDataSnapshot:(BOOL)saveDataSnapshot
           ignorePagination:(BOOL)ignorePagination transformerKey:(NSString *)transformerKey pages:(NSString *)pages
          attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray /*<JSReportParameter>*/ *)parameters usingBlock:(JSRequestFinishedBlock)block {
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullReportExecutionUri:nil] method:RKRequestMethodPOST] restVersion:JSRESTVersion_2];
+    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportExecutionUri:nil]];
+    request.method = RKRequestMethodPOST;
+    request.restVersion = JSRESTVersion_2;
+    request.finishedBlock = block;
     
     JSReportExecutionRequest *executionRequest = [[JSReportExecutionRequest alloc] init];
     executionRequest.reportUnitUri = reportUnitUri;
@@ -228,30 +200,43 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     if (self.serverInfo.versionAsFloat >= [JSConstants sharedInstance].SERVER_VERSION_CODE_EMERALD_5_6_0) {
         executionRequest.baseURL = self.serverProfile.serverUrl;
     }
-    [self sendRequest:[[builder body:executionRequest].request usingBlock:block]];
+    request.body = executionRequest;
+    [self sendRequest:request];
 }
 
 
 - (void)cancelReportExecution:(NSString *)requestId delegate:(id<JSRequestDelegate>)delegate {
     NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:[JSConstants sharedInstance].REST_REPORT_EXECUTION_STATUS_URI];
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:RKRequestMethodPUT] restVersion:JSRESTVersion_2];
+    JSRequest *request = [[JSRequest alloc] initWithUri:uri];
+    request.method = RKRequestMethodPUT;
+    request.restVersion = JSRESTVersion_2;
+    request.delegate = delegate;
+    
     JSExecutionStatus *reportExecutoionStatus = [[JSExecutionStatus alloc] init];
     reportExecutoionStatus.status = @"cancelled";
-    [builder delegate:delegate];
-    [self sendRequest:[builder body:reportExecutoionStatus].request];
+    request.body = reportExecutoionStatus;
+    [self sendRequest:request];
 }
 
 - (void)cancelReportExecution:(NSString *)requestId usingBlock:(JSRequestFinishedBlock)block {
     NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:[JSConstants sharedInstance].REST_REPORT_EXECUTION_STATUS_URI];
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:RKRequestMethodPUT] restVersion:JSRESTVersion_2];
+    JSRequest *request = [[JSRequest alloc] initWithUri:uri];
+    request.method = RKRequestMethodPUT;
+    request.restVersion = JSRESTVersion_2;
+    request.finishedBlock = block;
+    
     JSExecutionStatus *reportExecutoionStatus = [[JSExecutionStatus alloc] init];
     reportExecutoionStatus.status = @"cancelled";
-    [self sendRequest:[[builder body:reportExecutoionStatus].request usingBlock:block]];
+    request.body = reportExecutoionStatus;
+    [self sendRequest:request];
 }
 
 - (void)runExportExecution:(NSString *)requestId outputFormat:(NSString *)outputFormat pages:(NSString *)pages
          attachmentsPrefix:(NSString *)attachmentsPrefix delegate:(id<JSRequestDelegate>)delegate{
-    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:[self fullExportExecutionUri:requestId] method:RKRequestMethodPOST] restVersion:JSRESTVersion_2] delegate:delegate];
+    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullExportExecutionUri:requestId]];
+    request.method = RKRequestMethodPOST;
+    request.restVersion = JSRESTVersion_2;
+    request.delegate = delegate;
     
     JSExportExecutionRequest *executionRequest = [[JSExportExecutionRequest alloc] init];
     executionRequest.outputFormat = outputFormat;
@@ -263,13 +248,16 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
             executionRequest.attachmentsPrefix = [NSString stringWithFormat:@"%@%@%@", self.serverProfile.serverUrl, constants.REST_SERVICES_V2_URI, attachmentsPrefix];
         }
     }
-    [self sendRequest:[builder body:executionRequest].request];
+    request.body = executionRequest;
+    [self sendRequest:request];
 }
 
 - (void)runExportExecution:(NSString *)requestId outputFormat:(NSString *)outputFormat pages:(NSString *)pages
          attachmentsPrefix:(NSString *)attachmentsPrefix usingBlock:(JSRequestFinishedBlock)block {
-    
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:[self fullExportExecutionUri:requestId] method:RKRequestMethodPOST] restVersion:JSRESTVersion_2];
+    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullExportExecutionUri:requestId]];
+    request.method = RKRequestMethodPOST;
+    request.restVersion = JSRESTVersion_2;
+    request.finishedBlock = block;
     
     JSExportExecutionRequest *executionRequest = [[JSExportExecutionRequest alloc] init];
     executionRequest.outputFormat = outputFormat;
@@ -281,8 +269,8 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
             executionRequest.attachmentsPrefix = [NSString stringWithFormat:@"%@%@%@", self.serverProfile.serverUrl, constants.REST_SERVICES_V2_URI, attachmentsPrefix];
         }
     }
-    executionRequest.baseUrl = self.serverProfile.serverUrl;
-    [self sendRequest:[[builder body:executionRequest].request usingBlock:block]];
+    request.body = executionRequest;
+    [self sendRequest:request];
 }
 
 - (NSString *)generateReportOutputUrl:(NSString *)requestId exportOutput:(NSString *)exportOutput {
@@ -291,74 +279,90 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 }
 
 - (void)getReportExecutionMetadata:(NSString *)requestId delegate:(id<JSRequestDelegate>)delegate {
-    NSString *uri = [self fullReportExecutionUri:requestId];
-    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:uri method:RKRequestMethodGET] restVersion:JSRESTVersion_2] delegate:delegate];
-    [self sendRequest:builder.request];
+    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportExecutionUri:requestId]];
+    request.restVersion = JSRESTVersion_2;
+    request.delegate = delegate;
+    [self sendRequest:request];
 }
 
 - (void)getReportExecutionMetadata:(NSString *)requestId usingBlock:(JSRequestFinishedBlock)block {
-    NSString *uri = [self fullReportExecutionUri:requestId];
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:RKRequestMethodGET] restVersion:JSRESTVersion_2];
-    [self sendRequest:[builder.request usingBlock:block]];
+    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportExecutionUri:requestId]];
+    request.restVersion = JSRESTVersion_2;
+    request.finishedBlock = block;
+    [self sendRequest:request];
 }
 
 - (void)getReportExecutionStatus:(NSString *)requestId delegate:(id<JSRequestDelegate>)delegate {
     NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:[JSConstants sharedInstance].REST_REPORT_EXECUTION_STATUS_URI];
-    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:uri method:RKRequestMethodGET] restVersion:JSRESTVersion_2] delegate:delegate];
-    [self sendRequest:builder.request];
+    JSRequest *request = [[JSRequest alloc] initWithUri:uri];
+    request.restVersion = JSRESTVersion_2;
+    request.delegate = delegate;
+    [self sendRequest:request];
 }
 
 - (void)getReportExecutionStatus:(NSString *)requestId usingBlock:(JSRequestFinishedBlock)block {
     NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:[JSConstants sharedInstance].REST_REPORT_EXECUTION_STATUS_URI];
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:RKRequestMethodGET] restVersion:JSRESTVersion_2];
-    [self sendRequest:[builder.request usingBlock:block]];
+    JSRequest *request = [[JSRequest alloc] initWithUri:uri];
+    request.restVersion = JSRESTVersion_2;
+    request.finishedBlock = block;
+    [self sendRequest:request];
 }
 
 - (void)loadReportOutput:(NSString *)requestId exportOutput:(NSString *)exportOutput
            loadForSaving:(BOOL)loadForSaving path:(NSString *)path delegate:(id<JSRequestDelegate>)delegate {
     exportOutput = [self encodeAttachmentsPrefix:exportOutput];
     NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/outputResource?sessionDecorator=no&decorate=no#", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, exportOutput];
-    JSRequestBuilder *builder = [[[JSRequestBuilder requestWithUri:uri method:RKRequestMethodGET] restVersion:JSRESTVersion_2] delegate:delegate];
-    JSRequest *request = nil;
+    JSRequest *request = [[JSRequest alloc] initWithUri:uri];
+    request.restVersion = JSRESTVersion_2;
+    request.delegate = delegate;
     if (loadForSaving) {
-        [[builder downloadDestinationPath:path] responseAsObjects:NO];
-        request = [self configureRequestToSaveFile:builder.request];
-    } else {
-        request = builder.request;
+        request.downloadDestinationPath = path;
+        request.responseAsObjects = NO;
+        request = [self configureRequestToSaveFile:request];
     }
+    
     [self sendRequest:request];
 }
 
 - (void)loadReportOutput:(NSString *)requestId exportOutput:(NSString *)exportOutput
            loadForSaving:(BOOL)loadForSaving path:(NSString *)path usingBlock:(JSRequestFinishedBlock)block {
     exportOutput = [self encodeAttachmentsPrefix:exportOutput];
-    NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/outputResource", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, exportOutput];
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:RKRequestMethodGET] restVersion:JSRESTVersion_2];
-    JSRequest *request = nil;
+    NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/outputResource?sessionDecorator=no&decorate=no#", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, exportOutput];
+    JSRequest *request = [[JSRequest alloc] initWithUri:uri];
+    request.restVersion = JSRESTVersion_2;
+    request.finishedBlock = block;
     if (loadForSaving) {
-        [[builder downloadDestinationPath:path] responseAsObjects:NO];
-        request = [self configureRequestToSaveFile:builder.request];
-    } else {
-        request = builder.request;
+        request.downloadDestinationPath = path;
+        request.responseAsObjects = NO;
+        request = [self configureRequestToSaveFile:request];
     }
-    [self sendRequest:[request usingBlock:block]];
+    
+    [self sendRequest:request];
 }
 
 - (void)saveReportAttachment:(NSString *)requestId exportOutput:(NSString *)exportOutput attachmentName:(NSString *)attachmentName path:(NSString *)path delegate:(id<JSRequestDelegate>)delegate {
     exportOutput = [self encodeAttachmentsPrefix:exportOutput];
     NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/attachments/%@", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, exportOutput, attachmentName];
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:RKRequestMethodGET] restVersion:JSRESTVersion_2];
-    [[[builder downloadDestinationPath:path] responseAsObjects:NO] delegate:delegate];
-    JSRequest *request = [self configureRequestToSaveFile:builder.request];
+    JSRequest *request = [[JSRequest alloc] initWithUri:uri];
+    request.restVersion = JSRESTVersion_2;
+    request.delegate = delegate;
+    request.downloadDestinationPath = path;
+    request.responseAsObjects = NO;
+    request = [self configureRequestToSaveFile:request];
+    
     [self sendRequest:request];
 }
 
 - (void)saveReportAttachment:(NSString *)requestId exportOutput:(NSString *)exportOutput attachmentName:(NSString *)attachmentName path:(NSString *)path usingBlock:(JSRequestFinishedBlock)block {
     exportOutput = [self encodeAttachmentsPrefix:exportOutput];
     NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/attachments/%@", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, exportOutput, attachmentName];
-    JSRequestBuilder *builder = [[JSRequestBuilder requestWithUri:uri method:RKRequestMethodGET] restVersion:JSRESTVersion_2];
-    [[builder downloadDestinationPath:path] responseAsObjects:NO];
-    JSRequest *request = [self configureRequestToSaveFile:builder.request];
+    JSRequest *request = [[JSRequest alloc] initWithUri:uri];
+    request.restVersion = JSRESTVersion_2;
+    request.finishedBlock = block;
+    request.downloadDestinationPath = path;
+    request.responseAsObjects = NO;
+    request = [self configureRequestToSaveFile:request];
+    
     [self sendRequest:request];
 }
 

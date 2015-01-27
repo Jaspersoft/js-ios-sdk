@@ -31,11 +31,6 @@
 #import "JSResourceParameter.h"
 
 @implementation JSResourceParameter
-
-@synthesize name = _name;
-@synthesize isListItem = _isListItem;
-@synthesize value = _value;
-
 - (id)initWithName:(NSString *)name isListItem:(NSString *)isListItem value:(NSString *)value {
     if (self = [super init]) {
         self.name = name;
@@ -44,6 +39,27 @@
     }
     
     return self;
+}
+
+#pragma mark - JSSerializationDescriptorHolder
++ (NSArray *)rkRequestDescriptors {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[[self classMapping] inverseMapping]
+                                                                             method:RKRequestMethodAny
+                                                                        pathPattern:nil
+                                                                            keyPath:@"parameter"
+                                                                        statusCodes:nil]];
+    return descriptorsArray;
+}
+
++ (RKObjectMapping *)classMapping {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"name": @"name",
+                                                       @"isListItem": @"wsType",
+                                                       @"parameter": @"value",
+                                                       }];
+    return classMapping;
 }
 
 @end

@@ -34,5 +34,5 @@
 #import "JSRESTResource.h"
 #import "JSOperationResult.h"
 #import "JSRequest.h"
-#import "JSSerializer.h"
+#import "JSSerializationDescriptorHolder.h"
 #import "JSConstants.h"

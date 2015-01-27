@@ -36,7 +36,8 @@
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @since 1.8
  */
-@interface JSReportExecutionRequest : NSObject
+@protocol JSSerializationDescriptorHolder;
+@interface JSReportExecutionRequest : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *reportUnitUri;
 @property (nonatomic, retain) NSString *async;

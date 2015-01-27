@@ -37,8 +37,8 @@
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.4
  */
-
-@interface JSValidationRules : NSObject <NSCopying>
+@protocol JSSerializationDescriptorHolder;
+@interface JSValidationRules : NSObject <JSSerializationDescriptorHolder, NSCopying>
 
 @property (nonatomic, retain) JSDateTimeFormatValidationRule *dateTimeFormatValidationRule;
 @property (nonatomic, retain) JSMandatoryValidationRule *mandatoryValidationRule;

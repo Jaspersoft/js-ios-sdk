@@ -36,8 +36,9 @@
  */
 
 #import <Foundation/Foundation.h>
+@protocol JSSerializationDescriptorHolder;
+@interface JSExportExecutionRequest : NSObject<JSSerializationDescriptorHolder>
 
-@interface JSExportExecutionRequest : NSObject
 @property (nonatomic, retain) NSString *outputFormat;
 @property (nonatomic, retain) NSString *pages;
 @property (nonatomic, retain) NSString *attachmentsPrefix;
