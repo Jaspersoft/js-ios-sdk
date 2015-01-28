@@ -33,6 +33,7 @@
 #import "JSRestKitManagerFactory.h"
 #import "RKMIMETypeSerialization.h"
 #import "JSSerializationDescriptorHolder.h"
+#import "JSErrorDescriptor.h"
 
 #import "AFHTTPClient.h"
 #import "weakself.h"
@@ -159,17 +160,21 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
     }
     
     id <JSSerializationDescriptorHolder> descriptiorHolder = request.body;
-    if (descriptiorHolder && [[descriptiorHolder class] respondsToSelector:@selector(rkRequestDescriptors)]) {
-        [self.restKitObjectManager addRequestDescriptorsFromArray:[descriptiorHolder rkRequestDescriptors]];
+    if (descriptiorHolder && [[descriptiorHolder class] respondsToSelector:@selector(rkRequestDescriptorsForServerProfile:)]) {
+        [self.restKitObjectManager addRequestDescriptorsFromArray:[[descriptiorHolder class] rkRequestDescriptorsForServerProfile:self.serverProfile]];
     }
     
     NSOperation *requestOperation = nil;
     NSMutableURLRequest *urlRequest = [self.restKitObjectManager requestWithObject:request.body method:request.method path:fullUri parameters:request.params];
     
+    NSString *sss = [[NSString alloc] initWithData:urlRequest.HTTPBody encoding:NSUTF8StringEncoding];
+    
     if (request.responseAsObjects) {
         RKHTTPRequestOperation *HTTPRequestOperation = [[RKHTTPRequestOperation alloc] initWithRequest:urlRequest];
         [self.restKitObjectManager performSelector:@selector(copyStateFromHTTPClientToHTTPRequestOperation:) withObject:HTTPRequestOperation];
-        RKObjectRequestOperation *objectRequestOperation = [[RKObjectRequestOperation alloc] initWithHTTPRequestOperation:HTTPRequestOperation responseDescriptors:[request.expectedModelClass rkResponseDescriptors]];
+        NSMutableArray *responseDescriptors = [NSMutableArray arrayWithArray:[JSErrorDescriptor rkResponseDescriptorsForServerProfile:self.serverProfile]];
+        [responseDescriptors addObjectsFromArray:[request.expectedModelClass rkResponseDescriptorsForServerProfile:self.serverProfile]];
+        RKObjectRequestOperation *objectRequestOperation = [[RKObjectRequestOperation alloc] initWithHTTPRequestOperation:HTTPRequestOperation responseDescriptors:responseDescriptors];
         requestOperation = objectRequestOperation;
     } else {
         requestOperation = [[RKHTTPRequestOperation alloc] initWithRequest:urlRequest];

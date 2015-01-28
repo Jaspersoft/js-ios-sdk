@@ -48,10 +48,6 @@
 		F53B1044164A9EE400042976 /* JSReportParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = F53B1041164A9EE400042976 /* JSReportParameter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F53B1045164A9EE400042976 /* JSReportParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = F53B1042164A9EE400042976 /* JSReportParameter.m */; };
 		F53B1046164A9EE400042976 /* JSReportParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = F53B1042164A9EE400042976 /* JSReportParameter.m */; };
-		F53B1049164AC43400042976 /* JSReportParametersList.h in Headers */ = {isa = PBXBuildFile; fileRef = F53B1047164AC43100042976 /* JSReportParametersList.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F53B104A164AC43400042976 /* JSReportParametersList.h in Headers */ = {isa = PBXBuildFile; fileRef = F53B1047164AC43100042976 /* JSReportParametersList.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F53B104B164AC43400042976 /* JSReportParametersList.m in Sources */ = {isa = PBXBuildFile; fileRef = F53B1048164AC43300042976 /* JSReportParametersList.m */; };
-		F53B104C164AC43400042976 /* JSReportParametersList.m in Sources */ = {isa = PBXBuildFile; fileRef = F53B1048164AC43300042976 /* JSReportParametersList.m */; };
 		F543A91318648CBD000657F5 /* JSObjectMappings.h in Headers */ = {isa = PBXBuildFile; fileRef = F52DF64818648C28000D375E /* JSObjectMappings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F568246A1642996D00CC4015 /* JSInputControlDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F56824681642996D00CC4015 /* JSInputControlDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F568246B1642996D00CC4015 /* JSInputControlDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F56824681642996D00CC4015 /* JSInputControlDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -170,8 +166,6 @@
 		F52DF64818648C28000D375E /* JSObjectMappings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSObjectMappings.h; sourceTree = "<group>"; };
 		F53B1041164A9EE400042976 /* JSReportParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportParameter.h; sourceTree = "<group>"; };
 		F53B1042164A9EE400042976 /* JSReportParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportParameter.m; sourceTree = "<group>"; };
-		F53B1047164AC43100042976 /* JSReportParametersList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportParametersList.h; sourceTree = "<group>"; };
-		F53B1048164AC43300042976 /* JSReportParametersList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportParametersList.m; sourceTree = "<group>"; };
 		F56824681642996D00CC4015 /* JSInputControlDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSInputControlDescriptor.h; sourceTree = "<group>"; };
 		F56824691642996D00CC4015 /* JSInputControlDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSInputControlDescriptor.m; sourceTree = "<group>"; };
 		F56824721642A2A200CC4015 /* JSInputControlState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSInputControlState.h; sourceTree = "<group>"; };
@@ -430,8 +424,6 @@
 				F597690915E3C826004165A7 /* JSReportDescriptor.m */,
 				F53B1041164A9EE400042976 /* JSReportParameter.h */,
 				F53B1042164A9EE400042976 /* JSReportParameter.m */,
-				F53B1047164AC43100042976 /* JSReportParametersList.h */,
-				F53B1048164AC43300042976 /* JSReportParametersList.m */,
 				374553109AB205D3BBCAB9ED /* ReportExecution */,
 			);
 			name = Report;
@@ -519,7 +511,6 @@
 				F568247A1642A67E00CC4015 /* JSInputControlOption.h in Headers */,
 				08B8FA181A6FCEAF00E9FE60 /* weakself.h in Headers */,
 				F53B1043164A9EE400042976 /* JSReportParameter.h in Headers */,
-				F53B1049164AC43400042976 /* JSReportParametersList.h in Headers */,
 				F5AE53AF165169F6004207E1 /* JSDateTimeFormatValidationRule.h in Headers */,
 				F5D0923E18586E7D00C5AEFC /* JSReportOutputResource.h in Headers */,
 				F5D0924418586E9300C5AEFC /* JSReportExecutionRequest.h in Headers */,
@@ -560,7 +551,6 @@
 				F56824751642A2A300CC4015 /* JSInputControlState.h in Headers */,
 				F568247B1642A67E00CC4015 /* JSInputControlOption.h in Headers */,
 				F53B1044164A9EE400042976 /* JSReportParameter.h in Headers */,
-				F53B104A164AC43400042976 /* JSReportParametersList.h in Headers */,
 				F5AE53B0165169F6004207E1 /* JSDateTimeFormatValidationRule.h in Headers */,
 				F5D0923F18586E7D00C5AEFC /* JSReportOutputResource.h in Headers */,
 				F5D0924518586E9300C5AEFC /* JSReportExecutionRequest.h in Headers */,
@@ -764,7 +754,6 @@
 				F5EA36B018337B4A00E09E10 /* JSResourceLookup.m in Sources */,
 				F53B1045164A9EE400042976 /* JSReportParameter.m in Sources */,
 				F5D0923A18586E4E00C5AEFC /* JSErrorDescriptor.m in Sources */,
-				F53B104B164AC43400042976 /* JSReportParametersList.m in Sources */,
 				088208831A01328900B6559F /* JSExportExecutionRequest.m in Sources */,
 				F5AE53B1165169F6004207E1 /* JSDateTimeFormatValidationRule.m in Sources */,
 				F5AE53E016518C58004207E1 /* JSValidationRules.m in Sources */,
@@ -801,7 +790,6 @@
 				F5EA36B118337B4A00E09E10 /* JSResourceLookup.m in Sources */,
 				F53B1046164A9EE400042976 /* JSReportParameter.m in Sources */,
 				F5D0923B18586E4E00C5AEFC /* JSErrorDescriptor.m in Sources */,
-				F53B104C164AC43400042976 /* JSReportParametersList.m in Sources */,
 				F5AE53B2165169F6004207E1 /* JSDateTimeFormatValidationRule.m in Sources */,
 				F5AE53E116518C58004207E1 /* JSValidationRules.m in Sources */,
 				F597693715E3C826004165A7 /* JSRestKitManagerFactory.m in Sources */,

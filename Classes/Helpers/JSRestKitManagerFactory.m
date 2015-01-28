@@ -30,7 +30,6 @@
 
 
 #import "JSRestKitManagerFactory.h"
-#import "JSErrorDescriptor.h"
 #import "JSRESTBase.h"
 
 @implementation JSRestKitManagerFactory
@@ -61,7 +60,6 @@
     restKitObjectManager.requestSerializationMIMEType = [JSConstants sharedInstance].REST_SDK_MIMETYPE_USED;
     [restKitObjectManager setAcceptHeaderWithMIMEType:[JSConstants sharedInstance].REST_SDK_MIMETYPE_USED];
     
-    [restKitObjectManager addResponseDescriptorsFromArray:[JSErrorDescriptor rkResponseDescriptors]];
     return restKitObjectManager;
 }
 

@@ -94,21 +94,21 @@
 }
 
 #pragma mark - JSSerializationDescriptorHolder
-+ (NSArray *)rkResponseDescriptors {
++ (NSArray *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
     NSMutableArray *descriptorsArray = [NSMutableArray array];
     for (NSString *keyPath in [self classMappingPathes]) {
-        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMapping]
+        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
                                                                                  method:RKRequestMethodAny
                                                                             pathPattern:nil
                                                                                 keyPath:keyPath
                                                                             statusCodes:nil]];
     }
-    [descriptorsArray addObjectsFromArray:[JSInputControlOption rkResponseDescriptors]];
+    [descriptorsArray addObjectsFromArray:[JSInputControlOption rkResponseDescriptorsForServerProfile:serverProfile]];
     
     return descriptorsArray;
 }
 
-+ (RKObjectMapping *)classMapping {
++ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
     RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
     [classMapping addAttributeMappingsFromDictionary:@{
                                                        @"id": @"uuid",
@@ -120,11 +120,17 @@
                                                        @"visible": @"visible",
                                                        @"masterDependencies": @"masterDependencies",
                                                        @"slaveDependencies": @"slaveDependencies",
-                                                       @"state": @"state",
-                                                       @"validationRules": @"validationRules",
                                                        @"masterSingleInputControlID": @"masterSingleInputControlID",
                                                        @"slaveSingleInputControlID": @"slaveSingleInputControlID",
                                                        }];
+    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"state"
+                                                                                 toKeyPath:@"state"
+                                                                               withMapping:[JSInputControlState classMappingForServerProfile:serverProfile]]];
+    
+    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"validationRules"
+                                                                                 toKeyPath:@"validationRules"
+                                                                               withMapping:[JSValidationRules classMappingForServerProfile:serverProfile]]];
+    
     return classMapping;
 }
 

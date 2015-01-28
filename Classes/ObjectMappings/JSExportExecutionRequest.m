@@ -29,29 +29,33 @@
 //
 
 #import "JSExportExecutionRequest.h"
+#import "JSProfile.h"
 
 @implementation JSExportExecutionRequest
 
 #pragma mark - JSSerializationDescriptorHolder
 
-+ (NSArray *)rkRequestDescriptors {
++ (NSArray *)rkRequestDescriptorsForServerProfile:(JSProfile *)serverProfile {
     NSMutableArray *descriptorsArray = [NSMutableArray array];
-    [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[[self classMapping] inverseMapping]
-                                                                             method:RKRequestMethodAny
-                                                                        pathPattern:nil
-                                                                            keyPath:@"export"
-                                                                        statusCodes:nil]];
+    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
+                                                                      objectClass:self
+                                                                      rootKeyPath:nil
+                                                                           method:RKRequestMethodAny]];
     return descriptorsArray;
 }
 
-+ (RKObjectMapping *)classMapping {
++ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
     RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
     [classMapping addAttributeMappingsFromDictionary:@{
                                                        @"outputFormat": @"outputFormat",
                                                        @"pages": @"pages",
                                                        @"attachmentsPrefix": @"attachmentsPrefix",
-                                                       @"baseUrl": @"baseUrl",
                                                        }];
+
+    if (serverProfile && serverProfile.serverInfo.versionAsFloat >= [JSConstants sharedInstance].SERVER_VERSION_CODE_EMERALD_5_6_0) {
+        [classMapping addPropertyMapping:[RKAttributeMapping attributeMappingFromKeyPath:@"baseUrl" toKeyPath:@"baseURL"]];
+    }
+
     return classMapping;
 }
 

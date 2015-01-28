@@ -30,23 +30,22 @@
 
 #import "JSReportExecutionRequest.h"
 #import "JSReportParameter.h"
+#import "JSProfile.h"
 
 @implementation JSReportExecutionRequest
 
 #pragma mark - JSSerializationDescriptorHolder
 
-+ (NSArray *)rkRequestDescriptors {
++ (NSArray *)rkRequestDescriptorsForServerProfile:(JSProfile *)serverProfile {
     NSMutableArray *descriptorsArray = [NSMutableArray array];
-    [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[[self classMapping] inverseMapping]
-                                                                             method:RKRequestMethodAny
-                                                                        pathPattern:nil
-                                                                            keyPath:@"reportExecutionRequest"
-                                                                        statusCodes:nil]];
-    [descriptorsArray addObjectsFromArray:[JSReportParameter rkResponseDescriptors]];
+    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
+                                                                      objectClass:self
+                                                                      rootKeyPath:nil
+                                                                           method:RKRequestMethodAny]];
     return descriptorsArray;
 }
 
-+ (RKObjectMapping *)classMapping {
++ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
     RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
     [classMapping addAttributeMappingsFromDictionary:@{
                                                        @"reportUnitUri": @"reportUnitUri",
@@ -59,9 +58,15 @@
                                                        @"transformerKey": @"transformerKey",
                                                        @"pages": @"pages",
                                                        @"attachmentsPrefix": @"attachmentsPrefix",
-                                                       @"baseURL": @"baseURL",
-                                                       @"parameters": @"parameters",
                                                        }];
+    if (serverProfile && serverProfile.serverInfo.versionAsFloat >= [JSConstants sharedInstance].SERVER_VERSION_CODE_EMERALD_5_6_0) {
+        [classMapping addPropertyMapping:[RKAttributeMapping attributeMappingFromKeyPath:@"baseUrl" toKeyPath:@"baseURL"]];
+    }
+    
+    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"parameters.reportParameter"
+                                                                                 toKeyPath:@"parameters"
+                                                                               withMapping:[JSReportParameter classMappingForServerProfile:serverProfile]]];
+
     return classMapping;
 }
 

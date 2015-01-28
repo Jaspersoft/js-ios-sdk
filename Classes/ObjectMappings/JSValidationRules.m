@@ -34,10 +34,10 @@
 
 #pragma mark - JSSerializationDescriptorHolder
 
-+ (NSArray *)rkResponseDescriptors {
++ (NSArray *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
     NSMutableArray *descriptorsArray = [NSMutableArray array];
     for (NSString *keyPath in [self classMappingPathes]) {
-        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMapping]
+        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
                                                                                  method:RKRequestMethodAny
                                                                             pathPattern:nil
                                                                                 keyPath:keyPath
@@ -46,12 +46,15 @@
     return descriptorsArray;
 }
 
-+ (RKObjectMapping *)classMapping {
++ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
     RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-    [classMapping addAttributeMappingsFromDictionary:@{
-                                                       @"dateTimeFormatValidationRule": @"dateTimeFormatValidationRule",
-                                                       @"mandatoryValidationRule": @"mandatoryValidationRule",
-                                                       }];
+    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"dateTimeFormatValidationRule"
+                                                                                 toKeyPath:@"dateTimeFormatValidationRule"
+                                                                               withMapping:[JSDateTimeFormatValidationRule classMappingForServerProfile:serverProfile]]];
+    
+    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"mandatoryValidationRule"
+                                                                                 toKeyPath:@"mandatoryValidationRule"
+                                                                               withMapping:[JSMandatoryValidationRule classMappingForServerProfile:serverProfile]]];
     return classMapping;
 }
 

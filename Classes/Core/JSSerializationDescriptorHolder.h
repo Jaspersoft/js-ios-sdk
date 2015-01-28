@@ -38,21 +38,34 @@
  @since 1.9
  */
 
+@class RKObjectMapping, JSProfile;
 @protocol JSSerializationDescriptorHolder <NSObject>
 
 @optional
 /**
  Returns an array of `RKRequestDescriptor` objects to be added to the manager
  for mapping objects of the class to request.
- @return An array of `RKRequestDescriptor` objects to be added to the manager. (i.e. JSON, XML, etc)
+ @param serverProfile Server Profile for configuring mapping according to server version
+
+ @return An array of `RKRequestDescriptor` objects to be added to the manager.
  */
-+ (NSArray *)rkRequestDescriptors;
++ (NSArray *)rkRequestDescriptorsForServerProfile:(JSProfile *)serverProfile;
 
 /**
  Returns an array of `RKResponseDescriptor` objects to be added to the manager
  for mapping objects of the class from response.
- @return An array of `RKResponseDescriptor` objects to be added to the manager. (i.e. JSON, XML, etc)
- */
-+ (NSArray *)rkResponseDescriptors;
+ @param serverProfile Server Profile for configuring mapping according to server version
 
+ @return An array of `RKResponseDescriptor` objects to be added to the manager.
+ */
++ (NSArray *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile;
+
+/**
+ Returns `RKObjectMapping` object for added it as relation referencesß
+ for mapping objects from response.
+ @param serverProfile Server Profile for configuring mapping according to server version
+
+ @return Returns `RKObjectMapping` object for added it as relation references
+ */
++ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile;
 @end

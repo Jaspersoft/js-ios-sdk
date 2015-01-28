@@ -47,6 +47,6 @@
 @property (nonatomic, retain) JSExecutionStatus *status;
 @property (nonatomic, retain) JSErrorDescriptor *errorDescriptor;
 @property (nonatomic, retain) JSReportOutputResource *outputResource;
-@property (nonatomic, retain) NSArray /*<JSReportAttachment*/ *attachments;
+@property (nonatomic, retain) NSArray /*<JSReportOutputResource*/ *attachments;
 
 @end

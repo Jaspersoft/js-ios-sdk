@@ -44,7 +44,7 @@
 
 #pragma mark - JSSerializationDescriptorHolder
 
-+ (NSArray *)rkResponseDescriptors {
++ (NSArray *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
     RKObjectMapping *responseMapping = [RKObjectMapping mappingForClass:self];
     [responseMapping addAttributeMappingsFromDictionary:@{
                                                           @"build": @"build",

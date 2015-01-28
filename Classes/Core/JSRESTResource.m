@@ -57,6 +57,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 
 - (void)createResource:(JSResourceDescriptor *)resource delegate:(id<JSRequestDelegate>)delegate {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:nil]];
+    request.expectedModelClass = [JSResourceDescriptor class];
     request.method = RKRequestMethodPOST;
     request.body = resource;
     request.delegate = delegate;
@@ -65,6 +66,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 
 - (void)createResource:(JSResourceDescriptor *)resource usingBlock:(JSRequestFinishedBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:nil]];
+    request.expectedModelClass = [JSResourceDescriptor class];
     request.method = RKRequestMethodPOST;
     request.body = resource;
     request.finishedBlock = block;
@@ -73,6 +75,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 
 - (void)modifyResource:(JSResourceDescriptor *)resource delegate:(id<JSRequestDelegate>)delegate {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:resource.uriString]];
+    request.expectedModelClass = [JSResourceDescriptor class];
     request.method = RKRequestMethodPUT;
     request.body = resource;
     request.delegate = delegate;
@@ -81,6 +84,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 
 - (void)modifyResource:(JSResourceDescriptor *)resource usingBlock:(JSRequestFinishedBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:resource.uriString]];
+    request.expectedModelClass = [JSResourceDescriptor class];
     request.method = RKRequestMethodPUT;
     request.body = resource;
     request.finishedBlock = block;

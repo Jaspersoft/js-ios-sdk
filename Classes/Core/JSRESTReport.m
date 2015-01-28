@@ -37,7 +37,7 @@
 #import "JSExportExecutionResponse.h"
 #import "JSErrorDescriptor.h"
 
-#import "JSReportParametersList.h"
+#import "JSReportParameter.h"
 #import "JSRESTReport.h"
 #import "JSInputControlOption.h"
 
@@ -102,20 +102,14 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     return [self generateReportUrl:[self resourceDescriptorForUri:uri withReportParams:reportParams] page:page format:format];
 }
 
-- (void)inputControlsForReport:(NSString *)reportUri delegate:(id<JSRequestDelegate>)delegate {
-    [self inputControlsForReport:reportUri ids:nil selectedValues:nil delegate:delegate];
-}
-
-- (void)inputControlsForReport:(NSString *)reportUri usingBlock:(JSRequestFinishedBlock)block {
-    [self inputControlsForReport:reportUri ids:nil selectedValues:nil usingBlock:block];
-}
-
 - (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids
                 selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues delegate:(id<JSRequestDelegate>)delegate {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:NO]];
-    request.method = RKRequestMethodPOST;
+    request.expectedModelClass = [JSInputControlDescriptor class];
     request.restVersion = JSRESTVersion_2;
-    request.body = [[JSReportParametersList alloc] initWithReportParameters:selectedValues];
+    request.method = (ids && [ids count]) ? RKRequestMethodPOST : RKRequestMethodGET;
+    request.params = [self reportParametersWithSelectedValues:selectedValues];
+
     request.delegate = delegate;
     [self sendRequest:request];
 }
@@ -123,27 +117,29 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 - (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids
                 selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues usingBlock:(JSRequestFinishedBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:NO]];
-    request.method = RKRequestMethodPOST;
+    request.expectedModelClass = [JSInputControlDescriptor class];
     request.restVersion = JSRESTVersion_2;
-    request.body = [[JSReportParametersList alloc] initWithReportParameters:selectedValues];
-    request.finishedBlock = block;
+    request.method = (ids && [ids count]) ? RKRequestMethodPOST : RKRequestMethodGET;
+    request.params = [self reportParametersWithSelectedValues:selectedValues];
     [self sendRequest:request];
 }
 
 - (void)updatedInputControlsValues:(NSString *)reportUri ids:(NSArray *)ids selectedValues:(NSArray *)selectedValues delegate:(id<JSRequestDelegate>)delegate {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:YES]];
+    request.expectedModelClass = [JSInputControlState class];
     request.method = RKRequestMethodPOST;
     request.restVersion = JSRESTVersion_2;
-    request.body = [[JSReportParametersList alloc] initWithReportParameters:selectedValues];
+    request.params = [self reportParametersWithSelectedValues:selectedValues];
     request.delegate = delegate;
     [self sendRequest:request];
 }
 
 - (void)updatedInputControlsValues:(NSString *)reportUri ids:(NSArray *)ids selectedValues:(NSArray *)selectedValues usingBlock:(JSRequestFinishedBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:YES]];
+    request.expectedModelClass = [JSInputControlState class];
     request.method = RKRequestMethodPOST;
     request.restVersion = JSRESTVersion_2;
-    request.body = [[JSReportParametersList alloc] initWithReportParameters:selectedValues];
+    request.params = [self reportParametersWithSelectedValues:selectedValues];
     request.finishedBlock = block;
     [self sendRequest:request];
 }
@@ -153,6 +149,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
           ignorePagination:(BOOL)ignorePagination transformerKey:(NSString *)transformerKey pages:(NSString *)pages
          attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray /*<JSReportParameter>*/ *)parameters delegate:(id<JSRequestDelegate>)delegate {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportExecutionUri:nil]];
+    request.expectedModelClass = [JSReportExecutionResponse class];
     request.method = RKRequestMethodPOST;
     request.restVersion = JSRESTVersion_2;
     request.delegate = delegate;
@@ -181,6 +178,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
           ignorePagination:(BOOL)ignorePagination transformerKey:(NSString *)transformerKey pages:(NSString *)pages
          attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray /*<JSReportParameter>*/ *)parameters usingBlock:(JSRequestFinishedBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportExecutionUri:nil]];
+    request.expectedModelClass = [JSReportExecutionResponse class];
     request.method = RKRequestMethodPOST;
     request.restVersion = JSRESTVersion_2;
     request.finishedBlock = block;
@@ -208,32 +206,29 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 - (void)cancelReportExecution:(NSString *)requestId delegate:(id<JSRequestDelegate>)delegate {
     NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:[JSConstants sharedInstance].REST_REPORT_EXECUTION_STATUS_URI];
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
+    request.expectedModelClass = [JSExecutionStatus class];
     request.method = RKRequestMethodPUT;
     request.restVersion = JSRESTVersion_2;
     request.delegate = delegate;
-    
-    JSExecutionStatus *reportExecutoionStatus = [[JSExecutionStatus alloc] init];
-    reportExecutoionStatus.status = @"cancelled";
-    request.body = reportExecutoionStatus;
+    request.params = @{@"value" : @"cancelled"};
     [self sendRequest:request];
 }
 
 - (void)cancelReportExecution:(NSString *)requestId usingBlock:(JSRequestFinishedBlock)block {
     NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:[JSConstants sharedInstance].REST_REPORT_EXECUTION_STATUS_URI];
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
+    request.expectedModelClass = [JSExecutionStatus class];
     request.method = RKRequestMethodPUT;
     request.restVersion = JSRESTVersion_2;
     request.finishedBlock = block;
-    
-    JSExecutionStatus *reportExecutoionStatus = [[JSExecutionStatus alloc] init];
-    reportExecutoionStatus.status = @"cancelled";
-    request.body = reportExecutoionStatus;
+    request.params = @{@"value" : @"cancelled"};
     [self sendRequest:request];
 }
 
 - (void)runExportExecution:(NSString *)requestId outputFormat:(NSString *)outputFormat pages:(NSString *)pages
          attachmentsPrefix:(NSString *)attachmentsPrefix delegate:(id<JSRequestDelegate>)delegate{
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullExportExecutionUri:requestId]];
+    request.expectedModelClass = [JSExportExecutionResponse class];
     request.method = RKRequestMethodPOST;
     request.restVersion = JSRESTVersion_2;
     request.delegate = delegate;
@@ -255,6 +250,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 - (void)runExportExecution:(NSString *)requestId outputFormat:(NSString *)outputFormat pages:(NSString *)pages
          attachmentsPrefix:(NSString *)attachmentsPrefix usingBlock:(JSRequestFinishedBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullExportExecutionUri:requestId]];
+    request.expectedModelClass = [JSExportExecutionResponse class];
     request.method = RKRequestMethodPOST;
     request.restVersion = JSRESTVersion_2;
     request.finishedBlock = block;
@@ -280,6 +276,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 
 - (void)getReportExecutionMetadata:(NSString *)requestId delegate:(id<JSRequestDelegate>)delegate {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportExecutionUri:requestId]];
+    request.expectedModelClass = [JSReportExecutionResponse class];
     request.restVersion = JSRESTVersion_2;
     request.delegate = delegate;
     [self sendRequest:request];
@@ -287,6 +284,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 
 - (void)getReportExecutionMetadata:(NSString *)requestId usingBlock:(JSRequestFinishedBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportExecutionUri:requestId]];
+    request.expectedModelClass = [JSReportExecutionResponse class];
     request.restVersion = JSRESTVersion_2;
     request.finishedBlock = block;
     [self sendRequest:request];
@@ -295,6 +293,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 - (void)getReportExecutionStatus:(NSString *)requestId delegate:(id<JSRequestDelegate>)delegate {
     NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:[JSConstants sharedInstance].REST_REPORT_EXECUTION_STATUS_URI];
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
+    request.expectedModelClass = [JSExecutionStatus class];
     request.restVersion = JSRESTVersion_2;
     request.delegate = delegate;
     [self sendRequest:request];
@@ -303,6 +302,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 - (void)getReportExecutionStatus:(NSString *)requestId usingBlock:(JSRequestFinishedBlock)block {
     NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:[JSConstants sharedInstance].REST_REPORT_EXECUTION_STATUS_URI];
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
+    request.expectedModelClass = [JSExecutionStatus class];
     request.restVersion = JSRESTVersion_2;
     request.finishedBlock = block;
     [self sendRequest:request];
@@ -368,6 +368,17 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 
 #pragma mark -
 #pragma mark Private methods
+
+- (NSDictionary *) reportParametersWithSelectedValues:(NSArray *)selectedValues {
+    if (selectedValues && [selectedValues count]) {
+        NSMutableDictionary *valuesDictionary = [NSMutableDictionary dictionary];
+        for (JSReportParameter *parameter in selectedValues) {
+            [valuesDictionary setObject:parameter.value forKey:parameter.name];
+        }
+        return valuesDictionary;
+    }
+    return nil;
+}
 
 - (NSString *)fullReportExecutionUri:(NSString *)requestId {
     NSString *reportExecutionUri = [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI;

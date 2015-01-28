@@ -86,26 +86,6 @@
 - (NSString *)generateReportUrl:(NSString *)uri reportParams:(NSDictionary *)reportParams page:(NSInteger)page format:(NSString *)format;
 
 /**
- Gets the list of input controls for the report with specified URI
- 
- @param reportUri repository URI of the report
- @param delegate A delegate object to inform of the results
- 
- @since 1.4
- */
-- (void)inputControlsForReport:(NSString *)reportUri delegate:(id<JSRequestDelegate>)delegate;
-
-/**
- Gets the list of input controls for the report with specified URI
- 
- @param reportUri repository URI of the report
- @param block The block to inform of the results
- 
- @since 1.4
- */
-- (void)inputControlsForReport:(NSString *)reportUri usingBlock:(JSRequestFinishedBlock)block;
-
-/**
  Gets the list of states of input controls with specified IDs for the report with specified URI and according to selected values
  
  @param reportUri repository URI of the report
