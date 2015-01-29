@@ -50,9 +50,6 @@ static NSTimeInterval const _defaultTimeoutInterval = 120;
 // Helper template message indicates that request was finished successfully
 static NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
 
-// Key element for RestKit's mapping path. Can be found inside error.userInfo dictionary
-static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
-
 // Inner JSCallback class contains JSRequest and RKRequest instances. 
 // JSRequest instance contains delegate object and finished block so actually this 
 // instance is bridge between RestKit's delegate and library delegate (or finished block)
@@ -166,14 +163,11 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
     
     NSOperation *requestOperation = nil;
     NSMutableURLRequest *urlRequest = [self.restKitObjectManager requestWithObject:request.body method:request.method path:fullUri parameters:request.params];
-    
-    NSString *sss = [[NSString alloc] initWithData:urlRequest.HTTPBody encoding:NSUTF8StringEncoding];
-    
     if (request.responseAsObjects) {
         RKHTTPRequestOperation *HTTPRequestOperation = [[RKHTTPRequestOperation alloc] initWithRequest:urlRequest];
         [self.restKitObjectManager performSelector:@selector(copyStateFromHTTPClientToHTTPRequestOperation:) withObject:HTTPRequestOperation];
-        NSMutableArray *responseDescriptors = [NSMutableArray arrayWithArray:[JSErrorDescriptor rkResponseDescriptorsForServerProfile:self.serverProfile]];
-        [responseDescriptors addObjectsFromArray:[request.expectedModelClass rkResponseDescriptorsForServerProfile:self.serverProfile]];
+        NSMutableArray *responseDescriptors = [NSMutableArray arrayWithArray:[request.expectedModelClass rkResponseDescriptorsForServerProfile:self.serverProfile]];
+        [responseDescriptors addObjectsFromArray:[JSErrorDescriptor rkResponseDescriptorsForServerProfile:self.serverProfile]];
         RKObjectRequestOperation *objectRequestOperation = [[RKObjectRequestOperation alloc] initWithHTTPRequestOperation:HTTPRequestOperation responseDescriptors:responseDescriptors];
         requestOperation = objectRequestOperation;
     } else {
@@ -311,6 +305,27 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 // returned header fields and MIMEType
 - (JSOperationResult *)operationResultWithOperation:(id)restKitOperation{
     RKHTTPRequestOperation *httpOperation = [restKitOperation isKindOfClass:[RKObjectRequestOperation class]] ? [restKitOperation HTTPRequestOperation] : restKitOperation;
+    NSError *operationError = [restKitOperation error];
+    
+    // If we have an error but response was success (server returned body)
+    // error with server message will be created
+    if (operationError && [restKitOperation isKindOfClass:[RKObjectRequestOperation class]]) {
+        RKObjectRequestOperation *objectOperation = (RKObjectRequestOperation *)restKitOperation;
+        if (!objectOperation.mappingResult && objectOperation.error){
+            NSArray *objectMapperErrorObjects = [objectOperation.error.userInfo objectForKey:RKObjectMapperErrorObjectsKey];
+            NSMutableString *codeString = [NSMutableString string];
+            NSMutableString *messageString = [NSMutableString string];
+            for (id object in objectMapperErrorObjects) {
+                if ([object isKindOfClass:[JSErrorDescriptor class]]) {
+                    [codeString appendFormat: [codeString length] ? @", %@" : @"%@", [object errorCode]];
+                    [messageString appendFormat: [messageString length] ? @", %@" : @"%@", [object message]];
+                }
+            }
+            if ([codeString length] || [messageString length]) {
+                operationError = [NSError errorWithDomain:codeString code:httpOperation.response.statusCode userInfo:@{NSLocalizedDescriptionKey : messageString}];
+            }
+        }
+    }
 
     JSOperationResult *result = [[JSOperationResult alloc] initWithStatusCode:httpOperation.response.statusCode
                                          allHeaderFields:httpOperation.response.allHeaderFields
@@ -320,7 +335,11 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
     result.bodyAsString = httpOperation.responseString;
     if ([restKitOperation isKindOfClass:[RKObjectRequestOperation class]]) {
         RKObjectRequestOperation *objectOperation = (RKObjectRequestOperation *)restKitOperation;
-        result.objects = [objectOperation.mappingResult array];
+        if (objectOperation.mappingResult) {
+            result.objects = [objectOperation.mappingResult array];
+        } else if (objectOperation.error){
+            result.objects = [objectOperation.error.userInfo objectForKey:RKObjectMapperErrorObjectsKey];
+        }
     }
     return result;
 }
@@ -435,31 +454,6 @@ static NSString *_keyRKObjectMapperKeyPath = @"RKObjectMapperKeyPath";
 //    
 //    [self callRequestFinishedCallBackForRestKitRequest:objectLoader result:result];
 //}
-//
-//#pragma mark -
-//#pragma mark RKRequestDelegate protocol callbacks
-//
-//- (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response {    
-//    // This method also calls for RKObjectLoader so here we need to check if 
-//    // object is not loader. Not very good approach to use isKindOfClass. 
-//    // Temp solution
-//    
-//    if (![request isKindOfClass:[RKObjectLoader class]]) {
-//        JSOperationResult *result = [self operationResultWithResponse:response error:nil];
-//        // Used for downloading files
-//        result.body = response.body;
-//        result.bodyAsString = response.bodyAsString;
-//        [self callRequestFinishedCallBackForRestKitRequest:request result:result];
-//    }
-//}
-//
-//- (void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error {
-//    // This method also calls for RKObjectLoader so here we need to check if object
-//    // is not loader or response was timed out (error.code should be equals 5 in this case)
-//    if (![request isKindOfClass:[RKObjectLoader class]] || error.code == RKRequestConnectionTimeoutError) {
-//        JSOperationResult *result = [self operationResultWithResponse:request.response error:error];
-//        [self callRequestFinishedCallBackForRestKitRequest:request result:result];
-//    }
-//}
+
 
 @end

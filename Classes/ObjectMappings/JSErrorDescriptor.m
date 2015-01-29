@@ -40,7 +40,12 @@
                                                                                  method:RKRequestMethodAny
                                                                             pathPattern:nil
                                                                                 keyPath:keyPath
-                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassServerError | RKStatusCodeClassClientError)]];
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassServerError)]];
+        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:(JSProfile *)serverProfile]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:nil
+                                                                                keyPath:keyPath
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassClientError)]];
     }
     return descriptorsArray;
 }
