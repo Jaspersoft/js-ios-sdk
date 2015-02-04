@@ -65,13 +65,6 @@
 @property (nonatomic, retain) JSRequest *request;
 
 /**
- The save path of downloaded file. This is an additional parameter which helps
- to determine which file was downloaded (because all requests are asynchronous).
- Gets from request instance (this is the short way)
- */
-@property (nonatomic, readonly) NSString *downloadDestinationPath;
-
-/**
  The error returned from the request call, if any.
  */
 @property (nonatomic, readonly) NSError *error;

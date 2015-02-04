@@ -325,7 +325,6 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     if (loadForSaving) {
         request.downloadDestinationPath = path;
         request.responseAsObjects = NO;
-        request = [self configureRequestToSaveFile:request];
     }
     
     [self sendRequest:request];
@@ -341,7 +340,6 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     if (loadForSaving) {
         request.downloadDestinationPath = path;
         request.responseAsObjects = NO;
-        request = [self configureRequestToSaveFile:request];
     }
     
     [self sendRequest:request];
@@ -355,7 +353,6 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     request.delegate = delegate;
     request.downloadDestinationPath = path;
     request.responseAsObjects = NO;
-    request = [self configureRequestToSaveFile:request];
     
     [self sendRequest:request];
 }
@@ -368,7 +365,6 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     request.finishedBlock = block;
     request.downloadDestinationPath = path;
     request.responseAsObjects = NO;
-    request = [self configureRequestToSaveFile:request];
     
     [self sendRequest:request];
 }
@@ -467,33 +463,6 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     resourceDescriptor.parameters = resourceParameters;
     
     return resourceDescriptor;
-}
-
-- (JSRequest *)configureRequestToSaveFile:(JSRequest *)request {
-    __weak id <JSRequestDelegate> delegate = request.delegate;
-    __weak JSRequestFinishedBlock finishedBlock = request.finishedBlock;
-    
-    // Set delegate in request to nil to avoid 2 delegate invocations
-    request.delegate = nil;
-    
-    // Set save finishedBlock
-    request.finishedBlock = ^(JSOperationResult *result) {
-        // Write receive file to specified directory path
-        if (!result.error) {
-            [result.body writeToFile:result.downloadDestinationPath atomically:YES];
-        }
-        
-        if (delegate) {
-            [delegate requestFinished:result];
-        }
-        
-        if (finishedBlock) {
-            // Call original finishedBlock
-            finishedBlock(result);
-        }
-    };
-    
-    return request;
 }
 
 // TODO: refactor, find better way to make URL encoded string

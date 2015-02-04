@@ -33,16 +33,6 @@
 
 @implementation JSOperationResult
 
-@synthesize objects = _objects;
-@synthesize body = _body;
-@synthesize bodyAsString = _bodyAsString;
-@synthesize downloadDestinationPath = _downloadDestinationPath;
-@synthesize request = _request;
-@synthesize error = _error;
-@synthesize statusCode = _statusCode;
-@synthesize allHeaderFields = _allHeaderFields;
-@synthesize MIMEType = _MIMEType;
-
 - (id)initWithStatusCode:(NSInteger)statusCode allHeaderFields:(NSDictionary *)allHeaderFields
                 MIMEType:(NSString *)MIMEType error:(NSError *)error {
     if (self = [super init]) {

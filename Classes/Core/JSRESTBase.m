@@ -353,14 +353,16 @@ static NSString * const _requestFinishedTemplateMessage = @"Request finished: %@
             NSLog(_requestFinishedTemplateMessage, [httpOperation.request.URL absoluteString]);
             result.request = callBack.request;
             
+            if (!result.error && !result.request.responseAsObjects && [result.request.downloadDestinationPath length]) {
+                [result.body writeToFile:result.request.downloadDestinationPath atomically:YES];
+            }
+            
             [callBack.request.delegate requestFinished:result];
             if (callBack.request.finishedBlock) {
                 callBack.request.finishedBlock(result);
             }
 
-            if (remove) {
-                [self.requestCallBacks removeObject: callBack];
-            }
+            [self.requestCallBacks removeObject: callBack];
             break;
         }
     }
@@ -406,54 +408,5 @@ static NSString * const _requestFinishedTemplateMessage = @"Request finished: %@
     [classesArray addObject:[JSServerInfo class]];
     return classesArray;
 }
-
-//#pragma mark -
-//#pragma mark RKObjectLoaderDelegate protocol callbacks
-//
-//- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
-//    JSOperationResult *result = [self operationResultWithResponse:objectLoader.response error:nil];
-//    result.objects = objects;
-//    [self callRequestFinishedCallBackForRestKitRequest:objectLoader result:result];
-//}
-//
-//- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-//    JSOperationResult *result = nil;
-//    NSString *mapperKeyPath = nil;
-//    NSArray *RKObjectMapperErrorObjects = [error.userInfo objectForKey:RKObjectMapperErrorObjectsKey];
-//    
-//    
-//    // Get mapper key path from error.userInfo dictionary
-//    for (NSString *key in error.userInfo.allKeys) {
-//        id value = [error.userInfo objectForKey:key];
-//        if ([value respondsToSelector:@selector(isEqualToString:)] && 
-//            [value isEqualToString:_keyRKObjectMapperKeyPath]) {
-//            mapperKeyPath = key;
-//            break;
-//        }
-//    }
-//    
-//    // If we have an error (most of all mapping) but response was success (server returned body)
-//    // error with server message will be created
-//    if (objectLoader.response.isClientError && 
-//        objectLoader.response.bodyAsString.length) {
-//        NSMutableDictionary *errorDetail = [[NSMutableDictionary alloc] init];
-//        [errorDetail setObject:objectLoader.response.bodyAsString forKey:NSLocalizedDescriptionKey];
-//        error = [NSError errorWithDomain:error.domain code:error.code userInfo:errorDetail];
-//    }
-//    
-//    // Check if response is not an empty XML list (i.e. <resourceDescriptors></resourceDescriptors>).
-//    // RestKit interpret this as mapping error
-//    if ([mapperKeyPath isEqualToString:@""]) {
-//        result = [self operationResultWithResponse:objectLoader.response error:nil];
-//        result.objects = [NSArray array];
-//    } else {
-//        result = [self operationResultWithResponse:objectLoader.response error:error];
-//    }
-//    
-//    result.objects = RKObjectMapperErrorObjects;
-//    
-//    [self callRequestFinishedCallBackForRestKitRequest:objectLoader result:result];
-//}
-
 
 @end
