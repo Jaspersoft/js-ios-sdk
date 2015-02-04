@@ -64,7 +64,7 @@
                                                        }];
     [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"status"
                                                                             toKeyPath:@"status"
-                                                                          withMapping:[JSExecutionStatus classMappingForServerProfile:serverProfile]]];
+                                                                          withMapping:[JSExecutionStatus customMapping]]];
 
     [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"errorDescriptor"
                                                                                  toKeyPath:@"errorDescriptor"

@@ -69,10 +69,18 @@
 }
 
 - (NSDictionary *)params {
-    if (_params) {
-        [self.parameters addEntriesFromDictionary:_params];
+    if (self.method == RKRequestMethodGET || self.method == RKRequestMethodHEAD || self.method == RKRequestMethodDELETE) {
+        NSMutableDictionary *paramsDictionary = [NSMutableDictionary dictionary];
+        for (NSString *key in self.parameters) {
+            id value = [self.parameters objectForKey:key];
+            if ([value isKindOfClass:[NSArray class]]) {
+                value = [NSSet setWithArray:value];
+            }
+            [paramsDictionary setObject:value forKey:key];
+        }
+        return [NSDictionary dictionaryWithDictionary:paramsDictionary];
     }
-    return self.parameters;
+    return [NSDictionary dictionaryWithDictionary:self.parameters];
 }
 
 @end

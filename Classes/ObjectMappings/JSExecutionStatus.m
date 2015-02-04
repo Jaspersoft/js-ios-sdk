@@ -36,6 +36,14 @@
     return self.status;
 }
 
++ (RKObjectMapping *)customMapping {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"description": @"status",
+                                                       }];
+    return classMapping;
+}
+
 #pragma mark - JSSerializationDescriptorHolder
 
 + (NSArray *)rkRequestDescriptorsForServerProfile:(JSProfile *)serverProfile {
@@ -62,13 +70,13 @@
 + (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
     RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
     [classMapping addAttributeMappingsFromDictionary:@{
-                                                       @"description": @"status",
+                                                       @"value": @"status",
                                                        }];
     return classMapping;;
 }
 
 + (NSArray *)classMappingPathes {
-    return @[@"status"];
+    return @[@""];
 }
 
 @end

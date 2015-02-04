@@ -95,7 +95,7 @@ typedef enum {
 /**
  A collection of parameters of the request. Automatically will be added to URL
  */
-@property (nonatomic, retain) NSDictionary *params;
+@property (nonatomic, strong, readonly) NSDictionary *params;
 
 /**
  The HTTP method

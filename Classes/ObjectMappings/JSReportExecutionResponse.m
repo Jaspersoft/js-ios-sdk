@@ -61,7 +61,7 @@
     
     [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"status"
                                                                                  toKeyPath:@"status"
-                                                                               withMapping:[JSExecutionStatus classMappingForServerProfile:serverProfile]]];
+                                                                               withMapping:[JSExecutionStatus customMapping]]];
     
     [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"exports"
                                                                                  toKeyPath:@"exports"

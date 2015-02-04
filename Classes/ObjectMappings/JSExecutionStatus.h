@@ -36,9 +36,13 @@
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @since 1.8
  */
+
+@class RKObjectMapping;
 @protocol JSSerializationDescriptorHolder;
 @interface JSExecutionStatus : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *status;
+
++ (RKObjectMapping *)customMapping;
 
 @end
