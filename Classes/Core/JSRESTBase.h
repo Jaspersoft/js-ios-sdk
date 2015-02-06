@@ -54,7 +54,7 @@ extern NSString * const kJSRequestResponceType;
 
  @since 1.3
 */
-
+@class RKObjectManager;
 @interface JSRESTBase : NSObject
 
 /**
@@ -77,6 +77,13 @@ extern NSString * const kJSRequestResponceType;
  @since 1.8
  */
 @property (nonatomic, readonly) NSArray *cookies;
+
+/**
+ RestKit's RKObjectManager instance for mapping response (in JSON, XML and other formats) directly to object
+ 
+ @since 1.9
+ */
+@property (nonatomic, strong, readonly) RKObjectManager *restKitObjectManager;
 
 /** 
  Returns a rest base instance with list of classes for which mapping rules will be created.

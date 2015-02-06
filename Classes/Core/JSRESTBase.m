@@ -305,7 +305,10 @@ static NSString * const _requestFinishedTemplateMessage = @"Request finished: %@
 // returned header fields and MIMEType
 - (JSOperationResult *)operationResultWithOperation:(id)restKitOperation{
     RKHTTPRequestOperation *httpOperation = [restKitOperation isKindOfClass:[RKObjectRequestOperation class]] ? [restKitOperation HTTPRequestOperation] : restKitOperation;
-    NSError *operationError = [restKitOperation error];
+    NSError *operationError = [httpOperation error];
+    if (!operationError && [restKitOperation error]) {
+        operationError = [restKitOperation error];
+    }
     
     // If we have an error but response was success (server returned body)
     // error with server message will be created
@@ -330,7 +333,7 @@ static NSString * const _requestFinishedTemplateMessage = @"Request finished: %@
     JSOperationResult *result = [[JSOperationResult alloc] initWithStatusCode:httpOperation.response.statusCode
                                          allHeaderFields:httpOperation.response.allHeaderFields
                                                 MIMEType:httpOperation.response.MIMEType
-                                                   error:httpOperation.error];
+                                                   error:operationError];
     result.body = httpOperation.responseData;
     result.bodyAsString = httpOperation.responseString;
     if ([restKitOperation isKindOfClass:[RKObjectRequestOperation class]]) {
