@@ -31,6 +31,7 @@
 
 #import "JSRestKitManagerFactory.h"
 #import "JSRESTBase.h"
+#import "JSConstants.h"
 
 @implementation JSRestKitManagerFactory
 + (RKObjectManager *)createRestKitObjectManagerForClasses:(NSArray *)classes andServerProfile:(JSProfile *)serverProfile{

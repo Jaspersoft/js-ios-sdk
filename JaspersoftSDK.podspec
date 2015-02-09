@@ -14,7 +14,11 @@ Pod::Spec.new do |s|
 	s.source = { :git => "https://github.com/Jaspersoft/js-ios-sdk.git", :tag => "#{s.version}" }
 	s.source_files = "Classes", "Classes/**/*.{h,m}"
 	s.public_header_files = "Classes/**/*.h"
-	s.prefix_header_contents = '#import <SystemConfiguration/SystemConfiguration.h> #import <MobileCoreServices/MobileCoreServices.h>'
+	
+	s.prefix_header_contents = <<-EOS
+		#import <SystemConfiguration/SystemConfiguration.h>
+		#import <MobileCoreServices/MobileCoreServices.h>
+	EOS
 	s.framework = "Foundation"
 	s.requires_arc = true
 	
