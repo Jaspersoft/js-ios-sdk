@@ -33,14 +33,15 @@
 #import "JSErrorDescriptor.h"
 #import "JSExecutionStatus.h"
 #import "JSReportOutputResource.h"
+#import "JSSerializationDescriptorHolder.h"
 
 /**
  Represents an export entity for convenient XML serialization process
  
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev ogubarie@tibco.com
  @since 1.8
  */
-@protocol JSSerializationDescriptorHolder;
 @interface JSExportExecutionResponse : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *uuid;

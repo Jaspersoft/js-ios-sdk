@@ -29,16 +29,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSSerializationDescriptorHolder.h"
 
 /**
  Represents a report or export execution status for convenient XML serialization process
  
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev ogubarie@tibco.com
  @since 1.8
  */
 
-@class RKObjectMapping;
-@protocol JSSerializationDescriptorHolder;
 @interface JSExecutionStatus : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *status;

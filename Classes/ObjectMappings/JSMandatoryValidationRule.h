@@ -29,13 +29,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSSerializationDescriptorHolder.h"
 
 /**
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.9
  */
-@protocol JSSerializationDescriptorHolder;
 @interface JSMandatoryValidationRule : NSObject <JSSerializationDescriptorHolder, NSCopying>
 
 @property (nonatomic, retain) NSString *errorMessage;

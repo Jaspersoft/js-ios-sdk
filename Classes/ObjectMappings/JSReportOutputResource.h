@@ -29,15 +29,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSSerializationDescriptorHolder.h"
 
 /**
  Represents an output resource for convenient XML serialization process
 
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev ogubarie@tibco.com
  @since 1.8
  */
 
-@protocol JSSerializationDescriptorHolder;
 @interface JSReportOutputResource : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *contentType;

@@ -29,15 +29,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSSerializationDescriptorHolder.h"
 
 /**
  Represents a report descriptor entity for convenient XML serialization process
  
  @author Giulio Toffoli giulio@jaspersoft.com
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev ogubarie@tibco.com
  @since 1.0 (JSReportExecution)
  */
-@protocol JSSerializationDescriptorHolder;
 @interface JSReportDescriptor : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *uuid;

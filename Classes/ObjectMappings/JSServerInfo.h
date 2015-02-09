@@ -29,6 +29,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSSerializationDescriptorHolder.h"
 
 /**
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
@@ -36,7 +37,6 @@
  @since 1.4
  */
 
-@protocol JSSerializationDescriptorHolder;
 @interface JSServerInfo : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *build;

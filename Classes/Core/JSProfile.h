@@ -28,7 +28,6 @@
 //  Jaspersoft Corporation
 //
 
-#import "JSServerInfo.h"
 #import <Foundation/Foundation.h>
 
 /** 
@@ -36,8 +35,12 @@
  
  @author Volodya Sabadosh vsabadosh@jaspersoft.com
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev ogubarie@tibco.com
  @since 1.1
  */
+
+@class JSServerInfo;
+
 @interface JSProfile : NSObject <NSCopying>
 
 /**

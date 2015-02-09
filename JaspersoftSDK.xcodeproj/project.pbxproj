@@ -6,145 +6,71 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		F575905D174E42B500C355C1 /* JaspersoftSDK-universal */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = F5759063174E42B500C355C1 /* Build configuration list for PBXAggregateTarget "JaspersoftSDK-universal" */;
-			buildPhases = (
-				F575906B174E4B2B00C355C1 /* ShellScript */,
-			);
-			dependencies = (
-			);
-			name = "JaspersoftSDK-universal";
-			productName = "jaspersoft-sdk-universal";
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		088208821A01328900B6559F /* JSExportExecutionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 088208801A01328900B6559F /* JSExportExecutionRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		088208831A01328900B6559F /* JSExportExecutionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 088208811A01328900B6559F /* JSExportExecutionRequest.m */; };
 		08B8FA181A6FCEAF00E9FE60 /* weakself.h in Headers */ = {isa = PBXBuildFile; fileRef = 08B8FA171A6FCEAF00E9FE60 /* weakself.h */; };
-		3745519A3881E4804293BAE2 /* JSReportOutputResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 374556F481BE36B761B5FDDF /* JSReportOutputResource.m */; };
-		374551A212E7AB533580F50C /* JSExportExecutionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 37455C26CA9D110D7CBD29A2 /* JSExportExecutionResponse.m */; };
 		3745523E7EE2CE8C64105A1D /* JSExportExecutionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 37455C26CA9D110D7CBD29A2 /* JSExportExecutionResponse.m */; };
-		37455545902B14464F04FA83 /* JSReportExecutionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 374558828353F4E8E6F29C17 /* JSReportExecutionResponse.m */; };
-		374556B8DCFAAB42E47D5F04 /* JSReportExecutionResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 374551F833EA720B59987045 /* JSReportExecutionResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		37455A556862C72B0B83193F /* JSReportOutputResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 374556F481BE36B761B5FDDF /* JSReportOutputResource.m */; };
 		37455ABDDD4368D267B50469 /* JSReportExecutionResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 374551F833EA720B59987045 /* JSReportExecutionResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		37455CF8BA142B8554AF5F9A /* JSReportExecutionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 374558828353F4E8E6F29C17 /* JSReportExecutionResponse.m */; };
 		37455EF10B05B5CAE7512A6F /* JSReportExecutionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 374555044AD45FB4F352A96F /* JSReportExecutionRequest.m */; };
-		37455F666750D1962B6ED6CB /* JSReportExecutionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 374555044AD45FB4F352A96F /* JSReportExecutionRequest.m */; };
 		722EF964428E5B92861DCAC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE65D84777378DA82ED7BA4 /* libPods.a */; };
 		F520FF89196FEE53009435C2 /* JSMandatoryValidationRule.h in Headers */ = {isa = PBXBuildFile; fileRef = F520FF87196FEE53009435C2 /* JSMandatoryValidationRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F520FF8A196FEE53009435C2 /* JSMandatoryValidationRule.h in Headers */ = {isa = PBXBuildFile; fileRef = F520FF87196FEE53009435C2 /* JSMandatoryValidationRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F520FF8B196FEE53009435C2 /* JSMandatoryValidationRule.m in Sources */ = {isa = PBXBuildFile; fileRef = F520FF88196FEE53009435C2 /* JSMandatoryValidationRule.m */; };
-		F520FF8C196FEE53009435C2 /* JSMandatoryValidationRule.m in Sources */ = {isa = PBXBuildFile; fileRef = F520FF88196FEE53009435C2 /* JSMandatoryValidationRule.m */; };
 		F523D78518635EB000B93D3F /* JSExecutionStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = F523D78318635EB000B93D3F /* JSExecutionStatus.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F523D78618635EB000B93D3F /* JSExecutionStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = F523D78318635EB000B93D3F /* JSExecutionStatus.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F523D78718635EB000B93D3F /* JSExecutionStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = F523D78418635EB000B93D3F /* JSExecutionStatus.m */; };
-		F523D78818635EB000B93D3F /* JSExecutionStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = F523D78418635EB000B93D3F /* JSExecutionStatus.m */; };
 		F52DF64918648C28000D375E /* JSObjectMappings.h in Headers */ = {isa = PBXBuildFile; fileRef = F52DF64818648C28000D375E /* JSObjectMappings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F53B1043164A9EE400042976 /* JSReportParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = F53B1041164A9EE400042976 /* JSReportParameter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F53B1044164A9EE400042976 /* JSReportParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = F53B1041164A9EE400042976 /* JSReportParameter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F53B1045164A9EE400042976 /* JSReportParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = F53B1042164A9EE400042976 /* JSReportParameter.m */; };
-		F53B1046164A9EE400042976 /* JSReportParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = F53B1042164A9EE400042976 /* JSReportParameter.m */; };
-		F543A91318648CBD000657F5 /* JSObjectMappings.h in Headers */ = {isa = PBXBuildFile; fileRef = F52DF64818648C28000D375E /* JSObjectMappings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F568246A1642996D00CC4015 /* JSInputControlDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F56824681642996D00CC4015 /* JSInputControlDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F568246B1642996D00CC4015 /* JSInputControlDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F56824681642996D00CC4015 /* JSInputControlDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F568246C1642996D00CC4015 /* JSInputControlDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F56824691642996D00CC4015 /* JSInputControlDescriptor.m */; };
-		F568246D1642996D00CC4015 /* JSInputControlDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F56824691642996D00CC4015 /* JSInputControlDescriptor.m */; };
 		F56824741642A2A300CC4015 /* JSInputControlState.h in Headers */ = {isa = PBXBuildFile; fileRef = F56824721642A2A200CC4015 /* JSInputControlState.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F56824751642A2A300CC4015 /* JSInputControlState.h in Headers */ = {isa = PBXBuildFile; fileRef = F56824721642A2A200CC4015 /* JSInputControlState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F56824761642A2A300CC4015 /* JSInputControlState.m in Sources */ = {isa = PBXBuildFile; fileRef = F56824731642A2A300CC4015 /* JSInputControlState.m */; };
-		F56824771642A2A300CC4015 /* JSInputControlState.m in Sources */ = {isa = PBXBuildFile; fileRef = F56824731642A2A300CC4015 /* JSInputControlState.m */; };
 		F568247A1642A67E00CC4015 /* JSInputControlOption.h in Headers */ = {isa = PBXBuildFile; fileRef = F56824781642A67C00CC4015 /* JSInputControlOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F568247B1642A67E00CC4015 /* JSInputControlOption.h in Headers */ = {isa = PBXBuildFile; fileRef = F56824781642A67C00CC4015 /* JSInputControlOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F568247C1642A67E00CC4015 /* JSInputControlOption.m in Sources */ = {isa = PBXBuildFile; fileRef = F56824791642A67D00CC4015 /* JSInputControlOption.m */; };
-		F568247D1642A67E00CC4015 /* JSInputControlOption.m in Sources */ = {isa = PBXBuildFile; fileRef = F56824791642A67D00CC4015 /* JSInputControlOption.m */; };
 		F596020315ECCC9300B62DFD /* JaspersoftSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = F596020215ECCC9300B62DFD /* JaspersoftSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F596020415ECCCA900B62DFD /* JaspersoftSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = F596020215ECCC9300B62DFD /* JaspersoftSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597691015E3C826004165A7 /* JSConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768E815E3C826004165A7 /* JSConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F597691115E3C826004165A7 /* JSConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768E815E3C826004165A7 /* JSConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597691215E3C826004165A7 /* JSConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768E915E3C826004165A7 /* JSConstants.m */; };
-		F597691315E3C826004165A7 /* JSConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768E915E3C826004165A7 /* JSConstants.m */; };
 		F597691415E3C826004165A7 /* JSOperationResult.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768EA15E3C826004165A7 /* JSOperationResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F597691515E3C826004165A7 /* JSOperationResult.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768EA15E3C826004165A7 /* JSOperationResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597691615E3C826004165A7 /* JSOperationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768EB15E3C826004165A7 /* JSOperationResult.m */; };
-		F597691715E3C826004165A7 /* JSOperationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768EB15E3C826004165A7 /* JSOperationResult.m */; };
 		F597691815E3C826004165A7 /* JSProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768EC15E3C826004165A7 /* JSProfile.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F597691915E3C826004165A7 /* JSProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768EC15E3C826004165A7 /* JSProfile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597691A15E3C826004165A7 /* JSProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768ED15E3C826004165A7 /* JSProfile.m */; };
-		F597691B15E3C826004165A7 /* JSProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768ED15E3C826004165A7 /* JSProfile.m */; };
 		F597691C15E3C826004165A7 /* JSRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768EE15E3C826004165A7 /* JSRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F597691D15E3C826004165A7 /* JSRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768EE15E3C826004165A7 /* JSRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597691E15E3C826004165A7 /* JSRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768EF15E3C826004165A7 /* JSRequest.m */; };
-		F597691F15E3C826004165A7 /* JSRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768EF15E3C826004165A7 /* JSRequest.m */; };
 		F597692015E3C826004165A7 /* JSRESTBase.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F015E3C826004165A7 /* JSRESTBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F597692115E3C826004165A7 /* JSRESTBase.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F015E3C826004165A7 /* JSRESTBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597692215E3C826004165A7 /* JSRESTBase.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F115E3C826004165A7 /* JSRESTBase.m */; };
-		F597692315E3C826004165A7 /* JSRESTBase.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F115E3C826004165A7 /* JSRESTBase.m */; };
 		F597692415E3C826004165A7 /* JSRESTReport.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F215E3C826004165A7 /* JSRESTReport.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F597692515E3C826004165A7 /* JSRESTReport.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F215E3C826004165A7 /* JSRESTReport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597692615E3C826004165A7 /* JSRESTReport.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F315E3C826004165A7 /* JSRESTReport.m */; };
-		F597692715E3C826004165A7 /* JSRESTReport.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F315E3C826004165A7 /* JSRESTReport.m */; };
 		F597692815E3C826004165A7 /* JSRESTResource.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F415E3C826004165A7 /* JSRESTResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F597692915E3C826004165A7 /* JSRESTResource.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F415E3C826004165A7 /* JSRESTResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597692A15E3C826004165A7 /* JSRESTResource.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F515E3C826004165A7 /* JSRESTResource.m */; };
-		F597692B15E3C826004165A7 /* JSRESTResource.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F515E3C826004165A7 /* JSRESTResource.m */; };
 		F597693415E3C826004165A7 /* JSRestKitManagerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768FB15E3C826004165A7 /* JSRestKitManagerFactory.h */; };
-		F597693515E3C826004165A7 /* JSRestKitManagerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768FB15E3C826004165A7 /* JSRestKitManagerFactory.h */; };
 		F597693615E3C826004165A7 /* JSRestKitManagerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768FC15E3C826004165A7 /* JSRestKitManagerFactory.m */; };
-		F597693715E3C826004165A7 /* JSRestKitManagerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768FC15E3C826004165A7 /* JSRestKitManagerFactory.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F597694315E3C826004165A7 /* JSReportAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690615E3C826004165A7 /* JSReportAttachment.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F597694415E3C826004165A7 /* JSReportAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690615E3C826004165A7 /* JSReportAttachment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597694515E3C826004165A7 /* JSReportAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690715E3C826004165A7 /* JSReportAttachment.m */; };
-		F597694615E3C826004165A7 /* JSReportAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690715E3C826004165A7 /* JSReportAttachment.m */; };
 		F597694715E3C826004165A7 /* JSReportDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690815E3C826004165A7 /* JSReportDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F597694815E3C826004165A7 /* JSReportDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690815E3C826004165A7 /* JSReportDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597694915E3C826004165A7 /* JSReportDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690915E3C826004165A7 /* JSReportDescriptor.m */; };
-		F597694A15E3C826004165A7 /* JSReportDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690915E3C826004165A7 /* JSReportDescriptor.m */; };
 		F597694B15E3C826004165A7 /* JSResourceDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690A15E3C826004165A7 /* JSResourceDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F597694C15E3C826004165A7 /* JSResourceDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690A15E3C826004165A7 /* JSResourceDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597694D15E3C826004165A7 /* JSResourceDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690B15E3C826004165A7 /* JSResourceDescriptor.m */; };
-		F597694E15E3C826004165A7 /* JSResourceDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690B15E3C826004165A7 /* JSResourceDescriptor.m */; };
 		F597694F15E3C826004165A7 /* JSResourceParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690C15E3C826004165A7 /* JSResourceParameter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F597695015E3C826004165A7 /* JSResourceParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690C15E3C826004165A7 /* JSResourceParameter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597695115E3C826004165A7 /* JSResourceParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690D15E3C826004165A7 /* JSResourceParameter.m */; };
-		F597695215E3C826004165A7 /* JSResourceParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690D15E3C826004165A7 /* JSResourceParameter.m */; };
 		F597695315E3C826004165A7 /* JSResourceProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690E15E3C826004165A7 /* JSResourceProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F597695415E3C826004165A7 /* JSResourceProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690E15E3C826004165A7 /* JSResourceProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597695515E3C826004165A7 /* JSResourceProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690F15E3C826004165A7 /* JSResourceProperty.m */; };
-		F597695615E3C826004165A7 /* JSResourceProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690F15E3C826004165A7 /* JSResourceProperty.m */; };
 		F597697915E3C9EF004165A7 /* JSSerializationDescriptorHolder.h in Headers */ = {isa = PBXBuildFile; fileRef = F597697815E3C9EF004165A7 /* JSSerializationDescriptorHolder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F597697A15E3C9EF004165A7 /* JSSerializationDescriptorHolder.h in Headers */ = {isa = PBXBuildFile; fileRef = F597697815E3C9EF004165A7 /* JSSerializationDescriptorHolder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5AE53AF165169F6004207E1 /* JSDateTimeFormatValidationRule.h in Headers */ = {isa = PBXBuildFile; fileRef = F5AE53AD165169F6004207E1 /* JSDateTimeFormatValidationRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F5AE53B0165169F6004207E1 /* JSDateTimeFormatValidationRule.h in Headers */ = {isa = PBXBuildFile; fileRef = F5AE53AD165169F6004207E1 /* JSDateTimeFormatValidationRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5AE53B1165169F6004207E1 /* JSDateTimeFormatValidationRule.m in Sources */ = {isa = PBXBuildFile; fileRef = F5AE53AE165169F6004207E1 /* JSDateTimeFormatValidationRule.m */; };
-		F5AE53B2165169F6004207E1 /* JSDateTimeFormatValidationRule.m in Sources */ = {isa = PBXBuildFile; fileRef = F5AE53AE165169F6004207E1 /* JSDateTimeFormatValidationRule.m */; };
 		F5AE53DE16518C58004207E1 /* JSValidationRules.h in Headers */ = {isa = PBXBuildFile; fileRef = F5AE53DC16518C58004207E1 /* JSValidationRules.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F5AE53DF16518C58004207E1 /* JSValidationRules.h in Headers */ = {isa = PBXBuildFile; fileRef = F5AE53DC16518C58004207E1 /* JSValidationRules.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5AE53E016518C58004207E1 /* JSValidationRules.m in Sources */ = {isa = PBXBuildFile; fileRef = F5AE53DD16518C58004207E1 /* JSValidationRules.m */; };
-		F5AE53E116518C58004207E1 /* JSValidationRules.m in Sources */ = {isa = PBXBuildFile; fileRef = F5AE53DD16518C58004207E1 /* JSValidationRules.m */; };
 		F5D0923218586E2D00C5AEFC /* JSExportExecutionResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D0923018586E2D00C5AEFC /* JSExportExecutionResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F5D0923318586E2D00C5AEFC /* JSExportExecutionResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D0923018586E2D00C5AEFC /* JSExportExecutionResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5D0923818586E4E00C5AEFC /* JSErrorDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D0923618586E4E00C5AEFC /* JSErrorDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F5D0923918586E4E00C5AEFC /* JSErrorDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D0923618586E4E00C5AEFC /* JSErrorDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5D0923A18586E4E00C5AEFC /* JSErrorDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D0923718586E4E00C5AEFC /* JSErrorDescriptor.m */; };
-		F5D0923B18586E4E00C5AEFC /* JSErrorDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D0923718586E4E00C5AEFC /* JSErrorDescriptor.m */; };
 		F5D0923E18586E7D00C5AEFC /* JSReportOutputResource.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D0923C18586E7D00C5AEFC /* JSReportOutputResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F5D0923F18586E7D00C5AEFC /* JSReportOutputResource.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D0923C18586E7D00C5AEFC /* JSReportOutputResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5D0924418586E9300C5AEFC /* JSReportExecutionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D0924218586E9300C5AEFC /* JSReportExecutionRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F5D0924518586E9300C5AEFC /* JSReportExecutionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D0924218586E9300C5AEFC /* JSReportExecutionRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5DDD7AB164029EC005BBE7C /* JSServerInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F5DDD7A9164029EC005BBE7C /* JSServerInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F5DDD7AC164029EC005BBE7C /* JSServerInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F5DDD7A9164029EC005BBE7C /* JSServerInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5DDD7AD164029EC005BBE7C /* JSServerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F5DDD7AA164029EC005BBE7C /* JSServerInfo.m */; };
-		F5DDD7AE164029EC005BBE7C /* JSServerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F5DDD7AA164029EC005BBE7C /* JSServerInfo.m */; };
 		F5EA36AE18337B4A00E09E10 /* JSResourceLookup.h in Headers */ = {isa = PBXBuildFile; fileRef = F5EA36AC18337B4A00E09E10 /* JSResourceLookup.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F5EA36AF18337B4A00E09E10 /* JSResourceLookup.h in Headers */ = {isa = PBXBuildFile; fileRef = F5EA36AC18337B4A00E09E10 /* JSResourceLookup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5EA36B018337B4A00E09E10 /* JSResourceLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EA36AD18337B4A00E09E10 /* JSResourceLookup.m */; };
-		F5EA36B118337B4A00E09E10 /* JSResourceLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EA36AD18337B4A00E09E10 /* JSResourceLookup.m */; };
 		F5F173FA186486FD00779136 /* JSCore.h in Headers */ = {isa = PBXBuildFile; fileRef = F5F173F9186486FD00779136 /* JSCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F5F173FB186486FD00779136 /* JSCore.h in Headers */ = {isa = PBXBuildFile; fileRef = F5F173F9186486FD00779136 /* JSCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -180,7 +106,6 @@
 		F596020215ECCC9300B62DFD /* JaspersoftSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JaspersoftSDK.h; sourceTree = "<group>"; };
 		F59768BD15E3C75F004165A7 /* libJaspersoftSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJaspersoftSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F59768C015E3C75F004165A7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		F59768D215E3C777004165A7 /* JaspersoftSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JaspersoftSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F59768E815E3C826004165A7 /* JSConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JSConstants.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F59768E915E3C826004165A7 /* JSConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSConstants.m; sourceTree = "<group>"; };
 		F59768EA15E3C826004165A7 /* JSOperationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JSOperationResult.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -208,11 +133,7 @@
 		F597690E15E3C826004165A7 /* JSResourceProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResourceProperty.h; sourceTree = "<group>"; };
 		F597690F15E3C826004165A7 /* JSResourceProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceProperty.m; sourceTree = "<group>"; };
 		F597697815E3C9EF004165A7 /* JSSerializationDescriptorHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSSerializationDescriptorHolder.h; sourceTree = "<group>"; };
-		F5A8141515EBFA1900151B1D /* JaspersoftSDK-framework-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JaspersoftSDK-framework-Info.plist"; sourceTree = "<group>"; };
-		F5A8141615EBFA1900151B1D /* JaspersoftSDK-framework-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JaspersoftSDK-framework-Prefix.pch"; sourceTree = "<group>"; };
 		F5A8141715EBFA1900151B1D /* JaspersoftSDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JaspersoftSDK-Prefix.pch"; sourceTree = "<group>"; };
-		F5A8141815EBFA1900151B1D /* JaspersoftSDK-resources-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JaspersoftSDK-resources-Info.plist"; sourceTree = "<group>"; };
-		F5A8141915EBFA1900151B1D /* JaspersoftSDK-resources-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JaspersoftSDK-resources-Prefix.pch"; sourceTree = "<group>"; };
 		F5AE53AD165169F6004207E1 /* JSDateTimeFormatValidationRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDateTimeFormatValidationRule.h; sourceTree = "<group>"; };
 		F5AE53AE165169F6004207E1 /* JSDateTimeFormatValidationRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDateTimeFormatValidationRule.m; sourceTree = "<group>"; };
 		F5AE53DC16518C58004207E1 /* JSValidationRules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSValidationRules.h; sourceTree = "<group>"; };
@@ -239,13 +160,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				722EF964428E5B92861DCAC8 /* libPods.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F59768CE15E3C777004165A7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,7 +211,6 @@
 			isa = PBXGroup;
 			children = (
 				F59768BD15E3C75F004165A7 /* libJaspersoftSDK.a */,
-				F59768D215E3C777004165A7 /* JaspersoftSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -377,11 +290,7 @@
 		F5A8141415EBFA1900151B1D /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				F5A8141515EBFA1900151B1D /* JaspersoftSDK-framework-Info.plist */,
-				F5A8141615EBFA1900151B1D /* JaspersoftSDK-framework-Prefix.pch */,
 				F5A8141715EBFA1900151B1D /* JaspersoftSDK-Prefix.pch */,
-				F5A8141815EBFA1900151B1D /* JaspersoftSDK-resources-Info.plist */,
-				F5A8141915EBFA1900151B1D /* JaspersoftSDK-resources-Prefix.pch */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -505,45 +414,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F59768CF15E3C777004165A7 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F596020415ECCCA900B62DFD /* JaspersoftSDK.h in Headers */,
-				F5F173FB186486FD00779136 /* JSCore.h in Headers */,
-				F543A91318648CBD000657F5 /* JSObjectMappings.h in Headers */,
-				F597691915E3C826004165A7 /* JSProfile.h in Headers */,
-				F597692115E3C826004165A7 /* JSRESTBase.h in Headers */,
-				F597692515E3C826004165A7 /* JSRESTReport.h in Headers */,
-				F597692915E3C826004165A7 /* JSRESTResource.h in Headers */,
-				F597691515E3C826004165A7 /* JSOperationResult.h in Headers */,
-				F597691D15E3C826004165A7 /* JSRequest.h in Headers */,
-				F597697A15E3C9EF004165A7 /* JSSerializationDescriptorHolder.h in Headers */,
-				F597691115E3C826004165A7 /* JSConstants.h in Headers */,
-				F5EA36AF18337B4A00E09E10 /* JSResourceLookup.h in Headers */,
-				F597694815E3C826004165A7 /* JSReportDescriptor.h in Headers */,
-				F597694C15E3C826004165A7 /* JSResourceDescriptor.h in Headers */,
-				F597695015E3C826004165A7 /* JSResourceParameter.h in Headers */,
-				F597695415E3C826004165A7 /* JSResourceProperty.h in Headers */,
-				F597694415E3C826004165A7 /* JSReportAttachment.h in Headers */,
-				F5DDD7AC164029EC005BBE7C /* JSServerInfo.h in Headers */,
-				F568246B1642996D00CC4015 /* JSInputControlDescriptor.h in Headers */,
-				F56824751642A2A300CC4015 /* JSInputControlState.h in Headers */,
-				F568247B1642A67E00CC4015 /* JSInputControlOption.h in Headers */,
-				F53B1044164A9EE400042976 /* JSReportParameter.h in Headers */,
-				F5AE53B0165169F6004207E1 /* JSDateTimeFormatValidationRule.h in Headers */,
-				F5D0923F18586E7D00C5AEFC /* JSReportOutputResource.h in Headers */,
-				F5D0924518586E9300C5AEFC /* JSReportExecutionRequest.h in Headers */,
-				F5D0923318586E2D00C5AEFC /* JSExportExecutionResponse.h in Headers */,
-				F5AE53DF16518C58004207E1 /* JSValidationRules.h in Headers */,
-				374556B8DCFAAB42E47D5F04 /* JSReportExecutionResponse.h in Headers */,
-				F523D78618635EB000B93D3F /* JSExecutionStatus.h in Headers */,
-				F520FF8A196FEE53009435C2 /* JSMandatoryValidationRule.h in Headers */,
-				F5D0923918586E4E00C5AEFC /* JSErrorDescriptor.h in Headers */,
-				F597693515E3C826004165A7 /* JSRestKitManagerFactory.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -566,24 +436,6 @@
 			productReference = F59768BD15E3C75F004165A7 /* libJaspersoftSDK.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		F59768D115E3C777004165A7 /* JaspersoftSDK-framework */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F59768E315E3C777004165A7 /* Build configuration list for PBXNativeTarget "JaspersoftSDK-framework" */;
-			buildPhases = (
-				F59768CD15E3C777004165A7 /* Sources */,
-				F59768CE15E3C777004165A7 /* Frameworks */,
-				F59768CF15E3C777004165A7 /* Headers */,
-				F59768D015E3C777004165A7 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "JaspersoftSDK-framework";
-			productName = "jaspersoft-sdk-framework";
-			productReference = F59768D215E3C777004165A7 /* JaspersoftSDK.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -605,21 +457,9 @@
 			projectRoot = "";
 			targets = (
 				F59768BC15E3C75F004165A7 /* JaspersoftSDK */,
-				F59768D115E3C777004165A7 /* JaspersoftSDK-framework */,
-				F575905D174E42B500C355C1 /* JaspersoftSDK-universal */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXResourcesBuildPhase section */
-		F59768D015E3C777004165A7 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		5062EA71E05BB4AA8A505805 /* Check Pods Manifest.lock */ = {
@@ -651,19 +491,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		F575906B174E4B2B00C355C1 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "LIB_NAME=\"${PROJECT_NAME}\"\nSOURCE_DIR=\"${SOURCE_ROOT}/${FULL_PRODUCT_NAME}\"\nINSTALL_DIR=\"${SOURCE_DIR}/jaspersoft-sdk-lib\"\nDEVICE_DIR=\"${BUILD_DIR}/Debug-iphonesimulator\"\nSIMULATOR_DIR=\"${BUILD_DIR}/Release-iphoneos\"\nHEADER_FILES_DIR=\"${BUILD_DIR}/../Headers/${LIB_NAME}\"\n\n# Build project for simulator and device\nxcodebuild -project \"${LIB_NAME}.xcodeproj\" -scheme \"${LIB_NAME}\" -configuration \"Debug\" -sdk \"iphonesimulator\" -arch \"i386\" clean build\nxcodebuild -project \"${LIB_NAME}.xcodeproj\" -scheme \"${LIB_NAME}\" -configuration \"Release\" -sdk \"iphoneos\" clean build\n\n# Create bundle for requied resoruces\nxcodebuild -project \"${LIB_NAME}.xcodeproj\" -target \"${LIB_NAME}-resources\" -configuration \"Debug\" -sdk \"iphonesimulator\" clean build\n\n# Clean the old install directory.\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\n\n# Create the install directory\nmkdir -p \"${INSTALL_DIR}\"\n\n# Copy bundles into the install directory\ncp -r \"${SOURCE_ROOT}/${FULL_PRODUCT_NAME}/${LIB_NAME}-resources.bundle\" \"${INSTALL_DIR}\"\n\n# Copy headers into the install directory\ncp -r \"${HEADER_FILES_DIR}/\" \"${INSTALL_DIR}\"\n\n# Use lipo tool to create 1 universal library\nlipo -create \"${DEVICE_DIR}/lib${LIB_NAME}.a\" \"${SIMULATOR_DIR}/lib${LIB_NAME}.a\" -output \"${INSTALL_DIR}/lib${LIB_NAME}-universal.a\"\n\n# Remove useless build directories\nrm -rf \"${DEVICE_DIR}\" \"${SIMULATOR_DIR}\" \"${INSTALL_DIR}.build\" \"${SOURCE_DIR}/build\"\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -704,70 +531,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F59768CD15E3C777004165A7 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F597691315E3C826004165A7 /* JSConstants.m in Sources */,
-				F597691715E3C826004165A7 /* JSOperationResult.m in Sources */,
-				F597691B15E3C826004165A7 /* JSProfile.m in Sources */,
-				F597691F15E3C826004165A7 /* JSRequest.m in Sources */,
-				F597692315E3C826004165A7 /* JSRESTBase.m in Sources */,
-				F597692715E3C826004165A7 /* JSRESTReport.m in Sources */,
-				F597692B15E3C826004165A7 /* JSRESTResource.m in Sources */,
-				F597694615E3C826004165A7 /* JSReportAttachment.m in Sources */,
-				F597694A15E3C826004165A7 /* JSReportDescriptor.m in Sources */,
-				F597694E15E3C826004165A7 /* JSResourceDescriptor.m in Sources */,
-				F597695215E3C826004165A7 /* JSResourceParameter.m in Sources */,
-				F597695615E3C826004165A7 /* JSResourceProperty.m in Sources */,
-				F5DDD7AE164029EC005BBE7C /* JSServerInfo.m in Sources */,
-				F523D78818635EB000B93D3F /* JSExecutionStatus.m in Sources */,
-				F568246D1642996D00CC4015 /* JSInputControlDescriptor.m in Sources */,
-				F520FF8C196FEE53009435C2 /* JSMandatoryValidationRule.m in Sources */,
-				F56824771642A2A300CC4015 /* JSInputControlState.m in Sources */,
-				F568247D1642A67E00CC4015 /* JSInputControlOption.m in Sources */,
-				F5EA36B118337B4A00E09E10 /* JSResourceLookup.m in Sources */,
-				F53B1046164A9EE400042976 /* JSReportParameter.m in Sources */,
-				F5D0923B18586E4E00C5AEFC /* JSErrorDescriptor.m in Sources */,
-				F5AE53B2165169F6004207E1 /* JSDateTimeFormatValidationRule.m in Sources */,
-				F5AE53E116518C58004207E1 /* JSValidationRules.m in Sources */,
-				F597693715E3C826004165A7 /* JSRestKitManagerFactory.m in Sources */,
-				37455545902B14464F04FA83 /* JSReportExecutionResponse.m in Sources */,
-				374551A212E7AB533580F50C /* JSExportExecutionResponse.m in Sources */,
-				3745519A3881E4804293BAE2 /* JSReportOutputResource.m in Sources */,
-				37455F666750D1962B6ED6CB /* JSReportExecutionRequest.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		F575905E174E42B500C355C1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_THUMB_SUPPORT = NO;
-				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"/**";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = "JaspersoftSDK-universal";
-			};
-			name = Debug;
-		};
-		F575905F174E42B500C355C1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_THUMB_SUPPORT = NO;
-				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"/**";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = "JaspersoftSDK-universal";
-			};
-			name = Release;
-		};
 		F59768C815E3C75F004165A7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -889,92 +655,9 @@
 			};
 			name = Release;
 		};
-		F59768E415E3C777004165A7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				"ARCHS[sdk=*]" = "$(ARCHS_STANDARD_64_BIT)";
-				"ARCHS[sdk=iphonesimulator6.0]" = "$(ARCHS_STANDARD_64_BIT)";
-				COMBINE_HIDPI_IMAGES = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
-				);
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Support/JaspersoftSDK-framework-Prefix.pch";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				HEADER_SEARCH_PATHS = (
-					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
-					"${SDKROOT}/usr/include/libxml2",
-				);
-				INFOPLIST_FILE = "Support/JaspersoftSDK-framework-Info.plist";
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = JaspersoftSDK;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				VALID_ARCHS = "i386 x86_64";
-				WRAPPER_EXTENSION = framework;
-			};
-			name = Debug;
-		};
-		F59768E515E3C777004165A7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				"ARCHS[sdk=*]" = "$(ARCHS_STANDARD_64_BIT)";
-				"ARCHS[sdk=iphonesimulator6.0]" = "$(ARCHS_STANDARD_64_BIT)";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
-				);
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Support/JaspersoftSDK-framework-Prefix.pch";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				HEADER_SEARCH_PATHS = (
-					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
-					"${SDKROOT}/usr/include/libxml2",
-				);
-				INFOPLIST_FILE = "Support/JaspersoftSDK-framework-Info.plist";
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = JaspersoftSDK;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				VALID_ARCHS = "i386 x86_64";
-				WRAPPER_EXTENSION = framework;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F5759063174E42B500C355C1 /* Build configuration list for PBXAggregateTarget "JaspersoftSDK-universal" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F575905E174E42B500C355C1 /* Debug */,
-				F575905F174E42B500C355C1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		F59768B715E3C75E004165A7 /* Build configuration list for PBXProject "JaspersoftSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -989,15 +672,6 @@
 			buildConfigurations = (
 				F59768CB15E3C75F004165A7 /* Debug */,
 				F59768CC15E3C75F004165A7 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F59768E315E3C777004165A7 /* Build configuration list for PBXNativeTarget "JaspersoftSDK-framework" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F59768E415E3C777004165A7 /* Debug */,
-				F59768E515E3C777004165A7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

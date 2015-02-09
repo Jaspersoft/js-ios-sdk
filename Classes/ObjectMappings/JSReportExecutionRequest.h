@@ -29,14 +29,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSSerializationDescriptorHolder.h"
 
 /**
  Represents a report execution request descriptor for convenient XML serialization process
 
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev ogubarie@tibco.com
  @since 1.8
  */
-@protocol JSSerializationDescriptorHolder;
 @interface JSReportExecutionRequest : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *reportUnitUri;

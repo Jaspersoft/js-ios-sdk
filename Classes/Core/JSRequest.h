@@ -30,12 +30,14 @@
 
 #import "JSOperationResult.h"
 #import "RKHTTPUtilities.h"
-
+#import "JSSerializationDescriptorHolder.h"
 
 /**
  This block invoked when the request is complete.
  Provided as analogue to JSResponseDelegate protocol
- */
+ @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev ogubarie@tibco.com
+*/
 typedef void(^JSRequestFinishedBlock)(JSOperationResult *result);
 
 /**

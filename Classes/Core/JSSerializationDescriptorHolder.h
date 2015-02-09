@@ -29,6 +29,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <RestKit/RestKit.h>
+#import "JSProfile.h"
 
 /**
  Declares method that a class must implement so that it can provide support of
@@ -38,7 +40,6 @@
  @since 1.9
  */
 
-@class RKObjectMapping, JSProfile;
 @protocol JSSerializationDescriptorHolder <NSObject>
 
 @optional

@@ -29,7 +29,7 @@
 //
 
 #import "JSExportExecutionRequest.h"
-#import "JSProfile.h"
+#import "JSServerInfo.h"
 
 @implementation JSExportExecutionRequest
 

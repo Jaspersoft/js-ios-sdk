@@ -29,14 +29,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSSerializationDescriptorHolder.h"
 
 /**
  Represents a report attachment entity for convenient XML serialization process
  
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev ogubarie@tibco.com
  @since 1.3
  */
-@protocol JSSerializationDescriptorHolder;
 @interface JSReportAttachment : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *type;

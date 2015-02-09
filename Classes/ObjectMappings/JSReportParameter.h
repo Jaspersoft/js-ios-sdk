@@ -29,12 +29,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSSerializationDescriptorHolder.h"
 
 /**
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev ogubarie@tibco.com
  @since 1.4
  */
-@protocol JSSerializationDescriptorHolder;
 @interface JSReportParameter : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *name;
