@@ -77,6 +77,12 @@ static NSString * const _requestFinishedTemplateMessage = @"Request finished: %@
 
 @end
 
+@interface RKObjectManager (CopyCredentials)
+
+- (void)copyStateFromHTTPClientToHTTPRequestOperation:(AFHTTPRequestOperation *)operation;
+
+@end
+
 // Hidden implementation of RKObjectLoaderDelegate protocol and private properties
 @interface JSRESTBase()
 

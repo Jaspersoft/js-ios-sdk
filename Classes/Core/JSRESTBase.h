@@ -33,6 +33,7 @@
 #import "JSSerializationDescriptorHolder.h"
 #import "JSServerInfo.h"
 #import <Foundation/Foundation.h>
+#import <AFNetworking/AFHTTPClient.h>
 
 extern NSString * const kJSRequestCharset;
 extern NSString * const kJSRequestContentType;
