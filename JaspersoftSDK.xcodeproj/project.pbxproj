@@ -40,10 +40,10 @@
 		F597691E15E3C826004165A7 /* JSRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768EF15E3C826004165A7 /* JSRequest.m */; };
 		F597692015E3C826004165A7 /* JSRESTBase.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F015E3C826004165A7 /* JSRESTBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597692215E3C826004165A7 /* JSRESTBase.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F115E3C826004165A7 /* JSRESTBase.m */; };
-		F597692415E3C826004165A7 /* JSRESTReport.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F215E3C826004165A7 /* JSRESTReport.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F597692615E3C826004165A7 /* JSRESTReport.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F315E3C826004165A7 /* JSRESTReport.m */; };
-		F597692815E3C826004165A7 /* JSRESTResource.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F415E3C826004165A7 /* JSRESTResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F597692A15E3C826004165A7 /* JSRESTResource.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F515E3C826004165A7 /* JSRESTResource.m */; };
+		F597692415E3C826004165A7 /* JSRESTBase+JSRESTReport.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F215E3C826004165A7 /* JSRESTBase+JSRESTReport.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597692615E3C826004165A7 /* JSRESTBase+JSRESTReport.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F315E3C826004165A7 /* JSRESTBase+JSRESTReport.m */; };
+		F597692815E3C826004165A7 /* JSRESTBase+JSRESTResource.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F415E3C826004165A7 /* JSRESTBase+JSRESTResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597692A15E3C826004165A7 /* JSRESTBase+JSRESTResource.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F515E3C826004165A7 /* JSRESTBase+JSRESTResource.m */; };
 		F597693415E3C826004165A7 /* JSRestKitManagerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768FB15E3C826004165A7 /* JSRestKitManagerFactory.h */; };
 		F597693615E3C826004165A7 /* JSRestKitManagerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768FC15E3C826004165A7 /* JSRestKitManagerFactory.m */; };
 		F597694315E3C826004165A7 /* JSReportAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690615E3C826004165A7 /* JSReportAttachment.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -116,10 +116,10 @@
 		F59768EF15E3C826004165A7 /* JSRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSRequest.m; sourceTree = "<group>"; };
 		F59768F015E3C826004165A7 /* JSRESTBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JSRESTBase.h; sourceTree = "<group>"; };
 		F59768F115E3C826004165A7 /* JSRESTBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSRESTBase.m; sourceTree = "<group>"; };
-		F59768F215E3C826004165A7 /* JSRESTReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSRESTReport.h; sourceTree = "<group>"; };
-		F59768F315E3C826004165A7 /* JSRESTReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSRESTReport.m; sourceTree = "<group>"; };
-		F59768F415E3C826004165A7 /* JSRESTResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSRESTResource.h; sourceTree = "<group>"; };
-		F59768F515E3C826004165A7 /* JSRESTResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSRESTResource.m; sourceTree = "<group>"; };
+		F59768F215E3C826004165A7 /* JSRESTBase+JSRESTReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSRESTBase+JSRESTReport.h"; sourceTree = "<group>"; };
+		F59768F315E3C826004165A7 /* JSRESTBase+JSRESTReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSRESTReport.m"; sourceTree = "<group>"; };
+		F59768F415E3C826004165A7 /* JSRESTBase+JSRESTResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSRESTBase+JSRESTResource.h"; sourceTree = "<group>"; };
+		F59768F515E3C826004165A7 /* JSRESTBase+JSRESTResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSRESTResource.m"; sourceTree = "<group>"; };
 		F59768FB15E3C826004165A7 /* JSRestKitManagerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSRestKitManagerFactory.h; sourceTree = "<group>"; };
 		F59768FC15E3C826004165A7 /* JSRestKitManagerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSRestKitManagerFactory.m; sourceTree = "<group>"; };
 		F597690615E3C826004165A7 /* JSReportAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportAttachment.h; sourceTree = "<group>"; };
@@ -251,10 +251,10 @@
 				F597697815E3C9EF004165A7 /* JSSerializationDescriptorHolder.h */,
 				F59768F015E3C826004165A7 /* JSRESTBase.h */,
 				F59768F115E3C826004165A7 /* JSRESTBase.m */,
-				F59768F215E3C826004165A7 /* JSRESTReport.h */,
-				F59768F315E3C826004165A7 /* JSRESTReport.m */,
-				F59768F415E3C826004165A7 /* JSRESTResource.h */,
-				F59768F515E3C826004165A7 /* JSRESTResource.m */,
+				F59768F215E3C826004165A7 /* JSRESTBase+JSRESTReport.h */,
+				F59768F315E3C826004165A7 /* JSRESTBase+JSRESTReport.m */,
+				F59768F415E3C826004165A7 /* JSRESTBase+JSRESTResource.h */,
+				F59768F515E3C826004165A7 /* JSRESTBase+JSRESTResource.m */,
 				F59768EA15E3C826004165A7 /* JSOperationResult.h */,
 				F59768EB15E3C826004165A7 /* JSOperationResult.m */,
 				F59768EE15E3C826004165A7 /* JSRequest.h */,
@@ -382,8 +382,8 @@
 				F52DF64918648C28000D375E /* JSObjectMappings.h in Headers */,
 				F597691815E3C826004165A7 /* JSProfile.h in Headers */,
 				F597692015E3C826004165A7 /* JSRESTBase.h in Headers */,
-				F597692415E3C826004165A7 /* JSRESTReport.h in Headers */,
-				F597692815E3C826004165A7 /* JSRESTResource.h in Headers */,
+				F597692415E3C826004165A7 /* JSRESTBase+JSRESTReport.h in Headers */,
+				F597692815E3C826004165A7 /* JSRESTBase+JSRESTResource.h in Headers */,
 				F597691415E3C826004165A7 /* JSOperationResult.h in Headers */,
 				F597691C15E3C826004165A7 /* JSRequest.h in Headers */,
 				F597697915E3C9EF004165A7 /* JSSerializationDescriptorHolder.h in Headers */,
@@ -504,8 +504,8 @@
 				F597691A15E3C826004165A7 /* JSProfile.m in Sources */,
 				F597691E15E3C826004165A7 /* JSRequest.m in Sources */,
 				F597692215E3C826004165A7 /* JSRESTBase.m in Sources */,
-				F597692615E3C826004165A7 /* JSRESTReport.m in Sources */,
-				F597692A15E3C826004165A7 /* JSRESTResource.m in Sources */,
+				F597692615E3C826004165A7 /* JSRESTBase+JSRESTReport.m in Sources */,
+				F597692A15E3C826004165A7 /* JSRESTBase+JSRESTResource.m in Sources */,
 				F597694515E3C826004165A7 /* JSReportAttachment.m in Sources */,
 				F597694915E3C826004165A7 /* JSReportDescriptor.m in Sources */,
 				F597694D15E3C826004165A7 /* JSResourceDescriptor.m in Sources */,

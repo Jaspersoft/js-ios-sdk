@@ -39,23 +39,12 @@
 @synthesize organization = _organization;
 @synthesize serverInfo = _serverInfo;
 
-- (id)init {
-    return [self initWithAlias:nil username:nil password:nil organization:nil serverUrl:nil];
-}
-
-- (id)initWithAlias:(NSString *)alias 
-           username:(NSString *)username 
-           password:(NSString *)password 
-       organization:(NSString *)organization 
-          serverUrl:(NSString *)serverUrl {
+- (id)initWithAlias:(NSString *)alias serverUrl:(NSString *)serverUrl organization:(NSString *)organization {
     if (self = [super init]) {
-        self.alias = alias;
-        self.username = username;
-        self.password = password;
-        self.organization = organization;
-        self.serverUrl = serverUrl;
+        _alias = alias;
+        _organization = organization;
+        _serverUrl = serverUrl;
     }
-    
     return self;
 }
 
@@ -71,12 +60,18 @@
     return self.username;
 }
 
+- (void)setCredentialsWithUsername:(NSString *)username password:(NSString *)password
+{
+    _username = username;
+    _password = password;
+}
+
+#pragma mark - NSCopying
+
 - (id)copyWithZone:(NSZone *)zone {
     JSProfile *copiedProfile = [[JSProfile allocWithZone:zone] initWithAlias:self.alias 
-                                                                    username:self.username 
-                                                                    password:self.password
-                                                                organization:self.organization 
-                                                                   serverUrl:self.serverUrl];
+                                                                    serverUrl:self.serverUrl
+                                                                organization:self.organization];
     return copiedProfile;
 }
 

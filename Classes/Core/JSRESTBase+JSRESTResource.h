@@ -24,7 +24,7 @@
  */
 
 //
-//  JSRESTResources.h
+//  JSRESTBase+JSRESTResource.h
 //  Jaspersoft Corporation
 //
 
@@ -33,26 +33,18 @@
 #import <Foundation/Foundation.h>
 
 /**
- Provides wrapper methods for <code>JSRESTBase</code> to interact with the 
- <b>repository</b> JasperReports server REST API. This object puts at disposal
- a set of methods for getting list of resources, getting single resource (also 
- getting with query data), creating, modifying and deleting resource (all sending 
- methods are asynchronous and use base sendRequest method from <code>JSRESTBase</code>
- class). 
+ Extention to <code>JSRESTBase</code> class for working with resources by REST calls.
  
- Contains two types of methods which differs by last parameter: first type uses 
- delegate and puts request result into it, second type uses pre-configuration 
- block for setting additional parameters of JSRequest object. Pre-configuration 
- block implicitly supports finishedBlock usage instead delegate object (or use
- them both), setting custom timeoutInterval, custom query parameters, 
- requestBackgroundPolicy etc.
+ Contains two types of methods which differs by last parameter: first type uses
+ delegate and puts request result into it, second type uses completion
+ block.
  
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @author Alexey Gubarev ogubarie@tibco.com
 
  @since 1.3
  */
-@interface JSRESTResource : JSRESTBase
+@interface JSRESTBase(JSRESTResource)
 
 /**
  Creates the resource with specified JSResourceDescriptor
@@ -68,7 +60,7 @@
  @param resource JSResourceDescriptor of resource being modified
  @param block The block to inform of the results
  */
-- (void)createResource:(JSResourceDescriptor *)resource usingBlock:(JSRequestFinishedBlock)block;
+- (void)createResource:(JSResourceDescriptor *)resource completionBlock:(JSRequestCompletionBlock)block;
 
 /**
  Modifies the resource with specified JSResourceDescriptor
@@ -84,7 +76,7 @@
  @param resource JSResourceDescriptor of resource being modified
  @param block The block to inform of the results
  */
-- (void)modifyResource:(JSResourceDescriptor *)resource usingBlock:(JSRequestFinishedBlock)block;
+- (void)modifyResource:(JSResourceDescriptor *)resource completionBlock:(JSRequestCompletionBlock)block;
 
 /**
  Deletes the resource with the specified URI
@@ -100,7 +92,7 @@
  @param uri The repository URI (i.e. /reports/samples/)
  @param block The block to inform of the results
  */
-- (void)deleteResource:(NSString *)uri usingBlock:(JSRequestFinishedBlock)block;
+- (void)deleteResource:(NSString *)uri completionBlock:(JSRequestCompletionBlock)block;
 
 //---------------------------------------------------------------------
 // The Resources Service v2
@@ -115,7 +107,7 @@
  @since 1.9
  */
 
-- (void)getResourceLookup:(NSString *)resourceURI delegate:(id<JSRequestDelegate>)delegate;
+- (void)resourceLookupForURI:(NSString *)resourceURI delegate:(id<JSRequestDelegate>)delegate;
 
 /**
  Gets resource lookup for resource.
@@ -125,7 +117,7 @@
  
  @since 1.9
  */
-- (void)getResourceLookup:(NSString *)resourceURI usingBlock:(JSRequestFinishedBlock)block;
+- (void)resourceLookupForURI:(NSString *)resourceURI completionBlock:(JSRequestCompletionBlock)block;
 
 
 /**
@@ -164,7 +156,7 @@
  @since 1.7
  */
 - (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types
-              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit usingBlock:(JSRequestFinishedBlock)block;
+              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit completionBlock:(JSRequestCompletionBlock)block;
 
 /**
  Gets the list of resource lookups for the resources available in the specified
@@ -206,6 +198,6 @@
  @since 1.8
  */
 - (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types sortBy:(NSString *)sortBy
-              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit usingBlock:(JSRequestFinishedBlock)block;
+              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit completionBlock:(JSRequestCompletionBlock)block;
 
 @end

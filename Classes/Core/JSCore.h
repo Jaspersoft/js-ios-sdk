@@ -28,11 +28,12 @@
 //  Jaspersoft Corporation
 //
 
-#import "JSProfile.h"
-#import "JSRESTBase.h"
-#import "JSRESTReport.h"
-#import "JSRESTResource.h"
-#import "JSOperationResult.h"
-#import "JSRequest.h"
-#import "JSSerializationDescriptorHolder.h"
 #import "JSConstants.h"
+#import "JSProfile.h"
+#import "JSRequest.h"
+#import "JSOperationResult.h"
+
+#import "JSRESTBase.h"
+#import "JSRESTBase+JSRESTReport.h"
+#import "JSRESTBase+JSRESTResource.h"
+#import "JSSerializationDescriptorHolder.h"

@@ -34,7 +34,7 @@
 #import "JSConstants.h"
 
 @implementation JSRestKitManagerFactory
-+ (RKObjectManager *)createRestKitObjectManagerForClasses:(NSArray *)classes andServerProfile:(JSProfile *)serverProfile{
++ (RKObjectManager *)createRestKitObjectManagerForServerProfile:(JSProfile *)serverProfile{
     // Creates RKObjectManager for loading and mapping encoded response (i.e XML, JSON etc.)
     // directly to objects
     RKObjectManager *restKitObjectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:serverProfile.serverUrl]];

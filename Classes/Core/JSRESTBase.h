@@ -87,15 +87,11 @@ extern NSString * const kJSRequestResponceType;
 @property (nonatomic, strong, readonly) RKObjectManager *restKitObjectManager;
 
 /** 
- Returns a rest base instance with list of classes for which mapping rules will be created.
- 
- Class mapping rule describes how returned HTTP response (in JSON, XML and other
- formats) should be mapped directly to this class.
- 
- @param classes A list of classes for which mapping rules will be created
- @return A fully configured JSRESTBase instance include mapping rules
+ Returns a rest base instance.
+
+ @return A fully configured JSRESTBase instance
  */
-- (id)initWithClassesForMappings:(NSArray *)classes;
+- (id)init;
 
 /**
  Sends asynchronous request. Result will be passed as <code>JSOperationResult</code> 

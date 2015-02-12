@@ -24,7 +24,7 @@
  */
 
 //
-//  JSRESTReport.h
+//  JSRESTBase+JSRESTReport.h
 //  Jaspersoft Corporation
 //
 
@@ -35,23 +35,18 @@
 #import <Foundation/Foundation.h>
 
 /**
- Provides wrapper methods for <code>JSRESTBase</code> to interact with the
- <b>report</b> JasperReports server REST API. This object puts at disposal a set
- of methods for running reports and downloading report files (all sending methods
- are asynchronous and use base sendRequest method from <code>JSRESTBase</code> class).
+ Extention to <code>JSRESTBase</code> class for working with reports by REST calls. 
  
  Contains two types of methods which differs by last parameter: first type uses
- delegate and puts request result into it, second type uses pre-configuration
- block for setting additional parameters of JSRequest object. Pre-configuration
- block implicitly supports finishedBlock usage instead delegate object (or use
- them both), setting custom timeoutInterval, custom query parameters,
- requestBackgroundPolicy etc.
+ delegate and puts request result into it, second type uses completion
+ block.
  
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.3
  */
-@interface JSRESTReport : JSRESTBase
+
+@interface JSRESTBase (JSRESTReport)
 
 //---------------------------------------------------------------------
 // The Report Service v2
@@ -107,7 +102,7 @@
  
  @since 1.6
  */
-- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues usingBlock:(JSRequestFinishedBlock)block;
+- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues completionBlock:(JSRequestCompletionBlock)block;
 
 /**
  Gets the states with updated values for input controls with specified IDs and according to selected values
@@ -133,7 +128,7 @@
  @since 1.4
  */
 - (void)updatedInputControlsValues:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids
-                    selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues usingBlock:(JSRequestFinishedBlock)block;
+                    selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues completionBlock:(JSRequestCompletionBlock)block;
 
 /**
  Executes report
@@ -179,7 +174,7 @@
 - (void)runReportExecution:(NSString *)reportUnitUri async:(BOOL)async outputFormat:(NSString *)outputFormat
                interactive:(BOOL)interactive freshData:(BOOL)freshData saveDataSnapshot:(BOOL)saveDataSnapshot
           ignorePagination:(BOOL)ignorePagination transformerKey:(NSString *)transformerKey pages:(NSString *)pages
-         attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray /*<JSReportParameter>*/ *)parameters usingBlock:(JSRequestFinishedBlock)block;
+         attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray /*<JSReportParameter>*/ *)parameters completionBlock:(JSRequestCompletionBlock)block;
 
 /**
  Cancel Report Execution
@@ -199,7 +194,7 @@
  
  @since 1.9
  */
-- (void)cancelReportExecution:(NSString *)requestId usingBlock:(JSRequestFinishedBlock)block;
+- (void)cancelReportExecution:(NSString *)requestId completionBlock:(JSRequestCompletionBlock)block;
 
 /**
  Run Export Execution
@@ -228,7 +223,7 @@
  @since 1.9
  */
 - (void)runExportExecution:(NSString *)requestId outputFormat:(NSString *)outputFormat pages:(NSString *)pages
-         attachmentsPrefix:(NSString *)attachmentsPrefix usingBlock:(JSRequestFinishedBlock)block;
+         attachmentsPrefix:(NSString *)attachmentsPrefix completionBlock:(JSRequestCompletionBlock)block;
 
 /**
  Generates the report output url
@@ -249,7 +244,7 @@
  
  @since 1.8
  */
-- (void)getReportExecutionMetadata:(NSString *)requestId delegate:(id<JSRequestDelegate>)delegate;
+- (void)reportExecutionMetadataForRequestId:(NSString *)requestId delegate:(id<JSRequestDelegate>)delegate;
 
 /**
  Gets report execution metadata by request id
@@ -259,7 +254,7 @@
  
  @since 1.8
  */
-- (void)getReportExecutionMetadata:(NSString *)requestId usingBlock:(JSRequestFinishedBlock)block;
+- (void)reportExecutionMetadataForRequestId:(NSString *)requestId completionBlock:(JSRequestCompletionBlock)block;
 
 /**
  Gets report execution status by request id
@@ -269,7 +264,7 @@
  
  @since 1.8
  */
-- (void)getReportExecutionStatus:(NSString *)requestId delegate:(id<JSRequestDelegate>)delegate;
+- (void)reportExecutionStatusForRequestId:(NSString *)requestId delegate:(id<JSRequestDelegate>)delegate;
 
 /**
  Gets report execution status by request id
@@ -279,7 +274,7 @@
  
  @since 1.8
  */
-- (void)getReportExecutionStatus:(NSString *)requestId usingBlock:(JSRequestFinishedBlock)block;
+- (void)reportExecutionStatusForRequestId:(NSString *)requestId completionBlock:(JSRequestCompletionBlock)block;
 
 /**
  Loads report output and saves it by specified path if needed
@@ -311,7 +306,7 @@
  @since 1.9
  */
 - (void)loadReportOutput:(NSString *)requestId exportOutput:(NSString *)exportOutput
-           loadForSaving:(BOOL)loadForSaving path:(NSString *)path usingBlock:(JSRequestFinishedBlock)block;
+           loadForSaving:(BOOL)loadForSaving path:(NSString *)path completionBlock:(JSRequestCompletionBlock)block;
 
 /**
  Downloads report attachment and saves it by specified path
@@ -337,6 +332,6 @@
  
  @since 1.8
  */
-- (void)saveReportAttachment:(NSString *)requestId exportOutput:(NSString *)exportOutput attachmentName:(NSString *)attachmentName path:(NSString *)path usingBlock:(JSRequestFinishedBlock)block;
+- (void)saveReportAttachment:(NSString *)requestId exportOutput:(NSString *)exportOutput attachmentName:(NSString *)attachmentName path:(NSString *)path completionBlock:(JSRequestCompletionBlock)block;
 
 @end

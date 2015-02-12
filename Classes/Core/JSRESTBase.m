@@ -93,9 +93,6 @@ static NSString * const _requestFinishedTemplateMessage = @"Request finished: %@
 // List of JSCallBack instances
 @property (nonatomic, strong) NSMutableArray *requestCallBacks;
 
-// List of classes For Mappings
-@property (nonatomic, strong) NSArray *classesForMappings;
-
 @end
 
 @implementation JSRESTBase
@@ -122,18 +119,12 @@ static NSString * const _requestFinishedTemplateMessage = @"Request finished: %@
     });
 }
 
-- (id)initWithClassesForMappings:(NSArray *)classes {
+- (id)init {
     if (self = [super init]) {
-        
-        self.classesForMappings = classes;
         self.timeoutInterval = _defaultTimeoutInterval;
     }
     
     return self;
-}
-
-- (id)init {
-    return [self initWithClassesForMappings:nil];
 }
 
 - (void)setServerProfile:(JSProfile *)serverProfile {
@@ -277,7 +268,7 @@ static NSString * const _requestFinishedTemplateMessage = @"Request finished: %@
 #pragma mark Private methods
 
 - (void)configureRestKitObjectManager {
-    self.restKitObjectManager = [JSRestKitManagerFactory createRestKitObjectManagerForClasses:self.classesForMappings andServerProfile:self.serverProfile];
+    self.restKitObjectManager = [JSRestKitManagerFactory createRestKitObjectManagerForServerProfile:self.serverProfile];
     self.requestCallBacks = [[NSMutableArray alloc] init];
 }
 
@@ -410,12 +401,6 @@ static NSString * const _requestFinishedTemplateMessage = @"Request finished: %@
     }
 
     return result;
-}
-
-- (NSArray *)classesForMappings {
-    NSMutableArray *classesArray = [NSMutableArray arrayWithArray:_classesForMappings];
-    [classesArray addObject:[JSServerInfo class]];
-    return classesArray;
 }
 
 @end

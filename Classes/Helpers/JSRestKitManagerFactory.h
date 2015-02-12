@@ -47,17 +47,12 @@
 @interface JSRestKitManagerFactory : NSObject
 
 /** 
- Creates and configures RKObjectManager instance with mapping rules for specified 
- classes.
+ Creates and configures RKObjectManager instance with server profile.
  
- Class mapping rule describes how returned HTTP response (in JSON, XML and other
- formats) should be mapped directly to this class.
- 
- @param classes A list of classes for which mapping rules will be created
  @param serverProfile A server profile for configuring RestKitObjectManager
  @return A configured object manager
  */
-+ (RKObjectManager *)createRestKitObjectManagerForClasses:(NSArray *)classes andServerProfile:(JSProfile *)serverProfile;
++ (RKObjectManager *)createRestKitObjectManagerForServerProfile:(JSProfile *)serverProfile;
 
 @end
 

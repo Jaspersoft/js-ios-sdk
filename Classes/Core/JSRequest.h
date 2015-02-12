@@ -38,7 +38,7 @@
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @author Alexey Gubarev ogubarie@tibco.com
 */
-typedef void(^JSRequestFinishedBlock)(JSOperationResult *result);
+typedef void(^JSRequestCompletionBlock)(JSOperationResult *result);
 
 /**
  Supported REST versions
@@ -116,7 +116,7 @@ typedef enum {
  <code>nil</code>, it will receive request result (instance of
  <code>JSOperationResult</code> class). Provided as analogue to delegate object
  */
-@property (nonatomic, copy) JSRequestFinishedBlock finishedBlock;
+@property (nonatomic, copy) JSRequestCompletionBlock finishedBlock;
 
 /**
  The responseAsObjects indicates if response result should be serialized and
