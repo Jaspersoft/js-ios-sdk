@@ -102,22 +102,26 @@
  Gets resource lookup for resource.
  
  @param resourceURI The repository URI (i.e. /reports/samples/)
+ @param resourceType Type of required resource
  @param delegate A delegate object to inform of the results
 
  @since 1.9
  */
 
-- (void)resourceLookupForURI:(NSString *)resourceURI delegate:(id<JSRequestDelegate>)delegate;
+- (void)resourceLookupForURI:(NSString *)resourceURI resourceType:(NSString *)resourceType
+                    delegate:(id<JSRequestDelegate>)delegate;
 
 /**
  Gets resource lookup for resource.
  
  @param resourceURI The repository URI (i.e. /reports/samples/)
+ @param resourceType Type of required resource
  @param block The block to inform of the results
  
  @since 1.9
  */
-- (void)resourceLookupForURI:(NSString *)resourceURI completionBlock:(JSRequestCompletionBlock)block;
+- (void)resourceLookupForURI:(NSString *)resourceURI resourceType:(NSString *)resourceType
+             completionBlock:(JSRequestCompletionBlock)block;
 
 
 /**

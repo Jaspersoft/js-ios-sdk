@@ -104,7 +104,8 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 #pragma mark -
 #pragma mark Public methods for REST V2 resources API
 
-- (void)resourceLookupForURI:(NSString *)resourceURI delegate:(id<JSRequestDelegate>)delegate {
+- (void)resourceLookupForURI:(NSString *)resourceURI resourceType:(NSString *)resourceType
+                    delegate:(id<JSRequestDelegate>)delegate {
     NSString *uri = [JSConstants sharedInstance].REST_RESOURCES_URI;
     if (resourceURI && ![resourceURI isEqualToString:@"/"]) {
         uri = [uri stringByAppendingString:resourceURI];
@@ -113,10 +114,15 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
     request.restVersion = JSRESTVersion_2;
     request.expectedModelClass = [JSResourceLookup class];
     request.delegate = delegate;
-    [self sendRequest:request additionalHTTPHeaderFields:@{kJSRequestResponceType : @"application/repository.folder+json"}];
+    NSString *responceType = @"application/json";
+    if (resourceType) {
+        responceType = [NSString stringWithFormat:@"application/repository.%@+json", resourceType];
+    }
+    [self sendRequest:request additionalHTTPHeaderFields:@{kJSRequestResponceType : responceType}];
 }
 
-- (void)resourceLookupForURI:(NSString *)resourceURI completionBlock:(JSRequestCompletionBlock)block {
+- (void)resourceLookupForURI:(NSString *)resourceURI resourceType:(NSString *)resourceType
+             completionBlock:(JSRequestCompletionBlock)block {
     NSString *uri = [JSConstants sharedInstance].REST_RESOURCES_URI;
     if (resourceURI && ![resourceURI isEqualToString:@"/"]) {
         uri = [uri stringByAppendingString:resourceURI];
@@ -125,7 +131,11 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
     request.restVersion = JSRESTVersion_2;
     request.expectedModelClass = [JSResourceLookup class];
     request.finishedBlock = block;
-    [self sendRequest:request additionalHTTPHeaderFields:@{kJSRequestResponceType : @"application/repository.folder+json"}];
+    NSString *responceType = @"application/json";
+    if (resourceType) {
+        responceType = [NSString stringWithFormat:@"application/repository.%@+json", resourceType];
+    }
+    [self sendRequest:request additionalHTTPHeaderFields:@{kJSRequestResponceType : responceType}];
 }
 
 - (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types
