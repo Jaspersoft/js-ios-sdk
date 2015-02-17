@@ -62,7 +62,7 @@ extern NSString * const kJSRequestResponceType;
  The server profile instance contains connection details for 
  JasperReports server
  */
-@property (nonatomic, retain) JSProfile *serverProfile;
+@property (nonatomic, strong) JSProfile *serverProfile;
 
 /**
  The timeout interval which will be used as default value for all requests if
@@ -87,15 +87,16 @@ extern NSString * const kJSRequestResponceType;
 @property (nonatomic, strong, readonly) RKObjectManager *restKitObjectManager;
 
 /** 
- Returns a rest base instance.
-
+ Returns a rest base instance. 
+ 
+ @param serverProfile The server profile instance contains connection details for JasperReports server
  @return A fully configured JSRESTBase instance
  */
-- (id)init;
+- (instancetype)initWithServerProfile:(JSProfile *)serverProfile;
 
 /**
  Sends asynchronous request. Result will be passed as <code>JSOperationResult</code> 
- instance to delegate object or finishedBlock (or both also) provided in 
+ instance to delegate object or completionBlock (or both also) provided in 
  <code>JSRequest</code> object 
  
  @param request Models the request portion of an HTTP request/response cycle.
@@ -104,7 +105,7 @@ extern NSString * const kJSRequestResponceType;
 
 /**
  Sends asynchronous request. Result will be passed as <code>JSOperationResult</code>
- instance to delegate object or finishedBlock (or both also) provided in
+ instance to delegate object or completionBlock (or both also) provided in
  <code>JSRequest</code> object
  
  @param request Models the request portion of an HTTP request/response cycle.

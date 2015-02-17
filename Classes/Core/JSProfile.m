@@ -30,6 +30,14 @@
 
 #import "JSProfile.h"
 
+NSString * const kJSSavedProfileAliasKey        = @"JSSavedSessionKey";
+NSString * const kJSSavedProfileServerUrlKey    = @"JSSavedProfileServerUrlKey";
+NSString * const kJSSavedProfileUsernameKey     = @"JSSavedProfileUsernameKey";
+NSString * const kJSSavedProfilePasswordKey     = @"JSSavedProfilePasswordKey";
+NSString * const kJSSavedProfileOrganisationKey = @"JSSavedProfileOrganisationKey";
+NSString * const kJSSavedProfileServerInfoKey   = @"JSSavedProfileServerInfoKey";
+
+
 @implementation JSProfile
 
 @synthesize alias = _alias;
@@ -75,4 +83,30 @@
     return copiedProfile;
 }
 
+#pragma mark - NSSecureCoding
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:_alias forKey:kJSSavedProfileAliasKey];
+    [aCoder encodeObject:_serverUrl forKey:kJSSavedProfileServerUrlKey];
+    [aCoder encodeObject:_username forKey:kJSSavedProfileUsernameKey];
+    [aCoder encodeObject:_password forKey:kJSSavedProfilePasswordKey];
+    [aCoder encodeObject:_organization forKey:kJSSavedProfileOrganisationKey];
+    [aCoder encodeObject:_serverInfo forKey:kJSSavedProfileServerInfoKey];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+        _alias = [aDecoder decodeObjectForKey:kJSSavedProfileAliasKey];
+        _serverUrl = [aDecoder decodeObjectForKey:kJSSavedProfileServerUrlKey];
+        _username = [aDecoder decodeObjectForKey:kJSSavedProfileUsernameKey];
+        _password = [aDecoder decodeObjectForKey:kJSSavedProfilePasswordKey];
+        _organization = [aDecoder decodeObjectForKey:kJSSavedProfileOrganisationKey];
+        _serverInfo = [aDecoder decodeObjectForKey:kJSSavedProfileServerInfoKey];
+    }
+    return self;
+}
 @end

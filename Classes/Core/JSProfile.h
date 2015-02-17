@@ -41,7 +41,7 @@
 
 @class JSServerInfo;
 
-@interface JSProfile : NSObject <NSCopying>
+@interface JSProfile : NSObject <NSCopying, NSSecureCoding>
 
 /**
  The name used to refer to this profile. 

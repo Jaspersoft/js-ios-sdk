@@ -29,7 +29,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSRESTBase.h"
 
-@interface JSSession : NSObject
+extern NSString * const kJSSavedSessionKey;
+
+@interface JSSession :JSRESTBase  <NSSecureCoding>
+
+@property (nonatomic, assign, readonly) BOOL keepSession;
+
+- (instancetype) initWithServerProfile:(JSProfile *)serverProfile keepLogged:(BOOL)keepLogged;
+
+- (BOOL)isSessionAuthorized;
+
+- (void)authenticationTokenWithCompletion:(JSRequestCompletionBlock)completionBlock;
 
 @end

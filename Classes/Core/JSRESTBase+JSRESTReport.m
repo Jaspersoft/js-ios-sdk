@@ -131,7 +131,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     request.method = RKRequestMethodPOST;
     request.restVersion = JSRESTVersion_2;
     [self addReportParametersToRequest:request withSelectedValues:selectedValues];
-    request.finishedBlock = block;
+    request.completionBlock = block;
     [self sendRequest:request];
 }
 
@@ -172,7 +172,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     request.expectedModelClass = [JSReportExecutionResponse class];
     request.method = RKRequestMethodPOST;
     request.restVersion = JSRESTVersion_2;
-    request.finishedBlock = block;
+    request.completionBlock = block;
     
     JSReportExecutionRequest *executionRequest = [[JSReportExecutionRequest alloc] init];
     executionRequest.reportUnitUri = reportUnitUri;
@@ -215,7 +215,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     request.expectedModelClass = [JSExecutionStatus class];
     request.method = RKRequestMethodPUT;
     request.restVersion = JSRESTVersion_2;
-    request.finishedBlock = block;
+    request.completionBlock = block;
     
     JSExecutionStatus *status = [JSExecutionStatus new];
     status.status = @"cancelled";
@@ -252,7 +252,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     request.expectedModelClass = [JSExportExecutionResponse class];
     request.method = RKRequestMethodPOST;
     request.restVersion = JSRESTVersion_2;
-    request.finishedBlock = block;
+    request.completionBlock = block;
     
     JSExportExecutionRequest *executionRequest = [[JSExportExecutionRequest alloc] init];
     executionRequest.outputFormat = outputFormat;
@@ -285,7 +285,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportExecutionUri:requestId]];
     request.expectedModelClass = [JSReportExecutionResponse class];
     request.restVersion = JSRESTVersion_2;
-    request.finishedBlock = block;
+    request.completionBlock = block;
     [self sendRequest:request];
 }
 
@@ -303,7 +303,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
     request.expectedModelClass = [JSExecutionStatus class];
     request.restVersion = JSRESTVersion_2;
-    request.finishedBlock = block;
+    request.completionBlock = block;
     [self sendRequest:request];
 }
 
@@ -328,7 +328,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/outputResource?sessionDecorator=no&decorate=no#", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, exportOutput];
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
     request.restVersion = JSRESTVersion_2;
-    request.finishedBlock = block;
+    request.completionBlock = block;
     if (loadForSaving) {
         request.downloadDestinationPath = path;
         request.responseAsObjects = NO;
@@ -354,7 +354,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/attachments/%@", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, exportOutput, attachmentName];
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
     request.restVersion = JSRESTVersion_2;
-    request.finishedBlock = block;
+    request.completionBlock = block;
     request.downloadDestinationPath = path;
     request.responseAsObjects = NO;
     

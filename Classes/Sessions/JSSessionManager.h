@@ -29,6 +29,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSRESTBase.h"
 
 @class JSSession, JSProfile;
 
@@ -36,16 +37,13 @@
 
 @property (nonatomic, strong, readonly) JSSession *currentSession;
 
-/**
- The server profile instance contains connection details for
- JasperReports server
- */
-@property (nonatomic, retain) JSProfile *serverProfile;
-
 + (instancetype) sharedManager;
 
+- (void) createSessionWithServerProfile:(JSProfile *)serverProfile keepLogged:(BOOL)keepLogged completion:(JSRequestCompletionBlock)completionBlock;
 
+- (void) saveActiveSessionIfNeeded;
 
-- (void) createSessionWithServerProfile:(JSProfile *)serverProfile;
+- (void) restoreLastSessionWithCompletion:(JSRequestCompletionBlock)completionBlock;
+
 
 @end

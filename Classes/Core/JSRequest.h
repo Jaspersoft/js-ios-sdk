@@ -48,6 +48,7 @@ typedef void(^JSRequestCompletionBlock)(JSOperationResult *result);
  while for JSRESTVersion_2: http://host:port/jasperserver-pro/rest_v2/serverInfo/version )
  */
 typedef enum {
+    JSRESTVersion_None,
     JSRESTVersion_1,
     JSRESTVersion_2
 } JSRESTVersion;
@@ -112,11 +113,11 @@ typedef enum {
 @property (nonatomic, weak) id <JSRequestDelegate> delegate;
 
 /**
- A finishedBlock invoke when the request is completed. If block is not
+ A completionBlock invoke when the request is completed. If block is not
  <code>nil</code>, it will receive request result (instance of
  <code>JSOperationResult</code> class). Provided as analogue to delegate object
  */
-@property (nonatomic, copy) JSRequestCompletionBlock finishedBlock;
+@property (nonatomic, copy) JSRequestCompletionBlock completionBlock;
 
 /**
  The responseAsObjects indicates if response result should be serialized and

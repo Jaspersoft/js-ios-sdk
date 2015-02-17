@@ -48,7 +48,7 @@ NSString * const kJSRequestResponceType = @"Accept";
 static NSTimeInterval const _defaultTimeoutInterval = 120;
 
 // Helper template message indicates that request was finished successfully
-static NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
+NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
 
 // Inner JSCallback class contains JSRequest and RKRequest instances. 
 // JSRequest instance contains delegate object and finished block so actually this 
@@ -105,23 +105,21 @@ static NSString * const _requestFinishedTemplateMessage = @"Request finished: %@
 #pragma mark Initialization
 
 + (void)initialize {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
-        NSError *error = nil;
-        NSRegularExpression *mimeType = [NSRegularExpression regularExpressionWithPattern:@"application/(.+\\+)?json" options:NSRegularExpressionCaseInsensitive error:&error];
-        if (!error) {
-            [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:mimeType];
-        } else {
-            NSString *messageString = [NSString stringWithFormat:@"Unsupported mime type \"%@\"",mimeType.pattern];
-            @throw [NSException exceptionWithName:@"Unsupported mime type" reason:messageString userInfo:nil];
-        }
-    });
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+    NSError *error = nil;
+    NSRegularExpression *mimeType = [NSRegularExpression regularExpressionWithPattern:@"application/(.+\\+)?json" options:NSRegularExpressionCaseInsensitive error:&error];
+    if (!error) {
+        [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:mimeType];
+    } else {
+        NSString *messageString = [NSString stringWithFormat:@"Unsupported mime type \"%@\"",mimeType.pattern];
+        @throw [NSException exceptionWithName:@"Unsupported mime type" reason:messageString userInfo:nil];
+    }
 }
 
-- (id)init {
+- (instancetype)initWithServerProfile:(JSProfile *)serverProfile {
     if (self = [super init]) {
         self.timeoutInterval = _defaultTimeoutInterval;
+        self.serverProfile = serverProfile;
     }
     
     return self;
@@ -205,7 +203,7 @@ static NSString * const _requestFinishedTemplateMessage = @"Request finished: %@
 - (JSServerInfo *)serverInfo {
     if (!self.serverProfile.serverInfo) {
         JSRequest *request = [self serverInfoRequest:NO];
-        request.finishedBlock = ^(JSOperationResult *result) {
+        request.completionBlock = ^(JSOperationResult *result) {
             [self setServerInfo:result];
         };
         [self sendRequest:request];
@@ -216,7 +214,7 @@ static NSString * const _requestFinishedTemplateMessage = @"Request finished: %@
 
 - (void)serverInfo:(id<JSRequestDelegate>)delegate {
     JSRequest *request = [self serverInfoRequest:YES];
-    request.finishedBlock = ^(JSOperationResult *result) {
+    request.completionBlock = ^(JSOperationResult *result) {
         result = [self setServerInfo:result];
         [delegate requestFinished:result];
     };
@@ -283,9 +281,10 @@ static NSString * const _requestFinishedTemplateMessage = @"Request finished: %@
             break;
             
         case JSRESTVersion_1:
-        default:
             restServiceUri = constants.REST_SERVICES_URI;
             break;
+        default:
+            restServiceUri = @"";
     }
     
     // Remove all [] for query params (i.e. query &PL_Country_multi_select[]=Mexico&PL_Country_multi_select[]=USA will
@@ -358,8 +357,8 @@ static NSString * const _requestFinishedTemplateMessage = @"Request finished: %@
             }
             
             [callBack.request.delegate requestFinished:result];
-            if (callBack.request.finishedBlock) {
-                callBack.request.finishedBlock(result);
+            if (callBack.request.completionBlock) {
+                callBack.request.completionBlock(result);
             }
 
             [self.requestCallBacks removeObject: callBack];

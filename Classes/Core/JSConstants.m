@@ -147,6 +147,7 @@ static JSConstants *_sharedInstance;
 @synthesize REST_SDK_MIMETYPE_USED;
 @synthesize REST_SDK_CHARSET_USED;
 @synthesize REST_JRS_LOCALE_SUPPORTED;
+@synthesize REST_AUTHENTICATION_URI;
 @synthesize REST_SERVICES_URI;
 @synthesize REST_SERVICES_V2_URI;
 @synthesize REST_RESOURCE_URI;
@@ -389,6 +390,7 @@ static JSConstants *_sharedInstance;
 }
 
 - (void)setRESTURIPrefixes {
+    REST_AUTHENTICATION_URI = @"j_spring_security_check";
     REST_SERVICES_URI = @"rest";
     REST_SERVICES_V2_URI = @"rest_v2";
     REST_RESOURCE_URI = @"/resource";

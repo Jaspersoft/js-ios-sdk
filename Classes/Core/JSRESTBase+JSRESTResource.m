@@ -65,7 +65,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
     request.expectedModelClass = [JSResourceDescriptor class];
     request.method = RKRequestMethodPOST;
     request.body = resource;
-    request.finishedBlock = block;
+    request.completionBlock = block;
     [self sendRequest:request];
 }
 
@@ -83,7 +83,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
     request.expectedModelClass = [JSResourceDescriptor class];
     request.method = RKRequestMethodPUT;
     request.body = resource;
-    request.finishedBlock = block;
+    request.completionBlock = block;
     [self sendRequest:request];
 }
 
@@ -97,7 +97,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 - (void)deleteResource:(NSString *)uri completionBlock:(JSRequestCompletionBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:uri]];
     request.method = RKRequestMethodDELETE;
-    request.finishedBlock = block;
+    request.completionBlock = block;
     [self sendRequest:request];
 }
 
@@ -130,7 +130,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
     request.restVersion = JSRESTVersion_2;
     request.expectedModelClass = [JSResourceLookup class];
-    request.finishedBlock = block;
+    request.completionBlock = block;
     NSString *responceType = @"application/json";
     if (resourceType) {
         responceType = [NSString stringWithFormat:@"application/repository.%@+json", resourceType];
@@ -184,7 +184,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
     [request addParameter:_parameterLimit withIntegerValue:limit];
     [request addParameter:_parameterForceFullPage withStringValue:[JSConstants stringFromBOOL:YES]];
 
-    request.finishedBlock = block;
+    request.completionBlock = block;
     [self sendRequest:request];
 }
 

@@ -267,6 +267,9 @@
  @name REST URI Prefixes
  @{
  */
+@property (nonatomic, readonly) NSString *REST_AUTHENTICATION_URI;
+
+
 @property (nonatomic, readonly) NSString *REST_SERVICES_URI;
 @property (nonatomic, readonly) NSString *REST_SERVICES_V2_URI;
 @property (nonatomic, readonly) NSString *REST_RESOURCE_URI;

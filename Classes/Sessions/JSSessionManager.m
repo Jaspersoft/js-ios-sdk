@@ -28,6 +28,8 @@
 //  Jaspersoft Corporation
 //
 #import "JSSessionManager.h"
+#import "JSSession.h"
+
 
 static JSSessionManager *_sharedManager = nil;
 
@@ -47,9 +49,38 @@ static JSSessionManager *_sharedManager = nil;
     return _sharedManager;
 }
 
-- (void) createSessionWithServerProfile:(JSProfile *)serverProfile {
-    self.serverProfile = serverProfile;
-    self.currentSession = [
+- (void) createSessionWithServerProfile:(JSProfile *)serverProfile keepLogged:(BOOL)keepLogged completion:(JSRequestCompletionBlock)completionBlock{
+    self.currentSession = [[JSSession alloc] initWithServerProfile:serverProfile keepLogged:keepLogged];
+    [self.currentSession authenticationTokenWithCompletion:completionBlock];
+}
+
+- (void) saveActiveSessionIfNeeded {
+    if (self.currentSession && self.currentSession.keepSession) {
+        [NSKeyedArchiver archivedDataWithRootObject:self.currentSession];
+    }
+}
+
+- (void) restoreLastSessionWithCompletion:(JSRequestCompletionBlock)completionBlock {
+    if (completionBlock) {
+        if (self.currentSession && [self.currentSession isSessionAuthorized]) {
+//            completionBlock(YES);
+        }
+        
+        NSData *savedSession = [[NSUserDefaults standardUserDefaults] objectForKey:kJSSavedSessionKey];
+        if (savedSession) {
+            id unarchivedSession = [NSKeyedUnarchiver unarchiveObjectWithData:savedSession];
+            if (unarchivedSession && [unarchivedSession isKindOfClass:[JSSession class]] && [unarchivedSession keepSession]) {
+                self.currentSession = unarchivedSession;
+                if ([self.currentSession isSessionAuthorized]) {
+//                    completionBlock(YES);
+                } else {
+                    [self.currentSession authenticationTokenWithCompletion:completionBlock];
+//                    completionBlock(YES);
+                }
+            }
+        }
+//        completionBlock(NO);
+    }
 }
 
 @end

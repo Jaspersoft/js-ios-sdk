@@ -29,7 +29,80 @@
 //
 
 #import "JSSession.h"
+#import "JSProfile.h"
+
+NSString * const kJSSavedSessionKey                 = @"JSSavedSessionKey";
+NSString * const kJSSavedSessionServerProfileKey    = @"JSSavedSessionServerProfileKey";
+NSString * const kJSSavedSessionTimeoutKey          = @"JSSavedSessionTimeoutKey";
+NSString * const kJSSavedSessionKeepSessionKey      = @"JSSavedSessionKeepSessionKey";
+
+@interface JSSession ()
+//@property (nonatomic, strong, readwrite) JSProfile *serverProfile;
+@property (nonatomic, assign, readwrite) BOOL keepSession;
+
+@end
 
 @implementation JSSession
+
+- (instancetype)initWithServerProfile:(JSProfile *)serverProfile keepLogged:(BOOL)keepLogged{
+    self = [super initWithServerProfile:serverProfile];
+    if (self) {
+        self.keepSession = keepLogged;
+    }
+    return self;
+}
+
+- (BOOL)isSessionAuthorized {
+    return [[self cookies] count];
+}
+
+- (void)authenticationTokenWithCompletion:(JSRequestCompletionBlock)completionBlock {
+    JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_AUTHENTICATION_URI];
+    request.restVersion = JSRESTVersion_None;
+    request.method = RKRequestMethodPOST;
+    request.completionBlock = completionBlock;
+    [self sendRequest:request];
+}
+
+#pragma mark - NSSecureCoding
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.serverProfile forKey:kJSSavedSessionServerProfileKey];
+    [aCoder encodeBool:self.keepSession forKey:kJSSavedSessionKeepSessionKey];
+    [aCoder encodeFloat:self.timeoutInterval forKey:kJSSavedSessionTimeoutKey];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+        self.serverProfile = [aDecoder decodeObjectForKey:kJSSavedSessionServerProfileKey];
+        self.keepSession = [aDecoder decodeBoolForKey:kJSSavedSessionKeepSessionKey];
+        self.timeoutInterval = [aDecoder decodeFloatForKey:kJSSavedSessionTimeoutKey];
+    }
+    return self;
+}
+
+#pragma mark - Private
+- (NSArray *)cookies {
+    if (self.serverProfile.serverUrl) {
+        NSString *host = [[NSURL URLWithString:self.serverProfile.serverUrl] host];
+        
+        NSMutableArray *cookies = [NSMutableArray array];
+        for (NSHTTPCookie *cookie in [NSHTTPCookieStorage sharedHTTPCookieStorage].cookies) {
+            if ([cookie.domain isEqualToString:host]) {
+                if ([cookie.expiresDate compare:[NSDate date]] == NSOrderedDescending) {
+                    [cookies addObject:cookie];
+                } else {
+                    [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+                }
+            }
+        }
+        return cookies;
+    }
+    return nil;
+}
 
 @end

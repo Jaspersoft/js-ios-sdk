@@ -37,7 +37,7 @@
  @since 1.4
  */
 
-@interface JSServerInfo : NSObject <JSSerializationDescriptorHolder>
+@interface JSServerInfo : NSObject <JSSerializationDescriptorHolder, NSSecureCoding>
 
 @property (nonatomic, retain) NSString *build;
 @property (nonatomic, retain) NSString *edition;
