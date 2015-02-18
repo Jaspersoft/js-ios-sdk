@@ -75,12 +75,12 @@ static JSSessionManager *_sharedManager = nil;
 //                    completionBlock(YES);
                 } else {
                     [self.currentSession authenticationTokenWithCompletion:completionBlock];
-//                    completionBlock(YES);
                 }
             }
         }
 //        completionBlock(NO);
     }
 }
+
 
 @end

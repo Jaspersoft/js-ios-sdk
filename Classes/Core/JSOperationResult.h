@@ -29,6 +29,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSErrors.h"
+
 
 @class JSRequest;
 
@@ -47,28 +49,28 @@
 /**
  A list of objects coming from the call
  */
-@property (nonatomic, retain) NSArray *objects;
+@property (nonatomic, strong) NSArray *objects;
 
 /**
  The downloaded response as binary data
  */
-@property (nonatomic, retain) NSData *body;
+@property (nonatomic, strong) NSData *body;
 
 /**
  The downloaded response as string
  */
-@property (nonatomic, retain) NSString *bodyAsString;
+@property (nonatomic, strong) NSString *bodyAsString;
 
 /**
  The sent request associated with this result. This is an additional parameter
  which helps to determine which request was sent (because all they are asynchronous).
  */
-@property (nonatomic, retain) JSRequest *request;
+@property (nonatomic, strong) JSRequest *request;
 
 /**
  The error returned from the request call, if any.
  */
-@property (nonatomic, readonly) NSError *error;
+@property (nonatomic, strong) NSError *error;
 
 /**
  The response HTTP code. This is a standard HTTP protocol code. Codes like 2xx are all ok.
@@ -96,7 +98,7 @@
  @param error The error returned from the request call, if any.
  @return A configured JSOperationResult instance
  */
-- (id)initWithStatusCode:(NSInteger)statusCode allHeaderFields:(NSDictionary *)allHeaderFields MIMEType:(NSString *)MIMEType error:(NSError *)error;
+- (id)initWithStatusCode:(NSInteger)statusCode allHeaderFields:(NSDictionary *)allHeaderFields MIMEType:(NSString *)MIMEType;
 
 /**
  Indicates an HTTP response code between 200 and 299

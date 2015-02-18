@@ -24,10 +24,17 @@
  */
 
 //
-//  JSSessions.h
+//  JSErrors.h
 //  Jaspersoft Corporation
 //
 
-#import "JSSession.h"
-#import "JSSessionManager.h"
+typedef NS_ENUM (NSInteger, JSErrorCode) {
+    JSNetworkErrorCode          = 1001,         // HTTP erorrs (status codes 404, 500).
+    JSRequestTimeOutErrorCode   = 1002,         // Request TimeOut error
+    JSSessionExpiredErrorCode   = 1003,         // Session expired error
+    JSClientErrorCode           = 1004,         // Client error code - when JSErrorDescriptor are received
+    JSDataMappingErrorCode      = 1005,         // Data Mapping error code - when responce did load successfully, but can't be parsed
+    JSOtherErrorCode            = 1006          // All other errors
+};
 
+NSString * const JSErrorDomain = @"com.jaspersoft.mobile.ErrorDomain";

@@ -85,24 +85,4 @@ NSString * const kJSSavedSessionKeepSessionKey      = @"JSSavedSessionKeepSessio
     return self;
 }
 
-#pragma mark - Private
-- (NSArray *)cookies {
-    if (self.serverProfile.serverUrl) {
-        NSString *host = [[NSURL URLWithString:self.serverProfile.serverUrl] host];
-        
-        NSMutableArray *cookies = [NSMutableArray array];
-        for (NSHTTPCookie *cookie in [NSHTTPCookieStorage sharedHTTPCookieStorage].cookies) {
-            if ([cookie.domain isEqualToString:host]) {
-                if ([cookie.expiresDate compare:[NSDate date]] == NSOrderedDescending) {
-                    [cookies addObject:cookie];
-                } else {
-                    [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
-                }
-            }
-        }
-        return cookies;
-    }
-    return nil;
-}
-
 @end

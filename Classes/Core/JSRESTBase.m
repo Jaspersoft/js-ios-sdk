@@ -245,21 +245,23 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     return (self.restKitObjectManager.HTTPClient.networkReachabilityStatus > 0);
 }
 
-
 - (NSArray *)cookies {
-    if (!self.serverProfile.serverUrl) return nil;
-
-    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    NSString *host = [[NSURL URLWithString:self.serverProfile.serverUrl] host];
-
-    NSMutableArray *cookies = [NSMutableArray array];
-    for (NSHTTPCookie *cookie in cookieStorage.cookies) {
-        if ([cookie.domain isEqualToString:host]) {
-            [cookies addObject:cookie];
+    if (self.serverProfile.serverUrl) {
+        NSString *host = [[NSURL URLWithString:self.serverProfile.serverUrl] host];
+        
+        NSMutableArray *cookies = [NSMutableArray array];
+        for (NSHTTPCookie *cookie in [NSHTTPCookieStorage sharedHTTPCookieStorage].cookies) {
+            if ([cookie.domain isEqualToString:host]) {
+                if ([cookie.expiresDate compare:[NSDate date]] == NSOrderedDescending) {
+                    [cookies addObject:cookie];
+                } else {
+                    [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+                }
+            }
         }
+        return cookies;
     }
-
-    return cookies;
+    return nil;
 }
 
 #pragma mark -
@@ -301,43 +303,54 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
 // returned header fields and MIMEType
 - (JSOperationResult *)operationResultWithOperation:(id)restKitOperation{
     RKHTTPRequestOperation *httpOperation = [restKitOperation isKindOfClass:[RKObjectRequestOperation class]] ? [restKitOperation HTTPRequestOperation] : restKitOperation;
-    NSError *operationError = [httpOperation error];
-    if (!operationError && [restKitOperation error]) {
-        operationError = [restKitOperation error];
-    }
     
-    // If we have an error but response was success (server returned body)
-    // error with server message will be created
-    if (operationError && [restKitOperation isKindOfClass:[RKObjectRequestOperation class]]) {
-        RKObjectRequestOperation *objectOperation = (RKObjectRequestOperation *)restKitOperation;
-        if (!objectOperation.mappingResult && objectOperation.error){
-            NSArray *objectMapperErrorObjects = [objectOperation.error.userInfo objectForKey:RKObjectMapperErrorObjectsKey];
-            NSMutableString *codeString = [NSMutableString string];
-            NSMutableString *messageString = [NSMutableString string];
-            for (id object in objectMapperErrorObjects) {
-                if ([object isKindOfClass:[JSErrorDescriptor class]]) {
-                    [codeString appendFormat: [codeString length] ? @", %@" : @"%@", [object errorCode]];
-                    [messageString appendFormat: [messageString length] ? @", %@" : @"%@", [object message]];
-                }
-            }
-            if ([codeString length] || [messageString length]) {
-                operationError = [NSError errorWithDomain:codeString code:httpOperation.response.statusCode userInfo:@{NSLocalizedDescriptionKey : messageString}];
-            }
-        }
-    }
-
     JSOperationResult *result = [[JSOperationResult alloc] initWithStatusCode:httpOperation.response.statusCode
-                                         allHeaderFields:httpOperation.response.allHeaderFields
-                                                MIMEType:httpOperation.response.MIMEType
-                                                   error:operationError];
+                                                              allHeaderFields:httpOperation.response.allHeaderFields
+                                                                     MIMEType:httpOperation.response.MIMEType];
+ 
     result.body = httpOperation.responseData;
     result.bodyAsString = httpOperation.responseString;
-    if ([restKitOperation isKindOfClass:[RKObjectRequestOperation class]]) {
-        RKObjectRequestOperation *objectOperation = (RKObjectRequestOperation *)restKitOperation;
-        if (objectOperation.mappingResult) {
-            result.objects = [objectOperation.mappingResult array];
-        } else if (objectOperation.error){
-            result.objects = [objectOperation.error.userInfo objectForKey:RKObjectMapperErrorObjectsKey];
+
+    // Error handling
+    NSError *operationError = [httpOperation error];
+    if (![result isSuccessful] || operationError) {
+        NSString *errordescription;
+        NSInteger errorCode;
+        if (httpOperation.response.statusCode) {
+            errorCode = JSNetworkErrorCode;
+            NSString *errorKey = [NSString stringWithFormat:@"error.http.%zi", httpOperation.response.statusCode];
+            errordescription = NSLocalizedStringFromTable(errorKey, @"JaspersoftSDK", nil);
+        } else if ([operationError.domain isEqualToString:NSURLErrorDomain] || [operationError.domain isEqualToString:AFNetworkingErrorDomain]) {
+            switch (operationError.code) {
+                case NSURLErrorUserCancelledAuthentication:
+                case NSURLErrorUserAuthenticationRequired:
+                    errorCode = JSSessionExpiredErrorCode;
+                    break;
+                case NSURLErrorTimedOut:
+                    errorCode = JSRequestTimeOutErrorCode;
+                    break;
+                default:
+                    errorCode = JSNetworkErrorCode;
+            }
+        } else {
+            if ([operationError.userInfo objectForKey:RKObjectMapperErrorObjectsKey]) {
+                result.objects = [operationError.userInfo objectForKey:RKObjectMapperErrorObjectsKey];
+                errorCode = JSClientErrorCode;
+            } else if ([operationError.userInfo objectForKey:RKDetailedErrorsKey]) {
+                result.objects = [operationError.userInfo objectForKey:RKDetailedErrorsKey];
+                errorCode = JSDataMappingErrorCode;
+            } else {
+                errorCode = JSOtherErrorCode;
+            }
+        }
+        NSDictionary *userInfo = errordescription ? @{NSLocalizedDescriptionKey : errordescription} : operationError.userInfo;
+        result.error = [NSError errorWithDomain:operationError.domain code:errorCode userInfo:userInfo];
+    } else {
+        if ([restKitOperation isKindOfClass:[RKObjectRequestOperation class]]) {
+            RKObjectRequestOperation *objectOperation = (RKObjectRequestOperation *)restKitOperation;
+            if (objectOperation.mappingResult) {
+                result.objects = [objectOperation.mappingResult array];
+            }
         }
     }
     return result;
@@ -394,8 +407,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
         JSRequest *request = result.request;
         result = [[JSOperationResult alloc] initWithStatusCode:203
                                                allHeaderFields:result.allHeaderFields
-                                                      MIMEType:result.MIMEType
-                                                         error:nil];
+                                                      MIMEType:result.MIMEType];
         result.request = request;
     }
 

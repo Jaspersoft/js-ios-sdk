@@ -34,19 +34,18 @@
 @implementation JSOperationResult
 
 - (id)initWithStatusCode:(NSInteger)statusCode allHeaderFields:(NSDictionary *)allHeaderFields
-                MIMEType:(NSString *)MIMEType error:(NSError *)error {
+                MIMEType:(NSString *)MIMEType{
     if (self = [super init]) {
         _statusCode = statusCode;
         _allHeaderFields = allHeaderFields;
         _MIMEType = MIMEType;
-        _error = error;
     }
     
     return self;
 }
 
 - (id)init {
-    return [self initWithStatusCode:-1 allHeaderFields:[NSDictionary dictionary] MIMEType:@"" error: nil];
+    return [self initWithStatusCode:-1 allHeaderFields:[NSDictionary dictionary] MIMEType:@""];
 }
 
 - (NSString *)downloadDestinationPath {

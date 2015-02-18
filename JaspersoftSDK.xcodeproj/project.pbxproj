@@ -81,6 +81,7 @@
 /* Begin PBXFileReference section */
 		088208801A01328900B6559F /* JSExportExecutionRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSExportExecutionRequest.h; sourceTree = "<group>"; };
 		088208811A01328900B6559F /* JSExportExecutionRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSExportExecutionRequest.m; sourceTree = "<group>"; };
+		08AC6B371A94AD450069CBE3 /* JSErrors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSErrors.h; sourceTree = "<group>"; };
 		08B8FA171A6FCEAF00E9FE60 /* weakself.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = weakself.h; sourceTree = "<group>"; };
 		08F0D51E1A8E24BD000342E1 /* JSSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSSessionManager.h; sourceTree = "<group>"; };
 		08F0D51F1A8E24BD000342E1 /* JSSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSSessionManager.m; sourceTree = "<group>"; };
@@ -269,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				F5F173F9186486FD00779136 /* JSCore.h */,
+				08AC6B371A94AD450069CBE3 /* JSErrors.h */,
 				F59768EC15E3C826004165A7 /* JSProfile.h */,
 				F59768ED15E3C826004165A7 /* JSProfile.m */,
 				F597697815E3C9EF004165A7 /* JSSerializationDescriptorHolder.h */,
