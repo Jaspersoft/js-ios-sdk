@@ -36,6 +36,12 @@ NSString * const kJSSavedSessionServerProfileKey    = @"JSSavedSessionServerProf
 NSString * const kJSSavedSessionTimeoutKey          = @"JSSavedSessionTimeoutKey";
 NSString * const kJSSavedSessionKeepSessionKey      = @"JSSavedSessionKeepSessionKey";
 
+// Provide access to private methods of JSRESTBase
+@interface JSRESTBase (Private)
+- (JSOperationResult *)operationResultWithOperation:(id)restKitOperation;
+@end
+
+
 @interface JSSession ()
 //@property (nonatomic, strong, readwrite) JSProfile *serverProfile;
 @property (nonatomic, assign, readwrite) BOOL keepSession;
@@ -84,5 +90,24 @@ NSString * const kJSSavedSessionKeepSessionKey      = @"JSSavedSessionKeepSessio
     }
     return self;
 }
+
+#pragma mark - Private
+- (JSOperationResult *)operationResultWithOperation:(id)restKitOperation{
+    RKHTTPRequestOperation *httpOperation = [restKitOperation isKindOfClass:[RKObjectRequestOperation class]] ? [restKitOperation HTTPRequestOperation] : restKitOperation;
+
+    JSOperationResult *result = [super operationResultWithOperation:restKitOperation];
+    
+    NSString *urlString = [httpOperation.request.URL relativeString];
+    if ([urlString isEqualToString:[JSConstants sharedInstance].REST_AUTHENTICATION_URI]) {
+        NSString *redirectURL = [httpOperation.response.allHeaderFields objectForKey:@"Location"];
+        
+        
+        NSDictionary *userInfo = @{NSLocalizedDescriptionKey : NSLocalizedStringFromTable(@"error.authenication.dialog.msg", @"JaspersoftSDK", nil)};
+        result.error = [NSError errorWithDomain:NSURLErrorDomain code:JSSessionExpiredErrorCode userInfo:userInfo];
+    }
+    
+    return result;
+}
+
 
 @end

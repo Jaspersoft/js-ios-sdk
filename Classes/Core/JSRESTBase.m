@@ -314,17 +314,18 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     // Error handling
     NSError *operationError = [httpOperation error];
     if (![result isSuccessful] || operationError) {
-        NSString *errordescription;
+        NSString *errorDescriptionKey;
         NSInteger errorCode;
+
         if (httpOperation.response.statusCode) {
             errorCode = JSNetworkErrorCode;
-            NSString *errorKey = [NSString stringWithFormat:@"error.http.%zi", httpOperation.response.statusCode];
-            errordescription = NSLocalizedStringFromTable(errorKey, @"JaspersoftSDK", nil);
+            errorDescriptionKey = [NSString stringWithFormat:@"error.http.%zi", httpOperation.response.statusCode];
         } else if ([operationError.domain isEqualToString:NSURLErrorDomain] || [operationError.domain isEqualToString:AFNetworkingErrorDomain]) {
             switch (operationError.code) {
                 case NSURLErrorUserCancelledAuthentication:
                 case NSURLErrorUserAuthenticationRequired:
                     errorCode = JSSessionExpiredErrorCode;
+                    errorDescriptionKey = @"error.authenication.dialog.msg";
                     break;
                 case NSURLErrorTimedOut:
                     errorCode = JSRequestTimeOutErrorCode;
@@ -343,7 +344,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
                 errorCode = JSOtherErrorCode;
             }
         }
-        NSDictionary *userInfo = errordescription ? @{NSLocalizedDescriptionKey : errordescription} : operationError.userInfo;
+        NSDictionary *userInfo = errorDescriptionKey ? @{NSLocalizedDescriptionKey : NSLocalizedStringFromTable(errorDescriptionKey, @"JaspersoftSDK", nil)} : operationError.userInfo;
         result.error = [NSError errorWithDomain:operationError.domain code:errorCode userInfo:userInfo];
     } else {
         if ([restKitOperation isKindOfClass:[RKObjectRequestOperation class]]) {

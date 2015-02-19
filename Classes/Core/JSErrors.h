@@ -36,5 +36,3 @@ typedef NS_ENUM (NSInteger, JSErrorCode) {
     JSDataMappingErrorCode      = 1005,         // Data Mapping error code - when responce did load successfully, but can't be parsed
     JSOtherErrorCode            = 1006          // All other errors
 };
-
-NSString * const JSErrorDomain = @"com.jaspersoft.mobile.ErrorDomain";
