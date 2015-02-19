@@ -30,6 +30,7 @@
 
 #import "JSSession.h"
 #import "JSProfile.h"
+#import "weakself.h"
 
 NSString * const kJSSavedSessionKey                 = @"JSSavedSessionKey";
 NSString * const kJSSavedSessionServerProfileKey    = @"JSSavedSessionServerProfileKey";
@@ -62,11 +63,15 @@ NSString * const kJSSavedSessionKeepSessionKey      = @"JSSavedSessionKeepSessio
     return [[self cookies] count];
 }
 
-- (void)authenticationTokenWithCompletion:(JSRequestCompletionBlock)completionBlock {
+- (void)authenticationTokenWithCompletion:(void(^)(BOOL success))completionBlock {
     JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_AUTHENTICATION_URI];
     request.restVersion = JSRESTVersion_None;
     request.method = RKRequestMethodPOST;
-    request.completionBlock = completionBlock;
+    request.completionBlock = @weakself(^(JSOperationResult *result)) {
+        if (completionBlock) {
+            completionBlock(!!result.error);
+        }
+    }@weakselfend;
     [self sendRequest:request];
 }
 

@@ -41,6 +41,6 @@ extern NSString * const kJSSavedSessionKey;
 
 - (BOOL)isSessionAuthorized;
 
-- (void)authenticationTokenWithCompletion:(JSRequestCompletionBlock)completionBlock;
+- (void)authenticationTokenWithCompletion:(void(^)(BOOL success))completionBlock;
 
 @end

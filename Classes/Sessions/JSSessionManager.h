@@ -29,9 +29,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "JSRESTBase.h"
+#import "JSSession.h"
 
-@class JSSession, JSProfile;
+
+@class JSProfile;
 
 @interface JSSessionManager : NSObject
 
@@ -39,11 +40,11 @@
 
 + (instancetype) sharedManager;
 
-- (void) createSessionWithServerProfile:(JSProfile *)serverProfile keepLogged:(BOOL)keepLogged completion:(JSRequestCompletionBlock)completionBlock;
+- (void) createSessionWithServerProfile:(JSProfile *)serverProfile keepLogged:(BOOL)keepLogged completion:(void(^)(BOOL success))completionBlock;
 
 - (void) saveActiveSessionIfNeeded;
 
-- (void) restoreLastSessionWithCompletion:(JSRequestCompletionBlock)completionBlock;
+- (void) restoreLastSessionWithCompletion:(void(^)(BOOL success))completionBlock;
 
 
 @end

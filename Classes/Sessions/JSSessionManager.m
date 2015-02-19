@@ -28,8 +28,6 @@
 //  Jaspersoft Corporation
 //
 #import "JSSessionManager.h"
-#import "JSSession.h"
-
 
 static JSSessionManager *_sharedManager = nil;
 
@@ -49,7 +47,7 @@ static JSSessionManager *_sharedManager = nil;
     return _sharedManager;
 }
 
-- (void) createSessionWithServerProfile:(JSProfile *)serverProfile keepLogged:(BOOL)keepLogged completion:(JSRequestCompletionBlock)completionBlock{
+- (void) createSessionWithServerProfile:(JSProfile *)serverProfile keepLogged:(BOOL)keepLogged completion:(void(^)(BOOL success))completionBlock{
     self.currentSession = [[JSSession alloc] initWithServerProfile:serverProfile keepLogged:keepLogged];
     [self.currentSession authenticationTokenWithCompletion:completionBlock];
 }
@@ -60,10 +58,10 @@ static JSSessionManager *_sharedManager = nil;
     }
 }
 
-- (void) restoreLastSessionWithCompletion:(JSRequestCompletionBlock)completionBlock {
+- (void) restoreLastSessionWithCompletion:(void(^)(BOOL success))completionBlock {
     if (completionBlock) {
         if (self.currentSession && [self.currentSession isSessionAuthorized]) {
-//            completionBlock(YES);
+            completionBlock(YES);
         }
         
         NSData *savedSession = [[NSUserDefaults standardUserDefaults] objectForKey:kJSSavedSessionKey];
@@ -72,13 +70,13 @@ static JSSessionManager *_sharedManager = nil;
             if (unarchivedSession && [unarchivedSession isKindOfClass:[JSSession class]] && [unarchivedSession keepSession]) {
                 self.currentSession = unarchivedSession;
                 if ([self.currentSession isSessionAuthorized]) {
-//                    completionBlock(YES);
+                    completionBlock(YES);
                 } else {
                     [self.currentSession authenticationTokenWithCompletion:completionBlock];
                 }
             }
         }
-//        completionBlock(NO);
+        completionBlock(NO);
     }
 }
 
