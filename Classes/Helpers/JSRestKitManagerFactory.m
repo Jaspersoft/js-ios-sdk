@@ -41,20 +41,6 @@
     [restKitObjectManager.HTTPClient setAuthorizationHeaderWithUsername:serverProfile.username password:serverProfile.password];
     restKitObjectManager.HTTPClient.allowsInvalidSSLCertificate = YES;
     [restKitObjectManager.HTTPClient registerHTTPOperationClass:[AFXMLRequestOperation class]];
-
-    
-    // Add locale to object manager
-    NSString *currentLanguage = [[NSLocale preferredLanguages] objectAtIndex:0];
-    NSInteger dividerPosition = [currentLanguage rangeOfString:@"_"].location;
-    if (dividerPosition != NSNotFound) {
-        currentLanguage = [currentLanguage substringToIndex:dividerPosition];
-    }
-    NSString *currentLocale = [[JSConstants sharedInstance].REST_JRS_LOCALE_SUPPORTED objectForKey:currentLanguage];
-    if (currentLocale) {
-        [restKitObjectManager.HTTPClient setDefaultHeader:@"Accept-Language" value:currentLocale];
-    }
-    [restKitObjectManager.HTTPClient setDefaultHeader:@"Accept-Timezone" value:[NSString stringWithFormat:@"%@", [[NSTimeZone systemTimeZone] abbreviation]]];
-    
     
     // Sets default content-type and charset to object manager
     [restKitObjectManager.HTTPClient setDefaultHeader:kJSRequestCharset value:[JSConstants sharedInstance].REST_SDK_CHARSET_USED];

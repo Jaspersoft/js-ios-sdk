@@ -37,6 +37,15 @@ NSString * const kJSSavedSessionServerProfileKey    = @"JSSavedSessionServerProf
 NSString * const kJSSavedSessionTimeoutKey          = @"JSSavedSessionTimeoutKey";
 NSString * const kJSSavedSessionKeepSessionKey      = @"JSSavedSessionKeepSessionKey";
 
+
+
+NSString * const kJSAuthenticationUsernameKey       = @"j_username";
+NSString * const kJSAuthenticationPasswordKey       = @"j_password";
+NSString * const kJSAuthenticationOrganizationKey   = @"orgId";
+NSString * const kJSAuthenticationLocaleKey         = @"userLocale";
+NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
+
+
 // Provide access to private methods of JSRESTBase
 @interface JSRESTBase (Private)
 - (JSOperationResult *)operationResultWithOperation:(id)restKitOperation;
@@ -67,6 +76,23 @@ NSString * const kJSSavedSessionKeepSessionKey      = @"JSSavedSessionKeepSessio
     JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_AUTHENTICATION_URI];
     request.restVersion = JSRESTVersion_None;
     request.method = RKRequestMethodPOST;
+    
+    [request addParameter:kJSAuthenticationUsernameKey      withStringValue:self.serverProfile.username];
+    [request addParameter:kJSAuthenticationPasswordKey      withStringValue:self.serverProfile.password];
+    [request addParameter:kJSAuthenticationOrganizationKey  withStringValue:self.serverProfile.organization];
+    [request addParameter:kJSAuthenticationTimezoneKey      withStringValue:[[NSTimeZone systemTimeZone] abbreviation]];
+    
+    // Add locale to object manager
+    NSString *currentLanguage = [[NSLocale preferredLanguages] objectAtIndex:0];
+    NSInteger dividerPosition = [currentLanguage rangeOfString:@"_"].location;
+    if (dividerPosition != NSNotFound) {
+        currentLanguage = [currentLanguage substringToIndex:dividerPosition];
+    }
+    NSString *currentLocale = [[JSConstants sharedInstance].REST_JRS_LOCALE_SUPPORTED objectForKey:currentLanguage];
+    if (currentLocale) {
+        [request addParameter:kJSAuthenticationLocaleKey withStringValue:currentLocale];
+    }
+    
     request.completionBlock = @weakself(^(JSOperationResult *result)) {
         if (completionBlock) {
             completionBlock(!!result.error);

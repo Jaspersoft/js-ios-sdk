@@ -252,7 +252,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
         NSMutableArray *cookies = [NSMutableArray array];
         for (NSHTTPCookie *cookie in [NSHTTPCookieStorage sharedHTTPCookieStorage].cookies) {
             if ([cookie.domain isEqualToString:host]) {
-                if ([cookie.expiresDate compare:[NSDate date]] == NSOrderedDescending) {
+                if (cookie.expiresDate && [cookie.expiresDate compare:[NSDate date]] == NSOrderedDescending) {
                     [cookies addObject:cookie];
                 } else {
                     [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
