@@ -257,7 +257,6 @@
  @{
  */
 @property (nonatomic, readonly) NSString *REST_SDK_MIMETYPE_USED;
-@property (nonatomic, readonly) NSString *REST_SDK_CHARSET_USED;
 @property (nonatomic, readonly) NSDictionary *REST_JRS_LOCALE_SUPPORTED;
 
 

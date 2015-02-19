@@ -145,7 +145,6 @@ static JSConstants *_sharedInstance;
 @synthesize CONTENT_TYPE_CSV;
 @synthesize CONTENT_TYPE_IMG;
 @synthesize REST_SDK_MIMETYPE_USED;
-@synthesize REST_SDK_CHARSET_USED;
 @synthesize REST_JRS_LOCALE_SUPPORTED;
 @synthesize REST_AUTHENTICATION_URI;
 @synthesize REST_SERVICES_URI;
@@ -378,7 +377,6 @@ static JSConstants *_sharedInstance;
 
 - (void)setRESTAPIPreferences {
     REST_SDK_MIMETYPE_USED = RKMIMETypeJSON;
-    REST_SDK_CHARSET_USED = @"UTF-8";
     REST_JRS_LOCALE_SUPPORTED = @{@"en" : @"en-US",
                                   @"de" : @"de",
                                   @"ja" : @"ja",

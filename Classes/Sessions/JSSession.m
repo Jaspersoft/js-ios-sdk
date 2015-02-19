@@ -31,6 +31,7 @@
 #import "JSSession.h"
 #import "JSProfile.h"
 #import "weakself.h"
+#import "JSConstants.h"
 
 NSString * const kJSSavedSessionKey                 = @"JSSavedSessionKey";
 NSString * const kJSSavedSessionServerProfileKey    = @"JSSavedSessionServerProfileKey";
@@ -76,22 +77,21 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_AUTHENTICATION_URI];
     request.restVersion = JSRESTVersion_None;
     request.method = RKRequestMethodPOST;
+    request.responseAsObjects = NO;
     
     [request addParameter:kJSAuthenticationUsernameKey      withStringValue:self.serverProfile.username];
     [request addParameter:kJSAuthenticationPasswordKey      withStringValue:self.serverProfile.password];
     [request addParameter:kJSAuthenticationOrganizationKey  withStringValue:self.serverProfile.organization];
     [request addParameter:kJSAuthenticationTimezoneKey      withStringValue:[[NSTimeZone systemTimeZone] abbreviation]];
     
-    // Add locale to object manager
+    // Add locale to session
     NSString *currentLanguage = [[NSLocale preferredLanguages] objectAtIndex:0];
     NSInteger dividerPosition = [currentLanguage rangeOfString:@"_"].location;
     if (dividerPosition != NSNotFound) {
         currentLanguage = [currentLanguage substringToIndex:dividerPosition];
     }
     NSString *currentLocale = [[JSConstants sharedInstance].REST_JRS_LOCALE_SUPPORTED objectForKey:currentLanguage];
-    if (currentLocale) {
-        [request addParameter:kJSAuthenticationLocaleKey withStringValue:currentLocale];
-    }
+    [request addParameter:kJSAuthenticationLocaleKey withStringValue:currentLocale];
     
     request.completionBlock = @weakself(^(JSOperationResult *result)) {
         if (completionBlock) {

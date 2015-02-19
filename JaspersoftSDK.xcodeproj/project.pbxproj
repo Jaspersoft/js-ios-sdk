@@ -49,8 +49,6 @@
 		F597692615E3C826004165A7 /* JSRESTBase+JSRESTReport.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F315E3C826004165A7 /* JSRESTBase+JSRESTReport.m */; };
 		F597692815E3C826004165A7 /* JSRESTBase+JSRESTResource.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F415E3C826004165A7 /* JSRESTBase+JSRESTResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597692A15E3C826004165A7 /* JSRESTBase+JSRESTResource.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F515E3C826004165A7 /* JSRESTBase+JSRESTResource.m */; };
-		F597693415E3C826004165A7 /* JSRestKitManagerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768FB15E3C826004165A7 /* JSRestKitManagerFactory.h */; };
-		F597693615E3C826004165A7 /* JSRestKitManagerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768FC15E3C826004165A7 /* JSRestKitManagerFactory.m */; };
 		F597694315E3C826004165A7 /* JSReportAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690615E3C826004165A7 /* JSReportAttachment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597694515E3C826004165A7 /* JSReportAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690715E3C826004165A7 /* JSReportAttachment.m */; };
 		F597694715E3C826004165A7 /* JSReportDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690815E3C826004165A7 /* JSReportDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -131,8 +129,6 @@
 		F59768F315E3C826004165A7 /* JSRESTBase+JSRESTReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSRESTReport.m"; sourceTree = "<group>"; };
 		F59768F415E3C826004165A7 /* JSRESTBase+JSRESTResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSRESTBase+JSRESTResource.h"; sourceTree = "<group>"; };
 		F59768F515E3C826004165A7 /* JSRESTBase+JSRESTResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSRESTResource.m"; sourceTree = "<group>"; };
-		F59768FB15E3C826004165A7 /* JSRestKitManagerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSRestKitManagerFactory.h; sourceTree = "<group>"; };
-		F59768FC15E3C826004165A7 /* JSRestKitManagerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSRestKitManagerFactory.m; sourceTree = "<group>"; };
 		F597690615E3C826004165A7 /* JSReportAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportAttachment.h; sourceTree = "<group>"; };
 		F597690715E3C826004165A7 /* JSReportAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportAttachment.m; sourceTree = "<group>"; };
 		F597690815E3C826004165A7 /* JSReportDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportDescriptor.h; sourceTree = "<group>"; };
@@ -294,8 +290,6 @@
 			isa = PBXGroup;
 			children = (
 				08B8FA171A6FCEAF00E9FE60 /* weakself.h */,
-				F59768FB15E3C826004165A7 /* JSRestKitManagerFactory.h */,
-				F59768FC15E3C826004165A7 /* JSRestKitManagerFactory.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -438,7 +432,6 @@
 				F5D0923818586E4E00C5AEFC /* JSErrorDescriptor.h in Headers */,
 				F520FF89196FEE53009435C2 /* JSMandatoryValidationRule.h in Headers */,
 				F523D78518635EB000B93D3F /* JSExecutionStatus.h in Headers */,
-				F597693415E3C826004165A7 /* JSRestKitManagerFactory.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,7 +544,6 @@
 				088208831A01328900B6559F /* JSExportExecutionRequest.m in Sources */,
 				F5AE53B1165169F6004207E1 /* JSDateTimeFormatValidationRule.m in Sources */,
 				F5AE53E016518C58004207E1 /* JSValidationRules.m in Sources */,
-				F597693615E3C826004165A7 /* JSRestKitManagerFactory.m in Sources */,
 				37455CF8BA142B8554AF5F9A /* JSReportExecutionResponse.m in Sources */,
 				08F0D5271A8E250D000342E1 /* JSSession.m in Sources */,
 				3745523E7EE2CE8C64105A1D /* JSExportExecutionResponse.m in Sources */,

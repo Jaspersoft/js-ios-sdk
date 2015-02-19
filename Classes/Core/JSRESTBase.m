@@ -30,7 +30,6 @@
 
 #import "JSRESTBase.h"
 #import "JSConstants.h"
-#import "JSRestKitManagerFactory.h"
 #import "RKMIMETypeSerialization.h"
 #import "JSSerializationDescriptorHolder.h"
 #import "JSErrorDescriptor.h"
@@ -39,7 +38,6 @@
 #import "weakself.h"
 
 // Access key and value for content-type / charset
-NSString * const kJSRequestCharset = @"Charset";
 NSString * const kJSRequestContentType = @"Content-Type";
 NSString * const kJSRequestResponceType = @"Accept";
 
@@ -268,7 +266,16 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
 #pragma mark Private methods
 
 - (void)configureRestKitObjectManager {
-    self.restKitObjectManager = [JSRestKitManagerFactory createRestKitObjectManagerForServerProfile:self.serverProfile];
+    // Creates RKObjectManager for loading and mapping encoded response (i.e XML, JSON etc.)
+    // directly to objects
+    self.restKitObjectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:self.serverProfile.serverUrl]];
+    self.restKitObjectManager.HTTPClient.allowsInvalidSSLCertificate = YES;
+    [self.restKitObjectManager.HTTPClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
+    
+    // Sets default content-type to object manager
+    self.restKitObjectManager.requestSerializationMIMEType = [JSConstants sharedInstance].REST_SDK_MIMETYPE_USED;
+    [self.restKitObjectManager setAcceptHeaderWithMIMEType:[JSConstants sharedInstance].REST_SDK_MIMETYPE_USED];
+
     self.requestCallBacks = [[NSMutableArray alloc] init];
 }
 
@@ -314,11 +321,13 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     // Error handling
     NSError *operationError = [httpOperation error];
     if (![result isSuccessful] || operationError) {
+        NSString *errorDomain = operationError.domain;
         NSString *errorDescriptionKey;
         NSInteger errorCode;
 
         if (httpOperation.response.statusCode) {
             errorCode = JSNetworkErrorCode;
+            errorDomain = NSURLErrorDomain;
             errorDescriptionKey = [NSString stringWithFormat:@"error.http.%zi", httpOperation.response.statusCode];
         } else if ([operationError.domain isEqualToString:NSURLErrorDomain] || [operationError.domain isEqualToString:AFNetworkingErrorDomain]) {
             switch (operationError.code) {
@@ -345,7 +354,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
             }
         }
         NSDictionary *userInfo = errorDescriptionKey ? @{NSLocalizedDescriptionKey : NSLocalizedStringFromTable(errorDescriptionKey, @"JaspersoftSDK", nil)} : operationError.userInfo;
-        result.error = [NSError errorWithDomain:operationError.domain code:errorCode userInfo:userInfo];
+        result.error = [NSError errorWithDomain:errorDomain code:errorCode userInfo:userInfo];
     } else {
         if ([restKitOperation isKindOfClass:[RKObjectRequestOperation class]]) {
             RKObjectRequestOperation *objectOperation = (RKObjectRequestOperation *)restKitOperation;

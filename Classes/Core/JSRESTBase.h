@@ -35,7 +35,6 @@
 #import <Foundation/Foundation.h>
 #import <AFNetworking/AFHTTPClient.h>
 
-extern NSString * const kJSRequestCharset;
 extern NSString * const kJSRequestContentType;
 extern NSString * const kJSRequestResponceType;
 
