@@ -177,8 +177,8 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     }
     
     [httpOperation setRedirectResponseBlock:^NSURLRequest *(NSURLConnection *connection, NSURLRequest *request, NSURLResponse *redirectResponse) {
-        if (jsRequest.redirectAllowed) {
-            if (redirectResponse) {
+        if (redirectResponse) {
+            if (jsRequest.redirectAllowed) {
                 // we don't use the new request built for us, except for the URL
                 NSURL *newURL = [request URL];
                 // Previously, store the original request in _originalRequest.
@@ -187,10 +187,10 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
                 [newRequest setURL: newURL];
                 return newRequest;
             } else {
-                return request;
+                return nil;
             }
         } else {
-            return nil;
+            return request;
         }
     }];
     

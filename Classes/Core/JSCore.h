@@ -33,7 +33,7 @@
 #import "JSRequest.h"
 #import "JSOperationResult.h"
 
-#import "JSRESTBase.h"
+#import "JSSessionManager.h"
 #import "JSRESTBase+JSRESTReport.h"
 #import "JSRESTBase+JSRESTResource.h"
 #import "JSSerializationDescriptorHolder.h"

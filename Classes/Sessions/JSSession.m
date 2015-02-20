@@ -129,17 +129,24 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
 
     JSOperationResult *result = [super operationResultWithOperation:restKitOperation];
     
-    NSString *urlString = [httpOperation.request.URL relativeString];
-    if ([urlString isEqualToString:[JSConstants sharedInstance].REST_AUTHENTICATION_URI]) {
+    NSString *urlString = [httpOperation.request.URL relativePath];
+    
+    
+    
+    if ([urlString rangeOfString:[JSConstants sharedInstance].REST_AUTHENTICATION_URI].location != NSNotFound) {
         NSString *redirectURL = [httpOperation.response.allHeaderFields objectForKey:@"Location"];
         
+        NSString *redirectUrlRegex = [NSString stringWithFormat:@"%@/login.html((;jsessionid=.+)?)\\?error=1", self.serverProfile.serverUrl];
         
-        NSDictionary *userInfo = @{NSLocalizedDescriptionKey : NSLocalizedStringFromTable(@"error.authenication.dialog.msg", @"JaspersoftSDK", nil)};
-        result.error = [NSError errorWithDomain:NSURLErrorDomain code:JSSessionExpiredErrorCode userInfo:userInfo];
+        NSPredicate *redirectUrlValidator = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", redirectUrlRegex];
+        if ([redirectUrlValidator evaluateWithObject:redirectURL]) {
+            NSDictionary *userInfo = @{NSLocalizedDescriptionKey : NSLocalizedStringFromTable(@"error.authenication.dialog.msg", @"JaspersoftSDK", nil)};
+            result.error = [NSError errorWithDomain:NSURLErrorDomain code:JSSessionExpiredErrorCode userInfo:userInfo];
+        } else {
+            result.error = nil;
+        }
     }
-    
     return result;
 }
-
 
 @end

@@ -377,14 +377,14 @@ static JSConstants *_sharedInstance;
 
 - (void)setRESTAPIPreferences {
     REST_SDK_MIMETYPE_USED = RKMIMETypeJSON;
-    REST_JRS_LOCALE_SUPPORTED = @{@"en" : @"en-US",
+    REST_JRS_LOCALE_SUPPORTED = @{@"en" : @"en_US",
                                   @"de" : @"de",
                                   @"ja" : @"ja",
                                   @"es" : @"es",
                                   @"fr" : @"fr",
                                   @"it" : @"it",
-                                  @"zh" : @"zh-CN",
-                                  @"pt" : @"pt-BR"};
+                                  @"zh" : @"zh_CN",
+                                  @"pt" : @"pt_BR"};
 }
 
 - (void)setRESTURIPrefixes {
