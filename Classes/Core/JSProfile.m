@@ -40,36 +40,17 @@ NSString * const kJSSavedProfileServerInfoKey   = @"JSSavedProfileServerInfoKey"
 
 @implementation JSProfile
 
-@synthesize alias = _alias;
-@synthesize serverUrl = _serverUrl;
-@synthesize username = _username;
-@synthesize password = _password;
-@synthesize organization = _organization;
-@synthesize serverInfo = _serverInfo;
 
 - (id)initWithAlias:(NSString *)alias serverUrl:(NSString *)serverUrl organization:(NSString *)organization
            username:(NSString *)username password:(NSString *)password {
     if (self = [super init]) {
         _alias = alias;
         _organization = organization;
-        _serverUrl = serverUrl;
+        _serverUrl = ([serverUrl characterAtIndex:serverUrl.length - 1] == '/') ? [serverUrl substringToIndex:serverUrl.length - 1] : serverUrl;;
         _username = username;
         _password = password;
-        
     }
     return self;
-}
-
-- (void)setServerUrl:(NSString *)serverUrl {
-    _serverUrl = ([serverUrl characterAtIndex:serverUrl.length - 1] == '/') ? [serverUrl substringToIndex:serverUrl.length - 1] : serverUrl;
-}
-
-- (NSString *)getUsernameWithOrganization {
-    if ([self.organization length] != 0) {
-        return [NSString stringWithFormat:@"%@|%@", self.username, self.organization];
-    }
-    
-    return self.username;
 }
 
 #pragma mark - NSCopying

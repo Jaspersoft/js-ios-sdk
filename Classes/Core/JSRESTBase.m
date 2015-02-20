@@ -140,31 +140,31 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     [self sendRequest:request additionalHTTPHeaderFields:nil];
 }
 
-- (void)sendRequest:(JSRequest *)request additionalHTTPHeaderFields:(NSDictionary *)headerFields{
+- (void)sendRequest:(JSRequest *)jsRequest additionalHTTPHeaderFields:(NSDictionary *)headerFields{
     // Full uri path with query params
-    NSString *fullUri = [self fullUri:request.uri restVersion:request.restVersion];
+    NSString *fullUri = [self fullUri:jsRequest.uri restVersion:jsRequest.restVersion];
     
 
     for (RKRequestDescriptor *descriptor in self.restKitObjectManager.requestDescriptors) {
         [self.restKitObjectManager removeRequestDescriptor:descriptor];
     }
     
-    id <JSSerializationDescriptorHolder> descriptiorHolder = request.body;
+    id <JSSerializationDescriptorHolder> descriptiorHolder = jsRequest.body;
     if (descriptiorHolder && [[descriptiorHolder class] respondsToSelector:@selector(rkRequestDescriptorsForServerProfile:)]) {
         [self.restKitObjectManager addRequestDescriptorsFromArray:[[descriptiorHolder class] rkRequestDescriptorsForServerProfile:self.serverProfile]];
     }
     
-    NSOperation *requestOperation = nil;
-    NSMutableURLRequest *urlRequest = [self.restKitObjectManager requestWithObject:request.body method:request.method path:fullUri parameters:request.params];
-    if (request.responseAsObjects) {
-        RKHTTPRequestOperation *HTTPRequestOperation = [[RKHTTPRequestOperation alloc] initWithRequest:urlRequest];
-        [self.restKitObjectManager performSelector:@selector(copyStateFromHTTPClientToHTTPRequestOperation:) withObject:HTTPRequestOperation];
-        NSMutableArray *responseDescriptors = [NSMutableArray arrayWithArray:[request.expectedModelClass rkResponseDescriptorsForServerProfile:self.serverProfile]];
+    NSMutableURLRequest *urlRequest = [self.restKitObjectManager requestWithObject:jsRequest.body method:jsRequest.method path:fullUri parameters:jsRequest.params];
+    
+    RKHTTPRequestOperation *httpOperation = [[RKHTTPRequestOperation alloc] initWithRequest:urlRequest];
+    NSOperation *requestOperation = httpOperation;
+
+    if (jsRequest.responseAsObjects) {
+        [self.restKitObjectManager performSelector:@selector(copyStateFromHTTPClientToHTTPRequestOperation:) withObject:httpOperation];
+        NSMutableArray *responseDescriptors = [NSMutableArray arrayWithArray:[jsRequest.expectedModelClass rkResponseDescriptorsForServerProfile:self.serverProfile]];
         [responseDescriptors addObjectsFromArray:[JSErrorDescriptor rkResponseDescriptorsForServerProfile:self.serverProfile]];
-        RKObjectRequestOperation *objectRequestOperation = [[RKObjectRequestOperation alloc] initWithHTTPRequestOperation:HTTPRequestOperation responseDescriptors:responseDescriptors];
+        RKObjectRequestOperation *objectRequestOperation = [[RKObjectRequestOperation alloc] initWithHTTPRequestOperation:httpOperation responseDescriptors:responseDescriptors];
         requestOperation = objectRequestOperation;
-    } else {
-        requestOperation = [[RKHTTPRequestOperation alloc] initWithRequest:urlRequest];
     }
 
     if ([urlRequest isKindOfClass:[NSMutableURLRequest class]]) {
@@ -176,12 +176,30 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
         }
     }
     
+    [httpOperation setRedirectResponseBlock:^NSURLRequest *(NSURLConnection *connection, NSURLRequest *request, NSURLResponse *redirectResponse) {
+        if (jsRequest.redirectAllowed) {
+            if (redirectResponse) {
+                // we don't use the new request built for us, except for the URL
+                NSURL *newURL = [request URL];
+                // Previously, store the original request in _originalRequest.
+                // We rely on that here!
+                NSMutableURLRequest *newRequest = [urlRequest mutableCopy];
+                [newRequest setURL: newURL];
+                return newRequest;
+            } else {
+                return request;
+            }
+        } else {
+            return nil;
+        }
+    }];
+    
     // Creates bridge between RestKit's delegate and SDK delegate
-    [self.requestCallBacks addObject:[[JSCallBack alloc] initWithRestKitOperation:requestOperation request:request]];
+    [self.requestCallBacks addObject:[[JSCallBack alloc] initWithRestKitOperation:requestOperation request:jsRequest]];
     
     [requestOperation start];
     
-    if (request.asynchronous) {
+    if (jsRequest.asynchronous) {
         [((RKHTTPRequestOperation *)requestOperation) setCompletionBlockWithSuccess:
          @weakself(^(NSOperation *operation, RKMappingResult *mappingResult)) {
              [self sendCallbackAboutOperation:operation];
@@ -322,19 +340,19 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     NSError *operationError = [httpOperation error];
     if (![result isSuccessful] || operationError) {
         NSString *errorDomain = operationError.domain;
-        NSString *errorDescriptionKey;
+        NSString *errorDescription;
         NSInteger errorCode;
 
         if (httpOperation.response.statusCode) {
             errorCode = JSNetworkErrorCode;
             errorDomain = NSURLErrorDomain;
-            errorDescriptionKey = [NSString stringWithFormat:@"error.http.%zi", httpOperation.response.statusCode];
+            errorDescription = [NSHTTPURLResponse localizedStringForStatusCode:httpOperation.response.statusCode];
         } else if ([operationError.domain isEqualToString:NSURLErrorDomain] || [operationError.domain isEqualToString:AFNetworkingErrorDomain]) {
             switch (operationError.code) {
                 case NSURLErrorUserCancelledAuthentication:
                 case NSURLErrorUserAuthenticationRequired:
                     errorCode = JSSessionExpiredErrorCode;
-                    errorDescriptionKey = @"error.authenication.dialog.msg";
+                    errorDescription =  NSLocalizedStringFromTable(@"error.authenication.dialog.msg", @"JaspersoftSDK", nil);
                     break;
                 case NSURLErrorTimedOut:
                     errorCode = JSRequestTimeOutErrorCode;
@@ -353,7 +371,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
                 errorCode = JSOtherErrorCode;
             }
         }
-        NSDictionary *userInfo = errorDescriptionKey ? @{NSLocalizedDescriptionKey : NSLocalizedStringFromTable(errorDescriptionKey, @"JaspersoftSDK", nil)} : operationError.userInfo;
+        NSDictionary *userInfo = errorDescription ? @{NSLocalizedDescriptionKey : errorDescription} : operationError.userInfo;
         result.error = [NSError errorWithDomain:errorDomain code:errorCode userInfo:userInfo];
     } else {
         if ([restKitOperation isKindOfClass:[RKObjectRequestOperation class]]) {

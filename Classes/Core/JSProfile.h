@@ -91,12 +91,4 @@
 - (id)initWithAlias:(NSString *)alias serverUrl:(NSString *)serverUrl organization:(NSString *)organization
            username:(NSString *)username password:(NSString *)password;
 
-/**
- Returns account username includes server organization id (separated by | symbol)
- if id is not <code>nil</code> or empty. Otherwise returns only account username
- 
- @return A new string contains server account username and server organization id
- */
-- (NSString *)getUsernameWithOrganization;
-
 @end

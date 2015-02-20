@@ -44,7 +44,7 @@
         self.asynchronous = YES;
         self.restVersion = JSRESTVersion_1;
         self.parameters = [NSMutableDictionary dictionary];
-
+        self.redirectAllowed = YES;
     }
     
     return self;

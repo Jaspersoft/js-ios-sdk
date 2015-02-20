@@ -146,6 +146,16 @@ typedef enum {
 @property (nonatomic, assign) JSRESTVersion restVersion;
 
 /**
+ The redirectAllowed indicates if request can be redirected 
+
+ **Default**: YES
+
+ @since 1.9
+ */
+@property (nonatomic, assign) BOOL redirectAllowed;
+
+
+/**
  Returns a request instance with predefined uri.
  
  @param uri A request uri

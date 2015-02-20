@@ -107,12 +107,12 @@ extern NSString * const kJSRequestResponceType;
  instance to delegate object or completionBlock (or both also) provided in
  <code>JSRequest</code> object
  
- @param request Models the request portion of an HTTP request/response cycle.
+ @param jsRequest Models the request portion of an HTTP request/response cycle.
  @param headerFields Additional HTTP header fields for sending request.
 
  @since 1.9
  */
-- (void)sendRequest:(JSRequest *)request additionalHTTPHeaderFields:(NSDictionary *)headerFields;
+- (void)sendRequest:(JSRequest *)jsRequest additionalHTTPHeaderFields:(NSDictionary *)headerFields;
 
 /**
  Gets server information details

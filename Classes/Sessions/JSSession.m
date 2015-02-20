@@ -76,8 +76,9 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
 - (void)authenticationTokenWithCompletion:(void(^)(BOOL success))completionBlock {
     JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_AUTHENTICATION_URI];
     request.restVersion = JSRESTVersion_None;
-    request.method = RKRequestMethodPOST;
+    request.method = RKRequestMethodGET;
     request.responseAsObjects = NO;
+    request.redirectAllowed = NO;
     
     [request addParameter:kJSAuthenticationUsernameKey      withStringValue:self.serverProfile.username];
     [request addParameter:kJSAuthenticationPasswordKey      withStringValue:self.serverProfile.password];
