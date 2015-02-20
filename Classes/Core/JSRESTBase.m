@@ -352,7 +352,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
                 case NSURLErrorUserCancelledAuthentication:
                 case NSURLErrorUserAuthenticationRequired:
                     errorCode = JSSessionExpiredErrorCode;
-                    errorDescription =  NSLocalizedStringFromTable(@"error.authenication.dialog.msg", @"JaspersoftSDK", nil);
+                    NSDictionary *userInfo = @{NSLocalizedDescriptionKey :[NSHTTPURLResponse localizedStringForStatusCode:401]};
                     break;
                 case NSURLErrorTimedOut:
                     errorCode = JSRequestTimeOutErrorCode;

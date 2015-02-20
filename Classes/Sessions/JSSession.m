@@ -96,7 +96,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     
     request.completionBlock = @weakself(^(JSOperationResult *result)) {
         if (completionBlock) {
-            completionBlock(!!result.error);
+            completionBlock(!result.error);
         }
     }@weakselfend;
     [self sendRequest:request];
@@ -125,14 +125,10 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
 
 #pragma mark - Private
 - (JSOperationResult *)operationResultWithOperation:(id)restKitOperation{
-    RKHTTPRequestOperation *httpOperation = [restKitOperation isKindOfClass:[RKObjectRequestOperation class]] ? [restKitOperation HTTPRequestOperation] : restKitOperation;
-
     JSOperationResult *result = [super operationResultWithOperation:restKitOperation];
     
+    RKHTTPRequestOperation *httpOperation = [restKitOperation isKindOfClass:[RKObjectRequestOperation class]] ? [restKitOperation HTTPRequestOperation] : restKitOperation;
     NSString *urlString = [httpOperation.request.URL relativePath];
-    
-    
-    
     if ([urlString rangeOfString:[JSConstants sharedInstance].REST_AUTHENTICATION_URI].location != NSNotFound) {
         NSString *redirectURL = [httpOperation.response.allHeaderFields objectForKey:@"Location"];
         
@@ -140,7 +136,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
         
         NSPredicate *redirectUrlValidator = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", redirectUrlRegex];
         if ([redirectUrlValidator evaluateWithObject:redirectURL]) {
-            NSDictionary *userInfo = @{NSLocalizedDescriptionKey : NSLocalizedStringFromTable(@"error.authenication.dialog.msg", @"JaspersoftSDK", nil)};
+            NSDictionary *userInfo = @{NSLocalizedDescriptionKey :[NSHTTPURLResponse localizedStringForStatusCode:401]};
             result.error = [NSError errorWithDomain:NSURLErrorDomain code:JSSessionExpiredErrorCode userInfo:userInfo];
         } else {
             result.error = nil;

@@ -54,7 +54,8 @@ static JSSessionManager *_sharedManager = nil;
 
 - (void) saveActiveSessionIfNeeded {
     if (self.currentSession && self.currentSession.keepSession) {
-        [NSKeyedArchiver archivedDataWithRootObject:self.currentSession];
+        NSData *archivedSession = [NSKeyedArchiver archivedDataWithRootObject:self.currentSession];
+        [[NSUserDefaults standardUserDefaults] setObject:archivedSession forKey:kJSSavedSessionKey];
     }
 }
 
@@ -62,23 +63,24 @@ static JSSessionManager *_sharedManager = nil;
     if (completionBlock) {
         if (self.currentSession && [self.currentSession isSessionAuthorized]) {
             completionBlock(YES);
-        }
-        
-        NSData *savedSession = [[NSUserDefaults standardUserDefaults] objectForKey:kJSSavedSessionKey];
-        if (savedSession) {
-            id unarchivedSession = [NSKeyedUnarchiver unarchiveObjectWithData:savedSession];
-            if (unarchivedSession && [unarchivedSession isKindOfClass:[JSSession class]] && [unarchivedSession keepSession]) {
-                self.currentSession = unarchivedSession;
-                if ([self.currentSession isSessionAuthorized]) {
-                    completionBlock(YES);
-                } else {
-                    [self.currentSession authenticationTokenWithCompletion:completionBlock];
+        } else {
+            NSData *savedSession = [[NSUserDefaults standardUserDefaults] objectForKey:kJSSavedSessionKey];
+            if (savedSession) {
+                id unarchivedSession = [NSKeyedUnarchiver unarchiveObjectWithData:savedSession];
+                if (unarchivedSession && [unarchivedSession isKindOfClass:[JSSession class]] && [unarchivedSession keepSession]) {
+                    self.currentSession = unarchivedSession;
+                    if ([self.currentSession isSessionAuthorized]) {
+                        completionBlock(YES);
+                        return;
+                    } else {
+                        [self.currentSession authenticationTokenWithCompletion:completionBlock];
+                        return;
+                    }
                 }
             }
+            completionBlock(NO);
         }
-        completionBlock(NO);
     }
 }
-
 
 @end
