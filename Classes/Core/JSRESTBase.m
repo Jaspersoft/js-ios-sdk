@@ -59,6 +59,33 @@ static NSTimeInterval const _defaultTimeoutInterval = 120;
 // Helper template message indicates that request was finished successfully
 NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
 
+
+// Inner JSCallback class contains JSRequest and RKRequest instances.
+// JSRequest class uses for setting additional parameters to JSOperationResult
+// instance (i.e. downloadDestinationPath for files) which we want to associate
+// with returned response (but it cannot be done in any other way).
+@interface JSCallBack : NSObject
+
+@property (nonatomic, retain) JSRequest *request;
+@property (nonatomic, retain) id restKitOperation;
+
+- (id)initWithRestKitOperation:(id)restKitOperation
+                       request:(JSRequest *)request;
+
+@end
+
+@implementation JSCallBack
+- (id)initWithRestKitOperation:(id)restKitOperation request:(JSRequest *)request {
+    if (self = [super init]) {
+        self.request = request;
+        self.restKitOperation = restKitOperation;
+    }
+    return self;
+}
+
+@end
+
+
 @interface RKObjectManager (CopyCredentials)
 
 - (void)copyStateFromHTTPClientToHTTPRequestOperation:(AFHTTPRequestOperation *)operation;
@@ -72,7 +99,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
 @property (nonatomic, strong) RKObjectManager *restKitObjectManager;
 
 // List of JSCallBack instances
-@property (nonatomic, strong) NSMutableDictionary *requestCallBacks;
+@property (nonatomic, strong) NSMutableArray *requestCallBacks;
 
 @property (nonatomic, assign, readwrite) BOOL keepSession;
 
@@ -182,7 +209,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     }];
     
     // Creates bridge between RestKit's delegate and SDK delegate
-    [self.requestCallBacks setObject:jsRequest forKey:(id<NSCopying>)requestOperation];
+    [self.requestCallBacks addObject:[[JSCallBack alloc] initWithRestKitOperation:requestOperation request:jsRequest]];
     
     [requestOperation start];
     
@@ -316,7 +343,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     self.restKitObjectManager.requestSerializationMIMEType = [JSConstants sharedInstance].REST_SDK_MIMETYPE_USED;
     [self.restKitObjectManager setAcceptHeaderWithMIMEType:[JSConstants sharedInstance].REST_SDK_MIMETYPE_USED];
 
-    self.requestCallBacks = [NSMutableDictionary new];
+    self.requestCallBacks = [NSMutableArray new];
 }
 
 // Gets full uri (including rest prefix)
@@ -359,7 +386,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     result.bodyAsString = httpOperation.responseString;
 
     // Error handling
-    result.request = [self.requestCallBacks objectForKey:restKitOperation];
+    result.request = [self callBackForOperation:restKitOperation].request;
     if ([result.request.uri isEqualToString:[JSConstants sharedInstance].REST_AUTHENTICATION_URI]) {
         NSString *redirectURL = [httpOperation.response.allHeaderFields objectForKey:@"Location"];
         
@@ -425,9 +452,11 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
 - (void)sendCallbackAboutOperation:(id)restKitOperation{
     JSOperationResult *result = [self operationResultWithOperation:restKitOperation];
     
-    JSRequest *request = [self.requestCallBacks objectForKey:restKitOperation];
-    [self.requestCallBacks removeObjectForKey:restKitOperation];
+    JSCallBack *callBack = [self callBackForOperation:restKitOperation];
+    [self.requestCallBacks removeObject:callBack];
 
+    result.request = callBack.request;
+    
     RKHTTPRequestOperation *httpOperation = [restKitOperation isKindOfClass:[RKObjectRequestOperation class]] ? [restKitOperation HTTPRequestOperation] : restKitOperation;
     NSLog(_requestFinishedTemplateMessage, [httpOperation.request.URL absoluteString]);
     
@@ -435,16 +464,26 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
         [result.body writeToFile:result.request.downloadDestinationPath atomically:YES];
     }
     
-    if (result.error && (result.error.code == JSSessionExpiredErrorCode) && self.keepSession && ![request.uri isEqualToString:[JSConstants sharedInstance].REST_AUTHENTICATION_URI]) {
+    if (result.error && (result.error.code == JSSessionExpiredErrorCode) && self.keepSession && ![callBack.request.uri isEqualToString:[JSConstants sharedInstance].REST_AUTHENTICATION_URI]) {
         [self authenticationTokenWithCompletion:@weakself(^(BOOL success)) {
             if (success) {
-                [self performSelector:@selector(sendRequest:) withObject:request afterDelay:0.1];
+                [self performSelector:@selector(sendRequest:) withObject:callBack.request afterDelay:0.1];
             }
         }@weakselfend];
-    } else if (request.completionBlock) {
-        request.completionBlock(result);
+    } else if (callBack.request.completionBlock) {
+        callBack.request.completionBlock(result);
     }
 }
+
+- (JSCallBack *)callBackForOperation:(id)restKitOperation {
+    for (JSCallBack *callBack in self.requestCallBacks) {
+        if (callBack.restKitOperation == restKitOperation) {
+            return callBack;
+        }
+    }
+    return nil;
+}
+
 
 // Deletes all cookies for specified server
 - (void)deleteCookies {
