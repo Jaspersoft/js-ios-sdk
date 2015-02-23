@@ -51,30 +51,12 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 #pragma mark -
 #pragma mark Public methods for resources API
 
-- (void)createResource:(JSResourceDescriptor *)resource delegate:(id<JSRequestDelegate>)delegate {
-    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:nil]];
-    request.expectedModelClass = [JSResourceDescriptor class];
-    request.method = RKRequestMethodPOST;
-    request.body = resource;
-    request.delegate = delegate;
-    [self sendRequest:request];
-}
-
 - (void)createResource:(JSResourceDescriptor *)resource completionBlock:(JSRequestCompletionBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:nil]];
     request.expectedModelClass = [JSResourceDescriptor class];
     request.method = RKRequestMethodPOST;
     request.body = resource;
     request.completionBlock = block;
-    [self sendRequest:request];
-}
-
-- (void)modifyResource:(JSResourceDescriptor *)resource delegate:(id<JSRequestDelegate>)delegate {
-    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:resource.uriString]];
-    request.expectedModelClass = [JSResourceDescriptor class];
-    request.method = RKRequestMethodPUT;
-    request.body = resource;
-    request.delegate = delegate;
     [self sendRequest:request];
 }
 
@@ -87,13 +69,6 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
     [self sendRequest:request];
 }
 
-- (void)deleteResource:(NSString *)uri delegate:(id<JSRequestDelegate>)delegate {
-    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:uri]];
-    request.method = RKRequestMethodDELETE;
-    request.delegate = delegate;
-    [self sendRequest:request];
-}
-
 - (void)deleteResource:(NSString *)uri completionBlock:(JSRequestCompletionBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:uri]];
     request.method = RKRequestMethodDELETE;
@@ -103,23 +78,6 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 
 #pragma mark -
 #pragma mark Public methods for REST V2 resources API
-
-- (void)resourceLookupForURI:(NSString *)resourceURI resourceType:(NSString *)resourceType
-                    delegate:(id<JSRequestDelegate>)delegate {
-    NSString *uri = [JSConstants sharedInstance].REST_RESOURCES_URI;
-    if (resourceURI && ![resourceURI isEqualToString:@"/"]) {
-        uri = [uri stringByAppendingString:resourceURI];
-    }
-    JSRequest *request = [[JSRequest alloc] initWithUri:uri];
-    request.restVersion = JSRESTVersion_2;
-    request.expectedModelClass = [JSResourceLookup class];
-    request.delegate = delegate;
-    NSString *responceType = @"application/json";
-    if (resourceType) {
-        responceType = [NSString stringWithFormat:@"application/repository.%@+json", resourceType];
-    }
-    [self sendRequest:request additionalHTTPHeaderFields:@{kJSRequestResponceType : responceType}];
-}
 
 - (void)resourceLookupForURI:(NSString *)resourceURI resourceType:(NSString *)resourceType
              completionBlock:(JSRequestCompletionBlock)block {
@@ -139,33 +97,8 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 }
 
 - (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types
-              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit delegate:(id<JSRequestDelegate>)delegate {
-    [self resourceLookups:folderUri query:query types:types sortBy:nil recursive:recursive offset:offset limit:limit delegate:delegate];
-}
-
-- (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types
               recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit completionBlock:(JSRequestCompletionBlock)block {
     [self resourceLookups:folderUri query:query types:types sortBy:nil recursive:recursive offset:offset limit:limit completionBlock:block];
-}
-
-- (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types sortBy:(NSString *)sortBy
-              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit delegate:(id<JSRequestDelegate>)delegate {
-    JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_RESOURCES_URI];
-    request.restVersion = JSRESTVersion_2;
-    request.expectedModelClass = [JSResourceLookup class];
-
-    [request addParameter:_parameterFolderUri withStringValue:folderUri];
-    [request addParameter:_parameterQuery withStringValue:query];
-    [request addParameter:_parameterType withArrayValue:types];
-    [request addParameter:_parameterSortBy withStringValue:sortBy];
-    [request addParameter:_parameterLimit withIntegerValue:limit];
-    [request addParameter:_parameterRecursive withStringValue:[JSConstants stringFromBOOL:recursive]];
-    [request addParameter:_parameterOffset withIntegerValue:offset];
-    [request addParameter:_parameterLimit withIntegerValue:limit];
-    [request addParameter:_parameterForceFullPage withStringValue:[JSConstants stringFromBOOL:YES]];
-    
-    request.delegate = delegate;
-    [self sendRequest:request];
 }
 
 - (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types sortBy:(NSString *)sortBy

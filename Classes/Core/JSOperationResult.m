@@ -48,28 +48,8 @@
     return [self initWithStatusCode:-1 allHeaderFields:[NSDictionary dictionary] MIMEType:@""];
 }
 
-- (NSString *)downloadDestinationPath {
-    return self.request.downloadDestinationPath;
-}
-
-- (BOOL)isInvalid {
-    return self.statusCode < 100 || self.statusCode > 600;
-}
-
-- (BOOL)isInformational {
-    return self.statusCode >= 100 && self.statusCode < 200;
-}
-
 - (BOOL)isSuccessful {
     return self.statusCode >= 200 && self.statusCode < 300;
-}
-
-- (BOOL)isRedirection {
-    return self.statusCode >= 300 && self.statusCode < 400;
-}
-
-- (BOOL)isError {
-    return self.statusCode >= 400 && self.statusCode < 600;
 }
 
 @end

@@ -107,32 +107,4 @@
  */
 - (BOOL)isSuccessful;
 
-/**
- Indicates an HTTP response code between 400 and 599
- 
- @return YES if the HTTP response code is between 400 and 599
- */
-- (BOOL)isError;
-
-/**
- Indicates an invalid HTTP response code less than 100 or greater than 600
- 
- @return YES if the HTTP response code is less than 100 or greater than 600
- */
-- (BOOL)isInvalid;
-
-/**
- Indicates an HTTP response code between 100 and 199
- 
- @return YES if the HTTP response code is between 100 and 199
- */
-- (BOOL)isInformational;
-
-/**
- Indicates an HTTP response code between 300 and 399
- 
- @return YES if the HTTP response code is between 300 and 399
- */
-- (BOOL)isRedirection;
-
 @end

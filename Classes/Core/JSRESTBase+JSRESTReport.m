@@ -95,33 +95,12 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 }
 
 - (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids
-                selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues delegate:(id<JSRequestDelegate>)delegate {
-    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:NO]];
-    request.expectedModelClass = [JSInputControlDescriptor class];
-    request.restVersion = JSRESTVersion_2;
-    request.method = (ids && [ids count]) ? RKRequestMethodPOST : RKRequestMethodGET;
-    [self addReportParametersToRequest:request withSelectedValues:selectedValues];
-    request.delegate = delegate;
-    [self sendRequest:request];
-}
-
-- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids
                 selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues completionBlock:(JSRequestCompletionBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:NO]];
     request.expectedModelClass = [JSInputControlDescriptor class];
     request.restVersion = JSRESTVersion_2;
     request.method = (ids && [ids count]) ? RKRequestMethodPOST : RKRequestMethodGET;
     [self addReportParametersToRequest:request withSelectedValues:selectedValues];
-    [self sendRequest:request];
-}
-
-- (void)updatedInputControlsValues:(NSString *)reportUri ids:(NSArray *)ids selectedValues:(NSArray *)selectedValues delegate:(id<JSRequestDelegate>)delegate {
-    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:YES]];
-    request.expectedModelClass = [JSInputControlState class];
-    request.method = RKRequestMethodPOST;
-    request.restVersion = JSRESTVersion_2;
-    [self addReportParametersToRequest:request withSelectedValues:selectedValues];
-    request.delegate = delegate;
     [self sendRequest:request];
 }
 
@@ -132,35 +111,6 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     request.restVersion = JSRESTVersion_2;
     [self addReportParametersToRequest:request withSelectedValues:selectedValues];
     request.completionBlock = block;
-    [self sendRequest:request];
-}
-
-- (void)runReportExecution:(NSString *)reportUnitUri async:(BOOL)async outputFormat:(NSString *)outputFormat
-               interactive:(BOOL)interactive freshData:(BOOL)freshData saveDataSnapshot:(BOOL)saveDataSnapshot
-          ignorePagination:(BOOL)ignorePagination transformerKey:(NSString *)transformerKey pages:(NSString *)pages
-         attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray /*<JSReportParameter>*/ *)parameters delegate:(id<JSRequestDelegate>)delegate {
-    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportExecutionUri:nil]];
-    request.expectedModelClass = [JSReportExecutionResponse class];
-    request.method = RKRequestMethodPOST;
-    request.restVersion = JSRESTVersion_2;
-    request.delegate = delegate;
-    
-    JSReportExecutionRequest *executionRequest = [[JSReportExecutionRequest alloc] init];
-    executionRequest.reportUnitUri = reportUnitUri;
-    executionRequest.async = [JSConstants stringFromBOOL:async];
-    executionRequest.interactive = [JSConstants stringFromBOOL:interactive];
-    executionRequest.freshData = [JSConstants stringFromBOOL:freshData];
-    executionRequest.saveDataSnapshot = [JSConstants stringFromBOOL:saveDataSnapshot];
-    executionRequest.ignorePagination = [JSConstants stringFromBOOL:ignorePagination];
-    executionRequest.outputFormat = outputFormat;
-    executionRequest.transformerKey = transformerKey;
-    executionRequest.pages = pages;
-    executionRequest.attachmentsPrefix = attachmentsPrefix;
-    executionRequest.parameters = parameters;
-    if (self.serverInfo.versionAsFloat >= [JSConstants sharedInstance].SERVER_VERSION_CODE_EMERALD_5_6_0) {
-        executionRequest.baseURL = self.serverProfile.serverUrl;
-    }
-    request.body = executionRequest;
     [self sendRequest:request];
 }
 
@@ -193,22 +143,6 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     [self sendRequest:request];
 }
 
-
-- (void)cancelReportExecution:(NSString *)requestId delegate:(id<JSRequestDelegate>)delegate {
-    NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:[JSConstants sharedInstance].REST_REPORT_EXECUTION_STATUS_URI];
-    JSRequest *request = [[JSRequest alloc] initWithUri:uri];
-    request.expectedModelClass = [JSExecutionStatus class];
-    request.method = RKRequestMethodPUT;
-    request.restVersion = JSRESTVersion_2;
-    request.delegate = delegate;
-    
-    JSExecutionStatus *status = [JSExecutionStatus new];
-    status.status = @"cancelled";
-    request.body = status;
-    
-    [self sendRequest:request];
-}
-
 - (void)cancelReportExecution:(NSString *)requestId completionBlock:(JSRequestCompletionBlock)block {
     NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:[JSConstants sharedInstance].REST_REPORT_EXECUTION_STATUS_URI];
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
@@ -221,28 +155,6 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     status.status = @"cancelled";
     request.body = status;
     
-    [self sendRequest:request];
-}
-
-- (void)runExportExecution:(NSString *)requestId outputFormat:(NSString *)outputFormat pages:(NSString *)pages
-         attachmentsPrefix:(NSString *)attachmentsPrefix delegate:(id<JSRequestDelegate>)delegate{
-    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullExportExecutionUri:requestId]];
-    request.expectedModelClass = [JSExportExecutionResponse class];
-    request.method = RKRequestMethodPOST;
-    request.restVersion = JSRESTVersion_2;
-    request.delegate = delegate;
-    
-    JSExportExecutionRequest *executionRequest = [[JSExportExecutionRequest alloc] init];
-    executionRequest.outputFormat = outputFormat;
-    executionRequest.pages = pages;
-    if (self.serverInfo.versionAsFloat >= [JSConstants sharedInstance].SERVER_VERSION_CODE_EMERALD_5_6_0) {
-        executionRequest.baseUrl = self.serverProfile.serverUrl;
-        if (attachmentsPrefix) {
-            JSConstants *constants = [JSConstants sharedInstance];
-            executionRequest.attachmentsPrefix = [NSString stringWithFormat:@"%@%@%@", self.serverProfile.serverUrl, constants.REST_SERVICES_V2_URI, attachmentsPrefix];
-        }
-    }
-    request.body = executionRequest;
     [self sendRequest:request];
 }
 
@@ -273,28 +185,11 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     return [NSString stringWithFormat:@"%@%@%@/%@/exports/%@/outputResource", self.serverProfile.serverUrl, constants.REST_SERVICES_V2_URI, constants.REST_REPORT_EXECUTION_URI, requestId, exportOutput];
 }
 
-- (void)reportExecutionMetadataForRequestId:(NSString *)requestId delegate:(id<JSRequestDelegate>)delegate {
-    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportExecutionUri:requestId]];
-    request.expectedModelClass = [JSReportExecutionResponse class];
-    request.restVersion = JSRESTVersion_2;
-    request.delegate = delegate;
-    [self sendRequest:request];
-}
-
 - (void)reportExecutionMetadataForRequestId:(NSString *)requestId completionBlock:(JSRequestCompletionBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportExecutionUri:requestId]];
     request.expectedModelClass = [JSReportExecutionResponse class];
     request.restVersion = JSRESTVersion_2;
     request.completionBlock = block;
-    [self sendRequest:request];
-}
-
-- (void)reportExecutionStatusForRequestId:(NSString *)requestId delegate:(id<JSRequestDelegate>)delegate {
-    NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:[JSConstants sharedInstance].REST_REPORT_EXECUTION_STATUS_URI];
-    JSRequest *request = [[JSRequest alloc] initWithUri:uri];
-    request.expectedModelClass = [JSExecutionStatus class];
-    request.restVersion = JSRESTVersion_2;
-    request.delegate = delegate;
     [self sendRequest:request];
 }
 
@@ -304,21 +199,6 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     request.expectedModelClass = [JSExecutionStatus class];
     request.restVersion = JSRESTVersion_2;
     request.completionBlock = block;
-    [self sendRequest:request];
-}
-
-- (void)loadReportOutput:(NSString *)requestId exportOutput:(NSString *)exportOutput
-           loadForSaving:(BOOL)loadForSaving path:(NSString *)path delegate:(id<JSRequestDelegate>)delegate {
-    exportOutput = [self encodeAttachmentsPrefix:exportOutput];
-    NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/outputResource?sessionDecorator=no&decorate=no#", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, exportOutput];
-    JSRequest *request = [[JSRequest alloc] initWithUri:uri];
-    request.restVersion = JSRESTVersion_2;
-    request.delegate = delegate;
-    if (loadForSaving) {
-        request.downloadDestinationPath = path;
-        request.responseAsObjects = NO;
-    }
-    
     [self sendRequest:request];
 }
 
@@ -333,18 +213,6 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
         request.downloadDestinationPath = path;
         request.responseAsObjects = NO;
     }
-    
-    [self sendRequest:request];
-}
-
-- (void)saveReportAttachment:(NSString *)requestId exportOutput:(NSString *)exportOutput attachmentName:(NSString *)attachmentName path:(NSString *)path delegate:(id<JSRequestDelegate>)delegate {
-    exportOutput = [self encodeAttachmentsPrefix:exportOutput];
-    NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/attachments/%@", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, exportOutput, attachmentName];
-    JSRequest *request = [[JSRequest alloc] initWithUri:uri];
-    request.restVersion = JSRESTVersion_2;
-    request.delegate = delegate;
-    request.downloadDestinationPath = path;
-    request.responseAsObjects = NO;
     
     [self sendRequest:request];
 }

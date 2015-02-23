@@ -95,7 +95,7 @@ extern NSString * const kJSRequestResponceType;
 
 /**
  Sends asynchronous request. Result will be passed as <code>JSOperationResult</code> 
- instance to delegate object or completionBlock (or both also) provided in 
+ instance to completionBlock provided in
  <code>JSRequest</code> object 
  
  @param request Models the request portion of an HTTP request/response cycle.
@@ -104,7 +104,7 @@ extern NSString * const kJSRequestResponceType;
 
 /**
  Sends asynchronous request. Result will be passed as <code>JSOperationResult</code>
- instance to delegate object or completionBlock (or both also) provided in
+ instance to completionBlock provided in
  <code>JSRequest</code> object
  
  @param jsRequest Models the request portion of an HTTP request/response cycle.
@@ -121,21 +121,6 @@ extern NSString * const kJSRequestResponceType;
  @since 1.4
  */
 - (JSServerInfo *)serverInfo;
-
-/**
- Gets server information details asynchronously
-
- @param delegate The delegate object
- @since 1.7
- */
-- (void)serverInfo:(id<JSRequestDelegate>)delegate;
-
-/** 
- Cancels all requests for specified delegate object
- 
- @param delegate The delegate object
- */
-- (void)cancelRequestsWithDelegate:(id<JSRequestDelegate>)delegate;
 
 /** 
  Cancels all requests 

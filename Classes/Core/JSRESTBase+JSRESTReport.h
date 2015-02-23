@@ -37,10 +37,6 @@
 /**
  Extention to <code>JSRESTBase</code> class for working with reports by REST calls. 
  
- Contains two types of methods which differs by last parameter: first type uses
- delegate and puts request result into it, second type uses completion
- block.
- 
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.3
@@ -86,36 +82,11 @@
  @param reportUri repository URI of the report
  @param ids list of input controls IDs
  @param selectedValues list of input controls selected values
- @param delegate A delegate object to inform of the results
- 
- @since 1.6
- */
-- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues delegate:(id<JSRequestDelegate>)delegate;
-
-/**
- Gets the list of states of input controls with specified IDs for the report with specified URI and according to selected values
- 
- @param reportUri repository URI of the report
- @param ids list of input controls IDs
- @param selectedValues list of input controls selected values
  @param block The block to inform of the results
  
  @since 1.6
  */
 - (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues completionBlock:(JSRequestCompletionBlock)block;
-
-/**
- Gets the states with updated values for input controls with specified IDs and according to selected values
- 
- @param reportUri repository URI of the report
- @param ids list of input controls IDs
- @param selectedValues list of input controls selected values
- @param delegate A delegate object to inform of the results
- 
- @since 1.4
- */
-- (void)updatedInputControlsValues:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids
-                    selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues delegate:(id<JSRequestDelegate>)delegate;
 
 /**
  Gets the states with updated values for input controls with specified IDs and according to selected values
@@ -144,29 +115,6 @@
  @param pages Single page number of pages range in a format "{startPageNumber}-{endPageNumber}"
  @param attachmentsPrefix URL prefix for report attachments. This parameter matter for HTML output only. Placeholders {contextPath}, {reportExecutionId} and {exportOptions} can be used. They are replaced in runtime by corresponding values
  @param parameters List of input control parameters
- @param delegate A delegate object to inform of the results
- 
- @since 1.8
- */
-- (void)runReportExecution:(NSString *)reportUnitUri async:(BOOL)async outputFormat:(NSString *)outputFormat
-               interactive:(BOOL)interactive freshData:(BOOL)freshData saveDataSnapshot:(BOOL)saveDataSnapshot
-          ignorePagination:(BOOL)ignorePagination transformerKey:(NSString *)transformerKey pages:(NSString *)pages
-         attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray /*<JSReportParameter>*/ *)parameters delegate:(id<JSRequestDelegate>)delegate;
-
-/**
- Executes report
- 
- @param reportUnitUri URI of the report to run
- @param async If false, then response is send, when report generation/export is complete, else, response is send immediately, without waiting for completeness
- @param outputFormat Report output format (e.g. html, pdf etc.)
- @param interactive If true, then highcharts are present, then they are generated using JavaScript, else image with chart is generated
- @param freshData Used to specify whether the report should use a previously saved data snapshot (if any) or fetch fresh data from the data source.  By default, if a saved data snapshot exists for the report it will be used when running the report
- @param saveDataSnapshot Used to instruct JRS to fetch fresh data for the report and save it as a data snapshot.  Note that data snapshot persistence must be enabled on the JRS instance in order for this parameter to be effective
- @param ignorePagination If true, then single long page is generated
- @param transformerKey Used when requesting a report as a JasperPrint object.  The parameter allows JRS web services to leverage JR generic print element transformers (net.sf.jasperreports.engine.export.GenericElementTransformer).  Such transformers are pluggable as JR extensions
- @param pages Single page number of pages range in a format "{startPageNumber}-{endPageNumber}"
- @param attachmentsPrefix URL prefix for report attachments. This parameter matter for HTML output only. Placeholders {contextPath}, {reportExecutionId} and {exportOptions} can be used. They are replaced in runtime by corresponding values
- @param parameters List of input control parameters
  @param block The block to inform of the results
  
  @since 1.8
@@ -180,36 +128,11 @@
  Cancel Report Execution
  
  @param requestId A <b>requestId</b> parameter of the report execution response
- @param delegate A delegate object to inform of the results
- 
- @since 1.9
- */
-- (void)cancelReportExecution:(NSString *)requestId delegate:(id<JSRequestDelegate>)delegate;
-
-/**
- Cancel Report Execution
- 
- @param requestId A <b>requestId</b> parameter of the report execution response
  @param block The block to inform of the results
  
  @since 1.9
  */
 - (void)cancelReportExecution:(NSString *)requestId completionBlock:(JSRequestCompletionBlock)block;
-
-/**
- Run Export Execution
- 
- @param requestId A <b>requestId</b> parameter of the report execution response
- @param outputFormat Report output format (e.g. html, pdf etc.)
- @param pages Single page number of pages range in a format "{startPageNumber}-{endPageNumber}"
- @param attachmentsPrefix URL prefix for report attachments. This parameter matter for HTML output only. Placeholders {contextPath}, {reportExecutionId} and {exportOptions} can be used. They are replaced in runtime by corresponding values
- 
- @param delegate A delegate object to inform of the results
- 
- @since 1.9
- */
-- (void)runExportExecution:(NSString *)requestId outputFormat:(NSString *)outputFormat pages:(NSString *)pages
-         attachmentsPrefix:(NSString *)attachmentsPrefix delegate:(id<JSRequestDelegate>)delegate;
 
 /**
  Run Export Execution
@@ -240,31 +163,11 @@
  Gets report execution metadata by request id
  
  @param requestId A <b>requestId</b> parameter of the report execution response
- @param delegate A delegate object to inform of the results
- 
- @since 1.8
- */
-- (void)reportExecutionMetadataForRequestId:(NSString *)requestId delegate:(id<JSRequestDelegate>)delegate;
-
-/**
- Gets report execution metadata by request id
- 
- @param requestId A <b>requestId</b> parameter of the report execution response
  @param block The block to inform of the results
  
  @since 1.8
  */
 - (void)reportExecutionMetadataForRequestId:(NSString *)requestId completionBlock:(JSRequestCompletionBlock)block;
-
-/**
- Gets report execution status by request id
- 
- @param requestId A <b>requestId</b> parameter of the report execution response
- @param delegate A delegate object to inform of the results
- 
- @since 1.8
- */
-- (void)reportExecutionStatusForRequestId:(NSString *)requestId delegate:(id<JSRequestDelegate>)delegate;
 
 /**
  Gets report execution status by request id
@@ -282,44 +185,16 @@
  @param requestId A <b>requestId</b> parameter of the report execution response
  @param exportOutput Export parameters as string:
     - for JRS version smaller 5.6.0 it should be in the follow format: {reportFormat};pages={pageOrPagesRange};attachmentsPrefix={attachmentsPrefixUrlEncodedValue};
-    - for JRS version 5.6.0 and greater it should be GUID string;
- @param loadForSaving If TRUE, report output will be saved by path
- @param path The path where the report output will be saved. Ignored, if loadForSaving is FALSE.
- @param delegate A delegate object to inform of the results
- 
- @since 1.9
- */
-- (void)loadReportOutput:(NSString *)requestId exportOutput:(NSString *)exportOutput
-           loadForSaving:(BOOL)loadForSaving path:(NSString *)path delegate:(id<JSRequestDelegate>)delegate;
-
-/**
- Loads report output and saves it by specified path if needed
- 
- @param requestId A <b>requestId</b> parameter of the report execution response
- @param exportOutput Export parameters as string:
-    - for JRS version smaller 5.6.0 it should be in the follow format: {reportFormat};pages={pageOrPagesRange};attachmentsPrefix={attachmentsPrefixUrlEncodedValue};
     - for JRS version 5.6.0 and greater it should be GUID string; @param loadForSaving If TRUE, report output will be saved by path
  @param loadForSaving If TRUE, report output will be saved by path
  @param path The path where the report output will be saved. Ignored, if loadForSaving is FALSE.
- @param delegate A delegate object to inform of the results
+ @param block The block to inform of the results
  
  @since 1.9
  */
 - (void)loadReportOutput:(NSString *)requestId exportOutput:(NSString *)exportOutput
            loadForSaving:(BOOL)loadForSaving path:(NSString *)path completionBlock:(JSRequestCompletionBlock)block;
 
-/**
- Downloads report attachment and saves it by specified path
- 
- @param requestId A <b>requestId</b> parameter of the report execution response
- @param exportOutput Export parameters as string in the correct format: {reportFormat};pages={pageOrPagesRange};attachmentsPrefix={attachmentsPrefixUrlEncodedValue}
- @param attachmentName A name of report attachment
- @param path The path where the report output will be saved
- @param delegate A delegate object to inform of the results
- 
- @since 1.8
- */
-- (void)saveReportAttachment:(NSString *)requestId exportOutput:(NSString *)exportOutput attachmentName:(NSString *)attachmentName path:(NSString *)path delegate:(id<JSRequestDelegate>)delegate;
 
 /**
  Downloads report attachment and saves it by specified path

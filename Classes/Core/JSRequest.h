@@ -34,7 +34,6 @@
 
 /**
  This block invoked when the request is complete.
- Provided as analogue to JSResponseDelegate protocol
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @author Alexey Gubarev ogubarie@tibco.com
 */
@@ -52,21 +51,6 @@ typedef enum {
     JSRESTVersion_1,
     JSRESTVersion_2
 } JSRESTVersion;
-
-/**
- This protocol must be implemented by objects used to retrieve request result asynchronously
- */
-@protocol JSRequestDelegate <NSObject>
-
-@required
-
-/**
- This method is invoked when the request is complete. The results of the request
- can be checked looking at the JSOperationResult object passed as parameter
- */
-- (void)requestFinished:(JSOperationResult *)result;
-
-@end
 
 /**
  Models the request portion of an HTTP request/response cycle. Used by
@@ -106,16 +90,9 @@ typedef enum {
 @property (nonatomic, assign) RKRequestMethod method;
 
 /**
- The delegate to inform when the request is completed. If the object implements
- the <code>JSRequestDelegate</code> protocol and if object is not <code>nil</code>,
- it will receive request result (instance of <code>JSOperationResult</code> class)
- */
-@property (nonatomic, weak) id <JSRequestDelegate> delegate;
-
-/**
  A completionBlock invoke when the request is completed. If block is not
  <code>nil</code>, it will receive request result (instance of
- <code>JSOperationResult</code> class). Provided as analogue to delegate object
+ <code>JSOperationResult</code> class).
  */
 @property (nonatomic, copy) JSRequestCompletionBlock completionBlock;
 

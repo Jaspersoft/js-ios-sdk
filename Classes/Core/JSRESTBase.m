@@ -49,9 +49,7 @@ static NSTimeInterval const _defaultTimeoutInterval = 120;
 NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
 
 // Inner JSCallback class contains JSRequest and RKRequest instances. 
-// JSRequest instance contains delegate object and finished block so actually this 
-// instance is bridge between RestKit's delegate and library delegate (or finished block)
-// Also JSRequest class uses for setting additional parameters to JSOperationResult
+// JSRequest class uses for setting additional parameters to JSOperationResult
 // instance (i.e. downloadDestinationPath for files) which we want to associate
 // with returned response (but it cannot be done in any other way).
 @interface JSCallBack : NSObject
@@ -81,7 +79,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
 
 @end
 
-// Hidden implementation of RKObjectLoaderDelegate protocol and private properties
 @interface JSRESTBase()
 
 // RestKit's RKObjectManager instance for mapping response (in JSON, XML and other
@@ -218,38 +215,21 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
 
 - (JSServerInfo *)serverInfo {
     if (!self.serverProfile.serverInfo) {
-        JSRequest *request = [self serverInfoRequest:NO];
+        JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_SERVER_INFO_URI];
+        request.expectedModelClass = [JSServerInfo class];
+        request.restVersion = JSRESTVersion_2;
+        request.asynchronous = NO;
         request.completionBlock = ^(JSOperationResult *result) {
-            [self setServerInfo:result];
+            if (!result.error && result.objects.count) {
+                self.serverProfile.serverInfo = [result.objects firstObject];
+            } else {
+                self.serverProfile.serverInfo = [[JSServerInfo alloc] init];
+            }
         };
         [self sendRequest:request];
     }
 
     return self.serverProfile.serverInfo;
-}
-
-- (void)serverInfo:(id<JSRequestDelegate>)delegate {
-    JSRequest *request = [self serverInfoRequest:YES];
-    request.completionBlock = ^(JSOperationResult *result) {
-        result = [self setServerInfo:result];
-        [delegate requestFinished:result];
-    };
-    [self sendRequest:request];
-}
-
-- (void)cancelRequestsWithDelegate:(id<JSRequestDelegate>)delegate {
-    NSMutableIndexSet *indexesOfRemovingCallBacks = [[NSMutableIndexSet alloc] init];
-    JSCallBack *callBack = nil;
-    
-    for (int i = 0; i < self.requestCallBacks.count; i++) {
-        callBack = [self.requestCallBacks objectAtIndex:i];
-        if (callBack.request.delegate == delegate) {
-            [callBack.restKitOperation cancel];
-            [indexesOfRemovingCallBacks addIndex:i];
-        }
-    }
-    
-    [self.requestCallBacks removeObjectsAtIndexes:indexesOfRemovingCallBacks];
 }
 
 - (void)cancelAllRequests {
@@ -268,14 +248,12 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
         NSMutableArray *cookies = [NSMutableArray array];
         for (NSHTTPCookie *cookie in [NSHTTPCookieStorage sharedHTTPCookieStorage].cookies) {
             if ([cookie.domain isEqualToString:host]) {
-                if (cookie.expiresDate && [cookie.expiresDate compare:[NSDate date]] == NSOrderedDescending) {
-                    [cookies addObject:cookie];
-                } else {
-                    [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
-                }
+                [cookies addObject:cookie];
             }
         }
-        return cookies;
+        return [cookies sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            return [[obj1 expiresDate] compare:[obj2 expiresDate]];
+        }];
     }
     return nil;
 }
@@ -397,7 +375,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
                 [result.body writeToFile:result.request.downloadDestinationPath atomically:YES];
             }
             
-            [callBack.request.delegate requestFinished:result];
             if (callBack.request.completionBlock) {
                 callBack.request.completionBlock(result);
             }
@@ -414,32 +391,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     for (NSHTTPCookie *cookie in self.cookies) {
         [cookieStorage deleteCookie:cookie];
     }
-}
-
-- (JSRequest *)serverInfoRequest:(BOOL)isAsynchronous {
-    JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_SERVER_INFO_URI];
-    request.expectedModelClass = [JSServerInfo class];
-    request.restVersion = JSRESTVersion_2;
-    request.asynchronous = isAsynchronous;
-    return request;
-}
-
-- (JSOperationResult *)setServerInfo:(JSOperationResult *)result {
-    if (result.error || (result.isError && result.statusCode != 404)) return result;
-
-    if (result.objects.count) {
-        self.serverProfile.serverInfo = [result.objects objectAtIndex:0];
-    } else {
-        self.serverProfile.serverInfo = [[JSServerInfo alloc] init];
-
-        JSRequest *request = result.request;
-        result = [[JSOperationResult alloc] initWithStatusCode:203
-                                               allHeaderFields:result.allHeaderFields
-                                                      MIMEType:result.MIMEType];
-        result.request = request;
-    }
-
-    return result;
 }
 
 @end
