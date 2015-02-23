@@ -24,27 +24,23 @@
  */
 
 //
-//  JSSessionManager.h
+//  JSSession.h
 //  Jaspersoft Corporation
 //
 
 #import <Foundation/Foundation.h>
-#import "JSSession.h"
+#import "JSRESTBase.h"
 
+extern NSString * const kJSSavedSessionKey;
 
-@class JSProfile;
+@interface JSSession :JSRESTBase  <NSSecureCoding>
 
-@interface JSSessionManager : NSObject
+@property (nonatomic, assign, readonly) BOOL keepSession;
 
-@property (nonatomic, strong, readonly) JSSession *currentSession;
+- (instancetype) initWithServerProfile:(JSProfile *)serverProfile keepLogged:(BOOL)keepLogged;
 
-+ (instancetype) sharedManager;
+- (BOOL)isSessionAuthorized;
 
-- (void) createSessionWithServerProfile:(JSProfile *)serverProfile keepLogged:(BOOL)keepLogged completion:(void(^)(BOOL success))completionBlock;
-
-- (void) saveActiveSessionIfNeeded;
-
-- (void) restoreLastSessionWithCompletion:(void(^)(BOOL success))completionBlock;
-
+- (void)authenticationTokenWithCompletion:(void(^)(BOOL success))completionBlock;
 
 @end

@@ -24,7 +24,7 @@
  */
 
 //
-//  JSSessionManager.h
+//  JSSession.m
 //  Jaspersoft Corporation
 //
 
