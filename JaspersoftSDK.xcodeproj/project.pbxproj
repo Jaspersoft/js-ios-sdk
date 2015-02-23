@@ -10,8 +10,6 @@
 		088208821A01328900B6559F /* JSExportExecutionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 088208801A01328900B6559F /* JSExportExecutionRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		088208831A01328900B6559F /* JSExportExecutionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 088208811A01328900B6559F /* JSExportExecutionRequest.m */; };
 		08B8FA181A6FCEAF00E9FE60 /* weakself.h in Headers */ = {isa = PBXBuildFile; fileRef = 08B8FA171A6FCEAF00E9FE60 /* weakself.h */; };
-		08C5211A1A9B266700E55CDE /* JSSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 08C521181A9B266700E55CDE /* JSSession.h */; };
-		08C5211B1A9B266700E55CDE /* JSSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C521191A9B266700E55CDE /* JSSession.m */; };
 		3745523E7EE2CE8C64105A1D /* JSExportExecutionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 37455C26CA9D110D7CBD29A2 /* JSExportExecutionResponse.m */; };
 		37455A556862C72B0B83193F /* JSReportOutputResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 374556F481BE36B761B5FDDF /* JSReportOutputResource.m */; };
 		37455ABDDD4368D267B50469 /* JSReportExecutionResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 374551F833EA720B59987045 /* JSReportExecutionResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -78,8 +76,6 @@
 		088208811A01328900B6559F /* JSExportExecutionRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSExportExecutionRequest.m; sourceTree = "<group>"; };
 		08AC6B371A94AD450069CBE3 /* JSErrors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSErrors.h; sourceTree = "<group>"; };
 		08B8FA171A6FCEAF00E9FE60 /* weakself.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = weakself.h; sourceTree = "<group>"; };
-		08C521181A9B266700E55CDE /* JSSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSSession.h; sourceTree = "<group>"; };
-		08C521191A9B266700E55CDE /* JSSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSSession.m; sourceTree = "<group>"; };
 		1AE65D84777378DA82ED7BA4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		374551F833EA720B59987045 /* JSReportExecutionResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportExecutionResponse.h; sourceTree = "<group>"; };
 		374555044AD45FB4F352A96F /* JSReportExecutionRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportExecutionRequest.m; sourceTree = "<group>"; };
@@ -251,8 +247,6 @@
 				F59768EC15E3C826004165A7 /* JSProfile.h */,
 				F59768ED15E3C826004165A7 /* JSProfile.m */,
 				F597697815E3C9EF004165A7 /* JSSerializationDescriptorHolder.h */,
-				08C521181A9B266700E55CDE /* JSSession.h */,
-				08C521191A9B266700E55CDE /* JSSession.m */,
 				F59768F015E3C826004165A7 /* JSRESTBase.h */,
 				F59768F115E3C826004165A7 /* JSRESTBase.m */,
 				F59768F215E3C826004165A7 /* JSRESTBase+JSRESTReport.h */,
@@ -379,7 +373,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				08C5211A1A9B266700E55CDE /* JSSession.h in Headers */,
 				F596020315ECCC9300B62DFD /* JaspersoftSDK.h in Headers */,
 				F5F173FA186486FD00779136 /* JSCore.h in Headers */,
 				F52DF64918648C28000D375E /* JSObjectMappings.h in Headers */,
@@ -502,7 +495,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F597691215E3C826004165A7 /* JSConstants.m in Sources */,
-				08C5211B1A9B266700E55CDE /* JSSession.m in Sources */,
 				F597691615E3C826004165A7 /* JSOperationResult.m in Sources */,
 				F597691A15E3C826004165A7 /* JSProfile.m in Sources */,
 				F597691E15E3C826004165A7 /* JSRequest.m in Sources */,

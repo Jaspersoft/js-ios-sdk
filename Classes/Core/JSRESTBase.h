@@ -55,7 +55,7 @@ extern NSString * const kJSRequestResponceType;
  @since 1.3
 */
 @class RKObjectManager;
-@interface JSRESTBase : NSObject
+@interface JSRESTBase : NSObject <NSSecureCoding>
 
 /**
  The server profile instance contains connection details for 
@@ -85,13 +85,21 @@ extern NSString * const kJSRequestResponceType;
  */
 @property (nonatomic, strong, readonly) RKObjectManager *restKitObjectManager;
 
-/** 
+/**
+ If YES REST Client will try to recreate HTTP session.
+ 
+ @since 1.9
+ */
+@property (nonatomic, assign, readonly) BOOL keepSession;
+
+/**
  Returns a rest base instance. 
  
  @param serverProfile The server profile instance contains connection details for JasperReports server
+ @param keepLogged If YES REST Client will try to recreate HTTP session
  @return A fully configured JSRESTBase instance
  */
-- (instancetype)initWithServerProfile:(JSProfile *)serverProfile;
+- (instancetype) initWithServerProfile:(JSProfile *)serverProfile keepLogged:(BOOL)keepLogged;
 
 /**
  Sends asynchronous request. Result will be passed as <code>JSOperationResult</code> 
@@ -127,12 +135,31 @@ extern NSString * const kJSRequestResponceType;
  */
 - (void)cancelAllRequests;
 
-
 /**
  Checks if network is available
  
  @return A boolean value represents network is availability
  */
 - (BOOL)isNetworkReachable;
+
+/**
+ Checks if session is authorized
+ 
+ @return A boolean value represents session is authorized
+ 
+ @since 1.9
+ */
+
+- (BOOL)isSessionAuthorized;
+
+/**
+ Create NSHTTPCookie for using REST API
+
+ @param block The block to inform of the results
+ 
+ @since 1.9
+ */
+
+- (void)authenticationTokenWithCompletion:(void(^)(BOOL success))completionBlock;
 
 @end

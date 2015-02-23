@@ -41,37 +41,23 @@
 NSString * const kJSRequestContentType = @"Content-Type";
 NSString * const kJSRequestResponceType = @"Accept";
 
+NSString * const kJSSavedSessionServerProfileKey    = @"JSSavedSessionServerProfileKey";
+NSString * const kJSSavedSessionTimeoutKey          = @"JSSavedSessionTimeoutKey";
+NSString * const kJSSavedSessionKeepSessionKey      = @"JSSavedSessionKeepSessionKey";
+
+
+
+NSString * const kJSAuthenticationUsernameKey       = @"j_username";
+NSString * const kJSAuthenticationPasswordKey       = @"j_password";
+NSString * const kJSAuthenticationOrganizationKey   = @"orgId";
+NSString * const kJSAuthenticationLocaleKey         = @"userLocale";
+NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
 
 // Default value for timeout interval
 static NSTimeInterval const _defaultTimeoutInterval = 120;
 
 // Helper template message indicates that request was finished successfully
 NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
-
-// Inner JSCallback class contains JSRequest and RKRequest instances. 
-// JSRequest class uses for setting additional parameters to JSOperationResult
-// instance (i.e. downloadDestinationPath for files) which we want to associate
-// with returned response (but it cannot be done in any other way).
-@interface JSCallBack : NSObject
-
-@property (nonatomic, retain) JSRequest *request;
-@property (nonatomic, retain) id restKitOperation;
-
-- (id)initWithRestKitOperation:(id)restKitOperation
-                     request:(JSRequest *)request;
-
-@end
-
-@implementation JSCallBack
-- (id)initWithRestKitOperation:(id)restKitOperation request:(JSRequest *)request {
-    if (self = [super init]) {
-        self.request = request;
-        self.restKitOperation = restKitOperation;
-    }
-    return self;
-}
-
-@end
 
 @interface RKObjectManager (CopyCredentials)
 
@@ -86,7 +72,9 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
 @property (nonatomic, strong) RKObjectManager *restKitObjectManager;
 
 // List of JSCallBack instances
-@property (nonatomic, strong) NSMutableArray *requestCallBacks;
+@property (nonatomic, strong) NSMutableDictionary *requestCallBacks;
+
+@property (nonatomic, assign, readwrite) BOOL keepSession;
 
 @end
 
@@ -111,14 +99,16 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     }
 }
 
-- (instancetype)initWithServerProfile:(JSProfile *)serverProfile {
-    if (self = [super init]) {
+- (instancetype)initWithServerProfile:(JSProfile *)serverProfile keepLogged:(BOOL)keepLogged{
+    self = [super init];
+    if (self) {
+        self.keepSession = keepLogged;
         self.timeoutInterval = _defaultTimeoutInterval;
         self.serverProfile = serverProfile;
     }
-    
     return self;
 }
+
 
 - (void)setServerProfile:(JSProfile *)serverProfile {
     _serverProfile = serverProfile;
@@ -192,7 +182,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     }];
     
     // Creates bridge between RestKit's delegate and SDK delegate
-    [self.requestCallBacks addObject:[[JSCallBack alloc] initWithRestKitOperation:requestOperation request:jsRequest]];
+    [self.requestCallBacks setObject:jsRequest forKey:(id<NSCopying>)requestOperation];
     
     [requestOperation start];
     
@@ -258,6 +248,60 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     return nil;
 }
 
+- (BOOL)isSessionAuthorized {
+    return [[self cookies] count];
+}
+
+- (void)authenticationTokenWithCompletion:(void(^)(BOOL success))completionBlock {
+    JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_AUTHENTICATION_URI];
+    request.restVersion = JSRESTVersion_None;
+    request.method = RKRequestMethodGET;
+    request.responseAsObjects = NO;
+    request.redirectAllowed = NO;
+    
+    [request addParameter:kJSAuthenticationUsernameKey      withStringValue:self.serverProfile.username];
+    [request addParameter:kJSAuthenticationPasswordKey      withStringValue:self.serverProfile.password];
+    [request addParameter:kJSAuthenticationOrganizationKey  withStringValue:self.serverProfile.organization];
+    [request addParameter:kJSAuthenticationTimezoneKey      withStringValue:[[NSTimeZone systemTimeZone] abbreviation]];
+    
+    // Add locale to session
+    NSString *currentLanguage = [[NSLocale preferredLanguages] objectAtIndex:0];
+    NSInteger dividerPosition = [currentLanguage rangeOfString:@"_"].location;
+    if (dividerPosition != NSNotFound) {
+        currentLanguage = [currentLanguage substringToIndex:dividerPosition];
+    }
+    NSString *currentLocale = [[JSConstants sharedInstance].REST_JRS_LOCALE_SUPPORTED objectForKey:currentLanguage];
+    [request addParameter:kJSAuthenticationLocaleKey withStringValue:currentLocale];
+    
+    request.completionBlock = @weakself(^(JSOperationResult *result)) {
+        if (completionBlock) {
+            completionBlock(!result.error);
+        }
+    }@weakselfend;
+    [self sendRequest:request];
+}
+
+#pragma mark - NSSecureCoding
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.serverProfile forKey:kJSSavedSessionServerProfileKey];
+    [aCoder encodeBool:self.keepSession forKey:kJSSavedSessionKeepSessionKey];
+    [aCoder encodeFloat:self.timeoutInterval forKey:kJSSavedSessionTimeoutKey];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+        self.serverProfile = [aDecoder decodeObjectForKey:kJSSavedSessionServerProfileKey];
+        self.keepSession = [aDecoder decodeBoolForKey:kJSSavedSessionKeepSessionKey];
+        self.timeoutInterval = [aDecoder decodeFloatForKey:kJSSavedSessionTimeoutKey];
+    }
+    return self;
+}
+
 #pragma mark -
 #pragma mark Private methods
 
@@ -272,7 +316,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     self.restKitObjectManager.requestSerializationMIMEType = [JSConstants sharedInstance].REST_SDK_MIMETYPE_USED;
     [self.restKitObjectManager setAcceptHeaderWithMIMEType:[JSConstants sharedInstance].REST_SDK_MIMETYPE_USED];
 
-    self.requestCallBacks = [[NSMutableArray alloc] init];
+    self.requestCallBacks = [NSMutableDictionary new];
 }
 
 // Gets full uri (including rest prefix)
@@ -315,73 +359,90 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     result.bodyAsString = httpOperation.responseString;
 
     // Error handling
-    NSError *operationError = [httpOperation error];
-    if (![result isSuccessful] || operationError) {
-        NSString *errorDomain = operationError.domain;
-        NSString *errorDescription;
-        NSInteger errorCode;
-
-        if (httpOperation.response.statusCode) {
-            errorCode = JSNetworkErrorCode;
-            errorDomain = NSURLErrorDomain;
-            errorDescription = [NSHTTPURLResponse localizedStringForStatusCode:httpOperation.response.statusCode];
-        } else if ([operationError.domain isEqualToString:NSURLErrorDomain] || [operationError.domain isEqualToString:AFNetworkingErrorDomain]) {
-            switch (operationError.code) {
-                case NSURLErrorUserCancelledAuthentication:
-                case NSURLErrorUserAuthenticationRequired:
-                    errorCode = JSSessionExpiredErrorCode;
-                    errorDescription = [NSHTTPURLResponse localizedStringForStatusCode:401];
-                    break;
-                case NSURLErrorTimedOut:
-                    errorCode = JSRequestTimeOutErrorCode;
-                    break;
-                default:
-                    errorCode = JSNetworkErrorCode;
-            }
+    result.request = [self.requestCallBacks objectForKey:restKitOperation];
+    if ([result.request.uri isEqualToString:[JSConstants sharedInstance].REST_AUTHENTICATION_URI]) {
+        NSString *redirectURL = [httpOperation.response.allHeaderFields objectForKey:@"Location"];
+        
+        NSString *redirectUrlRegex = [NSString stringWithFormat:@"%@/login.html((;jsessionid=.+)?)\\?error=1", self.serverProfile.serverUrl];
+        
+        NSPredicate *redirectUrlValidator = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", redirectUrlRegex];
+        if ([redirectUrlValidator evaluateWithObject:redirectURL]) {
+            NSDictionary *userInfo = @{NSLocalizedDescriptionKey :[NSHTTPURLResponse localizedStringForStatusCode:401]};
+            result.error = [NSError errorWithDomain:NSURLErrorDomain code:JSSessionExpiredErrorCode userInfo:userInfo];
         } else {
-            if ([operationError.userInfo objectForKey:RKObjectMapperErrorObjectsKey]) {
-                result.objects = [operationError.userInfo objectForKey:RKObjectMapperErrorObjectsKey];
-                errorCode = JSClientErrorCode;
-            } else if ([operationError.userInfo objectForKey:RKDetailedErrorsKey]) {
-                result.objects = [operationError.userInfo objectForKey:RKDetailedErrorsKey];
-                errorCode = JSDataMappingErrorCode;
-            } else {
-                errorCode = JSOtherErrorCode;
-            }
+            result.error = nil;
         }
-        NSDictionary *userInfo = errorDescription ? @{NSLocalizedDescriptionKey : errorDescription} : operationError.userInfo;
-        result.error = [NSError errorWithDomain:errorDomain code:errorCode userInfo:userInfo];
     } else {
-        if ([restKitOperation isKindOfClass:[RKObjectRequestOperation class]]) {
-            RKObjectRequestOperation *objectOperation = (RKObjectRequestOperation *)restKitOperation;
-            if (objectOperation.mappingResult) {
-                result.objects = [objectOperation.mappingResult array];
+        NSError *operationError = [httpOperation error];
+        if (![result isSuccessful] || operationError) {
+            NSString *errorDomain = operationError.domain;
+            NSString *errorDescription;
+            NSInteger errorCode;
+            
+            if (httpOperation.response.statusCode) {
+                errorCode = JSNetworkErrorCode;
+                errorDomain = NSURLErrorDomain;
+                errorDescription = [NSHTTPURLResponse localizedStringForStatusCode:httpOperation.response.statusCode];
+            } else if ([operationError.domain isEqualToString:NSURLErrorDomain] || [operationError.domain isEqualToString:AFNetworkingErrorDomain]) {
+                switch (operationError.code) {
+                    case NSURLErrorUserCancelledAuthentication:
+                    case NSURLErrorUserAuthenticationRequired:
+                        errorCode = JSSessionExpiredErrorCode;
+                        errorDescription = [NSHTTPURLResponse localizedStringForStatusCode:401];
+                        break;
+                    case NSURLErrorTimedOut:
+                        errorCode = JSRequestTimeOutErrorCode;
+                        break;
+                    default:
+                        errorCode = JSNetworkErrorCode;
+                }
+            } else {
+                if ([operationError.userInfo objectForKey:RKObjectMapperErrorObjectsKey]) {
+                    result.objects = [operationError.userInfo objectForKey:RKObjectMapperErrorObjectsKey];
+                    errorCode = JSClientErrorCode;
+                } else if ([operationError.userInfo objectForKey:RKDetailedErrorsKey]) {
+                    result.objects = [operationError.userInfo objectForKey:RKDetailedErrorsKey];
+                    errorCode = JSDataMappingErrorCode;
+                } else {
+                    errorCode = JSOtherErrorCode;
+                }
+            }
+            NSDictionary *userInfo = errorDescription ? @{NSLocalizedDescriptionKey : errorDescription} : operationError.userInfo;
+            result.error = [NSError errorWithDomain:errorDomain code:errorCode userInfo:userInfo];
+        } else {
+            if ([restKitOperation isKindOfClass:[RKObjectRequestOperation class]]) {
+                RKObjectRequestOperation *objectOperation = (RKObjectRequestOperation *)restKitOperation;
+                if (objectOperation.mappingResult) {
+                    result.objects = [objectOperation.mappingResult array];
+                }
             }
         }
     }
+    
     return result;
 }
 
 - (void)sendCallbackAboutOperation:(id)restKitOperation{
     JSOperationResult *result = [self operationResultWithOperation:restKitOperation];
     
-    for (JSCallBack *callBack in self.requestCallBacks) {
-        if (callBack.restKitOperation == restKitOperation) {
-            RKHTTPRequestOperation *httpOperation = [restKitOperation isKindOfClass:[RKObjectRequestOperation class]] ? [restKitOperation HTTPRequestOperation] : restKitOperation;
-            NSLog(_requestFinishedTemplateMessage, [httpOperation.request.URL absoluteString]);
-            result.request = callBack.request;
-            
-            if (!result.error && !result.request.responseAsObjects && [result.request.downloadDestinationPath length]) {
-                [result.body writeToFile:result.request.downloadDestinationPath atomically:YES];
-            }
-            
-            if (callBack.request.completionBlock) {
-                callBack.request.completionBlock(result);
-            }
+    JSRequest *request = [self.requestCallBacks objectForKey:restKitOperation];
+    [self.requestCallBacks removeObjectForKey:restKitOperation];
 
-            [self.requestCallBacks removeObject: callBack];
-            break;
-        }
+    RKHTTPRequestOperation *httpOperation = [restKitOperation isKindOfClass:[RKObjectRequestOperation class]] ? [restKitOperation HTTPRequestOperation] : restKitOperation;
+    NSLog(_requestFinishedTemplateMessage, [httpOperation.request.URL absoluteString]);
+    
+    if (!result.error && !result.request.responseAsObjects && [result.request.downloadDestinationPath length]) {
+        [result.body writeToFile:result.request.downloadDestinationPath atomically:YES];
+    }
+    
+    if (result.error && (result.error.code == JSSessionExpiredErrorCode) && self.keepSession && ![request.uri isEqualToString:[JSConstants sharedInstance].REST_AUTHENTICATION_URI]) {
+        [self authenticationTokenWithCompletion:@weakself(^(BOOL success)) {
+            if (success) {
+                [self performSelector:@selector(sendRequest:) withObject:request afterDelay:0.1];
+            }
+        }@weakselfend];
+    } else if (request.completionBlock) {
+        request.completionBlock(result);
     }
 }
 
