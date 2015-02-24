@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		081DCA131A9C793D007A7F1B /* JSRESTBase+JSRESTSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 081DCA111A9C793D007A7F1B /* JSRESTBase+JSRESTSession.h */; };
+		081DCA141A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 081DCA121A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m */; };
 		088208821A01328900B6559F /* JSExportExecutionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 088208801A01328900B6559F /* JSExportExecutionRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		088208831A01328900B6559F /* JSExportExecutionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 088208811A01328900B6559F /* JSExportExecutionRequest.m */; };
 		08B8FA181A6FCEAF00E9FE60 /* weakself.h in Headers */ = {isa = PBXBuildFile; fileRef = 08B8FA171A6FCEAF00E9FE60 /* weakself.h */; };
@@ -72,6 +74,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		081DCA111A9C793D007A7F1B /* JSRESTBase+JSRESTSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSRESTBase+JSRESTSession.h"; sourceTree = "<group>"; };
+		081DCA121A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSRESTSession.m"; sourceTree = "<group>"; };
 		088208801A01328900B6559F /* JSExportExecutionRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSExportExecutionRequest.h; sourceTree = "<group>"; };
 		088208811A01328900B6559F /* JSExportExecutionRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSExportExecutionRequest.m; sourceTree = "<group>"; };
 		08AC6B371A94AD450069CBE3 /* JSErrors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSErrors.h; sourceTree = "<group>"; };
@@ -249,6 +253,8 @@
 				F597697815E3C9EF004165A7 /* JSSerializationDescriptorHolder.h */,
 				F59768F015E3C826004165A7 /* JSRESTBase.h */,
 				F59768F115E3C826004165A7 /* JSRESTBase.m */,
+				081DCA111A9C793D007A7F1B /* JSRESTBase+JSRESTSession.h */,
+				081DCA121A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m */,
 				F59768F215E3C826004165A7 /* JSRESTBase+JSRESTReport.h */,
 				F59768F315E3C826004165A7 /* JSRESTBase+JSRESTReport.m */,
 				F59768F415E3C826004165A7 /* JSRESTBase+JSRESTResource.h */,
@@ -397,6 +403,7 @@
 				08B8FA181A6FCEAF00E9FE60 /* weakself.h in Headers */,
 				F53B1043164A9EE400042976 /* JSReportParameter.h in Headers */,
 				F5AE53AF165169F6004207E1 /* JSDateTimeFormatValidationRule.h in Headers */,
+				081DCA131A9C793D007A7F1B /* JSRESTBase+JSRESTSession.h in Headers */,
 				F5D0923E18586E7D00C5AEFC /* JSReportOutputResource.h in Headers */,
 				F5D0924418586E9300C5AEFC /* JSReportExecutionRequest.h in Headers */,
 				088208821A01328900B6559F /* JSExportExecutionRequest.h in Headers */,
@@ -501,6 +508,7 @@
 				F597692215E3C826004165A7 /* JSRESTBase.m in Sources */,
 				F597692615E3C826004165A7 /* JSRESTBase+JSRESTReport.m in Sources */,
 				F597692A15E3C826004165A7 /* JSRESTBase+JSRESTResource.m in Sources */,
+				081DCA141A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m in Sources */,
 				F597694515E3C826004165A7 /* JSReportAttachment.m in Sources */,
 				F597694915E3C826004165A7 /* JSReportDescriptor.m in Sources */,
 				F597694D15E3C826004165A7 /* JSResourceDescriptor.m in Sources */,

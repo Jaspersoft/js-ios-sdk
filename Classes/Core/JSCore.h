@@ -34,6 +34,8 @@
 #import "JSOperationResult.h"
 
 #import "JSRESTBase.h"
+#import "JSRESTBase+JSRESTSession.h"
 #import "JSRESTBase+JSRESTReport.h"
 #import "JSRESTBase+JSRESTResource.h"
+
 #import "JSSerializationDescriptorHolder.h"

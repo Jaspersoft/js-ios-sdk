@@ -142,24 +142,5 @@ extern NSString * const kJSRequestResponceType;
  */
 - (BOOL)isNetworkReachable;
 
-/**
- Checks if session is authorized
- 
- @return A boolean value represents session is authorized
- 
- @since 1.9
- */
-
-- (BOOL)isSessionAuthorized;
-
-/**
- Create NSHTTPCookie for using REST API
-
- @param block The block to inform of the results
- 
- @since 1.9
- */
-
-- (void)authenticationTokenWithCompletion:(void(^)(BOOL success))completionBlock;
 
 @end

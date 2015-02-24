@@ -34,6 +34,8 @@
 #import "JSSerializationDescriptorHolder.h"
 #import "JSErrorDescriptor.h"
 
+#import "JSRESTBase+JSRESTSession.h"
+
 #import "AFHTTPClient.h"
 #import "weakself.h"
 
@@ -44,14 +46,6 @@ NSString * const kJSRequestResponceType = @"Accept";
 NSString * const kJSSavedSessionServerProfileKey    = @"JSSavedSessionServerProfileKey";
 NSString * const kJSSavedSessionTimeoutKey          = @"JSSavedSessionTimeoutKey";
 NSString * const kJSSavedSessionKeepSessionKey      = @"JSSavedSessionKeepSessionKey";
-
-
-
-NSString * const kJSAuthenticationUsernameKey       = @"j_username";
-NSString * const kJSAuthenticationPasswordKey       = @"j_password";
-NSString * const kJSAuthenticationOrganizationKey   = @"orgId";
-NSString * const kJSAuthenticationLocaleKey         = @"userLocale";
-NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
 
 // Default value for timeout interval
 static NSTimeInterval const _defaultTimeoutInterval = 120;
@@ -275,39 +269,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     return nil;
 }
 
-- (BOOL)isSessionAuthorized {
-    return [[self cookies] count];
-}
-
-- (void)authenticationTokenWithCompletion:(void(^)(BOOL success))completionBlock {
-    JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_AUTHENTICATION_URI];
-    request.restVersion = JSRESTVersion_None;
-    request.method = RKRequestMethodGET;
-    request.responseAsObjects = NO;
-    request.redirectAllowed = NO;
-    
-    [request addParameter:kJSAuthenticationUsernameKey      withStringValue:self.serverProfile.username];
-    [request addParameter:kJSAuthenticationPasswordKey      withStringValue:self.serverProfile.password];
-    [request addParameter:kJSAuthenticationOrganizationKey  withStringValue:self.serverProfile.organization];
-    [request addParameter:kJSAuthenticationTimezoneKey      withStringValue:[[NSTimeZone systemTimeZone] abbreviation]];
-    
-    // Add locale to session
-    NSString *currentLanguage = [[NSLocale preferredLanguages] objectAtIndex:0];
-    NSInteger dividerPosition = [currentLanguage rangeOfString:@"_"].location;
-    if (dividerPosition != NSNotFound) {
-        currentLanguage = [currentLanguage substringToIndex:dividerPosition];
-    }
-    NSString *currentLocale = [[JSConstants sharedInstance].REST_JRS_LOCALE_SUPPORTED objectForKey:currentLanguage];
-    [request addParameter:kJSAuthenticationLocaleKey withStringValue:currentLocale];
-    
-    request.completionBlock = @weakself(^(JSOperationResult *result)) {
-        if (completionBlock) {
-            completionBlock(!result.error);
-        }
-    }@weakselfend;
-    [self sendRequest:request];
-}
-
 #pragma mark - NSSecureCoding
 + (BOOL)supportsSecureCoding {
     return YES;
@@ -395,7 +356,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
         NSPredicate *redirectUrlValidator = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", redirectUrlRegex];
         if ([redirectUrlValidator evaluateWithObject:redirectURL]) {
             NSDictionary *userInfo = @{NSLocalizedDescriptionKey :[NSHTTPURLResponse localizedStringForStatusCode:401]};
-            result.error = [NSError errorWithDomain:NSURLErrorDomain code:JSSessionExpiredErrorCode userInfo:userInfo];
+            result.error = [NSError errorWithDomain:NSURLErrorDomain code:JSInvalidCredentialsErrorCode userInfo:userInfo];
         } else {
             result.error = nil;
         }
