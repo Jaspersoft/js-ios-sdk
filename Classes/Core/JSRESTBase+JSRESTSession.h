@@ -49,14 +49,5 @@
 
 - (BOOL)isSessionAuthorized;
 
-/**
- Create NSHTTPCookie for using REST API
- 
- @param block The block to inform of the results
- 
- @since 1.9
- */
-
-- (void)authenticationTokenWithCompletion:(void(^)(BOOL success))completionBlock;
 
 @end
