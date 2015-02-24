@@ -30,6 +30,8 @@
 
 
 #import "JSRESTBase+JSRESTSession.h"
+#import "JSConstants.h"
+#import "weakself.h"
 
 NSString * const kJSAuthenticationUsernameKey       = @"j_username";
 NSString * const kJSAuthenticationPasswordKey       = @"j_password";

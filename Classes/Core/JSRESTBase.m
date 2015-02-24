@@ -252,6 +252,11 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     return (self.restKitObjectManager.HTTPClient.networkReachabilityStatus > 0);
 }
 
+- (BOOL)isRequestPoolEmpty
+{
+    return self.requestCallBacks.count == 0;
+}
+
 - (NSArray *)cookies {
     if (self.serverProfile.serverUrl) {
         NSString *host = [[NSURL URLWithString:self.serverProfile.serverUrl] host];
@@ -425,13 +430,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
         [result.body writeToFile:result.request.downloadDestinationPath atomically:YES];
     }
     
-    if (result.error && (result.error.code == JSSessionExpiredErrorCode) && self.keepSession && ![callBack.request.uri isEqualToString:[JSConstants sharedInstance].REST_AUTHENTICATION_URI]) {
-        [self authenticationTokenWithCompletion:@weakself(^(BOOL success)) {
-            if (success) {
-                [self performSelector:@selector(sendRequest:) withObject:callBack.request afterDelay:0.1];
-            }
-        }@weakselfend];
-    } else if (callBack.request.completionBlock) {
+    if (callBack.request.completionBlock) {
         callBack.request.completionBlock(result);
     }
 }

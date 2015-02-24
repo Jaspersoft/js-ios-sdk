@@ -130,11 +130,6 @@ extern NSString * const kJSRequestResponceType;
  */
 - (JSServerInfo *)serverInfo;
 
-/** 
- Cancels all requests 
- */
-- (void)cancelAllRequests;
-
 /**
  Checks if network is available
  
@@ -142,5 +137,15 @@ extern NSString * const kJSRequestResponceType;
  */
 - (BOOL)isNetworkReachable;
 
+/** 
+ Cancels all requests 
+ */
+- (void)cancelAllRequests;
 
+/**
+ Check if request pool is empty (no any active request exists)
+ 
+ @return YES if request pool is empty, otherwise returns NO
+ */
+- (BOOL)isRequestPoolEmpty;
 @end

@@ -100,6 +100,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     request.expectedModelClass = [JSInputControlDescriptor class];
     request.restVersion = JSRESTVersion_2;
     request.method = (ids && [ids count]) ? RKRequestMethodPOST : RKRequestMethodGET;
+    request.completionBlock = block;
     [self addReportParametersToRequest:request withSelectedValues:selectedValues];
     [self sendRequest:request];
 }
