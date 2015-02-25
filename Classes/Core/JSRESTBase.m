@@ -114,6 +114,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     NSRegularExpression *mimeType = [NSRegularExpression regularExpressionWithPattern:@"application/(.+\\+)?json" options:NSRegularExpressionCaseInsensitive error:&error];
     if (!error) {
         [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:mimeType];
+        [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:@"text/html"];
     } else {
         NSString *messageString = [NSString stringWithFormat:@"Unsupported mime type \"%@\"",mimeType.pattern];
         @throw [NSException exceptionWithName:@"Unsupported mime type" reason:messageString userInfo:nil];
