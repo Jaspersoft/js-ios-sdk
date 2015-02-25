@@ -43,18 +43,19 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
 - (BOOL)isSessionAuthorized {
     if ([self.cookies count]) {
         return YES;
-    } else {
-        [self authenticationToken];
-        return [self.cookies count];
+    } else if (self.keepSession){
+        return [self authenticationToken];
     }
+    return NO;
 }
 
-- (void)authenticationToken {
+- (BOOL)authenticationToken {
     JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_AUTHENTICATION_URI];
     request.restVersion = JSRESTVersion_None;
     request.method = RKRequestMethodGET;
     request.responseAsObjects = NO;
     request.redirectAllowed = NO;
+    request.asynchronous = NO;
     
     [request addParameter:kJSAuthenticationUsernameKey      withStringValue:self.serverProfile.username];
     [request addParameter:kJSAuthenticationPasswordKey      withStringValue:self.serverProfile.password];
@@ -70,7 +71,13 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     NSString *currentLocale = [[JSConstants sharedInstance].REST_JRS_LOCALE_SUPPORTED objectForKey:currentLanguage];
     [request addParameter:kJSAuthenticationLocaleKey withStringValue:currentLocale];
     
+    __block BOOL authenticationSuccess = NO;
+    [request setCompletionBlock:@weakself(^(JSOperationResult *result)) {
+        authenticationSuccess = (!!result.error);
+    } @weakselfend];
     [self sendRequest:request];
+    
+    return authenticationSuccess;
 }
 
 @end
