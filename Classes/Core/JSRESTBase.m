@@ -169,9 +169,19 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
 
     if (jsRequest.responseAsObjects) {
         [self.restKitObjectManager performSelector:@selector(copyStateFromHTTPClientToHTTPRequestOperation:) withObject:httpOperation];
-        NSMutableArray *responseDescriptors = [NSMutableArray arrayWithArray:[jsRequest.expectedModelClass rkResponseDescriptorsForServerProfile:self.serverProfile]];
-        [responseDescriptors addObjectsFromArray:[JSErrorDescriptor rkResponseDescriptorsForServerProfile:self.serverProfile]];
-        RKObjectRequestOperation *objectRequestOperation = [[RKObjectRequestOperation alloc] initWithHTTPRequestOperation:httpOperation responseDescriptors:responseDescriptors];
+        
+        NSArray *responseDescriptors = [jsRequest.expectedModelClass rkResponseDescriptorsForServerProfile:self.serverProfile];
+        
+        NSMutableArray *fullresponseDescriptors = [NSMutableArray arrayWithArray:responseDescriptors];
+        [fullresponseDescriptors addObjectsFromArray:[JSErrorDescriptor rkResponseDescriptorsForServerProfile:self.serverProfile]];
+        RKObjectRequestOperation *objectRequestOperation = [[RKObjectRequestOperation alloc] initWithHTTPRequestOperation:httpOperation responseDescriptors:fullresponseDescriptors];
+        
+        if (responseDescriptors.count == 0) {
+            NSMutableIndexSet *acceptableStatusCodes = [[NSMutableIndexSet alloc] initWithIndexSet:httpOperation.acceptableStatusCodes];
+            [acceptableStatusCodes addIndexes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+            httpOperation.acceptableStatusCodes = acceptableStatusCodes;
+        }
+        
         requestOperation = objectRequestOperation;
     }
 
