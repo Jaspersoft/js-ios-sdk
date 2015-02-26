@@ -367,7 +367,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     if ([result.request.uri isEqualToString:[JSConstants sharedInstance].REST_AUTHENTICATION_URI]) {
         NSString *redirectURL = [httpOperation.response.allHeaderFields objectForKey:@"Location"];
         
-        NSString *redirectUrlRegex = [NSString stringWithFormat:@"%@/login.html((;jsessionid=.+)?)\\?error=1", self.serverProfile.serverUrl];
+        NSString *redirectUrlRegex = [NSString stringWithFormat:@"%@/login.html;((jsessionid=.+)?)\\?error=1", self.serverProfile.serverUrl];
         
         NSPredicate *redirectUrlValidator = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", redirectUrlRegex];
         if ([redirectUrlValidator evaluateWithObject:redirectURL]) {
