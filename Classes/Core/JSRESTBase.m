@@ -384,7 +384,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
             NSInteger errorCode;
             
             if (httpOperation.response.statusCode) {
-                errorCode = JSNetworkErrorCode;
+                errorCode = (httpOperation.response.statusCode == 401) ? JSSessionExpiredErrorCode : JSNetworkErrorCode;
                 errorDomain = NSURLErrorDomain;
                 errorDescription = [NSHTTPURLResponse localizedStringForStatusCode:httpOperation.response.statusCode];
             } else if ([operationError.domain isEqualToString:NSURLErrorDomain] || [operationError.domain isEqualToString:AFNetworkingErrorDomain]) {
@@ -422,7 +422,9 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
             }
         }
     }
-    
+    if (result.error.code == JSSessionExpiredErrorCode) {
+        [self deleteCookies];
+    }
     return result;
 }
 
