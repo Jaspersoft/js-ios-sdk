@@ -377,7 +377,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
             result.error = nil;
         }
     } else {
-        NSError *operationError = [httpOperation error];
+        NSError *operationError = ([restKitOperation error]) ? [restKitOperation error] : [httpOperation error];
         if (![result isSuccessful] || operationError) {
             NSString *errorDomain = operationError.domain;
             NSString *errorDescription;
@@ -409,6 +409,15 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
                     errorCode = JSDataMappingErrorCode;
                 } else {
                     errorCode = JSOtherErrorCode;
+                }
+                if (result.objects && [result.objects count]) {
+                    errorDescription = @"";
+                    for (JSErrorDescriptor *errDescriptor in result.objects) {
+                        if ([errDescriptor isKindOfClass:[errDescriptor class]]) {
+                            NSString *formatString = errorDescription.length ? @",\n%@" : @"%@";
+                            errorDescription = [errorDescription stringByAppendingFormat:formatString, errDescriptor.message];
+                        }
+                    }
                 }
             }
             NSDictionary *userInfo = errorDescription ? @{NSLocalizedDescriptionKey : errorDescription} : operationError.userInfo;
