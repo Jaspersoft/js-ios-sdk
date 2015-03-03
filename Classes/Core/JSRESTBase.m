@@ -383,7 +383,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
             NSString *errorDescription;
             NSInteger errorCode;
             
-            if (httpOperation.response.statusCode) {
+            if (httpOperation.response.statusCode && !operationError) {
                 errorCode = (httpOperation.response.statusCode == 401) ? JSSessionExpiredErrorCode : JSNetworkErrorCode;
                 errorDomain = NSURLErrorDomain;
                 errorDescription = [NSHTTPURLResponse localizedStringForStatusCode:httpOperation.response.statusCode];
