@@ -255,8 +255,9 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
 }
 
 - (void)cancelAllRequests {
-    [[RKObjectManager sharedManager].operationQueue cancelAllOperations];
     [self.requestCallBacks removeAllObjects];
+    [self.restKitObjectManager.HTTPClient.operationQueue cancelAllOperations];
+    [[RKObjectManager sharedManager].operationQueue cancelAllOperations];
 }
 
 - (BOOL)isNetworkReachable {
@@ -373,6 +374,8 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
         if ([redirectUrlValidator evaluateWithObject:redirectURL]) {
             NSDictionary *userInfo = @{NSLocalizedDescriptionKey :[NSHTTPURLResponse localizedStringForStatusCode:401]};
             result.error = [NSError errorWithDomain:NSURLErrorDomain code:JSInvalidCredentialsErrorCode userInfo:userInfo];
+        } else if([restKitOperation error]) {
+            result.error = [restKitOperation error];
         } else {
             result.error = nil;
         }
@@ -383,8 +386,12 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
             NSString *errorDescription;
             NSInteger errorCode;
             
-            if (httpOperation.response.statusCode && !operationError) {
-                errorCode = (httpOperation.response.statusCode == 401) ? JSSessionExpiredErrorCode : JSNetworkErrorCode;
+            if (httpOperation.response.statusCode == 401) {
+                errorCode = JSSessionExpiredErrorCode;
+                errorDomain = NSURLErrorDomain;
+                errorDescription = [NSHTTPURLResponse localizedStringForStatusCode:httpOperation.response.statusCode];
+            } else if (httpOperation.response.statusCode && !operationError) {
+                errorCode = JSNetworkErrorCode;
                 errorDomain = NSURLErrorDomain;
                 errorDescription = [NSHTTPURLResponse localizedStringForStatusCode:httpOperation.response.statusCode];
             } else if ([operationError.domain isEqualToString:NSURLErrorDomain] || [operationError.domain isEqualToString:AFNetworkingErrorDomain]) {
@@ -441,19 +448,21 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     JSOperationResult *result = [self operationResultWithOperation:restKitOperation];
     
     JSCallBack *callBack = [self callBackForOperation:restKitOperation];
-    [self.requestCallBacks removeObject:callBack];
-
-    result.request = callBack.request;
-    
-    RKHTTPRequestOperation *httpOperation = [restKitOperation isKindOfClass:[RKObjectRequestOperation class]] ? [restKitOperation HTTPRequestOperation] : restKitOperation;
-    NSLog(_requestFinishedTemplateMessage, [httpOperation.request.URL absoluteString]);
-    
-    if (!result.error && !result.request.responseAsObjects && [result.request.downloadDestinationPath length]) {
-        [result.body writeToFile:result.request.downloadDestinationPath atomically:YES];
-    }
-    
-    if (callBack.request.completionBlock) {
-        callBack.request.completionBlock(result);
+    if (callBack) {
+        [self.requestCallBacks removeObject:callBack];
+        
+        result.request = callBack.request;
+        
+        RKHTTPRequestOperation *httpOperation = [restKitOperation isKindOfClass:[RKObjectRequestOperation class]] ? [restKitOperation HTTPRequestOperation] : restKitOperation;
+        NSLog(_requestFinishedTemplateMessage, [httpOperation.request.URL absoluteString]);
+        
+        if (!result.error && !result.request.responseAsObjects && [result.request.downloadDestinationPath length]) {
+            [result.body writeToFile:result.request.downloadDestinationPath atomically:YES];
+        }
+        
+        if (callBack.request.completionBlock) {
+            callBack.request.completionBlock(result);
+        }
     }
 }
 
