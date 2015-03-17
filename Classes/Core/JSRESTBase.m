@@ -286,6 +286,13 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     return nil;
 }
 
+- (void)deleteCookies {
+    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (NSHTTPCookie *cookie in self.cookies) {
+        [cookieStorage deleteCookie:cookie];
+    }
+}
+
 #pragma mark - NSSecureCoding
 + (BOOL)supportsSecureCoding {
     return YES;
@@ -473,15 +480,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
         }
     }
     return nil;
-}
-
-
-// Deletes all cookies for specified server
-- (void)deleteCookies {
-    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    for (NSHTTPCookie *cookie in self.cookies) {
-        [cookieStorage deleteCookie:cookie];
-    }
 }
 
 @end

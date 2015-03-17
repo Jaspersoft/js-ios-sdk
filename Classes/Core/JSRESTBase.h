@@ -148,4 +148,12 @@ extern NSString * const kJSRequestResponceType;
  @return YES if request pool is empty, otherwise returns NO
  */
 - (BOOL)isRequestPoolEmpty;
+
+/**
+ Deletes all cookies for specified server
+ 
+ @since 1.9
+ */
+- (void)deleteCookies;
+
 @end

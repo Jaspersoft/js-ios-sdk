@@ -43,10 +43,9 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
 - (BOOL)isSessionAuthorized {
     if ([self.cookies count]) {
         return YES;
-    } else if (self.keepSession){
+    } else {
         return [self authenticationToken];
     }
-    return NO;
 }
 
 - (BOOL)authenticationToken {
