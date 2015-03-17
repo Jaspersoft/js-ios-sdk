@@ -31,14 +31,14 @@
 #import "JSDateTimeFormatValidationRule.h"
 #import "JSMandatoryValidationRule.h"
 #import <Foundation/Foundation.h>
+#import "JSSerializationDescriptorHolder.h"
 
 /**
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.4
  */
-
-@interface JSValidationRules : NSObject <NSCopying>
+@interface JSValidationRules : NSObject <JSSerializationDescriptorHolder, NSCopying>
 
 @property (nonatomic, retain) JSDateTimeFormatValidationRule *dateTimeFormatValidationRule;
 @property (nonatomic, retain) JSMandatoryValidationRule *mandatoryValidationRule;

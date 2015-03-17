@@ -31,13 +31,14 @@
 #import "JSValidationRules.h"
 #import "JSInputControlState.h"
 #import <Foundation/Foundation.h>
+#import "JSSerializationDescriptorHolder.h"
 
 /**
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.4
  */
-@interface JSInputControlDescriptor : NSObject <NSCopying>
+@interface JSInputControlDescriptor : NSObject <JSSerializationDescriptorHolder, NSCopying>
 
 @property (nonatomic, retain) NSString *uuid;
 @property (nonatomic, retain) NSString *label;

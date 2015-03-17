@@ -32,10 +32,51 @@
 
 @implementation JSExecutionStatus
 
-@synthesize status = _status;
-
 - (NSString *)description {
     return self.status;
+}
+
++ (RKObjectMapping *)customMapping {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"description": @"status",
+                                                       }];
+    return classMapping;
+}
+
+#pragma mark - JSSerializationDescriptorHolder
+
++ (NSArray *)rkRequestDescriptorsForServerProfile:(JSProfile *)serverProfile {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
+                                                                      objectClass:self
+                                                                      rootKeyPath:nil
+                                                                           method:RKRequestMethodAny]];
+    return descriptorsArray;
+}
+
++ (NSArray *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    for (NSString *keyPath in [self classMappingPathes]) {
+        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:nil
+                                                                                keyPath:keyPath
+                                                                            statusCodes:nil]];
+    }
+    return descriptorsArray;
+}
+
++ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"value": @"status",
+                                                       }];
+    return classMapping;;
+}
+
++ (NSArray *)classMappingPathes {
+    return @[@""];
 }
 
 @end

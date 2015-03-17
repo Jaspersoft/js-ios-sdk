@@ -29,14 +29,42 @@
 //
 
 #import "JSReportDescriptor.h"
+#import "JSReportAttachment.h"
 
 @implementation JSReportDescriptor
 
-@synthesize uuid = _uuid;
-@synthesize originalUri = _originalUri;
-@synthesize totalPages = _totalPages;
-@synthesize startPage = _startPage;
-@synthesize endPage = _endPage;
-@synthesize attachments = _attachments;
+#pragma mark - JSSerializationDescriptorHolder
++ (NSArray *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    for (NSString *keyPath in [self classMappingPathes]) {
+        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:nil
+                                                                                keyPath:keyPath
+                                                                            statusCodes:nil]];
+    }
+    
+    return descriptorsArray;
+}
+
++ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"uuid": @"uuid",
+                                                       @"originalUri": @"originalUri",
+                                                       @"totalPages": @"totalPages",
+                                                       @"startPage": @"startPage",
+                                                       @"endPage": @"endPage",
+                                                       }];
+    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"file"
+                                                                                 toKeyPath:@"attachments"
+                                                                               withMapping:[JSReportAttachment classMappingForServerProfile:serverProfile]]];
+
+    return classMapping;
+}
+
++ (NSArray *)classMappingPathes {
+    return @[@"report"];
+}
 
 @end

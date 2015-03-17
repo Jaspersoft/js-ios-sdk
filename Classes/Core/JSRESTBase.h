@@ -30,9 +30,14 @@
 
 #import "JSProfile.h"
 #import "JSRequest.h"
-#import "JSSerializer.h"
+#import "JSSerializationDescriptorHolder.h"
 #import "JSServerInfo.h"
 #import <Foundation/Foundation.h>
+#import <AFNetworking/AFHTTPClient.h>
+
+extern NSString * const kJSRequestContentType;
+extern NSString * const kJSRequestResponceType;
+
 
 /**
  Provides methods which interacts with the JasperReports Server REST API. The 
@@ -49,33 +54,14 @@
 
  @since 1.3
 */
-
-extern NSString * const kJSRequestCharset;
-extern NSString * const kJSRequestContentType;
-extern NSString * const kJSRequestResponceType;
-
-@interface JSRESTBase : NSObject
-
-/**
- Checks if network is available
- 
- @return A boolean value represents network is availability
- */
-+ (BOOL)isNetworkReachable;
+@class RKObjectManager;
+@interface JSRESTBase : NSObject <NSSecureCoding>
 
 /**
  The server profile instance contains connection details for 
  JasperReports server
  */
-@property (nonatomic, retain) JSProfile *serverProfile;
-
-/** 
- The serializer instance uses to convert object to encoded string 
- (i.e. XML, JSON, etc.) for PUT/POST request
- 
- **Default**: JSXMLSerializer
- */
-@property (nonatomic, retain) id<JSSerializer> serializer;
+@property (nonatomic, strong) JSProfile *serverProfile;
 
 /**
  The timeout interval which will be used as default value for all requests if
@@ -85,15 +71,6 @@ extern NSString * const kJSRequestResponceType;
  */
 @property (nonatomic, assign) NSTimeInterval timeoutInterval;
 
-#if TARGET_OS_IPHONE
-/**
- The policy to take on transition to the background (iOS 4.x and higher only)
- 
- **Default**: JSRequestBackgroundPolicyCancel
- */
-@property (nonatomic, assign) JSRequestBackgroundPolicy requestBackgroundPolicy;
-#endif
-
 /**
  An NSArray of NSHTTPCookie objects
 
@@ -101,22 +78,32 @@ extern NSString * const kJSRequestResponceType;
  */
 @property (nonatomic, readonly) NSArray *cookies;
 
-/** 
- Returns a rest base instance with provided server profile (for authentication) 
- and list of classes for which mapping rules will be created. 
+/**
+ RestKit's RKObjectManager instance for mapping response (in JSON, XML and other formats) directly to object
  
- Class mapping rule describes how returned HTTP response (in JSON, XML and other
- formats) should be mapped directly to this class.
- 
- @param profile The profile contains server connection details
- @param classes A list of classes for which mapping rules will be created
- @return A fully configured JSRESTBase instance include mapping rules
+ @since 1.9
  */
-- (id)initWithProfile:(JSProfile *)profile classesForMappings:(NSArray *)classes;
+@property (nonatomic, strong, readonly) RKObjectManager *restKitObjectManager;
+
+/**
+ If YES REST Client will try to recreate HTTP session.
+ 
+ @since 1.9
+ */
+@property (nonatomic, assign, readonly) BOOL keepSession;
+
+/**
+ Returns a rest base instance. 
+ 
+ @param serverProfile The server profile instance contains connection details for JasperReports server
+ @param keepLogged If YES REST Client will try to recreate HTTP session
+ @return A fully configured JSRESTBase instance
+ */
+- (instancetype) initWithServerProfile:(JSProfile *)serverProfile keepLogged:(BOOL)keepLogged;
 
 /**
  Sends asynchronous request. Result will be passed as <code>JSOperationResult</code> 
- instance to delegate object or finishedBlock (or both also) provided in 
+ instance to completionBlock provided in
  <code>JSRequest</code> object 
  
  @param request Models the request portion of an HTTP request/response cycle.
@@ -125,15 +112,15 @@ extern NSString * const kJSRequestResponceType;
 
 /**
  Sends asynchronous request. Result will be passed as <code>JSOperationResult</code>
- instance to delegate object or finishedBlock (or both also) provided in
+ instance to completionBlock provided in
  <code>JSRequest</code> object
  
- @param request Models the request portion of an HTTP request/response cycle.
+ @param jsRequest Models the request portion of an HTTP request/response cycle.
  @param headerFields Additional HTTP header fields for sending request.
 
  @since 1.9
  */
-- (void)sendRequest:(JSRequest *)request additionalHTTPHeaderFields:(NSDictionary *)headerFields;
+- (void)sendRequest:(JSRequest *)jsRequest additionalHTTPHeaderFields:(NSDictionary *)headerFields;
 
 /**
  Gets server information details
@@ -144,23 +131,21 @@ extern NSString * const kJSRequestResponceType;
 - (JSServerInfo *)serverInfo;
 
 /**
- Gets server information details asynchronously
-
- @param delegate The delegate object
- @since 1.7
- */
-- (void)serverInfo:(id<JSRequestDelegate>)delegate;
-
-/** 
- Cancels all requests for specified delegate object
+ Checks if network is available
  
- @param delegate The delegate object
+ @return A boolean value represents network is availability
  */
-- (void)cancelRequestsWithDelegate:(id<JSRequestDelegate>)delegate;
+- (BOOL)isNetworkReachable;
 
 /** 
  Cancels all requests 
  */
 - (void)cancelAllRequests;
 
+/**
+ Check if request pool is empty (no any active request exists)
+ 
+ @return YES if request pool is empty, otherwise returns NO
+ */
+- (BOOL)isRequestPoolEmpty;
 @end

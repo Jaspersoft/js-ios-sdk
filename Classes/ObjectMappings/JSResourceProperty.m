@@ -32,8 +32,26 @@
 
 @implementation JSResourceProperty
 
-@synthesize name = _name;
-@synthesize value = _value;
-@synthesize childResourceProperties = _childResourceProperties;
+#pragma mark - JSSerializationDescriptorHolder
++ (NSArray *)rkRequestDescriptorsForServerProfile:(JSProfile *)serverProfile {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
+                                                                      objectClass:self
+                                                                      rootKeyPath:@"resourceProperty"
+                                                                           method:RKRequestMethodAny]];
+    return descriptorsArray;
+}
+
++ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"name": @"name",
+                                                       @"value": @"value",
+                                                       }];
+    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"resourceProperty"
+                                                                                 toKeyPath:@"childResourceProperties"
+                                                                               withMapping:[JSResourceProperty classMappingForServerProfile:serverProfile]]];
+    return classMapping;
+}
 
 @end

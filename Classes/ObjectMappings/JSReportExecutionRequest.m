@@ -29,20 +29,46 @@
 //
 
 #import "JSReportExecutionRequest.h"
+#import "JSReportParameter.h"
+#import "JSServerInfo.h"
+#import "JSConstants.h"
 
 @implementation JSReportExecutionRequest
 
-@synthesize reportUnitUri = _reportUnitUri;
-@synthesize async = _async;
-@synthesize outputFormat = _outputFormat;
-@synthesize interactive = _interactive;
-@synthesize freshData = _freshData;
-@synthesize saveDataSnapshot = _saveDataSnapshot;
-@synthesize ignorePagination = _ignorePagination;
-@synthesize transformerKey = _transformerKey;
-@synthesize pages = _pages;
-@synthesize attachmentsPrefix = _attachmentsPrefix;
-@synthesize parameters = _parameters;
-@synthesize baseURL = _baseURL;
+#pragma mark - JSSerializationDescriptorHolder
+
++ (NSArray *)rkRequestDescriptorsForServerProfile:(JSProfile *)serverProfile {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
+                                                                      objectClass:self
+                                                                      rootKeyPath:nil
+                                                                           method:RKRequestMethodAny]];
+    return descriptorsArray;
+}
+
++ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"reportUnitUri": @"reportUnitUri",
+                                                       @"async": @"async",
+                                                       @"outputFormat": @"outputFormat",
+                                                       @"interactive": @"interactive",
+                                                       @"freshData": @"freshData",
+                                                       @"saveDataSnapshot": @"saveDataSnapshot",
+                                                       @"ignorePagination": @"ignorePagination",
+                                                       @"transformerKey": @"transformerKey",
+                                                       @"pages": @"pages",
+                                                       @"attachmentsPrefix": @"attachmentsPrefix",
+                                                       }];
+    if (serverProfile && serverProfile.serverInfo.versionAsFloat >= [JSConstants sharedInstance].SERVER_VERSION_CODE_EMERALD_5_6_0) {
+        [classMapping addPropertyMapping:[RKAttributeMapping attributeMappingFromKeyPath:@"baseUrl" toKeyPath:@"baseURL"]];
+    }
+    
+    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"parameters.reportParameter"
+                                                                                 toKeyPath:@"parameters"
+                                                                               withMapping:[JSReportParameter classMappingForServerProfile:serverProfile]]];
+
+    return classMapping;
+}
 
 @end

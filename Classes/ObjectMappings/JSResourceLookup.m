@@ -32,13 +32,46 @@
 
 @implementation JSResourceLookup
 
-@synthesize label = _label;
-@synthesize uri = _uri;
-@synthesize resourceDescription = _resourceDescription;
-@synthesize resourceType = _resourceType;
-@synthesize version = _version;
-@synthesize permissionMask = _permissionMask;
-@synthesize creationDate = _creationDate;
-@synthesize updateDate = _updateDate;
+#pragma mark - JSSerializationDescriptorHolder
+
++ (NSArray *)rkRequestDescriptorsForServerProfile:(JSProfile *)serverProfile {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
+                                                                      objectClass:self
+                                                                      rootKeyPath:@"resourceLookup"
+                                                                           method:RKRequestMethodAny]];
+    return descriptorsArray;
+}
+
++ (NSArray *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    for (NSString *keyPath in [self classMappingPathes]) {
+        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:nil
+                                                                                keyPath:keyPath
+                                                                            statusCodes:nil]];
+    }
+    return descriptorsArray;
+}
+
++ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                          @"label": @"label",
+                                                          @"uri": @"uri",
+                                                          @"description": @"resourceDescription",
+                                                          @"resourceType": @"resourceType",
+                                                          @"version": @"version",
+                                                          @"permissionMask": @"permissionMask",
+                                                          @"creationDate": @"creationDate",
+                                                          @"updateDate": @"updateDate",
+                                                          }];
+    return classMapping;
+}
+
++ (NSArray *)classMappingPathes {
+    return @[@"resourceLookup", @""];
+}
 
 @end

@@ -31,14 +31,16 @@
 #import "JSErrorDescriptor.h"
 #import "JSExecutionStatus.h"
 #import <Foundation/Foundation.h>
+#import "JSSerializationDescriptorHolder.h"
 
 /**
  Represents a report execution entity for convenient XML serialization process
 
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev ogubarie@tibco.com
  @since 1.7
  */
-@interface JSReportExecutionResponse : NSObject
+@interface JSReportExecutionResponse : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSNumber *totalPages;
 @property (nonatomic, retain) NSNumber *currentPage;

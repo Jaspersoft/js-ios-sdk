@@ -257,7 +257,6 @@
  @{
  */
 @property (nonatomic, readonly) NSString *REST_SDK_MIMETYPE_USED;
-@property (nonatomic, readonly) NSString *REST_SDK_CHARSET_USED;
 @property (nonatomic, readonly) NSDictionary *REST_JRS_LOCALE_SUPPORTED;
 
 
@@ -267,6 +266,9 @@
  @name REST URI Prefixes
  @{
  */
+@property (nonatomic, readonly) NSString *REST_AUTHENTICATION_URI;
+
+
 @property (nonatomic, readonly) NSString *REST_SERVICES_URI;
 @property (nonatomic, readonly) NSString *REST_SERVICES_V2_URI;
 @property (nonatomic, readonly) NSString *REST_RESOURCE_URI;

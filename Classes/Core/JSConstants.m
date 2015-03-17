@@ -29,7 +29,7 @@
 //
 
 #import "JSConstants.h"
-#import <RestKit/RKMIMETypes.h>
+#import "RKMIMETypes.h"
 
 // Shared constants instance. This is a singleton
 static JSConstants *_sharedInstance;
@@ -145,8 +145,8 @@ static JSConstants *_sharedInstance;
 @synthesize CONTENT_TYPE_CSV;
 @synthesize CONTENT_TYPE_IMG;
 @synthesize REST_SDK_MIMETYPE_USED;
-@synthesize REST_SDK_CHARSET_USED;
 @synthesize REST_JRS_LOCALE_SUPPORTED;
+@synthesize REST_AUTHENTICATION_URI;
 @synthesize REST_SERVICES_URI;
 @synthesize REST_SERVICES_V2_URI;
 @synthesize REST_RESOURCE_URI;
@@ -376,21 +376,21 @@ static JSConstants *_sharedInstance;
 }
 
 - (void)setRESTAPIPreferences {
-    REST_SDK_MIMETYPE_USED = RKMIMETypeXML;
-    REST_SDK_CHARSET_USED = @"UTF-8";
-    REST_JRS_LOCALE_SUPPORTED = @{@"en" : @"en-US",
+    REST_SDK_MIMETYPE_USED = RKMIMETypeJSON;
+    REST_JRS_LOCALE_SUPPORTED = @{@"en" : @"en_US",
                                   @"de" : @"de",
                                   @"ja" : @"ja",
                                   @"es" : @"es",
                                   @"fr" : @"fr",
                                   @"it" : @"it",
-                                  @"zh" : @"zh-CN",
-                                  @"pt" : @"pt-BR"};
+                                  @"zh" : @"zh_CN",
+                                  @"pt" : @"pt_BR"};
 }
 
 - (void)setRESTURIPrefixes {
-    REST_SERVICES_URI = @"/rest";
-    REST_SERVICES_V2_URI = @"/rest_v2";
+    REST_AUTHENTICATION_URI = @"j_spring_security_check";
+    REST_SERVICES_URI = @"rest";
+    REST_SERVICES_V2_URI = @"rest_v2";
     REST_RESOURCE_URI = @"/resource";
     REST_RESOURCES_URI = @"/resources";
     REST_REPORT_URI = @"/report";

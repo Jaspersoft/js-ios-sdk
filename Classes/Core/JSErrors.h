@@ -24,47 +24,16 @@
  */
 
 //
-//  JSParamsBuilder.m
+//  JSErrors.h
 //  Jaspersoft Corporation
 //
 
-#import "JSParamsBuilder.h"
-
-@interface JSParamsBuilder()
-@property (nonatomic, retain) NSMutableDictionary *parameters;
-@end
-
-@implementation JSParamsBuilder
-
-@synthesize parameters = _parameters;
-
-- (id)init {
-    if (self = [super init]) {
-        self.parameters = [NSMutableDictionary dictionary];
-    }
-    return self;
-}
-
-- (void)addParameter:(NSString *)parameter withStringValue:(NSString *)value {
-    if (value.length) {
-        [self.parameters setObject:value forKey:parameter];
-    }
-}
-
-- (void)addParameter:(NSString *)parameter withIntegerValue:(NSInteger)value {
-    if (value > 0) {
-        [self.parameters setObject:[NSNumber numberWithInteger:value] forKey:parameter];
-    }
-}
-
-- (void)addParameter:(NSString *)parameter withArrayValue:(NSArray *)value {
-    if (value && value.count) {
-        [self.parameters setObject:value forKey:parameter];
-    }
-}
-
-- (NSDictionary *)params {
-    return self.parameters;
-}
-
-@end
+typedef NS_ENUM (NSInteger, JSErrorCode) {
+    JSNetworkErrorCode              = 1001,         // HTTP erorrs (status codes 404, 500).
+    JSRequestTimeOutErrorCode       = 1002,         // Request TimeOut error
+    JSInvalidCredentialsErrorCode   = 1003,         // Invalid Credentilas error
+    JSSessionExpiredErrorCode       = 1004,         // Session expired error
+    JSClientErrorCode               = 1005,         // Client error code - when JSErrorDescriptor are received
+    JSDataMappingErrorCode          = 1006,         // Data Mapping error code - when responce did load successfully, but can't be parsed
+    JSOtherErrorCode                = 1007          // All other errors
+};

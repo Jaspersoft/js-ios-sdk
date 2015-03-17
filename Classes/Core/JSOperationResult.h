@@ -29,6 +29,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSErrors.h"
+
 
 @class JSRequest;
 
@@ -39,44 +41,36 @@
  
  @author Giulio Toffoli giulio@jaspersoft.com
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev ogubarie@tibco.com
  @since 1.0
  */
 @interface JSOperationResult : NSObject
 
 /**
- A list of objects coming from the call (i.e. if the call is of type GET /resource
- or GET /resources, this list contains the JSResourceDescriptor objects returned
- from the call)
+ A list of objects coming from the call
  */
-@property (nonatomic, retain) NSArray *objects;
+@property (nonatomic, strong) NSArray *objects;
 
 /**
  The downloaded response as binary data
  */
-@property (nonatomic, retain) NSData *body;
+@property (nonatomic, strong) NSData *body;
 
 /**
  The downloaded response as string
  */
-@property (nonatomic, retain) NSString *bodyAsString;
+@property (nonatomic, strong) NSString *bodyAsString;
 
 /**
  The sent request associated with this result. This is an additional parameter
  which helps to determine which request was sent (because all they are asynchronous).
  */
-@property (nonatomic, retain) JSRequest *request;
-
-/**
- The save path of downloaded file. This is an additional parameter which helps
- to determine which file was downloaded (because all requests are asynchronous).
- Gets from request instance (this is the short way)
- */
-@property (nonatomic, readonly) NSString *downloadDestinationPath;
+@property (nonatomic, strong) JSRequest *request;
 
 /**
  The error returned from the request call, if any.
  */
-@property (nonatomic, readonly) NSError *error;
+@property (nonatomic, strong) NSError *error;
 
 /**
  The response HTTP code. This is a standard HTTP protocol code. Codes like 2xx are all ok.
@@ -104,7 +98,7 @@
  @param error The error returned from the request call, if any.
  @return A configured JSOperationResult instance
  */
-- (id)initWithStatusCode:(NSInteger)statusCode allHeaderFields:(NSDictionary *)allHeaderFields MIMEType:(NSString *)MIMEType error:(NSError *)error;
+- (id)initWithStatusCode:(NSInteger)statusCode allHeaderFields:(NSDictionary *)allHeaderFields MIMEType:(NSString *)MIMEType;
 
 /**
  Indicates an HTTP response code between 200 and 299
@@ -112,33 +106,5 @@
  @return YES if the HTTP response code is between 200 and 299
  */
 - (BOOL)isSuccessful;
-
-/**
- Indicates an HTTP response code between 400 and 599
- 
- @return YES if the HTTP response code is between 400 and 599
- */
-- (BOOL)isError;
-
-/**
- Indicates an invalid HTTP response code less than 100 or greater than 600
- 
- @return YES if the HTTP response code is less than 100 or greater than 600
- */
-- (BOOL)isInvalid;
-
-/**
- Indicates an HTTP response code between 100 and 199
- 
- @return YES if the HTTP response code is between 100 and 199
- */
-- (BOOL)isInformational;
-
-/**
- Indicates an HTTP response code between 300 and 399
- 
- @return YES if the HTTP response code is between 300 and 399
- */
-- (BOOL)isRedirection;
 
 @end

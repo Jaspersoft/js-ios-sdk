@@ -33,19 +33,21 @@
 #import "JSErrorDescriptor.h"
 #import "JSExecutionStatus.h"
 #import "JSReportOutputResource.h"
+#import "JSSerializationDescriptorHolder.h"
 
 /**
  Represents an export entity for convenient XML serialization process
  
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev ogubarie@tibco.com
  @since 1.8
  */
-@interface JSExportExecutionResponse : NSObject
+@interface JSExportExecutionResponse : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *uuid;
 @property (nonatomic, retain) JSExecutionStatus *status;
 @property (nonatomic, retain) JSErrorDescriptor *errorDescriptor;
 @property (nonatomic, retain) JSReportOutputResource *outputResource;
-@property (nonatomic, retain) NSArray /*<JSOutputResource*/ *attachments;
+@property (nonatomic, retain) NSArray /*<JSReportOutputResource*/ *attachments;
 
 @end

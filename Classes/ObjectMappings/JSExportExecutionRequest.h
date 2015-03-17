@@ -28,16 +28,20 @@
 //  Jaspersoft Corporation
 //
 
+#import <Foundation/Foundation.h>
+#import "JSSerializationDescriptorHolder.h"
+
 /**
  Represents a export execution request descriptor for convenient XML serialization process
  
  @author Alexey Gubarev ogubarie@tibco.com
+ @author Alexey Gubarev ogubarie@tibco.com
  @since 1.9
  */
 
-#import <Foundation/Foundation.h>
 
-@interface JSExportExecutionRequest : NSObject
+@interface JSExportExecutionRequest : NSObject<JSSerializationDescriptorHolder>
+
 @property (nonatomic, retain) NSString *outputFormat;
 @property (nonatomic, retain) NSString *pages;
 @property (nonatomic, retain) NSString *attachmentsPrefix;

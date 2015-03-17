@@ -29,13 +29,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSSerializationDescriptorHolder.h"
 
 /**
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.4
  */
-@interface JSServerInfo : NSObject
+
+@interface JSServerInfo : NSObject <JSSerializationDescriptorHolder, NSSecureCoding>
 
 @property (nonatomic, retain) NSString *build;
 @property (nonatomic, retain) NSString *edition;
@@ -44,6 +46,8 @@
 @property (nonatomic, retain) NSString *features;
 @property (nonatomic, retain) NSString *licenseType;
 @property (nonatomic, retain) NSString *version;
+@property (nonatomic, retain) NSString *dateFormatPattern;
+@property (nonatomic, retain) NSString *datetimeFormatPattern;
 
 - (float)versionAsFloat;
 

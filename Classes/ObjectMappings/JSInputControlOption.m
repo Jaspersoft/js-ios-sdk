@@ -29,13 +29,36 @@
 //
 
 #import "JSInputControlOption.h"
-#import "JSInputControlWrapper.h"
 
 @implementation JSInputControlOption
 
-@synthesize label = _label;
-@synthesize value = _value;
-@synthesize selected = _selected;
+#pragma mark - JSSerializationDescriptorHolder
+
++ (NSArray *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    for (NSString *keyPath in [self classMappingPathes]) {
+        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:nil
+                                                                                keyPath:keyPath
+                                                                            statusCodes:nil]];
+    }
+    return descriptorsArray;
+}
+
++ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"label": @"label",
+                                                       @"value": @"value",
+                                                       @"selected": @"selected",
+                                                       }];
+    return classMapping;
+}
+
++ (NSArray *)classMappingPathes {
+    return @[@""];
+}
 
 #pragma mark - NSCopying
 

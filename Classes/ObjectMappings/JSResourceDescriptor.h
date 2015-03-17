@@ -30,15 +30,18 @@
 
 #import "JSResourceProperty.h"
 #import <Foundation/Foundation.h>
+#import "JSSerializationDescriptorHolder.h"
 
 /**
  Represents a resource descriptor entity for convenient XML serialization process.
  
  @author Giulio Toffoli giulio@jaspersoft.com
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev ogubarie@tibco.com
+
  @since 1.0
  */
-@interface JSResourceDescriptor : NSObject
+@interface JSResourceDescriptor : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *name;
 @property (nonatomic, retain) NSString *wsType;

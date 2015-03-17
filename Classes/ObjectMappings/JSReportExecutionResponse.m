@@ -29,13 +29,48 @@
 //
 
 #import "JSReportExecutionResponse.h"
+#import "JSExportExecutionResponse.h"
 
 @implementation JSReportExecutionResponse
 
-@synthesize currentPage = _currentPage;
-@synthesize reportURI = _reportURI;
-@synthesize requestId = _requestId;
-@synthesize status = _status;
-@synthesize exports = _exports;
+#pragma mark - JSSerializationDescriptorHolder
++ (NSArray *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    for (NSString *keyPath in [self classMappingPathes]) {
+        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:nil
+                                                                                keyPath:keyPath
+                                                                            statusCodes:nil]];
+    }
+    
+    return descriptorsArray;
+}
 
++ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"totalPages": @"totalPages",
+                                                       @"currentPage": @"currentPage",
+                                                       @"reportURI": @"reportURI",
+                                                       @"requestId": @"requestId",
+                                                       }];
+    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"errorDescriptor"
+                                                                                 toKeyPath:@"errorDescriptor"
+                                                                               withMapping:[JSErrorDescriptor classMappingForServerProfile:serverProfile]]];
+    
+    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"status"
+                                                                                 toKeyPath:@"status"
+                                                                               withMapping:[JSExecutionStatus customMapping]]];
+    
+    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"exports"
+                                                                                 toKeyPath:@"exports"
+                                                                               withMapping:[JSExportExecutionResponse classMappingForServerProfile:serverProfile]]];
+
+    return classMapping;
+}
+
++ (NSArray *)classMappingPathes {
+    return @[@""];
+}
 @end

@@ -32,7 +32,31 @@
 
 @implementation JSMandatoryValidationRule
 
-@synthesize errorMessage = _errorMessage;
+#pragma mark - JSSerializationDescriptorHolder
+
++ (NSArray *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    for (NSString *keyPath in [self classMappingPathes]) {
+        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:nil
+                                                                                keyPath:keyPath
+                                                                            statusCodes:nil]];
+    }
+    return descriptorsArray;
+}
+
++ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"errorMessage": @"errorMessage",
+                                                       }];
+    return classMapping;
+}
+
++ (NSArray *)classMappingPathes {
+    return @[@""];
+}
 
 #pragma mark - NSCopying
 

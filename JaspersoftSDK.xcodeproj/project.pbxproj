@@ -1,0 +1,684 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		081DCA131A9C793D007A7F1B /* JSRESTBase+JSRESTSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 081DCA111A9C793D007A7F1B /* JSRESTBase+JSRESTSession.h */; };
+		081DCA141A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 081DCA121A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m */; };
+		088208821A01328900B6559F /* JSExportExecutionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 088208801A01328900B6559F /* JSExportExecutionRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		088208831A01328900B6559F /* JSExportExecutionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 088208811A01328900B6559F /* JSExportExecutionRequest.m */; };
+		08B8FA181A6FCEAF00E9FE60 /* weakself.h in Headers */ = {isa = PBXBuildFile; fileRef = 08B8FA171A6FCEAF00E9FE60 /* weakself.h */; };
+		3745523E7EE2CE8C64105A1D /* JSExportExecutionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 37455C26CA9D110D7CBD29A2 /* JSExportExecutionResponse.m */; };
+		37455A556862C72B0B83193F /* JSReportOutputResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 374556F481BE36B761B5FDDF /* JSReportOutputResource.m */; };
+		37455ABDDD4368D267B50469 /* JSReportExecutionResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 374551F833EA720B59987045 /* JSReportExecutionResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		37455CF8BA142B8554AF5F9A /* JSReportExecutionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 374558828353F4E8E6F29C17 /* JSReportExecutionResponse.m */; };
+		37455EF10B05B5CAE7512A6F /* JSReportExecutionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 374555044AD45FB4F352A96F /* JSReportExecutionRequest.m */; };
+		722EF964428E5B92861DCAC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE65D84777378DA82ED7BA4 /* libPods.a */; };
+		F520FF89196FEE53009435C2 /* JSMandatoryValidationRule.h in Headers */ = {isa = PBXBuildFile; fileRef = F520FF87196FEE53009435C2 /* JSMandatoryValidationRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F520FF8B196FEE53009435C2 /* JSMandatoryValidationRule.m in Sources */ = {isa = PBXBuildFile; fileRef = F520FF88196FEE53009435C2 /* JSMandatoryValidationRule.m */; };
+		F523D78518635EB000B93D3F /* JSExecutionStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = F523D78318635EB000B93D3F /* JSExecutionStatus.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F523D78718635EB000B93D3F /* JSExecutionStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = F523D78418635EB000B93D3F /* JSExecutionStatus.m */; };
+		F52DF64918648C28000D375E /* JSObjectMappings.h in Headers */ = {isa = PBXBuildFile; fileRef = F52DF64818648C28000D375E /* JSObjectMappings.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F53B1043164A9EE400042976 /* JSReportParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = F53B1041164A9EE400042976 /* JSReportParameter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F53B1045164A9EE400042976 /* JSReportParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = F53B1042164A9EE400042976 /* JSReportParameter.m */; };
+		F568246A1642996D00CC4015 /* JSInputControlDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F56824681642996D00CC4015 /* JSInputControlDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F568246C1642996D00CC4015 /* JSInputControlDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F56824691642996D00CC4015 /* JSInputControlDescriptor.m */; };
+		F56824741642A2A300CC4015 /* JSInputControlState.h in Headers */ = {isa = PBXBuildFile; fileRef = F56824721642A2A200CC4015 /* JSInputControlState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F56824761642A2A300CC4015 /* JSInputControlState.m in Sources */ = {isa = PBXBuildFile; fileRef = F56824731642A2A300CC4015 /* JSInputControlState.m */; };
+		F568247A1642A67E00CC4015 /* JSInputControlOption.h in Headers */ = {isa = PBXBuildFile; fileRef = F56824781642A67C00CC4015 /* JSInputControlOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F568247C1642A67E00CC4015 /* JSInputControlOption.m in Sources */ = {isa = PBXBuildFile; fileRef = F56824791642A67D00CC4015 /* JSInputControlOption.m */; };
+		F596020315ECCC9300B62DFD /* JaspersoftSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = F596020215ECCC9300B62DFD /* JaspersoftSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597691015E3C826004165A7 /* JSConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768E815E3C826004165A7 /* JSConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597691215E3C826004165A7 /* JSConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768E915E3C826004165A7 /* JSConstants.m */; };
+		F597691415E3C826004165A7 /* JSOperationResult.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768EA15E3C826004165A7 /* JSOperationResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597691615E3C826004165A7 /* JSOperationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768EB15E3C826004165A7 /* JSOperationResult.m */; };
+		F597691815E3C826004165A7 /* JSProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768EC15E3C826004165A7 /* JSProfile.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597691A15E3C826004165A7 /* JSProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768ED15E3C826004165A7 /* JSProfile.m */; };
+		F597691C15E3C826004165A7 /* JSRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768EE15E3C826004165A7 /* JSRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597691E15E3C826004165A7 /* JSRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768EF15E3C826004165A7 /* JSRequest.m */; };
+		F597692015E3C826004165A7 /* JSRESTBase.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F015E3C826004165A7 /* JSRESTBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597692215E3C826004165A7 /* JSRESTBase.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F115E3C826004165A7 /* JSRESTBase.m */; };
+		F597692415E3C826004165A7 /* JSRESTBase+JSRESTReport.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F215E3C826004165A7 /* JSRESTBase+JSRESTReport.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597692615E3C826004165A7 /* JSRESTBase+JSRESTReport.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F315E3C826004165A7 /* JSRESTBase+JSRESTReport.m */; };
+		F597692815E3C826004165A7 /* JSRESTBase+JSRESTResource.h in Headers */ = {isa = PBXBuildFile; fileRef = F59768F415E3C826004165A7 /* JSRESTBase+JSRESTResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597692A15E3C826004165A7 /* JSRESTBase+JSRESTResource.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F515E3C826004165A7 /* JSRESTBase+JSRESTResource.m */; };
+		F597694315E3C826004165A7 /* JSReportAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690615E3C826004165A7 /* JSReportAttachment.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597694515E3C826004165A7 /* JSReportAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690715E3C826004165A7 /* JSReportAttachment.m */; };
+		F597694715E3C826004165A7 /* JSReportDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690815E3C826004165A7 /* JSReportDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597694915E3C826004165A7 /* JSReportDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690915E3C826004165A7 /* JSReportDescriptor.m */; };
+		F597694B15E3C826004165A7 /* JSResourceDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690A15E3C826004165A7 /* JSResourceDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597694D15E3C826004165A7 /* JSResourceDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690B15E3C826004165A7 /* JSResourceDescriptor.m */; };
+		F597694F15E3C826004165A7 /* JSResourceParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690C15E3C826004165A7 /* JSResourceParameter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597695115E3C826004165A7 /* JSResourceParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690D15E3C826004165A7 /* JSResourceParameter.m */; };
+		F597695315E3C826004165A7 /* JSResourceProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690E15E3C826004165A7 /* JSResourceProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F597695515E3C826004165A7 /* JSResourceProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690F15E3C826004165A7 /* JSResourceProperty.m */; };
+		F597697915E3C9EF004165A7 /* JSSerializationDescriptorHolder.h in Headers */ = {isa = PBXBuildFile; fileRef = F597697815E3C9EF004165A7 /* JSSerializationDescriptorHolder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5AE53AF165169F6004207E1 /* JSDateTimeFormatValidationRule.h in Headers */ = {isa = PBXBuildFile; fileRef = F5AE53AD165169F6004207E1 /* JSDateTimeFormatValidationRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5AE53B1165169F6004207E1 /* JSDateTimeFormatValidationRule.m in Sources */ = {isa = PBXBuildFile; fileRef = F5AE53AE165169F6004207E1 /* JSDateTimeFormatValidationRule.m */; };
+		F5AE53DE16518C58004207E1 /* JSValidationRules.h in Headers */ = {isa = PBXBuildFile; fileRef = F5AE53DC16518C58004207E1 /* JSValidationRules.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5AE53E016518C58004207E1 /* JSValidationRules.m in Sources */ = {isa = PBXBuildFile; fileRef = F5AE53DD16518C58004207E1 /* JSValidationRules.m */; };
+		F5D0923218586E2D00C5AEFC /* JSExportExecutionResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D0923018586E2D00C5AEFC /* JSExportExecutionResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5D0923818586E4E00C5AEFC /* JSErrorDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D0923618586E4E00C5AEFC /* JSErrorDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5D0923A18586E4E00C5AEFC /* JSErrorDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D0923718586E4E00C5AEFC /* JSErrorDescriptor.m */; };
+		F5D0923E18586E7D00C5AEFC /* JSReportOutputResource.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D0923C18586E7D00C5AEFC /* JSReportOutputResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5D0924418586E9300C5AEFC /* JSReportExecutionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D0924218586E9300C5AEFC /* JSReportExecutionRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5DDD7AB164029EC005BBE7C /* JSServerInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F5DDD7A9164029EC005BBE7C /* JSServerInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5DDD7AD164029EC005BBE7C /* JSServerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F5DDD7AA164029EC005BBE7C /* JSServerInfo.m */; };
+		F5EA36AE18337B4A00E09E10 /* JSResourceLookup.h in Headers */ = {isa = PBXBuildFile; fileRef = F5EA36AC18337B4A00E09E10 /* JSResourceLookup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5EA36B018337B4A00E09E10 /* JSResourceLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EA36AD18337B4A00E09E10 /* JSResourceLookup.m */; };
+		F5F173FA186486FD00779136 /* JSCore.h in Headers */ = {isa = PBXBuildFile; fileRef = F5F173F9186486FD00779136 /* JSCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		081DCA111A9C793D007A7F1B /* JSRESTBase+JSRESTSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSRESTBase+JSRESTSession.h"; sourceTree = "<group>"; };
+		081DCA121A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSRESTSession.m"; sourceTree = "<group>"; };
+		088208801A01328900B6559F /* JSExportExecutionRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSExportExecutionRequest.h; sourceTree = "<group>"; };
+		088208811A01328900B6559F /* JSExportExecutionRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSExportExecutionRequest.m; sourceTree = "<group>"; };
+		08AC6B371A94AD450069CBE3 /* JSErrors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSErrors.h; sourceTree = "<group>"; };
+		08B8FA171A6FCEAF00E9FE60 /* weakself.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = weakself.h; sourceTree = "<group>"; };
+		1AE65D84777378DA82ED7BA4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		374551F833EA720B59987045 /* JSReportExecutionResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportExecutionResponse.h; sourceTree = "<group>"; };
+		374555044AD45FB4F352A96F /* JSReportExecutionRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportExecutionRequest.m; sourceTree = "<group>"; };
+		374556F481BE36B761B5FDDF /* JSReportOutputResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportOutputResource.m; sourceTree = "<group>"; };
+		374558828353F4E8E6F29C17 /* JSReportExecutionResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportExecutionResponse.m; sourceTree = "<group>"; };
+		37455C26CA9D110D7CBD29A2 /* JSExportExecutionResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSExportExecutionResponse.m; sourceTree = "<group>"; };
+		9B199A7873E268BCFDF3074C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		F520FF87196FEE53009435C2 /* JSMandatoryValidationRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMandatoryValidationRule.h; sourceTree = "<group>"; };
+		F520FF88196FEE53009435C2 /* JSMandatoryValidationRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMandatoryValidationRule.m; sourceTree = "<group>"; };
+		F523D78318635EB000B93D3F /* JSExecutionStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSExecutionStatus.h; sourceTree = "<group>"; };
+		F523D78418635EB000B93D3F /* JSExecutionStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSExecutionStatus.m; sourceTree = "<group>"; };
+		F52DF64818648C28000D375E /* JSObjectMappings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSObjectMappings.h; sourceTree = "<group>"; };
+		F53B1041164A9EE400042976 /* JSReportParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportParameter.h; sourceTree = "<group>"; };
+		F53B1042164A9EE400042976 /* JSReportParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportParameter.m; sourceTree = "<group>"; };
+		F56824681642996D00CC4015 /* JSInputControlDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSInputControlDescriptor.h; sourceTree = "<group>"; };
+		F56824691642996D00CC4015 /* JSInputControlDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSInputControlDescriptor.m; sourceTree = "<group>"; };
+		F56824721642A2A200CC4015 /* JSInputControlState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSInputControlState.h; sourceTree = "<group>"; };
+		F56824731642A2A300CC4015 /* JSInputControlState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSInputControlState.m; sourceTree = "<group>"; };
+		F56824781642A67C00CC4015 /* JSInputControlOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSInputControlOption.h; sourceTree = "<group>"; };
+		F56824791642A67D00CC4015 /* JSInputControlOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSInputControlOption.m; sourceTree = "<group>"; };
+		F5758F3D174E301800C355C1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		F5758F40174E302800C355C1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		F5758F42174E302E00C355C1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		F5758F44174E303300C355C1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		F5758F46174E303900C355C1 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		F5758F48174E303E00C355C1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		F596020215ECCC9300B62DFD /* JaspersoftSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JaspersoftSDK.h; sourceTree = "<group>"; };
+		F59768BD15E3C75F004165A7 /* libJaspersoftSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJaspersoftSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F59768C015E3C75F004165A7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F59768E815E3C826004165A7 /* JSConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JSConstants.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		F59768E915E3C826004165A7 /* JSConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSConstants.m; sourceTree = "<group>"; };
+		F59768EA15E3C826004165A7 /* JSOperationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JSOperationResult.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		F59768EB15E3C826004165A7 /* JSOperationResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSOperationResult.m; sourceTree = "<group>"; };
+		F59768EC15E3C826004165A7 /* JSProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JSProfile.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		F59768ED15E3C826004165A7 /* JSProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSProfile.m; sourceTree = "<group>"; };
+		F59768EE15E3C826004165A7 /* JSRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSRequest.h; sourceTree = "<group>"; };
+		F59768EF15E3C826004165A7 /* JSRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSRequest.m; sourceTree = "<group>"; };
+		F59768F015E3C826004165A7 /* JSRESTBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JSRESTBase.h; sourceTree = "<group>"; };
+		F59768F115E3C826004165A7 /* JSRESTBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSRESTBase.m; sourceTree = "<group>"; };
+		F59768F215E3C826004165A7 /* JSRESTBase+JSRESTReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSRESTBase+JSRESTReport.h"; sourceTree = "<group>"; };
+		F59768F315E3C826004165A7 /* JSRESTBase+JSRESTReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSRESTReport.m"; sourceTree = "<group>"; };
+		F59768F415E3C826004165A7 /* JSRESTBase+JSRESTResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSRESTBase+JSRESTResource.h"; sourceTree = "<group>"; };
+		F59768F515E3C826004165A7 /* JSRESTBase+JSRESTResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSRESTResource.m"; sourceTree = "<group>"; };
+		F597690615E3C826004165A7 /* JSReportAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportAttachment.h; sourceTree = "<group>"; };
+		F597690715E3C826004165A7 /* JSReportAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportAttachment.m; sourceTree = "<group>"; };
+		F597690815E3C826004165A7 /* JSReportDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportDescriptor.h; sourceTree = "<group>"; };
+		F597690915E3C826004165A7 /* JSReportDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportDescriptor.m; sourceTree = "<group>"; };
+		F597690A15E3C826004165A7 /* JSResourceDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResourceDescriptor.h; sourceTree = "<group>"; };
+		F597690B15E3C826004165A7 /* JSResourceDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceDescriptor.m; sourceTree = "<group>"; };
+		F597690C15E3C826004165A7 /* JSResourceParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResourceParameter.h; sourceTree = "<group>"; };
+		F597690D15E3C826004165A7 /* JSResourceParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceParameter.m; sourceTree = "<group>"; };
+		F597690E15E3C826004165A7 /* JSResourceProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResourceProperty.h; sourceTree = "<group>"; };
+		F597690F15E3C826004165A7 /* JSResourceProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceProperty.m; sourceTree = "<group>"; };
+		F597697815E3C9EF004165A7 /* JSSerializationDescriptorHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSSerializationDescriptorHolder.h; sourceTree = "<group>"; };
+		F5A8141715EBFA1900151B1D /* JaspersoftSDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JaspersoftSDK-Prefix.pch"; sourceTree = "<group>"; };
+		F5AE53AD165169F6004207E1 /* JSDateTimeFormatValidationRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDateTimeFormatValidationRule.h; sourceTree = "<group>"; };
+		F5AE53AE165169F6004207E1 /* JSDateTimeFormatValidationRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDateTimeFormatValidationRule.m; sourceTree = "<group>"; };
+		F5AE53DC16518C58004207E1 /* JSValidationRules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSValidationRules.h; sourceTree = "<group>"; };
+		F5AE53DD16518C58004207E1 /* JSValidationRules.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSValidationRules.m; sourceTree = "<group>"; };
+		F5D0923018586E2D00C5AEFC /* JSExportExecutionResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSExportExecutionResponse.h; sourceTree = "<group>"; };
+		F5D0923618586E4E00C5AEFC /* JSErrorDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSErrorDescriptor.h; sourceTree = "<group>"; };
+		F5D0923718586E4E00C5AEFC /* JSErrorDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSErrorDescriptor.m; sourceTree = "<group>"; };
+		F5D0923C18586E7D00C5AEFC /* JSReportOutputResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportOutputResource.h; sourceTree = "<group>"; };
+		F5D0924218586E9300C5AEFC /* JSReportExecutionRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportExecutionRequest.h; sourceTree = "<group>"; };
+		F5DDD7A9164029EC005BBE7C /* JSServerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSServerInfo.h; sourceTree = "<group>"; };
+		F5DDD7AA164029EC005BBE7C /* JSServerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSServerInfo.m; sourceTree = "<group>"; };
+		F5EA36AC18337B4A00E09E10 /* JSResourceLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResourceLookup.h; sourceTree = "<group>"; };
+		F5EA36AD18337B4A00E09E10 /* JSResourceLookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceLookup.m; sourceTree = "<group>"; };
+		F5F173F9186486FD00779136 /* JSCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSCore.h; sourceTree = "<group>"; };
+		F5F68E0D15E55EC000270103 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		F5F68E0E15E55EC000270103 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		F5F68E0F15E55EC000270103 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		FCA57FC99201E2C748050837 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F59768BA15E3C75F004165A7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				722EF964428E5B92861DCAC8 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		374553109AB205D3BBCAB9ED /* ReportExecution */ = {
+			isa = PBXGroup;
+			children = (
+				F5D0923618586E4E00C5AEFC /* JSErrorDescriptor.h */,
+				F5D0923718586E4E00C5AEFC /* JSErrorDescriptor.m */,
+				F523D78318635EB000B93D3F /* JSExecutionStatus.h */,
+				F523D78418635EB000B93D3F /* JSExecutionStatus.m */,
+				088208801A01328900B6559F /* JSExportExecutionRequest.h */,
+				088208811A01328900B6559F /* JSExportExecutionRequest.m */,
+				F5D0923018586E2D00C5AEFC /* JSExportExecutionResponse.h */,
+				37455C26CA9D110D7CBD29A2 /* JSExportExecutionResponse.m */,
+				F5D0923C18586E7D00C5AEFC /* JSReportOutputResource.h */,
+				374556F481BE36B761B5FDDF /* JSReportOutputResource.m */,
+				F5D0924218586E9300C5AEFC /* JSReportExecutionRequest.h */,
+				374555044AD45FB4F352A96F /* JSReportExecutionRequest.m */,
+				374551F833EA720B59987045 /* JSReportExecutionResponse.h */,
+				374558828353F4E8E6F29C17 /* JSReportExecutionResponse.m */,
+			);
+			name = ReportExecution;
+			sourceTree = "<group>";
+		};
+		D919A263B01FF70A80C7A549 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FCA57FC99201E2C748050837 /* Pods.debug.xcconfig */,
+				9B199A7873E268BCFDF3074C /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F59768B215E3C75E004165A7 = {
+			isa = PBXGroup;
+			children = (
+				F59768E615E3C826004165A7 /* Classes */,
+				F5A8141415EBFA1900151B1D /* Support */,
+				F59768BF15E3C75F004165A7 /* Frameworks */,
+				F59768BE15E3C75F004165A7 /* Products */,
+				D919A263B01FF70A80C7A549 /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		F59768BE15E3C75F004165A7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F59768BD15E3C75F004165A7 /* libJaspersoftSDK.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F59768BF15E3C75F004165A7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F5758F48174E303E00C355C1 /* QuartzCore.framework */,
+				F5758F46174E303900C355C1 /* libxml2.dylib */,
+				F5758F44174E303300C355C1 /* SystemConfiguration.framework */,
+				F5758F42174E302E00C355C1 /* MobileCoreServices.framework */,
+				F5758F40174E302800C355C1 /* Security.framework */,
+				F5758F3D174E301800C355C1 /* CFNetwork.framework */,
+				F59768C015E3C75F004165A7 /* Foundation.framework */,
+				F5F68E0C15E55EC000270103 /* Other Frameworks */,
+				1AE65D84777378DA82ED7BA4 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F59768E615E3C826004165A7 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F596020215ECCC9300B62DFD /* JaspersoftSDK.h */,
+				F59768E715E3C826004165A7 /* Core */,
+				F597690515E3C826004165A7 /* ObjectMappings */,
+				F59768F615E3C826004165A7 /* Helpers */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		F59768E715E3C826004165A7 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				F5F173F9186486FD00779136 /* JSCore.h */,
+				08AC6B371A94AD450069CBE3 /* JSErrors.h */,
+				F59768EC15E3C826004165A7 /* JSProfile.h */,
+				F59768ED15E3C826004165A7 /* JSProfile.m */,
+				F597697815E3C9EF004165A7 /* JSSerializationDescriptorHolder.h */,
+				F59768F015E3C826004165A7 /* JSRESTBase.h */,
+				F59768F115E3C826004165A7 /* JSRESTBase.m */,
+				081DCA111A9C793D007A7F1B /* JSRESTBase+JSRESTSession.h */,
+				081DCA121A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m */,
+				F59768F215E3C826004165A7 /* JSRESTBase+JSRESTReport.h */,
+				F59768F315E3C826004165A7 /* JSRESTBase+JSRESTReport.m */,
+				F59768F415E3C826004165A7 /* JSRESTBase+JSRESTResource.h */,
+				F59768F515E3C826004165A7 /* JSRESTBase+JSRESTResource.m */,
+				F59768EA15E3C826004165A7 /* JSOperationResult.h */,
+				F59768EB15E3C826004165A7 /* JSOperationResult.m */,
+				F59768EE15E3C826004165A7 /* JSRequest.h */,
+				F59768EF15E3C826004165A7 /* JSRequest.m */,
+				F59768E815E3C826004165A7 /* JSConstants.h */,
+				F59768E915E3C826004165A7 /* JSConstants.m */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		F59768F615E3C826004165A7 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				08B8FA171A6FCEAF00E9FE60 /* weakself.h */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		F597690515E3C826004165A7 /* ObjectMappings */ = {
+			isa = PBXGroup;
+			children = (
+				F52DF64818648C28000D375E /* JSObjectMappings.h */,
+				F5AE53AB16516870004207E1 /* InputControl */,
+				F5AE53A5165164D7004207E1 /* Server */,
+				F5AE53AA165164E8004207E1 /* Report */,
+				F5EA36B518337B6F00E09E10 /* Resource */,
+			);
+			path = ObjectMappings;
+			sourceTree = "<group>";
+		};
+		F5A8141415EBFA1900151B1D /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				F5A8141715EBFA1900151B1D /* JaspersoftSDK-Prefix.pch */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		F5AE53A5165164D7004207E1 /* Server */ = {
+			isa = PBXGroup;
+			children = (
+				F5DDD7A9164029EC005BBE7C /* JSServerInfo.h */,
+				F5DDD7AA164029EC005BBE7C /* JSServerInfo.m */,
+			);
+			name = Server;
+			sourceTree = "<group>";
+		};
+		F5AE53AA165164E8004207E1 /* Report */ = {
+			isa = PBXGroup;
+			children = (
+				F597690615E3C826004165A7 /* JSReportAttachment.h */,
+				F597690715E3C826004165A7 /* JSReportAttachment.m */,
+				F597690815E3C826004165A7 /* JSReportDescriptor.h */,
+				F597690915E3C826004165A7 /* JSReportDescriptor.m */,
+				F53B1041164A9EE400042976 /* JSReportParameter.h */,
+				F53B1042164A9EE400042976 /* JSReportParameter.m */,
+				374553109AB205D3BBCAB9ED /* ReportExecution */,
+			);
+			name = Report;
+			sourceTree = "<group>";
+		};
+		F5AE53AB16516870004207E1 /* InputControl */ = {
+			isa = PBXGroup;
+			children = (
+				F5AE53AC1651696C004207E1 /* Validation */,
+				F56824681642996D00CC4015 /* JSInputControlDescriptor.h */,
+				F56824691642996D00CC4015 /* JSInputControlDescriptor.m */,
+				F56824721642A2A200CC4015 /* JSInputControlState.h */,
+				F56824731642A2A300CC4015 /* JSInputControlState.m */,
+				F56824781642A67C00CC4015 /* JSInputControlOption.h */,
+				F56824791642A67D00CC4015 /* JSInputControlOption.m */,
+			);
+			name = InputControl;
+			sourceTree = "<group>";
+		};
+		F5AE53AC1651696C004207E1 /* Validation */ = {
+			isa = PBXGroup;
+			children = (
+				F5AE53AD165169F6004207E1 /* JSDateTimeFormatValidationRule.h */,
+				F5AE53AE165169F6004207E1 /* JSDateTimeFormatValidationRule.m */,
+				F520FF87196FEE53009435C2 /* JSMandatoryValidationRule.h */,
+				F520FF88196FEE53009435C2 /* JSMandatoryValidationRule.m */,
+				F5AE53DC16518C58004207E1 /* JSValidationRules.h */,
+				F5AE53DD16518C58004207E1 /* JSValidationRules.m */,
+			);
+			name = Validation;
+			sourceTree = "<group>";
+		};
+		F5EA36B518337B6F00E09E10 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				F597690A15E3C826004165A7 /* JSResourceDescriptor.h */,
+				F597690B15E3C826004165A7 /* JSResourceDescriptor.m */,
+				F597690C15E3C826004165A7 /* JSResourceParameter.h */,
+				F597690D15E3C826004165A7 /* JSResourceParameter.m */,
+				F597690E15E3C826004165A7 /* JSResourceProperty.h */,
+				F597690F15E3C826004165A7 /* JSResourceProperty.m */,
+				F5EA36AC18337B4A00E09E10 /* JSResourceLookup.h */,
+				F5EA36AD18337B4A00E09E10 /* JSResourceLookup.m */,
+			);
+			name = Resource;
+			sourceTree = "<group>";
+		};
+		F5F68E0C15E55EC000270103 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F5F68E0D15E55EC000270103 /* AppKit.framework */,
+				F5F68E0E15E55EC000270103 /* CoreData.framework */,
+				F5F68E0F15E55EC000270103 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		F59768BB15E3C75F004165A7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F596020315ECCC9300B62DFD /* JaspersoftSDK.h in Headers */,
+				F5F173FA186486FD00779136 /* JSCore.h in Headers */,
+				F52DF64918648C28000D375E /* JSObjectMappings.h in Headers */,
+				F597691815E3C826004165A7 /* JSProfile.h in Headers */,
+				F597692015E3C826004165A7 /* JSRESTBase.h in Headers */,
+				F597692415E3C826004165A7 /* JSRESTBase+JSRESTReport.h in Headers */,
+				F597692815E3C826004165A7 /* JSRESTBase+JSRESTResource.h in Headers */,
+				F597691415E3C826004165A7 /* JSOperationResult.h in Headers */,
+				F597691C15E3C826004165A7 /* JSRequest.h in Headers */,
+				F597697915E3C9EF004165A7 /* JSSerializationDescriptorHolder.h in Headers */,
+				F597691015E3C826004165A7 /* JSConstants.h in Headers */,
+				F597694715E3C826004165A7 /* JSReportDescriptor.h in Headers */,
+				F5EA36AE18337B4A00E09E10 /* JSResourceLookup.h in Headers */,
+				F597694B15E3C826004165A7 /* JSResourceDescriptor.h in Headers */,
+				F597694F15E3C826004165A7 /* JSResourceParameter.h in Headers */,
+				F597695315E3C826004165A7 /* JSResourceProperty.h in Headers */,
+				F597694315E3C826004165A7 /* JSReportAttachment.h in Headers */,
+				F5DDD7AB164029EC005BBE7C /* JSServerInfo.h in Headers */,
+				F568246A1642996D00CC4015 /* JSInputControlDescriptor.h in Headers */,
+				F56824741642A2A300CC4015 /* JSInputControlState.h in Headers */,
+				F568247A1642A67E00CC4015 /* JSInputControlOption.h in Headers */,
+				08B8FA181A6FCEAF00E9FE60 /* weakself.h in Headers */,
+				F53B1043164A9EE400042976 /* JSReportParameter.h in Headers */,
+				F5AE53AF165169F6004207E1 /* JSDateTimeFormatValidationRule.h in Headers */,
+				081DCA131A9C793D007A7F1B /* JSRESTBase+JSRESTSession.h in Headers */,
+				F5D0923E18586E7D00C5AEFC /* JSReportOutputResource.h in Headers */,
+				F5D0924418586E9300C5AEFC /* JSReportExecutionRequest.h in Headers */,
+				088208821A01328900B6559F /* JSExportExecutionRequest.h in Headers */,
+				F5D0923218586E2D00C5AEFC /* JSExportExecutionResponse.h in Headers */,
+				F5AE53DE16518C58004207E1 /* JSValidationRules.h in Headers */,
+				37455ABDDD4368D267B50469 /* JSReportExecutionResponse.h in Headers */,
+				F5D0923818586E4E00C5AEFC /* JSErrorDescriptor.h in Headers */,
+				F520FF89196FEE53009435C2 /* JSMandatoryValidationRule.h in Headers */,
+				F523D78518635EB000B93D3F /* JSExecutionStatus.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		F59768BC15E3C75F004165A7 /* JaspersoftSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F59768CA15E3C75F004165A7 /* Build configuration list for PBXNativeTarget "JaspersoftSDK" */;
+			buildPhases = (
+				5062EA71E05BB4AA8A505805 /* Check Pods Manifest.lock */,
+				F59768B915E3C75F004165A7 /* Sources */,
+				F59768BA15E3C75F004165A7 /* Frameworks */,
+				F59768BB15E3C75F004165A7 /* Headers */,
+				936962AFE0075F3901B56B92 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JaspersoftSDK;
+			productName = "jaspersoft-sdk";
+			productReference = F59768BD15E3C75F004165A7 /* libJaspersoftSDK.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F59768B415E3C75E004165A7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+			};
+			buildConfigurationList = F59768B715E3C75E004165A7 /* Build configuration list for PBXProject "JaspersoftSDK" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F59768B215E3C75E004165A7;
+			productRefGroup = F59768BE15E3C75F004165A7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F59768BC15E3C75F004165A7 /* JaspersoftSDK */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5062EA71E05BB4AA8A505805 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		936962AFE0075F3901B56B92 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F59768B915E3C75F004165A7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F597691215E3C826004165A7 /* JSConstants.m in Sources */,
+				F597691615E3C826004165A7 /* JSOperationResult.m in Sources */,
+				F597691A15E3C826004165A7 /* JSProfile.m in Sources */,
+				F597691E15E3C826004165A7 /* JSRequest.m in Sources */,
+				F597692215E3C826004165A7 /* JSRESTBase.m in Sources */,
+				F597692615E3C826004165A7 /* JSRESTBase+JSRESTReport.m in Sources */,
+				F597692A15E3C826004165A7 /* JSRESTBase+JSRESTResource.m in Sources */,
+				081DCA141A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m in Sources */,
+				F597694515E3C826004165A7 /* JSReportAttachment.m in Sources */,
+				F597694915E3C826004165A7 /* JSReportDescriptor.m in Sources */,
+				F597694D15E3C826004165A7 /* JSResourceDescriptor.m in Sources */,
+				F597695115E3C826004165A7 /* JSResourceParameter.m in Sources */,
+				F597695515E3C826004165A7 /* JSResourceProperty.m in Sources */,
+				F5DDD7AD164029EC005BBE7C /* JSServerInfo.m in Sources */,
+				F523D78718635EB000B93D3F /* JSExecutionStatus.m in Sources */,
+				F568246C1642996D00CC4015 /* JSInputControlDescriptor.m in Sources */,
+				F520FF8B196FEE53009435C2 /* JSMandatoryValidationRule.m in Sources */,
+				F56824761642A2A300CC4015 /* JSInputControlState.m in Sources */,
+				F568247C1642A67E00CC4015 /* JSInputControlOption.m in Sources */,
+				F5EA36B018337B4A00E09E10 /* JSResourceLookup.m in Sources */,
+				F53B1045164A9EE400042976 /* JSReportParameter.m in Sources */,
+				F5D0923A18586E4E00C5AEFC /* JSErrorDescriptor.m in Sources */,
+				088208831A01328900B6559F /* JSExportExecutionRequest.m in Sources */,
+				F5AE53B1165169F6004207E1 /* JSDateTimeFormatValidationRule.m in Sources */,
+				F5AE53E016518C58004207E1 /* JSValidationRules.m in Sources */,
+				37455CF8BA142B8554AF5F9A /* JSReportExecutionResponse.m in Sources */,
+				3745523E7EE2CE8C64105A1D /* JSExportExecutionResponse.m in Sources */,
+				37455A556862C72B0B83193F /* JSReportOutputResource.m in Sources */,
+				37455EF10B05B5CAE7512A6F /* JSReportExecutionRequest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		F59768C815E3C75F004165A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"/**";
+				VALID_ARCHS = "armv7 armv7s arm64";
+			};
+			name = Debug;
+		};
+		F59768C915E3C75F004165A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"/**";
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv7 armv7s arm64";
+			};
+			name = Release;
+		};
+		F59768CB15E3C75F004165A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FCA57FC99201E2C748050837 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				DSTROOT = /tmp/jaspersoft_sdk.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Support/JaspersoftSDK-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"/**",
+					"$(inherited)",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "$(inherited)";
+				PRIVATE_HEADERS_FOLDER_PATH = ../../Headers/JaspersoftSDK/Private;
+				PRODUCT_NAME = JaspersoftSDK;
+				PUBLIC_HEADERS_FOLDER_PATH = "../../Headers/jaspersoft-sdk";
+				SKIP_INSTALL = YES;
+				VALID_ARCHS = "i386 armv7 armv7s x86_64 arm64";
+			};
+			name = Debug;
+		};
+		F59768CC15E3C75F004165A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9B199A7873E268BCFDF3074C /* Pods.release.xcconfig */;
+			buildSettings = {
+				DSTROOT = /tmp/jaspersoft_sdk.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Support/JaspersoftSDK-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"/**",
+					"$(inherited)",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "$(inherited)";
+				PRIVATE_HEADERS_FOLDER_PATH = ../../Headers/JaspersoftSDK/Private;
+				PRODUCT_NAME = JaspersoftSDK;
+				PUBLIC_HEADERS_FOLDER_PATH = "../../Headers/jaspersoft-sdk";
+				SKIP_INSTALL = YES;
+				VALID_ARCHS = "i386 armv7 armv7s x86_64 arm64";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F59768B715E3C75E004165A7 /* Build configuration list for PBXProject "JaspersoftSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F59768C815E3C75F004165A7 /* Debug */,
+				F59768C915E3C75F004165A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F59768CA15E3C75F004165A7 /* Build configuration list for PBXNativeTarget "JaspersoftSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F59768CB15E3C75F004165A7 /* Debug */,
+				F59768CC15E3C75F004165A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F59768B415E3C75E004165A7 /* Project object */;
+}

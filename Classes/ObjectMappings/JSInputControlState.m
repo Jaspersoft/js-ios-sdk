@@ -29,14 +29,42 @@
 //
 
 #import "JSInputControlState.h"
+#import "JSInputControlOption.h"
 
 @implementation JSInputControlState
 
-@synthesize uuid = _uuid;
-@synthesize uri = _uri;
-@synthesize value = _value;
-@synthesize error = _error;
-@synthesize options = _options;
+#pragma mark - JSSerializationDescriptorHolder
+
++ (NSArray *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    for (NSString *keyPath in [self classMappingPathes]) {
+        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:nil
+                                                                                keyPath:keyPath
+                                                                            statusCodes:nil]];
+    }
+
+    return descriptorsArray;
+}
+
++ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"id": @"uuid",
+                                                       @"uri": @"uri",
+                                                       @"value": @"value",
+                                                       @"error": @"error",
+                                                       }];
+    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"options"
+                                                                                 toKeyPath:@"options"
+                                                                               withMapping:[JSInputControlOption classMappingForServerProfile:serverProfile]]];
+    return classMapping;
+}
+
++ (NSArray *)classMappingPathes {
+    return @[@"inputControlState"];
+}
 
 #pragma mark - NSCopying
 

@@ -32,9 +32,6 @@
 
 @implementation JSReportParameter
 
-@synthesize name = _name;
-@synthesize value = _value;
-
 - (id)initWithName:(NSString *)name value:(NSArray *)value {
     if (self = [super init]) {
         self.name = name;
@@ -42,6 +39,26 @@
     }
     
     return self;
+}
+
+#pragma mark - JSSerializationDescriptorHolder
+
++ (NSArray *)rkRequestDescriptorsForServerProfile:(JSProfile *)serverProfile {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
+                                                                      objectClass:self
+                                                                      rootKeyPath:@"reportParameter"
+                                                                           method:RKRequestMethodAny]];
+    return descriptorsArray;
+}
+
++ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"name": @"name",
+                                                       @"value": @"value",
+                                                       }];
+    return classMapping;
 }
 
 @end

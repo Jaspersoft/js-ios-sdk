@@ -29,14 +29,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSSerializationDescriptorHolder.h"
 
 /**
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.4
  */
-
-@interface JSInputControlState : NSObject <NSCopying>
+@interface JSInputControlState : NSObject <JSSerializationDescriptorHolder, NSCopying>
 
 @property (nonatomic, retain) NSString *uuid;
 @property (nonatomic, retain) NSString *uri;

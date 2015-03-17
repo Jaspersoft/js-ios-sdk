@@ -30,44 +30,57 @@
 
 #import "JSRequest.h"
 
-// TODO: add request success and request finish delegate methods
+@interface JSRequest()
+@property (nonatomic, retain) NSMutableDictionary *parameters;
+@end
+
 @implementation JSRequest
-
-@synthesize uri = _uri;
-@synthesize body = _body;
-@synthesize params = _params;
-@synthesize timeoutInterval = _timeoutInterval;
-@synthesize method = _method;
-@synthesize delegate = _delegate;
-@synthesize finishedBlock;
-@synthesize responseAsObjects = _responseAsObjects;
-@synthesize downloadDestinationPath = _downloadDestinationPath;
-@synthesize asynchronous = _asynchronous;
-@synthesize restVersion = _restVersion;
-
-#if TARGET_OS_IPHONE
-@synthesize requestBackgroundPolicy = _requestBackgroundPolicy;
-#endif
 
 - (id)initWithUri:(NSString *)uri {
     if (self = [super init]) {
         self.uri = uri;
-        self.method = JSRequestMethodGET;
+        self.method = RKRequestMethodGET;
         self.responseAsObjects = YES;
         self.asynchronous = YES;
         self.restVersion = JSRESTVersion_1;
+        self.parameters = [NSMutableDictionary dictionary];
+        self.redirectAllowed = YES;
     }
     
     return self;
 }
 
-- (JSRequest *)usingBlock:(JSRequestConfigurationBlock)block {
-    block(self);
-    return self;
+- (void)addParameter:(NSString *)parameter withStringValue:(NSString *)value {
+    if (value.length) {
+        [self.parameters setObject:value forKey:parameter];
+    }
 }
 
-- (id)init {
-    return [self initWithUri: @""];
+- (void)addParameter:(NSString *)parameter withIntegerValue:(NSInteger)value {
+    if (value > 0) {
+        [self.parameters setObject:[NSNumber numberWithInteger:value] forKey:parameter];
+    }
+}
+
+- (void)addParameter:(NSString *)parameter withArrayValue:(NSArray *)value {
+    if (value && value.count) {
+        [self.parameters setObject:value forKey:parameter];
+    }
+}
+
+- (NSDictionary *)params {
+    if (self.method == RKRequestMethodGET || self.method == RKRequestMethodHEAD || self.method == RKRequestMethodDELETE) {
+        NSMutableDictionary *paramsDictionary = [NSMutableDictionary dictionary];
+        for (NSString *key in self.parameters) {
+            id value = [self.parameters objectForKey:key];
+            if ([value isKindOfClass:[NSArray class]]) {
+                value = [NSSet setWithArray:value];
+            }
+            [paramsDictionary setObject:value forKey:key];
+        }
+        return [NSDictionary dictionaryWithDictionary:paramsDictionary];
+    }
+    return [NSDictionary dictionaryWithDictionary:self.parameters];
 }
 
 @end

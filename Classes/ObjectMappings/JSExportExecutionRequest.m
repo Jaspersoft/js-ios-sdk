@@ -29,11 +29,35 @@
 //
 
 #import "JSExportExecutionRequest.h"
+#import "JSServerInfo.h"
+#import "JSConstants.h"
 
 @implementation JSExportExecutionRequest
-@synthesize outputFormat = _outputFormat;
-@synthesize pages = _pages;
-@synthesize attachmentsPrefix = _attachmentsPrefix;
-@synthesize baseUrl = _baseUrl;
+
+#pragma mark - JSSerializationDescriptorHolder
+
++ (NSArray *)rkRequestDescriptorsForServerProfile:(JSProfile *)serverProfile {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
+                                                                      objectClass:self
+                                                                      rootKeyPath:nil
+                                                                           method:RKRequestMethodAny]];
+    return descriptorsArray;
+}
+
++ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"outputFormat": @"outputFormat",
+                                                       @"pages": @"pages",
+                                                       @"attachmentsPrefix": @"attachmentsPrefix",
+                                                       }];
+
+    if (serverProfile && serverProfile.serverInfo.versionAsFloat >= [JSConstants sharedInstance].SERVER_VERSION_CODE_EMERALD_5_6_0) {
+        [classMapping addPropertyMapping:[RKAttributeMapping attributeMappingFromKeyPath:@"baseUrl" toKeyPath:@"baseUrl"]];
+    }
+
+    return classMapping;
+}
 
 @end

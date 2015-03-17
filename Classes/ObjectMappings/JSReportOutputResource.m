@@ -32,7 +32,31 @@
 
 @implementation JSReportOutputResource
 
-@synthesize contentType = _contentType;
-@synthesize fileName = _fileName;
+
+#pragma mark - JSSerializationDescriptorHolder
++ (NSArray *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    for (NSString *keyPath in [self classMappingPathes]) {
+        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:nil
+                                                                                keyPath:keyPath
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassServerError | RKStatusCodeClassClientError)]];
+    }
+    return descriptorsArray;
+}
+
++ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"contentType": @"contentType",
+                                                       @"fileName": @"fileName",
+                                                       }];
+    return classMapping;
+}
+
++ (NSArray *)classMappingPathes {
+    return @[@""];
+}
 
 @end

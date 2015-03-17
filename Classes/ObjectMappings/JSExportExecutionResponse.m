@@ -29,13 +29,59 @@
 //
 
 #import "JSExportExecutionResponse.h"
+#import "JSReportAttachment.h"
 
 @implementation JSExportExecutionResponse
 
-@synthesize uuid = _uuid;
-@synthesize status = _status;
-@synthesize errorDescriptor = _errorDescriptor;
-@synthesize outputResource = _outputResource;
-@synthesize attachments = _attachments;
+#pragma mark - JSSerializationDescriptorHolder
+
++ (NSArray *)rkRequestDescriptorsForServerProfile:(JSProfile *)serverProfile {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
+                                                                      objectClass:self
+                                                                      rootKeyPath:@"exportExecution"
+                                                                           method:RKRequestMethodAny]];
+    return descriptorsArray;
+}
+
++ (NSArray *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    for (NSString *keyPath in [self classMappingPathes]) {
+        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:nil
+                                                                                keyPath:keyPath
+                                                                            statusCodes:nil]];
+    }
+
+    return descriptorsArray;
+}
+
++ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"id": @"uuid",
+                                                       }];
+    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"status"
+                                                                            toKeyPath:@"status"
+                                                                          withMapping:[JSExecutionStatus customMapping]]];
+
+    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"errorDescriptor"
+                                                                                 toKeyPath:@"errorDescriptor"
+                                                                               withMapping:[JSErrorDescriptor classMappingForServerProfile:serverProfile]]];
+    
+    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"outputResource"
+                                                                                 toKeyPath:@"outputResource"
+                                                                               withMapping:[JSReportOutputResource classMappingForServerProfile:serverProfile]]];
+
+    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"attachments"
+                                                                                 toKeyPath:@"attachments"
+                                                                               withMapping:[JSReportOutputResource classMappingForServerProfile:serverProfile]]];
+    return classMapping;
+}
+
++ (NSArray *)classMappingPathes {
+    return @[@""];
+}
 
 @end

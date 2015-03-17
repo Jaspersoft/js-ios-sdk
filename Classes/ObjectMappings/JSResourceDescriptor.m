@@ -30,6 +30,8 @@
 
 #import "JSConstants.h"
 #import "JSResourceDescriptor.h"
+#import "JSResourceProperty.h"
+#import "JSResourceParameter.h"
 
 @interface JSResourceDescriptor()
 
@@ -38,18 +40,6 @@
 @end
 
 @implementation JSResourceDescriptor
-
-@synthesize name = _name;
-@synthesize wsType = _wsType;
-@synthesize uriString = _uriString;
-@synthesize isNew = _isNew;
-@synthesize label = _label;
-@synthesize resourceDescription = _resourceDescription;
-@synthesize creationDate = _creationDate;
-@synthesize resourceProperties = _resourceProperties;
-@synthesize childResourceDescriptors = _childResourceDescriptors;
-@synthesize parameters = _parameters;
-@synthesize constants = _constants;
 
 - (id)init {
     if (self = [super init]) {
@@ -115,6 +105,58 @@
     }
     
     return listOfValues;
+}
+
+#pragma mark - JSSerializationDescriptorHolder
++ (NSArray *)rkRequestDescriptorsForServerProfile:(JSProfile *)serverProfile {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
+                                                                      objectClass:self
+                                                                      rootKeyPath:@"resourceDescriptor"
+                                                                           method:RKRequestMethodAny]];
+    return descriptorsArray;
+}
+
++ (NSArray *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
+    NSMutableArray *descriptorsArray = [NSMutableArray array];
+    for (NSString *keyPath in [self classMappingPathes]) {
+        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:nil
+                                                                                keyPath:keyPath
+                                                                            statusCodes:nil]];
+    }
+    return descriptorsArray;
+}
+
++ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+    [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"name": @"name",
+                                                       @"wsType": @"wsType",
+                                                       @"uriString": @"uriString",
+                                                       @"isNew": @"isNew",
+                                                       @"label": @"label",
+                                                       @"description": @"resourceDescription",
+                                                       @"creationDate": @"creationDate",
+                                                       }];
+    
+    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"parameter"
+                                                                                 toKeyPath:@"parameters"
+                                                                               withMapping:[JSResourceParameter classMappingForServerProfile:serverProfile]]];
+
+    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"resourceProperty"
+                                                                                 toKeyPath:@"resourceProperties"
+                                                                               withMapping:[JSResourceProperty classMappingForServerProfile:serverProfile]]];
+
+    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"resourceDescriptor"
+                                                                                 toKeyPath:@"childResourceDescriptors"
+                                                                               withMapping:[JSResourceDescriptor classMappingForServerProfile:serverProfile]]];
+    return classMapping;
+}
+
++ (NSArray *)classMappingPathes {
+    return @[@"resourceDescriptor"];
 }
 
 @end

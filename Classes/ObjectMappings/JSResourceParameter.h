@@ -29,23 +29,24 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSSerializationDescriptorHolder.h"
 
 /**
  Represents a resource parameter entity for convenient XML serialization process.
  
  @author Giulio Toffoli giulio@jaspersoft.com
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev ogubarie@tibco.com
  @since 1.0
  */
-@interface JSResourceParameter : NSObject
+@interface JSResourceParameter : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *name;
 @property (nonatomic, retain) NSString *isListItem;
 @property (nonatomic, retain) NSString *value;
 
 /**
- Returns a configured resource parameter. Used by class implemented 
- <code>JSSerializer</code> protocol
+ Returns a configured resource parameter. 
  
  @param name The parameter name
  @param isListItem Indicates if parameter is part (item) of list

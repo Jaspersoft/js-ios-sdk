@@ -29,52 +29,15 @@
 //
 
 #import "JSOperationResult.h"
-
-/**
- Supported HTTP methods
- */
-typedef enum {
-    JSRequestMethodGET,
-    JSRequestMethodPOST,
-    JSRequestMethodPUT,
-    JSRequestMethodDELETE
-} JSRequestMethod;
+#import "RKHTTPUtilities.h"
+#import "JSSerializationDescriptorHolder.h"
 
 /**
  This block invoked when the request is complete.
- Provided as analogue to JSResponseDelegate protocol
- */
-typedef void(^JSRequestFinishedBlock)(JSOperationResult *result);
-
-#if TARGET_OS_IPHONE
-/**
- Background Request Policy
- 
- On iOS 4.x and higher, UIKit provides support for continuing activities for a
- limited amount of time in the background. (This is wrapper for RestKit library
- which provides simple support for this option)
- */
-typedef enum {
-    /**
-     Take no action with regards to background
-     */
-    JSRequestBackgroundPolicyNone,
-    /**
-     Cancel the request on transition to the background
-     */
-    JSRequestBackgroundPolicyCancel,
-    /**
-     Continue the request in the background until time expires
-     */
-    JSRequestBackgroundPolicyContinue,
-    /**
-     Stop the request and place it back on the queue. It will fire when the app
-     reopens
-     */
-    JSRequestBackgroundPolicyRequeue
-} JSRequestBackgroundPolicy;
-
-#endif
+ @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev ogubarie@tibco.com
+*/
+typedef void(^JSRequestCompletionBlock)(JSOperationResult *result);
 
 /**
  Supported REST versions
@@ -84,29 +47,10 @@ typedef enum {
  while for JSRESTVersion_2: http://host:port/jasperserver-pro/rest_v2/serverInfo/version )
  */
 typedef enum {
+    JSRESTVersion_None,
     JSRESTVersion_1,
     JSRESTVersion_2
 } JSRESTVersion;
-
-/**
- This protocol must be implemented by objects used to retrieve request result asynchronously
- */
-@protocol JSRequestDelegate <NSObject>
-
-@required
-
-/**
- This method is invoked when the request is complete. The results of the request
- can be checked looking at the JSOperationResult object passed as parameter
- */
-- (void)requestFinished:(JSOperationResult *)result;
-
-@end
-
-/**
- The block to execute with the request before sending it for processing
- */
-typedef void(^JSRequestConfigurationBlock)(JSRequest *request);
 
 /**
  Models the request portion of an HTTP request/response cycle. Used by
@@ -127,47 +71,30 @@ typedef void(^JSRequestConfigurationBlock)(JSRequest *request);
  The HTTP body used for this request. Uses only for POST and PUT HTTP methods.
  Automatically will be serialized as string in the format (i.e XML, JSON, etc.) provided
  by the serializer
- 
- @see JSSerializer
- @see JSXMLSerializer
- @see JSRESTBase#serializer
- */
+*/
 @property (nonatomic, retain) id body;
+
+/**
+ Expected model class for mapping responce
+ */
+@property (nonatomic, strong) Class <JSSerializationDescriptorHolder> expectedModelClass;
 
 /**
  A collection of parameters of the request. Automatically will be added to URL
  */
-@property (nonatomic, retain) NSDictionary *params;
-
-/**
- The timeout interval within which the request should be cancelled if no data
- has been received.
- 
- The timeout timer is cancelled as soon as we start receiving data and are
- expecting the request to finish
- 
- **Default**: 120.0 seconds (defined in JSRESTBase class)
- */
-@property (nonatomic, assign) NSTimeInterval timeoutInterval;
+@property (nonatomic, strong, readonly) NSDictionary *params;
 
 /**
  The HTTP method
  */
-@property (nonatomic, assign) JSRequestMethod method;
+@property (nonatomic, assign) RKRequestMethod method;
 
 /**
- The delegate to inform when the request is completed. If the object implements
- the <code>JSRequestDelegate</code> protocol and if object is not <code>nil</code>,
- it will receive request result (instance of <code>JSOperationResult</code> class)
- */
-@property (nonatomic, weak) id <JSRequestDelegate> delegate;
-
-/**
- A finishedBlock invoke when the request is completed. If block is not
+ A completionBlock invoke when the request is completed. If block is not
  <code>nil</code>, it will receive request result (instance of
- <code>JSOperationResult</code> class). Provided as analogue to delegate object
+ <code>JSOperationResult</code> class).
  */
-@property (nonatomic, copy) JSRequestFinishedBlock finishedBlock;
+@property (nonatomic, copy) JSRequestCompletionBlock completionBlock;
 
 /**
  The responseAsObjects indicates if response result should be serialized and
@@ -180,13 +107,6 @@ typedef void(^JSRequestConfigurationBlock)(JSRequest *request);
  to determine which file will be downloaded (because all requests are asynchronous)
  */
 @property (nonatomic, retain) NSString *downloadDestinationPath;
-
-#if TARGET_OS_IPHONE
-/**
- The policy to take on transition to the background (iOS 4.x and higher only)
- */
-@property (nonatomic, assign) JSRequestBackgroundPolicy requestBackgroundPolicy;
-#endif
 
 /**
  Determine asynchronous nature of request
@@ -203,13 +123,45 @@ typedef void(^JSRequestConfigurationBlock)(JSRequest *request);
 @property (nonatomic, assign) JSRESTVersion restVersion;
 
 /**
- Pre-configures request via block. Block implicitly supports finishedBlock usage
- instead delegate object (or use them both), setting custom timeoutInterval,
- custom query parameters, requestBackgroundPolicy etc. Some of request parameters
- can be configured only by using block
- 
- @param block The block to execute with the request before sending it
+ The redirectAllowed indicates if request can be redirected 
+
+ **Default**: YES
+
+ @since 1.9
  */
-- (JSRequest *)usingBlock:(JSRequestConfigurationBlock)block;
+@property (nonatomic, assign) BOOL redirectAllowed;
+
+
+/**
+ Returns a request instance with predefined uri.
+ 
+ @param uri A request uri
+ @return A fully configured JSRequest instance
+ */
+- (id)initWithUri:(NSString *)uri;
+
+/**
+ Adds a parameter with a specified string value only if value is not nil or empty
+ 
+ @param parameter Parameter name
+ @param value Parameter value
+ */
+- (void)addParameter:(NSString *)parameter withStringValue:(NSString *)value;
+
+/**
+ Adds a parameter with a specified integer value only if value is bigger then 0
+ 
+ @param parameter Parameter name
+ @param value Parameter value
+ */
+- (void)addParameter:(NSString *)parameter withIntegerValue:(NSInteger)value;
+
+/**
+ Adds a parameter with a specified array value only if value is not nil or empty
+ 
+ @param parameter Parameter name
+ @param value Parameter value
+ */
+- (void)addParameter:(NSString *)parameter withArrayValue:(NSArray *)value;
 
 @end

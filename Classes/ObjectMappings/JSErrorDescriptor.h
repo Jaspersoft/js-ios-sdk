@@ -29,14 +29,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSSerializationDescriptorHolder.h"
 
 /**
  Represents an error descriptor for convenient XML serialization process
 
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Alexey Gubarev ogubarie@tibco.com
  @since 1.8
  */
-@interface JSErrorDescriptor : NSObject
+@interface JSErrorDescriptor : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *message;
 @property (nonatomic, retain) NSString *errorCode;
