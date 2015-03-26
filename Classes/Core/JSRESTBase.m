@@ -39,6 +39,9 @@
 #import "AFHTTPClient.h"
 #import "weakself.h"
 
+#import "ServerReachability.h"
+
+
 // Access key and value for content-type / charset
 NSString * const kJSRequestContentType = @"Content-Type";
 NSString * const kJSRequestResponceType = @"Accept";
@@ -97,6 +100,8 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
 
 @property (nonatomic, assign, readwrite) BOOL keepSession;
 
+@property (nonatomic, strong) ServerReachability *serverReachability;
+
 @end
 
 @implementation JSRESTBase
@@ -127,6 +132,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
         self.keepSession = keepLogged;
         self.timeoutInterval = _defaultTimeoutInterval;
         self.serverProfile = serverProfile;
+        self.serverReachability = [ServerReachability new];
     }
     return self;
 }
@@ -140,20 +146,17 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     [self deleteCookies];
     
     [self configureRestKitObjectManager];
+    
+    self.serverReachability = [ServerReachability reachabilityWithServer:serverProfile.serverUrl];
 }
 
 #pragma mark -
 #pragma mark Public methods
-
-- (void)sendRequest:(JSRequest *)request {
-    [self sendRequest:request additionalHTTPHeaderFields:nil];
-}
-
-- (void)sendRequest:(JSRequest *)jsRequest additionalHTTPHeaderFields:(NSDictionary *)headerFields{
+- (void) executeRequest:(JSRequest *)jsRequest additionalHTTPHeaderFields:(NSDictionary *)headerFields{
     // Full uri path with query params
     NSString *fullUri = [self fullUri:jsRequest.uri restVersion:jsRequest.restVersion];
     
-
+    
     for (RKRequestDescriptor *descriptor in self.restKitObjectManager.requestDescriptors) {
         [self.restKitObjectManager removeRequestDescriptor:descriptor];
     }
@@ -167,7 +170,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     
     RKHTTPRequestOperation *httpOperation = [[RKHTTPRequestOperation alloc] initWithRequest:urlRequest];
     NSOperation *requestOperation = httpOperation;
-
+    
     if (jsRequest.responseAsObjects) {
         [self.restKitObjectManager performSelector:@selector(copyStateFromHTTPClientToHTTPRequestOperation:) withObject:httpOperation];
         
@@ -185,7 +188,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
         
         requestOperation = objectRequestOperation;
     }
-
+    
     if ([urlRequest isKindOfClass:[NSMutableURLRequest class]]) {
         urlRequest.timeoutInterval = self.timeoutInterval;
         if (headerFields && [headerFields count]) {
@@ -233,6 +236,20 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
         self.restKitObjectManager.HTTPClient.operationQueue.maxConcurrentOperationCount = maxConcurrentOperationCount;
         [self sendCallbackAboutOperation:requestOperation];
     }
+}
+
+- (void)sendRequest:(JSRequest *)request {
+    [self sendRequest:request additionalHTTPHeaderFields:nil];
+}
+
+- (void)sendRequest:(JSRequest *)jsRequest additionalHTTPHeaderFields:(NSDictionary *)headerFields{
+    [self.serverReachability checkConnectionToServerWithCompletion:^(BOOL isReachable) {
+        if (isReachable) {
+            [self executeRequest:jsRequest additionalHTTPHeaderFields:headerFields];
+        } else {
+            [self sendCallBackForRequest:jsRequest withOperationResult:[self requestOperationForFailedConnection]];
+        }
+    }];
 }
 
 - (JSServerInfo *)serverInfo {
@@ -291,6 +308,10 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     for (NSHTTPCookie *cookie in self.cookies) {
         [cookieStorage deleteCookie:cookie];
     }
+}
+
+- (void)resetReachabilityStatus {
+    [self.serverReachability resetReachabilityStatus];
 }
 
 #pragma mark - NSSecureCoding
@@ -458,18 +479,22 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     if (callBack) {
         [self.requestCallBacks removeObject:callBack];
         
-        result.request = callBack.request;
-        
         RKHTTPRequestOperation *httpOperation = [restKitOperation isKindOfClass:[RKObjectRequestOperation class]] ? [restKitOperation HTTPRequestOperation] : restKitOperation;
         NSLog(_requestFinishedTemplateMessage, [httpOperation.request.URL absoluteString]);
         
-        if (!result.error && !result.request.responseAsObjects && [result.request.downloadDestinationPath length]) {
-            [result.body writeToFile:result.request.downloadDestinationPath atomically:YES];
-        }
-        
-        if (callBack.request.completionBlock) {
-            callBack.request.completionBlock(result);
-        }
+        [self sendCallBackForRequest:callBack.request withOperationResult:result];
+    }
+}
+
+- (void) sendCallBackForRequest:(JSRequest *)request withOperationResult:(JSOperationResult *)result {
+    result.request = request;
+    
+    if (!result.error && !result.request.responseAsObjects && [result.request.downloadDestinationPath length]) {
+        [result.body writeToFile:result.request.downloadDestinationPath atomically:YES];
+    }
+    
+    if (request.completionBlock) {
+        request.completionBlock(result);
     }
 }
 
@@ -480,6 +505,13 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
         }
     }
     return nil;
+}
+
+- (JSOperationResult *) requestOperationForFailedConnection {
+    JSOperationResult *result = [JSOperationResult new];
+    
+    result.error = [NSError errorWithDomain:NSURLErrorDomain code:JSServerNotReachableErrorCode userInfo:@{NSLocalizedDescriptionKey : [NSHTTPURLResponse localizedStringForStatusCode:502]}];
+    return result;
 }
 
 @end

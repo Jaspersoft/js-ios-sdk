@@ -23,4 +23,5 @@ Pod::Spec.new do |s|
 	s.requires_arc = true
 	
 	s.dependency "RestKit/Core", ">= 0.20.0"
+	s.dependency "ServerReachability"
 end

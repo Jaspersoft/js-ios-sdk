@@ -56,6 +56,8 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     request.redirectAllowed = NO;
     request.asynchronous = NO;
     
+    [self resetReachabilityStatus];
+    
     [request addParameter:kJSAuthenticationUsernameKey      withStringValue:self.serverProfile.username];
     [request addParameter:kJSAuthenticationPasswordKey      withStringValue:self.serverProfile.password];
     [request addParameter:kJSAuthenticationOrganizationKey  withStringValue:self.serverProfile.organization];

@@ -29,11 +29,12 @@
 //
 
 typedef NS_ENUM (NSInteger, JSErrorCode) {
-    JSNetworkErrorCode              = 1001,         // HTTP erorrs (status codes 404, 500).
-    JSRequestTimeOutErrorCode       = 1002,         // Request TimeOut error
-    JSInvalidCredentialsErrorCode   = 1003,         // Invalid Credentilas error
-    JSSessionExpiredErrorCode       = 1004,         // Session expired error
-    JSClientErrorCode               = 1005,         // Client error code - when JSErrorDescriptor are received
-    JSDataMappingErrorCode          = 1006,         // Data Mapping error code - when responce did load successfully, but can't be parsed
-    JSOtherErrorCode                = 1007          // All other errors
+    JSServerNotReachableErrorCode       = 1000,         // Server not reachable error
+    JSNetworkErrorCode                  = 1001,         // HTTP erorrs (status codes 404, 500).
+    JSRequestTimeOutErrorCode           = 1002,         // Request TimeOut error
+    JSInvalidCredentialsErrorCode       = 1003,         // Invalid Credentilas error
+    JSSessionExpiredErrorCode           = 1004,         // Session expired error
+    JSClientErrorCode                   = 1005,         // Client error code - when JSErrorDescriptor are received
+    JSDataMappingErrorCode              = 1006,         // Data Mapping error code - when responce did load successfully, but can't be parsed
+    JSOtherErrorCode                    = 1007          // All other errors
 };

@@ -54,7 +54,8 @@ extern NSString * const kJSRequestResponceType;
 
  @since 1.3
 */
-@class RKObjectManager;
+@class RKObjectManager, ServerReachability;
+
 @interface JSRESTBase : NSObject <NSSecureCoding>
 
 /**
@@ -156,4 +157,10 @@ extern NSString * const kJSRequestResponceType;
  */
 - (void)deleteCookies;
 
+/**
+ Reset reachability to server status
+ 
+ @since 1.9
+ */
+- (void)resetReachabilityStatus;
 @end
