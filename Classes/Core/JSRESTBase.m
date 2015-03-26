@@ -132,7 +132,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
         self.keepSession = keepLogged;
         self.timeoutInterval = _defaultTimeoutInterval;
         self.serverProfile = serverProfile;
-        self.serverReachability = [ServerReachability new];
     }
     return self;
 }
@@ -152,7 +151,16 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
 
 #pragma mark -
 #pragma mark Public methods
-- (void) executeRequest:(JSRequest *)jsRequest additionalHTTPHeaderFields:(NSDictionary *)headerFields{
+
+- (void)sendRequest:(JSRequest *)request {
+    [self sendRequest:request additionalHTTPHeaderFields:nil];
+}
+
+- (void)sendRequest:(JSRequest *)jsRequest additionalHTTPHeaderFields:(NSDictionary *)headerFields{
+    if (!self.serverReachability.isReachable) {
+        [self sendCallBackForRequest:jsRequest withOperationResult:[self requestOperationForFailedConnection]];
+        return;
+    }
     // Full uri path with query params
     NSString *fullUri = [self fullUri:jsRequest.uri restVersion:jsRequest.restVersion];
     
@@ -238,20 +246,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     }
 }
 
-- (void)sendRequest:(JSRequest *)request {
-    [self sendRequest:request additionalHTTPHeaderFields:nil];
-}
-
-- (void)sendRequest:(JSRequest *)jsRequest additionalHTTPHeaderFields:(NSDictionary *)headerFields{
-    [self.serverReachability checkConnectionToServerWithCompletion:^(BOOL isReachable) {
-        if (isReachable) {
-            [self executeRequest:jsRequest additionalHTTPHeaderFields:headerFields];
-        } else {
-            [self sendCallBackForRequest:jsRequest withOperationResult:[self requestOperationForFailedConnection]];
-        }
-    }];
-}
-
 - (JSServerInfo *)serverInfo {
     if (!self.serverProfile.serverInfo) {
         JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_SERVER_INFO_URI];
@@ -261,8 +255,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
         request.completionBlock = ^(JSOperationResult *result) {
             if (!result.error && result.objects.count) {
                 self.serverProfile.serverInfo = [result.objects firstObject];
-            } else {
-                self.serverProfile.serverInfo = [[JSServerInfo alloc] init];
             }
         };
         [self sendRequest:request];
