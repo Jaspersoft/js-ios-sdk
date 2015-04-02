@@ -295,6 +295,7 @@
 @property (nonatomic, readonly) float SERVER_VERSION_CODE_EMERALD_5_5_0;
 @property (nonatomic, readonly) float SERVER_VERSION_CODE_EMERALD_5_6_0;
 @property (nonatomic, readonly) float SERVER_VERSION_CODE_AMBER_6_0_0;
+@property (nonatomic, readonly) float SERVER_VERSION_CODE_AMBER_6_1_0;
 
 /** @} */
 

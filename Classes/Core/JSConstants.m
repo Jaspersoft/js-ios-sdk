@@ -166,6 +166,7 @@ static JSConstants *_sharedInstance;
 @synthesize SERVER_VERSION_CODE_EMERALD_5_5_0;
 @synthesize SERVER_VERSION_CODE_EMERALD_5_6_0;
 @synthesize SERVER_VERSION_CODE_AMBER_6_0_0;
+@synthesize SERVER_VERSION_CODE_AMBER_6_1_0;
 @synthesize SERVER_EDITION_CE;
 @synthesize SERVER_EDITION_PRO;
 @synthesize ICD_TYPE_BOOL;
@@ -411,6 +412,7 @@ static JSConstants *_sharedInstance;
     SERVER_VERSION_CODE_EMERALD_5_5_0 = 5.5;
     SERVER_VERSION_CODE_EMERALD_5_6_0 = 5.6;
     SERVER_VERSION_CODE_AMBER_6_0_0 = 6.0;
+    SERVER_VERSION_CODE_AMBER_6_1_0 = 6.1;
 }
 
 - (void)setUPServerEditions {
