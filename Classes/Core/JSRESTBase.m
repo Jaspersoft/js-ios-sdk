@@ -482,7 +482,11 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     result.request = request;
     
     if (!result.error && !result.request.responseAsObjects && [result.request.downloadDestinationPath length]) {
-        [result.body writeToFile:result.request.downloadDestinationPath atomically:YES];
+        NSError *fileSavingError = nil;
+        [result.body writeToFile:result.request.downloadDestinationPath options:NSDataWritingAtomic error:&fileSavingError];
+        if (fileSavingError) {
+            result.error = [NSError errorWithDomain:NSCocoaErrorDomain code:JSFileSavingErrorCode userInfo:fileSavingError.userInfo];
+        }
     }
     
     if (request.completionBlock) {

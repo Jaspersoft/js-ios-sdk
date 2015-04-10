@@ -61,7 +61,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     [request addParameter:kJSAuthenticationUsernameKey      withStringValue:self.serverProfile.username];
     [request addParameter:kJSAuthenticationPasswordKey      withStringValue:self.serverProfile.password];
     [request addParameter:kJSAuthenticationOrganizationKey  withStringValue:self.serverProfile.organization];
-    [request addParameter:kJSAuthenticationTimezoneKey      withStringValue:[[NSTimeZone systemTimeZone] abbreviation]];
+    [request addParameter:kJSAuthenticationTimezoneKey      withStringValue:[[NSTimeZone localTimeZone] name]];
     
     // Add locale to session
     NSString *currentLanguage = [[NSLocale preferredLanguages] objectAtIndex:0];

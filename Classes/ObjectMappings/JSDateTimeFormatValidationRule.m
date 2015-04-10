@@ -49,8 +49,8 @@
 + (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
     RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
     [classMapping addAttributeMappingsFromDictionary:@{
-                                                       @"errorMessage": @"errorMessage",
-                                                       @"format": @"format",
+                                                       @"dateTimeFormatValidationRule.errorMessage": @"errorMessage",
+                                                       @"dateTimeFormatValidationRule.format": @"format",
                                                        }];
     return classMapping;
 }

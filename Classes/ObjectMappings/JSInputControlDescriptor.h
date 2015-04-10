@@ -28,10 +28,12 @@
 //  Jaspersoft Corporation
 //
 
-#import "JSValidationRules.h"
 #import "JSInputControlState.h"
 #import <Foundation/Foundation.h>
 #import "JSSerializationDescriptorHolder.h"
+#import "JSMandatoryValidationRule.h"
+#import "JSDateTimeFormatValidationRule.h"
+
 
 /**
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
@@ -50,20 +52,9 @@
 @property (nonatomic, retain) NSArray /*<NSString>*/ *masterDependencies;
 @property (nonatomic, retain) NSArray /*<NSString>*/ *slaveDependencies;
 @property (nonatomic, retain) JSInputControlState *state;
-@property (nonatomic, retain) JSValidationRules *validationRules;
 
-// This is temporary properties used as fix for bug. The problem is that if
-// slave dependencies in Input Control Descriptor XML contains 2 and more values
-// (i.e. <slaveDependencies><controlId>Cascading_name_single_select</controlId>
-// <controlId>Cascading_state_multi_select</controlId></slaveDependencies>)
-// mapping will be performed correctly and as a result there will be NSArray with
-// 2 or more objects. But, if slave dependencies contains only 1 object
-// (i.e. <slaveDependencies><controlId>Cascading_name_single_select</controlId></slaveDependencies>)
-// the result of the mapping will be "nil".
-//
-// In this case "those" single id maps to NSString class instead of NSArray class
-@property (nonatomic, retain) NSString *masterSingleInputControlID;
-@property (nonatomic, retain) NSString *slaveSingleInputControlID;
+@property (nonatomic, readonly) JSDateTimeFormatValidationRule *dateTimeFormatValidationRule;
+@property (nonatomic, readonly) JSMandatoryValidationRule *mandatoryValidationRule;
 
 - (NSArray *)selectedValues;
 

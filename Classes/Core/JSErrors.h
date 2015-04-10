@@ -36,5 +36,6 @@ typedef NS_ENUM (NSInteger, JSErrorCode) {
     JSSessionExpiredErrorCode           = 1004,         // Session expired error
     JSClientErrorCode                   = 1005,         // Client error code - when JSErrorDescriptor are received
     JSDataMappingErrorCode              = 1006,         // Data Mapping error code - when responce did load successfully, but can't be parsed
-    JSOtherErrorCode                    = 1007          // All other errors
+    JSFileSavingErrorCode               = 1007,         // Write to file and file saving error
+    JSOtherErrorCode                    = 1008          // All other errors
 };

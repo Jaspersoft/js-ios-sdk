@@ -32,27 +32,26 @@
 #import "JSInputControlOption.h"
 #import "JSInputControlDescriptor.h"
 
-@implementation JSInputControlDescriptor
+@interface JSInputControlDescriptor()
+@property (nonatomic, retain) NSArray *validationRules;
 
-- (NSArray *)masterDependencies {
-    if (!_masterDependencies.count && _masterSingleInputControlID.length) {
-        _masterDependencies = [[NSArray alloc] initWithObjects:_masterSingleInputControlID, nil];
-    }
-    
-    return _masterDependencies;
+@end
+
+@implementation JSInputControlDescriptor
+@dynamic mandatoryValidationRule;
+@dynamic dateTimeFormatValidationRule;
+
+- (JSMandatoryValidationRule *)mandatoryValidationRule {
+    return [self validationRuleForClass:[JSMandatoryValidationRule class]];
 }
 
-- (NSArray *)slaveDependencies {
-    if (!_slaveDependencies.count && _slaveSingleInputControlID.length) {
-        _slaveDependencies = [[NSArray alloc] initWithObjects:_slaveSingleInputControlID, nil];
-    }
-    
-    return _slaveDependencies;
+- (JSDateTimeFormatValidationRule *)dateTimeFormatValidationRule {
+    return [self validationRuleForClass:[JSDateTimeFormatValidationRule class]];
 }
 
 - (NSString *)errorString{
-    if (self.validationRules.mandatoryValidationRule && self.state.value == nil) {
-        return self.validationRules.mandatoryValidationRule.errorMessage;
+    if (self.mandatoryValidationRule && self.state.value == nil) {
+        return self.mandatoryValidationRule.errorMessage;
     } else if ([self.state.error length]) {
         return self.state.error;
     }
@@ -127,9 +126,19 @@
                                                                                  toKeyPath:@"state"
                                                                                withMapping:[JSInputControlState classMappingForServerProfile:serverProfile]]];
     
+    RKDynamicMapping* dynamicMapping = [RKDynamicMapping new];
+    [dynamicMapping setObjectMappingForRepresentationBlock:^RKObjectMapping *(id representation) {
+        id key = [[representation allKeys] lastObject];
+        if ([key isKindOfClass:[NSString class]] && [key isEqualToString:@"mandatoryValidationRule"]) {
+            return [JSMandatoryValidationRule classMappingForServerProfile:serverProfile];
+        } else if ([key isKindOfClass:[NSString class]] && [key isEqualToString:@"dateTimeFormatValidationRule"]) {
+            return [JSDateTimeFormatValidationRule classMappingForServerProfile:serverProfile];
+        }
+        return nil;
+    }];
     [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"validationRules"
                                                                                  toKeyPath:@"validationRules"
-                                                                               withMapping:[JSValidationRules classMappingForServerProfile:serverProfile]]];
+                                                                               withMapping:dynamicMapping]];
     
     return classMapping;
 }
@@ -153,8 +162,6 @@
         newInputControlDescriptor.visible               = [self.visible copyWithZone:zone];
         newInputControlDescriptor.state                 = [self.state copyWithZone:zone];
         newInputControlDescriptor.validationRules       = [self.validationRules copyWithZone:zone];
-        newInputControlDescriptor.masterSingleInputControlID = [self.masterSingleInputControlID copyWithZone:zone];
-        newInputControlDescriptor.slaveSingleInputControlID = [self.slaveSingleInputControlID copyWithZone:zone];
         if (self.masterDependencies) {
             newInputControlDescriptor.masterDependencies    = [[NSArray alloc] initWithArray:self.masterDependencies copyItems:YES];
         }
@@ -167,4 +174,14 @@
         @throw [NSException exceptionWithName:@"Method implementation is missing" reason:messageString userInfo:nil];
     }
 }
+
+- (id) validationRuleForClass:(Class)class {
+    for (id rule in self.validationRules) {
+        if ([rule isKindOfClass:class]) {
+            return rule;
+        }
+    }
+    return nil;
+}
+
 @end

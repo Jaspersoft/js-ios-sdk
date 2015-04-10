@@ -49,7 +49,7 @@
 + (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
     RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
     [classMapping addAttributeMappingsFromDictionary:@{
-                                                       @"errorMessage": @"errorMessage",
+                                                       @"mandatoryValidationRule.errorMessage": @"errorMessage",
                                                        }];
     return classMapping;
 }
