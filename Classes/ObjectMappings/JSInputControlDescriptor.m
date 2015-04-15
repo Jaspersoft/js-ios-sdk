@@ -50,7 +50,7 @@
 }
 
 - (NSString *)errorString{
-    if (self.mandatoryValidationRule && self.state.value == nil) {
+    if (self.mandatoryValidationRule && [self.selectedValues count] == 0) {
         return self.mandatoryValidationRule.errorMessage;
     } else if ([self.state.error length]) {
         return self.state.error;
