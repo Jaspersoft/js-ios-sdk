@@ -255,6 +255,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
         request.completionBlock = ^(JSOperationResult *result) {
             if (!result.error && result.objects.count) {
                 self.serverProfile.serverInfo = [result.objects firstObject];
+                [[RKValueTransformer defaultValueTransformer] addValueTransformer:self.serverInfo.serverDateFormatFormatter];
             }
         };
         [self sendRequest:request];
@@ -342,6 +343,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     [self.restKitObjectManager setAcceptHeaderWithMIMEType:[JSConstants sharedInstance].REST_SDK_MIMETYPE_USED];
 
     self.requestCallBacks = [NSMutableArray new];
+    [RKValueTransformer setDefaultValueTransformer:nil];
 }
 
 // Gets full uri (including rest prefix)

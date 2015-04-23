@@ -49,7 +49,7 @@
 @property (nonatomic, retain) NSString *isNew;
 @property (nonatomic, retain) NSString *label;
 @property (nonatomic, retain) NSString *resourceDescription;
-@property (nonatomic, retain) NSNumber *creationDate;
+@property (nonatomic, retain) NSDate   *creationDate;
 @property (nonatomic, retain) NSArray /*<JSResourceProperty>*/ *resourceProperties;
 @property (nonatomic, retain) NSArray /*<JSResourceDescriptor>*/ *childResourceDescriptors;
 @property (nonatomic, retain) NSArray /*<JSResourceParameter>*/ *parameters;

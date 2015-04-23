@@ -49,6 +49,8 @@
 @property (nonatomic, retain) NSString *dateFormatPattern;
 @property (nonatomic, retain) NSString *datetimeFormatPattern;
 
+@property (nonatomic, strong, readonly) NSDateFormatter *serverDateFormatFormatter;
+
 - (float)versionAsFloat;
 
 @end

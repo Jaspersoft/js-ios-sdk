@@ -46,7 +46,7 @@
 @property (nonatomic, retain) NSString *resourceType;
 @property (nonatomic, retain) NSNumber *version;
 @property (nonatomic, retain) NSNumber *permissionMask;
-@property (nonatomic, retain) NSString *creationDate;
-@property (nonatomic, retain) NSString *updateDate;
+@property (nonatomic, retain) NSDate *creationDate;
+@property (nonatomic, retain) NSDate *updateDate;
 
 @end

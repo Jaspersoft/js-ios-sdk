@@ -39,6 +39,10 @@ NSString * const kJSSavedServerInfoVersionKey               = @"JSSavedServerInf
 NSString * const kJSSavedServerInfoDateFormatPatternKey     = @"JSSavedServerInfoDateFormatPatternKey";
 NSString * const kJSSavedServerInfoDatetimeFormatPatternKey = @"kJSSavedServerInfoDatetimeFormatPatternKey";
 
+@interface JSServerInfo ()
+@property (nonatomic, strong, readwrite) NSDateFormatter *serverDateFormatFormatter;
+@end
+
 @implementation JSServerInfo
 
 - (float)versionAsFloat {
@@ -49,6 +53,15 @@ NSString * const kJSSavedServerInfoDatetimeFormatPatternKey = @"kJSSavedServerIn
         simplyVersionString = [self.version stringByReplacingOccurrencesOfString:@"." withString:@"" options:NSCaseInsensitiveSearch range:minorVersionRange];
     }
     return [simplyVersionString floatValue];
+}
+
+- (NSDateFormatter *)serverDateFormatFormatter {
+    if (!_serverDateFormatFormatter) {
+        _serverDateFormatFormatter = [NSDateFormatter new];
+        _serverDateFormatFormatter.timeZone = [NSTimeZone timeZoneWithName:@"GMT"];
+        _serverDateFormatFormatter.dateFormat = self.datetimeFormatPattern;
+    }
+    return _serverDateFormatFormatter;
 }
 
 #pragma mark - JSSerializationDescriptorHolder
