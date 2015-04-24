@@ -57,13 +57,11 @@
 }
 
 - (void)addParameter:(NSString *)parameter withIntegerValue:(NSInteger)value {
-    if (value > 0) {
-        [self.parameters setObject:[NSNumber numberWithInteger:value] forKey:parameter];
-    }
+    [self.parameters setObject:[NSNumber numberWithInteger:value] forKey:parameter];
 }
 
 - (void)addParameter:(NSString *)parameter withArrayValue:(NSArray *)value {
-    if (value && value.count) {
+    if (value) {
         [self.parameters setObject:value forKey:parameter];
     }
 }
