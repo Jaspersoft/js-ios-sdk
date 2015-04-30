@@ -26,7 +26,7 @@ $ [sudo] gem install cocoapods
 $ pod setup
 ```
 
-Change to the directory of your Xcode project, and Create and Edit your Podfile and add RestKit:
+Change to the directory of your Xcode project, and Create and Edit your Podfile and add JaspersoftSDK:
 
 ``` bash
 $ cd /path/to/MyProject
@@ -34,7 +34,6 @@ $ touch Podfile
 $ edit Podfile
 platform :ios, '6.0' 
 # Or platform :osx, '10.7'
-pod 'ServerReachability', :git => 'https://github.com/ogubariev/ServerReachability.git', :tag => '0.0.1'
 pod 'JaspersoftSDK', :git => 'https://github.com/Jaspersoft/js-ios-sdk.git', :tag => '1.9.0-beta'
 ```
 
