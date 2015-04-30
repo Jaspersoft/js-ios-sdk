@@ -15,7 +15,7 @@ http://community.jaspersoft.com/project/mobile-sdk-ios
 Installation
 ------------
 
-The recommended approach for installing ServerReachability is via the [CocoaPods](http://cocoapods.org/) package manager, as it provides flexible dependency management and dead simple installation. For best results, it is recommended that you install via CocoaPods **>= ** usin0.19.1g Git **>= 1.8.0** installed via Homebrew.
+The recommended approach for installing JaspersoftSDK is via the [CocoaPods](http://cocoapods.org/) package manager, as it provides flexible dependency management and dead simple installation. For best results, it is recommended that you install via CocoaPods **>= ** 0.19.1g Git **>= 1.8.0** installed via Homebrew.
 
 ### via CocoaPods
 
@@ -34,7 +34,7 @@ $ touch Podfile
 $ edit Podfile
 platform :ios, '6.0' 
 # Or platform :osx, '10.7'
-pod 'JaspersoftSDK', :git => 'https://github.com/Jaspersoft/js-ios-sdk.git', :tag => '1.9.0-beta'
+pod 'JaspersoftSDK', :git => 'https://github.com/Jaspersoft/js-ios-sdk.git', :tag => '2.0.0'
 ```
 
 Install into your project:
