@@ -34,7 +34,7 @@
 Represents a reportUnit entity
 
 @author Olexander Dahno odahno@tibco.com
-@since 2.0
+@since 2.1
 */
 
 @interface JSResourceReportUnit : JSResourceLookup

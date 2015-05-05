@@ -90,7 +90,7 @@ Gets resource lookup for resource.
 @param modelClass expected model class
 @param block The block to inform of the results
 
-@since 2.0
+@since 2.1
 */
 - (void)resourceLookupForURI:(NSString *)resourceURI
                 resourceType:(NSString *)resourceType

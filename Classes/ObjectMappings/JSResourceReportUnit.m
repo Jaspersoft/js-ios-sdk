@@ -42,17 +42,8 @@
 
 + (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile
 {
-    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-
+    RKObjectMapping *classMapping = [super classMappingForServerProfile:serverProfile];
     [classMapping addAttributeMappingsFromDictionary:@{
-            @"label": @"label",
-            @"uri": @"uri",
-            @"description": @"resourceDescription",
-            @"resourceType": @"resourceType",
-            @"version": @"version",
-            @"permissionMask": @"permissionMask",
-            @"creationDate": @"creationDate",
-            @"updateDate": @"updateDate",
             @"alwaysPromptControls": @"alwaysPromptControls",
     }];
     return classMapping;
