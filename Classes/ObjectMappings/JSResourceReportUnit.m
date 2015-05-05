@@ -24,26 +24,38 @@
  */
 
 //
-//  JSObjectMappings.h
+//  JSResourceReportUnit.m
 //  Jaspersoft Corporation
 //
 
-#import "JSReportDescriptor.h"
-#import "JSResourceLookup.h"
 #import "JSResourceReportUnit.h"
-#import "JSResourceDescriptor.h"
-#import "JSResourceParameter.h"
-#import "JSResourceProperty.h"
-#import "JSReportAttachment.h"
-#import "JSServerInfo.h"
-#import "JSInputControlDescriptor.h"
-#import "JSInputControlState.h"
-#import "JSInputControlOption.h"
-#import "JSReportParameter.h"
-#import "JSErrorDescriptor.h"
-#import "JSExecutionStatus.h"
-#import "JSExportExecutionResponse.h"
-#import "JSExportExecutionRequest.h"
-#import "JSReportOutputResource.h"
-#import "JSReportExecutionResponse.h"
-#import "JSReportExecutionRequest.h"
+
+
+@implementation JSResourceReportUnit
+
++ (NSString *)resourceRootKeyPath
+{
+    return @"reportUnit";
+}
+
+#pragma mark - JSSerializationDescriptorHolder
+
++ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile
+{
+    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+
+    [classMapping addAttributeMappingsFromDictionary:@{
+            @"label": @"label",
+            @"uri": @"uri",
+            @"description": @"resourceDescription",
+            @"resourceType": @"resourceType",
+            @"version": @"version",
+            @"permissionMask": @"permissionMask",
+            @"creationDate": @"creationDate",
+            @"updateDate": @"updateDate",
+            @"alwaysPromptControls": @"alwaysPromptControls",
+    }];
+    return classMapping;
+}
+
+@end

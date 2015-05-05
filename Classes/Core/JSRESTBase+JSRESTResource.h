@@ -82,6 +82,20 @@
 - (void)resourceLookupForURI:(NSString *)resourceURI resourceType:(NSString *)resourceType
              completionBlock:(JSRequestCompletionBlock)block;
 
+/**
+Gets resource lookup for resource.
+
+@param resourceURI The repository URI (i.e. /reports/samples/)
+@param resourceType Type of required resource
+@param modelClass expected model class
+@param block The block to inform of the results
+
+@since 2.0
+*/
+- (void)resourceLookupForURI:(NSString *)resourceURI
+                resourceType:(NSString *)resourceType
+                   modeClass:(Class)modelClass
+             completionBlock:(JSRequestCompletionBlock)block;
 
 /**
  Gets the list of resource lookups for the resources available in the specified

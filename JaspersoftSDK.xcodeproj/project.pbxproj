@@ -18,6 +18,8 @@
 		37455CF8BA142B8554AF5F9A /* JSReportExecutionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 374558828353F4E8E6F29C17 /* JSReportExecutionResponse.m */; };
 		37455EF10B05B5CAE7512A6F /* JSReportExecutionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 374555044AD45FB4F352A96F /* JSReportExecutionRequest.m */; };
 		722EF964428E5B92861DCAC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE65D84777378DA82ED7BA4 /* libPods.a */; };
+		A147872F4B900E410C80D225 /* JSResourceReportUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = A1478B2D6D9EF0447765EBAA /* JSResourceReportUnit.m */; };
+		A1478FC6A4EDD3F87E9A85CE /* JSResourceReportUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = A1478377B817F437E81E18F1 /* JSResourceReportUnit.h */; };
 		F520FF89196FEE53009435C2 /* JSMandatoryValidationRule.h in Headers */ = {isa = PBXBuildFile; fileRef = F520FF87196FEE53009435C2 /* JSMandatoryValidationRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F520FF8B196FEE53009435C2 /* JSMandatoryValidationRule.m in Sources */ = {isa = PBXBuildFile; fileRef = F520FF88196FEE53009435C2 /* JSMandatoryValidationRule.m */; };
 		F523D78518635EB000B93D3F /* JSExecutionStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = F523D78318635EB000B93D3F /* JSExecutionStatus.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -85,6 +87,8 @@
 		374558828353F4E8E6F29C17 /* JSReportExecutionResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportExecutionResponse.m; sourceTree = "<group>"; };
 		37455C26CA9D110D7CBD29A2 /* JSExportExecutionResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSExportExecutionResponse.m; sourceTree = "<group>"; };
 		9B199A7873E268BCFDF3074C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		A1478377B817F437E81E18F1 /* JSResourceReportUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResourceReportUnit.h; sourceTree = "<group>"; };
+		A1478B2D6D9EF0447765EBAA /* JSResourceReportUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceReportUnit.m; sourceTree = "<group>"; };
 		F520FF87196FEE53009435C2 /* JSMandatoryValidationRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMandatoryValidationRule.h; sourceTree = "<group>"; };
 		F520FF88196FEE53009435C2 /* JSMandatoryValidationRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMandatoryValidationRule.m; sourceTree = "<group>"; };
 		F523D78318635EB000B93D3F /* JSExecutionStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSExecutionStatus.h; sourceTree = "<group>"; };
@@ -352,6 +356,8 @@
 				F597690F15E3C826004165A7 /* JSResourceProperty.m */,
 				F5EA36AC18337B4A00E09E10 /* JSResourceLookup.h */,
 				F5EA36AD18337B4A00E09E10 /* JSResourceLookup.m */,
+				A1478B2D6D9EF0447765EBAA /* JSResourceReportUnit.m */,
+				A1478377B817F437E81E18F1 /* JSResourceReportUnit.h */,
 			);
 			name = Resource;
 			sourceTree = "<group>";
@@ -406,6 +412,7 @@
 				F5D0923818586E4E00C5AEFC /* JSErrorDescriptor.h in Headers */,
 				F520FF89196FEE53009435C2 /* JSMandatoryValidationRule.h in Headers */,
 				F523D78518635EB000B93D3F /* JSExecutionStatus.h in Headers */,
+				A1478FC6A4EDD3F87E9A85CE /* JSResourceReportUnit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,6 +529,7 @@
 				3745523E7EE2CE8C64105A1D /* JSExportExecutionResponse.m in Sources */,
 				37455A556862C72B0B83193F /* JSReportOutputResource.m in Sources */,
 				37455EF10B05B5CAE7512A6F /* JSReportExecutionRequest.m in Sources */,
+				A147872F4B900E410C80D225 /* JSResourceReportUnit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
