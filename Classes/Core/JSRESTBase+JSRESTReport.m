@@ -72,7 +72,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
         }
     }
     
-    NSString *url = [NSString stringWithFormat:@"%@%@%@%@.%@", self.serverProfile.serverUrl,
+    NSString *url = [NSString stringWithFormat:@"%@/%@%@%@.%@", self.serverProfile.serverUrl,
                      constants.REST_SERVICES_V2_URI, constants.REST_REPORTS_URI,
                      resourceDescriptor.uriString, format];
 
@@ -174,7 +174,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
         executionRequest.baseUrl = self.serverProfile.serverUrl;
         if (attachmentsPrefix) {
             JSConstants *constants = [JSConstants sharedInstance];
-            executionRequest.attachmentsPrefix = [NSString stringWithFormat:@"%@%@%@", self.serverProfile.serverUrl, constants.REST_SERVICES_V2_URI, attachmentsPrefix];
+            executionRequest.attachmentsPrefix = [NSString stringWithFormat:@"%@/%@%@", self.serverProfile.serverUrl, constants.REST_SERVICES_V2_URI, attachmentsPrefix];
         }
     }
     request.body = executionRequest;
@@ -183,7 +183,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 
 - (NSString *)generateReportOutputUrl:(NSString *)requestId exportOutput:(NSString *)exportOutput {
     JSConstants *constants = [JSConstants sharedInstance];
-    return [NSString stringWithFormat:@"%@%@%@/%@/exports/%@/outputResource", self.serverProfile.serverUrl, constants.REST_SERVICES_V2_URI, constants.REST_REPORT_EXECUTION_URI, requestId, exportOutput];
+    return [NSString stringWithFormat:@"%@/%@%@/%@/exports/%@/outputResource", self.serverProfile.serverUrl, constants.REST_SERVICES_V2_URI, constants.REST_REPORT_EXECUTION_URI, requestId, exportOutput];
 }
 
 - (void)reportExecutionMetadataForRequestId:(NSString *)requestId completionBlock:(JSRequestCompletionBlock)block {
