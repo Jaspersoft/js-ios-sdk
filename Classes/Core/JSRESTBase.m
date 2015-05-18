@@ -158,6 +158,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
 
 - (void)sendRequest:(JSRequest *)jsRequest additionalHTTPHeaderFields:(NSDictionary *)headerFields{
     if (!self.serverReachability.isReachable) {
+        [self.serverReachability resetReachabilityStatus];
         [self sendCallBackForRequest:jsRequest withOperationResult:[self requestOperationForFailedConnection]];
         return;
     }
