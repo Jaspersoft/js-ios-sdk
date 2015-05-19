@@ -384,7 +384,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
                                                                      MIMEType:httpOperation.response.MIMEType];
  
     result.body = httpOperation.responseData;
-    result.bodyAsString = httpOperation.responseString;
 
     // Error handling
     result.request = [self callBackForOperation:restKitOperation].request;

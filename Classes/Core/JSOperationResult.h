@@ -57,11 +57,6 @@
 @property (nonatomic, strong) NSData *body;
 
 /**
- The downloaded response as string
- */
-@property (nonatomic, strong) NSString *bodyAsString;
-
-/**
  The sent request associated with this result. This is an additional parameter
  which helps to determine which request was sent (because all they are asynchronous).
  */
@@ -88,6 +83,11 @@
  The MIME Type of the response body
  */
 @property (nonatomic, readonly) NSString *MIMEType;
+
+/**
+ The downloaded response as string
+ */
+@property (nonatomic, strong, readonly) NSString *bodyAsString;
 
 /**
  Returns a result with the specified request parameters
