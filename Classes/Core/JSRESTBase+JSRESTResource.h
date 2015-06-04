@@ -101,7 +101,7 @@
  @since 1.9
  */
 - (void)resourceLookupForURI:(NSString *)resourceURI resourceType:(NSString *)resourceType
-             completionBlock:(JSRequestCompletionBlock)block __attribute__((deprecated ("Use 'resourceLookupForURI: resourceType: modeClass: completionBlock:' method instead")));
+             completionBlock:(JSRequestCompletionBlock)block __attribute__((deprecated ("Use 'resourceLookupForURI: resourceType: modelClass: completionBlock:' method instead")));
 
 /**
 Gets resource lookup for resource.
@@ -115,7 +115,7 @@ Gets resource lookup for resource.
 */
 - (void)resourceLookupForURI:(NSString *)resourceURI
                 resourceType:(NSString *)resourceType
-                   modeClass:(Class)modelClass
+                  modelClass:(Class)modelClass
              completionBlock:(JSRequestCompletionBlock)block;
 
 /**

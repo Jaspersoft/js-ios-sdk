@@ -82,7 +82,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 
 - (void)resourceLookupForURI:(NSString *)resourceURI
                 resourceType:(NSString *)resourceType
-                   modeClass:(Class)modelClass
+                   modelClass:(Class)modelClass
              completionBlock:(JSRequestCompletionBlock)block
 {
     NSString *uri = [JSConstants sharedInstance].REST_RESOURCES_URI;
@@ -106,7 +106,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 {
     [self resourceLookupForURI:resourceURI
                   resourceType:resourceType
-                     modeClass:[JSResourceLookup class]
+                    modelClass:[JSResourceLookup class]
                completionBlock:block];
 }
 
