@@ -49,21 +49,6 @@
 //---------------------------------------------------------------------
 
 /**
- Generates the report url according to specified parameters. The new v2/reports
- service allows clients to receive report output in a single request-response
- using this url.
- 
- @param resourceDescriptor resource descriptor of this report with included list of
- report parameter/input control values (list of JSResourceParameter inside descriptor)
- @param page a positive integer value used to output a specific page or 0 to output all pages
- @param format the format of the report output. Possible values: PDF, HTML, XLS, RTF, CSV, XML.
- @return the report url
- 
- @since 1.4
- */
-- (NSString *)generateReportUrl:(JSResourceDescriptor *)resourceDescriptor page:(NSInteger)page format:(NSString *)format;
-
-/**
  Generates the report url to receive all pages report output in HTML format.
  
  @param uri The resource descriptor uri

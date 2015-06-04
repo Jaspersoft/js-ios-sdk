@@ -54,7 +54,9 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 #pragma mark -
 #pragma mark Public methods for REST V2 report API
 
-- (NSString *)generateReportUrl:(JSResourceDescriptor *)resourceDescriptor page:(NSInteger)page format:(NSString *)format {
+- (NSString *)generateReportUrl:(NSString *)uri reportParams:(NSDictionary *)reportParams page:(NSInteger)page format:(NSString *)format {
+    JSResourceDescriptor *resourceDescriptor = [self resourceDescriptorForUri:uri withReportParams:reportParams];
+    
     JSConstants *constants = [JSConstants sharedInstance];
     
     NSMutableDictionary *queryParams = [[NSMutableDictionary alloc] init];
@@ -75,7 +77,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     NSString *url = [NSString stringWithFormat:@"%@/%@%@%@.%@", self.serverProfile.serverUrl,
                      constants.REST_SERVICES_V2_URI, constants.REST_REPORTS_URI,
                      resourceDescriptor.uriString, format];
-
+    
     NSString *queryString = RKURLEncodedStringFromDictionaryWithEncoding(queryParams, NSUTF8StringEncoding);
     url = [url stringByAppendingFormat:([url rangeOfString:@"?"].location == NSNotFound) ? @"?%@" : @"&%@" ,queryString];
     
@@ -88,10 +90,6 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     }
     
     return url;
-}
-
-- (NSString *)generateReportUrl:(NSString *)uri reportParams:(NSDictionary *)reportParams page:(NSInteger)page format:(NSString *)format {
-    return [self generateReportUrl:[self resourceDescriptorForUri:uri withReportParams:reportParams] page:page format:format];
 }
 
 - (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids
