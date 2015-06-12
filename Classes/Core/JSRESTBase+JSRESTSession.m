@@ -65,7 +65,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     
     // Add locale to session
     NSString *currentLanguage = [[NSLocale preferredLanguages] objectAtIndex:0];
-    NSInteger dividerPosition = [currentLanguage rangeOfString:@"_"].location;
+    NSInteger dividerPosition = [currentLanguage rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"_-"]].location;
     if (dividerPosition != NSNotFound) {
         currentLanguage = [currentLanguage substringToIndex:dividerPosition];
     }
