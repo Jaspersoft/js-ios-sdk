@@ -165,8 +165,20 @@
 - (void)reportExecutionStatusForRequestId:(NSString *)requestId completionBlock:(JSRequestCompletionBlock)block;
 
 /**
+ Gets report export status by execution id and export output id.
+ @param executionID A <b>executionID</b> parameter of the report execution response
+ @param exportOutput A <b>exportOutput</b> parameter of the report execution response
+ @param block The block to inform of the results
+
+ @since 2.2
+*/
+- (void)exportExecutionStatusWithExecutionID:(NSString *)executionID
+                                exportOutput:(NSString *)exportOutput
+                                  completion:(JSRequestCompletionBlock)block;
+
+/**
  Loads report output and saves it by specified path if needed
- 
+
  @param requestId A <b>requestId</b> parameter of the report execution response
  @param exportOutput Export parameters as string:
     - for JRS version smaller 5.6.0 it should be in the follow format: {reportFormat};pages={pageOrPagesRange};attachmentsPrefix={attachmentsPrefixUrlEncodedValue};
@@ -174,7 +186,7 @@
  @param loadForSaving If TRUE, report output will be saved by path
  @param path The path where the report output will be saved. Ignored, if loadForSaving is FALSE.
  @param block The block to inform of the results
- 
+
  @since 1.9
  */
 - (void)loadReportOutput:(NSString *)requestId exportOutput:(NSString *)exportOutput
