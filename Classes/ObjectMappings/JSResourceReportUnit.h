@@ -24,26 +24,19 @@
  */
 
 //
-//  JSObjectMappings.h
+//  JSResourceReportUnit.h
 //  Jaspersoft Corporation
 //
 
-#import "JSReportDescriptor.h"
 #import "JSResourceLookup.h"
-#import "JSResourceReportUnit.h"
-#import "JSResourceDescriptor.h"
-#import "JSResourceParameter.h"
-#import "JSResourceProperty.h"
-#import "JSReportAttachment.h"
-#import "JSServerInfo.h"
-#import "JSInputControlDescriptor.h"
-#import "JSInputControlState.h"
-#import "JSInputControlOption.h"
-#import "JSReportParameter.h"
-#import "JSErrorDescriptor.h"
-#import "JSExecutionStatus.h"
-#import "JSExportExecutionResponse.h"
-#import "JSExportExecutionRequest.h"
-#import "JSReportOutputResource.h"
-#import "JSReportExecutionResponse.h"
-#import "JSReportExecutionRequest.h"
+
+/**
+Represents a reportUnit entity
+
+@author Olexander Dahno odahno@tibco.com
+@since 2.1
+*/
+
+@interface JSResourceReportUnit : JSResourceLookup
+@property (nonatomic, assign) BOOL alwaysPromptControls;
+@end

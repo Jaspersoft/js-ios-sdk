@@ -42,6 +42,7 @@ static NSString * const _parameterLimit = @"limit";
 static NSString * const _parameterOffset = @"offset";
 static NSString * const _parameterRecursive = @"recursive";
 static NSString * const _parameterSortBy = @"sortBy";
+static NSString * const _parameterAccessType = @"accessType";
 static NSString * const _parameterForceFullPage = @"forceFullPage";
 
 // HTTP resources search parameters
@@ -79,15 +80,18 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 #pragma mark -
 #pragma mark Public methods for REST V2 resources API
 
-- (void)resourceLookupForURI:(NSString *)resourceURI resourceType:(NSString *)resourceType
-             completionBlock:(JSRequestCompletionBlock)block {
+- (void)resourceLookupForURI:(NSString *)resourceURI
+                resourceType:(NSString *)resourceType
+                   modelClass:(Class)modelClass
+             completionBlock:(JSRequestCompletionBlock)block
+{
     NSString *uri = [JSConstants sharedInstance].REST_RESOURCES_URI;
     if (resourceURI && ![resourceURI isEqualToString:@"/"]) {
         uri = [uri stringByAppendingString:resourceURI];
     }
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
     request.restVersion = JSRESTVersion_2;
-    request.expectedModelClass = [JSResourceLookup class];
+    request.expectedModelClass = modelClass;
     request.completionBlock = block;
     NSString *responceType = @"application/json";
     if (resourceType) {
@@ -96,29 +100,61 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
     [self sendRequest:request additionalHTTPHeaderFields:@{kJSRequestResponceType : responceType}];
 }
 
-- (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types
-              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit completionBlock:(JSRequestCompletionBlock)block {
-    [self resourceLookups:folderUri query:query types:types sortBy:nil recursive:recursive offset:offset limit:limit completionBlock:block];
+- (void)resourceLookupForURI:(NSString *)resourceURI
+                resourceType:(NSString *)resourceType
+             completionBlock:(JSRequestCompletionBlock)block
+{
+    [self resourceLookupForURI:resourceURI
+                  resourceType:resourceType
+                    modelClass:[JSResourceLookup class]
+               completionBlock:block];
 }
 
-- (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types sortBy:(NSString *)sortBy
-              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit completionBlock:(JSRequestCompletionBlock)block {
+- (void)resourceLookups:(NSString *)folderUri
+                  query:(NSString *)query
+                  types:(NSArray *)types
+                 sortBy:(NSString *)sortBy
+              recursive:(BOOL)recursive
+                 offset:(NSInteger)offset
+                  limit:(NSInteger)limit
+        completionBlock:(JSRequestCompletionBlock)block
+{
+    [self resourceLookups:folderUri query:query types:types sortBy:sortBy accessType:@"viewed" recursive:recursive offset:offset limit:limit completionBlock:block];
+}
+
+- (void)resourceLookups:(NSString *)folderUri
+                  query:(NSString *)query
+                  types:(NSArray *)types
+                 sortBy:(NSString *)sortBy
+             accessType:(NSString *)accessType
+              recursive:(BOOL)recursive
+                 offset:(NSInteger)offset
+                  limit:(NSInteger)limit
+        completionBlock:(JSRequestCompletionBlock)block
+{
     JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_RESOURCES_URI];
     request.restVersion = JSRESTVersion_2;
     request.expectedModelClass = [JSResourceLookup class];
-
+    
     [request addParameter:_parameterFolderUri withStringValue:folderUri];
     [request addParameter:_parameterQuery withStringValue:query];
     [request addParameter:_parameterType withArrayValue:types];
     [request addParameter:_parameterSortBy withStringValue:sortBy];
-    [request addParameter:_parameterLimit withIntegerValue:limit];
+    [request addParameter:_parameterAccessType withStringValue:accessType];
     [request addParameter:_parameterRecursive withStringValue:[JSConstants stringFromBOOL:recursive]];
     [request addParameter:_parameterOffset withIntegerValue:offset];
     [request addParameter:_parameterLimit withIntegerValue:limit];
     [request addParameter:_parameterForceFullPage withStringValue:[JSConstants stringFromBOOL:YES]];
-
+    
     request.completionBlock = block;
     [self sendRequest:request];
+}
+
+- (NSString *)generateThumbnailImageUrl:(NSString *)resourceURI
+{
+    NSString *restURI = [JSConstants sharedInstance].REST_SERVICES_V2_URI;
+    NSString *thumbnailURI = [JSConstants sharedInstance].REST_RESOURCE_THUMBNAIL_URI;
+    return  [NSString stringWithFormat:@"%@/%@%@%@?defaultAllowed=false", self.serverProfile.serverUrl, restURI, thumbnailURI, resourceURI];
 }
 
 #pragma mark -

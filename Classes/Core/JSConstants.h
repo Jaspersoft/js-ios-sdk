@@ -273,6 +273,7 @@
 @property (nonatomic, readonly) NSString *REST_SERVICES_V2_URI;
 @property (nonatomic, readonly) NSString *REST_RESOURCE_URI;
 @property (nonatomic, readonly) NSString *REST_RESOURCES_URI;
+@property (nonatomic, readonly) NSString *REST_RESOURCE_THUMBNAIL_URI;
 @property (nonatomic, readonly) NSString *REST_REPORT_URI;
 @property (nonatomic, readonly) NSString *REST_REPORTS_URI;
 @property (nonatomic, readonly) NSString *REST_INPUT_CONTROLS_URI;

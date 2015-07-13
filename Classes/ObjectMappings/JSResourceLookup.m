@@ -32,13 +32,18 @@
 
 @implementation JSResourceLookup
 
++ (NSString *)resourceRootKeyPath
+{
+    return @"resourceLookup";
+}
+
 #pragma mark - JSSerializationDescriptorHolder
 
 + (NSArray *)rkRequestDescriptorsForServerProfile:(JSProfile *)serverProfile {
     NSMutableArray *descriptorsArray = [NSMutableArray array];
     [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
                                                                       objectClass:self
-                                                                      rootKeyPath:@"resourceLookup"
+                                                                      rootKeyPath:[self resourceRootKeyPath]
                                                                            method:RKRequestMethodAny]];
     return descriptorsArray;
 }
@@ -71,7 +76,7 @@
 }
 
 + (NSArray *)classMappingPathes {
-    return @[@"resourceLookup", @""];
+    return @[[self resourceRootKeyPath], @""];
 }
 
 @end
