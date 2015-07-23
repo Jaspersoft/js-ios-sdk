@@ -146,7 +146,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     
     [self configureRestKitObjectManager];
     
-    self.serverReachability = [ServerReachability reachabilityWithServer:serverProfile.serverUrl];
+    self.serverReachability = [ServerReachability reachabilityWithServer:serverProfile.serverUrl timeout:[JSConstants sharedInstance].REST_JRS_CONNECTION_TIMEOUT];
 }
 
 #pragma mark -

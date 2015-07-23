@@ -2,10 +2,10 @@ Jaspersoft Mobile SDK for iOS version 1.8
 Copyright (C) 2011 - 2014 Jaspersoft Corporation. All rights reserved.
 http://community.jaspersoft.com/project/mobile-sdk-ios
 
-Unless you have purchased a commercial license agreement from Jaspersoft,
+Unless you have purchased a commercial license agreement from TIBCO Jaspersoft,
 the following license terms apply:
 
-This program is part of Jaspersoft Mobile SDK for iOS.
+This program is part of TIBCO Jaspersoft Mobile SDK for iOS.
 
 Jaspersoft Mobile SDK is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by

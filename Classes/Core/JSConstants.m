@@ -146,6 +146,7 @@ static JSConstants *_sharedInstance;
 @synthesize CONTENT_TYPE_IMG;
 @synthesize REST_SDK_MIMETYPE_USED;
 @synthesize REST_JRS_LOCALE_SUPPORTED;
+@synthesize REST_JRS_CONNECTION_TIMEOUT;
 @synthesize REST_AUTHENTICATION_URI;
 @synthesize REST_SERVICES_URI;
 @synthesize REST_SERVICES_V2_URI;
@@ -387,6 +388,8 @@ static JSConstants *_sharedInstance;
                                   @"it" : @"it",
                                   @"zh" : @"zh_CN",
                                   @"pt" : @"pt_BR"};
+    
+    REST_JRS_CONNECTION_TIMEOUT = 7;
 }
 
 - (void)setRESTURIPrefixes {
