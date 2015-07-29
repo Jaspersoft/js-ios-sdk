@@ -54,7 +54,7 @@ NSString * const kJSSavedSessionKeepSessionKey      = @"JSSavedSessionKeepSessio
 static NSTimeInterval const _defaultTimeoutInterval = 120;
 
 // Helper template message indicates that request was finished successfully
-NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
+NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nResponse: %@";
 
 
 // Inner JSCallback class contains JSRequest and RKRequest instances.
@@ -473,9 +473,10 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     if (callBack) {
         [self.requestCallBacks removeObject:callBack];
         
+#ifdef NDEBUG
         RKHTTPRequestOperation *httpOperation = [restKitOperation isKindOfClass:[RKObjectRequestOperation class]] ? [restKitOperation HTTPRequestOperation] : restKitOperation;
-        NSLog(_requestFinishedTemplateMessage, [httpOperation.request.URL absoluteString]);
-        
+        NSLog(_requestFinishedTemplateMessage, [httpOperation.request.URL absoluteString], [result bodyAsString]);
+#endif
         [self sendCallBackForRequest:callBack.request withOperationResult:result];
     }
 }
