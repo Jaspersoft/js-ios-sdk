@@ -473,7 +473,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     if (callBack) {
         [self.requestCallBacks removeObject:callBack];
         
-#ifdef NDEBUG
+#ifndef __RELEASE__
         RKHTTPRequestOperation *httpOperation = [restKitOperation isKindOfClass:[RKObjectRequestOperation class]] ? [restKitOperation HTTPRequestOperation] : restKitOperation;
         NSLog(_requestFinishedTemplateMessage, [httpOperation.request.URL absoluteString], [result bodyAsString]);
 #endif
