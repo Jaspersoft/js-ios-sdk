@@ -34,7 +34,28 @@ $ touch Podfile
 $ edit Podfile
 platform :ios, '6.0' 
 # Or platform :osx, '10.7'
-pod 'JaspersoftSDK', :git => 'https://github.com/Jaspersoft/js-ios-sdk.git', :tag => '2.0.0'
+pod 'JaspersoftSDK', :git => 'https://github.com/Jaspersoft/js-ios-sdk.git', :tag => '2.0.2'
+post_install do |installer_representation|
+  installer_representation.project.targets.each do |target|
+    if target.name == "Pods-JaspersoftSDK"
+      target.build_configurations.each do |config|
+        if config.build_settings['GCC_PREPROCESSOR_DEFINITIONS']
+          config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] |= ['$(inherited)']
+        elsif
+          config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)']
+        end
+
+        if config.name == 'Debug'
+          config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] |= ['__DEBUG__']
+        elsif config.name == 'Adhoc'
+          config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] |= ['__ADHOC__']
+        elsif config.name == 'Release'
+          config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] |= ['__RELEASE__']
+        end      
+      end
+    end
+  end
+end
 ```
 
 Install into your project:
