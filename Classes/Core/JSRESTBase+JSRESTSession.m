@@ -74,7 +74,20 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     
     __block BOOL authenticationSuccess = NO;
     [request setCompletionBlock:@weakself(^(JSOperationResult *result)) {
-        authenticationSuccess = (!result.error);
+            switch (result.statusCode) {
+                case 401: // Unauthorized
+                case 403: { // Forbidden
+                    authenticationSuccess = NO;
+                    break;
+                }
+                case 302: { // redirect
+                    authenticationSuccess = (!result.error);
+                    break;
+                }
+                default: {
+                    authenticationSuccess = (!result.error);
+                }
+            }
     } @weakselfend];
     [self sendRequest:request];
     
