@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		9363A1031B70E2720068FC54 /* Documentation */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 9363A1061B70E2720068FC54 /* Build configuration list for PBXAggregateTarget "Documentation" */;
+			buildPhases = (
+				9363A1071B70E29A0068FC54 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Documentation;
+			productName = Documentation;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		081DCA131A9C793D007A7F1B /* JSRESTBase+JSRESTSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 081DCA111A9C793D007A7F1B /* JSRESTBase+JSRESTSession.h */; };
 		081DCA141A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 081DCA121A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m */; };
@@ -482,6 +496,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0630;
+				TargetAttributes = {
+					9363A1031B70E2720068FC54 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+				};
 			};
 			buildConfigurationList = F59768B715E3C75E004165A7 /* Build configuration list for PBXProject "JaspersoftSDK" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -496,6 +515,7 @@
 			projectRoot = "";
 			targets = (
 				F59768BC15E3C75F004165A7 /* JaspersoftSDK */,
+				9363A1031B70E2720068FC54 /* Documentation */,
 			);
 		};
 /* End PBXProject section */
@@ -515,6 +535,19 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		9363A1071B70E29A0068FC54 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"TIBCO Jaspersoft\";\ncompanyID=\"com.Jaspersoft.TIBCO\";\ncompanyURL=\"http://TIBCO.com\";\ntarget=\"iphoneos\";\noutputPath=\"~/Developer/help/js-ios-sdk\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--output \"${outputPath}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
 		};
 		936962AFE0075F3901B56B92 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -576,6 +609,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		9363A1041B70E2720068FC54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		9363A1051B70E2720068FC54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		F59768C815E3C75F004165A7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -703,6 +750,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9363A1061B70E2720068FC54 /* Build configuration list for PBXAggregateTarget "Documentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9363A1041B70E2720068FC54 /* Debug */,
+				9363A1051B70E2720068FC54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		F59768B715E3C75E004165A7 /* Build configuration list for PBXProject "JaspersoftSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
