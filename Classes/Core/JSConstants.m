@@ -228,6 +228,11 @@ static JSConstants *_sharedInstance;
     return aBOOL ? @"true" : @"false";
 }
 
++ (NSString *)keychainIdentifier {
+    return [NSString stringWithFormat:@"%@.GenericKeychainSuite", [NSBundle mainBundle].bundleIdentifier];
+}
+
+
 #pragma mark -
 #pragma mark Constants initialization
 

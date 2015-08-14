@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		081DCA131A9C793D007A7F1B /* JSRESTBase+JSRESTSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 081DCA111A9C793D007A7F1B /* JSRESTBase+JSRESTSession.h */; };
 		081DCA141A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 081DCA121A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m */; };
+		084F28A51B7CF89E00551341 /* KeychainItemWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 084F28A31B7CF89E00551341 /* KeychainItemWrapper.h */; };
+		084F28A61B7CF89E00551341 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 084F28A41B7CF89E00551341 /* KeychainItemWrapper.m */; settings = {COMPILER_FLAGS = "fno-objc-arc"; }; };
 		088208821A01328900B6559F /* JSExportExecutionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 088208801A01328900B6559F /* JSExportExecutionRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		088208831A01328900B6559F /* JSExportExecutionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 088208811A01328900B6559F /* JSExportExecutionRequest.m */; };
 		08B8FA181A6FCEAF00E9FE60 /* weakself.h in Headers */ = {isa = PBXBuildFile; fileRef = 08B8FA171A6FCEAF00E9FE60 /* weakself.h */; };
@@ -76,6 +78,8 @@
 /* Begin PBXFileReference section */
 		081DCA111A9C793D007A7F1B /* JSRESTBase+JSRESTSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSRESTBase+JSRESTSession.h"; sourceTree = "<group>"; };
 		081DCA121A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSRESTSession.m"; sourceTree = "<group>"; };
+		084F28A31B7CF89E00551341 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
+		084F28A41B7CF89E00551341 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
 		088208801A01328900B6559F /* JSExportExecutionRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSExportExecutionRequest.h; sourceTree = "<group>"; };
 		088208811A01328900B6559F /* JSExportExecutionRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSExportExecutionRequest.m; sourceTree = "<group>"; };
 		08AC6B371A94AD450069CBE3 /* JSErrors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSErrors.h; sourceTree = "<group>"; };
@@ -111,11 +115,11 @@
 		F596020215ECCC9300B62DFD /* JaspersoftSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JaspersoftSDK.h; sourceTree = "<group>"; };
 		F59768BD15E3C75F004165A7 /* libJaspersoftSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJaspersoftSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F59768C015E3C75F004165A7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		F59768E815E3C826004165A7 /* JSConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JSConstants.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		F59768E815E3C826004165A7 /* JSConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JSConstants.h; sourceTree = "<group>"; };
 		F59768E915E3C826004165A7 /* JSConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSConstants.m; sourceTree = "<group>"; };
 		F59768EA15E3C826004165A7 /* JSOperationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JSOperationResult.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F59768EB15E3C826004165A7 /* JSOperationResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSOperationResult.m; sourceTree = "<group>"; };
-		F59768EC15E3C826004165A7 /* JSProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JSProfile.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		F59768EC15E3C826004165A7 /* JSProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JSProfile.h; sourceTree = "<group>"; };
 		F59768ED15E3C826004165A7 /* JSProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSProfile.m; sourceTree = "<group>"; };
 		F59768EE15E3C826004165A7 /* JSRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSRequest.h; sourceTree = "<group>"; };
 		F59768EF15E3C826004165A7 /* JSRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSRequest.m; sourceTree = "<group>"; };
@@ -167,6 +171,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		084F28A21B7CF89E00551341 /* KeychainItemWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				084F28A31B7CF89E00551341 /* KeychainItemWrapper.h */,
+				084F28A41B7CF89E00551341 /* KeychainItemWrapper.m */,
+			);
+			path = KeychainItemWrapper;
+			sourceTree = "<group>";
+		};
 		374553109AB205D3BBCAB9ED /* ReportExecution */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,6 +285,7 @@
 		F59768F615E3C826004165A7 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				084F28A21B7CF89E00551341 /* KeychainItemWrapper */,
 				08B8FA171A6FCEAF00E9FE60 /* weakself.h */,
 			);
 			path = Helpers;
@@ -382,6 +396,7 @@
 				F596020315ECCC9300B62DFD /* JaspersoftSDK.h in Headers */,
 				F5F173FA186486FD00779136 /* JSCore.h in Headers */,
 				F52DF64918648C28000D375E /* JSObjectMappings.h in Headers */,
+				084F28A51B7CF89E00551341 /* KeychainItemWrapper.h in Headers */,
 				F597691815E3C826004165A7 /* JSProfile.h in Headers */,
 				F597692015E3C826004165A7 /* JSRESTBase.h in Headers */,
 				F597692415E3C826004165A7 /* JSRESTBase+JSRESTReport.h in Headers */,
@@ -509,6 +524,7 @@
 				F597692615E3C826004165A7 /* JSRESTBase+JSRESTReport.m in Sources */,
 				F597692A15E3C826004165A7 /* JSRESTBase+JSRESTResource.m in Sources */,
 				081DCA141A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m in Sources */,
+				084F28A61B7CF89E00551341 /* KeychainItemWrapper.m in Sources */,
 				F597694515E3C826004165A7 /* JSReportAttachment.m in Sources */,
 				F597694915E3C826004165A7 /* JSReportDescriptor.m in Sources */,
 				F597694D15E3C826004165A7 /* JSResourceDescriptor.m in Sources */,
