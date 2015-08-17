@@ -55,6 +55,13 @@
 + (NSString *)stringFromBOOL:(BOOL)aBOOL;
 
 /**
+ Get string identifier for Keychain
+ 
+ @return A string identifier for Keychain in format <YOUR_APP_BUNDLE_ID.GenericKeychainSuite>
+ */
++ (NSString *)keychainIdentifier;
+
+/**
  @name WebService types
  @{
  */
