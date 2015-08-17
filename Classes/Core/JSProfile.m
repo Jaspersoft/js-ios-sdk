@@ -100,7 +100,6 @@ NSString * const kJSSavedProfileServerInfoKey   = @"JSSavedProfileServerInfoKey"
         
         _alias = [aDecoder decodeObjectForKey:kJSSavedProfileAliasKey];
         _serverUrl = [aDecoder decodeObjectForKey:kJSSavedProfileServerUrlKey];
-        _password = [aDecoder decodeObjectForKey:kJSSavedProfilePasswordKey];
         _organization = [aDecoder decodeObjectForKey:kJSSavedProfileOrganisationKey];
         _serverInfo = [aDecoder decodeObjectForKey:kJSSavedProfileServerInfoKey];
     }
