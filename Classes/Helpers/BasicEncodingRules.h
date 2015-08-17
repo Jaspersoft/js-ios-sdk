@@ -29,7 +29,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#include <objc/objc-runtime.h>
+//#include <objc/objc-runtime.h>
+#import <objc/runtime.h>
 
 // Bits 7 and 8 
 //      8 7 6 5 4 3 2 1
