@@ -124,6 +124,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
                 }
                 case 302: { // redirect
                     BOOL isErrorRedirect = NO;
+                    // TODO: move handle of this error to up
                     NSString *location = result.allHeaderFields[@"Location"];
                     if (location) {
                         NSRange errorStringRange = [location rangeOfString:@"error"];
