@@ -27,6 +27,7 @@ THIRD PARTY COMPONENTS
 This software includes third party software subject to the associated copyrights, as follows:
 - RestKit v0.24.1 (Apache v2.0) - http://restkit.org/
 - ServerReachability v0.0.2 (MIT) - https://github.com/ogubariev/ServerReachability
+- BasicEncodingRules - https://github.com/StCredZero/SCZ-BasicEncodingRules-iOS
 
 The text of licenses for the above software is included with the
 Jaspersoft Mobile SDK for iOS package, in the /licenses folder.
