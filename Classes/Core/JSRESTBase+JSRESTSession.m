@@ -32,6 +32,7 @@
 #import "JSRESTBase+JSRESTSession.h"
 #import "JSConstants.h"
 #import "weakself.h"
+#import "JSEncryptionManager.h"
 
 NSString * const kJSAuthenticationUsernameKey       = @"j_username";
 NSString * const kJSAuthenticationPasswordKey       = @"j_password";
@@ -48,21 +49,62 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     }
 }
 
-- (BOOL)authenticationToken {
+- (BOOL)authenticationToken
+{
+    NSString *URI = @"GetEncryptionKey";
+    JSRequest *request = [[JSRequest alloc] initWithUri:URI];
+
+    request.restVersion = JSRESTVersion_None;
+    request.method = RKRequestMethodGET;
+    request.responseAsObjects = NO;
+    request.redirectAllowed = NO;
+    request.asynchronous = NO;
+
+    __block BOOL authenticationSuccess = NO;
+    [request setCompletionBlock:@weakself(^(JSOperationResult *result)) {
+            NSError *jsonError;
+            NSData *jsonData = result.body;
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                 options:NSJSONReadingMutableContainers
+                                                                   error:&jsonError];
+            NSString *modulus = json[@"n"];
+            NSString *exponent = json[@"e"];
+
+            NSString *password = self.serverProfile.password;
+            if (modulus) {
+                JSEncryptionManager *encryptionManager = [JSEncryptionManager managerWithModulus:modulus
+                                                                                        exponent:exponent];
+                password = [encryptionManager encryptText:password];
+            }
+
+            authenticationSuccess = [self authenticationTokenWithUsername:self.serverProfile.username
+                                                                 password:password
+                                                             organization:self.serverProfile.organization];
+
+        } @weakselfend];
+
+    [self sendRequest:request];
+    return authenticationSuccess;
+}
+
+- (BOOL)authenticationTokenWithUsername:(NSString *)username
+                               password:(NSString *)password
+                           organization:(NSString *)organization
+{
     JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_AUTHENTICATION_URI];
     request.restVersion = JSRESTVersion_None;
     request.method = RKRequestMethodGET;
     request.responseAsObjects = NO;
     request.redirectAllowed = NO;
     request.asynchronous = NO;
-    
+
     [self resetReachabilityStatus];
-    
-    [request addParameter:kJSAuthenticationUsernameKey      withStringValue:self.serverProfile.username];
-    [request addParameter:kJSAuthenticationPasswordKey      withStringValue:self.serverProfile.password];
-    [request addParameter:kJSAuthenticationOrganizationKey  withStringValue:self.serverProfile.organization];
+
+    [request addParameter:kJSAuthenticationUsernameKey      withStringValue:username];
+    [request addParameter:kJSAuthenticationPasswordKey      withStringValue:password];
+    [request addParameter:kJSAuthenticationOrganizationKey  withStringValue:organization];
     [request addParameter:kJSAuthenticationTimezoneKey      withStringValue:[[NSTimeZone localTimeZone] name]];
-    
+
     // Add locale to session
     NSString *currentLanguage = [[NSLocale preferredLanguages] objectAtIndex:0];
     NSInteger dividerPosition = [currentLanguage rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"_-"]].location;
@@ -71,7 +113,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     }
     NSString *currentLocale = [[JSConstants sharedInstance].REST_JRS_LOCALE_SUPPORTED objectForKey:currentLanguage];
     [request addParameter:kJSAuthenticationLocaleKey withStringValue:currentLocale];
-    
+
     __block BOOL authenticationSuccess = NO;
     [request setCompletionBlock:@weakself(^(JSOperationResult *result)) {
             switch (result.statusCode) {
@@ -81,16 +123,22 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
                     break;
                 }
                 case 302: { // redirect
-                    authenticationSuccess = (!result.error);
+                    BOOL isErrorRedirect = NO;
+                    NSString *location = result.allHeaderFields[@"Location"];
+                    if (location) {
+                        NSRange errorStringRange = [location rangeOfString:@"error"];
+                        isErrorRedirect = errorStringRange.length > 0;
+                    }
+                    authenticationSuccess = !result.error && !isErrorRedirect;
                     break;
                 }
                 default: {
                     authenticationSuccess = (!result.error);
                 }
             }
-    } @weakselfend];
+        } @weakselfend];
     [self sendRequest:request];
-    
+
     return authenticationSuccess;
 }
 
