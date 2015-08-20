@@ -62,21 +62,25 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
 
     __block BOOL authenticationSuccess = NO;
     [request setCompletionBlock:@weakself(^(JSOperationResult *result)) {
+            NSString *password = self.serverProfile.password;
+
             NSError *jsonError;
             NSData *jsonData = result.body;
-            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                                 options:NSJSONReadingMutableContainers
-                                                                   error:&jsonError];
-            NSString *modulus = json[@"n"];
-            NSString *exponent = json[@"e"];
+            if (jsonData) {
+                NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                     options:NSJSONReadingMutableContainers
+                                                                       error:&jsonError];
+                if (json) {
+                    NSString *modulus = json[@"n"];
+                    NSString *exponent = json[@"e"];
 
-            NSString *password = self.serverProfile.password;
-            if (modulus) {
-                JSEncryptionManager *encryptionManager = [JSEncryptionManager managerWithModulus:modulus
-                                                                                        exponent:exponent];
-                password = [encryptionManager encryptText:password];
+                    if (modulus) {
+                        JSEncryptionManager *encryptionManager = [JSEncryptionManager managerWithModulus:modulus
+                                                                                                exponent:exponent];
+                        password = [encryptionManager encryptText:password];
+                    }
+                }
             }
-
             authenticationSuccess = [self authenticationTokenWithUsername:self.serverProfile.username
                                                                  password:password
                                                              organization:self.serverProfile.organization];
