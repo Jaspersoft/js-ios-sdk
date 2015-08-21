@@ -33,6 +33,7 @@
 #import "JSReportDescriptor.h"
 #import "JSInputControlDescriptor.h"
 #import <Foundation/Foundation.h>
+#import "JSReportOption.h"
 
 /**
  Extention to <code>JSRESTBase</code> class for working with reports by REST calls. 
@@ -205,5 +206,40 @@
  @since 1.8
  */
 - (void)saveReportAttachment:(NSString *)requestId exportOutput:(NSString *)exportOutput attachmentName:(NSString *)attachmentName path:(NSString *)path completionBlock:(JSRequestCompletionBlock)block;
+
+/**
+ Gets the report options array for report
+ 
+ @param reportUri repository URI of the report
+ @param block The block to inform of the results
+ 
+ @since 2.1
+ */
+- (void)reportOptionsForReportURI:(NSString *)reportURI completion:(JSRequestCompletionBlock)block;
+
+/**
+ Delete existed report option
+ 
+ @param reportOption the report option for deleting
+ @param reportUri repository URI of the report
+ @param block The block to inform of the results
+ 
+ @since 2.1
+ */
+
+- (void)deleteReportOption:(JSReportOption *)reportOption withReportURI:(NSString *)reportURI completion:(JSRequestCompletionBlock)completion;
+
+/**
+ Create new report option
+ 
+ @param reportUri repository URI of the report
+ @param optionLabel the name for new report option
+ @param reportParameters parameters for new report option creating
+ @param block The block to inform of the results
+ 
+ @since 2.1
+ */
+
+- (void)createReportOptionWithReportURI:(NSString *)reportURI optionLabel:(NSString *)optionLabel reportParameters:(NSArray *)reportParameters completion:(JSRequestCompletionBlock)completion;
 
 @end
