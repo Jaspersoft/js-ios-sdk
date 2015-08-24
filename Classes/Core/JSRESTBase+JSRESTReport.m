@@ -240,7 +240,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 
 - (void)reportOptionsForReportURI:(NSString *)reportURI completion:(JSRequestCompletionBlock)block
 {
-    NSString *uri = [NSString stringWithFormat:@"%@%@/%@", [JSConstants sharedInstance].REST_REPORTS_URI, reportURI, [JSConstants sharedInstance].REST_REPORT_OPTIONS_URI];
+    NSString *uri = [NSString stringWithFormat:@"%@%@%@", [JSConstants sharedInstance].REST_REPORTS_URI, reportURI, [JSConstants sharedInstance].REST_REPORT_OPTIONS_URI];
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
     request.expectedModelClass = [JSReportOption class];
     request.restVersion = JSRESTVersion_2;
