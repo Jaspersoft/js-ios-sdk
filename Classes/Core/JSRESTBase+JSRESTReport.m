@@ -276,7 +276,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     //[http://]{host}:{port}/{contextPath}/rest_v2/reports/{reportUnitURI}/options?label={labelValue}&overwrite={overwriteValue, default false}
     
     JSConstants *constants = [JSConstants sharedInstance];
-    NSString *requestURIString = [NSString stringWithFormat:@"%@%@%@?label=%@",
+    NSString *requestURIString = [NSString stringWithFormat:@"%@%@%@?label=%@&overwrite=yes",
                                   constants.REST_REPORTS_URI,
                                   reportURI,
                                   constants.REST_REPORT_OPTIONS_URI, optionLabel];
