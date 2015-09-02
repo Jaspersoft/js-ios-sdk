@@ -35,6 +35,14 @@
 
 @implementation JSReportOption
 
+- (BOOL)isEqual:(id)object
+{
+    if (self == object || ([self.uri isEqualToString:[object uri]] && [self.label isEqualToString:[object label]])) {
+        return YES;
+    }
+    return NO;
+}
+
 #pragma mark - JSSerializationDescriptorHolder
 + (NSArray *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
     NSMutableArray *descriptorsArray = [NSMutableArray array];
@@ -77,4 +85,18 @@
     return @[@"reportOptionsSummary", @""];
 }
 
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone {
+    if ([self isMemberOfClass: [JSReportOption class]]) {
+        JSReportOption *newReportOption = [[self class] allocWithZone:zone];
+        newReportOption.uri             = [self.uri copyWithZone:zone];
+        newReportOption.label           = [self.label copyWithZone:zone];
+        newReportOption.identifier      = [self.identifier copyWithZone:zone];
+        return newReportOption;
+    } else {
+        NSString *messageString = [NSString stringWithFormat:@"You need to implement \"copyWithZone:\" method in %@",NSStringFromClass([self class])];
+        @throw [NSException exceptionWithName:@"Method implementation is missing" reason:messageString userInfo:nil];
+    }
+}
 @end

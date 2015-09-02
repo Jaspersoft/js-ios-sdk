@@ -31,13 +31,13 @@
 #import <Foundation/Foundation.h>
 #import "JSSerializationDescriptorHolder.h"
 
-typedef NS_ENUM (NSInteger, JMPermissionMask) {
-    JMPermissionMask_Administration = 1 << 0,
-    JMPermissionMask_Read = 1 << 1,
-    JMPermissionMask_Write = 1 << 2,
-    JMPermissionMask_Create = 1 << 3,
-    JMPermissionMask_Delete = 1 << 4,
-    JMPermissionMask_Execute = 1 << 5
+typedef NS_ENUM (NSInteger, JSPermissionMask) {
+    JSPermissionMask_Administration = 1 << 0,
+    JSPermissionMask_Read = 1 << 1,
+    JSPermissionMask_Write = 1 << 2,
+    JSPermissionMask_Create = 1 << 3,
+    JSPermissionMask_Delete = 1 << 4,
+    JSPermissionMask_Execute = 1 << 5
 };
 
 /**

@@ -40,8 +40,10 @@
 #import <JaspersoftSDK/JSSerializationDescriptorHolder.h>
 
 
-@interface JSReportOption : NSObject <JSSerializationDescriptorHolder>
+@interface JSReportOption : NSObject <JSSerializationDescriptorHolder, NSCopying>
 @property (nonatomic, strong) NSString *uri;
 @property (nonatomic, strong) NSString *identifier;
 @property (nonatomic, strong) NSString *label;
+
+- (BOOL)isEqual:(id)object;
 @end
