@@ -41,15 +41,25 @@ NSString * const kJSAuthenticationLocaleKey         = @"userLocale";
 NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
 
 @implementation JSRESTBase(JSRESTSession)
+
+#pragma mark - Public API
 - (BOOL)isSessionAuthorized {
+    return self.cookies.count > 0;
+}
+
+- (void)verifyIsSessionAuthorizedWithCompletion:(void (^)(BOOL isSessionAuthorized))completion
+{
     if ([self.cookies count]) {
-        return YES;
+        if (completion) {
+            completion(YES);
+        }
     } else {
-        return [self authenticationToken];
+        [self authenticateWithCompletion:completion];
     }
 }
 
-- (BOOL)authenticationToken
+#pragma mark - Private API
+- (void)fetchEncryptionKeyWithCompletion:(void(^)(NSString *modulus, NSString *exponent, NSError *error))completion
 {
     NSString *URI = @"GetEncryptionKey";
     JSRequest *request = [[JSRequest alloc] initWithUri:URI];
@@ -58,42 +68,41 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     request.method = RKRequestMethodGET;
     request.responseAsObjects = NO;
     request.redirectAllowed = NO;
-    request.asynchronous = NO;
+    request.asynchronous = YES;
 
-    __block BOOL authenticationSuccess = NO;
     [request setCompletionBlock:@weakself(^(JSOperationResult *result)) {
-            NSString *password = self.serverProfile.password;
-
-            NSError *jsonError;
             NSData *jsonData = result.body;
             if (jsonData) {
+                NSError *jsonError;
                 NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData
                                                                      options:NSJSONReadingMutableContainers
                                                                        error:&jsonError];
                 if (json) {
                     NSString *modulus = json[@"n"];
                     NSString *exponent = json[@"e"];
-
-                    if (modulus) {
-                        JSEncryptionManager *encryptionManager = [JSEncryptionManager managerWithModulus:modulus
-                                                                                                exponent:exponent];
-                        password = [encryptionManager encryptText:password];
+                    if (completion && modulus && exponent) {
+                        completion(modulus, exponent, nil);
+                    }
+                } else {
+                    if (completion) {
+                        completion(nil, nil, jsonError);
                     }
                 }
+            } else {
+                if (completion) {
+                    completion(nil, nil, result.error);
+                }
             }
-            authenticationSuccess = [self authenticationTokenWithUsername:self.serverProfile.username
-                                                                 password:password
-                                                             organization:self.serverProfile.organization];
-
         } @weakselfend];
 
     [self sendRequest:request];
-    return authenticationSuccess;
 }
 
-- (BOOL)authenticationTokenWithUsername:(NSString *)username
-                               password:(NSString *)password
-                           organization:(NSString *)organization
+- (void)fetchAuthenticationTokenWithUsername:(NSString *)username
+                                    password:(NSString *)password
+                                organization:(NSString *)organization
+                                      method:(RKRequestMethod)requestMethod
+                                completion:(void(^)(BOOL isTokenFetchedSuccessful))completion
 {
     JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_AUTHENTICATION_URI];
     request.restVersion = JSRESTVersion_None;
@@ -104,11 +113,6 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
 
     [self resetReachabilityStatus];
 
-    [request addParameter:kJSAuthenticationUsernameKey      withStringValue:username];
-    [request addParameter:kJSAuthenticationPasswordKey      withStringValue:password];
-    [request addParameter:kJSAuthenticationOrganizationKey  withStringValue:organization];
-    [request addParameter:kJSAuthenticationTimezoneKey      withStringValue:[[NSTimeZone localTimeZone] name]];
-
     // Add locale to session
     NSString *currentLanguage = [[NSLocale preferredLanguages] objectAtIndex:0];
     NSInteger dividerPosition = [currentLanguage rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"_-"]].location;
@@ -116,14 +120,39 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
         currentLanguage = [currentLanguage substringToIndex:dividerPosition];
     }
     NSString *currentLocale = [[JSConstants sharedInstance].REST_JRS_LOCALE_SUPPORTED objectForKey:currentLanguage];
-    [request addParameter:kJSAuthenticationLocaleKey withStringValue:currentLocale];
 
-    __block BOOL authenticationSuccess = NO;
+    if (requestMethod == RKRequestMethodGET) {
+        [request addParameter:kJSAuthenticationUsernameKey      withStringValue:username];
+        [request addParameter:kJSAuthenticationPasswordKey      withStringValue:password];
+        [request addParameter:kJSAuthenticationOrganizationKey  withStringValue:organization];
+        [request addParameter:kJSAuthenticationTimezoneKey      withStringValue:[[NSTimeZone localTimeZone] name]];
+        [request addParameter:kJSAuthenticationLocaleKey withStringValue:currentLocale];
+    } else if (requestMethod == RKRequestMethodPOST) {
+        request.multipartFormConstructingBodyBlock = ^(id <AFMultipartFormData> formData) {
+            // username
+            NSData *usernameData = [username dataUsingEncoding:NSUTF8StringEncoding];
+            [formData appendPartWithFormData:usernameData name:kJSAuthenticationUsernameKey];
+            // password
+            NSData *passwordData = [password dataUsingEncoding:NSUTF8StringEncoding];
+            [formData appendPartWithFormData:passwordData name:kJSAuthenticationPasswordKey];
+            // organization
+            NSData *organizationData = [organization dataUsingEncoding:NSUTF8StringEncoding];
+            [formData appendPartWithFormData:organizationData name:kJSAuthenticationOrganizationKey];
+            // time zone
+            NSData *timeZoneData = [[[NSTimeZone localTimeZone] name] dataUsingEncoding:NSUTF8StringEncoding];
+            [formData appendPartWithFormData:timeZoneData name:kJSAuthenticationTimezoneKey];
+            // locale
+            NSData *localeData = [currentLocale dataUsingEncoding:NSUTF8StringEncoding];
+            [formData appendPartWithFormData:localeData name:kJSAuthenticationLocaleKey];
+        };
+    }
+
     [request setCompletionBlock:@weakself(^(JSOperationResult *result)) {
+            BOOL isTokenFetchedSuccessful = NO;
             switch (result.statusCode) {
                 case 401: // Unauthorized
                 case 403: { // Forbidden
-                    authenticationSuccess = NO;
+                    isTokenFetchedSuccessful = NO;
                     break;
                 }
                 case 302: { // redirect
@@ -134,17 +163,45 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
                         NSRange errorStringRange = [location rangeOfString:@"error"];
                         isErrorRedirect = errorStringRange.length > 0;
                     }
-                    authenticationSuccess = !result.error && !isErrorRedirect;
+                    isTokenFetchedSuccessful = !result.error && !isErrorRedirect;
                     break;
                 }
                 default: {
-                    authenticationSuccess = (!result.error);
+                    isTokenFetchedSuccessful = (!result.error);
                 }
+            }
+            if (completion) {
+                completion(isTokenFetchedSuccessful);
             }
         } @weakselfend];
     [self sendRequest:request];
+}
 
-    return authenticationSuccess;
+- (void)authenticateWithCompletion:(void(^)(BOOL isSuccess))completion
+{
+    // TODO: use encryption
+    // encryption doesn't work via POST
+//    [self fetchEncryptionKeyWithCompletion:^(NSString *modulus, NSString *exponent, NSError *error) {
+//        if (modulus && exponent) {
+//            JSEncryptionManager *encryptionManager = [JSEncryptionManager managerWithModulus:modulus
+//                                                                                    exponent:exponent];
+//            NSString *encPassword = [encryptionManager encryptText:password];
+//        }
+//    }];
+
+    NSString *username = self.serverProfile.username;
+    NSString *password = self.serverProfile.password;
+    NSString *organization = self.serverProfile.organization;
+
+    [self fetchAuthenticationTokenWithUsername:username
+                                      password:password
+                                  organization:organization
+                                        method:RKRequestMethodPOST // TODO: make select method
+                                    completion:^(BOOL isTokenFetchedSuccessful) {
+                                        if (completion) {
+                                            completion(isTokenFetchedSuccessful);
+                                        }
+                                    }];
 }
 
 @end
