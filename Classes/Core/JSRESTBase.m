@@ -176,9 +176,21 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     if (descriptiorHolder && [[descriptiorHolder class] respondsToSelector:@selector(rkRequestDescriptorsForServerProfile:)]) {
         [self.restKitObjectManager addRequestDescriptorsFromArray:[[descriptiorHolder class] rkRequestDescriptorsForServerProfile:self.serverProfile]];
     }
-    
-    NSMutableURLRequest *urlRequest = [self.restKitObjectManager requestWithObject:jsRequest.body method:jsRequest.method path:fullUri parameters:jsRequest.params];
-    
+
+    NSMutableURLRequest *urlRequest;
+    if (jsRequest.multipartFormConstructingBodyBlock) {
+        urlRequest = [self.restKitObjectManager multipartFormRequestWithObject:self
+                                                                        method:jsRequest.method
+                                                                          path:fullUri
+                                                                    parameters:nil
+                                                     constructingBodyWithBlock:jsRequest.multipartFormConstructingBodyBlock];
+    } else {
+        urlRequest = [self.restKitObjectManager requestWithObject:jsRequest.body
+                                                                                method:jsRequest.method
+                                                                                  path:fullUri
+                                                                            parameters:jsRequest.params];
+    }
+
     RKHTTPRequestOperation *httpOperation = [[RKHTTPRequestOperation alloc] initWithRequest:urlRequest];
     NSOperation *requestOperation = httpOperation;
     

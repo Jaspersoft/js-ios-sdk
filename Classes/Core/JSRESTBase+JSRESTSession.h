@@ -46,8 +46,7 @@
  
  @since 1.9
  */
-
-- (BOOL)isSessionAuthorized;
-
+- (BOOL)isSessionAuthorized __attribute__((deprecated));
+- (void)verifyIsSessionAuthorizedWithCompletion:(void (^)(BOOL isSessionAuthorized))completion;
 
 @end
