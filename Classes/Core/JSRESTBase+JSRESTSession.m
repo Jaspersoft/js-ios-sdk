@@ -106,10 +106,10 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
 {
     JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_AUTHENTICATION_URI];
     request.restVersion = JSRESTVersion_None;
-    request.method = RKRequestMethodGET;
+    request.method = requestMethod;
     request.responseAsObjects = NO;
     request.redirectAllowed = NO;
-    request.asynchronous = NO;
+    request.asynchronous = YES;
 
     [self resetReachabilityStatus];
 
@@ -121,30 +121,32 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     }
     NSString *currentLocale = [[JSConstants sharedInstance].REST_JRS_LOCALE_SUPPORTED objectForKey:currentLanguage];
 
-    if (requestMethod == RKRequestMethodGET) {
-        [request addParameter:kJSAuthenticationUsernameKey      withStringValue:username];
-        [request addParameter:kJSAuthenticationPasswordKey      withStringValue:password];
-        [request addParameter:kJSAuthenticationOrganizationKey  withStringValue:organization];
-        [request addParameter:kJSAuthenticationTimezoneKey      withStringValue:[[NSTimeZone localTimeZone] name]];
-        [request addParameter:kJSAuthenticationLocaleKey withStringValue:currentLocale];
-    } else if (requestMethod == RKRequestMethodPOST) {
-        request.multipartFormConstructingBodyBlock = ^(id <AFMultipartFormData> formData) {
-            // username
-            NSData *usernameData = [username dataUsingEncoding:NSUTF8StringEncoding];
-            [formData appendPartWithFormData:usernameData name:kJSAuthenticationUsernameKey];
-            // password
-            NSData *passwordData = [password dataUsingEncoding:NSUTF8StringEncoding];
-            [formData appendPartWithFormData:passwordData name:kJSAuthenticationPasswordKey];
-            // organization
-            NSData *organizationData = [organization dataUsingEncoding:NSUTF8StringEncoding];
-            [formData appendPartWithFormData:organizationData name:kJSAuthenticationOrganizationKey];
-            // time zone
-            NSData *timeZoneData = [[[NSTimeZone localTimeZone] name] dataUsingEncoding:NSUTF8StringEncoding];
-            [formData appendPartWithFormData:timeZoneData name:kJSAuthenticationTimezoneKey];
-            // locale
-            NSData *localeData = [currentLocale dataUsingEncoding:NSUTF8StringEncoding];
-            [formData appendPartWithFormData:localeData name:kJSAuthenticationLocaleKey];
-        };
+    [request addParameter:kJSAuthenticationUsernameKey      withStringValue:username];
+    [request addParameter:kJSAuthenticationPasswordKey      withStringValue:password];
+    [request addParameter:kJSAuthenticationOrganizationKey  withStringValue:organization];
+    [request addParameter:kJSAuthenticationTimezoneKey      withStringValue:[[NSTimeZone localTimeZone] name]];
+    [request addParameter:kJSAuthenticationLocaleKey withStringValue:currentLocale];
+
+    if (requestMethod == RKRequestMethodPOST) {
+        self.restKitObjectManager.requestSerializationMIMEType = RKMIMETypeFormURLEncoded;
+
+//        request.multipartFormConstructingBodyBlock = ^(id <AFMultipartFormData> formData) {
+//            // username
+//            NSData *usernameData = [username dataUsingEncoding:NSUTF8StringEncoding];
+//            [formData appendPartWithFormData:usernameData name:kJSAuthenticationUsernameKey];
+//            // password
+//            NSData *passwordData = [password dataUsingEncoding:NSUTF8StringEncoding];
+//            [formData appendPartWithFormData:passwordData name:kJSAuthenticationPasswordKey];
+//            // organization
+//            NSData *organizationData = [organization dataUsingEncoding:NSUTF8StringEncoding];
+//            [formData appendPartWithFormData:organizationData name:kJSAuthenticationOrganizationKey];
+//            // time zone
+//            NSData *timeZoneData = [[[NSTimeZone localTimeZone] name] dataUsingEncoding:NSUTF8StringEncoding];
+//            [formData appendPartWithFormData:timeZoneData name:kJSAuthenticationTimezoneKey];
+//            // locale
+//            NSData *localeData = [currentLocale dataUsingEncoding:NSUTF8StringEncoding];
+//            [formData appendPartWithFormData:localeData name:kJSAuthenticationLocaleKey];
+//        };
     }
 
     [request setCompletionBlock:@weakself(^(JSOperationResult *result)) {
@@ -179,29 +181,29 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
 
 - (void)authenticateWithCompletion:(void(^)(BOOL isSuccess))completion
 {
-    // TODO: use encryption
-    // encryption doesn't work via POST
-//    [self fetchEncryptionKeyWithCompletion:^(NSString *modulus, NSString *exponent, NSError *error) {
-//        if (modulus && exponent) {
-//            JSEncryptionManager *encryptionManager = [JSEncryptionManager managerWithModulus:modulus
-//                                                                                    exponent:exponent];
-//            NSString *encPassword = [encryptionManager encryptText:password];
-//        }
-//    }];
-
     NSString *username = self.serverProfile.username;
     NSString *password = self.serverProfile.password;
     NSString *organization = self.serverProfile.organization;
 
-    [self fetchAuthenticationTokenWithUsername:username
-                                      password:password
-                                  organization:organization
-                                        method:RKRequestMethodPOST // TODO: make select method
-                                    completion:^(BOOL isTokenFetchedSuccessful) {
-                                        if (completion) {
-                                            completion(isTokenFetchedSuccessful);
-                                        }
-                                    }];
+    [self fetchEncryptionKeyWithCompletion:@weakself(^(NSString *modulus, NSString *exponent, NSError *error)) {
+            NSString *encPassword = password;
+            if (modulus && exponent) {
+                JSEncryptionManager *encryptionManager = [JSEncryptionManager managerWithModulus:modulus
+                                                                                        exponent:exponent];
+                encPassword = [encryptionManager encryptText:password];
+            }
+
+            [self fetchAuthenticationTokenWithUsername:username
+                                              password:encPassword
+                                          organization:organization
+                                                method:RKRequestMethodPOST // TODO: make select method
+                                            completion:@weakself(^(BOOL isTokenFetchedSuccessful)) {
+                                                    self.restKitObjectManager.requestSerializationMIMEType = RKMIMETypeJSON;
+                                                    if (completion) {
+                                                        completion(isTokenFetchedSuccessful);
+                                                    }
+                                                }@weakselfend];
+        }@weakselfend];
 }
 
 @end
