@@ -88,7 +88,6 @@ NSString * const kJSAuthenticationTag = @"TIBCO.JasperServer.Password";
 
 - (SecKeyRef)addPublicKeyWithTagName:(NSString *)tagName keyBits:(NSData *)publicKey
 {
-    OSStatus sanityCheck = 0;
     SecKeyRef peerKeyRef = NULL;
     CFTypeRef persistPeer = NULL;
 
@@ -101,13 +100,11 @@ NSString * const kJSAuthenticationTag = @"TIBCO.JasperServer.Password";
     peerPublicKeyAttr[(__bridge id) kSecAttrApplicationTag] = peerTag;
     peerPublicKeyAttr[(__bridge id) kSecReturnPersistentRef] = @(YES);
 
-    sanityCheck = SecItemDelete((__bridge_retained CFDictionaryRef)peerPublicKeyAttr);
-//    NSLog(@"delete item status: %ld", sanityCheck);
+    SecItemDelete((__bridge CFDictionaryRef)peerPublicKeyAttr);
 
     peerPublicKeyAttr[(__bridge id) kSecValueData] = publicKey;
 
-    sanityCheck = SecItemAdd((__bridge_retained CFDictionaryRef) peerPublicKeyAttr, (CFTypeRef *)&persistPeer);
-//    NSLog(@"add item status: %ld", sanityCheck);
+    SecItemAdd((__bridge CFDictionaryRef) peerPublicKeyAttr, (CFTypeRef *)&persistPeer);
 
     if (persistPeer) {
         NSMutableDictionary* query = [
@@ -116,14 +113,12 @@ NSString * const kJSAuthenticationTag = @"TIBCO.JasperServer.Password";
                         (__bridge id) kSecReturnRef : @YES
                 } mutableCopy];
 
-        sanityCheck = SecItemCopyMatching((__bridge_retained CFDictionaryRef)query, (CFTypeRef*)&peerKeyRef);
-//        NSLog(@"copy matching from persistent ref status: %ld", sanityCheck);
+        SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef*)&peerKeyRef);
     } else {
         [peerPublicKeyAttr removeObjectForKey:(__bridge id)kSecValueData];
         peerPublicKeyAttr[(__bridge id) kSecReturnRef] = @YES;
         // Let's retry a different way.
-        sanityCheck = SecItemCopyMatching((__bridge_retained CFDictionaryRef) peerPublicKeyAttr, (CFTypeRef *)&peerKeyRef);
-//        NSLog(@"copy matching from tag status: %ld", sanityCheck);
+        SecItemCopyMatching((__bridge CFDictionaryRef) peerPublicKeyAttr, (CFTypeRef *)&peerKeyRef);
     }
 
     if (persistPeer) CFRelease(persistPeer);
@@ -142,6 +137,7 @@ NSString * const kJSAuthenticationTag = @"TIBCO.JasperServer.Password";
             &cipherBuffer[0],
             &cipherBufferSize);
     NSData *encryptedData = [NSData dataWithBytes:cipherBuffer length:cipherBufferSize];
+    free(cipherBuffer);
     return encryptedData;
 }
 
@@ -168,7 +164,6 @@ NSString * const kJSAuthenticationTag = @"TIBCO.JasperServer.Password";
         whole_byte = (unsigned char) strtol(byte_chars, NULL, 16);
         [result appendBytes:&whole_byte length:1];
     }
-    NSLog(@"%@", result);
 
     return result;
 }

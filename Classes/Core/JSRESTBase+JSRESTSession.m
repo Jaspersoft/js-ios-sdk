@@ -129,24 +129,6 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
 
     if (requestMethod == RKRequestMethodPOST) {
         self.restKitObjectManager.requestSerializationMIMEType = RKMIMETypeFormURLEncoded;
-
-//        request.multipartFormConstructingBodyBlock = ^(id <AFMultipartFormData> formData) {
-//            // username
-//            NSData *usernameData = [username dataUsingEncoding:NSUTF8StringEncoding];
-//            [formData appendPartWithFormData:usernameData name:kJSAuthenticationUsernameKey];
-//            // password
-//            NSData *passwordData = [password dataUsingEncoding:NSUTF8StringEncoding];
-//            [formData appendPartWithFormData:passwordData name:kJSAuthenticationPasswordKey];
-//            // organization
-//            NSData *organizationData = [organization dataUsingEncoding:NSUTF8StringEncoding];
-//            [formData appendPartWithFormData:organizationData name:kJSAuthenticationOrganizationKey];
-//            // time zone
-//            NSData *timeZoneData = [[[NSTimeZone localTimeZone] name] dataUsingEncoding:NSUTF8StringEncoding];
-//            [formData appendPartWithFormData:timeZoneData name:kJSAuthenticationTimezoneKey];
-//            // locale
-//            NSData *localeData = [currentLocale dataUsingEncoding:NSUTF8StringEncoding];
-//            [formData appendPartWithFormData:localeData name:kJSAuthenticationLocaleKey];
-//        };
     }
 
     [request setCompletionBlock:@weakself(^(JSOperationResult *result)) {
