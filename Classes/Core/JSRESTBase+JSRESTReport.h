@@ -213,7 +213,7 @@
  @param reportUri repository URI of the report
  @param block The block to inform of the results
  
- @since 2.1
+ @since 2.2
  */
 - (void)reportOptionsForReportURI:(NSString *)reportURI completion:(JSRequestCompletionBlock)block;
 
@@ -224,7 +224,7 @@
  @param reportUri repository URI of the report
  @param block The block to inform of the results
  
- @since 2.1
+ @since 2.2
  */
 
 - (void)deleteReportOption:(JSReportOption *)reportOption withReportURI:(NSString *)reportURI completion:(JSRequestCompletionBlock)completion;
@@ -237,7 +237,7 @@
  @param reportParameters parameters for new report option creating
  @param block The block to inform of the results
  
- @since 2.1
+ @since 2.2
  */
 
 - (void)createReportOptionWithReportURI:(NSString *)reportURI optionLabel:(NSString *)optionLabel reportParameters:(NSArray *)reportParameters completion:(JSRequestCompletionBlock)completion;

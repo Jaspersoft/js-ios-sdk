@@ -33,7 +33,7 @@
 /**
  @author Aleksandr Dakhno odahno@tibco.com
  @author Alexey Gubarev ogubarie@tibco.com
- @since 2.1
+ @since 2.2
  */
 
 #import <Foundation/Foundation.h>
