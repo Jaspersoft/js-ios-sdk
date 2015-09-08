@@ -170,7 +170,7 @@
  @param exportOutput A <b>exportOutput</b> parameter of the report execution response
  @param block The block to inform of the results
 
- @since 2.2
+ @since 2.1
 */
 - (void)exportExecutionStatusWithExecutionID:(NSString *)executionID
                                 exportOutput:(NSString *)exportOutput
