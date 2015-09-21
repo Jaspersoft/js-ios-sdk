@@ -3,7 +3,7 @@ Jaspersoft Mobile SDK for iOS
 
 The Jaspersoft Mobile SDK for iOS provides a library, samples, and documentation for developers to build mobile applications based on Jaspersoft JasperReports Server web services.
 
-The interaction with JasperReports Server is based on the REST APIs that come with JasperReports Server 4.7.1 and later.
+The interaction with JasperReports Server is based on the REST APIs that come with JasperReports Server 5.5 and later.
 
 
 General Information
@@ -32,9 +32,10 @@ Change to the directory of your Xcode project, and Create and Edit your Podfile 
 $ cd /path/to/MyProject
 $ touch Podfile
 $ edit Podfile
+
 platform :ios, '6.0' 
 # Or platform :osx, '10.7'
-pod 'JaspersoftSDK', :git => 'https://github.com/Jaspersoft/js-ios-sdk.git', :tag => '2.0.2'
+pod 'JaspersoftSDK', :git => 'https://github.com/Jaspersoft/js-ios-sdk.git', :tag => '2.1'
 post_install do |installer_representation|
   installer_representation.project.targets.each do |target|
     if target.name == "Pods-JaspersoftSDK"
