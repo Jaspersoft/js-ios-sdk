@@ -120,6 +120,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     if (!error) {
         [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:mimeType];
         [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:@"text/html"];
+        [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:@"text/plain"];
     } else {
         NSString *messageString = [NSString stringWithFormat:@"Unsupported mime type \"%@\"",mimeType.pattern];
         @throw [NSException exceptionWithName:@"Unsupported mime type" reason:messageString userInfo:nil];

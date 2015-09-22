@@ -24,38 +24,26 @@
  */
 
 //
-//  JSResourceLookup.h
+//  JSReportOption.h
 //  Jaspersoft Corporation
 //
 
 #import <Foundation/Foundation.h>
-#import "JSSerializationDescriptorHolder.h"
-
-typedef NS_ENUM (NSInteger, JSPermissionMask) {
-    JSPermissionMask_Administration = 1 << 0,
-    JSPermissionMask_Read = 1 << 1,
-    JSPermissionMask_Write = 1 << 2,
-    JSPermissionMask_Create = 1 << 3,
-    JSPermissionMask_Delete = 1 << 4,
-    JSPermissionMask_Execute = 1 << 5
-};
 
 /**
- Represents a resource lookup entity for convenient XML serialization process.
- 
- @author Vlad Zavadskii vzavadskii@jaspersoft.com
+ @author Aleksandr Dakhno odahno@tibco.com
  @author Alexey Gubarev ogubarie@tibco.com
- @since 1.7
+ @since 2.2
  */
-@interface JSResourceLookup : NSObject <JSSerializationDescriptorHolder>
 
-@property (nonatomic, retain) NSString *label;
-@property (nonatomic, retain) NSString *uri;
-@property (nonatomic, retain) NSString *resourceDescription;
-@property (nonatomic, retain) NSString *resourceType;
-@property (nonatomic, retain) NSNumber *version;
-@property (nonatomic, retain) NSNumber *permissionMask;
-@property (nonatomic, retain) NSDate *creationDate;
-@property (nonatomic, retain) NSDate *updateDate;
+#import <Foundation/Foundation.h>
+#import <JaspersoftSDK/JSSerializationDescriptorHolder.h>
 
+
+@interface JSReportOption : NSObject <JSSerializationDescriptorHolder, NSCopying>
+@property (nonatomic, strong) NSString *uri;
+@property (nonatomic, strong) NSString *identifier;
+@property (nonatomic, strong) NSString *label;
+
+- (BOOL)isEqual:(id)object;
 @end
