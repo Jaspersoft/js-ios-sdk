@@ -252,7 +252,6 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
              withReportURI:(NSString *)reportURI
                 completion:(JSRequestCompletionBlock)completion
 {
-    //[http://]{host}:{port}/{contextPath}/rest_v2/reports/{reportUnitURI}/options/{optionsId}
     JSConstants *constants = [JSConstants sharedInstance];
     NSString *requestURIString = [NSString stringWithFormat:@"%@%@%@/%@",
                                   constants.REST_REPORTS_URI,
@@ -260,7 +259,6 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
                                   constants.REST_REPORT_OPTIONS_URI,
                                   reportOption.identifier];
     JSRequest *request = [[JSRequest alloc] initWithUri:requestURIString];
-    //    request.expectedModelClass = [JSInputControlState class];
     request.restVersion = JSRESTVersion_2;
     request.method = RKRequestMethodDELETE;
     request.completionBlock = completion;
@@ -272,9 +270,6 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
                        reportParameters:(NSArray *)reportParameters
                              completion:(JSRequestCompletionBlock)completion
 {
-    //POST
-    //[http://]{host}:{port}/{contextPath}/rest_v2/reports/{reportUnitURI}/options?label={labelValue}&overwrite={overwriteValue, default false}
-    
     JSConstants *constants = [JSConstants sharedInstance];
     NSString *requestURIString = [NSString stringWithFormat:@"%@%@%@?label=%@&overwrite=%@",
                                   constants.REST_REPORTS_URI,

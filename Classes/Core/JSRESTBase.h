@@ -49,7 +49,7 @@ extern NSString * const kJSRequestResponceType;
  @todo Provide helper classes for job and administration services
  
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
- @author Ivan Gadzhega  igadzhega@jaspersoft.com
+ @author Aleksandr Dakhno odahno@tibco.com
  @author Alexey Gubarev ogubarie@tibco.com
 
  @since 1.3

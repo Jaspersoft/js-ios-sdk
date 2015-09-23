@@ -50,7 +50,7 @@
 //---------------------------------------------------------------------
 
 /**
- Generates the report url to receive all pages report output in HTML format.
+ Generates the report url to receive all pages report output in selected format.
  
  @param uri The resource descriptor uri
  @param reportParams list of report parameter/input control values

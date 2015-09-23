@@ -35,6 +35,7 @@
  Extention to <code>JSRESTBase</code> class for working with HTTP session.
  
  @author Alexey Gubarev ogubarie@tibco.com
+ @author Aleksandr Dakhno odahno@tibco.com
  @since 1.9
  */
 
