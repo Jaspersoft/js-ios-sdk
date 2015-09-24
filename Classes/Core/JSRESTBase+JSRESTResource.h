@@ -48,7 +48,7 @@
  @param resource JSResourceDescriptor of resource being modified
  @param block The block to inform of the results
  */
-- (void)createResource:(JSResourceDescriptor *)resource completionBlock:(JSRequestCompletionBlock)block;
+- (void)createResource:(JSResourceDescriptor *)resource completionBlock:(JSRequestCompletionBlock)block DEPRECATED_MSG_ATTRIBUTE("Will be replaced with new one for using v.2 REST API in next version SDK");
 
 /**
  Modifies the resource with specified JSResourceDescriptor
@@ -56,7 +56,11 @@
  @param resource JSResourceDescriptor of resource being modified
  @param block The block to inform of the results
  */
-- (void)modifyResource:(JSResourceDescriptor *)resource completionBlock:(JSRequestCompletionBlock)block;
+- (void)modifyResource:(JSResourceDescriptor *)resource completionBlock:(JSRequestCompletionBlock)block DEPRECATED_MSG_ATTRIBUTE("Will be replaced with new one for using v.2 REST API in next version SDK");
+
+//---------------------------------------------------------------------
+// The Resources Service v2
+//---------------------------------------------------------------------
 
 /**
  Deletes the resource with the specified URI
@@ -65,10 +69,6 @@
  @param block The block to inform of the results
  */
 - (void)deleteResource:(NSString *)uri completionBlock:(JSRequestCompletionBlock)block;
-
-//---------------------------------------------------------------------
-// The Resources Service v2
-//---------------------------------------------------------------------
 
 /**
 Gets resource lookup for resource.

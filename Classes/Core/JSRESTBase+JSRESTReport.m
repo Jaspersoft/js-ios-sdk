@@ -29,7 +29,7 @@
 //
 
 #import "JSConstants.h"
-#import "JSResourceParameter.h"
+#import "JSReportParameter.h"
 #import "JSReportDescriptor.h"
 #import "JSReportExecutionRequest.h"
 #import "JSReportExecutionResponse.h"
@@ -54,29 +54,28 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 #pragma mark -
 #pragma mark Public methods for REST V2 report API
 
-- (NSString *)generateReportUrl:(NSString *)uri reportParams:(NSDictionary *)reportParams page:(NSInteger)page format:(NSString *)format {
-    JSResourceDescriptor *resourceDescriptor = [self resourceDescriptorForUri:uri withReportParams:reportParams];
-    
+- (NSString *)generateReportUrl:(NSString *)uri reportParams:(NSArray /*<JSReportParameter>*/ *)reportParams page:(NSInteger)page format:(NSString *)format {
     JSConstants *constants = [JSConstants sharedInstance];
     
-    NSMutableDictionary *queryParams = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *queryParams = [NSMutableDictionary new];
     if (page > 0) {
         [queryParams setObject:[NSNumber numberWithInteger:page] forKey:@"page"];
     }
     
-    for (JSResourceParameter *parameter in resourceDescriptor.parameters) {
-        if (parameter.isListItem.boolValue) {
-            NSMutableArray *params = [queryParams objectForKey:parameter.name] ?: [[NSMutableArray alloc] init];
-            [params addObject:parameter.value];
-            [queryParams setObject:params forKey:parameter.name];
-        } else {
-            [queryParams setObject:parameter.value forKey:parameter.name];
+    for (JSReportParameter *reportParam in reportParams) {
+        if (reportParam.name && reportParam.value) {
+            if ([reportParam.value count] > 1) {
+                [queryParams setObject:reportParam.value forKey:reportParam.name];
+            } else {
+                if (reportParam.value.lastObject) {
+                    [queryParams setObject:reportParam.value.lastObject forKey:reportParam.name];
+                }
+            }
         }
     }
     
     NSString *url = [NSString stringWithFormat:@"%@/%@%@%@.%@", self.serverProfile.serverUrl,
-                     constants.REST_SERVICES_V2_URI, constants.REST_REPORTS_URI,
-                     resourceDescriptor.uriString, format];
+                     constants.REST_SERVICES_V2_URI, constants.REST_REPORTS_URI, uri, format];
     
     NSString *queryString = RKURLEncodedStringFromDictionaryWithEncoding(queryParams, NSUTF8StringEncoding);
     url = [url stringByAppendingFormat:([url rangeOfString:@"?"].location == NSNotFound) ? @"?%@" : @"&%@" ,queryString];
@@ -91,7 +90,6 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     
     return url;
 }
-
 - (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids
                 selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues completionBlock:(JSRequestCompletionBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:NO]];
@@ -335,50 +333,6 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 - (NSDictionary *)runReportQueryParams:(NSString *)format {
     return [NSDictionary dictionaryWithObjectsAndKeys:@"./", _baseReportQueryImagesParam,
             format, _baseReportQueryOutputFormatParam, nil];
-}
-
-// Creates resource descriptor with report parameters (retrieved from IC)
-- (JSResourceDescriptor *)resourceDescriptorForUri:(NSString *)uri withReportParams:(NSDictionary *)reportParams {
-    JSConstants *constants = [JSConstants sharedInstance];
-    
-    // Base configuration for resource descriptor
-    JSResourceDescriptor *resourceDescriptor = [[JSResourceDescriptor alloc] init];
-    resourceDescriptor.name = @"";
-    resourceDescriptor.uriString = uri;
-    resourceDescriptor.wsType = constants.WS_TYPE_REPORT_UNIT;
-    
-    // Return resource descriptor if no any other params was provided
-    if (!reportParams.count) {
-        return resourceDescriptor;
-    }
-    
-    // Create JSResourceParameters from report params
-    NSMutableArray *resourceParameters = [[NSMutableArray alloc] init];
-    
-    for (id reportParam in reportParams.keyEnumerator) {
-        id reportValue = [reportParams objectForKey:reportParam];
-        
-        if ([reportValue isKindOfClass:[NSArray class]]) {
-            for (NSString *subReportValue in reportValue) {
-                [resourceParameters addObject:[[JSResourceParameter alloc] initWithName:reportParam
-                                                                             isListItem:[constants.class stringFromBOOL:YES]
-                                                                                  value:subReportValue]];
-            }
-        } else if([reportValue isKindOfClass:[NSDate class]]) {
-            NSString *intervalAsString = [NSString stringWithFormat:@"%lld", [NSNumber numberWithDouble:[reportValue timeIntervalSince1970] * 1000.0f].longLongValue];
-            [resourceParameters addObject:[[JSResourceParameter alloc] initWithName:reportParam
-                                                                         isListItem:[constants.class stringFromBOOL:NO]
-                                                                              value:intervalAsString]];
-        } else {
-            [resourceParameters addObject:[[JSResourceParameter alloc] initWithName:reportParam
-                                                                         isListItem:[constants.class stringFromBOOL:NO]
-                                                                              value:reportValue]];
-        }
-    }
-    
-    resourceDescriptor.parameters = resourceParameters;
-    
-    return resourceDescriptor;
 }
 
 // TODO: refactor, find better way to make URL encoded string

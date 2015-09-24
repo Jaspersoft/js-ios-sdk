@@ -41,6 +41,8 @@
 
  @since 1.0
  */
+
+DEPRECATED_MSG_ATTRIBUTE("Use JSResourceLookup instead.")
 @interface JSResourceDescriptor : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *name;

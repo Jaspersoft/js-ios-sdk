@@ -31,7 +31,6 @@
 #import "JSConstants.h"
 #import "JSResourceLookup.h"
 #import "JSResourceDescriptor.h"
-#import "JSResourceParameter.h"
 #import "JSRESTBase+JSRESTResource.h"
 
 // HTTP resources search parameters
@@ -62,6 +61,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 }
 
 - (void)modifyResource:(JSResourceDescriptor *)resource completionBlock:(JSRequestCompletionBlock)block {
+    JSResourceDescriptor *ee = [JSResourceDescriptor new];
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:resource.uriString]];
     request.expectedModelClass = [JSResourceDescriptor class];
     request.method = RKRequestMethodPUT;
@@ -70,15 +70,16 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
     [self sendRequest:request];
 }
 
+#pragma mark -
+#pragma mark Public methods for REST V2 resources API
+
 - (void)deleteResource:(NSString *)uri completionBlock:(JSRequestCompletionBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:uri]];
+    request.restVersion = JSRESTVersion_2;
     request.method = RKRequestMethodDELETE;
     request.completionBlock = block;
     [self sendRequest:request];
 }
-
-#pragma mark -
-#pragma mark Public methods for REST V2 resources API
 
 - (void)resourceLookupForURI:(NSString *)resourceURI
                 resourceType:(NSString *)resourceType
@@ -159,27 +160,6 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 
 #pragma mark -
 #pragma mark Private methods
-
-- (NSDictionary *)paramsForICQueryDataByDatasourceUri:(NSString *)datasourceUri resourceParameters:(NSArray *)resourceParameters {
-    NSMutableDictionary *configuredParams = [[NSMutableDictionary alloc] init] ;
-    if (datasourceUri == nil || datasourceUri.length == 0) {
-        datasourceUri = @"null";
-    }
-    [configuredParams setObject:datasourceUri forKey:@"IC_GET_QUERY_DATA"];
-    for (JSResourceParameter *resourceParameter in resourceParameters) {
-        NSString *paramKey = [NSString stringWithFormat:([resourceParameter.isListItem boolValue] ? @"PL_%@" : @"P_%@"), resourceParameter.name];
-        
-        if (resourceParameter.isListItem) {
-            NSMutableArray *values = [configuredParams objectForKey:paramKey] ?: [[NSMutableArray alloc] init];
-            [values addObject:resourceParameter.value];
-            [configuredParams setObject:values forKey:paramKey];
-        } else {
-            [configuredParams setObject:resourceParameter.value forKey:paramKey];
-        }
-    }
-    
-    return configuredParams;
-}
 
 - (NSString *)fullResourcesUri:(NSString *)uri {
     return [NSString stringWithFormat:@"%@%@", [JSConstants sharedInstance].REST_RESOURCES_URI, (uri ?: @"")];
