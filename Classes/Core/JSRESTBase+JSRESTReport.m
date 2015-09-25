@@ -30,7 +30,6 @@
 
 #import "JSConstants.h"
 #import "JSReportParameter.h"
-#import "JSReportDescriptor.h"
 #import "JSReportExecutionRequest.h"
 #import "JSReportExecutionResponse.h"
 #import "JSExportExecutionRequest.h"
@@ -54,7 +53,8 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 #pragma mark -
 #pragma mark Public methods for REST V2 report API
 
-- (NSString *)generateReportUrl:(NSString *)uri reportParams:(NSArray /*<JSReportParameter>*/ *)reportParams page:(NSInteger)page format:(NSString *)format {
+- (NSString *)generateReportUrl:(NSString *)uri reportParams:(NSArray <JSReportParameter *> *)reportParams
+                           page:(NSInteger)page format:(NSString *)format {
     JSConstants *constants = [JSConstants sharedInstance];
     
     NSMutableDictionary *queryParams = [NSMutableDictionary new];
@@ -90,8 +90,8 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     
     return url;
 }
-- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids
-                selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues completionBlock:(JSRequestCompletionBlock)block {
+- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray <NSString *> *)ids
+                selectedValues:(NSArray <JSReportParameter *> *)selectedValues completionBlock:(JSRequestCompletionBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:NO]];
     request.expectedModelClass = [JSInputControlDescriptor class];
     request.restVersion = JSRESTVersion_2;
@@ -101,7 +101,8 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     [self sendRequest:request];
 }
 
-- (void)updatedInputControlsValues:(NSString *)reportUri ids:(NSArray *)ids selectedValues:(NSArray *)selectedValues completionBlock:(JSRequestCompletionBlock)block {
+- (void)updatedInputControlsValues:(NSString *)reportUri ids:(NSArray <NSString *> *)ids
+                    selectedValues:(NSArray <JSReportParameter *> *)selectedValues completionBlock:(JSRequestCompletionBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:YES]];
     request.expectedModelClass = [JSInputControlState class];
     request.method = RKRequestMethodPOST;
@@ -114,7 +115,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 - (void)runReportExecution:(NSString *)reportUnitUri async:(BOOL)async outputFormat:(NSString *)outputFormat
                interactive:(BOOL)interactive freshData:(BOOL)freshData saveDataSnapshot:(BOOL)saveDataSnapshot
           ignorePagination:(BOOL)ignorePagination transformerKey:(NSString *)transformerKey pages:(NSString *)pages
-         attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray /*<JSReportParameter>*/ *)parameters completionBlock:(JSRequestCompletionBlock)block {
+         attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray <JSReportParameter *> *)parameters completionBlock:(JSRequestCompletionBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportExecutionUri:nil]];
     request.expectedModelClass = [JSReportExecutionResponse class];
     request.method = RKRequestMethodPOST;
@@ -224,7 +225,8 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     [self sendRequest:request];
 }
 
-- (void)saveReportAttachment:(NSString *)requestId exportOutput:(NSString *)exportOutput attachmentName:(NSString *)attachmentName path:(NSString *)path completionBlock:(JSRequestCompletionBlock)block {
+- (void)saveReportAttachment:(NSString *)requestId exportOutput:(NSString *)exportOutput
+              attachmentName:(NSString *)attachmentName path:(NSString *)path completionBlock:(JSRequestCompletionBlock)block {
     exportOutput = [self encodeAttachmentsPrefix:exportOutput];
     NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/attachments/%@", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, exportOutput, attachmentName];
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
@@ -265,7 +267,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 
 - (void)createReportOptionWithReportURI:(NSString *)reportURI
                             optionLabel:(NSString *)optionLabel
-                       reportParameters:(NSArray *)reportParameters
+                       reportParameters:(NSArray <JSReportParameter *> *)reportParameters
                              completion:(JSRequestCompletionBlock)completion
 {
     JSConstants *constants = [JSConstants sharedInstance];
@@ -307,7 +309,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     return [NSString stringWithFormat:@"%@%@", [JSConstants sharedInstance].REST_REPORT_URI, (uri ?: @"")];
 }
 
-- (NSString *)fullReportsUriForIC:(NSString *)uri withInputControls:(NSArray *)dependencies initialValuesOnly:(BOOL)initialValuesOnly {
+- (NSString *)fullReportsUriForIC:(NSString *)uri withInputControls:(NSArray <NSString *> *)dependencies initialValuesOnly:(BOOL)initialValuesOnly {
     JSConstants *constants = [JSConstants sharedInstance];
     NSString *fullReportsUri = [NSString stringWithFormat:@"%@%@%@", constants.REST_REPORTS_URI, (uri ?: @""), constants.REST_INPUT_CONTROLS_URI];
     

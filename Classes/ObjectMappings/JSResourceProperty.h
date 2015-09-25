@@ -39,11 +39,13 @@
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.0
  */
+//@class JSResourceProperty;
+
 DEPRECATED_ATTRIBUTE
 @interface JSResourceProperty : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *name;
 @property (nonatomic, retain) NSString *value;
-@property (nonatomic, retain) NSArray /*<JSResourceProperty>*/ *childResourceProperties;
+@property (nonatomic, retain) NSArray <JSResourceProperty *> *childResourceProperties;
 
 @end

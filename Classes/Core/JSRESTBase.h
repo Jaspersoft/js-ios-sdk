@@ -77,7 +77,7 @@ extern NSString * const kJSRequestResponceType;
 
  @since 1.8
  */
-@property (nonatomic, readonly) NSArray *cookies;
+@property (nonatomic, readonly) NSArray <NSHTTPCookie *> *cookies;
 
 /**
  RestKit's RKObjectManager instance for mapping response (in JSON, XML and other formats) directly to object

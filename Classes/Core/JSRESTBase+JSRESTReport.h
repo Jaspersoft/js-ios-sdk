@@ -29,7 +29,6 @@
 //
 
 #import "JSRESTBase.h"
-#import "JSReportDescriptor.h"
 #import "JSInputControlDescriptor.h"
 #import <Foundation/Foundation.h>
 #import "JSReportOption.h"
@@ -59,7 +58,7 @@
  
  @since 1.4
  */
-- (NSString *)generateReportUrl:(NSString *)uri reportParams:(NSArray /*<JSReportParameter>*/ *)reportParams page:(NSInteger)page format:(NSString *)format;
+- (NSString *)generateReportUrl:(NSString *)uri reportParams:(NSArray <JSReportParameter *> *)reportParams page:(NSInteger)page format:(NSString *)format;
 
 /**
  Gets the list of states of input controls with specified IDs for the report with specified URI and according to selected values
@@ -71,7 +70,7 @@
  
  @since 1.6
  */
-- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues completionBlock:(JSRequestCompletionBlock)block;
+- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray <NSString *> *)ids selectedValues:(NSArray <JSReportParameter *> *)selectedValues completionBlock:(JSRequestCompletionBlock)block;
 
 /**
  Gets the states with updated values for input controls with specified IDs and according to selected values
@@ -83,8 +82,8 @@
  
  @since 1.4
  */
-- (void)updatedInputControlsValues:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids
-                    selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues completionBlock:(JSRequestCompletionBlock)block;
+- (void)updatedInputControlsValues:(NSString *)reportUri ids:(NSArray <NSString *> *)ids
+                    selectedValues:(NSArray <JSReportParameter *> *)selectedValues completionBlock:(JSRequestCompletionBlock)block;
 
 /**
  Executes report
@@ -107,7 +106,7 @@
 - (void)runReportExecution:(NSString *)reportUnitUri async:(BOOL)async outputFormat:(NSString *)outputFormat
                interactive:(BOOL)interactive freshData:(BOOL)freshData saveDataSnapshot:(BOOL)saveDataSnapshot
           ignorePagination:(BOOL)ignorePagination transformerKey:(NSString *)transformerKey pages:(NSString *)pages
-         attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray /*<JSReportParameter>*/ *)parameters completionBlock:(JSRequestCompletionBlock)block;
+         attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray <JSReportParameter *> *)parameters completionBlock:(JSRequestCompletionBlock)block;
 
 /**
  Cancel Report Execution
@@ -239,6 +238,6 @@
  @since 2.2
  */
 
-- (void)createReportOptionWithReportURI:(NSString *)reportURI optionLabel:(NSString *)optionLabel reportParameters:(NSArray *)reportParameters completion:(JSRequestCompletionBlock)completion;
+- (void)createReportOptionWithReportURI:(NSString *)reportURI optionLabel:(NSString *)optionLabel reportParameters:(NSArray <JSReportParameter *> *)reportParameters completion:(JSRequestCompletionBlock)completion;
 
 @end

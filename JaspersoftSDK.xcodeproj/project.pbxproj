@@ -58,8 +58,6 @@
 		F597692A15E3C826004165A7 /* JSRESTBase+JSRESTResource.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F515E3C826004165A7 /* JSRESTBase+JSRESTResource.m */; };
 		F597694315E3C826004165A7 /* JSReportAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690615E3C826004165A7 /* JSReportAttachment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597694515E3C826004165A7 /* JSReportAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690715E3C826004165A7 /* JSReportAttachment.m */; };
-		F597694715E3C826004165A7 /* JSReportDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690815E3C826004165A7 /* JSReportDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F597694915E3C826004165A7 /* JSReportDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690915E3C826004165A7 /* JSReportDescriptor.m */; };
 		F597694B15E3C826004165A7 /* JSResourceDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690A15E3C826004165A7 /* JSResourceDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597694D15E3C826004165A7 /* JSResourceDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690B15E3C826004165A7 /* JSResourceDescriptor.m */; };
 		F597694F15E3C826004165A7 /* JSResourceParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690C15E3C826004165A7 /* JSResourceParameter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -143,8 +141,6 @@
 		F59768F515E3C826004165A7 /* JSRESTBase+JSRESTResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSRESTResource.m"; sourceTree = "<group>"; };
 		F597690615E3C826004165A7 /* JSReportAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportAttachment.h; sourceTree = "<group>"; };
 		F597690715E3C826004165A7 /* JSReportAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportAttachment.m; sourceTree = "<group>"; };
-		F597690815E3C826004165A7 /* JSReportDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportDescriptor.h; sourceTree = "<group>"; };
-		F597690915E3C826004165A7 /* JSReportDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportDescriptor.m; sourceTree = "<group>"; };
 		F597690A15E3C826004165A7 /* JSResourceDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResourceDescriptor.h; sourceTree = "<group>"; };
 		F597690B15E3C826004165A7 /* JSResourceDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceDescriptor.m; sourceTree = "<group>"; };
 		F597690C15E3C826004165A7 /* JSResourceParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResourceParameter.h; sourceTree = "<group>"; };
@@ -349,8 +345,6 @@
 			children = (
 				F597690615E3C826004165A7 /* JSReportAttachment.h */,
 				F597690715E3C826004165A7 /* JSReportAttachment.m */,
-				F597690815E3C826004165A7 /* JSReportDescriptor.h */,
-				F597690915E3C826004165A7 /* JSReportDescriptor.m */,
 				F53B1041164A9EE400042976 /* JSReportParameter.h */,
 				F53B1042164A9EE400042976 /* JSReportParameter.m */,
 				08EC04531B85C959005994DB /* JSReportOption.h */,
@@ -432,7 +426,6 @@
 				F597691C15E3C826004165A7 /* JSRequest.h in Headers */,
 				F597697915E3C9EF004165A7 /* JSSerializationDescriptorHolder.h in Headers */,
 				F597691015E3C826004165A7 /* JSConstants.h in Headers */,
-				F597694715E3C826004165A7 /* JSReportDescriptor.h in Headers */,
 				F5EA36AE18337B4A00E09E10 /* JSResourceLookup.h in Headers */,
 				F597694B15E3C826004165A7 /* JSResourceDescriptor.h in Headers */,
 				F597694F15E3C826004165A7 /* JSResourceParameter.h in Headers */,
@@ -556,7 +549,6 @@
 				081DCA141A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m in Sources */,
 				084F28A61B7CF89E00551341 /* KeychainItemWrapper.m in Sources */,
 				F597694515E3C826004165A7 /* JSReportAttachment.m in Sources */,
-				F597694915E3C826004165A7 /* JSReportDescriptor.m in Sources */,
 				F597694D15E3C826004165A7 /* JSResourceDescriptor.m in Sources */,
 				F597695115E3C826004165A7 /* JSResourceParameter.m in Sources */,
 				F597695515E3C826004165A7 /* JSResourceProperty.m in Sources */,

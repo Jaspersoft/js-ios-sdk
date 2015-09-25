@@ -96,7 +96,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 @property (nonatomic, strong) RKObjectManager *restKitObjectManager;
 
 // List of JSCallBack instances
-@property (nonatomic, strong) NSMutableArray *requestCallBacks;
+@property (nonatomic, strong) NSMutableArray <JSCallBack *> *requestCallBacks;
 
 @property (nonatomic, assign, readwrite) BOOL keepSession;
 

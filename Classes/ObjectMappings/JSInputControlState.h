@@ -30,6 +30,7 @@
 
 #import <Foundation/Foundation.h>
 #import "JSSerializationDescriptorHolder.h"
+#import "JSInputControlOption.h"
 
 /**
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
@@ -43,6 +44,6 @@
 @property (nonatomic, retain) NSString *value;
 /** @since 1.6 */
 @property (nonatomic, retain) NSString *error;
-@property (nonatomic, retain) NSArray /*<JSInputControlOption>*/ *options;
+@property (nonatomic, retain) NSArray <JSInputControlOption *> *options;
 
 @end

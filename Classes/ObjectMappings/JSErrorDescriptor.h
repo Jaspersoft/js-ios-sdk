@@ -42,6 +42,6 @@
 
 @property (nonatomic, retain) NSString *message;
 @property (nonatomic, retain) NSString *errorCode;
-@property (nonatomic, retain) NSArray /*<NSString>*/ *parameters;
+@property (nonatomic, retain) NSArray <NSString *> *parameters;
 
 @end

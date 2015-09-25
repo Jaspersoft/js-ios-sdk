@@ -66,7 +66,7 @@ NSString * const kJSSavedServerInfoDatetimeFormatPatternKey = @"kJSSavedServerIn
 
 #pragma mark - JSSerializationDescriptorHolder
 
-+ (NSArray *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
++ (NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
     RKObjectMapping *responseMapping = [RKObjectMapping mappingForClass:self];
     [responseMapping addAttributeMappingsFromDictionary:@{
                                                           @"build": @"build",

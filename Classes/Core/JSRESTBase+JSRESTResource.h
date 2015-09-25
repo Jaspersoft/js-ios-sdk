@@ -104,7 +104,7 @@ Gets resource lookup for resource.
  
  @since 2.1
  */
-- (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types sortBy:(NSString *)sortBy accessType:(NSString *)accessType
+- (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray <NSString *> *)types sortBy:(NSString *)sortBy accessType:(NSString *)accessType
               recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit completionBlock:(JSRequestCompletionBlock)block;
 
 /**

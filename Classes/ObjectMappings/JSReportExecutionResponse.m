@@ -29,12 +29,11 @@
 //
 
 #import "JSReportExecutionResponse.h"
-#import "JSExportExecutionResponse.h"
 
 @implementation JSReportExecutionResponse
 
 #pragma mark - JSSerializationDescriptorHolder
-+ (NSArray *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
++ (NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
     NSMutableArray *descriptorsArray = [NSMutableArray array];
     for (NSString *keyPath in [self classMappingPathes]) {
         [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]

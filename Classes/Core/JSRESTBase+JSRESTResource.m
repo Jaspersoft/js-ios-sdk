@@ -61,7 +61,6 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 }
 
 - (void)modifyResource:(JSResourceDescriptor *)resource completionBlock:(JSRequestCompletionBlock)block {
-    JSResourceDescriptor *ee = [JSResourceDescriptor new];
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:resource.uriString]];
     request.expectedModelClass = [JSResourceDescriptor class];
     request.method = RKRequestMethodPUT;
@@ -125,7 +124,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 
 - (void)resourceLookups:(NSString *)folderUri
                   query:(NSString *)query
-                  types:(NSArray *)types
+                  types:(NSArray <NSString *> *)types
                  sortBy:(NSString *)sortBy
              accessType:(NSString *)accessType
               recursive:(BOOL)recursive

@@ -30,6 +30,7 @@
 
 #import <Foundation/Foundation.h>
 #import "JSSerializationDescriptorHolder.h"
+#import "JSReportParameter.h"
 
 /**
  Represents a report execution request descriptor for convenient XML serialization process
@@ -51,6 +52,6 @@
 @property (nonatomic, retain) NSString *pages;
 @property (nonatomic, retain) NSString *attachmentsPrefix;
 @property (nonatomic, retain) NSString *baseURL;
-@property (nonatomic, retain) NSArray /*<JSReportParameter>*/ *parameters;
+@property (nonatomic, retain) NSArray <JSReportParameter *> *parameters;
 
 @end

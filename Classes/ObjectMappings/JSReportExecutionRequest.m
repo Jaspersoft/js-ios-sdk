@@ -29,7 +29,6 @@
 //
 
 #import "JSReportExecutionRequest.h"
-#import "JSReportParameter.h"
 #import "JSServerInfo.h"
 #import "JSConstants.h"
 
@@ -37,7 +36,7 @@
 
 #pragma mark - JSSerializationDescriptorHolder
 
-+ (NSArray *)rkRequestDescriptorsForServerProfile:(JSProfile *)serverProfile {
++ (NSArray <RKRequestDescriptor *> *)rkRequestDescriptorsForServerProfile:(JSProfile *)serverProfile {
     NSMutableArray *descriptorsArray = [NSMutableArray array];
     [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
                                                                       objectClass:self

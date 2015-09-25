@@ -49,8 +49,8 @@
 @property (nonatomic, retain) NSString *type;
 @property (nonatomic, retain) NSString *uri;
 @property (nonatomic, retain) NSString *visible;
-@property (nonatomic, retain) NSArray /*<NSString>*/ *masterDependencies;
-@property (nonatomic, retain) NSArray /*<NSString>*/ *slaveDependencies;
+@property (nonatomic, retain) NSArray <NSString *> *masterDependencies;
+@property (nonatomic, retain) NSArray <NSString *> *slaveDependencies;
 @property (nonatomic, retain) JSInputControlState *state;
 
 @property (nonatomic, readonly) JSDateTimeFormatValidationRule *dateTimeFormatValidationRule;
