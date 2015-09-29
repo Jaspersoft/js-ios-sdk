@@ -33,14 +33,14 @@
 
 @implementation JSResourceReportUnit
 
-+ (NSString *)resourceRootKeyPath
++ (nonnull NSString *)resourceRootKeyPath
 {
     return @"reportUnit";
 }
 
 #pragma mark - JSSerializationDescriptorHolder
 
-+ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile
++ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile
 {
     RKObjectMapping *classMapping = [super classMappingForServerProfile:serverProfile];
     [classMapping addAttributeMappingsFromDictionary:@{

@@ -49,23 +49,23 @@
 /**
  A list of objects coming from the call
  */
-@property (nonatomic, strong) NSArray *objects;
+@property (nonatomic, strong, null_unspecified) NSArray *objects;
 
 /**
  The downloaded response as binary data
  */
-@property (nonatomic, strong) NSData *body;
+@property (nonatomic, strong, null_unspecified) NSData *body;
 
 /**
  The sent request associated with this result. This is an additional parameter
  which helps to determine which request was sent (because all they are asynchronous).
  */
-@property (nonatomic, strong) JSRequest *request;
+@property (nonatomic, strong, nonnull) JSRequest *request;
 
 /**
  The error returned from the request call, if any.
  */
-@property (nonatomic, strong) NSError *error;
+@property (nonatomic, strong, nullable) NSError *error;
 
 /**
  The response HTTP code. This is a standard HTTP protocol code. Codes like 2xx are all ok.
@@ -77,17 +77,17 @@
 /**
  A dictionary of the response's headers.
  */
-@property (nonatomic, readonly) NSDictionary *allHeaderFields;
+@property (nonatomic, readonly, nonnull) NSDictionary *allHeaderFields;
 
 /**
  The MIME Type of the response body
  */
-@property (nonatomic, readonly) NSString *MIMEType;
+@property (nonatomic, readonly, nonnull) NSString *MIMEType;
 
 /**
  The downloaded response as string
  */
-@property (nonatomic, strong, readonly) NSString *bodyAsString;
+@property (nonatomic, strong, readonly, null_unspecified) NSString *bodyAsString;
 
 /**
  Returns a result with the specified request parameters
@@ -98,7 +98,7 @@
  @param error The error returned from the request call, if any.
  @return A configured JSOperationResult instance
  */
-- (id)initWithStatusCode:(NSInteger)statusCode allHeaderFields:(NSDictionary *)allHeaderFields MIMEType:(NSString *)MIMEType;
+- (nonnull instancetype)initWithStatusCode:(NSInteger)statusCode allHeaderFields:(nonnull NSDictionary *)allHeaderFields MIMEType:(nonnull NSString *)MIMEType;
 
 /**
  Indicates an HTTP response code between 200 and 299

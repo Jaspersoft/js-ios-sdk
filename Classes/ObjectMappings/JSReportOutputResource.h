@@ -41,7 +41,7 @@
 
 @interface JSReportOutputResource : NSObject <JSSerializationDescriptorHolder>
 
-@property (nonatomic, retain) NSString *contentType;
-@property (nonatomic, retain) NSString *fileName;
+@property (nonatomic, retain, nonnull) NSString *contentType;
+@property (nonatomic, retain, nonnull) NSString *fileName;
 
 @end

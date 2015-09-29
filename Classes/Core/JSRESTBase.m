@@ -91,6 +91,8 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 
 @interface JSRESTBase()
 
+@property (nonatomic, strong, readwrite, nonnull) JSProfile *serverProfile;
+
 // RestKit's RKObjectManager instance for mapping response (in JSON, XML and other
 // formats) directly to object
 @property (nonatomic, strong) RKObjectManager *restKitObjectManager;
@@ -127,7 +129,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     }
 }
 
-- (instancetype)initWithServerProfile:(JSProfile *)serverProfile keepLogged:(BOOL)keepLogged{
+- (nonnull instancetype) initWithServerProfile:(nonnull JSProfile *)serverProfile keepLogged:(BOOL)keepLogged{
     self = [super init];
     if (self) {
         self.keepSession = keepLogged;
@@ -136,7 +138,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     }
     return self;
 }
-
 
 - (void)setServerProfile:(JSProfile *)serverProfile {
     _serverProfile = serverProfile;
@@ -155,11 +156,11 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 #pragma mark -
 #pragma mark Public methods
 
-- (void)sendRequest:(JSRequest *)request {
+- (void)sendRequest:(nonnull JSRequest *)request {
     [self sendRequest:request additionalHTTPHeaderFields:nil];
 }
 
-- (void)sendRequest:(JSRequest *)jsRequest additionalHTTPHeaderFields:(NSDictionary *)headerFields{
+- (void)sendRequest:(nonnull JSRequest *)jsRequest additionalHTTPHeaderFields:(null_unspecified NSDictionary *)headerFields {
     if (!self.serverReachability.isReachable) {
         [self.serverReachability resetReachabilityStatus];
         [self sendCallBackForRequest:jsRequest withOperationResult:[self requestOperationForFailedConnection]];
@@ -250,7 +251,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     }
 }
 
-- (JSServerInfo *)serverInfo {
+- (nullable JSServerInfo *)serverInfo {
     if (!self.serverProfile.serverInfo) {
         JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_SERVER_INFO_URI];
         request.expectedModelClass = [JSServerInfo class];

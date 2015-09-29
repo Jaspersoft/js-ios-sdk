@@ -35,7 +35,7 @@
 
 #pragma mark - JSSerializationDescriptorHolder
 
-+ (NSArray <RKRequestDescriptor *> *)rkRequestDescriptorsForServerProfile:(JSProfile *)serverProfile {
++ (nonnull NSArray <RKRequestDescriptor *> *)rkRequestDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
     NSMutableArray *descriptorsArray = [NSMutableArray array];
     [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
                                                                       objectClass:self
@@ -44,7 +44,7 @@
     return descriptorsArray;
 }
 
-+ (NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
++ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
     NSMutableArray *descriptorsArray = [NSMutableArray array];
     for (NSString *keyPath in [self classMappingPathes]) {
         [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
@@ -57,7 +57,7 @@
     return descriptorsArray;
 }
 
-+ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
++ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
     RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
     [classMapping addAttributeMappingsFromDictionary:@{
                                                        @"id": @"uuid",
@@ -80,7 +80,7 @@
     return classMapping;
 }
 
-+ (NSArray *)classMappingPathes {
++ (nonnull NSArray *)classMappingPathes {
     return @[@""];
 }
 

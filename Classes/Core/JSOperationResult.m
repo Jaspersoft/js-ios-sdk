@@ -38,8 +38,9 @@
 
 @implementation JSOperationResult
 
-- (id)initWithStatusCode:(NSInteger)statusCode allHeaderFields:(NSDictionary *)allHeaderFields
-                MIMEType:(NSString *)MIMEType{
+- (nonnull instancetype)initWithStatusCode:(NSInteger)statusCode
+                           allHeaderFields:(nonnull NSDictionary *)allHeaderFields
+                                  MIMEType:(nonnull NSString *)MIMEType{
     if (self = [super init]) {
         _statusCode = statusCode;
         _allHeaderFields = allHeaderFields;

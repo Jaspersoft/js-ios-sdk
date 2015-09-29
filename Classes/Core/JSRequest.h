@@ -37,7 +37,7 @@
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @author Alexey Gubarev ogubarie@tibco.com
 */
-typedef void(^JSRequestCompletionBlock)(JSOperationResult *result);
+typedef void(^JSRequestCompletionBlock)(JSOperationResult *_Nullable result);
 
 /**
  Supported REST versions
@@ -65,24 +65,24 @@ typedef enum {
 /**
  The URI this request is loading
  */
-@property (nonatomic, retain) NSString *uri;
+@property (nonatomic, retain, nonnull) NSString *uri;
 
 /**
  The HTTP body used for this request. Uses only for POST and PUT HTTP methods.
  Automatically will be serialized as string in the format (i.e XML, JSON, etc.) provided
  by the serializer
 */
-@property (nonatomic, retain) id body;
+@property (nonatomic, retain, nullable) id body;
 
 /**
  Expected model class for mapping responce
  */
-@property (nonatomic, strong) Class <JSSerializationDescriptorHolder> expectedModelClass;
+@property (nonatomic, strong, nonnull) Class <JSSerializationDescriptorHolder> expectedModelClass;
 
 /**
  A collection of parameters of the request. Automatically will be added to URL
  */
-@property (nonatomic, strong, readonly) NSDictionary *params;
+@property (nonatomic, strong, readonly, null_unspecified) NSDictionary *params;
 
 /**
  The HTTP method
@@ -94,7 +94,7 @@ typedef enum {
  <code>nil</code>, it will receive request result (instance of
  <code>JSOperationResult</code> class).
  */
-@property (nonatomic, copy) JSRequestCompletionBlock completionBlock;
+@property (nonatomic, copy, nullable) JSRequestCompletionBlock completionBlock;
 
 /**
  The responseAsObjects indicates if response result should be serialized and
@@ -106,7 +106,7 @@ typedef enum {
  The save path of downloaded file. This is an additional parameter which helps
  to determine which file will be downloaded (because all requests are asynchronous)
  */
-@property (nonatomic, retain) NSString *downloadDestinationPath;
+@property (nonatomic, retain, nullable) NSString *downloadDestinationPath;
 
 /**
  Determine asynchronous nature of request
@@ -138,7 +138,7 @@ typedef enum {
  @param uri A request uri
  @return A fully configured JSRequest instance
  */
-- (id)initWithUri:(NSString *)uri;
+- (nonnull instancetype)initWithUri:(nonnull NSString *)uri;
 
 /**
  Adds a parameter with a specified string value only if value is not nil or empty
@@ -146,7 +146,7 @@ typedef enum {
  @param parameter Parameter name
  @param value Parameter value
  */
-- (void)addParameter:(NSString *)parameter withStringValue:(NSString *)value;
+- (void)addParameter:(nonnull NSString *)parameter withStringValue:(nonnull NSString *)value;
 
 /**
  Adds a parameter with a specified integer value only if value is bigger then 0
@@ -154,7 +154,7 @@ typedef enum {
  @param parameter Parameter name
  @param value Parameter value
  */
-- (void)addParameter:(NSString *)parameter withIntegerValue:(NSInteger)value;
+- (void)addParameter:(nonnull NSString *)parameter withIntegerValue:(NSInteger)value;
 
 /**
  Adds a parameter with a specified array value only if value is not nil or empty
@@ -162,6 +162,6 @@ typedef enum {
  @param parameter Parameter name
  @param value Parameter value
  */
-- (void)addParameter:(NSString *)parameter withArrayValue:(NSArray *)value;
+- (void)addParameter:(nonnull NSString *)parameter withArrayValue:(nonnull NSArray *)value;
 
 @end

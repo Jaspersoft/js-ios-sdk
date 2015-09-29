@@ -36,7 +36,7 @@
 
 @implementation JSRequest
 
-- (id)initWithUri:(NSString *)uri {
+- (nonnull instancetype)initWithUri:(nonnull NSString *)uri {
     if (self = [super init]) {
         self.uri = uri;
         self.method = RKRequestMethodGET;
@@ -50,17 +50,17 @@
     return self;
 }
 
-- (void)addParameter:(NSString *)parameter withStringValue:(NSString *)value {
+- (void)addParameter:(nonnull NSString *)parameter withStringValue:(nonnull NSString *)value {
     if (value.length) {
         [self.parameters setObject:value forKey:parameter];
     }
 }
 
-- (void)addParameter:(NSString *)parameter withIntegerValue:(NSInteger)value {
+- (void)addParameter:(nonnull NSString *)parameter withIntegerValue:(NSInteger)value {
     [self.parameters setObject:[NSNumber numberWithInteger:value] forKey:parameter];
 }
 
-- (void)addParameter:(NSString *)parameter withArrayValue:(NSArray *)value {
+- (void)addParameter:(nonnull NSString *)parameter withArrayValue:(nonnull NSArray *)value {
     if (value) {
         [self.parameters setObject:value forKey:parameter];
     }

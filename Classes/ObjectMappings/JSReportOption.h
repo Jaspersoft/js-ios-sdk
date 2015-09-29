@@ -41,9 +41,9 @@
 
 
 @interface JSReportOption : NSObject <JSSerializationDescriptorHolder, NSCopying>
-@property (nonatomic, strong) NSString *uri;
-@property (nonatomic, strong) NSString *identifier;
-@property (nonatomic, strong) NSString *label;
+@property (nonatomic, strong, nullable) NSString *uri;
+@property (nonatomic, strong, nullable) NSString *identifier;
+@property (nonatomic, strong, nullable) NSString *label;
 
-- (BOOL)isEqual:(id)object;
+- (BOOL)isEqual:(nullable id)object;
 @end

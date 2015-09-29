@@ -91,9 +91,9 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     return authenticationSuccess;
 }
 
-- (BOOL)authenticationTokenWithUsername:(NSString *)username
-                               password:(NSString *)password
-                           organization:(NSString *)organization
+- (BOOL)authenticationTokenWithUsername:(nonnull NSString *)username
+                               password:(nonnull NSString *)password
+                           organization:(nullable NSString *)organization
 {
     JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_AUTHENTICATION_URI];
     request.restVersion = JSRESTVersion_None;

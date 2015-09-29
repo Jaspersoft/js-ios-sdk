@@ -33,7 +33,7 @@
 @implementation JSReportAttachment
 
 #pragma mark - JSSerializationDescriptorHolder
-+ (NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
++ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
     NSMutableArray *descriptorsArray = [NSMutableArray array];
     for (NSString *keyPath in [self classMappingPathes]) {
         [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
@@ -48,7 +48,7 @@
     return descriptorsArray;
 }
 
-+ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
++ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
     RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
     [classMapping addAttributeMappingsFromDictionary:@{
                                                        @"text": @"name",
@@ -57,7 +57,7 @@
     return classMapping;
 }
 
-+ (NSArray *)classMappingPathes {
++ (nonnull NSArray *)classMappingPathes {
     return @[@""];
 }
 

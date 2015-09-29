@@ -40,7 +40,7 @@
  */
 @interface JSReportAttachment : NSObject <JSSerializationDescriptorHolder>
 
-@property (nonatomic, retain) NSString *type;
-@property (nonatomic, retain) NSString *name;
+@property (nonatomic, retain, nonnull) NSString *type;
+@property (nonatomic, retain, nonnull) NSString *name;
 
 @end

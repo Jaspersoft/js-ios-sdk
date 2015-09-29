@@ -35,8 +35,8 @@
 #import <Foundation/Foundation.h>
 #import <AFNetworking/AFHTTPClient.h>
 
-extern NSString * const kJSRequestContentType;
-extern NSString * const kJSRequestResponceType;
+extern NSString * const _Nonnull kJSRequestContentType;
+extern NSString * const _Nonnull kJSRequestResponceType;
 
 
 /**
@@ -62,7 +62,7 @@ extern NSString * const kJSRequestResponceType;
  The server profile instance contains connection details for 
  JasperReports server
  */
-@property (nonatomic, strong) JSProfile *serverProfile;
+@property (nonatomic, strong, readonly, nonnull) JSProfile *serverProfile;
 
 /**
  The timeout interval which will be used as default value for all requests if
@@ -77,14 +77,14 @@ extern NSString * const kJSRequestResponceType;
 
  @since 1.8
  */
-@property (nonatomic, readonly) NSArray <NSHTTPCookie *> *cookies;
+@property (nonatomic, readonly, null_unspecified) NSArray <NSHTTPCookie *> *cookies;
 
 /**
  RestKit's RKObjectManager instance for mapping response (in JSON, XML and other formats) directly to object
  
  @since 1.9
  */
-@property (nonatomic, strong, readonly) RKObjectManager *restKitObjectManager;
+@property (nonatomic, strong, readonly, nonnull) RKObjectManager *restKitObjectManager;
 
 /**
  If YES REST Client will try to recreate HTTP session.
@@ -100,7 +100,7 @@ extern NSString * const kJSRequestResponceType;
  @param keepLogged If YES REST Client will try to recreate HTTP session
  @return A fully configured JSRESTBase instance
  */
-- (instancetype) initWithServerProfile:(JSProfile *)serverProfile keepLogged:(BOOL)keepLogged;
+- (nonnull instancetype) initWithServerProfile:(nonnull JSProfile *)serverProfile keepLogged:(BOOL)keepLogged;
 
 /**
  Sends asynchronous request. Result will be passed as <code>JSOperationResult</code> 
@@ -109,7 +109,7 @@ extern NSString * const kJSRequestResponceType;
  
  @param request Models the request portion of an HTTP request/response cycle.
  */
-- (void)sendRequest:(JSRequest *)request;
+- (void)sendRequest:(nonnull JSRequest *)request;
 
 /**
  Sends asynchronous request. Result will be passed as <code>JSOperationResult</code>
@@ -121,7 +121,7 @@ extern NSString * const kJSRequestResponceType;
 
  @since 1.9
  */
-- (void)sendRequest:(JSRequest *)jsRequest additionalHTTPHeaderFields:(NSDictionary *)headerFields;
+- (void)sendRequest:(nonnull JSRequest *)jsRequest additionalHTTPHeaderFields:(null_unspecified NSDictionary *)headerFields;
 
 /**
  Gets server information details
@@ -129,7 +129,7 @@ extern NSString * const kJSRequestResponceType;
  @return the ServerInfo value
  @since 1.4
  */
-- (JSServerInfo *)serverInfo;
+- (nullable JSServerInfo *)serverInfo;
 
 /**
  Checks if network is available
