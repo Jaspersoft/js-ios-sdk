@@ -131,6 +131,12 @@ typedef enum {
  */
 @property (nonatomic, assign) BOOL redirectAllowed;
 
+/**
+ Allow construct mulpipart body
+
+ @since 2.1.2
+ */
+@property (nonatomic, copy) void(^multipartFormConstructingBodyBlock)(id <AFMultipartFormData> formData);
 
 /**
  Returns a request instance with predefined uri.
