@@ -32,6 +32,8 @@
 #import "JSInputControlDescriptor.h"
 #import <Foundation/Foundation.h>
 #import "JSReportOption.h"
+#import "JSReportParameter.h"
+
 
 /**
  Extention to <code>JSRESTBase</code> class for working with reports by REST calls. 
@@ -189,7 +191,7 @@
  @since 1.9
  */
 - (void)loadReportOutput:(nonnull NSString *)requestId exportOutput:(nonnull NSString *)exportOutput
-           loadForSaving:(BOOL)loadForSaving path:(nonnull NSString *)path completionBlock:(nullable JSRequestCompletionBlock)block;
+           loadForSaving:(BOOL)loadForSaving path:(nullable NSString *)path completionBlock:(nullable JSRequestCompletionBlock)block;
 
 
 /**

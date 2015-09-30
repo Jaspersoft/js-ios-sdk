@@ -29,14 +29,12 @@
 //
 
 #import "JSConstants.h"
-#import "JSReportParameter.h"
 #import "JSReportExecutionRequest.h"
 #import "JSReportExecutionResponse.h"
 #import "JSExportExecutionRequest.h"
 #import "JSExportExecutionResponse.h"
 #import "JSErrorDescriptor.h"
 
-#import "JSReportParameter.h"
 #import "JSRESTBase+JSRESTReport.h"
 #import "JSInputControlOption.h"
 

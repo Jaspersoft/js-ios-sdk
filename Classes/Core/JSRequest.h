@@ -136,7 +136,7 @@ typedef enum {
 
  @since 2.1.2
  */
-@property (nonatomic, copy) void(^multipartFormConstructingBodyBlock)(id <AFMultipartFormData> formData);
+@property (nonatomic, copy, nullable) void(^multipartFormConstructingBodyBlock)(id <AFMultipartFormData> _Nullable formData);
 
 /**
  Returns a request instance with predefined uri.
