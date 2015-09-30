@@ -74,7 +74,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
                     NSString *modulus = json[@"n"];
                     NSString *exponent = json[@"e"];
 
-                    if (modulus) {
+                    if (modulus && exponent) {
                         JSEncryptionManager *encryptionManager = [JSEncryptionManager managerWithModulus:modulus
                                                                                                 exponent:exponent];
                         password = [encryptionManager encryptText:password];

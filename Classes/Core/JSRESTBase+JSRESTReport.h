@@ -58,7 +58,7 @@
  
  @since 1.4
  */
-- (NSString *)generateReportUrl:(NSString *)uri reportParams:(NSArray <JSReportParameter *> *)reportParams page:(NSInteger)page format:(NSString *)format;
+- (nonnull NSString *)generateReportUrl:(nonnull NSString *)uri reportParams:(nullable NSArray <JSReportParameter *> *)reportParams page:(NSInteger)page format:(nonnull NSString *)format;
 
 /**
  Gets the list of states of input controls with specified IDs for the report with specified URI and according to selected values
@@ -70,7 +70,7 @@
  
  @since 1.6
  */
-- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray <NSString *> *)ids selectedValues:(NSArray <JSReportParameter *> *)selectedValues completionBlock:(JSRequestCompletionBlock)block;
+- (void)inputControlsForReport:(nonnull NSString *)reportUri ids:(nullable NSArray <NSString *> *)ids selectedValues:(nullable NSArray <JSReportParameter *> *)selectedValues completionBlock:(nullable JSRequestCompletionBlock)block;
 
 /**
  Gets the states with updated values for input controls with specified IDs and according to selected values
@@ -82,8 +82,8 @@
  
  @since 1.4
  */
-- (void)updatedInputControlsValues:(NSString *)reportUri ids:(NSArray <NSString *> *)ids
-                    selectedValues:(NSArray <JSReportParameter *> *)selectedValues completionBlock:(JSRequestCompletionBlock)block;
+- (void)updatedInputControlsValues:(nonnull NSString *)reportUri ids:(nonnull NSArray <NSString *> *)ids
+                    selectedValues:(nonnull NSArray <JSReportParameter *> *)selectedValues completionBlock:(nullable JSRequestCompletionBlock)block;
 
 /**
  Executes report
@@ -103,10 +103,10 @@
  
  @since 1.8
  */
-- (void)runReportExecution:(NSString *)reportUnitUri async:(BOOL)async outputFormat:(NSString *)outputFormat
+- (void)runReportExecution:(nonnull NSString *)reportUnitUri async:(BOOL)async outputFormat:(nonnull NSString *)outputFormat
                interactive:(BOOL)interactive freshData:(BOOL)freshData saveDataSnapshot:(BOOL)saveDataSnapshot
-          ignorePagination:(BOOL)ignorePagination transformerKey:(NSString *)transformerKey pages:(NSString *)pages
-         attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray <JSReportParameter *> *)parameters completionBlock:(JSRequestCompletionBlock)block;
+          ignorePagination:(BOOL)ignorePagination transformerKey:(nullable NSString *)transformerKey pages:(nullable NSString *)pages
+         attachmentsPrefix:(nullable NSString *)attachmentsPrefix parameters:(nullable NSArray <JSReportParameter *> *)parameters completionBlock:(nullable JSRequestCompletionBlock)block;
 
 /**
  Cancel Report Execution
@@ -116,7 +116,7 @@
  
  @since 1.9
  */
-- (void)cancelReportExecution:(NSString *)requestId completionBlock:(JSRequestCompletionBlock)block;
+- (void)cancelReportExecution:(nonnull NSString *)requestId completionBlock:(nullable JSRequestCompletionBlock)block;
 
 /**
  Run Export Execution
@@ -129,8 +129,8 @@
  
  @since 1.9
  */
-- (void)runExportExecution:(NSString *)requestId outputFormat:(NSString *)outputFormat pages:(NSString *)pages
-         attachmentsPrefix:(NSString *)attachmentsPrefix completionBlock:(JSRequestCompletionBlock)block;
+- (void)runExportExecution:(nonnull NSString *)requestId outputFormat:(nonnull NSString *)outputFormat pages:(nullable NSString *)pages
+         attachmentsPrefix:(nullable NSString *)attachmentsPrefix completionBlock:(nullable JSRequestCompletionBlock)block;
 
 /**
  Generates the report output url
@@ -141,7 +141,7 @@
 
  @since 1.8
 */
-- (NSString *)generateReportOutputUrl:(NSString *)requestId exportOutput:(NSString *)exportOutput;
+- (nonnull NSString *)generateReportOutputUrl:(nonnull NSString *)requestId exportOutput:(nonnull NSString *)exportOutput;
 
 /**
  Gets report execution metadata by request id
@@ -151,7 +151,7 @@
  
  @since 1.8
  */
-- (void)reportExecutionMetadataForRequestId:(NSString *)requestId completionBlock:(JSRequestCompletionBlock)block;
+- (void)reportExecutionMetadataForRequestId:(nonnull NSString *)requestId completionBlock:(nullable JSRequestCompletionBlock)block;
 
 /**
  Gets report execution status by request id
@@ -161,7 +161,7 @@
  
  @since 1.8
  */
-- (void)reportExecutionStatusForRequestId:(NSString *)requestId completionBlock:(JSRequestCompletionBlock)block;
+- (void)reportExecutionStatusForRequestId:(nonnull NSString *)requestId completionBlock:(nullable JSRequestCompletionBlock)block;
 
 /**
  Gets report export status by execution id and export output id.
@@ -171,9 +171,9 @@
 
  @since 2.1
 */
-- (void)exportExecutionStatusWithExecutionID:(NSString *)executionID
-                                exportOutput:(NSString *)exportOutput
-                                  completion:(JSRequestCompletionBlock)block;
+- (void)exportExecutionStatusWithExecutionID:(nonnull NSString *)executionID
+                                exportOutput:(nonnull NSString *)exportOutput
+                                  completion:(nullable JSRequestCompletionBlock)block;
 
 /**
  Loads report output and saves it by specified path if needed
@@ -188,8 +188,8 @@
 
  @since 1.9
  */
-- (void)loadReportOutput:(NSString *)requestId exportOutput:(NSString *)exportOutput
-           loadForSaving:(BOOL)loadForSaving path:(NSString *)path completionBlock:(JSRequestCompletionBlock)block;
+- (void)loadReportOutput:(nonnull NSString *)requestId exportOutput:(nonnull NSString *)exportOutput
+           loadForSaving:(BOOL)loadForSaving path:(nonnull NSString *)path completionBlock:(nullable JSRequestCompletionBlock)block;
 
 
 /**
@@ -203,7 +203,7 @@
  
  @since 1.8
  */
-- (void)saveReportAttachment:(NSString *)requestId exportOutput:(NSString *)exportOutput attachmentName:(NSString *)attachmentName path:(NSString *)path completionBlock:(JSRequestCompletionBlock)block;
+- (void)saveReportAttachment:(nonnull NSString *)requestId exportOutput:(nonnull NSString *)exportOutput attachmentName:(nonnull NSString *)attachmentName path:(nonnull NSString *)path completionBlock:(nullable JSRequestCompletionBlock)block;
 
 /**
  Gets the report options array for report
@@ -213,7 +213,7 @@
  
  @since 2.2
  */
-- (void)reportOptionsForReportURI:(NSString *)reportURI completion:(JSRequestCompletionBlock)block;
+- (void)reportOptionsForReportURI:(nonnull NSString *)reportURI completion:(nullable JSRequestCompletionBlock)block;
 
 /**
  Delete existed report option
@@ -225,7 +225,7 @@
  @since 2.2
  */
 
-- (void)deleteReportOption:(JSReportOption *)reportOption withReportURI:(NSString *)reportURI completion:(JSRequestCompletionBlock)completion;
+- (void)deleteReportOption:(nonnull JSReportOption *)reportOption withReportURI:(nonnull NSString *)reportURI completion:(nullable JSRequestCompletionBlock)completion;
 
 /**
  Create new report option
@@ -238,6 +238,6 @@
  @since 2.2
  */
 
-- (void)createReportOptionWithReportURI:(NSString *)reportURI optionLabel:(NSString *)optionLabel reportParameters:(NSArray <JSReportParameter *> *)reportParameters completion:(JSRequestCompletionBlock)completion;
+- (void)createReportOptionWithReportURI:(nonnull NSString *)reportURI optionLabel:(nonnull NSString *)optionLabel reportParameters:(nonnull NSArray <JSReportParameter *> *)reportParameters completion:(nullable JSRequestCompletionBlock)completion;
 
 @end

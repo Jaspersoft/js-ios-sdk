@@ -69,7 +69,7 @@
     return classMapping;
 }
 
-+ (NSArray *)classMappingPathes {
++ (nonnull NSArray *)classMappingPathes {
     return @[@""];
 }
 @end
