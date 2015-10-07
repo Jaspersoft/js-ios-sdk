@@ -33,12 +33,8 @@
 #import "RKMIMETypeSerialization.h"
 #import "JSSerializationDescriptorHolder.h"
 #import "JSErrorDescriptor.h"
-
 #import "JSRESTBase+JSRESTSession.h"
-
 #import "AFHTTPClient.h"
-#import "weakself.h"
-
 #import "ServerReachability.h"
 
 
@@ -188,9 +184,9 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
                                                      constructingBodyWithBlock:jsRequest.multipartFormConstructingBodyBlock];
     } else {
         urlRequest = [self.restKitObjectManager requestWithObject:jsRequest.body
-                                                                                method:jsRequest.method
-                                                                                  path:fullUri
-                                                                            parameters:jsRequest.params];
+                                                           method:jsRequest.method
+                                                             path:fullUri
+                                                       parameters:jsRequest.params];
     }
 
     RKHTTPRequestOperation *httpOperation = [[RKHTTPRequestOperation alloc] initWithRequest:urlRequest];
@@ -242,18 +238,21 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     }];
     
     // Creates bridge between RestKit's delegate and SDK delegate
-    [self.requestCallBacks addObject:[[JSCallBack alloc] initWithRestKitOperation:requestOperation request:jsRequest]];
+    [self.requestCallBacks addObject:[[JSCallBack alloc] initWithRestKitOperation:requestOperation
+                                                                          request:jsRequest]];
     
     [requestOperation start];
     
     if (jsRequest.asynchronous) {
-        [((RKHTTPRequestOperation *)requestOperation) setCompletionBlockWithSuccess:
-         @weakself(^(NSOperation *operation, RKMappingResult *mappingResult)) {
-             [self sendCallbackAboutOperation:operation];
-         } @weakselfend failure:
-         @weakself(^(NSOperation *operation, NSError *error)) {
-             [self sendCallbackAboutOperation:operation];
-         }@weakselfend];
+        __weak typeof(self)weakSelf = self;
+        [((RKHTTPRequestOperation *)requestOperation) setCompletionBlockWithSuccess:^(NSOperation *operation, RKMappingResult *mappingResult) {
+            __strong typeof(self)strongSelf = weakSelf;
+            [strongSelf sendCallbackAboutOperation:operation];
+
+         } failure:^(NSOperation *operation, NSError *error) {
+            __strong typeof(self)strongSelf = weakSelf;
+            [strongSelf sendCallbackAboutOperation:operation];
+         }];
     } else {
         NSInteger maxConcurrentOperationCount = self.restKitObjectManager.HTTPClient.operationQueue.maxConcurrentOperationCount;
         self.restKitObjectManager.HTTPClient.operationQueue.maxConcurrentOperationCount = 1;
