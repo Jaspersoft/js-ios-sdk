@@ -29,7 +29,6 @@
 		087CA42D1B9F068300EB798D /* BasicEncodingRules.m in Sources */ = {isa = PBXBuildFile; fileRef = 087CA42B1B9F068300EB798D /* BasicEncodingRules.m */; };
 		088208821A01328900B6559F /* JSExportExecutionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 088208801A01328900B6559F /* JSExportExecutionRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		088208831A01328900B6559F /* JSExportExecutionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 088208811A01328900B6559F /* JSExportExecutionRequest.m */; };
-		08B8FA181A6FCEAF00E9FE60 /* weakself.h in Headers */ = {isa = PBXBuildFile; fileRef = 08B8FA171A6FCEAF00E9FE60 /* weakself.h */; };
 		08EC04551B85C959005994DB /* JSReportOption.h in Headers */ = {isa = PBXBuildFile; fileRef = 08EC04531B85C959005994DB /* JSReportOption.h */; };
 		08EC04561B85C959005994DB /* JSReportOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EC04541B85C959005994DB /* JSReportOption.m */; };
 		3745523E7EE2CE8C64105A1D /* JSExportExecutionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 37455C26CA9D110D7CBD29A2 /* JSExportExecutionResponse.m */; };
@@ -103,7 +102,6 @@
 		088208801A01328900B6559F /* JSExportExecutionRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSExportExecutionRequest.h; sourceTree = "<group>"; };
 		088208811A01328900B6559F /* JSExportExecutionRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSExportExecutionRequest.m; sourceTree = "<group>"; };
 		08AC6B371A94AD450069CBE3 /* JSErrors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSErrors.h; sourceTree = "<group>"; };
-		08B8FA171A6FCEAF00E9FE60 /* weakself.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = weakself.h; sourceTree = "<group>"; };
 		08EC04531B85C959005994DB /* JSReportOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportOption.h; sourceTree = "<group>"; };
 		08EC04541B85C959005994DB /* JSReportOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportOption.m; sourceTree = "<group>"; };
 		1AE65D84777378DA82ED7BA4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -318,7 +316,6 @@
 			children = (
 				087CA4291B9F068300EB798D /* BasicEncodingRules */,
 				084F28A21B7CF89E00551341 /* KeychainItemWrapper */,
-				08B8FA171A6FCEAF00E9FE60 /* weakself.h */,
 				A14784F7D6DE1862D9D1364E /* JSEncryptionManager.h */,
 				A1478CADF00809430B7F0373 /* JSEncryptionManager.m */,
 			);
@@ -449,7 +446,6 @@
 				F568246A1642996D00CC4015 /* JSInputControlDescriptor.h in Headers */,
 				F56824741642A2A300CC4015 /* JSInputControlState.h in Headers */,
 				F568247A1642A67E00CC4015 /* JSInputControlOption.h in Headers */,
-				08B8FA181A6FCEAF00E9FE60 /* weakself.h in Headers */,
 				F53B1043164A9EE400042976 /* JSReportParameter.h in Headers */,
 				F5AE53AF165169F6004207E1 /* JSDateTimeFormatValidationRule.h in Headers */,
 				081DCA131A9C793D007A7F1B /* JSRESTBase+JSRESTSession.h in Headers */,
