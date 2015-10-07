@@ -32,7 +32,6 @@
 #import "JSRequest.h"
 #import "JSSerializationDescriptorHolder.h"
 #import "JSServerInfo.h"
-#import <Foundation/Foundation.h>
 #import <AFNetworking/AFHTTPClient.h>
 
 extern NSString * const _Nonnull kJSRequestContentType;

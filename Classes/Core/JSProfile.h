@@ -28,8 +28,6 @@
 //  Jaspersoft Corporation
 //
 
-#import <Foundation/Foundation.h>
-
 /**
  Uses to store connection details for JasperReports server
  

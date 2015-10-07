@@ -28,9 +28,7 @@
 //  Jaspersoft Corporation
 //
 
-#import <Foundation/Foundation.h>
 #import "JSErrors.h"
-
 
 @class JSRequest;
 
