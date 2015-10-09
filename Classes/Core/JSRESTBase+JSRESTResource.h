@@ -30,7 +30,6 @@
 
 #import "JSRESTBase.h"
 #import "JSResourceDescriptor.h"
-#import <Foundation/Foundation.h>
 
 /**
  Extention to <code>JSRESTBase</code> class for working with resources by REST calls.

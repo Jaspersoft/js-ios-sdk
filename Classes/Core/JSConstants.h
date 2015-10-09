@@ -28,8 +28,6 @@
 //  Jaspersoft Corporation
 //
 
-#import <Foundation/Foundation.h>
-
 /**
  Provides helping constants for different types of resources and API parts
  

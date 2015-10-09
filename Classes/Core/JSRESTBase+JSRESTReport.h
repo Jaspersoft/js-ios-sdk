@@ -30,7 +30,6 @@
 
 #import "JSRESTBase.h"
 #import "JSInputControlDescriptor.h"
-#import <Foundation/Foundation.h>
 #import "JSReportOption.h"
 #import "JSReportParameter.h"
 

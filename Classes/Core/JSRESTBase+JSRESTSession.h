@@ -29,7 +29,6 @@
 //
 
 #import "JSRESTBase.h"
-#import <Foundation/Foundation.h>
 
 /**
  Extention to <code>JSRESTBase</code> class for working with HTTP session.
