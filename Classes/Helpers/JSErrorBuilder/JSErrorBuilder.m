@@ -2,10 +2,10 @@
 // Created by Aleksandr Dakhno on 10/16/15.
 //
 
-#import "JMErrorBuilder.h"
+#import "JSErrorBuilder.h"
 
 
-@implementation JMErrorBuilder {
+@implementation JSErrorBuilder {
 
 }
 @end
