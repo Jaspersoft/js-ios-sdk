@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name = "JaspersoftSDK"
-	s.version = "2.0.0"
+	s.version = "2.1"
 	s.summary = "JaspersoftSDK - The simplest way to build JasperReports Server apps."
 	s.description = <<-DESC
 		JaspersoftSDK for iOS is a set of Objective-C classes to easily connect
@@ -12,7 +12,6 @@ Pod::Spec.new do |s|
 	s.author = "TIBCO Software"
 	s.platform = :ios, "6.0"
 	s.source = { :git => "https://github.com/Jaspersoft/js-ios-sdk.git", :tag => "#{s.version}" }
-	s.source_files = "Classes", "Classes/**/*.{h,m}"
 	s.public_header_files = "Classes/**/*.h"
 	
 	s.prefix_header_contents = <<-EOS
@@ -24,4 +23,15 @@ Pod::Spec.new do |s|
 	
 	s.dependency "RestKit/Core", ">= 0.20.0"
 	s.dependency "ServerReachability"
+	
+	s.subspec "arc" do |sp|
+	  sp.source_files = "Classes", "Classes/**/*.{h,m}"
+      sp.exclude_files = "**/KeychainItemWrapper.{h,m}"
+      sp.requires_arc = true
+    end
+
+    s.subspec "no-arc" do |sp|
+      sp.source_files = "**/KeychainItemWrapper.{h,m}"
+      sp.requires_arc = false
+    end
 end

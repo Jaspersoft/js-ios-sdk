@@ -54,7 +54,7 @@ NSString * const kJSSavedSessionKeepSessionKey      = @"JSSavedSessionKeepSessio
 static NSTimeInterval const _defaultTimeoutInterval = 120;
 
 // Helper template message indicates that request was finished successfully
-NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
+NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nResponse: %@";
 
 
 // Inner JSCallback class contains JSRequest and RKRequest instances.
@@ -140,13 +140,15 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
 - (void)setServerProfile:(JSProfile *)serverProfile {
     _serverProfile = serverProfile;
     
-    // Delete cookies for current server profile. If don't do this old credentials will be used
-    // instead new one
-    [self deleteCookies];
-    
-    [self configureRestKitObjectManager];
-    
-    self.serverReachability = [ServerReachability reachabilityWithServer:serverProfile.serverUrl];
+    if (serverProfile) {
+        // Delete cookies for current server profile. If don't do this old credentials will be used
+        // instead new one
+        [self deleteCookies];
+        
+        [self configureRestKitObjectManager];
+        
+        self.serverReachability = [ServerReachability reachabilityWithServer:serverProfile.serverUrl timeout:[JSConstants sharedInstance].REST_JRS_CONNECTION_TIMEOUT];
+    }
 }
 
 #pragma mark -
@@ -320,13 +322,17 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super init];
-    if (self) {
-        self.serverProfile = [aDecoder decodeObjectForKey:kJSSavedSessionServerProfileKey];
-        self.keepSession = [aDecoder decodeBoolForKey:kJSSavedSessionKeepSessionKey];
-        self.timeoutInterval = [aDecoder decodeFloatForKey:kJSSavedSessionTimeoutKey];
+    JSProfile *serverProfile = [aDecoder decodeObjectForKey:kJSSavedSessionServerProfileKey];
+    if (serverProfile) {
+        self = [super init];
+        if (self) {
+            self.serverProfile = serverProfile;
+            self.keepSession = [aDecoder decodeBoolForKey:kJSSavedSessionKeepSessionKey];
+            self.timeoutInterval = [aDecoder decodeFloatForKey:kJSSavedSessionTimeoutKey];
+        }
+        return self;
     }
-    return self;
+    return nil;
 }
 
 #pragma mark -
@@ -473,9 +479,10 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@";
     if (callBack) {
         [self.requestCallBacks removeObject:callBack];
         
+#ifndef __RELEASE__
         RKHTTPRequestOperation *httpOperation = [restKitOperation isKindOfClass:[RKObjectRequestOperation class]] ? [restKitOperation HTTPRequestOperation] : restKitOperation;
-        NSLog(_requestFinishedTemplateMessage, [httpOperation.request.URL absoluteString]);
-        
+        NSLog(_requestFinishedTemplateMessage, [httpOperation.request.URL absoluteString], [result bodyAsString]);
+#endif
         [self sendCallBackForRequest:callBack.request withOperationResult:result];
     }
 }

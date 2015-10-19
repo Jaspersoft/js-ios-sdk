@@ -2,10 +2,10 @@ Jaspersoft Mobile SDK for iOS version 1.8
 Copyright (C) 2011 - 2014 Jaspersoft Corporation. All rights reserved.
 http://community.jaspersoft.com/project/mobile-sdk-ios
 
-Unless you have purchased a commercial license agreement from Jaspersoft,
+Unless you have purchased a commercial license agreement from TIBCO Jaspersoft,
 the following license terms apply:
 
-This program is part of Jaspersoft Mobile SDK for iOS.
+This program is part of TIBCO Jaspersoft Mobile SDK for iOS.
 
 Jaspersoft Mobile SDK is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
@@ -25,8 +25,9 @@ along with Jaspersoft Mobile SDK for iOS. If not, see
 THIRD PARTY COMPONENTS
 -------------------------------
 This software includes third party software subject to the associated copyrights, as follows:
-- RestKit v0.23.0 (Apache v2.0) - http://restkit.org/
-- ServerReachability v0.0.1 (MIT) - https://github.com/ogubariev/ServerReachability
+- RestKit v0.24.1 (Apache v2.0) - http://restkit.org/
+- ServerReachability v0.0.2 (MIT) - https://github.com/ogubariev/ServerReachability
+- BasicEncodingRules - https://github.com/StCredZero/SCZ-BasicEncodingRules-iOS
 
 The text of licenses for the above software is included with the
 Jaspersoft Mobile SDK for iOS package, in the /licenses folder.

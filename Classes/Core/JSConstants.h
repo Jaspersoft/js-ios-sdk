@@ -55,6 +55,13 @@
 + (NSString *)stringFromBOOL:(BOOL)aBOOL;
 
 /**
+ Get string identifier for Keychain
+ 
+ @return A string identifier for Keychain in format <YOUR_APP_BUNDLE_ID.GenericKeychainSuite>
+ */
++ (NSString *)keychainIdentifier;
+
+/**
  @name WebService types
  @{
  */
@@ -258,6 +265,7 @@
  */
 @property (nonatomic, readonly) NSString *REST_SDK_MIMETYPE_USED;
 @property (nonatomic, readonly) NSDictionary *REST_JRS_LOCALE_SUPPORTED;
+@property (nonatomic, readonly) NSTimeInterval REST_JRS_CONNECTION_TIMEOUT;
 
 
 /** @} */
