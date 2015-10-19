@@ -430,13 +430,15 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
             NSError *error;
             if (httpOperation.response.statusCode == 401) {
 
-                error = [[JSErrorBuilder sharedBuilder] httpErrorWithCode:httpOperation.response.statusCode
+                error = [[JSErrorBuilder sharedBuilder] httpErrorWithCode:JSHTTPErrorCode
+                                                                 HTTPCode:httpOperation.response.statusCode
                                                                   message:nil];
 
             } else if (httpOperation.response.statusCode && !operationError) {
 
-                error = [[JSErrorBuilder sharedBuilder] networkErrorWithCode:JSNetworkErrorCode
-                                                                     message:nil];
+                error = [[JSErrorBuilder sharedBuilder] httpErrorWithCode:JSHTTPErrorCode
+                                                                 HTTPCode:httpOperation.response.statusCode
+                                                                  message:nil];
 
             } else if ([operationError.domain isEqualToString:NSURLErrorDomain] || [operationError.domain isEqualToString:AFNetworkingErrorDomain]) {
 
@@ -448,19 +450,21 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
                         break;
                     }
                     case NSURLErrorTimedOut: {
+                        // TODO: Create Error message
                         error = [[JSErrorBuilder sharedBuilder] networkErrorWithCode:JSRequestTimeOutErrorCode
                                                                              message:nil];
                         break;
                     }
                     default: {
-                        error = [[JSErrorBuilder sharedBuilder] networkErrorWithCode:JSNetworkErrorCode
-                                                                             message:nil];
+                        error = [[JSErrorBuilder sharedBuilder] httpErrorWithCode:JSHTTPErrorCode
+                                                                         HTTPCode:httpOperation.response.statusCode
+                                                                          message:nil];
                     }
                 }
 
             } else {
 
-                NSInteger code = JSErrorCodeUndefined;
+                JSErrorCode code = JSErrorCodeUndefined;
                 if (operationError.userInfo[RKObjectMapperErrorObjectsKey]) {
                     result.objects = operationError.userInfo[RKObjectMapperErrorObjectsKey];
                     code = JSClientErrorCode;
@@ -522,9 +526,13 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     
     if (!result.error && !result.request.responseAsObjects && [result.request.downloadDestinationPath length]) {
         NSError *fileSavingError = nil;
-        [result.body writeToFile:result.request.downloadDestinationPath options:NSDataWritingAtomic error:&fileSavingError];
+        [result.body writeToFile:result.request.downloadDestinationPath
+                         options:NSDataWritingAtomic
+                           error:&fileSavingError];
+
         if (fileSavingError) {
-            result.error = [NSError errorWithDomain:NSCocoaErrorDomain code:JSFileSavingErrorCode userInfo:fileSavingError.userInfo];
+            result.error = [[JSErrorBuilder sharedBuilder] errorWithCode:JSFileSavingErrorCode
+                                                                 message:fileSavingError.userInfo[NSLocalizedDescriptionKey]];
         }
     }
     
@@ -544,8 +552,10 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 
 - (JSOperationResult *) requestOperationForFailedConnection {
     JSOperationResult *result = [JSOperationResult new];
-    
-    result.error = [NSError errorWithDomain:NSURLErrorDomain code:JSServerNotReachableErrorCode userInfo:@{NSLocalizedDescriptionKey : [NSHTTPURLResponse localizedStringForStatusCode:502]}];
+
+    result.error = [[JSErrorBuilder sharedBuilder] networkErrorWithCode:JSServerNotReachableErrorCode
+                                                                message:[NSHTTPURLResponse localizedStringForStatusCode:502]];
+
     return result;
 }
 

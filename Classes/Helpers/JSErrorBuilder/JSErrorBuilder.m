@@ -8,6 +8,8 @@ NSString * const JSErrorDomain = @"JSErrorDomain";
 NSString * const JSHTTPErrorDomain = @"JSHTTPErrorDomain";
 NSString * const JSAuthErrorDomain = @"JSAuthErrorDomain";
 
+NSString * const JSHTTPErrorResponseStatusKey = @"JSHTTPErrorResponseStatusKey";
+
 @implementation JSErrorBuilder
 
 + (instancetype)sharedBuilder
@@ -24,30 +26,31 @@ NSString * const JSAuthErrorDomain = @"JSAuthErrorDomain";
 
 
 #pragma mark - Public API
-- (NSError *)errorWithCode:(NSInteger)code message:(NSString *)message
+- (NSError *)errorWithCode:(JSErrorCode)code message:(NSString *)message
 {
     return [self createErrorWithDomain:JSErrorDomain
                              errorCode:code
                                message:message];
 }
 
-- (NSError *)httpErrorWithCode:(NSInteger)code message:(NSString *)message
+- (NSError *)httpErrorWithCode:(JSErrorCode)code HTTPCode:(NSInteger)HTTPcode message:(NSString *)message
 {
-    NSString *errorDescription = message ?: [NSHTTPURLResponse localizedStringForStatusCode:code];
+    NSString *errorDescription = message ?: [NSHTTPURLResponse localizedStringForStatusCode:HTTPcode];
 
     return [self createErrorWithDomain:JSHTTPErrorDomain
                              errorCode:code
-                               message:errorDescription];
+                               message:errorDescription
+                              userInfo:@{JSHTTPErrorResponseStatusKey : @(HTTPcode)}];
 }
 
-- (NSError *)authErrorWithCode:(NSInteger)code message:(NSString *)message
+- (NSError *)authErrorWithCode:(JSErrorCode)code message:(NSString *)message
 {
     return [self createErrorWithDomain:JSAuthErrorDomain
                              errorCode:code
                                message:message];
 }
 
-- (NSError *)networkErrorWithCode:(NSInteger)code message:(NSString *)message
+- (NSError *)networkErrorWithCode:(JSErrorCode)code message:(NSString *)message
 {
     return [self createErrorWithDomain:NSURLErrorDomain
                              errorCode:code
@@ -57,11 +60,20 @@ NSString * const JSAuthErrorDomain = @"JSAuthErrorDomain";
 #pragma mark - Private API
 - (NSError *)createErrorWithDomain:(NSString *)domain errorCode:(NSInteger)errorCode message:(NSString *)message
 {
-    NSDictionary *userInfo;
+    return [self createErrorWithDomain:domain
+                             errorCode:errorCode
+                               message:message
+                              userInfo:nil];
+}
+
+- (NSError *)createErrorWithDomain:(NSString *)domain
+                         errorCode:(NSInteger)errorCode
+                           message:(NSString *)message
+                          userInfo:(NSDictionary *)usrInfo
+{
+    NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:usrInfo];
     if (message) {
-        userInfo = @{
-                NSLocalizedDescriptionKey : message
-        };
+        userInfo[NSLocalizedDescriptionKey] = message;
     }
     NSError *error = [NSError errorWithDomain:domain
                                          code:errorCode
