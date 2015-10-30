@@ -98,6 +98,7 @@
 @property (nonatomic, readonly, nonnull) NSString *WS_TYPE_XML;
 @property (nonatomic, readonly, nonnull) NSString *WS_TYPE_XMLA_CONNECTION;
 @property (nonatomic, readonly, nonnull) NSString *WS_TYPE_UNKNOW;
+@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_FILE;
 /** @} */
 
 /**

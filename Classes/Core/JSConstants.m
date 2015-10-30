@@ -126,6 +126,7 @@ static JSConstants *_sharedInstance;
     _WS_TYPE_XML = @"xml";
     _WS_TYPE_XMLA_CONNECTION = @"xmlaConnection";
     _WS_TYPE_UNKNOW = @"unknow";
+    _WS_TYPE_FILE = @"file";
 }
 
 - (void)setDTConstants {
