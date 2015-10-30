@@ -233,6 +233,7 @@ static JSConstants *_sharedInstance;
     _CONTENT_TYPE_PDF = @"pdf";
     _CONTENT_TYPE_HTML = @"html";
     _CONTENT_TYPE_XLS = @"xls";
+    _CONTENT_TYPE_XLSX = @"xlsx";
     _CONTENT_TYPE_RTF = @"rtf";
     _CONTENT_TYPE_CSV = @"csv";
     _CONTENT_TYPE_IMG = @"img";

@@ -253,6 +253,7 @@
 @property (nonatomic, readonly, nonnull) NSString *CONTENT_TYPE_PDF;
 @property (nonatomic, readonly, nonnull) NSString *CONTENT_TYPE_HTML;
 @property (nonatomic, readonly, nonnull) NSString *CONTENT_TYPE_XLS;
+@property (nonatomic, readonly, nonnull) NSString *CONTENT_TYPE_XLSX;
 @property (nonatomic, readonly, nonnull) NSString *CONTENT_TYPE_RTF;
 @property (nonatomic, readonly, nonnull) NSString *CONTENT_TYPE_CSV;
 @property (nonatomic, readonly, nonnull) NSString *CONTENT_TYPE_IMG;
