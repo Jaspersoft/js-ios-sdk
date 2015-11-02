@@ -38,7 +38,9 @@
 		37455EF10B05B5CAE7512A6F /* JSReportExecutionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 374555044AD45FB4F352A96F /* JSReportExecutionRequest.m */; };
 		722EF964428E5B92861DCAC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE65D84777378DA82ED7BA4 /* libPods.a */; };
 		A1478449FBDFED0324D55113 /* JSEncryptionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A14784F7D6DE1862D9D1364E /* JSEncryptionManager.h */; };
+		A147852C0A078A5E8D703306 /* JSContentResource.m in Sources */ = {isa = PBXBuildFile; fileRef = A1478AFFA436BACB6DCCFC65 /* JSContentResource.m */; };
 		A147872F4B900E410C80D225 /* JSResourceReportUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = A1478B2D6D9EF0447765EBAA /* JSResourceReportUnit.m */; };
+		A1478AF62C065C549A0F9156 /* JSContentResource.h in Headers */ = {isa = PBXBuildFile; fileRef = A147821BC8DAC62F55FB82A3 /* JSContentResource.h */; };
 		A1478D6C2889B7FE83D217E3 /* JSEncryptionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A1478CADF00809430B7F0373 /* JSEncryptionManager.m */; };
 		A1478FC6A4EDD3F87E9A85CE /* JSResourceReportUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = A1478377B817F437E81E18F1 /* JSResourceReportUnit.h */; };
 		F520FF89196FEE53009435C2 /* JSMandatoryValidationRule.h in Headers */ = {isa = PBXBuildFile; fileRef = F520FF87196FEE53009435C2 /* JSMandatoryValidationRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -112,8 +114,10 @@
 		37455C26CA9D110D7CBD29A2 /* JSExportExecutionResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSExportExecutionResponse.m; sourceTree = "<group>"; };
 		9B199A7873E268BCFDF3074C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		A14780856156D274B677AF06 /* TIB_jsm-sdk-ios_2.1.1_license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TIB_jsm-sdk-ios_2.1.1_license.txt"; sourceTree = "<group>"; };
+		A147821BC8DAC62F55FB82A3 /* JSContentResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSContentResource.h; sourceTree = "<group>"; };
 		A1478377B817F437E81E18F1 /* JSResourceReportUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResourceReportUnit.h; sourceTree = "<group>"; };
 		A14784F7D6DE1862D9D1364E /* JSEncryptionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSEncryptionManager.h; sourceTree = "<group>"; };
+		A1478AFFA436BACB6DCCFC65 /* JSContentResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSContentResource.m; sourceTree = "<group>"; };
 		A1478B2D6D9EF0447765EBAA /* JSResourceReportUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceReportUnit.m; sourceTree = "<group>"; };
 		A1478CADF00809430B7F0373 /* JSEncryptionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSEncryptionManager.m; sourceTree = "<group>"; };
 		F520FF87196FEE53009435C2 /* JSMandatoryValidationRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMandatoryValidationRule.h; sourceTree = "<group>"; };
@@ -231,6 +235,15 @@
 			name = ReportExecution;
 			sourceTree = "<group>";
 		};
+		93A1E07E1BE758AD00A115D8 /* JSContentResource */ = {
+			isa = PBXGroup;
+			children = (
+				A1478AFFA436BACB6DCCFC65 /* JSContentResource.m */,
+				A147821BC8DAC62F55FB82A3 /* JSContentResource.h */,
+			);
+			path = JSContentResource;
+			sourceTree = "<group>";
+		};
 		D919A263B01FF70A80C7A549 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -327,6 +340,7 @@
 		F597690515E3C826004165A7 /* ObjectMappings */ = {
 			isa = PBXGroup;
 			children = (
+				93A1E07E1BE758AD00A115D8 /* JSContentResource */,
 				F52DF64818648C28000D375E /* JSObjectMappings.h */,
 				F5AE53AB16516870004207E1 /* InputControl */,
 				F5AE53A5165164D7004207E1 /* Server */,
@@ -462,6 +476,7 @@
 				F523D78518635EB000B93D3F /* JSExecutionStatus.h in Headers */,
 				A1478FC6A4EDD3F87E9A85CE /* JSResourceReportUnit.h in Headers */,
 				A1478449FBDFED0324D55113 /* JSEncryptionManager.h in Headers */,
+				A1478AF62C065C549A0F9156 /* JSContentResource.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -601,6 +616,7 @@
 				A147872F4B900E410C80D225 /* JSResourceReportUnit.m in Sources */,
 				08EC04561B85C959005994DB /* JSReportOption.m in Sources */,
 				A1478D6C2889B7FE83D217E3 /* JSEncryptionManager.m in Sources */,
+				A147852C0A078A5E8D703306 /* JSContentResource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
