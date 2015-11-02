@@ -37,5 +37,6 @@
 #import "JSRESTBase+JSRESTSession.h"
 #import "JSRESTBase+JSRESTReport.h"
 #import "JSRESTBase+JSRESTResource.h"
+#import "JSRESTBase+JSRESTContentResource.h"
 
 #import "JSSerializationDescriptorHolder.h"
