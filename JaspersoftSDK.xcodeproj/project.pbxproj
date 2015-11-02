@@ -37,6 +37,8 @@
 		37455CF8BA142B8554AF5F9A /* JSReportExecutionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 374558828353F4E8E6F29C17 /* JSReportExecutionResponse.m */; };
 		37455EF10B05B5CAE7512A6F /* JSReportExecutionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 374555044AD45FB4F352A96F /* JSReportExecutionRequest.m */; };
 		722EF964428E5B92861DCAC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE65D84777378DA82ED7BA4 /* libPods.a */; };
+		93A1E0811BE763F900A115D8 /* JSRESTBase+JSRESTContentResource.h in Headers */ = {isa = PBXBuildFile; fileRef = 93A1E07F1BE763F900A115D8 /* JSRESTBase+JSRESTContentResource.h */; };
+		93A1E0821BE763F900A115D8 /* JSRESTBase+JSRESTContentResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A1E0801BE763F900A115D8 /* JSRESTBase+JSRESTContentResource.m */; };
 		A1478449FBDFED0324D55113 /* JSEncryptionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A14784F7D6DE1862D9D1364E /* JSEncryptionManager.h */; };
 		A147852C0A078A5E8D703306 /* JSContentResource.m in Sources */ = {isa = PBXBuildFile; fileRef = A1478AFFA436BACB6DCCFC65 /* JSContentResource.m */; };
 		A147872F4B900E410C80D225 /* JSResourceReportUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = A1478B2D6D9EF0447765EBAA /* JSResourceReportUnit.m */; };
@@ -112,6 +114,8 @@
 		374556F481BE36B761B5FDDF /* JSReportOutputResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportOutputResource.m; sourceTree = "<group>"; };
 		374558828353F4E8E6F29C17 /* JSReportExecutionResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportExecutionResponse.m; sourceTree = "<group>"; };
 		37455C26CA9D110D7CBD29A2 /* JSExportExecutionResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSExportExecutionResponse.m; sourceTree = "<group>"; };
+		93A1E07F1BE763F900A115D8 /* JSRESTBase+JSRESTContentResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSRESTBase+JSRESTContentResource.h"; sourceTree = "<group>"; };
+		93A1E0801BE763F900A115D8 /* JSRESTBase+JSRESTContentResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSRESTContentResource.m"; sourceTree = "<group>"; };
 		9B199A7873E268BCFDF3074C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		A14780856156D274B677AF06 /* TIB_jsm-sdk-ios_2.1.1_license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TIB_jsm-sdk-ios_2.1.1_license.txt"; sourceTree = "<group>"; };
 		A147821BC8DAC62F55FB82A3 /* JSContentResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSContentResource.h; sourceTree = "<group>"; };
@@ -316,6 +320,8 @@
 				F59768F315E3C826004165A7 /* JSRESTBase+JSRESTReport.m */,
 				F59768F415E3C826004165A7 /* JSRESTBase+JSRESTResource.h */,
 				F59768F515E3C826004165A7 /* JSRESTBase+JSRESTResource.m */,
+				93A1E07F1BE763F900A115D8 /* JSRESTBase+JSRESTContentResource.h */,
+				93A1E0801BE763F900A115D8 /* JSRESTBase+JSRESTContentResource.m */,
 				F59768EA15E3C826004165A7 /* JSOperationResult.h */,
 				F59768EB15E3C826004165A7 /* JSOperationResult.m */,
 				F59768EE15E3C826004165A7 /* JSRequest.h */,
@@ -461,6 +467,7 @@
 				F5DDD7AB164029EC005BBE7C /* JSServerInfo.h in Headers */,
 				F568246A1642996D00CC4015 /* JSInputControlDescriptor.h in Headers */,
 				F56824741642A2A300CC4015 /* JSInputControlState.h in Headers */,
+				93A1E0811BE763F900A115D8 /* JSRESTBase+JSRESTContentResource.h in Headers */,
 				F568247A1642A67E00CC4015 /* JSInputControlOption.h in Headers */,
 				F53B1043164A9EE400042976 /* JSReportParameter.h in Headers */,
 				F5AE53AF165169F6004207E1 /* JSDateTimeFormatValidationRule.h in Headers */,
@@ -598,6 +605,7 @@
 				F597694D15E3C826004165A7 /* JSResourceDescriptor.m in Sources */,
 				F597695115E3C826004165A7 /* JSResourceParameter.m in Sources */,
 				F597695515E3C826004165A7 /* JSResourceProperty.m in Sources */,
+				93A1E0821BE763F900A115D8 /* JSRESTBase+JSRESTContentResource.m in Sources */,
 				F5DDD7AD164029EC005BBE7C /* JSServerInfo.m in Sources */,
 				F523D78718635EB000B93D3F /* JSExecutionStatus.m in Sources */,
 				F568246C1642996D00CC4015 /* JSInputControlDescriptor.m in Sources */,
