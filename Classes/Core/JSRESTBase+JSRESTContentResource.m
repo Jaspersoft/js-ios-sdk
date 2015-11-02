@@ -32,6 +32,7 @@
 #import "JSResourceLookup.h"
 #import "JSContentResource.h"
 #import "JSRESTBase+JSRESTResource.h"
+#import "JSConstants.h"
 
 @implementation JSRESTBase(JSRESTContentResource)
 
@@ -39,21 +40,21 @@
                                completion:(void(^ __nonnull)(JSContentResource *resource, NSError *error))completion
 {
     [self resourceLookupForURI:resourceLookup.uri
-                             resourceType:[JSConstants sharedInstance].WS_TYPE_FILE
-                               modelClass:[JSContentResource class]
-                          completionBlock:^(JSOperationResult *result) {
-                              if (result.error) {
-                                  completion(nil, result.error);
-                              } else {
-                                  JSContentResource *resource = result.objects.firstObject;
-                                  if (resource) {
-                                      completion(resource, nil);
-                                  } else {
-                                      // TODO: add error
-                                      completion(nil, nil);
-                                  }
-                              }
-                          }];
+                  resourceType:[JSConstants sharedInstance].WS_TYPE_FILE
+                    modelClass:[JSContentResource class]
+               completionBlock:^(JSOperationResult *result) {
+                   if (result.error) {
+                       completion(nil, result.error);
+                   } else {
+                       JSContentResource *resource = result.objects.firstObject;
+                       if (resource) {
+                           completion(resource, nil);
+                       } else {
+                           // TODO: add error
+                           completion(nil, nil);
+                       }
+                   }
+               }];
 }
 
 @end
