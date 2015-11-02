@@ -29,6 +29,7 @@
 //
 
 #import "JSResourceLookup.h"
+#import "JSContentResource.h"
 #import "JSResourceReportUnit.h"
 #import "JSResourceDescriptor.h"
 #import "JSResourceParameter.h"
