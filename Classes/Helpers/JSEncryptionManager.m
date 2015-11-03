@@ -88,7 +88,7 @@ NSString * const kJSAuthenticationTag = @"TIBCO.JasperServer.Password";
     [fixedModulusData appendData:modulusData];
 
     NSArray *dataArray = @[
-            modulusData,
+            fixedModulusData,
             exponentData
     ];
 
