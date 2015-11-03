@@ -63,7 +63,7 @@ NSString * const kJSAuthenticationTag = @"TIBCO.JasperServer.Password";
     NSData *publicKeyData = [self generatePublicKeyDataFromModulus:self.modulus exponent:self.exponent];
     SecKeyRef publicKeyRef = [self addPublicKeyWithTagName:kJSAuthenticationTag keyBits:publicKeyData];
 
-    // There is an issue with iOS9 when SecItemCopyMatching() - works wrong.
+    // If there isn't public key return plain (unencrypted) text
     if (!publicKeyRef) {
         return text;
     }
@@ -81,6 +81,11 @@ NSString * const kJSAuthenticationTag = @"TIBCO.JasperServer.Password";
         exponent = [@"0" stringByAppendingString:exponent];
     }
     NSData *exponentData = [self dataFromString:exponent];
+
+    // Correct modulus data by adding offset 0x00
+    const char fixByte = 0;
+    NSMutableData * fixedModulusData = [NSMutableData dataWithBytes:&fixByte length:1];
+    [fixedModulusData appendData:modulusData];
 
     NSArray *dataArray = @[
             modulusData,
