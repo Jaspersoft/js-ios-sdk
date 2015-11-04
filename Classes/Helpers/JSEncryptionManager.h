@@ -33,10 +33,8 @@
  @since 2.1
  */
 
-#import <Foundation/Foundation.h>
-
 @interface JSEncryptionManager : NSObject
-- (nonnull instancetype)initWithModulus:(nonnull NSString *)modulus exponent:(nonnull NSString *)exponent;
-+ (nonnull instancetype)managerWithModulus:(nonnull NSString *)modulus exponent:(nonnull NSString *)exponent;
-- (nonnull NSString *)encryptText:(nonnull NSString *)text;
+- (NSString *)encryptText:(NSString *)text withModulus:(NSString *)modulus exponent:(NSString *)exponent;
+- (NSString *)encryptText:(NSString *)text withKey:(NSString *)key;
+- (NSString *)decryptText:(NSString *)text withKey:(NSString *)key;
 @end

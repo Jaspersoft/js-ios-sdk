@@ -178,9 +178,10 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     [self fetchEncryptionKeyWithCompletion:^(NSString *modulus, NSString *exponent, NSError *error) {
         NSString *encPassword = password;
         if (modulus && exponent) {
-            JSEncryptionManager *encryptionManager = [JSEncryptionManager managerWithModulus:modulus
-                                                                                    exponent:exponent];
-            encPassword = [encryptionManager encryptText:password];
+            JSEncryptionManager *encryptionManager = [JSEncryptionManager new];
+            encPassword = [encryptionManager encryptText:password
+                                             withModulus:modulus
+                                                exponent:exponent];
         }
 
         __strong typeof(self)strongSelf = weakSelf;

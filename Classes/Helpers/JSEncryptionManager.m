@@ -32,7 +32,9 @@
 #import "JSEncryptionManager.h"
 #import "BasicEncodingRules.h"
 
-NSString * const kJSAuthenticationTag = @"TIBCO.JasperServer.Password";
+NSString * const kJSAuthenticationTag = @"TIBCO.JasperServer.Authentication";
+NSString * const kJSPublicCredentialsTag = @"TIBCO.JasperServer.Public.Credentials";
+NSString * const kJSPrivateCredentialsTag = @"TIBCO.JasperServer.Private.Credentials";
 
 @interface JSEncryptionManager()
 @property (nonatomic, copy) NSString *modulus;
@@ -41,35 +43,63 @@ NSString * const kJSAuthenticationTag = @"TIBCO.JasperServer.Password";
 
 @implementation JSEncryptionManager
 
-#pragma mark - Initialize
-- (instancetype)initWithModulus:(NSString *)modulus exponent:(NSString *)exponent
-{
-    self = [super init];
-    if (self) {
-        _modulus = modulus;
-        _exponent = exponent;
-    }
-    return self;
-}
-
-+ (instancetype)managerWithModulus:(NSString *)modulus exponent:(NSString *)exponent {
-    return [[self alloc] initWithModulus:modulus exponent:exponent];
-}
-
-
 #pragma mark - Public API
-- (NSString *)encryptText:(NSString *)text
+- (NSString *)encryptText:(NSString *)text withModulus:(NSString *)modulus exponent:(NSString *)exponent
 {
-    NSData *publicKeyData = [self generatePublicKeyDataFromModulus:self.modulus exponent:self.exponent];
-    SecKeyRef publicKeyRef = [self addPublicKeyWithTagName:kJSAuthenticationTag keyBits:publicKeyData];
+    SecKeyRef publicKeyRef;
+    NSData *encryptedData;
+    NSString *encryptedString;
+
+    NSData *publicKeyData = [self generatePublicKeyDataFromModulus:modulus exponent:exponent];
+    publicKeyRef = [self addSecKeyWithData:publicKeyData tagName:kJSAuthenticationTag];
 
     // If there isn't public key return plain (unencrypted) text
     if (!publicKeyRef) {
         return text;
     }
-    NSData *encryptedData = [self encryptText:text withKey:publicKeyRef];
-    NSString *encryptedString = [self stringFromData:encryptedData];
+
+    encryptedData = [self encryptData:[text dataUsingEncoding:NSUTF8StringEncoding]
+                        withPublicKey:publicKeyRef
+                              padding:kSecPaddingNone];
+    encryptedString = [self stringFromData:encryptedData];
+
     return encryptedString;
+}
+
+- (NSString *)encryptText:(NSString *)text withKey:(NSString *)key
+{
+    NSString *publicTagName = [NSString stringWithFormat:@"%@.%@", kJSPublicCredentialsTag, key];
+    NSString *privateTagName = [NSString stringWithFormat:@"%@.%@", kJSPrivateCredentialsTag, key];
+
+    [self generateKeysWithCompletion:^(SecKeyRef publicKey, SecKeyRef privateKey) {
+        [self addSecKeyWithSecKey:publicKey
+                          tagName:publicTagName];
+        [self addSecKeyWithSecKey:privateKey
+                          tagName:privateTagName];
+    }];
+
+    SecKeyRef publicKeyRef = [self secKeyWithTagName:publicTagName];
+    NSData *encryptedData = [self encryptData:[text dataUsingEncoding:NSUTF8StringEncoding]
+                                withPublicKey:publicKeyRef
+                                      padding:kSecPaddingOAEP];
+    NSString *encryptedString = [encryptedData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    return encryptedString;
+}
+
+- (NSString *)decryptText:(NSString *)text withKey:(NSString *)key
+{
+    NSString *privateTagName = [NSString stringWithFormat:@"%@.%@", kJSPrivateCredentialsTag, key];
+    SecKeyRef privateKeyRef = [self secKeyWithTagName:privateTagName];
+    if (!privateKeyRef) {
+        return nil;
+    }
+    NSData *encryptedData = [[NSData alloc] initWithBase64EncodedString:text
+                                                                options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    NSData *decryptedData = [self decryptData:encryptedData
+                               withPrivateKey:privateKeyRef
+                                      padding:kSecPaddingOAEP];
+    NSString *decryptedString = [[NSString alloc] initWithData:decryptedData encoding:NSUTF8StringEncoding];
+    return decryptedString;
 }
 
 #pragma mark - Private API
@@ -96,59 +126,80 @@ NSString * const kJSAuthenticationTag = @"TIBCO.JasperServer.Password";
     return result;
 }
 
-- (SecKeyRef)addPublicKeyWithTagName:(NSString *)tagName keyBits:(NSData *)publicKey
+- (NSDictionary *)paramsWithTagName:(NSString *)tagName
+{
+    NSData * peerTag = [[NSData alloc] initWithBytes:(const void *)tagName.UTF8String
+                                              length:tagName.length];
+    NSDictionary *params = @{
+            (__bridge id) kSecAttrApplicationTag: peerTag,
+            (__bridge id) kSecAttrKeyType: (__bridge id) kSecAttrKeyTypeRSA,
+            (__bridge id) kSecClass: (__bridge id) kSecClassKey,
+    };
+    return params;
+}
+
+- (SecKeyRef)secKeyWithTagName:(NSString *)tagName
 {
     SecKeyRef peerKeyRef = NULL;
-    CFTypeRef persistPeer = NULL;
-
-    NSData * peerTag = [[NSData alloc] initWithBytes:(const void *)[tagName UTF8String] length:[tagName length]];
-    NSMutableDictionary * peerPublicKeyAttr = [[NSMutableDictionary alloc] init];
-
-    peerPublicKeyAttr[(__bridge id) kSecClass] = (__bridge id) kSecClassKey;
-    peerPublicKeyAttr[(__bridge id) kSecAttrKeyType] = (__bridge id) kSecAttrKeyTypeRSA;
-    peerPublicKeyAttr[(__bridge id) kSecAttrKeyClass] = (__bridge id)kSecAttrKeyClassPublic;
-    peerPublicKeyAttr[(__bridge id) kSecAttrApplicationTag] = peerTag;
-    peerPublicKeyAttr[(__bridge id) kSecReturnPersistentRef] = @(YES);
-
-    SecItemDelete((__bridge CFDictionaryRef)peerPublicKeyAttr);
-
-    peerPublicKeyAttr[(__bridge id) kSecValueData] = publicKey;
-
-    SecItemAdd((__bridge CFDictionaryRef) peerPublicKeyAttr, (CFTypeRef *)&persistPeer);
-
-    if (persistPeer) {
-        NSMutableDictionary* query = [
-                @{
-                        (__bridge id) kSecValuePersistentRef : (__bridge id) persistPeer,
-                        (__bridge id) kSecReturnRef : @YES
-                } mutableCopy];
-
-        SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef*)&peerKeyRef);
-    } else {
-        [peerPublicKeyAttr removeObjectForKey:(__bridge id)kSecValueData];
-        peerPublicKeyAttr[(__bridge id) kSecReturnRef] = @YES;
-        // Let's retry a different way.
-        SecItemCopyMatching((__bridge CFDictionaryRef) peerPublicKeyAttr, (CFTypeRef *)&peerKeyRef);
-    }
-
-    if (persistPeer) CFRelease(persistPeer);
+    NSMutableDictionary *params = [[self paramsWithTagName:tagName] mutableCopy];
+    params[(__bridge id) kSecReturnRef] = @YES;
+    SecItemCopyMatching((__bridge CFDictionaryRef)params, (CFTypeRef *)&peerKeyRef);
     return peerKeyRef;
 }
 
-- (NSData *)encryptText:(NSString *)plainTextString withKey:(SecKeyRef)publicKey
+- (SecKeyRef)addSecKeyWithData:(NSData *)secKeyData tagName:(NSString *)tagName
 {
-    size_t cipherBufferSize = SecKeyGetBlockSize(publicKey);
-    uint8_t *cipherBuffer = malloc(cipherBufferSize);
-    uint8_t *nonce = (uint8_t *)[plainTextString UTF8String];
-    SecKeyEncrypt(publicKey,
-            kSecPaddingNone,
-            nonce,
-            strlen( (char*)nonce ),
-            &cipherBuffer[0],
-            &cipherBufferSize);
-    NSData *encryptedData = [NSData dataWithBytes:cipherBuffer length:cipherBufferSize];
-    free(cipherBuffer);
-    return encryptedData;
+    // Remove old key
+    [self removeSecKeyWithTagName:tagName];
+
+    NSMutableDictionary *params = [[self paramsWithTagName:tagName] mutableCopy];
+    params[(__bridge id) kSecReturnPersistentRef] = @YES;
+    params[(__bridge id) kSecValueData] = secKeyData;
+
+    SecKeyRef keyRef = [self addSecKeyWithParams:params];
+    return keyRef;
+}
+
+- (SecKeyRef)addSecKeyWithSecKey:(SecKeyRef)secKeyRef tagName:(NSString *)tagName
+{
+    // Remove old key
+    [self removeSecKeyWithTagName:tagName];
+
+    NSMutableDictionary *params = [[self paramsWithTagName:tagName] mutableCopy];
+    params[(__bridge id) kSecReturnPersistentRef] = @YES;
+    params[(__bridge id) kSecValueRef] = (__bridge id)secKeyRef;
+
+    SecKeyRef keyRef = [self addSecKeyWithParams:params];
+    return keyRef;
+}
+
+- (SecKeyRef)addSecKeyWithParams:(NSDictionary *)params
+{
+    SecKeyRef keyRef = NULL;
+
+    // Add public data
+    CFTypeRef persistRef = NULL;
+    SecItemAdd((__bridge CFDictionaryRef)params, &persistRef);
+
+    // Get public key for public data
+    if (persistRef) {
+        NSDictionary* queryParams = @{
+                (__bridge id) kSecValuePersistentRef : (__bridge id)persistRef,
+                (__bridge id) kSecReturnRef : @YES
+        };
+        SecItemCopyMatching((__bridge CFDictionaryRef)queryParams, (CFTypeRef *)&keyRef);
+    } else {
+        return nil;
+    }
+
+    if (persistRef) CFRelease(persistRef);
+    return keyRef;
+}
+
+- (void)removeSecKeyWithTagName:(NSString *)tagName
+{
+    NSDictionary *params = [self paramsWithTagName:tagName];
+    SecItemDelete((__bridge CFDictionaryRef)params);
 }
 
 #pragma mark - Helpers
@@ -176,6 +227,62 @@ NSString * const kJSAuthenticationTag = @"TIBCO.JasperServer.Password";
     }
 
     return result;
+}
+
+#pragma mark - Wrappers
+- (NSData *)encryptData:(NSData *)data withPublicKey:(SecKeyRef)publicKey padding:(SecPadding)padding
+{
+    // init buffer for encrypted data
+    size_t encryptedDataBufferSize = SecKeyGetBlockSize(publicKey);
+    uint8_t *encryptedDataBuffer = malloc(encryptedDataBufferSize);
+
+    SecKeyEncrypt(publicKey,
+            padding,
+            data.bytes,
+            data.length,
+            encryptedDataBuffer,
+            &encryptedDataBufferSize);
+
+    NSData *encryptedData = [NSData dataWithBytes:encryptedDataBuffer
+                                           length:encryptedDataBufferSize];
+    free(encryptedDataBuffer);
+    return encryptedData;
+}
+
+- (NSData *)decryptData:(NSData *)encryptedData withPrivateKey:(SecKeyRef)privateKey padding:(SecPadding)padding
+{
+    // init buffer for encrypted data
+    size_t decryptedDataBufferSize = SecKeyGetBlockSize(privateKey);
+    uint8_t *decryptedDataBuffer = malloc(decryptedDataBufferSize);
+
+    SecKeyDecrypt(privateKey,
+            padding,
+            encryptedData.bytes,
+            encryptedData.length,
+            decryptedDataBuffer,
+            &decryptedDataBufferSize);
+
+    NSData *decryptedData = [NSData dataWithBytes:decryptedDataBuffer
+                                           length:decryptedDataBufferSize];
+    free(decryptedDataBuffer);
+    return decryptedData;
+}
+
+- (void)generateKeysWithCompletion:(void(^)(SecKeyRef publicKey, SecKeyRef privateKey))completion
+{
+    if (!completion) {
+        return;
+    }
+
+    NSMutableDictionary *params = [@{} mutableCopy];
+    SInt32 iKeySize = 1024;
+    CFNumberRef keySize = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &iKeySize);
+    params[(__bridge id) kSecAttrKeyType] = (__bridge id) kSecAttrKeyTypeRSA;
+    params[(__bridge id) kSecAttrKeySizeInBits] = (__bridge id) keySize;
+    SecKeyRef publicKey;
+    SecKeyRef privateKey;
+    SecKeyGeneratePair((__bridge CFDictionaryRef)params, &publicKey, &privateKey);
+    completion(publicKey, privateKey);
 }
 
 @end
