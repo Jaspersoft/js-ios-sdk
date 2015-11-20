@@ -53,6 +53,14 @@
 + (nonnull NSString *)stringFromBOOL:(BOOL)aBOOL;
 
 /**
+ Get Bolean representation for string value
+ 
+ @param aString A String value @"true" or @"false"
+ @return A BOOL depends on provided string value
+ */
++ (BOOL)BOOLFromString:(nonnull NSString *)aString;
+
+/**
  Get string identifier for Keychain
  
  @return A string identifier for Keychain in format <YOUR_APP_BUNDLE_ID.GenericKeychainSuite>

@@ -33,6 +33,7 @@
 #import "JSSerializationDescriptorHolder.h"
 #import "JSMandatoryValidationRule.h"
 #import "JSDateTimeFormatValidationRule.h"
+#import "JSDataType.h"
 
 
 /**
@@ -55,6 +56,8 @@
 
 @property (nonatomic, readonly) JSDateTimeFormatValidationRule *dateTimeFormatValidationRule;
 @property (nonatomic, readonly) JSMandatoryValidationRule *mandatoryValidationRule;
+
+@property (nonatomic, readonly) JSDataType *dataType;
 
 - (NSArray *)selectedValues;
 

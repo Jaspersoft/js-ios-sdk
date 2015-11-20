@@ -125,7 +125,11 @@
     [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"state"
                                                                                  toKeyPath:@"state"
                                                                                withMapping:[JSInputControlState classMappingForServerProfile:serverProfile]]];
-    
+
+    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"dataType"
+                                                                                 toKeyPath:@"dataType"
+                                                                               withMapping:[JSDataType classMappingForServerProfile:serverProfile]]];
+
     RKDynamicMapping* dynamicMapping = [RKDynamicMapping new];
     [dynamicMapping setObjectMappingForRepresentationBlock:^RKObjectMapping *(id representation) {
         id key = [[representation allKeys] lastObject];

@@ -31,6 +31,8 @@
 		088208831A01328900B6559F /* JSExportExecutionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 088208811A01328900B6559F /* JSExportExecutionRequest.m */; };
 		08EC04551B85C959005994DB /* JSReportOption.h in Headers */ = {isa = PBXBuildFile; fileRef = 08EC04531B85C959005994DB /* JSReportOption.h */; };
 		08EC04561B85C959005994DB /* JSReportOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EC04541B85C959005994DB /* JSReportOption.m */; };
+		08FED4A51BFF4D4400390403 /* JSDataType.h in Headers */ = {isa = PBXBuildFile; fileRef = 08FED4A31BFF4D4400390403 /* JSDataType.h */; };
+		08FED4A61BFF4D4400390403 /* JSDataType.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FED4A41BFF4D4400390403 /* JSDataType.m */; };
 		3745523E7EE2CE8C64105A1D /* JSExportExecutionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 37455C26CA9D110D7CBD29A2 /* JSExportExecutionResponse.m */; };
 		37455A556862C72B0B83193F /* JSReportOutputResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 374556F481BE36B761B5FDDF /* JSReportOutputResource.m */; };
 		37455ABDDD4368D267B50469 /* JSReportExecutionResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 374551F833EA720B59987045 /* JSReportExecutionResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -104,6 +106,8 @@
 		08AC6B371A94AD450069CBE3 /* JSErrors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSErrors.h; sourceTree = "<group>"; };
 		08EC04531B85C959005994DB /* JSReportOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportOption.h; sourceTree = "<group>"; };
 		08EC04541B85C959005994DB /* JSReportOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportOption.m; sourceTree = "<group>"; };
+		08FED4A31BFF4D4400390403 /* JSDataType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDataType.h; sourceTree = "<group>"; };
+		08FED4A41BFF4D4400390403 /* JSDataType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDataType.m; sourceTree = "<group>"; };
 		1AE65D84777378DA82ED7BA4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		374551F833EA720B59987045 /* JSReportExecutionResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportExecutionResponse.h; sourceTree = "<group>"; };
 		374555044AD45FB4F352A96F /* JSReportExecutionRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportExecutionRequest.m; sourceTree = "<group>"; };
@@ -384,6 +388,8 @@
 		F5AE53AC1651696C004207E1 /* Validation */ = {
 			isa = PBXGroup;
 			children = (
+				08FED4A31BFF4D4400390403 /* JSDataType.h */,
+				08FED4A41BFF4D4400390403 /* JSDataType.m */,
 				F5AE53AD165169F6004207E1 /* JSDateTimeFormatValidationRule.h */,
 				F5AE53AE165169F6004207E1 /* JSDateTimeFormatValidationRule.m */,
 				F520FF87196FEE53009435C2 /* JSMandatoryValidationRule.h */,
@@ -436,6 +442,7 @@
 				F597692415E3C826004165A7 /* JSRESTBase+JSRESTReport.h in Headers */,
 				F597692815E3C826004165A7 /* JSRESTBase+JSRESTResource.h in Headers */,
 				F597691415E3C826004165A7 /* JSOperationResult.h in Headers */,
+				08FED4A51BFF4D4400390403 /* JSDataType.h in Headers */,
 				F597691C15E3C826004165A7 /* JSRequest.h in Headers */,
 				F597697915E3C9EF004165A7 /* JSSerializationDescriptorHolder.h in Headers */,
 				F597691015E3C826004165A7 /* JSConstants.h in Headers */,
@@ -583,6 +590,7 @@
 				F597694D15E3C826004165A7 /* JSResourceDescriptor.m in Sources */,
 				F597695115E3C826004165A7 /* JSResourceParameter.m in Sources */,
 				F597695515E3C826004165A7 /* JSResourceProperty.m in Sources */,
+				08FED4A61BFF4D4400390403 /* JSDataType.m in Sources */,
 				F5DDD7AD164029EC005BBE7C /* JSServerInfo.m in Sources */,
 				F523D78718635EB000B93D3F /* JSExecutionStatus.m in Sources */,
 				F568246C1642996D00CC4015 /* JSInputControlDescriptor.m in Sources */,

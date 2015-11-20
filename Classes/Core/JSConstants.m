@@ -82,6 +82,11 @@ static JSConstants *_sharedInstance;
     return aBOOL ? @"true" : @"false";
 }
 
++ (BOOL)BOOLFromString:(nonnull NSString *)aString {
+    NSComparisonResult result = [aString caseInsensitiveCompare:@"true"];
+    return (result == NSOrderedSame);
+}
+
 + (nonnull NSString *)keychainIdentifier {
     return [NSString stringWithFormat:@"%@.GenericKeychainSuite", [NSBundle mainBundle].bundleIdentifier];
 }
