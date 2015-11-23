@@ -31,7 +31,6 @@
 
 #import "JSRESTBase+JSRESTSession.h"
 #import "JSConstants.h"
-#import "weakself.h"
 #import "JSEncryptionManager.h"
 
 NSString * const kJSAuthenticationUsernameKey       = @"j_username";
@@ -41,15 +40,25 @@ NSString * const kJSAuthenticationLocaleKey         = @"userLocale";
 NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
 
 @implementation JSRESTBase(JSRESTSession)
+
+#pragma mark - Public API
 - (BOOL)isSessionAuthorized {
+    return self.cookies.count > 0;
+}
+
+- (void)verifyIsSessionAuthorizedWithCompletion:(void (^)(BOOL isSessionAuthorized))completion
+{
     if ([self.cookies count]) {
-        return YES;
+        if (completion) {
+            completion(YES);
+        }
     } else {
-        return [self authenticationToken];
+        [self authenticateWithCompletion:completion];
     }
 }
 
-- (BOOL)authenticationToken
+#pragma mark - Private API
+- (void)fetchEncryptionKeyWithCompletion:(void(^)(NSString *modulus, NSString *exponent, NSError *error))completion
 {
     NSString *URI = @"GetEncryptionKey";
     JSRequest *request = [[JSRequest alloc] initWithUri:URI];
@@ -58,56 +67,58 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     request.method = RKRequestMethodGET;
     request.responseAsObjects = NO;
     request.redirectAllowed = NO;
-    request.asynchronous = NO;
+    request.asynchronous = YES;
 
-    __block BOOL authenticationSuccess = NO;
-    [request setCompletionBlock:@weakself(^(JSOperationResult *result)) {
-            NSString *password = self.serverProfile.password;
-
-            NSError *jsonError;
-            NSData *jsonData = result.body;
-            if (jsonData) {
-                NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                                     options:NSJSONReadingMutableContainers
-                                                                       error:&jsonError];
-                if (json) {
-                    NSString *modulus = json[@"n"];
-                    NSString *exponent = json[@"e"];
-
-                    if (modulus) {
-                        JSEncryptionManager *encryptionManager = [JSEncryptionManager managerWithModulus:modulus
-                                                                                                exponent:exponent];
-                        password = [encryptionManager encryptText:password];
+    [request setCompletionBlock:^(JSOperationResult *result) {
+        if (completion) {
+            if (result.error) {
+                completion(nil, nil, result.error);
+            } else {
+                NSData *jsonData = result.body;
+                NSError *error = nil;
+                if (jsonData) {
+                    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                         options:NSJSONReadingMutableContainers
+                                                                           error:&error];
+                    if (json) {
+                        NSString *modulus = json[@"n"];
+                        NSString *exponent = json[@"e"];
+                        if (modulus && exponent) {
+                            completion(modulus, exponent, nil);
+                        } else {
+                            NSDictionary *userInfo = @{NSLocalizedDescriptionKey : @"Encription Key doesn't valid. Modulus or exponent is absent."};
+                            error = [NSError errorWithDomain:NSURLErrorDomain code:JSClientErrorCode userInfo:userInfo];
+                            completion(nil, nil, error);
+                        }
+                    } else {
+                        completion(nil, nil, error);
                     }
+                } else {
+                    NSDictionary *userInfo = @{NSLocalizedDescriptionKey : @"Encription Key data is empty."};
+                    error = [NSError errorWithDomain:NSURLErrorDomain code:JSClientErrorCode userInfo:userInfo];
+                    completion(nil, nil, error);
                 }
             }
-            authenticationSuccess = [self authenticationTokenWithUsername:self.serverProfile.username
-                                                                 password:password
-                                                             organization:self.serverProfile.organization];
-
-        } @weakselfend];
+        }
+    }];
 
     [self sendRequest:request];
-    return authenticationSuccess;
 }
 
-- (BOOL)authenticationTokenWithUsername:(NSString *)username
-                               password:(NSString *)password
-                           organization:(NSString *)organization
+- (void)fetchAuthenticationTokenWithUsername:(NSString *)username
+                                    password:(NSString *)password
+                                organization:(NSString *)organization
+                                      method:(RKRequestMethod)requestMethod
+                                completion:(void(^)(BOOL isTokenFetchedSuccessful))completion
 {
     JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_AUTHENTICATION_URI];
     request.restVersion = JSRESTVersion_None;
-    request.method = RKRequestMethodGET;
+    request.method = requestMethod;
     request.responseAsObjects = NO;
     request.redirectAllowed = NO;
-    request.asynchronous = NO;
+    request.asynchronous = YES;
 
     [self resetReachabilityStatus];
-
-    [request addParameter:kJSAuthenticationUsernameKey      withStringValue:username];
-    [request addParameter:kJSAuthenticationPasswordKey      withStringValue:password];
-    [request addParameter:kJSAuthenticationOrganizationKey  withStringValue:organization];
-    [request addParameter:kJSAuthenticationTimezoneKey      withStringValue:[[NSTimeZone localTimeZone] name]];
 
     // Add locale to session
     NSString *currentLanguage = [[NSLocale preferredLanguages] objectAtIndex:0];
@@ -116,14 +127,23 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
         currentLanguage = [currentLanguage substringToIndex:dividerPosition];
     }
     NSString *currentLocale = [[JSConstants sharedInstance].REST_JRS_LOCALE_SUPPORTED objectForKey:currentLanguage];
+
+    [request addParameter:kJSAuthenticationUsernameKey      withStringValue:username];
+    [request addParameter:kJSAuthenticationPasswordKey      withStringValue:password];
+    [request addParameter:kJSAuthenticationOrganizationKey  withStringValue:organization];
+    [request addParameter:kJSAuthenticationTimezoneKey      withStringValue:[[NSTimeZone localTimeZone] name]];
     [request addParameter:kJSAuthenticationLocaleKey withStringValue:currentLocale];
 
-    __block BOOL authenticationSuccess = NO;
-    [request setCompletionBlock:@weakself(^(JSOperationResult *result)) {
+    if (requestMethod == RKRequestMethodPOST) {
+        self.restKitObjectManager.requestSerializationMIMEType = RKMIMETypeFormURLEncoded;
+    }
+
+    [request setCompletionBlock:^(JSOperationResult *result) {
+            BOOL isTokenFetchedSuccessful;
             switch (result.statusCode) {
                 case 401: // Unauthorized
                 case 403: { // Forbidden
-                    authenticationSuccess = NO;
+                    isTokenFetchedSuccessful = NO;
                     break;
                 }
                 case 302: { // redirect
@@ -134,17 +154,47 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
                         NSRange errorStringRange = [location rangeOfString:@"error"];
                         isErrorRedirect = errorStringRange.length > 0;
                     }
-                    authenticationSuccess = !result.error && !isErrorRedirect;
+                    isTokenFetchedSuccessful = !result.error && !isErrorRedirect;
                     break;
                 }
                 default: {
-                    authenticationSuccess = (!result.error);
+                    isTokenFetchedSuccessful = (!result.error);
                 }
             }
-        } @weakselfend];
+            if (completion) {
+                completion(isTokenFetchedSuccessful);
+            }
+        }];
     [self sendRequest:request];
+}
 
-    return authenticationSuccess;
+- (void)authenticateWithCompletion:(void(^)(BOOL isSuccess))completion
+{
+    NSString *username = self.serverProfile.username;
+    NSString *password = self.serverProfile.password;
+    NSString *organization = self.serverProfile.organization;
+
+    __weak typeof(self)weakSelf = self;
+    [self fetchEncryptionKeyWithCompletion:^(NSString *modulus, NSString *exponent, NSError *error) {
+        NSString *encPassword = password;
+        if (modulus && exponent) {
+            JSEncryptionManager *encryptionManager = [JSEncryptionManager managerWithModulus:modulus
+                                                                                    exponent:exponent];
+            encPassword = [encryptionManager encryptText:password];
+        }
+
+        __strong typeof(self)strongSelf = weakSelf;
+        [strongSelf fetchAuthenticationTokenWithUsername:username
+                                          password:encPassword
+                                      organization:organization
+                                            method:RKRequestMethodPOST // TODO: make select method
+                                        completion:^(BOOL isTokenFetchedSuccessful) {
+                                            strongSelf.restKitObjectManager.requestSerializationMIMEType = RKMIMETypeJSON;
+                                            if (completion) {
+                                                completion(isTokenFetchedSuccessful);
+                                            }
+                                        }];
+        }];
 }
 
 @end

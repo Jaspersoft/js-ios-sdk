@@ -30,6 +30,7 @@
 
 #import <Foundation/Foundation.h>
 #import "JSSerializationDescriptorHolder.h"
+#import "JSReportParameter.h"
 
 /**
  Represents a report execution request descriptor for convenient XML serialization process
@@ -40,17 +41,17 @@
  */
 @interface JSReportExecutionRequest : NSObject <JSSerializationDescriptorHolder>
 
-@property (nonatomic, retain) NSString *reportUnitUri;
-@property (nonatomic, retain) NSString *async;
-@property (nonatomic, retain) NSString *outputFormat;
-@property (nonatomic, retain) NSString *interactive;
-@property (nonatomic, retain) NSString *freshData;
-@property (nonatomic, retain) NSString *saveDataSnapshot;
-@property (nonatomic, retain) NSString *ignorePagination;
-@property (nonatomic, retain) NSString *transformerKey;
-@property (nonatomic, retain) NSString *pages;
-@property (nonatomic, retain) NSString *attachmentsPrefix;
-@property (nonatomic, retain) NSString *baseURL;
-@property (nonatomic, retain) NSArray /*<JSReportParameter>*/ *parameters;
+@property (nonatomic, retain, nonnull) NSString *reportUnitUri;
+@property (nonatomic, retain, nonnull) NSString *async;
+@property (nonatomic, retain, nonnull) NSString *outputFormat;
+@property (nonatomic, retain, nonnull) NSString *interactive;
+@property (nonatomic, retain, nonnull) NSString *freshData;
+@property (nonatomic, retain, nonnull) NSString *saveDataSnapshot;
+@property (nonatomic, retain, nonnull) NSString *ignorePagination;
+@property (nonatomic, retain, nonnull) NSString *baseURL;
+@property (nonatomic, retain, nullable) NSString *transformerKey;
+@property (nonatomic, retain, nullable) NSString *pages;
+@property (nonatomic, retain, nullable) NSString *attachmentsPrefix;
+@property (nonatomic, retain, nullable) NSArray <JSReportParameter *> *parameters;
 
 @end

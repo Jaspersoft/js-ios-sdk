@@ -31,7 +31,6 @@
 #import "JSConstants.h"
 #import "JSResourceLookup.h"
 #import "JSResourceDescriptor.h"
-#import "JSResourceParameter.h"
 #import "JSRESTBase+JSRESTResource.h"
 
 // HTTP resources search parameters
@@ -52,7 +51,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 #pragma mark -
 #pragma mark Public methods for resources API
 
-- (void)createResource:(JSResourceDescriptor *)resource completionBlock:(JSRequestCompletionBlock)block {
+- (void)createResource:(JSResourceDescriptor *)resource completionBlock:(nullable JSRequestCompletionBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:nil]];
     request.expectedModelClass = [JSResourceDescriptor class];
     request.method = RKRequestMethodPOST;
@@ -61,7 +60,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
     [self sendRequest:request];
 }
 
-- (void)modifyResource:(JSResourceDescriptor *)resource completionBlock:(JSRequestCompletionBlock)block {
+- (void)modifyResource:(JSResourceDescriptor *)resource completionBlock:(nullable JSRequestCompletionBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:resource.uriString]];
     request.expectedModelClass = [JSResourceDescriptor class];
     request.method = RKRequestMethodPUT;
@@ -70,20 +69,21 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
     [self sendRequest:request];
 }
 
-- (void)deleteResource:(NSString *)uri completionBlock:(JSRequestCompletionBlock)block {
+#pragma mark -
+#pragma mark Public methods for REST V2 resources API
+
+- (void)deleteResource:(NSString *)uri completionBlock:(nullable JSRequestCompletionBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:uri]];
+    request.restVersion = JSRESTVersion_2;
     request.method = RKRequestMethodDELETE;
     request.completionBlock = block;
     [self sendRequest:request];
 }
 
-#pragma mark -
-#pragma mark Public methods for REST V2 resources API
-
 - (void)resourceLookupForURI:(NSString *)resourceURI
                 resourceType:(NSString *)resourceType
                    modelClass:(Class)modelClass
-             completionBlock:(JSRequestCompletionBlock)block
+             completionBlock:(nullable JSRequestCompletionBlock)block
 {
     NSString *uri = [JSConstants sharedInstance].REST_RESOURCES_URI;
     if (resourceURI && ![resourceURI isEqualToString:@"/"]) {
@@ -102,7 +102,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 
 - (void)resourceLookupForURI:(NSString *)resourceURI
                 resourceType:(NSString *)resourceType
-             completionBlock:(JSRequestCompletionBlock)block
+             completionBlock:(nullable JSRequestCompletionBlock)block
 {
     [self resourceLookupForURI:resourceURI
                   resourceType:resourceType
@@ -117,20 +117,20 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
               recursive:(BOOL)recursive
                  offset:(NSInteger)offset
                   limit:(NSInteger)limit
-        completionBlock:(JSRequestCompletionBlock)block
+        completionBlock:(nullable JSRequestCompletionBlock)block
 {
     [self resourceLookups:folderUri query:query types:types sortBy:sortBy accessType:@"viewed" recursive:recursive offset:offset limit:limit completionBlock:block];
 }
 
 - (void)resourceLookups:(NSString *)folderUri
                   query:(NSString *)query
-                  types:(NSArray *)types
+                  types:(NSArray <NSString *> *)types
                  sortBy:(NSString *)sortBy
              accessType:(NSString *)accessType
               recursive:(BOOL)recursive
                  offset:(NSInteger)offset
                   limit:(NSInteger)limit
-        completionBlock:(JSRequestCompletionBlock)block
+        completionBlock:(nullable JSRequestCompletionBlock)block
 {
     JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_RESOURCES_URI];
     request.restVersion = JSRESTVersion_2;
@@ -159,27 +159,6 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 
 #pragma mark -
 #pragma mark Private methods
-
-- (NSDictionary *)paramsForICQueryDataByDatasourceUri:(NSString *)datasourceUri resourceParameters:(NSArray *)resourceParameters {
-    NSMutableDictionary *configuredParams = [[NSMutableDictionary alloc] init] ;
-    if (datasourceUri == nil || datasourceUri.length == 0) {
-        datasourceUri = @"null";
-    }
-    [configuredParams setObject:datasourceUri forKey:@"IC_GET_QUERY_DATA"];
-    for (JSResourceParameter *resourceParameter in resourceParameters) {
-        NSString *paramKey = [NSString stringWithFormat:([resourceParameter.isListItem boolValue] ? @"PL_%@" : @"P_%@"), resourceParameter.name];
-        
-        if (resourceParameter.isListItem) {
-            NSMutableArray *values = [configuredParams objectForKey:paramKey] ?: [[NSMutableArray alloc] init];
-            [values addObject:resourceParameter.value];
-            [configuredParams setObject:values forKey:paramKey];
-        } else {
-            [configuredParams setObject:resourceParameter.value forKey:paramKey];
-        }
-    }
-    
-    return configuredParams;
-}
 
 - (NSString *)fullResourcesUri:(NSString *)uri {
     return [NSString stringWithFormat:@"%@%@", [JSConstants sharedInstance].REST_RESOURCES_URI, (uri ?: @"")];

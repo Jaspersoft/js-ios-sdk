@@ -33,12 +33,8 @@
 #import "RKMIMETypeSerialization.h"
 #import "JSSerializationDescriptorHolder.h"
 #import "JSErrorDescriptor.h"
-
 #import "JSRESTBase+JSRESTSession.h"
-
 #import "AFHTTPClient.h"
-#import "weakself.h"
-
 #import "ServerReachability.h"
 
 
@@ -91,12 +87,14 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 
 @interface JSRESTBase()
 
+@property (nonatomic, strong, readwrite, nonnull) JSProfile *serverProfile;
+
 // RestKit's RKObjectManager instance for mapping response (in JSON, XML and other
 // formats) directly to object
 @property (nonatomic, strong) RKObjectManager *restKitObjectManager;
 
 // List of JSCallBack instances
-@property (nonatomic, strong) NSMutableArray *requestCallBacks;
+@property (nonatomic, strong) NSMutableArray <JSCallBack *> *requestCallBacks;
 
 @property (nonatomic, assign, readwrite) BOOL keepSession;
 
@@ -120,13 +118,14 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     if (!error) {
         [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:mimeType];
         [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:@"text/html"];
+        [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:@"text/plain"];
     } else {
         NSString *messageString = [NSString stringWithFormat:@"Unsupported mime type \"%@\"",mimeType.pattern];
         @throw [NSException exceptionWithName:@"Unsupported mime type" reason:messageString userInfo:nil];
     }
 }
 
-- (instancetype)initWithServerProfile:(JSProfile *)serverProfile keepLogged:(BOOL)keepLogged{
+- (nonnull instancetype) initWithServerProfile:(nonnull JSProfile *)serverProfile keepLogged:(BOOL)keepLogged{
     self = [super init];
     if (self) {
         self.keepSession = keepLogged;
@@ -135,7 +134,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     }
     return self;
 }
-
 
 - (void)setServerProfile:(JSProfile *)serverProfile {
     _serverProfile = serverProfile;
@@ -154,11 +152,11 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 #pragma mark -
 #pragma mark Public methods
 
-- (void)sendRequest:(JSRequest *)request {
+- (void)sendRequest:(nonnull JSRequest *)request {
     [self sendRequest:request additionalHTTPHeaderFields:nil];
 }
 
-- (void)sendRequest:(JSRequest *)jsRequest additionalHTTPHeaderFields:(NSDictionary *)headerFields{
+- (void)sendRequest:(nonnull JSRequest *)jsRequest additionalHTTPHeaderFields:(null_unspecified NSDictionary *)headerFields {
     if (!self.serverReachability.isReachable) {
         [self.serverReachability resetReachabilityStatus];
         [self sendCallBackForRequest:jsRequest withOperationResult:[self requestOperationForFailedConnection]];
@@ -176,9 +174,21 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     if (descriptiorHolder && [[descriptiorHolder class] respondsToSelector:@selector(rkRequestDescriptorsForServerProfile:)]) {
         [self.restKitObjectManager addRequestDescriptorsFromArray:[[descriptiorHolder class] rkRequestDescriptorsForServerProfile:self.serverProfile]];
     }
-    
-    NSMutableURLRequest *urlRequest = [self.restKitObjectManager requestWithObject:jsRequest.body method:jsRequest.method path:fullUri parameters:jsRequest.params];
-    
+
+    NSMutableURLRequest *urlRequest;
+    if (jsRequest.multipartFormConstructingBodyBlock) {
+        urlRequest = [self.restKitObjectManager multipartFormRequestWithObject:self
+                                                                        method:jsRequest.method
+                                                                          path:fullUri
+                                                                    parameters:nil
+                                                     constructingBodyWithBlock:jsRequest.multipartFormConstructingBodyBlock];
+    } else {
+        urlRequest = [self.restKitObjectManager requestWithObject:jsRequest.body
+                                                           method:jsRequest.method
+                                                             path:fullUri
+                                                       parameters:jsRequest.params];
+    }
+
     RKHTTPRequestOperation *httpOperation = [[RKHTTPRequestOperation alloc] initWithRequest:urlRequest];
     NSOperation *requestOperation = httpOperation;
     
@@ -228,18 +238,21 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     }];
     
     // Creates bridge between RestKit's delegate and SDK delegate
-    [self.requestCallBacks addObject:[[JSCallBack alloc] initWithRestKitOperation:requestOperation request:jsRequest]];
+    [self.requestCallBacks addObject:[[JSCallBack alloc] initWithRestKitOperation:requestOperation
+                                                                          request:jsRequest]];
     
     [requestOperation start];
     
     if (jsRequest.asynchronous) {
-        [((RKHTTPRequestOperation *)requestOperation) setCompletionBlockWithSuccess:
-         @weakself(^(NSOperation *operation, RKMappingResult *mappingResult)) {
-             [self sendCallbackAboutOperation:operation];
-         } @weakselfend failure:
-         @weakself(^(NSOperation *operation, NSError *error)) {
-             [self sendCallbackAboutOperation:operation];
-         }@weakselfend];
+        __weak typeof(self)weakSelf = self;
+        [((RKHTTPRequestOperation *)requestOperation) setCompletionBlockWithSuccess:^(NSOperation *operation, RKMappingResult *mappingResult) {
+            __strong typeof(self)strongSelf = weakSelf;
+            [strongSelf sendCallbackAboutOperation:operation];
+
+         } failure:^(NSOperation *operation, NSError *error) {
+            __strong typeof(self)strongSelf = weakSelf;
+            [strongSelf sendCallbackAboutOperation:operation];
+         }];
     } else {
         NSInteger maxConcurrentOperationCount = self.restKitObjectManager.HTTPClient.operationQueue.maxConcurrentOperationCount;
         self.restKitObjectManager.HTTPClient.operationQueue.maxConcurrentOperationCount = 1;
@@ -249,7 +262,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     }
 }
 
-- (JSServerInfo *)serverInfo {
+- (nullable JSServerInfo *)serverInfo {
     if (!self.serverProfile.serverInfo) {
         JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_SERVER_INFO_URI];
         request.expectedModelClass = [JSServerInfo class];

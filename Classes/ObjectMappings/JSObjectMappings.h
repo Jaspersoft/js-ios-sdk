@@ -28,7 +28,6 @@
 //  Jaspersoft Corporation
 //
 
-#import "JSReportDescriptor.h"
 #import "JSResourceLookup.h"
 #import "JSResourceReportUnit.h"
 #import "JSResourceDescriptor.h"

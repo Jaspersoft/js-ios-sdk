@@ -33,7 +33,7 @@
 @implementation JSErrorDescriptor
 
 #pragma mark - JSSerializationDescriptorHolder
-+ (NSArray *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
++ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
     NSMutableArray *descriptorsArray = [NSMutableArray array];
     for (NSString *keyPath in [self classMappingPathes]) {
         [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:(JSProfile *)serverProfile]
@@ -50,7 +50,7 @@
     return descriptorsArray;
 }
 
-+ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
++ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
     RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
     [classMapping addAttributeMappingsFromDictionary:@{
                                                        @"message": @"message",
@@ -60,7 +60,7 @@
     return classMapping;
 }
 
-+ (NSArray *)classMappingPathes {
++ (nonnull NSArray *)classMappingPathes {
     return @[@"errorDescriptor", @""];
 }
 

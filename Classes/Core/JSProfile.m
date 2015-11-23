@@ -43,8 +43,8 @@ NSString * const kJSSavedProfileServerInfoKey   = @"JSSavedProfileServerInfoKey"
 @implementation JSProfile
 
 
-- (id)initWithAlias:(NSString *)alias serverUrl:(NSString *)serverUrl organization:(NSString *)organization
-           username:(NSString *)username password:(NSString *)password {
+- (nonnull instancetype)initWithAlias:(nonnull NSString *)alias serverUrl:(nonnull NSString *)serverUrl organization:(nullable NSString *)organization
+                             username:(nullable nullable NSString *)username password:(nullable NSString *)password {
     if (self = [super init]) {
         _alias = alias;
         _organization = organization;

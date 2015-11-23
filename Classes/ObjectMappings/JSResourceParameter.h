@@ -39,6 +39,8 @@
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.0
  */
+
+DEPRECATED_ATTRIBUTE
 @interface JSResourceParameter : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *name;

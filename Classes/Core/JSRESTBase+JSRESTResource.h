@@ -30,7 +30,6 @@
 
 #import "JSRESTBase.h"
 #import "JSResourceDescriptor.h"
-#import <Foundation/Foundation.h>
 
 /**
  Extention to <code>JSRESTBase</code> class for working with resources by REST calls.
@@ -48,7 +47,7 @@
  @param resource JSResourceDescriptor of resource being modified
  @param block The block to inform of the results
  */
-- (void)createResource:(JSResourceDescriptor *)resource completionBlock:(JSRequestCompletionBlock)block;
+- (void)createResource:(nonnull JSResourceDescriptor *)resource completionBlock:(nullable JSRequestCompletionBlock)block DEPRECATED_MSG_ATTRIBUTE("Will be replaced with new one for using v.2 REST API in next version SDK");
 
 /**
  Modifies the resource with specified JSResourceDescriptor
@@ -56,7 +55,11 @@
  @param resource JSResourceDescriptor of resource being modified
  @param block The block to inform of the results
  */
-- (void)modifyResource:(JSResourceDescriptor *)resource completionBlock:(JSRequestCompletionBlock)block;
+- (void)modifyResource:(nonnull JSResourceDescriptor *)resource completionBlock:(nullable JSRequestCompletionBlock)block DEPRECATED_MSG_ATTRIBUTE("Will be replaced with new one for using v.2 REST API in next version SDK");
+
+//---------------------------------------------------------------------
+// The Resources Service v2
+//---------------------------------------------------------------------
 
 /**
  Deletes the resource with the specified URI
@@ -64,44 +67,7 @@
  @param uri The repository URI (i.e. /reports/samples/)
  @param block The block to inform of the results
  */
-- (void)deleteResource:(NSString *)uri completionBlock:(JSRequestCompletionBlock)block;
-
-//---------------------------------------------------------------------
-// The Resources Service v2
-//---------------------------------------------------------------------
-
-/**
- Gets the list of resource lookups for the resources available in the specified
- folder and matching the specified parameters
- 
- @param folderUri The repository URI (i.e. /reports/samples/)
- @param query Match only resources having the specified text in the name or
- description (can be <code>nil</code>)
- @param types Match only resources of the given types (can be <code>nil</code>)
- @param sortBy Represents a field in the results to sort by: uri, label, description,
- type, creationDate, updateDate, accessTime, or popularity (based on access events).
- @param recursive Get the resources recursively (can be <code>nil</code>)
- @param offset Start index for requested page
- @param limit The maximum number of items returned to the client. The default
- is 0 (can be <code>nil</code>), meaning no limit
- @param block The block to inform of the results
- 
- @since 1.8
- */
-- (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types sortBy:(NSString *)sortBy
-              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit completionBlock:(JSRequestCompletionBlock)block __attribute__((deprecated ("Use 'resourceLookups:query:types:sortBy:accessType:recursive:offset:limit:completionBlock:' method instead")));
-
-/**
- Gets resource lookup for resource.
- 
- @param resourceURI The repository URI (i.e. /reports/samples/)
- @param resourceType Type of required resource
- @param block The block to inform of the results
- 
- @since 1.9
- */
-- (void)resourceLookupForURI:(NSString *)resourceURI resourceType:(NSString *)resourceType
-             completionBlock:(JSRequestCompletionBlock)block __attribute__((deprecated ("Use 'resourceLookupForURI: resourceType: modelClass: completionBlock:' method instead")));
+- (void)deleteResource:(nonnull NSString *)uri completionBlock:(nullable JSRequestCompletionBlock)block;
 
 /**
 Gets resource lookup for resource.
@@ -113,10 +79,10 @@ Gets resource lookup for resource.
 
 @since 2.1
 */
-- (void)resourceLookupForURI:(NSString *)resourceURI
-                resourceType:(NSString *)resourceType
-                  modelClass:(Class)modelClass
-             completionBlock:(JSRequestCompletionBlock)block;
+- (void)resourceLookupForURI:(nonnull NSString *)resourceURI
+                resourceType:(nonnull NSString *)resourceType
+                  modelClass:(nonnull Class)modelClass
+             completionBlock:(nullable JSRequestCompletionBlock)block;
 
 /**
  Gets the list of resource lookups for the resources available in the specified
@@ -137,8 +103,9 @@ Gets resource lookup for resource.
  
  @since 2.1
  */
-- (void)resourceLookups:(NSString *)folderUri query:(NSString *)query types:(NSArray *)types sortBy:(NSString *)sortBy accessType:(NSString *)accessType
-              recursive:(BOOL)recursive offset:(NSInteger)offset limit:(NSInteger)limit completionBlock:(JSRequestCompletionBlock)block;
+- (void)resourceLookups:(nullable NSString *)folderUri query:(nullable NSString *)query types:(nullable NSArray <NSString *> *)types
+                 sortBy:(nullable NSString *)sortBy accessType:(nonnull NSString *)accessType recursive:(BOOL)recursive
+                 offset:(NSInteger)offset limit:(NSInteger)limit completionBlock:(nullable JSRequestCompletionBlock)block;
 
 /**
  Generates the resource thumbnail url
@@ -148,6 +115,6 @@ Gets resource lookup for resource.
  
  @since 2.1
  */
-- (NSString *)generateThumbnailImageUrl:(NSString *)resourceURI;
+- (nonnull NSString *)generateThumbnailImageUrl:(nonnull NSString *)resourceURI;
 
 @end

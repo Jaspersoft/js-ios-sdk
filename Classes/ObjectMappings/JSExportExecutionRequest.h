@@ -42,9 +42,9 @@
 
 @interface JSExportExecutionRequest : NSObject<JSSerializationDescriptorHolder>
 
-@property (nonatomic, retain) NSString *outputFormat;
-@property (nonatomic, retain) NSString *pages;
-@property (nonatomic, retain) NSString *attachmentsPrefix;
-@property (nonatomic, retain) NSString *baseUrl;
+@property (nonatomic, retain, nonnull) NSString *outputFormat;
+@property (nonatomic, retain, nullable) NSString *pages;
+@property (nonatomic, retain, nullable) NSString *attachmentsPrefix;
+@property (nonatomic, retain, nonnull) NSString *baseUrl;
 
 @end

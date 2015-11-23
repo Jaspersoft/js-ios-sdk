@@ -28,8 +28,6 @@
 //  Jaspersoft Corporation
 //
 
-#import <Foundation/Foundation.h>
-
 /**
  Uses to store connection details for JasperReports server
  
@@ -48,35 +46,35 @@
  The alias is mainly used to display profile's name in UI (i.e. when displays
  a list of available servers)
  */
-@property (nonatomic, readonly) NSString *alias;
+@property (nonatomic, readonly, nonnull) NSString *alias;
 
 /**
  The URL of JasperReports Server.
  URL should match next pattern http://hostname:port/jasperserver
  port parameter is not required (i.e. http://mobiledemo.jaspersoft.com/jasperserver-pro)
  */
-@property (nonatomic, readonly) NSString *serverUrl;
+@property (nonatomic, readonly, nonnull) NSString *serverUrl;
 
 /**
  The username, must be a valid account on JasperReports Server
  */
-@property (nonatomic, readonly) NSString *username;
+@property (nonatomic, readonly, nullable) NSString *username;
 
 /**
  The account password
  */
-@property (nonatomic, readonly) NSString *password;
+@property (nonatomic, readonly, nullable) NSString *password;
 
 /**
  The name of an organization. Used in JasperReport Server Professional
  which supports multi-tenancy. May be <code>nil</code> or empty
  */
-@property (nonatomic, readonly) NSString *organization;
+@property (nonatomic, readonly, nullable) NSString *organization;
 
 /**
  The version of JasperReports server
  */
-@property (nonatomic, strong) JSServerInfo *serverInfo;
+@property (nonatomic, strong, nonnull) JSServerInfo *serverInfo;
 
 /**
  Returns a profile with the specified parameters
@@ -88,7 +86,7 @@
  @param password The account password
  @return A configured JSProfile instance
  */
-- (id)initWithAlias:(NSString *)alias serverUrl:(NSString *)serverUrl organization:(NSString *)organization
-           username:(NSString *)username password:(NSString *)password;
+- (nonnull instancetype)initWithAlias:(nonnull NSString *)alias serverUrl:(nonnull NSString *)serverUrl organization:(nullable NSString *)organization
+           username:(nullable nullable NSString *)username password:(nullable NSString *)password;
 
 @end

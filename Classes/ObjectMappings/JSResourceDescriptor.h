@@ -31,6 +31,8 @@
 #import "JSResourceProperty.h"
 #import <Foundation/Foundation.h>
 #import "JSSerializationDescriptorHolder.h"
+#import "JSResourceProperty.h"
+#import "JSResourceParameter.h"
 
 /**
  Represents a resource descriptor entity for convenient XML serialization process.
@@ -41,6 +43,8 @@
 
  @since 1.0
  */
+
+DEPRECATED_MSG_ATTRIBUTE("Use JSResourceLookup instead.")
 @interface JSResourceDescriptor : NSObject <JSSerializationDescriptorHolder>
 
 @property (nonatomic, retain) NSString *name;
@@ -50,9 +54,9 @@
 @property (nonatomic, retain) NSString *label;
 @property (nonatomic, retain) NSString *resourceDescription;
 @property (nonatomic, retain) NSDate   *creationDate;
-@property (nonatomic, retain) NSArray /*<JSResourceProperty>*/ *resourceProperties;
-@property (nonatomic, retain) NSArray /*<JSResourceDescriptor>*/ *childResourceDescriptors;
-@property (nonatomic, retain) NSArray /*<JSResourceParameter>*/ *parameters;
+@property (nonatomic, retain) NSArray <JSResourceProperty *> *resourceProperties;
+@property (nonatomic, retain) NSArray <JSResourceDescriptor *> *childResourceDescriptors;
+@property (nonatomic, retain) NSArray <JSResourceParameter *> *parameters;
 
 /**
  Looks the wsType of the resource descriptor and return YES

@@ -50,7 +50,7 @@
 
  @return An array of `RKRequestDescriptor` objects to be added to the manager.
  */
-+ (NSArray *)rkRequestDescriptorsForServerProfile:(JSProfile *)serverProfile;
++ (nonnull NSArray <RKRequestDescriptor *> *)rkRequestDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile;
 
 /**
  Returns an array of `RKResponseDescriptor` objects to be added to the manager
@@ -59,7 +59,7 @@
 
  @return An array of `RKResponseDescriptor` objects to be added to the manager.
  */
-+ (NSArray *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile;
++ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile;
 
 /**
  Returns `RKObjectMapping` object for added it as relation referencesß
@@ -68,5 +68,5 @@
 
  @return Returns `RKObjectMapping` object for added it as relation references
  */
-+ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile;
++ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile;
 @end

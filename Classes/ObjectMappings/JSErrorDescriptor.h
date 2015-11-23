@@ -40,8 +40,8 @@
  */
 @interface JSErrorDescriptor : NSObject <JSSerializationDescriptorHolder>
 
-@property (nonatomic, retain) NSString *message;
-@property (nonatomic, retain) NSString *errorCode;
-@property (nonatomic, retain) NSArray /*<NSString>*/ *parameters;
+@property (nonatomic, retain, nonnull) NSString *message;
+@property (nonatomic, retain, nonnull) NSString *errorCode;
+@property (nonatomic, retain, nullable) NSArray <NSString *> *parameters;
 
 @end

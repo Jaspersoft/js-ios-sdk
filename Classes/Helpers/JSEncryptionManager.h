@@ -36,7 +36,7 @@
 #import <Foundation/Foundation.h>
 
 @interface JSEncryptionManager : NSObject
-- (instancetype)initWithModulus:(NSString *)modulus exponent:(NSString *)exponent;
-+ (instancetype)managerWithModulus:(NSString *)modulus exponent:(NSString *)exponent;
-- (NSString *)encryptText:(NSString *)text;
+- (nonnull instancetype)initWithModulus:(nonnull NSString *)modulus exponent:(nonnull NSString *)exponent;
++ (nonnull instancetype)managerWithModulus:(nonnull NSString *)modulus exponent:(nonnull NSString *)exponent;
+- (nonnull NSString *)encryptText:(nonnull NSString *)text;
 @end

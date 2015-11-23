@@ -29,15 +29,12 @@
 //
 
 #import "JSConstants.h"
-#import "JSResourceParameter.h"
-#import "JSReportDescriptor.h"
 #import "JSReportExecutionRequest.h"
 #import "JSReportExecutionResponse.h"
 #import "JSExportExecutionRequest.h"
 #import "JSExportExecutionResponse.h"
 #import "JSErrorDescriptor.h"
 
-#import "JSReportParameter.h"
 #import "JSRESTBase+JSRESTReport.h"
 #import "JSInputControlOption.h"
 
@@ -54,29 +51,29 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 #pragma mark -
 #pragma mark Public methods for REST V2 report API
 
-- (NSString *)generateReportUrl:(NSString *)uri reportParams:(NSDictionary *)reportParams page:(NSInteger)page format:(NSString *)format {
-    JSResourceDescriptor *resourceDescriptor = [self resourceDescriptorForUri:uri withReportParams:reportParams];
-    
+- (NSString *)generateReportUrl:(NSString *)uri reportParams:(NSArray <JSReportParameter *> *)reportParams
+                           page:(NSInteger)page format:(NSString *)format {
     JSConstants *constants = [JSConstants sharedInstance];
     
-    NSMutableDictionary *queryParams = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *queryParams = [NSMutableDictionary new];
     if (page > 0) {
         [queryParams setObject:[NSNumber numberWithInteger:page] forKey:@"page"];
     }
     
-    for (JSResourceParameter *parameter in resourceDescriptor.parameters) {
-        if (parameter.isListItem.boolValue) {
-            NSMutableArray *params = [queryParams objectForKey:parameter.name] ?: [[NSMutableArray alloc] init];
-            [params addObject:parameter.value];
-            [queryParams setObject:params forKey:parameter.name];
-        } else {
-            [queryParams setObject:parameter.value forKey:parameter.name];
+    for (JSReportParameter *reportParam in reportParams) {
+        if (reportParam.name && reportParam.value) {
+            if ([reportParam.value count] > 1) {
+                [queryParams setObject:reportParam.value forKey:reportParam.name];
+            } else {
+                if (reportParam.value.lastObject) {
+                    [queryParams setObject:reportParam.value.lastObject forKey:reportParam.name];
+                }
+            }
         }
     }
     
     NSString *url = [NSString stringWithFormat:@"%@/%@%@%@.%@", self.serverProfile.serverUrl,
-                     constants.REST_SERVICES_V2_URI, constants.REST_REPORTS_URI,
-                     resourceDescriptor.uriString, format];
+                     constants.REST_SERVICES_V2_URI, constants.REST_REPORTS_URI, uri, format];
     
     NSString *queryString = RKURLEncodedStringFromDictionaryWithEncoding(queryParams, NSUTF8StringEncoding);
     url = [url stringByAppendingFormat:([url rangeOfString:@"?"].location == NSNotFound) ? @"?%@" : @"&%@" ,queryString];
@@ -91,9 +88,8 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     
     return url;
 }
-
-- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray /*<NSString>*/ *)ids
-                selectedValues:(NSArray /*<JSReportParameter>*/ *)selectedValues completionBlock:(JSRequestCompletionBlock)block {
+- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray <NSString *> *)ids
+                selectedValues:(NSArray <JSReportParameter *> *)selectedValues completionBlock:(JSRequestCompletionBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:NO]];
     request.expectedModelClass = [JSInputControlDescriptor class];
     request.restVersion = JSRESTVersion_2;
@@ -103,7 +99,8 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     [self sendRequest:request];
 }
 
-- (void)updatedInputControlsValues:(NSString *)reportUri ids:(NSArray *)ids selectedValues:(NSArray *)selectedValues completionBlock:(JSRequestCompletionBlock)block {
+- (void)updatedInputControlsValues:(NSString *)reportUri ids:(NSArray <NSString *> *)ids
+                    selectedValues:(NSArray <JSReportParameter *> *)selectedValues completionBlock:(JSRequestCompletionBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:YES]];
     request.expectedModelClass = [JSInputControlState class];
     request.method = RKRequestMethodPOST;
@@ -116,7 +113,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 - (void)runReportExecution:(NSString *)reportUnitUri async:(BOOL)async outputFormat:(NSString *)outputFormat
                interactive:(BOOL)interactive freshData:(BOOL)freshData saveDataSnapshot:(BOOL)saveDataSnapshot
           ignorePagination:(BOOL)ignorePagination transformerKey:(NSString *)transformerKey pages:(NSString *)pages
-         attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray /*<JSReportParameter>*/ *)parameters completionBlock:(JSRequestCompletionBlock)block {
+         attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray <JSReportParameter *> *)parameters completionBlock:(JSRequestCompletionBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportExecutionUri:nil]];
     request.expectedModelClass = [JSReportExecutionResponse class];
     request.method = RKRequestMethodPOST;
@@ -226,7 +223,8 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     [self sendRequest:request];
 }
 
-- (void)saveReportAttachment:(NSString *)requestId exportOutput:(NSString *)exportOutput attachmentName:(NSString *)attachmentName path:(NSString *)path completionBlock:(JSRequestCompletionBlock)block {
+- (void)saveReportAttachment:(NSString *)requestId exportOutput:(NSString *)exportOutput
+              attachmentName:(NSString *)attachmentName path:(NSString *)path completionBlock:(JSRequestCompletionBlock)block {
     exportOutput = [self encodeAttachmentsPrefix:exportOutput];
     NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/attachments/%@", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, exportOutput, attachmentName];
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
@@ -235,6 +233,53 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     request.downloadDestinationPath = path;
     request.responseAsObjects = NO;
     
+    [self sendRequest:request];
+}
+
+- (void)reportOptionsForReportURI:(NSString *)reportURI completion:(JSRequestCompletionBlock)block
+{
+    NSString *uri = [NSString stringWithFormat:@"%@%@%@", [JSConstants sharedInstance].REST_REPORTS_URI, reportURI, [JSConstants sharedInstance].REST_REPORT_OPTIONS_URI];
+    JSRequest *request = [[JSRequest alloc] initWithUri:uri];
+    request.expectedModelClass = [JSReportOption class];
+    request.restVersion = JSRESTVersion_2;
+    request.completionBlock = block;
+    [self sendRequest:request];
+}
+
+- (void)deleteReportOption:(JSReportOption *)reportOption
+             withReportURI:(NSString *)reportURI
+                completion:(JSRequestCompletionBlock)completion
+{
+    JSConstants *constants = [JSConstants sharedInstance];
+    NSString *requestURIString = [NSString stringWithFormat:@"%@%@%@/%@",
+                                  constants.REST_REPORTS_URI,
+                                  reportURI,
+                                  constants.REST_REPORT_OPTIONS_URI,
+                                  reportOption.identifier];
+    JSRequest *request = [[JSRequest alloc] initWithUri:requestURIString];
+    request.restVersion = JSRESTVersion_2;
+    request.method = RKRequestMethodDELETE;
+    request.completionBlock = completion;
+    [self sendRequest:request];
+}
+
+- (void)createReportOptionWithReportURI:(NSString *)reportURI
+                            optionLabel:(NSString *)optionLabel
+                       reportParameters:(NSArray <JSReportParameter *> *)reportParameters
+                             completion:(JSRequestCompletionBlock)completion
+{
+    JSConstants *constants = [JSConstants sharedInstance];
+    NSString *requestURIString = [NSString stringWithFormat:@"%@%@%@?label=%@&overwrite=%@",
+                                  constants.REST_REPORTS_URI,
+                                  reportURI,
+                                  constants.REST_REPORT_OPTIONS_URI, optionLabel, [JSConstants stringFromBOOL:YES]];
+    
+    JSRequest *request = [[JSRequest alloc] initWithUri:requestURIString];
+    request.expectedModelClass = [JSReportOption class];
+    request.restVersion = JSRESTVersion_2;
+    request.method = RKRequestMethodPOST;
+    [self addReportParametersToRequest:request withSelectedValues:reportParameters];
+    request.completionBlock = completion;
     [self sendRequest:request];
 }
 
@@ -262,7 +307,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     return [NSString stringWithFormat:@"%@%@", [JSConstants sharedInstance].REST_REPORT_URI, (uri ?: @"")];
 }
 
-- (NSString *)fullReportsUriForIC:(NSString *)uri withInputControls:(NSArray *)dependencies initialValuesOnly:(BOOL)initialValuesOnly {
+- (NSString *)fullReportsUriForIC:(NSString *)uri withInputControls:(NSArray <NSString *> *)dependencies initialValuesOnly:(BOOL)initialValuesOnly {
     JSConstants *constants = [JSConstants sharedInstance];
     NSString *fullReportsUri = [NSString stringWithFormat:@"%@%@%@", constants.REST_REPORTS_URI, (uri ?: @""), constants.REST_INPUT_CONTROLS_URI];
     
@@ -288,50 +333,6 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 - (NSDictionary *)runReportQueryParams:(NSString *)format {
     return [NSDictionary dictionaryWithObjectsAndKeys:@"./", _baseReportQueryImagesParam,
             format, _baseReportQueryOutputFormatParam, nil];
-}
-
-// Creates resource descriptor with report parameters (retrieved from IC)
-- (JSResourceDescriptor *)resourceDescriptorForUri:(NSString *)uri withReportParams:(NSDictionary *)reportParams {
-    JSConstants *constants = [JSConstants sharedInstance];
-    
-    // Base configuration for resource descriptor
-    JSResourceDescriptor *resourceDescriptor = [[JSResourceDescriptor alloc] init];
-    resourceDescriptor.name = @"";
-    resourceDescriptor.uriString = uri;
-    resourceDescriptor.wsType = constants.WS_TYPE_REPORT_UNIT;
-    
-    // Return resource descriptor if no any other params was provided
-    if (!reportParams.count) {
-        return resourceDescriptor;
-    }
-    
-    // Create JSResourceParameters from report params
-    NSMutableArray *resourceParameters = [[NSMutableArray alloc] init];
-    
-    for (id reportParam in reportParams.keyEnumerator) {
-        id reportValue = [reportParams objectForKey:reportParam];
-        
-        if ([reportValue isKindOfClass:[NSArray class]]) {
-            for (NSString *subReportValue in reportValue) {
-                [resourceParameters addObject:[[JSResourceParameter alloc] initWithName:reportParam
-                                                                             isListItem:[constants.class stringFromBOOL:YES]
-                                                                                  value:subReportValue]];
-            }
-        } else if([reportValue isKindOfClass:[NSDate class]]) {
-            NSString *intervalAsString = [NSString stringWithFormat:@"%lld", [NSNumber numberWithDouble:[reportValue timeIntervalSince1970] * 1000.0f].longLongValue];
-            [resourceParameters addObject:[[JSResourceParameter alloc] initWithName:reportParam
-                                                                         isListItem:[constants.class stringFromBOOL:NO]
-                                                                              value:intervalAsString]];
-        } else {
-            [resourceParameters addObject:[[JSResourceParameter alloc] initWithName:reportParam
-                                                                         isListItem:[constants.class stringFromBOOL:NO]
-                                                                              value:reportValue]];
-        }
-    }
-    
-    resourceDescriptor.parameters = resourceParameters;
-    
-    return resourceDescriptor;
 }
 
 // TODO: refactor, find better way to make URL encoded string

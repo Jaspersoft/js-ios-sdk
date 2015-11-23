@@ -33,7 +33,7 @@
 @implementation JSResourceProperty
 
 #pragma mark - JSSerializationDescriptorHolder
-+ (NSArray *)rkRequestDescriptorsForServerProfile:(JSProfile *)serverProfile {
++ (nonnull NSArray <RKRequestDescriptor *> *)rkRequestDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
     NSMutableArray *descriptorsArray = [NSMutableArray array];
     [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
                                                                       objectClass:self
@@ -42,7 +42,7 @@
     return descriptorsArray;
 }
 
-+ (RKObjectMapping *)classMappingForServerProfile:(JSProfile *)serverProfile {
++ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
     RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
     [classMapping addAttributeMappingsFromDictionary:@{
                                                        @"name": @"name",

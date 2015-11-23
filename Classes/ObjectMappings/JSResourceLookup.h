@@ -31,6 +31,15 @@
 #import <Foundation/Foundation.h>
 #import "JSSerializationDescriptorHolder.h"
 
+typedef NS_ENUM (NSInteger, JSPermissionMask) {
+    JSPermissionMask_Administration = 1 << 0,
+    JSPermissionMask_Read = 1 << 1,
+    JSPermissionMask_Write = 1 << 2,
+    JSPermissionMask_Create = 1 << 3,
+    JSPermissionMask_Delete = 1 << 4,
+    JSPermissionMask_Execute = 1 << 5
+};
+
 /**
  Represents a resource lookup entity for convenient XML serialization process.
  
@@ -40,13 +49,13 @@
  */
 @interface JSResourceLookup : NSObject <JSSerializationDescriptorHolder>
 
-@property (nonatomic, retain) NSString *label;
-@property (nonatomic, retain) NSString *uri;
-@property (nonatomic, retain) NSString *resourceDescription;
-@property (nonatomic, retain) NSString *resourceType;
-@property (nonatomic, retain) NSNumber *version;
-@property (nonatomic, retain) NSNumber *permissionMask;
-@property (nonatomic, retain) NSDate *creationDate;
-@property (nonatomic, retain) NSDate *updateDate;
+@property (nonatomic, retain, nonnull) NSString *label;
+@property (nonatomic, retain, nonnull) NSString *uri;
+@property (nonatomic, retain, nullable) NSString *resourceDescription;
+@property (nonatomic, retain, nonnull) NSString *resourceType;
+@property (nonatomic, retain, nonnull) NSNumber *version;
+@property (nonatomic, retain, nonnull) NSNumber *permissionMask;
+@property (nonatomic, retain, nonnull) NSDate *creationDate;
+@property (nonatomic, retain, nonnull) NSDate *updateDate;
 
 @end

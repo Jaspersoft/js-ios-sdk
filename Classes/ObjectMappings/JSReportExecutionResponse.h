@@ -32,6 +32,7 @@
 #import "JSExecutionStatus.h"
 #import <Foundation/Foundation.h>
 #import "JSSerializationDescriptorHolder.h"
+#import "JSExportExecutionResponse.h"
 
 /**
  Represents a report execution entity for convenient XML serialization process
@@ -42,12 +43,12 @@
  */
 @interface JSReportExecutionResponse : NSObject <JSSerializationDescriptorHolder>
 
-@property (nonatomic, retain) NSNumber *totalPages;
-@property (nonatomic, retain) NSNumber *currentPage;
-@property (nonatomic, retain) NSString *reportURI;
-@property (nonatomic, retain) NSString *requestId;
-@property (nonatomic, retain) NSArray /*<JSExportExecutionResponse>*/ *exports;
-@property (nonatomic, retain) JSExecutionStatus *status;
-@property (nonatomic, retain) JSErrorDescriptor *errorDescriptor;
+@property (nonatomic, retain, nullable) NSNumber *totalPages;
+@property (nonatomic, retain, nonnull) NSNumber *currentPage;
+@property (nonatomic, retain, nonnull) NSString *reportURI;
+@property (nonatomic, retain, nonnull) NSString *requestId;
+@property (nonatomic, retain, nonnull) NSArray <JSExportExecutionResponse *> *exports;
+@property (nonatomic, retain, nonnull) JSExecutionStatus *status;
+@property (nonatomic, retain, nullable) JSErrorDescriptor *errorDescriptor;
 
 @end

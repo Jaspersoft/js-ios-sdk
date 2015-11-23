@@ -44,10 +44,10 @@
  */
 @interface JSExportExecutionResponse : NSObject <JSSerializationDescriptorHolder>
 
-@property (nonatomic, retain) NSString *uuid;
-@property (nonatomic, retain) JSExecutionStatus *status;
-@property (nonatomic, retain) JSErrorDescriptor *errorDescriptor;
-@property (nonatomic, retain) JSReportOutputResource *outputResource;
-@property (nonatomic, retain) NSArray /*<JSReportOutputResource*/ *attachments;
+@property (nonatomic, retain, nonnull) NSString *uuid;
+@property (nonatomic, retain, nonnull) JSExecutionStatus *status;
+@property (nonatomic, retain, nullable) JSErrorDescriptor *errorDescriptor;
+@property (nonatomic, retain, nullable) JSReportOutputResource *outputResource;
+@property (nonatomic, retain, nullable) NSArray <JSReportOutputResource *> *attachments;
 
 @end

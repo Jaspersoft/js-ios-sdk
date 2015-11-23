@@ -29,12 +29,12 @@
 //
 
 #import "JSRESTBase.h"
-#import <Foundation/Foundation.h>
 
 /**
  Extention to <code>JSRESTBase</code> class for working with HTTP session.
  
  @author Alexey Gubarev ogubarie@tibco.com
+ @author Aleksandr Dakhno odahno@tibco.com
  @since 1.9
  */
 
@@ -46,8 +46,7 @@
  
  @since 1.9
  */
-
-- (BOOL)isSessionAuthorized;
-
+- (BOOL)isSessionAuthorized DEPRECATED_MSG_ATTRIBUTE("Use \"verifyIsSessionAuthorizedWithCompletion:\" method instead");
+- (void)verifyIsSessionAuthorizedWithCompletion:(void (^)(BOOL isSessionAuthorized))completion;
 
 @end

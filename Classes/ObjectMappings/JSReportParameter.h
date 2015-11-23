@@ -38,9 +38,9 @@
  */
 @interface JSReportParameter : NSObject <JSSerializationDescriptorHolder>
 
-@property (nonatomic, retain) NSString *name;
-@property (nonatomic, retain) NSArray *value;
+@property (nonatomic, retain, nonnull) NSString *name;
+@property (nonatomic, retain, nonnull) NSArray *value;
 
-- (id)initWithName:(NSString *)name value:(NSArray *)value;
+- (nonnull instancetype)initWithName:(nonnull NSString *)name value:(nonnull NSArray *)value;
 
 @end
