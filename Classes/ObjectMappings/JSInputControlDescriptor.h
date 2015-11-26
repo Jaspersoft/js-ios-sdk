@@ -43,21 +43,21 @@
  */
 @interface JSInputControlDescriptor : NSObject <JSSerializationDescriptorHolder, NSCopying>
 
-@property (nonatomic, retain) NSString *uuid;
-@property (nonatomic, retain) NSString *label;
-@property (nonatomic, retain) NSString *mandatory;
-@property (nonatomic, retain) NSString *readOnly;
-@property (nonatomic, retain) NSString *type;
-@property (nonatomic, retain) NSString *uri;
-@property (nonatomic, retain) NSString *visible;
-@property (nonatomic, retain) NSArray <NSString *> *masterDependencies;
-@property (nonatomic, retain) NSArray <NSString *> *slaveDependencies;
-@property (nonatomic, retain) JSInputControlState *state;
+@property (nonatomic, strong) NSString *uuid;
+@property (nonatomic, strong) NSString *label;
+@property (nonatomic, strong) NSString *mandatory;
+@property (nonatomic, strong) NSString *readOnly;
+@property (nonatomic, strong) NSString *type;
+@property (nonatomic, strong) NSString *uri;
+@property (nonatomic, strong) NSString *visible;
+@property (nonatomic, strong) NSArray <NSString *> *masterDependencies;
+@property (nonatomic, strong) NSArray <NSString *> *slaveDependencies;
+@property (nonatomic, strong) JSDataType *dataType;
+@property (nonatomic, strong) JSInputControlState *state;
 
 @property (nonatomic, readonly) JSDateTimeFormatValidationRule *dateTimeFormatValidationRule;
 @property (nonatomic, readonly) JSMandatoryValidationRule *mandatoryValidationRule;
 
-@property (nonatomic, readonly) JSDataType *dataType;
 
 - (NSArray *)selectedValues;
 

@@ -55,6 +55,61 @@
     } else if ([self.state.error length]) {
         return self.state.error;
     }
+    if (self.dataType && [self isSingleValueInputControl] && self.state.value) {
+        id valueObject, minValue, maxValue;
+        switch (self.dataType.type) {
+            case JSInputControlDataType_Date:
+            case JSInputControlDataType_DateTime:
+            case JSInputControlDataType_Time: {
+                NSDateFormatter *dateFormatter = [NSDateFormatter new];
+                dateFormatter.dateFormat = self.dateTimeFormatValidationRule.format;
+                valueObject = [dateFormatter dateFromString:self.state.value];
+                minValue = [dateFormatter dateFromString:self.dataType.minValue];
+                maxValue = [dateFormatter dateFromString:self.dataType.maxValue];
+                break;
+            }
+            case JSInputControlDataType_Number: {
+                NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+                formatter.numberStyle = NSNumberFormatterDecimalStyle;
+                valueObject = [formatter numberFromString:self.state.value];
+                minValue = [formatter numberFromString:self.dataType.minValue];
+                maxValue = [formatter numberFromString:self.dataType.maxValue];
+                break;
+            }
+            case JSInputControlDataType_Text: {
+                valueObject = self.state.value;
+                if (self.dataType.maxLength > 0 && [valueObject length] > self.dataType.maxLength) {
+                    return @"datatype validation error";
+                }
+                if (valueObject && self.dataType.pattern) {
+                    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", self.dataType.pattern];
+                    if (![predicate evaluateWithObject:self.state.value]) {
+                        return @"datatype validation error";
+                    }
+                }
+                break;
+            }
+            default:
+                break;
+        }
+        if (valueObject) {
+            if ([valueObject respondsToSelector:@selector(compare:)]) {
+                if (minValue) {
+                    NSComparisonResult minValueResult = [valueObject compare:minValue];
+                    if (minValueResult == NSOrderedAscending || (minValueResult == NSOrderedSame && self.dataType.strictMin)) {
+                        return @"datatype validation error";
+                    }
+                }
+                
+                if (maxValue) {
+                    NSComparisonResult maxValueResult = [valueObject compare:maxValue];
+                    if (maxValueResult == NSOrderedDescending || (maxValueResult == NSOrderedSame && self.dataType.strictMax)) {
+                        return @"datatype validation error";
+                    }
+                }
+            }
+        }
+    }
     return nil;
 }
 
@@ -63,12 +118,7 @@
     JSConstants *constants = [JSConstants sharedInstance];
     NSString *type = self.type;
     
-    if ([constants.ICD_TYPE_BOOL isEqualToString:type] ||
-        [constants.ICD_TYPE_SINGLE_VALUE_TEXT isEqualToString:type] ||
-        [constants.ICD_TYPE_SINGLE_VALUE_NUMBER isEqualToString:type] ||
-        [constants.ICD_TYPE_SINGLE_VALUE_DATE isEqualToString:type] ||
-        [constants.ICD_TYPE_SINGLE_VALUE_TIME isEqualToString:type] ||
-        [constants.ICD_TYPE_SINGLE_VALUE_DATETIME isEqualToString:type]) {
+    if ([self isSingleValueInputControl]) {
         if (self.state.value) {
             [values addObject:self.state.value];
         }
@@ -166,6 +216,7 @@
         newInputControlDescriptor.visible               = [self.visible copyWithZone:zone];
         newInputControlDescriptor.state                 = [self.state copyWithZone:zone];
         newInputControlDescriptor.validationRules       = [self.validationRules copyWithZone:zone];
+        newInputControlDescriptor.dataType              = [self.dataType copyWithZone:zone];
         if (self.masterDependencies) {
             newInputControlDescriptor.masterDependencies    = [[NSArray alloc] initWithArray:self.masterDependencies copyItems:YES];
         }
@@ -179,6 +230,7 @@
     }
 }
 
+#pragma mark - Private API
 - (id) validationRuleForClass:(Class)class {
     for (id rule in self.validationRules) {
         if ([rule isKindOfClass:class]) {
@@ -186,6 +238,15 @@
         }
     }
     return nil;
+}
+
+- (BOOL) isSingleValueInputControl {
+    return ([[JSConstants sharedInstance].ICD_TYPE_BOOL isEqualToString:self.type] ||
+            [[JSConstants sharedInstance].ICD_TYPE_SINGLE_VALUE_TEXT isEqualToString:self.type] ||
+            [[JSConstants sharedInstance].ICD_TYPE_SINGLE_VALUE_NUMBER isEqualToString:self.type] ||
+            [[JSConstants sharedInstance].ICD_TYPE_SINGLE_VALUE_DATE isEqualToString:self.type] ||
+            [[JSConstants sharedInstance].ICD_TYPE_SINGLE_VALUE_TIME isEqualToString:self.type] ||
+            [[JSConstants sharedInstance].ICD_TYPE_SINGLE_VALUE_DATETIME isEqualToString:self.type]);
 }
 
 @end
