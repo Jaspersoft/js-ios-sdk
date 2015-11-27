@@ -14,6 +14,8 @@ Pod::Spec.new do |s|
 	s.source = { :git => "https://github.com/Jaspersoft/js-ios-sdk.git", :tag => "#{s.version}" }
 	s.public_header_files = "Classes/**/*.h"
 	
+	s.ios.resource_bundle = { 'JaspersoftSDK' => 'Resources/Localizable/*.lproj' }
+	
 	s.prefix_header_contents = <<-EOS
 		#import <SystemConfiguration/SystemConfiguration.h>
 		#import <MobileCoreServices/MobileCoreServices.h>

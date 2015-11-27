@@ -95,6 +95,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0811BCA41C08903D006D0ABF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
+		0811BCA51C08903D006D0ABF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
+		0811BCA61C08903E006D0ABF /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
+		0811BCA71C08903E006D0ABF /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
+		0811BCA81C08903E006D0ABF /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
+		0811BCA91C08903E006D0ABF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
+		0811BCAA1C08903E006D0ABF /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
+		0811BCAB1C08903E006D0ABF /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
 		081DCA111A9C793D007A7F1B /* JSRESTBase+JSRESTSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSRESTBase+JSRESTSession.h"; sourceTree = "<group>"; };
 		081DCA121A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSRESTSession.m"; sourceTree = "<group>"; };
 		084F28A31B7CF89E00551341 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
@@ -196,6 +204,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0811BC8D1C0889B7006D0ABF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0811BCA21C08903D006D0ABF /* Localizable */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		0811BCA21C08903D006D0ABF /* Localizable */ = {
+			isa = PBXGroup;
+			children = (
+				0811BCA31C08903D006D0ABF /* JaspersoftSDK.strings */,
+			);
+			path = Localizable;
+			sourceTree = "<group>";
+		};
 		084F28A21B7CF89E00551341 /* KeychainItemWrapper */ = {
 			isa = PBXGroup;
 			children = (
@@ -250,6 +274,7 @@
 				F59768E615E3C826004165A7 /* Classes */,
 				F5A8141415EBFA1900151B1D /* Support */,
 				F59768BF15E3C75F004165A7 /* Frameworks */,
+				0811BC8D1C0889B7006D0ABF /* Resources */,
 				F59768BE15E3C75F004165A7 /* Products */,
 				D919A263B01FF70A80C7A549 /* Pods */,
 				A14780856156D274B677AF06 /* TIB_jsm-sdk-ios_2.1.1_license.txt */,
@@ -513,6 +538,13 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				fr,
+				de,
+				ja,
+				es,
+				it,
+				pt,
+				zh,
 			);
 			mainGroup = F59768B215E3C75E004165A7;
 			productRefGroup = F59768BE15E3C75F004165A7 /* Products */;
@@ -613,6 +645,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		0811BCA31C08903D006D0ABF /* JaspersoftSDK.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0811BCA41C08903D006D0ABF /* de */,
+				0811BCA51C08903D006D0ABF /* en */,
+				0811BCA61C08903E006D0ABF /* es */,
+				0811BCA71C08903E006D0ABF /* fr */,
+				0811BCA81C08903E006D0ABF /* it */,
+				0811BCA91C08903E006D0ABF /* ja */,
+				0811BCAA1C08903E006D0ABF /* pt */,
+				0811BCAB1C08903E006D0ABF /* zh */,
+			);
+			name = JaspersoftSDK.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		9363A1041B70E2720068FC54 /* Debug */ = {

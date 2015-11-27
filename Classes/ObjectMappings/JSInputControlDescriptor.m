@@ -50,6 +50,20 @@
 }
 
 - (NSString *)errorString{
+    
+    NSBundle *bundle;
+    
+
+    NSURL *bundleURL = [[NSBundle mainBundle] URLForResource:@"JaspersoftSDK" withExtension:@"bundle"];
+    
+    if (bundleURL) {
+        bundle = [NSBundle bundleWithURL:bundleURL];
+    } else {
+        bundle = [NSBundle mainBundle];
+    }
+    
+    return NSLocalizedStringFromTableInBundle(@"datatype validation error", @"JaspersoftSDK", bundle, nil);
+    
     if (self.mandatoryValidationRule && [self.selectedValues count] == 0) {
         return self.mandatoryValidationRule.errorMessage;
     } else if ([self.state.error length]) {
