@@ -24,20 +24,23 @@
  */
 
 //
-//  Localizable.strings
+//  JSLocalization.h
 //  Jaspersoft Corporation
 //
 
+#import <Foundation/Foundation.h>
 
-/* Input Controls */
-// Data Type Validation error messages
-"inputcontrol.datatype.validation.less.than" = "Less-than validation failed.";
-"inputcontrol.datatype.validation.less.than.or.equal" = "Less-than-or-Equal-to validation failed.";
-"inputcontrol.datatype.validation.greater.than" = "Greater-than validation failed.";
-"inputcontrol.datatype.validation.greater.than.or.equal" = "Greater-than-or-Equal-to validation failed.";
-"inputcontrol.datatype.validation.doesn't.match.pattern" = "This field does not match the required pattern.";
-"inputcontrol.datatype.validation.very.long" = "The string should be shotter.";
+/**
+ @author Alexey Gubarev ogubarie@tibco.com
+ @since 2.3
+ */
 
-/* Sessions */
-"session.encription.key.data.empty" = "Encription Key data is empty.";
-"session.encription.key.doesn't.valid" = "Encription Key doesn't valid. Modulus or exponent is absent.";
+#import <Foundation/Foundation.h>
+
+@interface JSLocalization : NSObject
+
++ (NSString *)localizedStringForKey:(NSString *)key;
+
+@end
+
+NSString *JSCustomLocalizedString(NSString *key, NSString *comment);

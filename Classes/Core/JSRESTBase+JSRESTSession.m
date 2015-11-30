@@ -86,7 +86,8 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
                         if (modulus && exponent) {
                             completion(modulus, exponent, nil);
                         } else {
-                            NSDictionary *userInfo = @{NSLocalizedDescriptionKey : @"Encription Key doesn't valid. Modulus or exponent is absent."};
+                            NSString *localizedDescription = JSCustomLocalizedString(@"session.encription.key.doesn't.valid", nil);
+                            NSDictionary *userInfo = @{NSLocalizedDescriptionKey : localizedDescription};
                             error = [NSError errorWithDomain:NSURLErrorDomain code:JSClientErrorCode userInfo:userInfo];
                             completion(nil, nil, error);
                         }
@@ -94,7 +95,8 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
                         completion(nil, nil, error);
                     }
                 } else {
-                    NSDictionary *userInfo = @{NSLocalizedDescriptionKey : @"Encription Key data is empty."};
+                    NSString *localizedDescription = JSCustomLocalizedString(@"session.encription.key.data.empty", nil);
+                    NSDictionary *userInfo = @{NSLocalizedDescriptionKey : localizedDescription};
                     error = [NSError errorWithDomain:NSURLErrorDomain code:JSClientErrorCode userInfo:userInfo];
                     completion(nil, nil, error);
                 }

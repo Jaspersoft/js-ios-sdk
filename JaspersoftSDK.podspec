@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name = "JaspersoftSDK"
-	s.version = "2.1"
+	s.version = "2.3"
 	s.summary = "JaspersoftSDK - The simplest way to build JasperReports Server apps."
 	s.description = <<-DESC
 		JaspersoftSDK for iOS is a set of Objective-C classes to easily connect
@@ -19,6 +19,7 @@ Pod::Spec.new do |s|
 	s.prefix_header_contents = <<-EOS
 		#import <SystemConfiguration/SystemConfiguration.h>
 		#import <MobileCoreServices/MobileCoreServices.h>
+		#import "JSLocalization.h"
 	EOS
 	s.framework = "Foundation"
 	s.requires_arc = true

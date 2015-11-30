@@ -50,20 +50,6 @@
 }
 
 - (NSString *)errorString{
-    
-    NSBundle *bundle;
-    
-
-    NSURL *bundleURL = [[NSBundle mainBundle] URLForResource:@"JaspersoftSDK" withExtension:@"bundle"];
-    
-    if (bundleURL) {
-        bundle = [NSBundle bundleWithURL:bundleURL];
-    } else {
-        bundle = [NSBundle mainBundle];
-    }
-    
-    return NSLocalizedStringFromTableInBundle(@"datatype validation error", @"JaspersoftSDK", bundle, nil);
-    
     if (self.mandatoryValidationRule && [self.selectedValues count] == 0) {
         return self.mandatoryValidationRule.errorMessage;
     } else if ([self.state.error length]) {
@@ -93,12 +79,12 @@
             case JSInputControlDataType_Text: {
                 valueObject = self.state.value;
                 if (self.dataType.maxLength > 0 && [valueObject length] > self.dataType.maxLength) {
-                    return @"datatype validation error";
+                    return JSCustomLocalizedString(@"inputcontrol.datatype.validation.very.long", nil);
                 }
                 if (valueObject && self.dataType.pattern) {
                     NSPredicate* predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", self.dataType.pattern];
                     if (![predicate evaluateWithObject:self.state.value]) {
-                        return @"datatype validation error";
+                        return JSCustomLocalizedString(@"inputcontrol.datatype.validation.doesn't.match.pattern", nil);
                     }
                 }
                 break;
@@ -110,15 +96,18 @@
             if ([valueObject respondsToSelector:@selector(compare:)]) {
                 if (minValue) {
                     NSComparisonResult minValueResult = [valueObject compare:minValue];
-                    if (minValueResult == NSOrderedAscending || (minValueResult == NSOrderedSame && self.dataType.strictMin)) {
-                        return @"datatype validation error";
+                    if (minValueResult == NSOrderedAscending) {
+                        return JSCustomLocalizedString(@"inputcontrol.datatype.validation.less.than", nil);
+                    } else if (minValueResult == NSOrderedSame && self.dataType.strictMin){
+                        return JSCustomLocalizedString(@"inputcontrol.datatype.validation.less.than.or.equal", nil);
                     }
                 }
-                
                 if (maxValue) {
                     NSComparisonResult maxValueResult = [valueObject compare:maxValue];
-                    if (maxValueResult == NSOrderedDescending || (maxValueResult == NSOrderedSame && self.dataType.strictMax)) {
-                        return @"datatype validation error";
+                    if (maxValueResult == NSOrderedDescending) {
+                        return JSCustomLocalizedString(@"inputcontrol.datatype.validation.greater.than", nil);
+                    } else if (maxValueResult == NSOrderedSame && self.dataType.strictMax){
+                        return JSCustomLocalizedString(@"inputcontrol.datatype.validation.greater.than.or.equal", nil);
                     }
                 }
             }
