@@ -37,307 +37,140 @@
 
  @since 1.0
  */
-@interface JSConstants : NSObject
 
 /**
- Returns the shared instance of the constants
- */
-+ (nonnull JSConstants *)sharedInstance;
-
-/**
- Get string representation for Boolean value
- 
- @param aBOOL A Boolean value
- @return A new string @"true" or @"false" depends on provided Boolean value
- */
-+ (nonnull NSString *)stringFromBOOL:(BOOL)aBOOL;
-
-/**
- Get Bolean representation for string value
- 
- @param aString A String value @"true" or @"false"
- @return A BOOL depends on provided string value
- */
-+ (BOOL)BOOLFromString:(nonnull NSString *)aString;
-
-/**
- Get string identifier for Keychain
- 
- @return A string identifier for Keychain in format <YOUR_APP_BUNDLE_ID.GenericKeychainSuite>
- */
-+ (nonnull NSString *)keychainIdentifier;
-
-/**
- @name WebService types
+ @name JS Version Codes
  @{
  */
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_ACCESS_GRANT_SCHEMA;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_ADHOC_DATA_VIEW;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_ADHOC_REPORT;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_BEAN;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_CONTENT_RESOURCE;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_CSS;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_CUSTOM;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_DATASOURCE;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_DATATYPE;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_DASHBOARD;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_DASHBOARD_LEGACY;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_DASHBOARD_STATE;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_DOMAIN;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_DOMAIN_TOPIC;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_FOLDER;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_FONT;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_IMG;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_INPUT_CONTROL;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_JAR;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_JDBC;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_JNDI;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_JRXML;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_LOV;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_OLAP_MONDRIAN_CON;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_OLAP_MONDRIAN_SCHEMA;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_OLAP_UNIT;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_OLAP_XMLA_CON;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_PROP;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_QUERY;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_REFERENCE;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_REPORT_OPTIONS;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_REPORT_UNIT;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_XML;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_XMLA_CONNECTION;
-@property (nonatomic, readonly, nonnull) NSString *WS_TYPE_UNKNOW;
-/** @} */
-
-/**
- @name Provided here from DataType for facility
- @{
- */
-@property (nonatomic, readonly) NSInteger DT_TYPE_TEXT;
-@property (nonatomic, readonly) NSInteger DT_TYPE_NUMBER;
-@property (nonatomic, readonly) NSInteger DT_TYPE_DATE;
-@property (nonatomic, readonly) NSInteger DT_TYPE_DATE_TIME;
+extern float const kJS_SERVER_VERSION_CODE_UNKNOWN;
+extern float const kJS_SERVER_VERSION_CODE_EMERALD_5_5_0;
+extern float const kJS_SERVER_VERSION_CODE_EMERALD_5_6_0;
+extern float const kJS_SERVER_VERSION_CODE_AMBER_6_0_0;
+extern float const kJS_SERVER_VERSION_CODE_AMBER_6_1_0;
+extern float const kJS_SERVER_VERSION_CODE_JADE_6_2_0;
 /** @} */
 
 /**
  @name Provided here from InputControl for facility
  @{
  */
-@property (nonatomic, readonly) NSInteger IC_TYPE_BOOLEAN;
-@property (nonatomic, readonly) NSInteger IC_TYPE_SINGLE_VALUE;
-@property (nonatomic, readonly) NSInteger IC_TYPE_SINGLE_SELECT_LIST_OF_VALUES;
-@property (nonatomic, readonly) NSInteger IC_TYPE_SINGLE_SELECT_QUERY;
-@property (nonatomic, readonly) NSInteger IC_TYPE_MULTI_VALUE;
-@property (nonatomic, readonly) NSInteger IC_TYPE_MULTI_SELECT_LIST_OF_VALUES;
-@property (nonatomic, readonly) NSInteger IC_TYPE_MULTI_SELECT_QUERY;
-@property (nonatomic, readonly) NSInteger IC_TYPE_SINGLE_SELECT_LIST_OF_VALUES_RADIO;
-@property (nonatomic, readonly) NSInteger IC_TYPE_SINGLE_SELECT_QUERY_RADIO;
-@property (nonatomic, readonly) NSInteger IC_TYPE_MULTI_SELECT_LIST_OF_VALUES_CHECKBOX;
-@property (nonatomic, readonly) NSInteger IC_TYPE_MULTI_SELECT_QUERY_CHECKBOX;
+typedef NS_ENUM (NSInteger, kJS_IC_TYPE) {
+    kJS_IC_TYPE_UNKNOWN = 0,
+    kJS_IC_TYPE_BOOLEAN = 1,
+    kJS_IC_TYPE_SINGLE_VALUE = 2,
+    kJS_IC_TYPE_SINGLE_SELECT_LIST_OF_VALUES = 3,
+    kJS_IC_TYPE_SINGLE_SELECT_QUERY = 4,
+    kJS_IC_TYPE_MULTI_VALUE = 5,
+    kJS_IC_TYPE_MULTI_SELECT_LIST_OF_VALUES = 6,
+    kJS_IC_TYPE_MULTI_SELECT_QUERY = 7,
+    kJS_IC_TYPE_SINGLE_SELECT_LIST_OF_VALUES_RADIO = 8,
+    kJS_IC_TYPE_SINGLE_SELECT_QUERY_RADIO = 9,
+    kJS_IC_TYPE_MULTI_SELECT_LIST_OF_VALUES_CHECKBOX = 10,
+    kJS_IC_TYPE_MULTI_SELECT_QUERY_CHECKBOX = 11
+};
 /** @} */
 
 /**
- @name General constants for resource properties
+ @name Provided here from DataType for facility
  @{
  */
-@property (nonatomic, readonly, nonnull) NSString *PROP_VERSION;
-@property (nonatomic, readonly, nonnull) NSString *PROP_PARENT_FOLDER;
-@property (nonatomic, readonly, nonnull) NSString *PROP_RESOURCE_TYPE;
-@property (nonatomic, readonly, nonnull) NSString *PROP_CREATION_DATE;
+typedef NS_ENUM(NSInteger, kJS_DT_TYPE) {
+    kJS_DT_TYPE_UNKNOWN = 0,
+    kJS_DT_TYPE_TEXT = 1,
+    kJS_DT_TYPE_NUMBER = 2,
+    kJS_DT_TYPE_DATE = 3,
+    kJS_DT_TYPE_DATE_TIME = 4,
+    kJS_DT_TYPE_TIME = 5
+};
 /** @} */
 
 /**
- @name File resource properties
+ @name WebService types
  @{
  */
-@property (nonatomic, readonly, nonnull) NSString *PROP_FILERESOURCE_HAS_DATA;
-@property (nonatomic, readonly, nonnull) NSString *PROP_FILERESOURCE_IS_REFERENCE;
-@property (nonatomic, readonly, nonnull) NSString *PROP_FILERESOURCE_REFERENCE_URI;
-@property (nonatomic, readonly, nonnull) NSString *PROP_FILERESOURCE_WSTYPE;
-@property (nonatomic, readonly, nonnull) NSString *PROP_DATA;
-@property (nonatomic, readonly, nonnull) NSString *PROP_DATASOURCE_MAPPING;
-/** @} */
-
-/**
- @name Datasource properties
- @{
- */
-@property (nonatomic, readonly, nonnull) NSString *PROP_DATASOURCE_DRIVER_CLASS;
-@property (nonatomic, readonly, nonnull) NSString *PROP_DATASOURCE_CONNECTION_URL;
-@property (nonatomic, readonly, nonnull) NSString *PROP_DATASOURCE_USERNAME;
-@property (nonatomic, readonly, nonnull) NSString *PROP_DATASOURCE_PASSWORD;
-@property (nonatomic, readonly, nonnull) NSString *PROP_DATASOURCE_JNDI_NAME;
-@property (nonatomic, readonly, nonnull) NSString *PROP_DATASOURCE_BEAN_NAME;
-@property (nonatomic, readonly, nonnull) NSString *PROP_DATASOURCE_BEAN_METHOD;
-@property (nonatomic, readonly, nonnull) NSString *PROP_DATASOURCE_CUSTOM_SERVICE_CLASS;
-@property (nonatomic, readonly, nonnull) NSString *PROP_DATASOURCE_CUSTOM_PROPERTY_MAP;
-/** @} */
-
-/**
- @name ReportUnit resource properties
- @{
- */
-@property (nonatomic, readonly, nonnull) NSString *PROP_RU_DATASOURCE_TYPE;
-@property (nonatomic, readonly, nonnull) NSString *PROP_RU_IS_MAIN_REPORT;
-@property (nonatomic, readonly, nonnull) NSString *PROP_RU_INPUTCONTROL_RENDERING_VIEW;
-@property (nonatomic, readonly, nonnull) NSString *PROP_RU_REPORT_RENDERING_VIEW;
-@property (nonatomic, readonly, nonnull) NSString *PROP_RU_ALWAYS_PROPMT_CONTROLS;
-@property (nonatomic, readonly, nonnull) NSString *PROP_RU_CONTROLS_LAYOUT;
-/** @} */
-
-/**
- @name DataType resource properties
- @{
- */
-@property (nonatomic, readonly, nonnull) NSString *PROP_DATATYPE_STRICT_MAX;
-@property (nonatomic, readonly, nonnull) NSString *PROP_DATATYPE_STRICT_MIN;
-@property (nonatomic, readonly, nonnull) NSString *PROP_DATATYPE_MIN_VALUE;
-@property (nonatomic, readonly, nonnull) NSString *PROP_DATATYPE_MAX_VALUE;
-@property (nonatomic, readonly, nonnull) NSString *PROP_DATATYPE_PATTERN;
-@property (nonatomic, readonly, nonnull) NSString *PROP_DATATYPE_TYPE;
-/** @} */
-
-/**
- @name ListOfValues resource properties
- @{
- */
-@property (nonatomic, readonly, nonnull) NSString *PROP_LOV;
-@property (nonatomic, readonly, nonnull) NSString *PROP_LOV_LABEL;
-@property (nonatomic, readonly, nonnull) NSString *PROP_LOV_VALUE;
-/** @} */
-
-/**
- @name InputControl resource properties
- @{
- */
-@property (nonatomic, readonly, nonnull) NSString *PROP_INPUTCONTROL_TYPE;
-@property (nonatomic, readonly, nonnull) NSString *PROP_INPUTCONTROL_IS_MANDATORY;
-@property (nonatomic, readonly, nonnull) NSString *PROP_INPUTCONTROL_IS_READONLY;
-@property (nonatomic, readonly, nonnull) NSString *PROP_INPUTCONTROL_IS_VISIBLE;
-/** @} */
-
-/**
- @name SQL resource properties
- @{
- */
-@property (nonatomic, readonly, nonnull) NSString *PROP_QUERY;
-@property (nonatomic, readonly, nonnull) NSString *PROP_QUERY_VISIBLE_COLUMNS;
-@property (nonatomic, readonly, nonnull) NSString *PROP_QUERY_VISIBLE_COLUMN_NAME;
-@property (nonatomic, readonly, nonnull) NSString *PROP_QUERY_VALUE_COLUMN;
-@property (nonatomic, readonly, nonnull) NSString *PROP_QUERY_LANGUAGE;
-/** @} */
-
-/**
- @name SQL resource properties
- @{
- */
-@property (nonatomic, readonly, nonnull) NSString *PROP_QUERY_DATA;
-@property (nonatomic, readonly, nonnull) NSString *PROP_QUERY_DATA_ROW;
-@property (nonatomic, readonly, nonnull) NSString *PROP_QUERY_DATA_ROW_COLUMN;
-/** @} */
-
-/**
- @name OLAP XMLA Connection
- @{
- */
-@property (nonatomic, readonly, nonnull) NSString *PROP_XMLA_URI;
-@property (nonatomic, readonly, nonnull) NSString *PROP_XMLA_CATALOG;
-@property (nonatomic, readonly, nonnull) NSString *PROP_XMLA_DATASOURCE;
-@property (nonatomic, readonly, nonnull) NSString *PROP_XMLA_USERNAME;
-@property (nonatomic, readonly, nonnull) NSString *PROP_XMLA_PASSWORD;
-/** @} */
-
-/**
- @name OLAP Unit
- @{
- */
-@property (nonatomic, readonly, nonnull) NSString *PROP_MDX_QUERY;
+extern NSString *const kJS_WS_TYPE_ACCESS_GRANT_SCHEMA;
+extern NSString *const kJS_WS_TYPE_ADHOC_DATA_VIEW;
+extern NSString *const kJS_WS_TYPE_ADHOC_REPORT;
+extern NSString *const kJS_WS_TYPE_BEAN;
+extern NSString *const kJS_WS_TYPE_CONTENT_RESOURCE;
+extern NSString *const kJS_WS_TYPE_CSS;
+extern NSString *const kJS_WS_TYPE_CUSTOM;
+extern NSString *const kJS_WS_TYPE_DATASOURCE;
+extern NSString *const kJS_WS_TYPE_DATATYPE;
+extern NSString *const kJS_WS_TYPE_DASHBOARD;
+extern NSString *const kJS_WS_TYPE_DASHBOARD_LEGACY;
+extern NSString *const kJS_WS_TYPE_DASHBOARD_STATE;
+extern NSString *const kJS_WS_TYPE_DOMAIN;
+extern NSString *const kJS_WS_TYPE_DOMAIN_TOPIC;
+extern NSString *const kJS_WS_TYPE_FOLDER;
+extern NSString *const kJS_WS_TYPE_FONT;
+extern NSString *const kJS_WS_TYPE_IMG;
+extern NSString *const kJS_WS_TYPE_INPUT_CONTROL;
+extern NSString *const kJS_WS_TYPE_JAR;
+extern NSString *const kJS_WS_TYPE_JDBC;
+extern NSString *const kJS_WS_TYPE_JNDI;
+extern NSString *const kJS_WS_TYPE_JRXML;
+extern NSString *const kJS_WS_TYPE_LOV;
+extern NSString *const kJS_WS_TYPE_OLAP_MONDRIAN_CON;
+extern NSString *const kJS_WS_TYPE_OLAP_MONDRIAN_SCHEMA;
+extern NSString *const kJS_WS_TYPE_OLAP_UNIT;
+extern NSString *const kJS_WS_TYPE_OLAP_XMLA_CON;
+extern NSString *const kJS_WS_TYPE_PROP;
+extern NSString *const kJS_WS_TYPE_QUERY;
+extern NSString *const kJS_WS_TYPE_REFERENCE;
+extern NSString *const kJS_WS_TYPE_REPORT_OPTIONS;
+extern NSString *const kJS_WS_TYPE_REPORT_UNIT;
+extern NSString *const kJS_WS_TYPE_XML;
+extern NSString *const kJS_WS_TYPE_XMLA_CONNECTION;
+extern NSString *const kJS_WS_TYPE_UNKNOW;
 /** @} */
 
 /**
  @name Output formats
  @{
  */
-@property (nonatomic, readonly, nonnull) NSString *CONTENT_TYPE_PDF;
-@property (nonatomic, readonly, nonnull) NSString *CONTENT_TYPE_HTML;
-@property (nonatomic, readonly, nonnull) NSString *CONTENT_TYPE_XLS;
-@property (nonatomic, readonly, nonnull) NSString *CONTENT_TYPE_RTF;
-@property (nonatomic, readonly, nonnull) NSString *CONTENT_TYPE_CSV;
-@property (nonatomic, readonly, nonnull) NSString *CONTENT_TYPE_IMG;
-/** @} */
-
-/**
- @name REST API Preferences
- @{
- */
-@property (nonatomic, readonly, nonnull) NSString *REST_SDK_MIMETYPE_USED;
-@property (nonatomic, readonly, nonnull) NSDictionary *REST_JRS_LOCALE_SUPPORTED;
-@property (nonatomic, readonly) NSTimeInterval REST_JRS_CONNECTION_TIMEOUT;
-
-
+extern NSString *const kJS_CONTENT_TYPE_PDF;
+extern NSString *const kJS_CONTENT_TYPE_HTML;
+extern NSString *const kJS_CONTENT_TYPE_XLS;
+extern NSString *const kJS_CONTENT_TYPE_RTF;
+extern NSString *const kJS_CONTENT_TYPE_CSV;
+extern NSString *const kJS_CONTENT_TYPE_IMG;
 /** @} */
 
 /**
  @name REST URI Prefixes
  @{
  */
-@property (nonatomic, readonly, nonnull) NSString *REST_AUTHENTICATION_URI;
-
-
-@property (nonatomic, readonly, nonnull) NSString *REST_SERVICES_URI;
-@property (nonatomic, readonly, nonnull) NSString *REST_SERVICES_V2_URI;
-@property (nonatomic, readonly, nonnull) NSString *REST_RESOURCE_URI;
-@property (nonatomic, readonly, nonnull) NSString *REST_RESOURCES_URI;
-@property (nonatomic, readonly, nonnull) NSString *REST_RESOURCE_THUMBNAIL_URI;
-@property (nonatomic, readonly, nonnull) NSString *REST_REPORT_URI;
-@property (nonatomic, readonly, nonnull) NSString *REST_REPORTS_URI;
-@property (nonatomic, readonly, nonnull) NSString *REST_REPORT_OPTIONS_URI;
-@property (nonatomic, readonly, nonnull) NSString *REST_INPUT_CONTROLS_URI;
-@property (nonatomic, readonly, nonnull) NSString *REST_VALUES_URI;
-@property (nonatomic, readonly, nonnull) NSString *REST_SERVER_INFO_URI;
-@property (nonatomic, readonly, nonnull) NSString *REST_REPORT_EXECUTION_URI;
-@property (nonatomic, readonly, nonnull) NSString *REST_REPORT_EXECUTION_STATUS_URI;
-@property (nonatomic, readonly, nonnull) NSString *REST_EXPORT_EXECUTION_URI;
-@property (nonatomic, readonly, nonnull) NSString *REST_EXPORT_EXECUTION_ATTACHMENTS_PREFIX_URI;
-
-/** @} */
-
-/**
- @name JS Version Codes
- @{
- */
-@property (nonatomic, readonly) float SERVER_VERSION_CODE_UNKNOWN;
-@property (nonatomic, readonly) float SERVER_VERSION_CODE_EMERALD_5_0_0;
-@property (nonatomic, readonly) float SERVER_VERSION_CODE_EMERALD_5_2_0;
-@property (nonatomic, readonly) float SERVER_VERSION_CODE_EMERALD_5_5_0;
-@property (nonatomic, readonly) float SERVER_VERSION_CODE_EMERALD_5_6_0;
-@property (nonatomic, readonly) float SERVER_VERSION_CODE_AMBER_6_0_0;
-@property (nonatomic, readonly) float SERVER_VERSION_CODE_AMBER_6_1_0;
-
-/** @} */
-
-/**
- @name JS Editions
- @{
- */
-@property (nonatomic, readonly, nonnull) NSString *SERVER_EDITION_CE;
-@property (nonatomic, readonly, nonnull) NSString *SERVER_EDITION_PRO;
-
+extern NSString *const kJS_REST_AUTHENTICATION_URI;
+extern NSString *const kJS_REST_SERVICES_URI;
+extern NSString *const kJS_REST_SERVICES_V2_URI;
+extern NSString *const kJS_REST_RESOURCE_URI;
+extern NSString *const kJS_REST_RESOURCES_URI;
+extern NSString *const kJS_REST_RESOURCE_THUMBNAIL_URI;
+extern NSString *const kJS_REST_REPORT_URI;
+extern NSString *const kJS_REST_REPORTS_URI;
+extern NSString *const kJS_REST_REPORT_OPTIONS_URI;
+extern NSString *const kJS_REST_INPUT_CONTROLS_URI;
+extern NSString *const kJS_REST_VALUES_URI;
+extern NSString *const kJS_REST_SERVER_INFO_URI;
+extern NSString *const kJS_REST_REPORT_EXECUTION_URI;
+extern NSString *const kJS_REST_REPORT_EXECUTION_STATUS_URI;
+extern NSString *const kJS_REST_EXPORT_EXECUTION_URI;
+extern NSString *const kJS_REST_EXPORT_EXECUTION_ATTACHMENTS_PREFIX_URI;
 /** @} */
 
 /**
  @name Input Control Descriptor Types
  @{
  */
-@property (nonatomic, readonly, nonnull) NSString *ICD_TYPE_BOOL;
-@property (nonatomic, readonly, nonnull) NSString *ICD_TYPE_SINGLE_VALUE_TEXT;
-@property (nonatomic, readonly, nonnull) NSString *ICD_TYPE_SINGLE_VALUE_NUMBER;
-@property (nonatomic, readonly, nonnull) NSString *ICD_TYPE_SINGLE_VALUE_DATE;
-@property (nonatomic, readonly, nonnull) NSString *ICD_TYPE_SINGLE_VALUE_TIME;
-@property (nonatomic, readonly, nonnull) NSString *ICD_TYPE_SINGLE_VALUE_DATETIME;
-@property (nonatomic, readonly, nonnull) NSString *ICD_TYPE_SINGLE_SELECT;
-@property (nonatomic, readonly, nonnull) NSString *ICD_TYPE_SINGLE_SELECT_RADIO;
-@property (nonatomic, readonly, nonnull) NSString *ICD_TYPE_MULTI_SELECT;
-@property (nonatomic, readonly, nonnull) NSString *ICD_TYPE_MULTI_SELECT_CHECKBOX;
+extern NSString *const kJS_ICD_TYPE_BOOL;
+extern NSString *const kJS_ICD_TYPE_SINGLE_VALUE_TEXT;
+extern NSString *const kJS_ICD_TYPE_SINGLE_VALUE_NUMBER;
+extern NSString *const kJS_ICD_TYPE_SINGLE_VALUE_DATE;
+extern NSString *const kJS_ICD_TYPE_SINGLE_VALUE_TIME;
+extern NSString *const kJS_ICD_TYPE_SINGLE_VALUE_DATETIME;
+extern NSString *const kJS_ICD_TYPE_SINGLE_SELECT;
+extern NSString *const kJS_ICD_TYPE_SINGLE_SELECT_RADIO;
+extern NSString *const kJS_ICD_TYPE_MULTI_SELECT;
+extern NSString *const kJS_ICD_TYPE_MULTI_SELECT_CHECKBOX;
 /** @} */
-
-@end

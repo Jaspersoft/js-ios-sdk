@@ -41,22 +41,6 @@
  */
 @interface JSRESTBase(JSRESTResource)
 
-/**
- Creates the resource with specified JSResourceDescriptor
- 
- @param resource JSResourceDescriptor of resource being modified
- @param block The block to inform of the results
- */
-- (void)createResource:(nonnull JSResourceDescriptor *)resource completionBlock:(nullable JSRequestCompletionBlock)block DEPRECATED_MSG_ATTRIBUTE("Will be replaced with new one for using v.2 REST API in next version SDK");
-
-/**
- Modifies the resource with specified JSResourceDescriptor
- 
- @param resource JSResourceDescriptor of resource being modified
- @param block The block to inform of the results
- */
-- (void)modifyResource:(nonnull JSResourceDescriptor *)resource completionBlock:(nullable JSRequestCompletionBlock)block DEPRECATED_MSG_ATTRIBUTE("Will be replaced with new one for using v.2 REST API in next version SDK");
-
 //---------------------------------------------------------------------
 // The Resources Service v2
 //---------------------------------------------------------------------

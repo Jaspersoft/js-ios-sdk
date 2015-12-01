@@ -49,27 +49,6 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 @implementation JSRESTBase(JSRESTResource)
 
 #pragma mark -
-#pragma mark Public methods for resources API
-
-- (void)createResource:(JSResourceDescriptor *)resource completionBlock:(nullable JSRequestCompletionBlock)block {
-    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:nil]];
-    request.expectedModelClass = [JSResourceDescriptor class];
-    request.method = RKRequestMethodPOST;
-    request.body = resource;
-    request.completionBlock = block;
-    [self sendRequest:request];
-}
-
-- (void)modifyResource:(JSResourceDescriptor *)resource completionBlock:(nullable JSRequestCompletionBlock)block {
-    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:resource.uriString]];
-    request.expectedModelClass = [JSResourceDescriptor class];
-    request.method = RKRequestMethodPUT;
-    request.body = resource;
-    request.completionBlock = block;
-    [self sendRequest:request];
-}
-
-#pragma mark -
 #pragma mark Public methods for REST V2 resources API
 
 - (void)deleteResource:(NSString *)uri completionBlock:(nullable JSRequestCompletionBlock)block {
@@ -85,7 +64,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
                    modelClass:(Class)modelClass
              completionBlock:(nullable JSRequestCompletionBlock)block
 {
-    NSString *uri = [JSConstants sharedInstance].REST_RESOURCES_URI;
+    NSString *uri = kJS_REST_RESOURCES_URI;
     if (resourceURI && ![resourceURI isEqualToString:@"/"]) {
         uri = [uri stringByAppendingString:resourceURI];
     }
@@ -132,7 +111,7 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
                   limit:(NSInteger)limit
         completionBlock:(nullable JSRequestCompletionBlock)block
 {
-    JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_RESOURCES_URI];
+    JSRequest *request = [[JSRequest alloc] initWithUri:kJS_REST_RESOURCES_URI];
     request.restVersion = JSRESTVersion_2;
     request.expectedModelClass = [JSResourceLookup class];
     
@@ -141,10 +120,10 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
     [request addParameter:_parameterType withArrayValue:types];
     [request addParameter:_parameterSortBy withStringValue:sortBy];
     [request addParameter:_parameterAccessType withStringValue:accessType];
-    [request addParameter:_parameterRecursive withStringValue:[JSConstants stringFromBOOL:recursive]];
+    [request addParameter:_parameterRecursive withStringValue:[JSUtils stringFromBOOL:recursive]];
     [request addParameter:_parameterOffset withIntegerValue:offset];
     [request addParameter:_parameterLimit withIntegerValue:limit];
-    [request addParameter:_parameterForceFullPage withStringValue:[JSConstants stringFromBOOL:YES]];
+    [request addParameter:_parameterForceFullPage withStringValue:[JSUtils stringFromBOOL:YES]];
     
     request.completionBlock = block;
     [self sendRequest:request];
@@ -152,8 +131,8 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 
 - (NSString *)generateThumbnailImageUrl:(NSString *)resourceURI
 {
-    NSString *restURI = [JSConstants sharedInstance].REST_SERVICES_V2_URI;
-    NSString *thumbnailURI = [JSConstants sharedInstance].REST_RESOURCE_THUMBNAIL_URI;
+    NSString *restURI = kJS_REST_SERVICES_V2_URI;
+    NSString *thumbnailURI = kJS_REST_RESOURCE_THUMBNAIL_URI;
     return  [NSString stringWithFormat:@"%@/%@%@%@?defaultAllowed=false", self.serverProfile.serverUrl, restURI, thumbnailURI, resourceURI];
 }
 
@@ -161,11 +140,11 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 #pragma mark Private methods
 
 - (NSString *)fullResourcesUri:(NSString *)uri {
-    return [NSString stringWithFormat:@"%@%@", [JSConstants sharedInstance].REST_RESOURCES_URI, (uri ?: @"")];
+    return [NSString stringWithFormat:@"%@%@", kJS_REST_RESOURCES_URI, (uri ?: @"")];
 }
 
 - (NSString *)fullResourceUri:(NSString *)uri {
-    return [NSString stringWithFormat:@"%@%@", [JSConstants sharedInstance].REST_RESOURCE_URI, (uri ?: @"")];
+    return [NSString stringWithFormat:@"%@%@", kJS_REST_RESOURCE_URI, (uri ?: @"")];
 }
 
 @end

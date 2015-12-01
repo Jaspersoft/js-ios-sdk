@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		0811BCB31C0DD755006D0ABF /* JSUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 0811BCB11C0DD755006D0ABF /* JSUtils.h */; };
+		0811BCB41C0DD755006D0ABF /* JSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0811BCB21C0DD755006D0ABF /* JSUtils.m */; };
 		081DCA131A9C793D007A7F1B /* JSRESTBase+JSRESTSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 081DCA111A9C793D007A7F1B /* JSRESTBase+JSRESTSession.h */; };
 		081DCA141A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 081DCA121A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m */; };
 		084F28A51B7CF89E00551341 /* KeychainItemWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 084F28A31B7CF89E00551341 /* KeychainItemWrapper.h */; };
@@ -43,8 +45,6 @@
 		A147872F4B900E410C80D225 /* JSResourceReportUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = A1478B2D6D9EF0447765EBAA /* JSResourceReportUnit.m */; };
 		A1478D6C2889B7FE83D217E3 /* JSEncryptionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A1478CADF00809430B7F0373 /* JSEncryptionManager.m */; };
 		A1478FC6A4EDD3F87E9A85CE /* JSResourceReportUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = A1478377B817F437E81E18F1 /* JSResourceReportUnit.h */; };
-		BD2CAB701C0CB466003386EF /* JSLocalization.h in Headers */ = {isa = PBXBuildFile; fileRef = BD2CAB6E1C0CB466003386EF /* JSLocalization.h */; };
-		BD2CAB711C0CB466003386EF /* JSLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = BD2CAB6F1C0CB466003386EF /* JSLocalization.m */; };
 		F520FF89196FEE53009435C2 /* JSMandatoryValidationRule.h in Headers */ = {isa = PBXBuildFile; fileRef = F520FF87196FEE53009435C2 /* JSMandatoryValidationRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F520FF8B196FEE53009435C2 /* JSMandatoryValidationRule.m in Sources */ = {isa = PBXBuildFile; fileRef = F520FF88196FEE53009435C2 /* JSMandatoryValidationRule.m */; };
 		F523D78518635EB000B93D3F /* JSExecutionStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = F523D78318635EB000B93D3F /* JSExecutionStatus.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -75,12 +75,6 @@
 		F597692A15E3C826004165A7 /* JSRESTBase+JSRESTResource.m in Sources */ = {isa = PBXBuildFile; fileRef = F59768F515E3C826004165A7 /* JSRESTBase+JSRESTResource.m */; };
 		F597694315E3C826004165A7 /* JSReportAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690615E3C826004165A7 /* JSReportAttachment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F597694515E3C826004165A7 /* JSReportAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690715E3C826004165A7 /* JSReportAttachment.m */; };
-		F597694B15E3C826004165A7 /* JSResourceDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690A15E3C826004165A7 /* JSResourceDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F597694D15E3C826004165A7 /* JSResourceDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690B15E3C826004165A7 /* JSResourceDescriptor.m */; };
-		F597694F15E3C826004165A7 /* JSResourceParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690C15E3C826004165A7 /* JSResourceParameter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F597695115E3C826004165A7 /* JSResourceParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690D15E3C826004165A7 /* JSResourceParameter.m */; };
-		F597695315E3C826004165A7 /* JSResourceProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = F597690E15E3C826004165A7 /* JSResourceProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F597695515E3C826004165A7 /* JSResourceProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F597690F15E3C826004165A7 /* JSResourceProperty.m */; };
 		F597697915E3C9EF004165A7 /* JSSerializationDescriptorHolder.h in Headers */ = {isa = PBXBuildFile; fileRef = F597697815E3C9EF004165A7 /* JSSerializationDescriptorHolder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5AE53AF165169F6004207E1 /* JSDateTimeFormatValidationRule.h in Headers */ = {isa = PBXBuildFile; fileRef = F5AE53AD165169F6004207E1 /* JSDateTimeFormatValidationRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5AE53B1165169F6004207E1 /* JSDateTimeFormatValidationRule.m in Sources */ = {isa = PBXBuildFile; fileRef = F5AE53AE165169F6004207E1 /* JSDateTimeFormatValidationRule.m */; };
@@ -105,6 +99,8 @@
 		0811BCA91C08903E006D0ABF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
 		0811BCAA1C08903E006D0ABF /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
 		0811BCAB1C08903E006D0ABF /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
+		0811BCB11C0DD755006D0ABF /* JSUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSUtils.h; sourceTree = "<group>"; };
+		0811BCB21C0DD755006D0ABF /* JSUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSUtils.m; sourceTree = "<group>"; };
 		081DCA111A9C793D007A7F1B /* JSRESTBase+JSRESTSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSRESTBase+JSRESTSession.h"; sourceTree = "<group>"; };
 		081DCA121A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSRESTSession.m"; sourceTree = "<group>"; };
 		084F28A31B7CF89E00551341 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
@@ -130,8 +126,6 @@
 		A14784F7D6DE1862D9D1364E /* JSEncryptionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSEncryptionManager.h; sourceTree = "<group>"; };
 		A1478B2D6D9EF0447765EBAA /* JSResourceReportUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceReportUnit.m; sourceTree = "<group>"; };
 		A1478CADF00809430B7F0373 /* JSEncryptionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSEncryptionManager.m; sourceTree = "<group>"; };
-		BD2CAB6E1C0CB466003386EF /* JSLocalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSLocalization.h; sourceTree = "<group>"; };
-		BD2CAB6F1C0CB466003386EF /* JSLocalization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSLocalization.m; sourceTree = "<group>"; };
 		F520FF87196FEE53009435C2 /* JSMandatoryValidationRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMandatoryValidationRule.h; sourceTree = "<group>"; };
 		F520FF88196FEE53009435C2 /* JSMandatoryValidationRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMandatoryValidationRule.m; sourceTree = "<group>"; };
 		F523D78318635EB000B93D3F /* JSExecutionStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSExecutionStatus.h; sourceTree = "<group>"; };
@@ -156,7 +150,7 @@
 		F59768C015E3C75F004165A7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F59768E815E3C826004165A7 /* JSConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JSConstants.h; sourceTree = "<group>"; };
 		F59768E915E3C826004165A7 /* JSConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSConstants.m; sourceTree = "<group>"; };
-		F59768EA15E3C826004165A7 /* JSOperationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JSOperationResult.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		F59768EA15E3C826004165A7 /* JSOperationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JSOperationResult.h; sourceTree = "<group>"; };
 		F59768EB15E3C826004165A7 /* JSOperationResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSOperationResult.m; sourceTree = "<group>"; };
 		F59768EC15E3C826004165A7 /* JSProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JSProfile.h; sourceTree = "<group>"; };
 		F59768ED15E3C826004165A7 /* JSProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSProfile.m; sourceTree = "<group>"; };
@@ -170,12 +164,6 @@
 		F59768F515E3C826004165A7 /* JSRESTBase+JSRESTResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSRESTResource.m"; sourceTree = "<group>"; };
 		F597690615E3C826004165A7 /* JSReportAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportAttachment.h; sourceTree = "<group>"; };
 		F597690715E3C826004165A7 /* JSReportAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportAttachment.m; sourceTree = "<group>"; };
-		F597690A15E3C826004165A7 /* JSResourceDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResourceDescriptor.h; sourceTree = "<group>"; };
-		F597690B15E3C826004165A7 /* JSResourceDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceDescriptor.m; sourceTree = "<group>"; };
-		F597690C15E3C826004165A7 /* JSResourceParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResourceParameter.h; sourceTree = "<group>"; };
-		F597690D15E3C826004165A7 /* JSResourceParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceParameter.m; sourceTree = "<group>"; };
-		F597690E15E3C826004165A7 /* JSResourceProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResourceProperty.h; sourceTree = "<group>"; };
-		F597690F15E3C826004165A7 /* JSResourceProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceProperty.m; sourceTree = "<group>"; };
 		F597697815E3C9EF004165A7 /* JSSerializationDescriptorHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSSerializationDescriptorHolder.h; sourceTree = "<group>"; };
 		F5A8141715EBFA1900151B1D /* JaspersoftSDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JaspersoftSDK-Prefix.pch"; sourceTree = "<group>"; };
 		F5AE53AD165169F6004207E1 /* JSDateTimeFormatValidationRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDateTimeFormatValidationRule.h; sourceTree = "<group>"; };
@@ -224,6 +212,15 @@
 			path = Localizable;
 			sourceTree = "<group>";
 		};
+		0811BCB01C0DD755006D0ABF /* JSUtils */ = {
+			isa = PBXGroup;
+			children = (
+				0811BCB11C0DD755006D0ABF /* JSUtils.h */,
+				0811BCB21C0DD755006D0ABF /* JSUtils.m */,
+			);
+			path = JSUtils;
+			sourceTree = "<group>";
+		};
 		084F28A21B7CF89E00551341 /* KeychainItemWrapper */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,15 +258,6 @@
 				374558828353F4E8E6F29C17 /* JSReportExecutionResponse.m */,
 			);
 			name = ReportExecution;
-			sourceTree = "<group>";
-		};
-		BD2CAB6D1C0CB466003386EF /* JSLocalization */ = {
-			isa = PBXGroup;
-			children = (
-				BD2CAB6E1C0CB466003386EF /* JSLocalization.h */,
-				BD2CAB6F1C0CB466003386EF /* JSLocalization.m */,
-			);
-			path = JSLocalization;
 			sourceTree = "<group>";
 		};
 		D919A263B01FF70A80C7A549 /* Pods */ = {
@@ -358,7 +346,7 @@
 		F59768F615E3C826004165A7 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				BD2CAB6D1C0CB466003386EF /* JSLocalization */,
+				0811BCB01C0DD755006D0ABF /* JSUtils */,
 				087CA4291B9F068300EB798D /* BasicEncodingRules */,
 				084F28A21B7CF89E00551341 /* KeychainItemWrapper */,
 				A14784F7D6DE1862D9D1364E /* JSEncryptionManager.h */,
@@ -440,12 +428,6 @@
 		F5EA36B518337B6F00E09E10 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				F597690A15E3C826004165A7 /* JSResourceDescriptor.h */,
-				F597690B15E3C826004165A7 /* JSResourceDescriptor.m */,
-				F597690C15E3C826004165A7 /* JSResourceParameter.h */,
-				F597690D15E3C826004165A7 /* JSResourceParameter.m */,
-				F597690E15E3C826004165A7 /* JSResourceProperty.h */,
-				F597690F15E3C826004165A7 /* JSResourceProperty.m */,
 				F5EA36AC18337B4A00E09E10 /* JSResourceLookup.h */,
 				F5EA36AD18337B4A00E09E10 /* JSResourceLookup.m */,
 				A1478377B817F437E81E18F1 /* JSResourceReportUnit.h */,
@@ -481,15 +463,12 @@
 				F597692415E3C826004165A7 /* JSRESTBase+JSRESTReport.h in Headers */,
 				F597692815E3C826004165A7 /* JSRESTBase+JSRESTResource.h in Headers */,
 				F597691415E3C826004165A7 /* JSOperationResult.h in Headers */,
-				BD2CAB701C0CB466003386EF /* JSLocalization.h in Headers */,
 				08FED4A51BFF4D4400390403 /* JSDataType.h in Headers */,
 				F597691C15E3C826004165A7 /* JSRequest.h in Headers */,
 				F597697915E3C9EF004165A7 /* JSSerializationDescriptorHolder.h in Headers */,
 				F597691015E3C826004165A7 /* JSConstants.h in Headers */,
 				F5EA36AE18337B4A00E09E10 /* JSResourceLookup.h in Headers */,
-				F597694B15E3C826004165A7 /* JSResourceDescriptor.h in Headers */,
-				F597694F15E3C826004165A7 /* JSResourceParameter.h in Headers */,
-				F597695315E3C826004165A7 /* JSResourceProperty.h in Headers */,
+				0811BCB31C0DD755006D0ABF /* JSUtils.h in Headers */,
 				F597694315E3C826004165A7 /* JSReportAttachment.h in Headers */,
 				F5DDD7AB164029EC005BBE7C /* JSServerInfo.h in Headers */,
 				F568246A1642996D00CC4015 /* JSInputControlDescriptor.h in Headers */,
@@ -626,7 +605,7 @@
 				F597691215E3C826004165A7 /* JSConstants.m in Sources */,
 				F597691615E3C826004165A7 /* JSOperationResult.m in Sources */,
 				F597691A15E3C826004165A7 /* JSProfile.m in Sources */,
-				BD2CAB711C0CB466003386EF /* JSLocalization.m in Sources */,
+				0811BCB41C0DD755006D0ABF /* JSUtils.m in Sources */,
 				087CA42D1B9F068300EB798D /* BasicEncodingRules.m in Sources */,
 				F597691E15E3C826004165A7 /* JSRequest.m in Sources */,
 				F597692215E3C826004165A7 /* JSRESTBase.m in Sources */,
@@ -635,9 +614,6 @@
 				081DCA141A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m in Sources */,
 				084F28A61B7CF89E00551341 /* KeychainItemWrapper.m in Sources */,
 				F597694515E3C826004165A7 /* JSReportAttachment.m in Sources */,
-				F597694D15E3C826004165A7 /* JSResourceDescriptor.m in Sources */,
-				F597695115E3C826004165A7 /* JSResourceParameter.m in Sources */,
-				F597695515E3C826004165A7 /* JSResourceProperty.m in Sources */,
 				08FED4A61BFF4D4400390403 /* JSDataType.m in Sources */,
 				F5DDD7AD164029EC005BBE7C /* JSServerInfo.m in Sources */,
 				F523D78718635EB000B93D3F /* JSExecutionStatus.m in Sources */,

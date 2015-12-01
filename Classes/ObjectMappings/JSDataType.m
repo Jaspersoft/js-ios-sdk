@@ -42,20 +42,20 @@
 
 #pragma mark - CustomAccessories
 
-- (JSInputControlDataType)type {
+- (kJS_DT_TYPE)type {
     if ([self.typeAsString isEqualToString:@"text"]) {
-        return JSInputControlDataType_Text;
+        return kJS_DT_TYPE_TEXT;
     } else if ([self.typeAsString isEqualToString:@"number"]) {
-        return JSInputControlDataType_Number;
+        return kJS_DT_TYPE_NUMBER;
     } else if ([self.typeAsString isEqualToString:@"date"]) {
-        return JSInputControlDataType_Date;
+        return kJS_DT_TYPE_DATE;
     } else if ([self.typeAsString isEqualToString:@"time"]) {
-        return JSInputControlDataType_Time;
+        return kJS_DT_TYPE_TIME;
     } else if ([self.typeAsString isEqualToString:@"datetime"]) {
-        return JSInputControlDataType_DateTime;
+        return kJS_DT_TYPE_DATE_TIME;
     }
     
-    return JSInputControlDataType_Unknown;
+    return kJS_DT_TYPE_UNKNOWN;
 }
 
 - (NSInteger)maxLength {
@@ -63,11 +63,11 @@
 }
 
 - (BOOL)strictMax {
-    return [JSConstants BOOLFromString:self.strictMaxAsString];
+    return [JSUtils BOOLFromString:self.strictMaxAsString];
 }
 
 - (BOOL)strictMin {
-    return [JSConstants BOOLFromString:self.strictMinAsString];
+    return [JSUtils BOOLFromString:self.strictMinAsString];
 }
 
 #pragma mark - JSSerializationDescriptorHolder

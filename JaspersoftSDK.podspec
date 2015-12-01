@@ -19,7 +19,8 @@ Pod::Spec.new do |s|
 	s.prefix_header_contents = <<-EOS
 		#import <SystemConfiguration/SystemConfiguration.h>
 		#import <MobileCoreServices/MobileCoreServices.h>
-		#import "JSLocalization.h"
+		#import "JSConstants.h"
+		#import "JSUtils.h"
 	EOS
 	s.framework = "Foundation"
 	s.requires_arc = true

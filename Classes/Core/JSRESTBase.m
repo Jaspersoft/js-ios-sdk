@@ -145,7 +145,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         
         [self configureRestKitObjectManager];
         
-        self.serverReachability = [ServerReachability reachabilityWithServer:serverProfile.serverUrl timeout:[JSConstants sharedInstance].REST_JRS_CONNECTION_TIMEOUT];
+        self.serverReachability = [ServerReachability reachabilityWithServer:serverProfile.serverUrl timeout:[JSUtils checkServerConnectionTimeout]];
     }
 }
 
@@ -264,7 +264,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 
 - (nullable JSServerInfo *)serverInfo {
     if (!self.serverProfile.serverInfo) {
-        JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_SERVER_INFO_URI];
+        JSRequest *request = [[JSRequest alloc] initWithUri:kJS_REST_SERVER_INFO_URI];
         request.expectedModelClass = [JSServerInfo class];
         request.restVersion = JSRESTVersion_2;
         request.asynchronous = NO;
@@ -359,8 +359,8 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     [self.restKitObjectManager.HTTPClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
     
     // Sets default content-type to object manager
-    self.restKitObjectManager.requestSerializationMIMEType = [JSConstants sharedInstance].REST_SDK_MIMETYPE_USED;
-    [self.restKitObjectManager setAcceptHeaderWithMIMEType:[JSConstants sharedInstance].REST_SDK_MIMETYPE_USED];
+    self.restKitObjectManager.requestSerializationMIMEType = [JSUtils usedMimeType];
+    [self.restKitObjectManager setAcceptHeaderWithMIMEType:[JSUtils usedMimeType]];
 
     self.requestCallBacks = [NSMutableArray new];
     [RKValueTransformer setDefaultValueTransformer:nil];
@@ -368,16 +368,14 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 
 // Gets full uri (including rest prefix)
 - (NSString *)fullUri:(NSString *)uri restVersion:(JSRESTVersion)restVersion {
-    JSConstants *constants = [JSConstants sharedInstance];
     NSString *restServiceUri = nil;
     
     switch (restVersion) {
         case JSRESTVersion_2:
-            restServiceUri = constants.REST_SERVICES_V2_URI;
+            restServiceUri = kJS_REST_SERVICES_V2_URI;
             break;
-            
         case JSRESTVersion_1:
-            restServiceUri = constants.REST_SERVICES_URI;
+            restServiceUri = kJS_REST_SERVICES_URI;
             break;
         default:
             restServiceUri = @"";
@@ -406,7 +404,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 
     // Error handling
     result.request = [self callBackForOperation:restKitOperation].request;
-    if ([result.request.uri isEqualToString:[JSConstants sharedInstance].REST_AUTHENTICATION_URI]) {
+    if ([result.request.uri isEqualToString:kJS_REST_AUTHENTICATION_URI]) {
         NSString *redirectURL = [httpOperation.response.allHeaderFields objectForKey:@"Location"];
         
         NSString *redirectUrlRegex = [NSString stringWithFormat:@"%@/login.html;((jsessionid=.+)?)\\?error=1", self.serverProfile.serverUrl];

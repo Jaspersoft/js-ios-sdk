@@ -58,9 +58,9 @@
     if (self.dataType && [self isSingleValueInputControl] && self.state.value) {
         id valueObject, minValue, maxValue;
         switch (self.dataType.type) {
-            case JSInputControlDataType_Date:
-            case JSInputControlDataType_DateTime:
-            case JSInputControlDataType_Time: {
+            case kJS_DT_TYPE_DATE:
+            case kJS_DT_TYPE_DATE_TIME:
+            case kJS_DT_TYPE_TIME: {
                 NSDateFormatter *dateFormatter = [NSDateFormatter new];
                 dateFormatter.dateFormat = self.dateTimeFormatValidationRule.format;
                 valueObject = [dateFormatter dateFromString:self.state.value];
@@ -68,7 +68,7 @@
                 maxValue = [dateFormatter dateFromString:self.dataType.maxValue];
                 break;
             }
-            case JSInputControlDataType_Number: {
+            case kJS_DT_TYPE_NUMBER: {
                 NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
                 formatter.numberStyle = NSNumberFormatterDecimalStyle;
                 valueObject = [formatter numberFromString:self.state.value];
@@ -76,7 +76,7 @@
                 maxValue = [formatter numberFromString:self.dataType.maxValue];
                 break;
             }
-            case JSInputControlDataType_Text: {
+            case kJS_DT_TYPE_TEXT: {
                 valueObject = self.state.value;
                 if (self.dataType.maxLength > 0 && [valueObject length] > self.dataType.maxLength) {
                     return JSCustomLocalizedString(@"inputcontrol.datatype.validation.very.long", nil);
@@ -118,23 +118,22 @@
 
 - (NSArray *)selectedValues {
     NSMutableArray *values = [[NSMutableArray alloc] init];
-    JSConstants *constants = [JSConstants sharedInstance];
     NSString *type = self.type;
     
     if ([self isSingleValueInputControl]) {
         if (self.state.value) {
             [values addObject:self.state.value];
         }
-    } else if ([constants.ICD_TYPE_SINGLE_SELECT isEqualToString:type] ||
-               [constants.ICD_TYPE_SINGLE_SELECT_RADIO isEqualToString:type]) {
+    } else if ([kJS_ICD_TYPE_SINGLE_SELECT isEqualToString:type] ||
+               [kJS_ICD_TYPE_SINGLE_SELECT_RADIO isEqualToString:type]) {
         for (JSInputControlOption *option in self.state.options) {
             if (option.selected.boolValue) {
                 [values addObject:option.value];
                 break;
             }
         }
-    } else if ([constants.ICD_TYPE_MULTI_SELECT isEqualToString:type] ||
-               [constants.ICD_TYPE_MULTI_SELECT_CHECKBOX isEqualToString:type]) {
+    } else if ([kJS_ICD_TYPE_MULTI_SELECT isEqualToString:type] ||
+               [kJS_ICD_TYPE_MULTI_SELECT_CHECKBOX isEqualToString:type]) {
         for (JSInputControlOption *option in self.state.options) {
             if (option.selected.boolValue) {
                 [values addObject:option.value];
@@ -244,12 +243,12 @@
 }
 
 - (BOOL) isSingleValueInputControl {
-    return ([[JSConstants sharedInstance].ICD_TYPE_BOOL isEqualToString:self.type] ||
-            [[JSConstants sharedInstance].ICD_TYPE_SINGLE_VALUE_TEXT isEqualToString:self.type] ||
-            [[JSConstants sharedInstance].ICD_TYPE_SINGLE_VALUE_NUMBER isEqualToString:self.type] ||
-            [[JSConstants sharedInstance].ICD_TYPE_SINGLE_VALUE_DATE isEqualToString:self.type] ||
-            [[JSConstants sharedInstance].ICD_TYPE_SINGLE_VALUE_TIME isEqualToString:self.type] ||
-            [[JSConstants sharedInstance].ICD_TYPE_SINGLE_VALUE_DATETIME isEqualToString:self.type]);
+    return ([kJS_ICD_TYPE_BOOL isEqualToString:self.type] ||
+            [kJS_ICD_TYPE_SINGLE_VALUE_TEXT isEqualToString:self.type] ||
+            [kJS_ICD_TYPE_SINGLE_VALUE_NUMBER isEqualToString:self.type] ||
+            [kJS_ICD_TYPE_SINGLE_VALUE_DATE isEqualToString:self.type] ||
+            [kJS_ICD_TYPE_SINGLE_VALUE_TIME isEqualToString:self.type] ||
+            [kJS_ICD_TYPE_SINGLE_VALUE_DATETIME isEqualToString:self.type]);
 }
 
 @end

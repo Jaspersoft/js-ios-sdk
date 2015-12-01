@@ -53,8 +53,6 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 
 - (NSString *)generateReportUrl:(NSString *)uri reportParams:(NSArray <JSReportParameter *> *)reportParams
                            page:(NSInteger)page format:(NSString *)format {
-    JSConstants *constants = [JSConstants sharedInstance];
-    
     NSMutableDictionary *queryParams = [NSMutableDictionary new];
     if (page > 0) {
         [queryParams setObject:[NSNumber numberWithInteger:page] forKey:@"page"];
@@ -73,7 +71,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     }
     
     NSString *url = [NSString stringWithFormat:@"%@/%@%@%@.%@", self.serverProfile.serverUrl,
-                     constants.REST_SERVICES_V2_URI, constants.REST_REPORTS_URI, uri, format];
+                     kJS_REST_SERVICES_V2_URI, kJS_REST_REPORTS_URI, uri, format];
     
     NSString *queryString = RKURLEncodedStringFromDictionaryWithEncoding(queryParams, NSUTF8StringEncoding);
     url = [url stringByAppendingFormat:([url rangeOfString:@"?"].location == NSNotFound) ? @"?%@" : @"&%@" ,queryString];
@@ -122,17 +120,17 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     
     JSReportExecutionRequest *executionRequest = [[JSReportExecutionRequest alloc] init];
     executionRequest.reportUnitUri = reportUnitUri;
-    executionRequest.async = [JSConstants stringFromBOOL:async];
-    executionRequest.interactive = [JSConstants stringFromBOOL:interactive];
-    executionRequest.freshData = [JSConstants stringFromBOOL:freshData];
-    executionRequest.saveDataSnapshot = [JSConstants stringFromBOOL:saveDataSnapshot];
-    executionRequest.ignorePagination = [JSConstants stringFromBOOL:ignorePagination];
+    executionRequest.async = [JSUtils stringFromBOOL:async];
+    executionRequest.interactive = [JSUtils stringFromBOOL:interactive];
+    executionRequest.freshData = [JSUtils stringFromBOOL:freshData];
+    executionRequest.saveDataSnapshot = [JSUtils stringFromBOOL:saveDataSnapshot];
+    executionRequest.ignorePagination = [JSUtils stringFromBOOL:ignorePagination];
     executionRequest.outputFormat = outputFormat;
     executionRequest.transformerKey = transformerKey;
     executionRequest.pages = pages;
     executionRequest.attachmentsPrefix = attachmentsPrefix;
     executionRequest.parameters = parameters;
-    if (self.serverInfo.versionAsFloat >= [JSConstants sharedInstance].SERVER_VERSION_CODE_EMERALD_5_6_0) {
+    if (self.serverInfo.versionAsFloat >= kJS_SERVER_VERSION_CODE_EMERALD_5_6_0) {
         executionRequest.baseURL = self.serverProfile.serverUrl;
     }
     request.body = executionRequest;
@@ -140,7 +138,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 }
 
 - (void)cancelReportExecution:(NSString *)requestId completionBlock:(JSRequestCompletionBlock)block {
-    NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:[JSConstants sharedInstance].REST_REPORT_EXECUTION_STATUS_URI];
+    NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:kJS_REST_REPORT_EXECUTION_STATUS_URI];
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
     request.expectedModelClass = [JSExecutionStatus class];
     request.method = RKRequestMethodPUT;
@@ -165,11 +163,10 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     JSExportExecutionRequest *executionRequest = [[JSExportExecutionRequest alloc] init];
     executionRequest.outputFormat = outputFormat;
     executionRequest.pages = pages;
-    if (self.serverInfo.versionAsFloat >= [JSConstants sharedInstance].SERVER_VERSION_CODE_EMERALD_5_6_0) {
+    if (self.serverInfo.versionAsFloat >= kJS_SERVER_VERSION_CODE_EMERALD_5_6_0) {
         executionRequest.baseUrl = self.serverProfile.serverUrl;
         if (attachmentsPrefix) {
-            JSConstants *constants = [JSConstants sharedInstance];
-            executionRequest.attachmentsPrefix = [NSString stringWithFormat:@"%@/%@%@", self.serverProfile.serverUrl, constants.REST_SERVICES_V2_URI, attachmentsPrefix];
+            executionRequest.attachmentsPrefix = [NSString stringWithFormat:@"%@/%@%@", self.serverProfile.serverUrl, kJS_REST_SERVICES_V2_URI, attachmentsPrefix];
         }
     }
     request.body = executionRequest;
@@ -177,8 +174,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 }
 
 - (NSString *)generateReportOutputUrl:(NSString *)requestId exportOutput:(NSString *)exportOutput {
-    JSConstants *constants = [JSConstants sharedInstance];
-    return [NSString stringWithFormat:@"%@/%@%@/%@/exports/%@/outputResource", self.serverProfile.serverUrl, constants.REST_SERVICES_V2_URI, constants.REST_REPORT_EXECUTION_URI, requestId, exportOutput];
+    return [NSString stringWithFormat:@"%@/%@%@/%@/exports/%@/outputResource", self.serverProfile.serverUrl, kJS_REST_SERVICES_V2_URI, kJS_REST_REPORT_EXECUTION_URI, requestId, exportOutput];
 }
 
 - (void)reportExecutionMetadataForRequestId:(NSString *)requestId completionBlock:(JSRequestCompletionBlock)block {
@@ -190,7 +186,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 }
 
 - (void)reportExecutionStatusForRequestId:(NSString *)requestId completionBlock:(JSRequestCompletionBlock)block {
-    NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:[JSConstants sharedInstance].REST_REPORT_EXECUTION_STATUS_URI];
+    NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:kJS_REST_REPORT_EXECUTION_STATUS_URI];
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
     request.expectedModelClass = [JSExecutionStatus class];
     request.restVersion = JSRESTVersion_2;
@@ -200,7 +196,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 
 - (void)exportExecutionStatusWithExecutionID:(NSString *)executionID exportOutput:(NSString *)exportOutput completion:(JSRequestCompletionBlock)block
 {
-    NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/status", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, executionID, exportOutput];
+    NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/status", kJS_REST_REPORT_EXECUTION_URI, executionID, exportOutput];
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
     request.expectedModelClass = [JSExecutionStatus class];
     request.restVersion = JSRESTVersion_2;
@@ -211,7 +207,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 - (void)loadReportOutput:(NSString *)requestId exportOutput:(NSString *)exportOutput
            loadForSaving:(BOOL)loadForSaving path:(NSString *)path completionBlock:(JSRequestCompletionBlock)block {
     exportOutput = [self encodeAttachmentsPrefix:exportOutput];
-    NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/outputResource?sessionDecorator=no&decorate=no#", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, exportOutput];
+    NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/outputResource?sessionDecorator=no&decorate=no#", kJS_REST_REPORT_EXECUTION_URI, requestId, exportOutput];
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
     request.restVersion = JSRESTVersion_2;
     request.completionBlock = block;
@@ -226,7 +222,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 - (void)saveReportAttachment:(NSString *)requestId exportOutput:(NSString *)exportOutput
               attachmentName:(NSString *)attachmentName path:(NSString *)path completionBlock:(JSRequestCompletionBlock)block {
     exportOutput = [self encodeAttachmentsPrefix:exportOutput];
-    NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/attachments/%@", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, exportOutput, attachmentName];
+    NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/attachments/%@", kJS_REST_REPORT_EXECUTION_URI, requestId, exportOutput, attachmentName];
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
     request.restVersion = JSRESTVersion_2;
     request.completionBlock = block;
@@ -238,7 +234,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 
 - (void)reportOptionsForReportURI:(NSString *)reportURI completion:(JSRequestCompletionBlock)block
 {
-    NSString *uri = [NSString stringWithFormat:@"%@%@%@", [JSConstants sharedInstance].REST_REPORTS_URI, reportURI, [JSConstants sharedInstance].REST_REPORT_OPTIONS_URI];
+    NSString *uri = [NSString stringWithFormat:@"%@%@%@", kJS_REST_REPORTS_URI, reportURI, kJS_REST_REPORT_OPTIONS_URI];
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
     request.expectedModelClass = [JSReportOption class];
     request.restVersion = JSRESTVersion_2;
@@ -250,11 +246,10 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
              withReportURI:(NSString *)reportURI
                 completion:(JSRequestCompletionBlock)completion
 {
-    JSConstants *constants = [JSConstants sharedInstance];
     NSString *requestURIString = [NSString stringWithFormat:@"%@%@%@/%@",
-                                  constants.REST_REPORTS_URI,
+                                  kJS_REST_REPORTS_URI,
                                   reportURI,
-                                  constants.REST_REPORT_OPTIONS_URI,
+                                  kJS_REST_REPORT_OPTIONS_URI,
                                   reportOption.identifier];
     JSRequest *request = [[JSRequest alloc] initWithUri:requestURIString];
     request.restVersion = JSRESTVersion_2;
@@ -268,11 +263,10 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
                        reportParameters:(NSArray <JSReportParameter *> *)reportParameters
                              completion:(JSRequestCompletionBlock)completion
 {
-    JSConstants *constants = [JSConstants sharedInstance];
     NSString *requestURIString = [NSString stringWithFormat:@"%@%@%@?label=%@&overwrite=%@",
-                                  constants.REST_REPORTS_URI,
+                                  kJS_REST_REPORTS_URI,
                                   reportURI,
-                                  constants.REST_REPORT_OPTIONS_URI, optionLabel, [JSConstants stringFromBOOL:YES]];
+                                  kJS_REST_REPORT_OPTIONS_URI, optionLabel, [JSUtils stringFromBOOL:YES]];
     
     JSRequest *request = [[JSRequest alloc] initWithUri:requestURIString];
     request.expectedModelClass = [JSReportOption class];
@@ -293,23 +287,22 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 }
 
 - (NSString *)fullReportExecutionUri:(NSString *)requestId {
-    NSString *reportExecutionUri = [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI;
+    NSString *reportExecutionUri = kJS_REST_REPORT_EXECUTION_URI;
     
     if (!requestId.length) return reportExecutionUri;
     return [NSString stringWithFormat:@"%@/%@", reportExecutionUri, requestId];
 }
 
 - (NSString *)fullDownloadReportFileUri:(NSString *)uuid {
-    return [NSString stringWithFormat:@"%@/%@", [JSConstants sharedInstance].REST_REPORT_URI, uuid];
+    return [NSString stringWithFormat:@"%@/%@", kJS_REST_REPORT_URI, uuid];
 }
 
 - (NSString *)fullRunReportUri:(NSString *)uri {
-    return [NSString stringWithFormat:@"%@%@", [JSConstants sharedInstance].REST_REPORT_URI, (uri ?: @"")];
+    return [NSString stringWithFormat:@"%@%@", kJS_REST_REPORT_URI, (uri ?: @"")];
 }
 
 - (NSString *)fullReportsUriForIC:(NSString *)uri withInputControls:(NSArray <NSString *> *)dependencies initialValuesOnly:(BOOL)initialValuesOnly {
-    JSConstants *constants = [JSConstants sharedInstance];
-    NSString *fullReportsUri = [NSString stringWithFormat:@"%@%@%@", constants.REST_REPORTS_URI, (uri ?: @""), constants.REST_INPUT_CONTROLS_URI];
+    NSString *fullReportsUri = [NSString stringWithFormat:@"%@%@%@", kJS_REST_REPORTS_URI, (uri ?: @""), kJS_REST_INPUT_CONTROLS_URI];
     
     if (dependencies && dependencies.count) {
         NSMutableString *dependenciesUriPart = [[NSMutableString alloc] initWithString:@"/"];
@@ -320,14 +313,14 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     }
     
     if (initialValuesOnly) {
-        fullReportsUri = [fullReportsUri stringByAppendingString:constants.REST_VALUES_URI];
+        fullReportsUri = [fullReportsUri stringByAppendingString:kJS_REST_VALUES_URI];
     }
     
     return fullReportsUri;
 }
 
 - (NSString *)fullExportExecutionUri:(NSString *)requestId {
-    return [NSString stringWithFormat:@"%@/%@%@", [JSConstants sharedInstance].REST_REPORT_EXECUTION_URI, requestId, [JSConstants sharedInstance].REST_EXPORT_EXECUTION_URI];
+    return [NSString stringWithFormat:@"%@/%@%@", kJS_REST_REPORT_EXECUTION_URI, requestId, kJS_REST_EXPORT_EXECUTION_URI];
 }
 
 - (NSDictionary *)runReportQueryParams:(NSString *)format {

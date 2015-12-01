@@ -80,7 +80,7 @@ NSString * const kJSSavedProfileServerInfoKey   = @"JSSavedProfileServerInfoKey"
                                                          withKey:[NSString stringWithFormat:@"%@.%@", kJSSavedProfilePasswordKey, _alias]];
 
     // Store username and password in Keychain
-    KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:[JSConstants keychainIdentifier] accessGroup:nil];
+    KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:[JSUtils keychainIdentifier] accessGroup:nil];
     [wrapper setObject:encryptedUsername forKey:(__bridge id)kSecAttrAccount];
     [wrapper setObject:encryptedPassword forKey:(__bridge id)kSecValueData];
 
@@ -101,7 +101,7 @@ NSString * const kJSSavedProfileServerInfoKey   = @"JSSavedProfileServerInfoKey"
         // Restore username and password in Keychain
         KeychainItemWrapper *wrapper;
         @try {
-            wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:[JSConstants keychainIdentifier] accessGroup:nil];
+            wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:[JSUtils keychainIdentifier] accessGroup:nil];
             JSEncryptionManager *encryptionManager = [JSEncryptionManager new];
             _username = [encryptionManager decryptText:[wrapper objectForKey:(__bridge id)kSecAttrAccount]
                                                withKey:[NSString stringWithFormat:@"%@.%@", kJSSavedProfileUsernameKey, _alias]];

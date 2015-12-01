@@ -36,18 +36,10 @@
  @since 2.3
  */
 
-typedef NS_ENUM(NSInteger, JSInputControlDataType) {
-    JSInputControlDataType_Unknown = 0,
-    JSInputControlDataType_Text,
-    JSInputControlDataType_Number,
-    JSInputControlDataType_Date,
-    JSInputControlDataType_DateTime,
-    JSInputControlDataType_Time
-};
 
 @interface JSDataType : NSObject <JSSerializationDescriptorHolder, NSCopying>
 
-@property (nonatomic, assign, readonly) JSInputControlDataType type;
+@property (nonatomic, assign, readonly) kJS_DT_TYPE type;
 @property (nonatomic, strong, readonly) NSString *pattern;
 @property (nonatomic, strong, readonly) id maxValue;
 @property (nonatomic, strong, readonly) id minValue;

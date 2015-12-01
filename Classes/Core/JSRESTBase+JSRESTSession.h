@@ -46,7 +46,6 @@
  
  @since 1.9
  */
-- (BOOL)isSessionAuthorized DEPRECATED_MSG_ATTRIBUTE("Use \"verifyIsSessionAuthorizedWithCompletion:\" method instead");
 - (void)verifyIsSessionAuthorizedWithCompletion:(void (^)(BOOL isSessionAuthorized))completion;
 
 @end

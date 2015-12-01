@@ -42,9 +42,6 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
 @implementation JSRESTBase(JSRESTSession)
 
 #pragma mark - Public API
-- (BOOL)isSessionAuthorized {
-    return self.cookies.count > 0;
-}
 
 - (void)verifyIsSessionAuthorizedWithCompletion:(void (^)(BOOL isSessionAuthorized))completion
 {
@@ -113,7 +110,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
                                       method:(RKRequestMethod)requestMethod
                                 completion:(void(^)(BOOL isTokenFetchedSuccessful))completion
 {
-    JSRequest *request = [[JSRequest alloc] initWithUri:[JSConstants sharedInstance].REST_AUTHENTICATION_URI];
+    JSRequest *request = [[JSRequest alloc] initWithUri:kJS_REST_AUTHENTICATION_URI];
     request.restVersion = JSRESTVersion_None;
     request.method = requestMethod;
     request.responseAsObjects = NO;
@@ -128,7 +125,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     if (dividerPosition != NSNotFound) {
         currentLanguage = [currentLanguage substringToIndex:dividerPosition];
     }
-    NSString *currentLocale = [[JSConstants sharedInstance].REST_JRS_LOCALE_SUPPORTED objectForKey:currentLanguage];
+    NSString *currentLocale = [[JSUtils supportedLocales] objectForKey:currentLanguage];
 
     [request addParameter:kJSAuthenticationUsernameKey      withStringValue:username];
     [request addParameter:kJSAuthenticationPasswordKey      withStringValue:password];

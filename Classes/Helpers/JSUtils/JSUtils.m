@@ -24,24 +24,37 @@
  */
 
 //
-//  JSLocalization.m
+//  JSUtils.m
 //  Jaspersoft Corporation
 //
 
-#import "JSLocalization.h"
+#import "JSUtils.h"
+#import "RKMIMETypes.h"
 
 NSString * const JSLocalizationTable = @"JaspersoftSDK";
 NSString * const JSPreferredLanguage = @"en";
 NSString * const JSLocalizationBundleType = @"lproj";
 
-@implementation JSLocalization
+@implementation JSUtils
 
-+ (NSString *)localizedStringForKey:(NSString *)key
-{
++ (nonnull NSString *)stringFromBOOL:(BOOL)aBOOL {
+    return aBOOL ? @"true" : @"false";
+}
+
++ (BOOL)BOOLFromString:(nonnull NSString *)aString {
+    NSComparisonResult result = [aString caseInsensitiveCompare:@"true"];
+    return (result == NSOrderedSame);
+}
+
++ (nonnull NSString *)keychainIdentifier {
+    return [NSString stringWithFormat:@"%@.GenericKeychainSuite", [NSBundle mainBundle].bundleIdentifier];
+}
+
++ (NSString *)localizedStringForKey:(NSString *)key comment:(nullable NSString *)comment{
     NSURL *localizationBundleURL = [[NSBundle mainBundle] URLForResource:JSLocalizationTable withExtension:@"bundle"];
     NSBundle *localizationBundle = localizationBundleURL ? [NSBundle bundleWithURL:localizationBundleURL] : [NSBundle mainBundle];
     
-    NSString *localizedString = NSLocalizedStringFromTableInBundle(key, JSLocalizationTable, localizationBundle, nil);
+    NSString *localizedString = NSLocalizedStringFromTableInBundle(key, JSLocalizationTable, localizationBundle, comment);
     
     if (![[NSLocale preferredLanguages][0] isEqualToString:JSPreferredLanguage] && [localizedString isEqualToString:key]) {
         NSString *path = [localizationBundle pathForResource:JSPreferredLanguage ofType:JSLocalizationBundleType];
@@ -52,9 +65,27 @@ NSString * const JSLocalizationBundleType = @"lproj";
     return localizedString;
 }
 
++ (nonnull NSString *)usedMimeType {
+    return RKMIMETypeJSON;
+}
+
++ (NSTimeInterval) checkServerConnectionTimeout {
+    return 7.f;
+}
+
++ (nonnull NSDictionary *)supportedLocales {
+    return @{@"en" : @"en_US",
+             @"de" : @"de",
+             @"ja" : @"ja",
+             @"es" : @"es",
+             @"fr" : @"fr",
+             @"it" : @"it",
+             @"zh" : @"zh_CN",
+             @"pt" : @"pt_BR"};
+}
+
 @end
 
-NSString *JSCustomLocalizedString(NSString *key, NSString *comment)
-{
-    return [JSLocalization localizedStringForKey:key];
+NSString *JSCustomLocalizedString(NSString *key, NSString *comment) {
+    return [JSUtils localizedStringForKey:key comment:comment];
 }

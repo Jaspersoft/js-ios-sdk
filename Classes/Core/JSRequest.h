@@ -48,7 +48,7 @@ typedef void(^JSRequestCompletionBlock)(JSOperationResult *_Nullable result);
  */
 typedef enum {
     JSRESTVersion_None,
-    JSRESTVersion_1,            // Now is deprecated and support of RESTVersion_1 will be deleted in next version of SDK.
+    JSRESTVersion_1,            // Unsupported. Use JSRESTVersion_2 version instead
     JSRESTVersion_2
 } JSRESTVersion;
 
