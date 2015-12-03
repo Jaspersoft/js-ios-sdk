@@ -35,31 +35,14 @@
 
 
 /**
- Extention to <code>JSRESTBase</code> class for working with reports by REST calls. 
+ Extentions to <code>JSRESTBase</code> class for working with reports by REST calls.
  
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.3
  */
 
-@interface JSRESTBase (JSRESTReport)
-
-//---------------------------------------------------------------------
-// The Report Service v2
-//---------------------------------------------------------------------
-
-/**
- Generates the report url to receive all pages report output in selected format.
- 
- @param uri The resource descriptor uri
- @param reportParams list of report parameter/input control values
- @param page a positive integer value used to output a specific page or 0 to output all pages
- @param format the format of the report output. Possible values: PDF, HTML, XLS, RTF, CSV, XML.
- @return the report url
- 
- @since 1.4
- */
-- (nonnull NSString *)generateReportUrl:(nonnull NSString *)uri reportParams:(nullable NSArray <JSReportParameter *> *)reportParams page:(NSInteger)page format:(nonnull NSString *)format;
+@interface JSRESTBase (JSRESTReportOptions)
 
 /**
  Gets the list of states of input controls with specified IDs for the report with specified URI and according to selected values
@@ -85,6 +68,60 @@
  */
 - (void)updatedInputControlsValues:(nonnull NSString *)reportUri ids:(nonnull NSArray <NSString *> *)ids
                     selectedValues:(nonnull NSArray <JSReportParameter *> *)selectedValues completionBlock:(nullable JSRequestCompletionBlock)block;
+
+
+/**
+ Gets the report options array for report
+ 
+ @param reportUri repository URI of the report
+ @param block The block to inform of the results
+ 
+ @since 2.2
+ */
+- (void)reportOptionsForReportURI:(nonnull NSString *)reportURI completion:(nullable JSRequestCompletionBlock)block;
+
+/**
+ Delete existed report option
+ 
+ @param reportOption the report option for deleting
+ @param reportUri repository URI of the report
+ @param block The block to inform of the results
+ 
+ @since 2.2
+ */
+
+- (void)deleteReportOption:(nonnull JSReportOption *)reportOption withReportURI:(nonnull NSString *)reportURI completion:(nullable JSRequestCompletionBlock)completion;
+
+/**
+ Create new report option
+ 
+ @param reportUri repository URI of the report
+ @param optionLabel the name for new report option
+ @param reportParameters parameters for new report option creating
+ @param block The block to inform of the results
+ 
+ @since 2.2
+ */
+
+- (void)createReportOptionWithReportURI:(nonnull NSString *)reportURI optionLabel:(nonnull NSString *)optionLabel reportParameters:(nonnull NSArray <JSReportParameter *> *)reportParameters completion:(nullable JSRequestCompletionBlock)completion;
+
+
+@end
+
+@interface JSRESTBase (JSRESTReportExecution)
+
+/**
+ Generates the report url to receive all pages report output in selected format.
+ 
+ @param uri The resource descriptor uri
+ @param reportParams list of report parameter/input control values
+ @param page a positive integer value used to output a specific page or 0 to output all pages
+ @param format the format of the report output. Possible values: PDF, HTML, XLS, RTF, CSV, XML.
+ @return the report url
+ 
+ @since 1.4
+ */
+- (nonnull NSString *)generateReportUrl:(nonnull NSString *)uri reportParams:(nullable NSArray <JSReportParameter *> *)reportParams page:(NSInteger)page format:(nonnull NSString *)format;
 
 /**
  Executes report
@@ -205,40 +242,5 @@
  @since 1.8
  */
 - (void)saveReportAttachment:(nonnull NSString *)requestId exportOutput:(nonnull NSString *)exportOutput attachmentName:(nonnull NSString *)attachmentName path:(nonnull NSString *)path completionBlock:(nullable JSRequestCompletionBlock)block;
-
-/**
- Gets the report options array for report
- 
- @param reportUri repository URI of the report
- @param block The block to inform of the results
- 
- @since 2.2
- */
-- (void)reportOptionsForReportURI:(nonnull NSString *)reportURI completion:(nullable JSRequestCompletionBlock)block;
-
-/**
- Delete existed report option
- 
- @param reportOption the report option for deleting
- @param reportUri repository URI of the report
- @param block The block to inform of the results
- 
- @since 2.2
- */
-
-- (void)deleteReportOption:(nonnull JSReportOption *)reportOption withReportURI:(nonnull NSString *)reportURI completion:(nullable JSRequestCompletionBlock)completion;
-
-/**
- Create new report option
- 
- @param reportUri repository URI of the report
- @param optionLabel the name for new report option
- @param reportParameters parameters for new report option creating
- @param block The block to inform of the results
- 
- @since 2.2
- */
-
-- (void)createReportOptionWithReportURI:(nonnull NSString *)reportURI optionLabel:(nonnull NSString *)optionLabel reportParameters:(nonnull NSArray <JSReportParameter *> *)reportParameters completion:(nullable JSRequestCompletionBlock)completion;
 
 @end

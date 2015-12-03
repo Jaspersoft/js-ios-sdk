@@ -45,10 +45,97 @@
 static NSString * const _baseReportQueryImagesParam = @"IMAGES_URI";
 static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT";
 
-@implementation JSRESTBase(JSRESTReport)
 
-#pragma mark -
-#pragma mark Public methods for REST V2 report API
+@interface JSRESTBase (PrivateAPI)
+- (void) addReportParametersToRequest:(JSRequest *)request withSelectedValues:(NSArray *)selectedValues;
+
+- (NSString *)fullReportExecutionUri:(NSString *)requestId;
+
+- (NSString *)fullDownloadReportFileUri:(NSString *)uuid;
+
+- (NSString *)fullRunReportUri:(NSString *)uri;
+
+- (NSString *)fullReportsUriForIC:(NSString *)uri withInputControls:(NSArray <NSString *> *)dependencies initialValuesOnly:(BOOL)initialValuesOnly;
+
+- (NSString *)fullExportExecutionUri:(NSString *)requestId;
+
+- (NSDictionary *)runReportQueryParams:(NSString *)format;
+
+- (NSString *)encodeAttachmentsPrefix:(NSString *)exportOutput;
+@end
+
+@implementation JSRESTBase (JSRESTReportOptions)
+
+- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray <NSString *> *)ids
+                selectedValues:(NSArray <JSReportParameter *> *)selectedValues completionBlock:(JSRequestCompletionBlock)block {
+    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:NO]];
+    request.expectedModelClass = [JSInputControlDescriptor class];
+    request.restVersion = JSRESTVersion_2;
+    request.method = (ids && [ids count]) ? RKRequestMethodPOST : RKRequestMethodGET;
+    request.completionBlock = block;
+    [self addReportParametersToRequest:request withSelectedValues:selectedValues];
+    [self sendRequest:request];
+}
+
+- (void)updatedInputControlsValues:(NSString *)reportUri ids:(NSArray <NSString *> *)ids
+                    selectedValues:(NSArray <JSReportParameter *> *)selectedValues completionBlock:(JSRequestCompletionBlock)block {
+    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:YES]];
+    request.expectedModelClass = [JSInputControlState class];
+    request.method = RKRequestMethodPOST;
+    request.restVersion = JSRESTVersion_2;
+    [self addReportParametersToRequest:request withSelectedValues:selectedValues];
+    request.completionBlock = block;
+    [self sendRequest:request];
+}
+
+- (void)reportOptionsForReportURI:(NSString *)reportURI completion:(JSRequestCompletionBlock)block
+{
+    NSString *uri = [NSString stringWithFormat:@"%@%@%@", kJS_REST_REPORTS_URI, reportURI, kJS_REST_REPORT_OPTIONS_URI];
+    JSRequest *request = [[JSRequest alloc] initWithUri:uri];
+    request.expectedModelClass = [JSReportOption class];
+    request.restVersion = JSRESTVersion_2;
+    request.completionBlock = block;
+    [self sendRequest:request];
+}
+
+- (void)deleteReportOption:(JSReportOption *)reportOption
+             withReportURI:(NSString *)reportURI
+                completion:(JSRequestCompletionBlock)completion
+{
+    NSString *requestURIString = [NSString stringWithFormat:@"%@%@%@/%@",
+                                  kJS_REST_REPORTS_URI,
+                                  reportURI,
+                                  kJS_REST_REPORT_OPTIONS_URI,
+                                  reportOption.identifier];
+    JSRequest *request = [[JSRequest alloc] initWithUri:requestURIString];
+    request.restVersion = JSRESTVersion_2;
+    request.method = RKRequestMethodDELETE;
+    request.completionBlock = completion;
+    [self sendRequest:request];
+}
+
+- (void)createReportOptionWithReportURI:(NSString *)reportURI
+                            optionLabel:(NSString *)optionLabel
+                       reportParameters:(NSArray <JSReportParameter *> *)reportParameters
+                             completion:(JSRequestCompletionBlock)completion
+{
+    NSString *requestURIString = [NSString stringWithFormat:@"%@%@%@?label=%@&overwrite=%@",
+                                  kJS_REST_REPORTS_URI,
+                                  reportURI,
+                                  kJS_REST_REPORT_OPTIONS_URI, optionLabel, [JSUtils stringFromBOOL:YES]];
+    
+    JSRequest *request = [[JSRequest alloc] initWithUri:requestURIString];
+    request.expectedModelClass = [JSReportOption class];
+    request.restVersion = JSRESTVersion_2;
+    request.method = RKRequestMethodPOST;
+    [self addReportParametersToRequest:request withSelectedValues:reportParameters];
+    request.completionBlock = completion;
+    [self sendRequest:request];
+}
+
+@end
+
+@implementation JSRESTBase (JSRESTReportExecution)
 
 - (NSString *)generateReportUrl:(NSString *)uri reportParams:(NSArray <JSReportParameter *> *)reportParams
                            page:(NSInteger)page format:(NSString *)format {
@@ -84,27 +171,6 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     }
     
     return url;
-}
-- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray <NSString *> *)ids
-                selectedValues:(NSArray <JSReportParameter *> *)selectedValues completionBlock:(JSRequestCompletionBlock)block {
-    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:NO]];
-    request.expectedModelClass = [JSInputControlDescriptor class];
-    request.restVersion = JSRESTVersion_2;
-    request.method = (ids && [ids count]) ? RKRequestMethodPOST : RKRequestMethodGET;
-    request.completionBlock = block;
-    [self addReportParametersToRequest:request withSelectedValues:selectedValues];
-    [self sendRequest:request];
-}
-
-- (void)updatedInputControlsValues:(NSString *)reportUri ids:(NSArray <NSString *> *)ids
-                    selectedValues:(NSArray <JSReportParameter *> *)selectedValues completionBlock:(JSRequestCompletionBlock)block {
-    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:YES]];
-    request.expectedModelClass = [JSInputControlState class];
-    request.method = RKRequestMethodPOST;
-    request.restVersion = JSRESTVersion_2;
-    [self addReportParametersToRequest:request withSelectedValues:selectedValues];
-    request.completionBlock = block;
-    [self sendRequest:request];
 }
 
 - (void)runReportExecution:(NSString *)reportUnitUri async:(BOOL)async outputFormat:(NSString *)outputFormat
@@ -231,54 +297,9 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     [self sendRequest:request];
 }
 
-- (void)reportOptionsForReportURI:(NSString *)reportURI completion:(JSRequestCompletionBlock)block
-{
-    NSString *uri = [NSString stringWithFormat:@"%@%@%@", kJS_REST_REPORTS_URI, reportURI, kJS_REST_REPORT_OPTIONS_URI];
-    JSRequest *request = [[JSRequest alloc] initWithUri:uri];
-    request.expectedModelClass = [JSReportOption class];
-    request.restVersion = JSRESTVersion_2;
-    request.completionBlock = block;
-    [self sendRequest:request];
-}
+@end
 
-- (void)deleteReportOption:(JSReportOption *)reportOption
-             withReportURI:(NSString *)reportURI
-                completion:(JSRequestCompletionBlock)completion
-{
-    NSString *requestURIString = [NSString stringWithFormat:@"%@%@%@/%@",
-                                  kJS_REST_REPORTS_URI,
-                                  reportURI,
-                                  kJS_REST_REPORT_OPTIONS_URI,
-                                  reportOption.identifier];
-    JSRequest *request = [[JSRequest alloc] initWithUri:requestURIString];
-    request.restVersion = JSRESTVersion_2;
-    request.method = RKRequestMethodDELETE;
-    request.completionBlock = completion;
-    [self sendRequest:request];
-}
-
-- (void)createReportOptionWithReportURI:(NSString *)reportURI
-                            optionLabel:(NSString *)optionLabel
-                       reportParameters:(NSArray <JSReportParameter *> *)reportParameters
-                             completion:(JSRequestCompletionBlock)completion
-{
-    NSString *requestURIString = [NSString stringWithFormat:@"%@%@%@?label=%@&overwrite=%@",
-                                  kJS_REST_REPORTS_URI,
-                                  reportURI,
-                                  kJS_REST_REPORT_OPTIONS_URI, optionLabel, [JSUtils stringFromBOOL:YES]];
-    
-    JSRequest *request = [[JSRequest alloc] initWithUri:requestURIString];
-    request.expectedModelClass = [JSReportOption class];
-    request.restVersion = JSRESTVersion_2;
-    request.method = RKRequestMethodPOST;
-    [self addReportParametersToRequest:request withSelectedValues:reportParameters];
-    request.completionBlock = completion;
-    [self sendRequest:request];
-}
-
-#pragma mark -
-#pragma mark Private methods
-
+@implementation JSRESTBase (PrivateAPI)
 - (void) addReportParametersToRequest:(JSRequest *)request withSelectedValues:(NSArray *)selectedValues {
     for (JSReportParameter *parameter in selectedValues) {
         [request addParameter:parameter.name withArrayValue:parameter.value];
