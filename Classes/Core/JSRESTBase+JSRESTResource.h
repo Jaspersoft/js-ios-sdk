@@ -29,7 +29,7 @@
 //
 
 #import "JSRESTBase.h"
-#import "JSResourceDescriptor.h"
+#import "JSResourceLookup.h"
 
 /**
  Extention to <code>JSRESTBase</code> class for working with resources by REST calls.
@@ -44,6 +44,15 @@
 //---------------------------------------------------------------------
 // The Resources Service v2
 //---------------------------------------------------------------------
+
+/**
+ Modifies the resource with specified JSResourceLookup
+ 
+ @param resource JSResourceLookup of resource being modified
+ @param block The block to inform of the results
+ */
+- (void)modifyResource:(nonnull JSResourceLookup *)resource completionBlock:(nullable JSRequestCompletionBlock)block;
+
 
 /**
  Deletes the resource with the specified URI

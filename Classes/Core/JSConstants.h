@@ -51,6 +51,16 @@ extern float const kJS_SERVER_VERSION_CODE_JADE_6_2_0;
 /** @} */
 
 /**
+ @name JS Editions
+ @{
+ */
+extern NSString *const kJS_SERVER_EDITION_CE;
+extern NSString *const kJS_SERVER_EDITION_PRO;
+/** @} */
+
+
+
+/**
  @name Provided here from InputControl for facility
  @{
  */

@@ -29,7 +29,6 @@
 //
 
 #import "JSRESTBase.h"
-#import "JSConstants.h"
 #import "RKMIMETypeSerialization.h"
 #import "JSSerializationDescriptorHolder.h"
 #import "JSErrorDescriptor.h"

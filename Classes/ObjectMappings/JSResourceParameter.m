@@ -24,14 +24,26 @@
  */
 
 //
-//  JSReportExecutionRequest.m
+//  JSResourceParameter.m
 //  Jaspersoft Corporation
 //
 
-#import "JSReportExecutionRequest.h"
-#import "JSServerInfo.h"
 
-@implementation JSReportExecutionRequest
+#import "JSResourceParameter.h"
+
+@implementation JSResourceParameter
+
+- (nonnull instancetype)initWithField:(nonnull NSString *)field value:(nullable id)value {
+    if (self = [super init]) {
+        self.field = field;
+        self.value = value;
+    }
+    return self;
+}
+
++ (nonnull instancetype)resourceParameterWithField:(nonnull NSString *)field value:(nullable id)value {
+    return [[[self class] alloc] initWithField:field value:value];
+}
 
 #pragma mark - JSSerializationDescriptorHolder
 
@@ -39,7 +51,7 @@
     NSMutableArray *descriptorsArray = [NSMutableArray array];
     [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
                                                                       objectClass:self
-                                                                      rootKeyPath:nil
+                                                                      rootKeyPath:@""
                                                                            method:RKRequestMethodAny]];
     return descriptorsArray;
 }
@@ -47,25 +59,9 @@
 + (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
     RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
     [classMapping addAttributeMappingsFromDictionary:@{
-                                                       @"reportUnitUri": @"reportUnitUri",
-                                                       @"async": @"async",
-                                                       @"outputFormat": @"outputFormat",
-                                                       @"interactive": @"interactive",
-                                                       @"freshData": @"freshData",
-                                                       @"saveDataSnapshot": @"saveDataSnapshot",
-                                                       @"ignorePagination": @"ignorePagination",
-                                                       @"transformerKey": @"transformerKey",
-                                                       @"pages": @"pages",
-                                                       @"attachmentsPrefix": @"attachmentsPrefix",
+                                                       @"field": @"field",
+                                                       @"value": @"value",
                                                        }];
-    if (serverProfile && serverProfile.serverInfo.versionAsFloat >= kJS_SERVER_VERSION_CODE_EMERALD_5_6_0) {
-        [classMapping addPropertyMapping:[RKAttributeMapping attributeMappingFromKeyPath:@"baseUrl" toKeyPath:@"baseURL"]];
-    }
-    
-    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"parameters.reportParameter"
-                                                                                 toKeyPath:@"parameters"
-                                                                               withMapping:[JSReportParameter classMappingForServerProfile:serverProfile]]];
-
     return classMapping;
 }
 

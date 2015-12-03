@@ -104,15 +104,6 @@ NSString *const kJS_CONTENT_TYPE_IMG = @"img";
 /** @} */
 
 /**
- @name REST API Preferences
- @{
- */
-extern NSString *const kJS_REST_SDK_MIMETYPE_USED;
-extern NSDictionary *const kJS_REST_JRS_LOCALE_SUPPORTED;
-extern NSTimeInterval const kJS_REST_JRS_CONNECTION_TIMEOUT;
-/** @} */
-
-/**
  @name REST URI Prefixes
  @{
  */

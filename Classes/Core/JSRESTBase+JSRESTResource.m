@@ -28,21 +28,21 @@
 //  Jaspersoft Corporation
 //
 
-#import "JSConstants.h"
 #import "JSResourceLookup.h"
-#import "JSResourceDescriptor.h"
 #import "JSRESTBase+JSRESTResource.h"
+#import "JSResourcePatchRequest.h"
+#import "JSResourceLookup.h"
 
 // HTTP resources search parameters
-static NSString * const _parameterQuery = @"q";
-static NSString * const _parameterFolderUri = @"folderUri";
-static NSString * const _parameterType = @"type";
-static NSString * const _parameterLimit = @"limit";
-static NSString * const _parameterOffset = @"offset";
-static NSString * const _parameterRecursive = @"recursive";
-static NSString * const _parameterSortBy = @"sortBy";
-static NSString * const _parameterAccessType = @"accessType";
-static NSString * const _parameterForceFullPage = @"forceFullPage";
+NSString * const _parameterQuery = @"q";
+NSString * const _parameterFolderUri = @"folderUri";
+NSString * const _parameterType = @"type";
+NSString * const _parameterLimit = @"limit";
+NSString * const _parameterOffset = @"offset";
+NSString * const _parameterRecursive = @"recursive";
+NSString * const _parameterSortBy = @"sortBy";
+NSString * const _parameterAccessType = @"accessType";
+NSString * const _parameterForceFullPage = @"forceFullPage";
 
 // HTTP resources search parameters
 
@@ -50,6 +50,20 @@ static NSString * const _parameterForceFullPage = @"forceFullPage";
 
 #pragma mark -
 #pragma mark Public methods for REST V2 resources API
+
+- (void)modifyResource:(nonnull JSResourceLookup *)resource completionBlock:(nullable JSRequestCompletionBlock)block {
+    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourcesUri:resource.uri]];
+    request.restVersion = JSRESTVersion_2;
+    request.method = RKRequestMethodPATCH;
+    request.completionBlock = block;
+    request.expectedModelClass = [JSResourceLookup class];
+
+    JSResourcePatchRequest *patchRequest = [JSResourcePatchRequest patchRecuestWithResource:resource];
+    request.body = patchRequest;
+
+    [self sendRequest:request];
+}
+
 
 - (void)deleteResource:(NSString *)uri completionBlock:(nullable JSRequestCompletionBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:uri]];

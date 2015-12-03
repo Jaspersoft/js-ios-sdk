@@ -24,23 +24,25 @@
  */
 
 //
-//  JSObjectMappings.h
+//  JSResourceParameter.h
 //  Jaspersoft Corporation
 //
 
-#import "JSResourceLookup.h"
-#import "JSResourceReportUnit.h"
-#import "JSResourceParameter.h"
-#import "JSReportAttachment.h"
-#import "JSServerInfo.h"
-#import "JSInputControlDescriptor.h"
-#import "JSInputControlState.h"
-#import "JSInputControlOption.h"
-#import "JSReportParameter.h"
-#import "JSErrorDescriptor.h"
-#import "JSExecutionStatus.h"
-#import "JSExportExecutionResponse.h"
-#import "JSExportExecutionRequest.h"
-#import "JSReportOutputResource.h"
-#import "JSReportExecutionResponse.h"
-#import "JSReportExecutionRequest.h"
+#import <Foundation/Foundation.h>
+#import "JSSerializationDescriptorHolder.h"
+
+/**
+ @author Alexey Gubarev ogubarie@tibco.com
+ @since 2.3
+ */
+
+@interface JSResourceParameter : NSObject <JSSerializationDescriptorHolder>
+
+@property (nonatomic, retain, nonnull) NSString *field;
+@property (nonatomic, retain, nullable) id value;
+
+- (nonnull instancetype)initWithField:(nonnull NSString *)field value:(nullable id)value;
+
++ (nonnull instancetype)resourceParameterWithField:(nonnull NSString *)field value:(nullable id)value;
+
+@end

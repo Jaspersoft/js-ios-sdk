@@ -46,7 +46,7 @@
         self.parameters = [NSMutableDictionary dictionary];
         self.redirectAllowed = YES;
     }
-    
+
     return self;
 }
 

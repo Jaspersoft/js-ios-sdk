@@ -29,7 +29,6 @@
 //
 
 #import "JSProfile.h"
-#import "JSConstants.h"
 #import "KeychainItemWrapper.h"
 #import "JSEncryptionManager.h"
 

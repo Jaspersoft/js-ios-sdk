@@ -24,23 +24,11 @@
  */
 
 //
-//  JSObjectMappings.h
+//  JSHelpers.h
 //  Jaspersoft Corporation
 //
 
-#import "JSResourceLookup.h"
-#import "JSResourceReportUnit.h"
-#import "JSResourceParameter.h"
-#import "JSReportAttachment.h"
-#import "JSServerInfo.h"
-#import "JSInputControlDescriptor.h"
-#import "JSInputControlState.h"
-#import "JSInputControlOption.h"
-#import "JSReportParameter.h"
-#import "JSErrorDescriptor.h"
-#import "JSExecutionStatus.h"
-#import "JSExportExecutionResponse.h"
-#import "JSExportExecutionRequest.h"
-#import "JSReportOutputResource.h"
-#import "JSReportExecutionResponse.h"
-#import "JSReportExecutionRequest.h"
+#import "JSConstants.h"
+#import "JSUtils.h"
+
+

@@ -24,14 +24,32 @@
  */
 
 //
-//  JSReportExecutionRequest.m
+//  JSResourcePatchRequest.m
 //  Jaspersoft Corporation
 //
 
-#import "JSReportExecutionRequest.h"
-#import "JSServerInfo.h"
+#import "JSResourcePatchRequest.h"
+#import "JSResourceParameter.h"
 
-@implementation JSReportExecutionRequest
+@interface JSResourcePatchRequest()
+@property (nonatomic, strong, nonnull) NSNumber *version;
+@property (nonatomic, strong, nonnull) NSArray *patch;
+@end
+
+@implementation JSResourcePatchRequest
+
+- (nonnull instancetype)initWithResource:(nonnull JSResourceLookup *)resource {
+    self = [super init];
+    if (self) {
+        self.version = resource.version;
+        self.patch = [self patchesArrayFromResource:resource];
+    }
+    return self;
+}
+
++ (nonnull instancetype)patchRecuestWithResource:(nonnull JSResourceLookup *)resource {
+    return [[[self class] alloc] initWithResource:resource];
+}
 
 #pragma mark - JSSerializationDescriptorHolder
 
@@ -41,32 +59,32 @@
                                                                       objectClass:self
                                                                       rootKeyPath:nil
                                                                            method:RKRequestMethodAny]];
+    
     return descriptorsArray;
 }
 
 + (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
     RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
     [classMapping addAttributeMappingsFromDictionary:@{
-                                                       @"reportUnitUri": @"reportUnitUri",
-                                                       @"async": @"async",
-                                                       @"outputFormat": @"outputFormat",
-                                                       @"interactive": @"interactive",
-                                                       @"freshData": @"freshData",
-                                                       @"saveDataSnapshot": @"saveDataSnapshot",
-                                                       @"ignorePagination": @"ignorePagination",
-                                                       @"transformerKey": @"transformerKey",
-                                                       @"pages": @"pages",
-                                                       @"attachmentsPrefix": @"attachmentsPrefix",
+                                                       @"version": @"version"
                                                        }];
-    if (serverProfile && serverProfile.serverInfo.versionAsFloat >= kJS_SERVER_VERSION_CODE_EMERALD_5_6_0) {
-        [classMapping addPropertyMapping:[RKAttributeMapping attributeMappingFromKeyPath:@"baseUrl" toKeyPath:@"baseURL"]];
-    }
-    
-    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"parameters.reportParameter"
-                                                                                 toKeyPath:@"parameters"
-                                                                               withMapping:[JSReportParameter classMappingForServerProfile:serverProfile]]];
+    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"patch"
+                                                                                 toKeyPath:@"patch"
+                                                                               withMapping:[JSResourceParameter classMappingForServerProfile:serverProfile]]];
 
     return classMapping;
+}
+
++ (NSArray<RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
+    return [JSResourceLookup rkResponseDescriptorsForServerProfile:serverProfile];
+}
+
+#pragma mark - Private API
+- (NSArray *)patchesArrayFromResource:(JSResourceLookup *)resource {
+    NSMutableArray *patchesArray = [NSMutableArray array];
+    [patchesArray addObject:[JSResourceParameter resourceParameterWithField:@"label" value:resource.label]];
+    [patchesArray addObject:[JSResourceParameter resourceParameterWithField:@"description" value:resource.resourceDescription]];
+    return [patchesArray copy];
 }
 
 @end

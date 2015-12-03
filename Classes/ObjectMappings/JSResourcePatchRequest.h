@@ -24,23 +24,23 @@
  */
 
 //
-//  JSObjectMappings.h
+//  JSResourcePatchRequest.h
 //  Jaspersoft Corporation
 //
 
+#import <Foundation/Foundation.h>
+#import "JSSerializationDescriptorHolder.h"
 #import "JSResourceLookup.h"
-#import "JSResourceReportUnit.h"
-#import "JSResourceParameter.h"
-#import "JSReportAttachment.h"
-#import "JSServerInfo.h"
-#import "JSInputControlDescriptor.h"
-#import "JSInputControlState.h"
-#import "JSInputControlOption.h"
-#import "JSReportParameter.h"
-#import "JSErrorDescriptor.h"
-#import "JSExecutionStatus.h"
-#import "JSExportExecutionResponse.h"
-#import "JSExportExecutionRequest.h"
-#import "JSReportOutputResource.h"
-#import "JSReportExecutionResponse.h"
-#import "JSReportExecutionRequest.h"
+
+/**
+ @author Alexey Gubarev ogubarie@tibco.com
+ @since 2.3
+ */
+
+@interface JSResourcePatchRequest : NSObject <JSSerializationDescriptorHolder>
+
+- (nonnull instancetype)initWithResource:(nonnull JSResourceLookup *)resource;
+
++ (nonnull instancetype)patchRecuestWithResource:(nonnull JSResourceLookup *)resource;
+
+@end

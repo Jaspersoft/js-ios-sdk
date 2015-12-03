@@ -28,7 +28,6 @@
 //  Jaspersoft Corporation
 //
 
-#import "JSConstants.h"
 #import "JSReportExecutionRequest.h"
 #import "JSReportExecutionResponse.h"
 #import "JSExportExecutionRequest.h"

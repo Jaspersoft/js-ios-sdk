@@ -28,5 +28,6 @@
 //  Jaspersoft Corporation
 //
 
+#import "JSHelpers.h"
 #import "JSCore.h"
 #import "JSObjectMappings.h"
