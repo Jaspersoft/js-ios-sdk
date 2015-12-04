@@ -493,7 +493,19 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         RKHTTPRequestOperation *httpOperation = [restKitOperation isKindOfClass:[RKObjectRequestOperation class]] ? [restKitOperation HTTPRequestOperation] : restKitOperation;
         NSLog(_requestFinishedTemplateMessage, [httpOperation.request.URL absoluteString], [result bodyAsString]);
 #endif
-        [self sendCallBackForRequest:callBack.request withOperationResult:result];
+        if (result.error && result.error.code == JSSessionExpiredErrorCode && self.keepSession) {
+            __weak typeof(self)weakSelf = self;
+            [self verifyIsSessionAuthorizedWithCompletion:^(BOOL isSessionAuthorized) {
+                __strong typeof(self)strongSelf = weakSelf;
+                if (isSessionAuthorized) {
+                    [strongSelf sendRequest:callBack.request];
+                } else {
+                    [strongSelf sendCallBackForRequest:callBack.request withOperationResult:result];
+                }
+            }];
+        } else {
+            [self sendCallBackForRequest:callBack.request withOperationResult:result];
+        }
     }
 }
 

@@ -30,6 +30,8 @@
 
 #import "JSUtils.h"
 #import "RKMIMETypes.h"
+#import "JSInputControlDescriptor.h"
+#import "JSReportParameter.h"
 
 NSString * const JSLocalizationTable = @"JaspersoftSDK";
 NSString * const JSPreferredLanguage = @"en";
@@ -63,6 +65,15 @@ NSString * const JSLocalizationBundleType = @"lproj";
     }
     
     return localizedString;
+}
+
++ (nonnull NSArray<JSReportParameter *> *)reportParametersFromInputControls:(nonnull NSArray <JSInputControlDescriptor *> *)inputControls {
+    NSMutableArray *parameters = [NSMutableArray array];
+    for (JSInputControlDescriptor *inputControlDescriptor in inputControls) {
+        [parameters addObject:[[JSReportParameter alloc] initWithName:inputControlDescriptor.uuid
+                                                                value:inputControlDescriptor.selectedValues]];
+    }
+    return [parameters copy];
 }
 
 + (nonnull NSString *)usedMimeType {

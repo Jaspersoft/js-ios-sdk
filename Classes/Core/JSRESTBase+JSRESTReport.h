@@ -105,7 +105,6 @@
 
 - (void)createReportOptionWithReportURI:(nonnull NSString *)reportURI optionLabel:(nonnull NSString *)optionLabel reportParameters:(nonnull NSArray <JSReportParameter *> *)reportParameters completion:(nullable JSRequestCompletionBlock)completion;
 
-
 @end
 
 @interface JSRESTBase (JSRESTReportExecution)
