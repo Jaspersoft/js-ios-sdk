@@ -41,7 +41,8 @@
 
 @interface JSExecutionStatus : NSObject <JSSerializationDescriptorHolder>
 
-@property (nonatomic, retain, nonnull) NSString *status;
+@property (nonatomic, strong, nullable) NSString *statusAsString;
+@property (nonatomic, assign) kJS_EXECUTION_STATUS status;
 
 + (nonnull RKObjectMapping *)customMapping;
 

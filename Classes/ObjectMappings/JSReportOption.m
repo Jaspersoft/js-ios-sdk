@@ -32,8 +32,14 @@
 #import "JSMandatoryValidationRule.h"
 #import "JSDateTimeFormatValidationRule.h"
 
-
 @implementation JSReportOption
+
++ (JSReportOption *)defaultReportOption
+{
+    JSReportOption *reportOption = [JSReportOption new];
+    reportOption.label = JSCustomLocalizedString(@"report.options.default.option.title", nil);
+    return reportOption;
+}
 
 - (BOOL)isEqual:(nullable id)object
 {
@@ -93,6 +99,8 @@
         newReportOption.uri             = [self.uri copyWithZone:zone];
         newReportOption.label           = [self.label copyWithZone:zone];
         newReportOption.identifier      = [self.identifier copyWithZone:zone];
+        newReportOption.inputControls   = [[NSArray alloc] initWithArray:self.inputControls copyItems:YES];
+
         return newReportOption;
     } else {
         NSString *messageString = [NSString stringWithFormat:@"You need to implement \"copyWithZone:\" method in %@",NSStringFromClass([self class])];

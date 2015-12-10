@@ -58,8 +58,6 @@ extern NSString *const kJS_SERVER_EDITION_CE;
 extern NSString *const kJS_SERVER_EDITION_PRO;
 /** @} */
 
-
-
 /**
  @name Provided here from InputControl for facility
  @{
@@ -183,4 +181,22 @@ extern NSString *const kJS_ICD_TYPE_SINGLE_SELECT;
 extern NSString *const kJS_ICD_TYPE_SINGLE_SELECT_RADIO;
 extern NSString *const kJS_ICD_TYPE_MULTI_SELECT;
 extern NSString *const kJS_ICD_TYPE_MULTI_SELECT_CHECKBOX;
+/** @} */
+
+
+/**
+ @name Execution status checking
+ @{
+ */
+extern NSTimeInterval const kJSExecutionStatusCheckingInterval;
+
+typedef NS_ENUM(NSInteger, kJS_EXECUTION_STATUS) {
+    kJS_EXECUTION_STATUS_UNKNOWN = 0,
+    kJS_EXECUTION_STATUS_READY,
+    kJS_EXECUTION_STATUS_QUEUED,
+    kJS_EXECUTION_STATUS_EXECUTION,
+    kJS_EXECUTION_STATUS_CANCELED,
+    kJS_EXECUTION_STATUS_FAILED
+};
+
 /** @} */

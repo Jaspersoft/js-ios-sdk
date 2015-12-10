@@ -140,3 +140,10 @@ NSString *const kJS_ICD_TYPE_SINGLE_SELECT_RADIO = @"singleSelectRadio";
 NSString *const kJS_ICD_TYPE_MULTI_SELECT = @"multiSelect";
 NSString *const kJS_ICD_TYPE_MULTI_SELECT_CHECKBOX = @"multiSelectCheckbox";
 /** @} */
+
+/**
+ @name Execution status checking
+ @{
+ */
+NSTimeInterval const kJSExecutionStatusCheckingInterval = 1.f;
+/** @} */

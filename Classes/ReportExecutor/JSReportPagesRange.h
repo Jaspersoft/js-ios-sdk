@@ -24,32 +24,28 @@
  */
 
 //
-//  JSReportOption.h
+//  JSReportPagesRange.h
 //  Jaspersoft Corporation
 //
-
-#import <Foundation/Foundation.h>
 
 /**
  @author Aleksandr Dakhno odahno@tibco.com
  @author Alexey Gubarev ogubarie@tibco.com
- @since 2.2
+ @since 2.3
  */
 
-#import <Foundation/Foundation.h>
-#import <JaspersoftSDK/JSSerializationDescriptorHolder.h>
+@interface JSReportPagesRange : NSObject
 
-@class JSInputControlDescriptor;
+@property (nonatomic, assign) NSUInteger startPage;
+@property (nonatomic, assign) NSUInteger endPage;
+@property (nonatomic, strong, readonly) NSString *formattedPagesRange;
 
-@interface JSReportOption : NSObject <JSSerializationDescriptorHolder, NSCopying>
-@property (nonatomic, strong, nullable) NSString *uri;
-@property (nonatomic, strong, nullable) NSString *identifier;
-@property (nonatomic, strong, nullable) NSString *label;
++ (instancetype)rangeWithStartPage:(NSUInteger)startPage endPage:(NSUInteger)endPage;
 
-@property (nonatomic, strong, nullable) NSArray <JSInputControlDescriptor *> *inputControls;
+- (instancetype)initWithStartPage:(NSUInteger)startPage endPage:(NSUInteger)endPage;
 
-- (BOOL)isEqual:(nullable id)object;
++ (instancetype)allPagesRange;
 
-+ (nonnull JSReportOption *)defaultReportOption;
+- (BOOL) isAllPagesRange;
 
 @end

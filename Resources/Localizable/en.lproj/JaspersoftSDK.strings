@@ -28,6 +28,8 @@
 //  Jaspersoft Corporation
 //
 
+/* Report Options */
+"report.options.default.option.title" = "None";
 
 /* Input Controls */
 // Data Type Validation error messages

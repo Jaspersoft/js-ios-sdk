@@ -211,7 +211,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     request.completionBlock = block;
     
     JSExecutionStatus *status = [JSExecutionStatus new];
-    status.status = @"cancelled";
+    status.statusAsString = @"cancelled";
     request.body = status;
     
     [self sendRequest:request];
@@ -259,8 +259,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     [self sendRequest:request];
 }
 
-- (void)exportExecutionStatusWithExecutionID:(NSString *)executionID exportOutput:(NSString *)exportOutput completion:(JSRequestCompletionBlock)block
-{
+- (void)exportExecutionStatusWithExecutionID:(NSString *)executionID exportOutput:(NSString *)exportOutput completion:(JSRequestCompletionBlock)block {
     NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@/status", kJS_REST_REPORT_EXECUTION_URI, executionID, exportOutput];
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
     request.expectedModelClass = [JSExecutionStatus class];

@@ -30,16 +30,34 @@
 
 #import "JSExecutionStatus.h"
 
+NSString *const kJSExecutionStatusReady = @"ready";
+NSString *const kJSExecutionStatusQueued = @"queued";
+NSString *const kJSExecutionStatusExecution = @"execution";
+NSString *const kJSExecutionStatusCancelled = @"cancelled";
+NSString *const kJSExecutionStatusFailed = @"failed";
+
+
 @implementation JSExecutionStatus
 
-- (NSString *)description {
-    return self.status;
+- (kJS_EXECUTION_STATUS)status {
+    if ([self.statusAsString isEqualToString:kJSExecutionStatusReady]) {
+        return kJS_EXECUTION_STATUS_READY;
+    } else if ([self.statusAsString isEqualToString:kJSExecutionStatusQueued]) {
+        return kJS_EXECUTION_STATUS_QUEUED;
+    } else if ([self.statusAsString isEqualToString:kJSExecutionStatusExecution]) {
+        return kJS_EXECUTION_STATUS_EXECUTION;
+    } else if ([self.statusAsString isEqualToString:kJSExecutionStatusCancelled]) {
+        return kJS_EXECUTION_STATUS_CANCELED;
+    } else if ([self.statusAsString isEqualToString:kJSExecutionStatusFailed]) {
+        return kJS_EXECUTION_STATUS_FAILED;
+    }
+    return kJS_EXECUTION_STATUS_UNKNOWN;
 }
 
 + (nonnull RKObjectMapping *)customMapping {
     RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
     [classMapping addAttributeMappingsFromDictionary:@{
-                                                       @"description": @"status",
+                                                       @"statusAsString": @"status",
                                                        }];
     return classMapping;
 }
@@ -70,7 +88,7 @@
 + (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
     RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
     [classMapping addAttributeMappingsFromDictionary:@{
-                                                       @"value": @"status",
+                                                       @"value": @"statusAsString",
                                                        }];
     return classMapping;;
 }
