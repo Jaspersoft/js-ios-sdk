@@ -54,10 +54,14 @@ NSString *const kJSExecutionStatusFailed = @"failed";
     return kJS_EXECUTION_STATUS_UNKNOWN;
 }
 
+- (NSString *)description {
+    return self.statusAsString;
+}
+
 + (nonnull RKObjectMapping *)customMapping {
     RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
     [classMapping addAttributeMappingsFromDictionary:@{
-                                                       @"statusAsString": @"status",
+                                                       @"description": @"statusAsString",
                                                        }];
     return classMapping;
 }
