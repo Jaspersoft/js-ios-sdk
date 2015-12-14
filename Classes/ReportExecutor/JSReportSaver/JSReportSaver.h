@@ -24,19 +24,25 @@
  */
 
 //
-//  JSErrors.h
+//  JSReportSaver.h
 //  Jaspersoft Corporation
 //
 
-typedef NS_ENUM (NSInteger, JSErrorCode) {
-    JSOtherErrorCode                    = 1000,         // All other errors
-    JSServerNotReachableErrorCode       = 1001,         // Server not reachable error
-    JSNetworkErrorCode                  = 1002,         // HTTP erorrs (status codes 404, 500).
-    JSRequestTimeOutErrorCode           = 1003,         // Request TimeOut error
-    JSInvalidCredentialsErrorCode       = 1004,         // Invalid Credentilas error
-    JSSessionExpiredErrorCode           = 1005,         // Session expired error
-    JSClientErrorCode                   = 1006,         // Client error code - when JSErrorDescriptor are received
-    JSDataMappingErrorCode              = 1007,         // Data Mapping error code - when responce did load successfully, but can't be parsed
-    JSFileSavingErrorCode               = 1008,         // Write to file and file saving error
-    JSReportSavingErrorCode             = 1009          // Report saving error
-};
+/**
+ @author Aleksandr Dakhno odahno@tibco.com
+ @author Alexey Gubarev ogubarie@tibco.com
+ @since 2.3
+ */
+
+#import <Foundation/Foundation.h>
+#import "JSReportPagesRange.h"
+#import "JSReportExecutor.h"
+
+typedef void(^JSReportSaverSaveReportCompletion)(NSURL *savedReportURL, NSError *error);
+
+@interface JSReportSaver : JSReportExecutor
+
+- (void) saveReportWithName:(NSString *)name format:(NSString *)format pagesRange:(JSReportPagesRange *)pagesRange completion:(JSReportSaverSaveReportCompletion)completionBlock;
+- (void) cancelSavingReport;
+
+@end

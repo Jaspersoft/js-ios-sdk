@@ -82,9 +82,5 @@ extern NSString * const kJSReportCurrentPageDidChangeNotification;
 - (void)updateIsMultiPageReport:(BOOL)isMultiPageReport;
 // restore state
 - (void)restoreDefaultState;
-// cache
-- (void)cacheHTMLString:(NSString *)HTMLString forPageNumber:(NSInteger)pageNumber;
-- (NSDictionary *)cachedReportPages;
-- (void)clearCachedReportPages;
 
 @end

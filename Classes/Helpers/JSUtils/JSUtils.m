@@ -95,6 +95,10 @@ NSString * const JSLocalizationBundleType = @"lproj";
              @"pt" : @"pt_BR"};
 }
 
++ (NSString *)backgroundSessionConfigurationIdentifier {
+    return [NSString stringWithFormat:@"%@.BackgroundSessionConfigurationIdentifier", [NSBundle mainBundle].bundleIdentifier];
+}
+
 @end
 
 NSString *JSCustomLocalizedString(NSString *key, NSString *comment) {

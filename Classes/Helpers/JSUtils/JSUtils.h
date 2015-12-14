@@ -119,6 +119,15 @@
  */
 + (nonnull NSDictionary *)supportedLocales;
 
+/**
+ Get background session configuration identifier, used for background tasks
+ 
+ @return A background session configuration identifier, used for background tasks
+ 
+ @since 2.3
+ */
++ (nonnull NSString *)backgroundSessionConfigurationIdentifier;
+
 @end
 
 /**

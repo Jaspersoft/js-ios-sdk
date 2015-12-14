@@ -51,8 +51,7 @@ NSString * const kJSReportCurrentPageDidChangeNotification = @"kJSReportCurrentP
 // html
 @property (nonatomic, copy, readwrite) NSString *HTMLString;
 @property (nonatomic, copy, readwrite) NSString *baseURLString;
-// cache
-@property (nonatomic, strong) NSMutableDictionary *cachedPages;
+
 @property (nonatomic, copy, readwrite) NSArray *reportParameters;
 @end
 
@@ -209,22 +208,6 @@ NSString * const kJSReportCurrentPageDidChangeNotification = @"kJSReportCurrentP
     self.isMultiPageReport = isMultiPageReport;
 }
 
-#pragma mark - Cache pages
-- (void)cacheHTMLString:(NSString *)HTMLString forPageNumber:(NSInteger)pageNumber
-{
-    self.cachedPages[@(pageNumber)] = HTMLString;
-}
-
-- (NSDictionary *)cachedReportPages
-{
-    return [self.cachedPages copy];
-}
-
-- (void)clearCachedReportPages;
-{
-    self.cachedPages = [@{} mutableCopy];
-}
-
 #pragma mark - Notifications
 - (void)postNotificationMultipageReport
 {
@@ -247,8 +230,6 @@ NSString * const kJSReportCurrentPageDidChangeNotification = @"kJSReportCurrentP
 #pragma mark - Restore default state
 - (void)restoreDefaultState
 {
-    [self clearCachedReportPages];
-    
     self.HTMLString = nil;
     self.baseURLString = nil;
     self.currentPage = NSNotFound;
