@@ -43,9 +43,6 @@ typedef void(^JSExportExecutionCompletionBlock)(JSExportExecutionResponse * __nu
 @interface JSReportExecutor : NSObject
 @property (nonatomic, assign) BOOL asyncExecution; // YES by default
 @property (nonatomic, assign) BOOL interactive;
-
-@property (nonatomic, strong, readonly, nonnull) JSReport *report;
-
 @property (nonatomic, copy, nullable) NSString *format;
 @property (nonatomic, copy, nullable) NSString *attachmentsPrefix;
 
