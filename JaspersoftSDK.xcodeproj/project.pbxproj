@@ -29,8 +29,8 @@
 		0811BCBE1C103F14006D0ABF /* JSResourcePatchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0811BCBC1C103F14006D0ABF /* JSResourcePatchRequest.m */; };
 		0818976F1C1F0FF6004CC3A4 /* JSReportSaver.h in Headers */ = {isa = PBXBuildFile; fileRef = 0818976D1C1F0FF6004CC3A4 /* JSReportSaver.h */; };
 		081897701C1F0FF6004CC3A4 /* JSReportSaver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0818976E1C1F0FF6004CC3A4 /* JSReportSaver.m */; };
-		081897781C1F23EA004CC3A4 /* JSExportExecutor.h in Headers */ = {isa = PBXBuildFile; fileRef = 081897761C1F23EA004CC3A4 /* JSExportExecutor.h */; };
-		081897791C1F23EA004CC3A4 /* JSExportExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = 081897771C1F23EA004CC3A4 /* JSExportExecutor.m */; };
+		0818977C1C203B77004CC3A4 /* JSReportExecutorConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 0818977A1C203B77004CC3A4 /* JSReportExecutorConfiguration.h */; };
+		0818977D1C203B77004CC3A4 /* JSReportExecutorConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 0818977B1C203B77004CC3A4 /* JSReportExecutorConfiguration.m */; };
 		081DCA131A9C793D007A7F1B /* JSRESTBase+JSRESTSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 081DCA111A9C793D007A7F1B /* JSRESTBase+JSRESTSession.h */; };
 		081DCA141A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 081DCA121A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m */; };
 		084F28A51B7CF89E00551341 /* KeychainItemWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 084F28A31B7CF89E00551341 /* KeychainItemWrapper.h */; };
@@ -122,8 +122,8 @@
 		0811BCBC1C103F14006D0ABF /* JSResourcePatchRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourcePatchRequest.m; sourceTree = "<group>"; };
 		0818976D1C1F0FF6004CC3A4 /* JSReportSaver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportSaver.h; sourceTree = "<group>"; };
 		0818976E1C1F0FF6004CC3A4 /* JSReportSaver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportSaver.m; sourceTree = "<group>"; };
-		081897761C1F23EA004CC3A4 /* JSExportExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSExportExecutor.h; sourceTree = "<group>"; };
-		081897771C1F23EA004CC3A4 /* JSExportExecutor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSExportExecutor.m; sourceTree = "<group>"; };
+		0818977A1C203B77004CC3A4 /* JSReportExecutorConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportExecutorConfiguration.h; sourceTree = "<group>"; };
+		0818977B1C203B77004CC3A4 /* JSReportExecutorConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportExecutorConfiguration.m; sourceTree = "<group>"; };
 		081DCA111A9C793D007A7F1B /* JSRESTBase+JSRESTSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSRESTBase+JSRESTSession.h"; sourceTree = "<group>"; };
 		081DCA121A9C793D007A7F1B /* JSRESTBase+JSRESTSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSRESTSession.m"; sourceTree = "<group>"; };
 		084F28A31B7CF89E00551341 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
@@ -270,15 +270,6 @@
 			path = JSReportSaver;
 			sourceTree = "<group>";
 		};
-		081897751C1F23EA004CC3A4 /* JSExportExecutor */ = {
-			isa = PBXGroup;
-			children = (
-				081897761C1F23EA004CC3A4 /* JSExportExecutor.h */,
-				081897771C1F23EA004CC3A4 /* JSExportExecutor.m */,
-			);
-			path = JSExportExecutor;
-			sourceTree = "<group>";
-		};
 		084F28A21B7CF89E00551341 /* KeychainItemWrapper */ = {
 			isa = PBXGroup;
 			children = (
@@ -291,12 +282,13 @@
 		085426461C1707FC00A16004 /* ReportExecutor */ = {
 			isa = PBXGroup;
 			children = (
-				081897751C1F23EA004CC3A4 /* JSExportExecutor */,
 				0818976C1C1F0FF6004CC3A4 /* JSReportSaver */,
 				0854264F1C17102C00A16004 /* JSReport.h */,
 				085426501C17102C00A16004 /* JSReport.m */,
 				0854264B1C17088200A16004 /* JSReportPagesRange.h */,
 				0854264C1C17088200A16004 /* JSReportPagesRange.m */,
+				0818977A1C203B77004CC3A4 /* JSReportExecutorConfiguration.h */,
+				0818977B1C203B77004CC3A4 /* JSReportExecutorConfiguration.m */,
 				085426471C1707FC00A16004 /* JSReportExecutor.h */,
 				085426481C1707FC00A16004 /* JSReportExecutor.m */,
 			);
@@ -545,8 +537,8 @@
 				08FED4A51BFF4D4400390403 /* JSDataType.h in Headers */,
 				F597691C15E3C826004165A7 /* JSRequest.h in Headers */,
 				F597697915E3C9EF004165A7 /* JSSerializationDescriptorHolder.h in Headers */,
-				081897781C1F23EA004CC3A4 /* JSExportExecutor.h in Headers */,
 				F597691015E3C826004165A7 /* JSConstants.h in Headers */,
+				0818977C1C203B77004CC3A4 /* JSReportExecutorConfiguration.h in Headers */,
 				F5EA36AE18337B4A00E09E10 /* JSResourceLookup.h in Headers */,
 				0811BCB31C0DD755006D0ABF /* JSUtils.h in Headers */,
 				F597694315E3C826004165A7 /* JSReportAttachment.h in Headers */,
@@ -699,6 +691,7 @@
 				084F28A61B7CF89E00551341 /* KeychainItemWrapper.m in Sources */,
 				F597694515E3C826004165A7 /* JSReportAttachment.m in Sources */,
 				08FED4A61BFF4D4400390403 /* JSDataType.m in Sources */,
+				0818977D1C203B77004CC3A4 /* JSReportExecutorConfiguration.m in Sources */,
 				F5DDD7AD164029EC005BBE7C /* JSServerInfo.m in Sources */,
 				F523D78718635EB000B93D3F /* JSExecutionStatus.m in Sources */,
 				F568246C1642996D00CC4015 /* JSInputControlDescriptor.m in Sources */,
@@ -720,7 +713,6 @@
 				37455EF10B05B5CAE7512A6F /* JSReportExecutionRequest.m in Sources */,
 				A147872F4B900E410C80D225 /* JSResourceReportUnit.m in Sources */,
 				08EC04561B85C959005994DB /* JSReportOption.m in Sources */,
-				081897791C1F23EA004CC3A4 /* JSExportExecutor.m in Sources */,
 				0811BCBE1C103F14006D0ABF /* JSResourcePatchRequest.m in Sources */,
 				A1478D6C2889B7FE83D217E3 /* JSEncryptionManager.m in Sources */,
 			);

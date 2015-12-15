@@ -38,8 +38,11 @@
 //#import "JSConstants.h"
 
 @interface JSReportExecutor()
-@property (nonatomic, strong) JSRESTBase *restClient;
+@property (nonatomic, strong, nonnull) JSRESTBase *restClient;
+
+@property (nonatomic, strong) JSReportExecutorConfiguration *configuration;
 @property (nonatomic, strong, readwrite, nonnull) JSReport *report;
+@property (nonatomic, strong, readwrite, nonnull) JSReportExecutionResponse *executionResponse;
 
 @property (nonatomic, copy) JSReportExecutionCompletionBlock executeCompletion;
 @property (nonatomic, copy) JSExportExecutionCompletionBlock exportCompletion;
@@ -48,7 +51,6 @@
 @property (nonatomic, assign) BOOL shouldExecuteWithFreshData;
 @property (nonatomic, assign) BOOL shouldIgnorePagination;
 //
-@property (nonatomic, strong) JSReportExecutionResponse *executionResponse;
 @property (nonatomic, strong) JSExportExecutionResponse *exportResponse;
 
 @end
@@ -56,93 +58,140 @@
 @implementation JSReportExecutor
 
 #pragma mark - Life Cycle
-- (instancetype)initWithReport:(JSReport *)report forRestClient:(nonnull JSRESTBase *)restClient {
+- (instancetype)initWithReport:(JSReport *)report configuration:(nonnull JSReportExecutorConfiguration *)configuration {
     self = [super init];
     if (self) {
         _report = report;
-        _restClient = restClient;
+        _configuration = configuration;
     }
     return self;
 }
 
-+ (instancetype)executorWithReport:(JSReport *)report forRestClient:(nonnull JSRESTBase *)restClient {
-    return [[self alloc] initWithReport:report forRestClient:restClient];
++ (instancetype)executorWithReport:(JSReport *)report configuration:(nonnull JSReportExecutorConfiguration *)configuration {
+    return [[self alloc] initWithReport:report configuration:configuration];
 }
+
+- (nonnull instancetype)initWithExecutionResponce:(nonnull JSReportExecutionResponse *)executionResponse configuration:(nonnull JSReportExecutorConfiguration *)configuration {
+    self = [super init];
+    if (self) {
+        _executionResponse = executionResponse;
+        _configuration = configuration;
+    }
+    return self;
+}
+
++ (nonnull instancetype)executorWithExecutionResponce:(nonnull JSReportExecutionResponse *)executionResponse configuration:(nonnull JSReportExecutorConfiguration *)configuration {
+    return [[self alloc] initWithExecutionResponce:executionResponse configuration:configuration];
+}
+
 
 #pragma mark - Pubilc API
 - (void)executeWithCompletion:(JSReportExecutionCompletionBlock)completion {
-    self.executeCompletion = completion;
-
     if (self.executionResponse) {
         if (self.executeCompletion) {
             self.executeCompletion(self.executionResponse, nil);
         }
     } else {
-        [self.restClient runReportExecution:self.report.reportURI
-                                      async:self.asyncExecution
-                               outputFormat:self.format
-                                interactive:self.interactive
-                                  freshData:self.shouldExecuteWithFreshData
-                           saveDataSnapshot:YES // TODO: what does this parameter mean
-                           ignorePagination:self.shouldIgnorePagination
-                             transformerKey:nil // TODO: what does this parameter mean
-                                      pages:nil
-                          attachmentsPrefix:self.attachmentsPrefix
-                                 parameters:self.report.reportParameters
-                            completionBlock:^(JSOperationResult *result) {
-                                if (result.error) {
-                                    if (self.executeCompletion) {
-                                        self.executeCompletion(nil, result.error);
-                                    }
-                                } else {
-                                    self.executionResponse = result.objects.firstObject;
-                                    
-                                    if (self.executionResponse.status.status == kJS_EXECUTION_STATUS_QUEUED || self.executionResponse.status.status == kJS_EXECUTION_STATUS_EXECUTION) {
-                                        [self startCheckingExecutionStatus];
-                                    } else if (self.executeCompletion) {
-                                        self.executeCompletion(self.executionResponse, nil);
-                                    }
-                                }
-                            }];
+        [self.configuration.restClient runReportExecution:self.report.reportURI
+                                                    async:self.configuration.asyncExecution
+                                             outputFormat:self.configuration.outputFormat
+                                              interactive:self.configuration.interactive
+                                                freshData:self.configuration.freshData
+                                         saveDataSnapshot:self.configuration.saveDataSnapshot
+                                         ignorePagination:self.configuration.ignorePagination
+                                           transformerKey:self.configuration.transformerKey
+                                                    pages:self.configuration.pagesRange.formattedPagesRange
+                                        attachmentsPrefix:self.configuration.attachmentsPrefix
+                                               parameters:self.report.reportParameters
+                                          completionBlock:^(JSOperationResult *result) {
+                                              if (completion) {
+                                                  if (result.error) {
+                                                      completion(nil, result.error);
+                                                  } else {
+                                                      completion(result.objects.firstObject, nil);
+                                                  }
+                                              }
+                                          }];
     }
 }
 
-- (void)exportForRange:(nonnull JSReportPagesRange *)pagesRange withCompletion:(nullable JSExportExecutionCompletionBlock)completion {
-    if (self.executionResponse && self.executionResponse.status.status == kJS_EXECUTION_STATUS_READY) {
-        self.exportCompletion = completion;
-        NSArray *exports = self.executionResponse.exports;
+#pragma mark - Execution Status Checking
+- (void)checkingExecutionStatusWithCompletion:(JSReportExecutionCompletionBlock)completion {
+    self.executeCompletion = completion;
+    [self startCheckingExecutionStatus];
+}
 
-        if ([pagesRange isAllPagesRange] && [exports count]) {
-            self.exportResponse = exports.firstObject;
-            if (self.exportResponse.status.status == kJS_EXECUTION_STATUS_READY) {
-                if (self.exportCompletion) {
-                    self.exportCompletion(self.exportResponse, nil);
-                }
-            } else {
-                [self startCheckingExportStatus];
-            }
-        } else {
-            [self.restClient runExportExecution:self.executionResponse.requestId
-                                   outputFormat:self.format
-                                          pages:pagesRange.formattedPagesRange
-                              attachmentsPrefix:self.attachmentsPrefix
-                                completionBlock:^(JSOperationResult *result) {
-                                    if (result.error) {
-                                        if (self.exportCompletion) {
-                                            self.exportCompletion(nil, result.error);
-                                        }
-                                    } else {
-                                        self.exportResponse = result.objects.firstObject;
-                                        if (self.exportResponse.status.status == kJS_EXECUTION_STATUS_QUEUED || self.exportResponse.status.status == kJS_EXECUTION_STATUS_EXECUTION) {
-                                            [self startCheckingExportStatus];
-                                        } else {
-                                            if (self.exportCompletion) {
-                                                self.exportCompletion(self.exportResponse, nil);
-                                            }
-                                        }
-                                    }
-                                }];
-        }
+- (void) startCheckingExecutionStatus {
+    self.executionStatusCheckingTimer = [NSTimer scheduledTimerWithTimeInterval:kJSExecutionStatusCheckingInterval
+                                                                         target:self
+                                                                       selector:@selector(executionStatusChecking)
+                                                                       userInfo:nil
+                                                                        repeats:NO];
+}
+
+- (void)executionStatusChecking {
+    NSString *executionID = self.executionResponse.requestId;
+    [self.configuration.restClient reportExecutionStatusForRequestId:executionID
+                                                     completionBlock:^(JSOperationResult *result) {
+                                                         if (result.error) {
+                                                             [self safelyInvalidateTimer:self.executionStatusCheckingTimer];
+                                                             if (self.executeCompletion) {
+                                                                 self.executeCompletion(self.executionResponse, result.error);
+                                                             }
+                                                         } else {
+                                                             JSExecutionStatus *executionStatus = result.objects.firstObject;
+                                                             if (executionStatus.status == kJS_EXECUTION_STATUS_READY ||
+                                                                 executionStatus.status == kJS_EXECUTION_STATUS_CANCELED ||
+                                                                 executionStatus.status == kJS_EXECUTION_STATUS_FAILED) {
+                                                                 [self safelyInvalidateTimer:self.executionStatusCheckingTimer];
+                                                                 
+                                                                 if (executionStatus.status == kJS_EXECUTION_STATUS_READY) {
+                                                                     [self.configuration.restClient reportExecutionMetadataForRequestId:self.executionResponse.requestId
+                                                                                                                        completionBlock:^(JSOperationResult *result) {
+                                                                                                                            if (!result.error) {
+                                                                                                                                self.executionResponse = result.objects.firstObject;
+                                                                                                                            }
+                                                                                                                            if (self.executeCompletion) {
+                                                                                                                                self.executeCompletion(self.executionResponse, result.error);
+                                                                                                                            }
+                                                                                                                        }];
+                                                                 } else {
+                                                                     self.executionResponse.status = executionStatus;
+                                                                     if (self.executeCompletion) {
+                                                                         self.executeCompletion(self.executionResponse, nil);
+                                                                     }
+                                                                 }
+                                                             } else {
+                                                                 [self startCheckingExecutionStatus];
+                                                             }
+                                                         }
+                                                     }];
+}
+
+- (void)exportForRange:(nonnull JSReportPagesRange *)pagesRange outputFormat:(nonnull NSString *)outputFormat
+      attachmentsPrefix:(nonnull NSString *)attachmentsPrefix withCompletion:(nullable JSExportExecutionCompletionBlock)completion {
+    if (self.executionResponse) {
+        self.exportCompletion = completion;
+        [self.configuration.restClient runExportExecution:self.executionResponse.requestId
+                                             outputFormat:outputFormat
+                                                    pages:pagesRange.formattedPagesRange
+                                        attachmentsPrefix:attachmentsPrefix
+                                          completionBlock:^(JSOperationResult *result) {
+                                              if (result.error) {
+                                                  if (self.exportCompletion) {
+                                                      self.exportCompletion(nil, result.error);
+                                                  }
+                                              } else {
+                                                  self.exportResponse = result.objects.firstObject;
+                                                  if (self.exportResponse.status.status == kJS_EXECUTION_STATUS_QUEUED || self.exportResponse.status.status == kJS_EXECUTION_STATUS_EXECUTION) {
+                                                      [self startCheckingExportStatus];
+                                                  } else {
+                                                      if (self.exportCompletion) {
+                                                          self.exportCompletion(self.exportResponse, nil);
+                                                      }
+                                                  }
+                                              }
+                                          }];
     } else {
         if (completion) {
 #warning HERE NEED TO ADD CORECT ERROR INITIALIZATION!!!
@@ -151,75 +200,13 @@
     }
 }
 
-- (void)cancel {
-#warning HERE NEED CANCEL ONLY OWN REQUESTS!
-    [self.restClient cancelAllRequests];
-    [self.executionStatusCheckingTimer invalidate];
-    [self.exportStatusCheckingTimer invalidate];
-}
-
-#pragma mark - Private API
-
-- (void)setExecutionResponse:(JSReportExecutionResponse *)executionResponse {
-    if (_executionResponse != executionResponse) {
-        _executionResponse = executionResponse;
-        [self.report updateRequestId:_executionResponse.requestId];
-    }
-}
-
-#pragma mark - Execution Status Checking
-- (void)startCheckingExecutionStatus {
-    self.executionStatusCheckingTimer = [NSTimer scheduledTimerWithTimeInterval:kJSExecutionStatusCheckingInterval
-                                                                         target:self
-                                                                       selector:@selector(executionStatusChecking)
-                                                                       userInfo:nil
-                                                                        repeats:YES];
-}
-
-- (void)executionStatusChecking {
-    NSString *executionID = self.executionResponse.requestId;
-    [self.restClient reportExecutionStatusForRequestId:executionID
-                                       completionBlock:^(JSOperationResult *result) {
-                                               if (result.error) {
-                                                   [self safelyInvalidateTimer:self.executionStatusCheckingTimer];
-                                                   if (self.executeCompletion) {
-                                                       self.executeCompletion(self.executionResponse, result.error);
-                                                   }
-                                               } else {
-                                                   JSExecutionStatus *executionStatus = result.objects.firstObject;
-                                                   if (executionStatus.status == kJS_EXECUTION_STATUS_READY ||
-                                                       executionStatus.status == kJS_EXECUTION_STATUS_CANCELED ||
-                                                       executionStatus.status == kJS_EXECUTION_STATUS_FAILED) {
-                                                       [self safelyInvalidateTimer:self.executionStatusCheckingTimer];
-                                                       
-                                                       if (executionStatus.status == kJS_EXECUTION_STATUS_READY) {
-                                                           [self.restClient reportExecutionMetadataForRequestId:self.executionResponse.requestId
-                                                                                                completionBlock:^(JSOperationResult *result) {
-                                                                                                    if (!result.error) {
-                                                                                                        self.executionResponse = result.objects.firstObject;
-                                                                                                    }
-                                                                                                    if (self.executeCompletion) {
-                                                                                                        self.executeCompletion(self.executionResponse, result.error);
-                                                                                                    }
-                                                                                                }];
-                                                           
-                                                           
-                                                       } else if (self.executeCompletion) {
-                                                           self.executeCompletion(self.executionResponse, nil);
-                                                       }
-                                                   }
-                                               }
-                                           }];
-
-}
-
 #pragma mark - Export Status Checking
 - (void)startCheckingExportStatus {
     self.exportStatusCheckingTimer = [NSTimer scheduledTimerWithTimeInterval:kJSExecutionStatusCheckingInterval
                                                                       target:self
                                                                     selector:@selector(exportStatusChecking)
                                                                     userInfo:nil
-                                                                     repeats:YES];
+                                                                     repeats:NO];
 }
 
 - (void)exportStatusChecking {
@@ -258,15 +245,37 @@
                                                            } else if (self.exportCompletion) {
                                                                self.exportCompletion(nil, result.error);
                                                            }
+                                                       } else {
+                                                           [self startCheckingExportStatus];
                                                        }
                                                    }
                                                }];
+}
+
+
+- (void)cancelReportExecution {
+#warning HERE NEED CANCEL ONLY OWN REQUESTS!
+    [self.configuration.restClient cancelAllRequests];
+    [self safelyInvalidateTimer:self.executionStatusCheckingTimer];
+    [self safelyInvalidateTimer:self.exportStatusCheckingTimer];
 }
 
 #pragma mark - Helpers
 - (void)safelyInvalidateTimer:(NSTimer *)timer {
     if (timer && timer.valid) {
         [timer invalidate];
+    }
+}
+
+#pragma mark - Private API
+
+- (void)setExecutionResponse:(JSReportExecutionResponse *)executionResponse {
+    if (_executionResponse != executionResponse) {
+        _executionResponse = executionResponse;
+        [self.report updateRequestId:_executionResponse.requestId];
+        if (executionResponse.totalPages.integerValue) {
+            [self.report updateCountOfPages:executionResponse.totalPages.integerValue];
+        }
     }
 }
 

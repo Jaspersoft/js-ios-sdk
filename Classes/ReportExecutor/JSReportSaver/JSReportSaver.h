@@ -24,7 +24,7 @@
  */
 
 //
-//  JSReportSaver.h
+//  JMReportSaver.h
 //  Jaspersoft Corporation
 //
 
@@ -35,14 +35,19 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "JSReportPagesRange.h"
-#import "JSReportExecutor.h"
 
-typedef void(^JSReportSaverSaveReportCompletion)(NSURL *savedReportURL, NSError *error);
 
-@interface JSReportSaver : JSReportExecutor
+@class JSReport, JSRESTBase, JSReportPagesRange, JSReportExecutionResponse;
 
-- (void) saveReportWithName:(NSString *)name format:(NSString *)format pagesRange:(JSReportPagesRange *)pagesRange completion:(JSReportSaverSaveReportCompletion)completionBlock;
+typedef void(^JSReportSaverSaveReportCompletion)(NSURL * _Nullable savedReportURL, NSError * _Nullable error);
+
+@interface JSReportSaver : NSObject
+
+- (nonnull instancetype)initWithReport:(nonnull JSReport *)report restClient:(nonnull JSRESTBase *)restClient;
+
+- (nonnull instancetype)initWithExecutionResponce:(nonnull JSReportExecutionResponse *)executionResponse restClient:(nonnull JSRESTBase *)restClient;
+
+- (void) saveReportWithName:(nonnull NSString *)name format:(nonnull NSString *)format pagesRange:(nonnull JSReportPagesRange *)pagesRange completion:(nullable JSReportSaverSaveReportCompletion)completionBlock;
 - (void) cancelSavingReport;
 
 @end

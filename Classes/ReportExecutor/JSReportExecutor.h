@@ -34,25 +34,40 @@
  @since 2.3
  */
 
-@class JSRESTBase, JSReport, JSReportPagesRange, JSReportExecutionResponse, JSExportExecutionResponse;
+#import "JSReportExecutorConfiguration.h"
+#import "JSReportExecutionResponse.h"
+#import "JSExportExecutionResponse.h"
+
+@class JSRESTBase, JSReport;
 
 typedef void(^JSReportExecutionCompletionBlock)(JSReportExecutionResponse * __nullable executionResponse, NSError * __nullable error);
 typedef void(^JSExportExecutionCompletionBlock)(JSExportExecutionResponse * __nullable exportResponse, NSError * __nullable error);
 
 
 @interface JSReportExecutor : NSObject
-@property (nonatomic, assign) BOOL asyncExecution; // YES by default
-@property (nonatomic, assign) BOOL interactive;
-@property (nonatomic, copy, nullable) NSString *format;
-@property (nonatomic, copy, nullable) NSString *attachmentsPrefix;
+@property (nonatomic, strong, readonly, nonnull) JSReport *report;
+@property (nonatomic, strong, readonly, nonnull) JSReportExecutionResponse *executionResponse;
 
-- (nonnull instancetype)initWithReport:(nonnull JSReport *)report forRestClient:(nonnull JSRESTBase *)restClient;
-+ (nonnull instancetype)executorWithReport:(nonnull JSReport *)report forRestClient:(nonnull JSRESTBase *)restClient;
 
+- (nonnull instancetype)initWithReport:(nonnull JSReport *)report configuration:(nonnull JSReportExecutorConfiguration *)configuration;
++ (nonnull instancetype)executorWithReport:(nonnull JSReport *)report configuration:(nonnull JSReportExecutorConfiguration *)configuration;
+
+- (nonnull instancetype)initWithExecutionResponce:(nonnull JSReportExecutionResponse *)executionResponse configuration:(nonnull JSReportExecutorConfiguration *)configuration;
++ (nonnull instancetype)executorWithExecutionResponce:(nonnull JSReportExecutionResponse *)executionResponse configuration:(nonnull JSReportExecutorConfiguration *)configuration;
+
+// Execute report
 - (void)executeWithCompletion:(nullable JSReportExecutionCompletionBlock)completion;
-#warning HERE NEED CHECK USE FORMAT IN THIS METHOD - MAYBE WE CAN USE ONE REPORT EXECUTION FOR DIFFERENT FORMATS
-- (void)exportForRange:(nonnull JSReportPagesRange *)pagesRange withCompletion:(nullable JSExportExecutionCompletionBlock)completion;
+- (void)checkingExecutionStatusWithCompletion:(nullable JSReportExecutionCompletionBlock)completion;
 
-- (void)cancel;
+
+- (void)exportForRange:(nonnull JSReportPagesRange *)pagesRange outputFormat:(nonnull NSString *)format
+      attachmentsPrefix:(nonnull NSString *)attachmentsPrefix withCompletion:(nullable JSExportExecutionCompletionBlock)completion;
+
+
+
+
+
+
+- (void)cancelReportExecution;
 
 @end
