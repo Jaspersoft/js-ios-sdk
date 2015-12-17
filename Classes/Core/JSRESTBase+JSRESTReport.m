@@ -268,6 +268,16 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     [self sendRequest:request];
 }
 
+- (void)exportExecutionMetadataForRequestId:(nonnull NSString *)executionID exportId:(nonnull NSString *)exportId completionBlock:(nullable JSRequestCompletionBlock)block {
+    NSString *uri = [NSString stringWithFormat:@"%@/%@/exports/%@", kJS_REST_REPORT_EXECUTION_URI, executionID, exportId];
+    JSRequest *request = [[JSRequest alloc] initWithUri:uri];
+    request.expectedModelClass = [JSExportExecutionResponse class];
+    request.restVersion = JSRESTVersion_2;
+    request.completionBlock = block;
+    [self sendRequest:request];
+}
+
+
 - (void)loadReportOutput:(NSString *)requestId exportOutput:(NSString *)exportOutput
            loadForSaving:(BOOL)loadForSaving path:(NSString *)path completionBlock:(JSRequestCompletionBlock)block {
     exportOutput = [self encodeAttachmentsPrefix:exportOutput];

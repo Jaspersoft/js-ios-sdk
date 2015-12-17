@@ -34,39 +34,31 @@
  @since 2.3
  */
 
-#import "JSReportExecutorConfiguration.h"
 #import "JSReportExecutionResponse.h"
 #import "JSExportExecutionResponse.h"
 
-@class JSRESTBase, JSReport;
+@class JSRESTBase, JSReport, JSReportExecutorConfiguration, JSReportPagesRange;
 
 typedef void(^JSReportExecutionCompletionBlock)(JSReportExecutionResponse * __nullable executionResponse, NSError * __nullable error);
 typedef void(^JSExportExecutionCompletionBlock)(JSExportExecutionResponse * __nullable exportResponse, NSError * __nullable error);
 
 
 @interface JSReportExecutor : NSObject
+@property (nonatomic, strong, readonly, nonnull) JSRESTBase *restClient;
+@property (nonatomic, strong, readonly, nonnull) JSReportExecutorConfiguration *configuration;
+
 @property (nonatomic, strong, readonly, nonnull) JSReport *report;
 @property (nonatomic, strong, readonly, nonnull) JSReportExecutionResponse *executionResponse;
+@property (nonatomic, strong, readonly, nonnull) JSExportExecutionResponse *exportResponse;
 
 
-- (nonnull instancetype)initWithReport:(nonnull JSReport *)report configuration:(nonnull JSReportExecutorConfiguration *)configuration;
-+ (nonnull instancetype)executorWithReport:(nonnull JSReport *)report configuration:(nonnull JSReportExecutorConfiguration *)configuration;
-
-- (nonnull instancetype)initWithExecutionResponce:(nonnull JSReportExecutionResponse *)executionResponse configuration:(nonnull JSReportExecutorConfiguration *)configuration;
-+ (nonnull instancetype)executorWithExecutionResponce:(nonnull JSReportExecutionResponse *)executionResponse configuration:(nonnull JSReportExecutorConfiguration *)configuration;
+- (nonnull instancetype)initWithReport:(nonnull JSReport *)report restClient:(nonnull JSRESTBase *)restClient;
++ (nonnull instancetype)executorWithReport:(nonnull JSReport *)report restClient:(nonnull JSRESTBase *)restClient;
 
 // Execute report
-- (void)executeWithCompletion:(nullable JSReportExecutionCompletionBlock)completion;
-- (void)checkingExecutionStatusWithCompletion:(nullable JSReportExecutionCompletionBlock)completion;
+- (void)executeWithConfiguration:(nonnull JSReportExecutorConfiguration *)configuration completion:(nullable JSReportExecutionCompletionBlock)completion;
 
-
-- (void)exportForRange:(nonnull JSReportPagesRange *)pagesRange outputFormat:(nonnull NSString *)format
-      attachmentsPrefix:(nonnull NSString *)attachmentsPrefix withCompletion:(nullable JSExportExecutionCompletionBlock)completion;
-
-
-
-
-
+- (void)exportWithRange:(nonnull JSReportPagesRange *)pagesRange outputFormat:(nonnull NSString *)format completion:(nullable JSExportExecutionCompletionBlock)completion;
 
 - (void)cancelReportExecution;
 

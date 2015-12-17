@@ -10,9 +10,8 @@
 
 @implementation JSReportExecutorConfiguration
 
-+(instancetype)defaultConfigurationWithRestClient:(JSRESTBase *)restClient {
++(instancetype)defaultConfiguration {
     JSReportExecutorConfiguration *configuration = [JSReportExecutorConfiguration new];
-    configuration.restClient = restClient;
     configuration.asyncExecution = YES;
     configuration.interactive = YES;
     configuration.freshData = NO;
@@ -25,20 +24,17 @@
     return configuration;
 }
 
-+(nonnull instancetype)saveReportConfigurationWithRestClient:(nonnull JSRESTBase *)restClient {
++(nonnull instancetype)saveReportConfigurationWithFormat:(NSString *)format pagesRange:(JSReportPagesRange *)pagesRange{
     JSReportExecutorConfiguration *configuration = [JSReportExecutorConfiguration new];
-    configuration.restClient = restClient;
     configuration.asyncExecution = YES;
     configuration.interactive = NO;
     configuration.freshData = NO;
     configuration.saveDataSnapshot = YES;
-    
-#warning NEED CHECK WITH IGNORE PAGINATION YES!
-    configuration.ignorePagination = YES;
-    configuration.outputFormat = kJS_CONTENT_TYPE_PDF;
+    configuration.ignorePagination = NO;
+    configuration.outputFormat = format;
     configuration.transformerKey = nil;
     configuration.attachmentsPrefix = @"_";
-    configuration.pagesRange = [JSReportPagesRange allPagesRange];
+    configuration.pagesRange = pagesRange;
     return configuration;
 }
 

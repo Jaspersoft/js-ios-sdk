@@ -13,8 +13,6 @@
 
 @interface JSReportExecutorConfiguration : NSObject
 
-@property (nonatomic, strong, nonnull) JSRESTBase *restClient;
-
 @property (nonatomic, assign) BOOL asyncExecution;
 @property (nonatomic, assign) BOOL interactive;
 @property (nonatomic, assign) BOOL freshData;
@@ -26,8 +24,8 @@
 @property (nonatomic, strong, nonnull) JSReportPagesRange *pagesRange;
 
 
-+(nonnull instancetype)defaultConfigurationWithRestClient:(nonnull JSRESTBase *)restClient;
++(nonnull instancetype)defaultConfiguration;
 
-+(nonnull instancetype)saveReportConfigurationWithRestClient:(nonnull JSRESTBase *)restClient;
++(nonnull instancetype)saveReportConfigurationWithFormat:(nonnull NSString *)format pagesRange:(nonnull JSReportPagesRange *)pagesRange;
 
 @end

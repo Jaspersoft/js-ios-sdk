@@ -43,3 +43,6 @@
 /* Sessions */
 "session.encription.key.data.empty" = "Encription Key data is empty.";
 "session.encription.key.doesn't.valid" = "Encription Key doesn't valid. Modulus or exponent is absent.";
+
+/* Report execution */
+"report.execution.executionResponce.doesn't.ready" = "Sorry, but report execution responce doesn't ready.";

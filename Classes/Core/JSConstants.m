@@ -147,3 +147,11 @@ NSString *const kJS_ICD_TYPE_MULTI_SELECT_CHECKBOX = @"multiSelectCheckbox";
  */
 NSTimeInterval const kJSExecutionStatusCheckingInterval = 1.f;
 /** @} */
+
+/**
+ @name Execution status checking
+ @{
+ */
+NSString *const kJS_ERROR_DOMAIN = @"JSSDKErorDomain";
+/** @} */
+

@@ -200,3 +200,11 @@ typedef NS_ENUM(NSInteger, kJS_EXECUTION_STATUS) {
 };
 
 /** @} */
+
+/**
+ @name Execution status checking
+ @{
+ */
+extern NSString *const kJS_ERROR_DOMAIN;
+/** @} */
+

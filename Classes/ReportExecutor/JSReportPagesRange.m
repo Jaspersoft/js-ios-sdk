@@ -55,6 +55,11 @@
     return (self.startPage == 0 && self.endPage == NSNotFound);
 }
 
+- (BOOL)isEqual:(id)object {
+    JSReportPagesRange *pagesRange = (JSReportPagesRange *)object;
+    return (self.startPage == pagesRange.startPage && self.endPage == pagesRange.endPage);
+}
+
 #pragma mark - Custom Getters
 - (NSString *)formattedPagesRange {
     if(self.startPage == 0) {

@@ -35,19 +35,16 @@
  */
 
 #import <Foundation/Foundation.h>
-
+#import "JSReportExecutor.h"
 
 @class JSReport, JSRESTBase, JSReportPagesRange, JSReportExecutionResponse;
 
-typedef void(^JSReportSaverSaveReportCompletion)(NSURL * _Nullable savedReportURL, NSError * _Nullable error);
+typedef void(^JSSaveReportCompletion)(NSURL * _Nullable savedReportURL, NSError * _Nullable error);
 
-@interface JSReportSaver : NSObject
+@interface JSReportSaver : JSReportExecutor
 
-- (nonnull instancetype)initWithReport:(nonnull JSReport *)report restClient:(nonnull JSRESTBase *)restClient;
+- (void) saveReportWithName:(nonnull NSString *)name format:(nonnull NSString *)format pagesRange:(nonnull JSReportPagesRange *)pagesRange completion:(nullable JSSaveReportCompletion)completionBlock;
 
-- (nonnull instancetype)initWithExecutionResponce:(nonnull JSReportExecutionResponse *)executionResponse restClient:(nonnull JSRESTBase *)restClient;
-
-- (void) saveReportWithName:(nonnull NSString *)name format:(nonnull NSString *)format pagesRange:(nonnull JSReportPagesRange *)pagesRange completion:(nullable JSReportSaverSaveReportCompletion)completionBlock;
 - (void) cancelSavingReport;
 
 @end
