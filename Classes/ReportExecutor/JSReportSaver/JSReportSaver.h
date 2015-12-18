@@ -24,7 +24,7 @@
  */
 
 //
-//  JMReportSaver.h
+//  JSReportSaver.h
 //  Jaspersoft Corporation
 //
 
@@ -36,10 +36,11 @@
 
 #import <Foundation/Foundation.h>
 #import "JSReportExecutor.h"
+#import "JSReportPagesRange.h"
 
-@class JSReport, JSRESTBase, JSReportPagesRange, JSReportExecutionResponse;
+@class JSReport, JSRESTBase, JSReportExecutionResponse;
 
-typedef void(^JSSaveReportCompletion)(NSURL * _Nullable savedReportURL, NSError * _Nullable error);
+typedef void(^JSSaveReportCompletion)(NSURL * _Nullable savedReportFolderURL, NSError * _Nullable error);
 
 @interface JSReportSaver : JSReportExecutor
 
