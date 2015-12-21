@@ -32,7 +32,7 @@
 #import "JSReportSaver.h"
 #import "JSReportPagesRange.h"
 #import "JSReportExecutor.h"
-#import "JSReportExecutorConfiguration.h"
+#import "JSReportExecutionConfiguration.h"
 #import "JSRESTBase+JSRESTReport.h"
 
 @interface JSReportSaver()
@@ -64,7 +64,7 @@
         self.saveReportCompletion = completionBlock;
         
         __weak typeof(self)weakSelf = self;
-        JSReportExecutorConfiguration *saveReportConfiguration = [JSReportExecutorConfiguration saveReportConfigurationWithFormat:format pagesRange:pagesRange];
+        JSReportExecutionConfiguration *saveReportConfiguration = [JSReportExecutionConfiguration saveReportConfigurationWithFormat:format pagesRange:pagesRange];
         [self executeWithConfiguration:saveReportConfiguration completion:^(JSReportExecutionResponse * _Nullable executionResponse, NSError * _Nullable error) {
             __strong typeof(self) strongSelf = weakSelf;
             if (error) {

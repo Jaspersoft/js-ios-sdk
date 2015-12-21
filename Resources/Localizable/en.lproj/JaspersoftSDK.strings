@@ -46,3 +46,9 @@
 
 /* Report execution */
 "report.execution.executionResponce.doesn't.ready" = "Sorry, but report execution responce doesn't ready.";
+
+/* Report loader */
+"report.viewer.emptyreport.title" = "Report is empty.";
+
+/* Common */
+"error.readingresponse.msg" = "Failed to load data!";

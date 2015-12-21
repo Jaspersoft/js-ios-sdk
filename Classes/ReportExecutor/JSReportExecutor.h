@@ -37,7 +37,7 @@
 #import "JSReportExecutionResponse.h"
 #import "JSExportExecutionResponse.h"
 
-@class JSRESTBase, JSReport, JSReportExecutorConfiguration, JSReportPagesRange;
+@class JSRESTBase, JSReport, JSReportExecutionConfiguration, JSReportPagesRange;
 
 typedef void(^JSReportExecutionCompletionBlock)(JSReportExecutionResponse * __nullable executionResponse, NSError * __nullable error);
 typedef void(^JSExportExecutionCompletionBlock)(JSExportExecutionResponse * __nullable exportResponse, NSError * __nullable error);
@@ -45,7 +45,7 @@ typedef void(^JSExportExecutionCompletionBlock)(JSExportExecutionResponse * __nu
 
 @interface JSReportExecutor : NSObject
 @property (nonatomic, strong, readonly, nonnull) JSRESTBase *restClient;
-@property (nonatomic, strong, readonly, nonnull) JSReportExecutorConfiguration *configuration;
+@property (nonatomic, strong, readonly, nonnull) JSReportExecutionConfiguration *configuration;
 
 @property (nonatomic, strong, readonly, nonnull) JSReport *report;
 @property (nonatomic, strong, readonly, nonnull) JSReportExecutionResponse *executionResponse;
@@ -56,7 +56,7 @@ typedef void(^JSExportExecutionCompletionBlock)(JSExportExecutionResponse * __nu
 + (nonnull instancetype)executorWithReport:(nonnull JSReport *)report restClient:(nonnull JSRESTBase *)restClient;
 
 // Execute report
-- (void)executeWithConfiguration:(nonnull JSReportExecutorConfiguration *)configuration completion:(nullable JSReportExecutionCompletionBlock)completion;
+- (void)executeWithConfiguration:(nonnull JSReportExecutionConfiguration *)configuration completion:(nullable JSReportExecutionCompletionBlock)completion;
 
 - (void)exportWithRange:(nonnull JSReportPagesRange *)pagesRange outputFormat:(nonnull NSString *)format completion:(nullable JSExportExecutionCompletionBlock)completion;
 

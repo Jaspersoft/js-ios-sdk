@@ -33,14 +33,14 @@
 #import "JSExportExecutionResponse.h"
 #import "JSReport.h"
 #import "JSReportPagesRange.h"
-#import "JSReportExecutorConfiguration.h"
+#import "JSReportExecutionConfiguration.h"
 #import "JSRESTBase+JSRESTReport.h"
 
 //#import "JSConstants.h"
 
 @interface JSReportExecutor()
 @property (nonatomic, strong, readwrite, nonnull) JSRESTBase *restClient;
-@property (nonatomic, strong, readwrite, nonnull) JSReportExecutorConfiguration *configuration;
+@property (nonatomic, strong, readwrite, nonnull) JSReportExecutionConfiguration *configuration;
 
 @property (nonatomic, strong, readwrite, nonnull) JSReport *report;
 @property (nonatomic, strong, readwrite, nonnull) JSReportExecutionResponse *executionResponse;
@@ -69,7 +69,7 @@
 }
 
 #pragma mark - Pubilc API
-- (void)executeWithConfiguration:(JSReportExecutorConfiguration *)configuration completion:(JSReportExecutionCompletionBlock)completion {
+- (void)executeWithConfiguration:(JSReportExecutionConfiguration *)configuration completion:(JSReportExecutionCompletionBlock)completion {
     self.executeCompletion = completion;
     self.configuration = configuration;
     if (self.executionResponse) {
@@ -241,17 +241,6 @@
 - (void)cancelReportExecution {
 #warning HERE NEED CANCEL ONLY OWN REQUESTS!
     [self.restClient cancelAllRequests];
-}
-
-#pragma mark - Private API
-- (void)setExecutionResponse:(JSReportExecutionResponse *)executionResponse {
-    if (_executionResponse != executionResponse) {
-        _executionResponse = executionResponse;
-        [self.report updateRequestId:_executionResponse.requestId];
-        if (executionResponse.totalPages.integerValue) {
-            [self.report updateCountOfPages:executionResponse.totalPages.integerValue];
-        }
-    }
 }
 
 @end
