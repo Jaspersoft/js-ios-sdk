@@ -24,27 +24,28 @@
  */
 
 //
-//  JSDataType.h
+//  JSExecutionStatus.h
 //  Jaspersoft Corporation
 //
 
 #import <Foundation/Foundation.h>
 #import "JSSerializationDescriptorHolder.h"
+#import "JSConstants.h"
+
 
 /**
+ Represents a report or export execution status for convenient XML serialization process
+ 
+ @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @author Alexey Gubarev ogubarie@tibco.com
- @since 2.3
+ @since 1.8
  */
 
+@interface JSExecutionStatus : NSObject <JSSerializationDescriptorHolder>
 
-@interface JSDataType : NSObject <JSSerializationDescriptorHolder, NSCopying>
+@property (nonatomic, strong, nullable) NSString *statusAsString;
+@property (nonatomic, assign) kJS_EXECUTION_STATUS status;
 
-@property (nonatomic, assign, readonly) kJS_DT_TYPE type;
-@property (nonatomic, strong, readonly) NSString *pattern;
-@property (nonatomic, strong, readonly) id maxValue;
-@property (nonatomic, strong, readonly) id minValue;
-@property (nonatomic, assign, readonly) BOOL strictMax;
-@property (nonatomic, assign, readonly) BOOL strictMin;
-@property (nonatomic, assign, readonly) NSInteger maxLength;     
++ (nonnull RKObjectMapping *)customMapping;
 
 @end

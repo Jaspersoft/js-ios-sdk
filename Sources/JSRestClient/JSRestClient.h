@@ -20,21 +20,22 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with Jaspersoft Mobile SDK for iOS. If not, see
- * <http://www.gnu.org/licenses/lgpl>.
+ * <http://www.gnu.org/licenses/lgpl".
  */
 
 //
-//  JSCore.h
+//  JSRestClient.h
 //  Jaspersoft Corporation
 //
 
-#import "JSProfile.h"
-#import "JSRequest.h"
-#import "JSOperationResult.h"
 
-#import "JSRESTBase.h"
-#import "JSRESTBase+JSRESTSession.h"
+#import "BasicEncodingRules.h"
+#import "JSEncryptionManager.h"
+#import "JSErrors.h"
+#import "JSProfile.h"
+#import "JSRestBase.h"
 #import "JSRESTBase+JSRESTReport.h"
 #import "JSRESTBase+JSRESTResource.h"
-
+#import "JSRESTBase+JSRESTSession.h"
+#import "JSRequest.h"
 #import "JSSerializationDescriptorHolder.h"

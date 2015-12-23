@@ -35,6 +35,8 @@
 #import "JSRESTBase+JSRESTSession.h"
 #import "AFHTTPClient.h"
 #import "ServerReachability.h"
+#import "JSConstants.h"
+#import "JSUtils.h"
 
 
 // Access key and value for content-type / charset

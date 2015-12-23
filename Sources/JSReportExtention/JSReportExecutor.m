@@ -35,6 +35,8 @@
 #import "JSReportPagesRange.h"
 #import "JSReportExecutionConfiguration.h"
 #import "JSRESTBase+JSRESTReport.h"
+#import "JSConstants.h"
+#import "JSUtils.h"
 
 //#import "JSConstants.h"
 

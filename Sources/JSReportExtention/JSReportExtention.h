@@ -20,15 +20,18 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with Jaspersoft Mobile SDK for iOS. If not, see
- * <http://www.gnu.org/licenses/lgpl>.
+ * <http://www.gnu.org/licenses/lgpl".
  */
 
 //
-//  JSHelpers.h
+//  ReportExtention.h
 //  Jaspersoft Corporation
 //
 
-#import "JSConstants.h"
-#import "JSUtils.h"
-
-
+#import "JSReport.h"
+#import "JSReportPagesRange.h"
+#import "JSReportExecutionConfiguration.h"
+#import "JSReportLoaderProtocol.h"
+#import "JSReportExecutor.h"
+#import "JSReportSaver.h"
+#import "JSReportLoader.h"

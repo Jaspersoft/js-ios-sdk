@@ -30,6 +30,7 @@
 
 #import "JSInputControlOption.h"
 #import "JSInputControlDescriptor.h"
+#import "JSUtils.h"
 
 @interface JSInputControlDescriptor()
 @property (nonatomic, retain) NSArray *validationRules;

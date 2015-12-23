@@ -31,6 +31,8 @@
 
 #import "JSRESTBase+JSRESTSession.h"
 #import "JSEncryptionManager.h"
+#import "JSUtils.h"
+#import "JSConstants.h"
 
 NSString * const kJSAuthenticationUsernameKey       = @"j_username";
 NSString * const kJSAuthenticationPasswordKey       = @"j_password";

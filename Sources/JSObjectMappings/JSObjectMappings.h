@@ -20,7 +20,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with Jaspersoft Mobile SDK for iOS. If not, see
- * <http://www.gnu.org/licenses/lgpl>.
+ * <http://www.gnu.org/licenses/lgpl".
  */
 
 //
@@ -28,19 +28,34 @@
 //  Jaspersoft Corporation
 //
 
+
+// ErrorDescriptor
+#import "JSErrorDescriptor.h"
+
+// InputControls
+#import "JSInputControlDescriptor.h"
+#import "JSInputControlOption.h"
+#import "JSInputControlState.h"
+#import "JSDataType.h"
+#import "JSMandatoryValidationRule.h"
+#import "JSDateTimeFormatValidationRule.h"
+
+// Reports
+#import "JSReportAttachment.h"
+#import "JSReportOption.h"
+#import "JSReportParameter.h"
+#import "JSExecutionStatus.h"
+#import "JSExportExecutionRequest.h"
+#import "JSExportExecutionResponse.h"
+#import "JSReportExecutionRequest.h"
+#import "JSReportExecutionResponse.h"
+#import "JSReportOutputResource.h"
+
+// Resources
 #import "JSResourceLookup.h"
 #import "JSResourceReportUnit.h"
 #import "JSResourceParameter.h"
-#import "JSReportAttachment.h"
+#import "JSResourcePatchRequest.h"
+
+// ServerInfo
 #import "JSServerInfo.h"
-#import "JSInputControlDescriptor.h"
-#import "JSInputControlState.h"
-#import "JSInputControlOption.h"
-#import "JSReportParameter.h"
-#import "JSErrorDescriptor.h"
-#import "JSExecutionStatus.h"
-#import "JSExportExecutionResponse.h"
-#import "JSExportExecutionRequest.h"
-#import "JSReportOutputResource.h"
-#import "JSReportExecutionResponse.h"
-#import "JSReportExecutionRequest.h"

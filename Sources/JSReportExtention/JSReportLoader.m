@@ -34,6 +34,8 @@
 #import "JSReportExecutionConfiguration.h"
 #import "JSReportExecutionResponse.h"
 #import "JSExportExecutionResponse.h"
+#import "JSConstants.h"
+#import "JSUtils.h"
 
 @interface JSReportLoader()
 @property (nonatomic, weak, readwrite) JSReport *report;
@@ -195,7 +197,6 @@
         self.report.isReportAlreadyLoaded = (HTMLString.length > 0);
         
         [self startLoadReportHTML];
-        self.loadPageCompletionBlock(YES, nil);
     } else { // export page
         NSString *exportID = self.exportIdsDictionary[@(page)];
         if (exportID) {
@@ -272,7 +273,6 @@
                                                                  baseURLSring:strongSelf.restClient.serverProfile.serverUrl];
                                           strongSelf.report.isReportAlreadyLoaded = (result.bodyAsString.length > 0);
                                           [strongSelf startLoadReportHTML];
-                                          strongSelf.loadPageCompletionBlock(YES, nil);
                                       }
                                   }
                                   
@@ -292,17 +292,7 @@
 }
 
 - (void)startLoadReportHTML {
-//    NSString *jsMobilePath = [[NSBundle mainBundle] pathForResource:@"jaspermobile" ofType:@"js"];
-//    NSError *error;
-//    NSString *jsMobile = [NSString stringWithContentsOfFile:jsMobilePath encoding:NSUTF8StringEncoding error:&error];
-//    CGFloat initialZoom = 2;
-//    if ([JMUtils isCompactWidth] || [JMUtils isCompactHeight]) {
-//        initialZoom = 1;
-//    }
-//    jsMobile = [jsMobile stringByReplacingOccurrencesOfString:@"INITIAL_ZOOM" withString:@(initialZoom).stringValue];
-//    [self.bridge injectJSInitCode:jsMobile];
-//    [self.bridge startLoadHTMLString:self.report.HTMLString
-//                             baseURL:[NSURL URLWithString:self.report.baseURLString]];
+    self.loadPageCompletionBlock(YES, nil);
 }
 
 #pragma mark - Check status

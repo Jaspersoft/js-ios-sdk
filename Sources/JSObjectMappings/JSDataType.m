@@ -29,6 +29,8 @@
 //
 
 #import "JSDataType.h"
+#import "JSUtils.h"
+
 
 @interface JSDataType ()
 @property (nonatomic, strong) NSString *typeAsString;

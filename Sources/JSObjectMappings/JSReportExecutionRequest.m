@@ -24,14 +24,15 @@
  */
 
 //
-//  JSReportExecutionRequest.h
+//  JSReportExecutionRequest.m
 //  Jaspersoft Corporation
 //
 
-#import "JSExportExecutionRequest.h"
+#import "JSReportExecutionRequest.h"
 #import "JSServerInfo.h"
+#import "JSConstants.h"
 
-@implementation JSExportExecutionRequest
+@implementation JSReportExecutionRequest
 
 #pragma mark - JSSerializationDescriptorHolder
 
@@ -47,14 +48,24 @@
 + (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
     RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
     [classMapping addAttributeMappingsFromDictionary:@{
+                                                       @"reportUnitUri": @"reportUnitUri",
+                                                       @"async": @"async",
                                                        @"outputFormat": @"outputFormat",
+                                                       @"interactive": @"interactive",
+                                                       @"freshData": @"freshData",
+                                                       @"saveDataSnapshot": @"saveDataSnapshot",
+                                                       @"ignorePagination": @"ignorePagination",
+                                                       @"transformerKey": @"transformerKey",
                                                        @"pages": @"pages",
                                                        @"attachmentsPrefix": @"attachmentsPrefix",
                                                        }];
-
     if (serverProfile && serverProfile.serverInfo.versionAsFloat >= kJS_SERVER_VERSION_CODE_EMERALD_5_6_0) {
-        [classMapping addPropertyMapping:[RKAttributeMapping attributeMappingFromKeyPath:@"baseUrl" toKeyPath:@"baseUrl"]];
+        [classMapping addPropertyMapping:[RKAttributeMapping attributeMappingFromKeyPath:@"baseUrl" toKeyPath:@"baseURL"]];
     }
+    
+    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"parameters.reportParameter"
+                                                                                 toKeyPath:@"parameters"
+                                                                               withMapping:[JSReportParameter classMappingForServerProfile:serverProfile]]];
 
     return classMapping;
 }

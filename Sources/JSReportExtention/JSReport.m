@@ -33,6 +33,8 @@
 #import "JSResourceLookup.h"
 #import "JSInputControlDescriptor.h"
 #import "JSReportParameter.h"
+#import "JSConstants.h"
+#import "JSUtils.h"
 
 NSString * const kJSReportIsMutlipageDidChangedNotification = @"kJSReportIsMutlipageDidChangedNotification";
 NSString * const kJSReportCountOfPagesDidChangeNotification = @"kJSReportCountOfPagesDidChangeNotification";

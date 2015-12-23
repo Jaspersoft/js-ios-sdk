@@ -31,6 +31,7 @@
 #import "JSProfile.h"
 #import "KeychainItemWrapper.h"
 #import "JSEncryptionManager.h"
+#import "JSUtils.h"
 
 NSString * const kJSSavedProfileAliasKey        = @"JSSavedSessionKey";
 NSString * const kJSSavedProfileServerUrlKey    = @"JSSavedProfileServerUrlKey";

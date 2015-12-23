@@ -32,6 +32,8 @@
 #import "JSRESTBase+JSRESTResource.h"
 #import "JSResourcePatchRequest.h"
 #import "JSResourceLookup.h"
+#import "JSConstants.h"
+#import "JSUtils.h"
 
 // HTTP resources search parameters
 NSString * const _parameterQuery = @"q";
