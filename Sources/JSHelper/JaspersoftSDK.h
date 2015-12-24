@@ -28,22 +28,16 @@
 //  Jaspersoft Corporation
 //
 
-#if __has_include(<JaspersoftSDK/JSRestClient.h>)
-#import <JaspersoftSDK/JSRestClient.h>
+
+
+#import "JSHelper.h"
+#import "JSRestClient.h"
+#import "JSObjectMappings.h"
+
+#if __has_include("JSReportExtention.h")
+#import "JSReportExtention.h"
 #endif
 
-#if __has_include(<JaspersoftSDK/JSObjectMappings.h>)
-#import <JaspersoftSDK/JSObjectMappings.h>
-#endif
-
-#if __has_include(<JaspersoftSDK/JSReportExtention.h>)
-#import <JaspersoftSDK/JSReportExtention.h>
-#endif
-
-#if __has_include(<JaspersoftSDK/JSHelper.h>)
-#import <JaspersoftSDK/JSHelper.h>
-#endif
-
-#if __has_include(<JaspersoftSDK/JSSecurity.h>)
-#import <JaspersoftSDK/JSSecurity.h>
+#if __has_include("JSSecurity.h")
+#import "JSSecurity.h"
 #endif

@@ -37,7 +37,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <JaspersoftSDK/JSSerializationDescriptorHolder.h>
+#import "JSSerializationDescriptorHolder.h"
 
 @class JSInputControlDescriptor;
 

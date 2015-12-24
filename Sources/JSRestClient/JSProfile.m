@@ -30,8 +30,10 @@
 
 #import "JSProfile.h"
 #import "KeychainItemWrapper.h"
-#import "JSEncryptionManager.h"
-#import "JSUtils.h"
+
+#if __has_include("JSSecurity.h")
+#import "JSSecurity.h"
+#endif
 
 NSString * const kJSSavedProfileAliasKey        = @"JSSavedSessionKey";
 NSString * const kJSSavedProfileServerUrlKey    = @"JSSavedProfileServerUrlKey";
@@ -73,12 +75,16 @@ NSString * const kJSSavedProfileServerInfoKey   = @"JSSavedProfileServerInfoKey"
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    JSEncryptionManager *encryptionManager = [JSEncryptionManager new];
-    NSString *encryptedUsername = [encryptionManager encryptText:_username
-                                                         withKey:[NSString stringWithFormat:@"%@.%@", kJSSavedProfileUsernameKey, _alias]];
-    NSString *encryptedPassword = [encryptionManager encryptText:_username
-                                                         withKey:[NSString stringWithFormat:@"%@.%@", kJSSavedProfilePasswordKey, _alias]];
+    NSString *encryptedUsername = _username;
+    NSString *encryptedPassword = _password;
 
+    
+#if __has_include("JSSecurity.h")
+    JSEncryptionManager *encryptionManager = [JSEncryptionManager new];
+    encryptedUsername = [encryptionManager encryptText:_username withKey:[NSString stringWithFormat:@"%@.%@", kJSSavedProfileUsernameKey, _alias]];
+    encryptedPassword = [encryptionManager encryptText:_username withKey:[NSString stringWithFormat:@"%@.%@", kJSSavedProfilePasswordKey, _alias]];
+#endif
+    
     // Store username and password in Keychain
     KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:[JSUtils keychainIdentifier] accessGroup:nil];
     [wrapper setObject:encryptedUsername forKey:(__bridge id)kSecAttrAccount];
@@ -102,11 +108,16 @@ NSString * const kJSSavedProfileServerInfoKey   = @"JSSavedProfileServerInfoKey"
         KeychainItemWrapper *wrapper;
         @try {
             wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:[JSUtils keychainIdentifier] accessGroup:nil];
+#if __has_include("JSSecurity.h")
             JSEncryptionManager *encryptionManager = [JSEncryptionManager new];
             _username = [encryptionManager decryptText:[wrapper objectForKey:(__bridge id)kSecAttrAccount]
                                                withKey:[NSString stringWithFormat:@"%@.%@", kJSSavedProfileUsernameKey, _alias]];
             _password = [encryptionManager decryptText:[wrapper objectForKey:(__bridge id)kSecValueData]
                                                withKey:[NSString stringWithFormat:@"%@.%@", kJSSavedProfilePasswordKey, _alias]];
+#else
+            _username = (NSString *)[wrapper objectForKey:(__bridge id)kSecAttrAccount];
+            _password = (NSString *)[wrapper objectForKey:(__bridge id)kSecValueData];
+#endif
         }
         @catch (NSException *exception) {
             NSLog(@"\nException name: %@\nException reason: %@", exception.name, exception.reason);

@@ -31,7 +31,6 @@
 
 #import "JSReportExecutionConfiguration.h"
 #import "JSServerInfo.h"
-#import "JSConstants.h"
 
 @implementation JSReportExecutionConfiguration
 

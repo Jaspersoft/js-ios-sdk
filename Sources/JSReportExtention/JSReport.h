@@ -34,7 +34,9 @@
  @since 2.3
  */
 
-@class JSReportOption, JSResourceLookup, JSInputControlDescriptor, JSReportParameter;
+#import "JSResourceLookup.h"
+
+@class JSReportOption, JSInputControlDescriptor, JSReportParameter;
 
 extern NSString * const kJSReportIsMutlipageDidChangedNotification;
 extern NSString * const kJSReportCountOfPagesDidChangeNotification;

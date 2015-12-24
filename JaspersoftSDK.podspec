@@ -46,6 +46,10 @@ Pod::Spec.new do |s|
 		
 		jscSpec.prefix_header_contents = <<-EOS
 			#import <Availability.h>
+
+			#import "JSConstants.h"
+			#import "JSUtils.h"
+
 			#define _AFNETWORKING_PIN_SSL_CERTIFICATES_
 			#if __IPHONE_OS_VERSION_MIN_REQUIRED
 			  #import <SystemConfiguration/SystemConfiguration.h>
@@ -63,6 +67,7 @@ Pod::Spec.new do |s|
 	end
 
 	s.subspec 'JSSecurity' do |jssSpec|
+		jssSpec.dependency 'JaspersoftSDK/JSCore'
     	jssSpec.source_files = 'Sources/JSSecurity.h', 'Sources/JSSecurity'
 	end
 	

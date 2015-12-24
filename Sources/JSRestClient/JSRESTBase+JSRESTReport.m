@@ -39,8 +39,6 @@
 
 #import "JSReportExecutionRequest.h"
 #import "RKURLEncodedSerialization.h"
-#import "JSConstants.h"
-#import "JSUtils.h"
 
 // Report query used for setting output format (i.e PDF, HTML, etc.)
 // and path for images (current dir) when exporting report in HTML

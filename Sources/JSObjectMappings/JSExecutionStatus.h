@@ -30,7 +30,6 @@
 
 #import <Foundation/Foundation.h>
 #import "JSSerializationDescriptorHolder.h"
-#import "JSConstants.h"
 
 
 /**

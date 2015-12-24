@@ -30,9 +30,10 @@
 
 
 #import "JSRESTBase+JSRESTSession.h"
-#import "JSEncryptionManager.h"
-#import "JSUtils.h"
-#import "JSConstants.h"
+
+#if __has_include("JSSecurity.h")
+#import "JSSecurity.h"
+#endif
 
 NSString * const kJSAuthenticationUsernameKey       = @"j_username";
 NSString * const kJSAuthenticationPasswordKey       = @"j_password";
@@ -175,6 +176,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     NSString *organization = self.serverProfile.organization;
 
     __weak typeof(self)weakSelf = self;
+#if __has_include("JSSecurity.h")
     [self fetchEncryptionKeyWithCompletion:^(NSString *modulus, NSString *exponent, NSError *error) {
         NSString *encPassword = password;
         if (modulus && exponent) {
@@ -196,6 +198,20 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
                                             }
                                         }];
         }];
+#else 
+    [self fetchAuthenticationTokenWithUsername:username
+                                      password:password
+                                  organization:organization
+                                        method:RKRequestMethodPOST // TODO: make select method
+                                    completion:^(BOOL isTokenFetchedSuccessful) {
+                                        __strong typeof(self)strongSelf = weakSelf;
+#warning - WHY WE SET JSONType HERE??????
+                                        strongSelf.restKitObjectManager.requestSerializationMIMEType = RKMIMETypeJSON;
+                                        if (completion) {
+                                            completion(isTokenFetchedSuccessful);
+                                        }
+                                    }];
+#endif
 }
 
 @end

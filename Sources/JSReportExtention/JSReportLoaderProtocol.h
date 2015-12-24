@@ -35,6 +35,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "JSReport.h"
 
 typedef NS_ENUM(NSInteger, JSReportLoaderErrorType) {
     JSReportLoaderErrorTypeUndefined,
@@ -45,7 +46,7 @@ typedef NS_ENUM(NSInteger, JSReportLoaderErrorType) {
 
 typedef void(^JSReportLoaderCompletionBlock)(BOOL success, NSError * __nullable error);
 
-@class JSReport, JSRESTBase;
+@class JSRESTBase;
 
 @protocol JSReportLoaderProtocol <NSObject>
 

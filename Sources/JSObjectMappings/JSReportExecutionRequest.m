@@ -30,7 +30,6 @@
 
 #import "JSReportExecutionRequest.h"
 #import "JSServerInfo.h"
-#import "JSConstants.h"
 
 @implementation JSReportExecutionRequest
 
