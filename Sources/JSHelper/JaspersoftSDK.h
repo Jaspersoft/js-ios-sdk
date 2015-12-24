@@ -40,8 +40,8 @@
 #import <JaspersoftSDK/JSReportExtention.h>
 #endif
 
-#if __has_include(<JaspersoftSDK/JSUtils.h>)
-#import <JaspersoftSDK/JSUtils.h>
+#if __has_include(<JaspersoftSDK/JSHelper.h>)
+#import <JaspersoftSDK/JSHelper.h>
 #endif
 
 #if __has_include(<JaspersoftSDK/JSSecurity.h>)

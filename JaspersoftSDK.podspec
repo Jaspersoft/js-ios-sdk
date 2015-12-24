@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name = 'JaspersoftSDK'
-	s.version = '2.3'
+	s.version = '2.3-beta'
 	s.summary = 'JaspersoftSDK - The simplest way to build JasperReports Server apps.'
 	s.description = <<-DESC
 		JaspersoftSDK for iOS is a set of Objective-C classes to easily connect
@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
 	s.author = 'TIBCO Software'
 	s.platform = :ios, '6.0'
 	s.source = { :git => 'https://github.com/Jaspersoft/js-ios-sdk.git', :tag => s.version.to_s }
-
+	s.public_header_files = "Sources/*.h"
 	s.framework = 'Foundation'	
 
 	# Platform setup
@@ -25,13 +25,13 @@ Pod::Spec.new do |s|
     s.header_mappings_dir = 'Sources'
 
 	### Subspecs	
-	s.subspec 'JSCore' do |jscSpec|
+	s.subspec 'JSCore' do |jscSpec|	
 		jscSpec.dependency 'JaspersoftSDK/Resources'
     	jscSpec.dependency 'RestKit/Core', '~> 0.24.0'
 		jscSpec.dependency 'ServerReachability'
 		
-		jscSpec.subspec 'JSUtils' do |jsuSpec|
-    		jsuSpec.source_files = 'Sources/JSUtils'
+		jscSpec.subspec 'JSHelper' do |jshSpec|
+    		jshSpec.source_files = 'Sources/JSHelper'
 		end
 		jscSpec.subspec 'JSObjectMappings' do |jsomSpec|
     		jsomSpec.source_files = 'Sources/JSObjectMappings'

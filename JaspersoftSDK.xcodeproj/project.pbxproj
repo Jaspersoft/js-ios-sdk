@@ -21,7 +21,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		0849FC8C1C2B0A91008F1064 /* JaspersoftSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 0849FC301C2B0A91008F1064 /* JaspersoftSDK.h */; };
 		0849FC8D1C2B0A91008F1064 /* JSDataType.h in Headers */ = {isa = PBXBuildFile; fileRef = 0849FC321C2B0A91008F1064 /* JSDataType.h */; };
 		0849FC8E1C2B0A91008F1064 /* JSDataType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849FC331C2B0A91008F1064 /* JSDataType.m */; };
 		0849FC8F1C2B0A91008F1064 /* JSDateTimeFormatValidationRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 0849FC341C2B0A91008F1064 /* JSDateTimeFormatValidationRule.h */; };
@@ -103,10 +102,12 @@
 		0849FCDB1C2B0A93008F1064 /* JSEncryptionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0849FC841C2B0A91008F1064 /* JSEncryptionManager.h */; };
 		0849FCDC1C2B0A93008F1064 /* JSEncryptionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849FC851C2B0A91008F1064 /* JSEncryptionManager.m */; };
 		0849FCDD1C2B0A93008F1064 /* JSSecurity.h in Headers */ = {isa = PBXBuildFile; fileRef = 0849FC861C2B0A91008F1064 /* JSSecurity.h */; };
-		0849FCDE1C2B0A93008F1064 /* JSConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 0849FC881C2B0A91008F1064 /* JSConstants.h */; };
-		0849FCDF1C2B0A93008F1064 /* JSConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849FC891C2B0A91008F1064 /* JSConstants.m */; };
-		0849FCE01C2B0A93008F1064 /* JSUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 0849FC8A1C2B0A91008F1064 /* JSUtils.h */; };
-		0849FCE11C2B0A93008F1064 /* JSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849FC8B1C2B0A91008F1064 /* JSUtils.m */; };
+		0849FCE91C2C1D7D008F1064 /* JaspersoftSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 0849FCE31C2C1D7D008F1064 /* JaspersoftSDK.h */; };
+		0849FCEA1C2C1D7D008F1064 /* JSConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 0849FCE41C2C1D7D008F1064 /* JSConstants.h */; };
+		0849FCEB1C2C1D7D008F1064 /* JSConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849FCE51C2C1D7D008F1064 /* JSConstants.m */; };
+		0849FCEC1C2C1D7D008F1064 /* JSHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 0849FCE61C2C1D7D008F1064 /* JSHelper.h */; };
+		0849FCED1C2C1D7D008F1064 /* JSUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 0849FCE71C2C1D7D008F1064 /* JSUtils.h */; };
+		0849FCEE1C2C1D7D008F1064 /* JSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849FCE81C2C1D7D008F1064 /* JSUtils.m */; };
 		722EF964428E5B92861DCAC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE65D84777378DA82ED7BA4 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -119,7 +120,6 @@
 		0811BCA91C08903E006D0ABF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
 		0811BCAA1C08903E006D0ABF /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
 		0811BCAB1C08903E006D0ABF /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
-		0849FC301C2B0A91008F1064 /* JaspersoftSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JaspersoftSDK.h; sourceTree = "<group>"; };
 		0849FC321C2B0A91008F1064 /* JSDataType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDataType.h; sourceTree = "<group>"; };
 		0849FC331C2B0A91008F1064 /* JSDataType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDataType.m; sourceTree = "<group>"; };
 		0849FC341C2B0A91008F1064 /* JSDateTimeFormatValidationRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDateTimeFormatValidationRule.h; sourceTree = "<group>"; };
@@ -201,10 +201,12 @@
 		0849FC841C2B0A91008F1064 /* JSEncryptionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSEncryptionManager.h; sourceTree = "<group>"; };
 		0849FC851C2B0A91008F1064 /* JSEncryptionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSEncryptionManager.m; sourceTree = "<group>"; };
 		0849FC861C2B0A91008F1064 /* JSSecurity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSSecurity.h; sourceTree = "<group>"; };
-		0849FC881C2B0A91008F1064 /* JSConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSConstants.h; sourceTree = "<group>"; };
-		0849FC891C2B0A91008F1064 /* JSConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSConstants.m; sourceTree = "<group>"; };
-		0849FC8A1C2B0A91008F1064 /* JSUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSUtils.h; sourceTree = "<group>"; };
-		0849FC8B1C2B0A91008F1064 /* JSUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSUtils.m; sourceTree = "<group>"; };
+		0849FCE31C2C1D7D008F1064 /* JaspersoftSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JaspersoftSDK.h; sourceTree = "<group>"; };
+		0849FCE41C2C1D7D008F1064 /* JSConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSConstants.h; sourceTree = "<group>"; };
+		0849FCE51C2C1D7D008F1064 /* JSConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSConstants.m; sourceTree = "<group>"; };
+		0849FCE61C2C1D7D008F1064 /* JSHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSHelper.h; sourceTree = "<group>"; };
+		0849FCE71C2C1D7D008F1064 /* JSUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSUtils.h; sourceTree = "<group>"; };
+		0849FCE81C2C1D7D008F1064 /* JSUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSUtils.m; sourceTree = "<group>"; };
 		1AE65D84777378DA82ED7BA4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B199A7873E268BCFDF3074C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		A14780856156D274B677AF06 /* TIB_jsm-sdk-ios_2.1.1_license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TIB_jsm-sdk-ios_2.1.1_license.txt"; sourceTree = "<group>"; };
@@ -254,12 +256,11 @@
 		0849FC2F1C2B0A91008F1064 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				0849FC301C2B0A91008F1064 /* JaspersoftSDK.h */,
+				0849FCE21C2C1D7D008F1064 /* JSHelper */,
 				0849FC311C2B0A91008F1064 /* JSObjectMappings */,
 				0849FC5F1C2B0A91008F1064 /* JSReportExtention */,
 				0849FC6E1C2B0A91008F1064 /* JSRestClient */,
 				0849FC811C2B0A91008F1064 /* JSSecurity */,
-				0849FC871C2B0A91008F1064 /* JSUtils */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -381,15 +382,17 @@
 			path = JSSecurity;
 			sourceTree = "<group>";
 		};
-		0849FC871C2B0A91008F1064 /* JSUtils */ = {
+		0849FCE21C2C1D7D008F1064 /* JSHelper */ = {
 			isa = PBXGroup;
 			children = (
-				0849FC881C2B0A91008F1064 /* JSConstants.h */,
-				0849FC891C2B0A91008F1064 /* JSConstants.m */,
-				0849FC8A1C2B0A91008F1064 /* JSUtils.h */,
-				0849FC8B1C2B0A91008F1064 /* JSUtils.m */,
+				0849FCE31C2C1D7D008F1064 /* JaspersoftSDK.h */,
+				0849FCE41C2C1D7D008F1064 /* JSConstants.h */,
+				0849FCE51C2C1D7D008F1064 /* JSConstants.m */,
+				0849FCE61C2C1D7D008F1064 /* JSHelper.h */,
+				0849FCE71C2C1D7D008F1064 /* JSUtils.h */,
+				0849FCE81C2C1D7D008F1064 /* JSUtils.m */,
 			);
-			path = JSUtils;
+			path = JSHelper;
 			sourceTree = "<group>";
 		};
 		D919A263B01FF70A80C7A549 /* Pods */ = {
@@ -467,7 +470,6 @@
 				0849FC931C2B0A91008F1064 /* JSExecutionStatus.h in Headers */,
 				0849FCC41C2B0A92008F1064 /* JSReportPagesRange.h in Headers */,
 				0849FCC31C2B0A92008F1064 /* JSReportLoaderProtocol.h in Headers */,
-				0849FC8C1C2B0A91008F1064 /* JaspersoftSDK.h in Headers */,
 				0849FCBE1C2B0A92008F1064 /* JSReportExecutor.h in Headers */,
 				0849FC8F1C2B0A91008F1064 /* JSDateTimeFormatValidationRule.h in Headers */,
 				0849FCA11C2B0A91008F1064 /* JSObjectMappings.h in Headers */,
@@ -485,14 +487,17 @@
 				0849FC951C2B0A91008F1064 /* JSExportExecutionRequest.h in Headers */,
 				0849FCAE1C2B0A91008F1064 /* JSReportParameter.h in Headers */,
 				0849FCDD1C2B0A93008F1064 /* JSSecurity.h in Headers */,
+				0849FCE91C2C1D7D008F1064 /* JaspersoftSDK.h in Headers */,
 				0849FCCD1C2B0A92008F1064 /* JSRESTBase+JSRESTReport.h in Headers */,
 				0849FCD91C2B0A93008F1064 /* BasicEncodingRules.h in Headers */,
 				0849FCD31C2B0A92008F1064 /* JSRESTBase.h in Headers */,
-				0849FCDE1C2B0A93008F1064 /* JSConstants.h in Headers */,
+				0849FCEA1C2C1D7D008F1064 /* JSConstants.h in Headers */,
 				0849FCD51C2B0A92008F1064 /* JSRestClient.h in Headers */,
 				0849FCB41C2B0A91008F1064 /* JSResourcePatchRequest.h in Headers */,
 				0849FCB21C2B0A91008F1064 /* JSResourceParameter.h in Headers */,
+				0849FCED1C2C1D7D008F1064 /* JSUtils.h in Headers */,
 				0849FCD61C2B0A93008F1064 /* JSSerializationDescriptorHolder.h in Headers */,
+				0849FCEC1C2C1D7D008F1064 /* JSHelper.h in Headers */,
 				0849FCA41C2B0A91008F1064 /* JSReportAttachment.h in Headers */,
 				0849FCD11C2B0A92008F1064 /* JSRESTBase+JSRESTSession.h in Headers */,
 				0849FCAC1C2B0A91008F1064 /* JSReportOutputResource.h in Headers */,
@@ -501,7 +506,6 @@
 				0849FCB01C2B0A91008F1064 /* JSResourceLookup.h in Headers */,
 				0849FCC81C2B0A92008F1064 /* JSErrors.h in Headers */,
 				0849FC911C2B0A91008F1064 /* JSErrorDescriptor.h in Headers */,
-				0849FCE01C2B0A93008F1064 /* JSUtils.h in Headers */,
 				0849FCB81C2B0A91008F1064 /* JSServerInfo.h in Headers */,
 				0849FCA81C2B0A91008F1064 /* JSReportExecutionResponse.h in Headers */,
 				0849FCDB1C2B0A93008F1064 /* JSEncryptionManager.h in Headers */,
@@ -632,7 +636,7 @@
 				0849FC9A1C2B0A91008F1064 /* JSInputControlDescriptor.m in Sources */,
 				0849FC8E1C2B0A91008F1064 /* JSDataType.m in Sources */,
 				0849FCBF1C2B0A92008F1064 /* JSReportExecutor.m in Sources */,
-				0849FCE11C2B0A93008F1064 /* JSUtils.m in Sources */,
+				0849FCEE1C2C1D7D008F1064 /* JSUtils.m in Sources */,
 				0849FCCC1C2B0A92008F1064 /* JSRequest.m in Sources */,
 				0849FCA31C2B0A91008F1064 /* JSOperationResult.m in Sources */,
 				0849FCB71C2B0A91008F1064 /* JSResourceReportUnit.m in Sources */,
@@ -653,7 +657,7 @@
 				0849FCC51C2B0A92008F1064 /* JSReportPagesRange.m in Sources */,
 				0849FCB11C2B0A91008F1064 /* JSResourceLookup.m in Sources */,
 				0849FCBB1C2B0A92008F1064 /* JSReport.m in Sources */,
-				0849FCDF1C2B0A93008F1064 /* JSConstants.m in Sources */,
+				0849FCEB1C2C1D7D008F1064 /* JSConstants.m in Sources */,
 				0849FCDA1C2B0A93008F1064 /* BasicEncodingRules.m in Sources */,
 				0849FCC21C2B0A92008F1064 /* JSReportLoader.m in Sources */,
 				0849FCB31C2B0A91008F1064 /* JSResourceParameter.m in Sources */,
