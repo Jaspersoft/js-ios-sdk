@@ -35,6 +35,7 @@
 #import "JSRESTBase+JSRESTSession.h"
 #import "AFHTTPClient.h"
 #import "ServerReachability.h"
+#import "JSErrorBuilder.h"
 
 
 // Access key and value for content-type / charset
@@ -417,56 +418,75 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         } else {
             result.error = nil;
         }
+
     } else {
         NSError *operationError = ([restKitOperation error]) ? [restKitOperation error] : [httpOperation error];
         if (![result isSuccessful] || operationError) {
-            NSString *errorDomain = operationError.domain;
-            NSString *errorDescription;
-            NSInteger errorCode;
-            
+
+            NSError *error;
             if (httpOperation.response.statusCode == 401) {
-                errorCode = JSSessionExpiredErrorCode;
-                errorDomain = NSURLErrorDomain;
-                errorDescription = [NSHTTPURLResponse localizedStringForStatusCode:httpOperation.response.statusCode];
+
+                error = [[JSErrorBuilder sharedBuilder] httpErrorWithCode:JSHTTPErrorCode
+                                                                 HTTPCode:httpOperation.response.statusCode
+                                                                  message:nil];
+
             } else if (httpOperation.response.statusCode && !operationError) {
-                errorCode = JSNetworkErrorCode;
-                errorDomain = NSURLErrorDomain;
-                errorDescription = [NSHTTPURLResponse localizedStringForStatusCode:httpOperation.response.statusCode];
+
+                error = [[JSErrorBuilder sharedBuilder] httpErrorWithCode:JSHTTPErrorCode
+                                                                 HTTPCode:httpOperation.response.statusCode
+                                                                  message:nil];
+
             } else if ([operationError.domain isEqualToString:NSURLErrorDomain] || [operationError.domain isEqualToString:AFNetworkingErrorDomain]) {
+
                 switch (operationError.code) {
                     case NSURLErrorUserCancelledAuthentication:
-                    case NSURLErrorUserAuthenticationRequired:
-                        errorCode = JSSessionExpiredErrorCode;
-                        errorDescription = [NSHTTPURLResponse localizedStringForStatusCode:401];
+                    case NSURLErrorUserAuthenticationRequired: {
+                        error = [[JSErrorBuilder sharedBuilder] authErrorWithCode:JSSessionExpiredErrorCode
+                                                                          message:[NSHTTPURLResponse localizedStringForStatusCode:401]];
                         break;
-                    case NSURLErrorTimedOut:
-                        errorCode = JSRequestTimeOutErrorCode;
+                    }
+                    case NSURLErrorTimedOut: {
+                        // TODO: Create Error message
+                        error = [[JSErrorBuilder sharedBuilder] networkErrorWithCode:JSRequestTimeOutErrorCode
+                                                                             message:nil];
                         break;
-                    default:
-                        errorCode = JSNetworkErrorCode;
+                    }
+                    default: {
+                        error = [[JSErrorBuilder sharedBuilder] httpErrorWithCode:JSHTTPErrorCode
+                                                                         HTTPCode:httpOperation.response.statusCode
+                                                                          message:nil];
+                    }
                 }
+
             } else {
-                if ([operationError.userInfo objectForKey:RKObjectMapperErrorObjectsKey]) {
-                    result.objects = [operationError.userInfo objectForKey:RKObjectMapperErrorObjectsKey];
-                    errorCode = JSClientErrorCode;
-                } else if ([operationError.userInfo objectForKey:RKDetailedErrorsKey]) {
-                    result.objects = [operationError.userInfo objectForKey:RKDetailedErrorsKey];
-                    errorCode = JSDataMappingErrorCode;
+
+                JSErrorCode code = JSErrorCodeUndefined;
+                if (operationError.userInfo[RKObjectMapperErrorObjectsKey]) {
+                    result.objects = operationError.userInfo[RKObjectMapperErrorObjectsKey];
+                    code = JSClientErrorCode;
+                } else if (operationError.userInfo[RKDetailedErrorsKey]) {
+                    result.objects = operationError.userInfo[RKDetailedErrorsKey];
+                    code = JSDataMappingErrorCode;
                 } else {
-                    errorCode = JSOtherErrorCode;
+                    code = JSOtherErrorCode;
                 }
+
+                NSString *message;
                 if (result.objects && [result.objects count]) {
-                    errorDescription = @"";
+                    message = @"";
                     for (JSErrorDescriptor *errDescriptor in result.objects) {
                         if ([errDescriptor isKindOfClass:[errDescriptor class]]) {
-                            NSString *formatString = errorDescription.length ? @",\n%@" : @"%@";
-                            errorDescription = [errorDescription stringByAppendingFormat:formatString, errDescriptor.message];
+                            NSString *formatString = message.length ? @",\n%@" : @"%@";
+                            message = [message stringByAppendingFormat:formatString, errDescriptor.message];
                         }
                     }
                 }
+
+                error = [[JSErrorBuilder sharedBuilder] errorWithCode:code
+                                                              message:message];
             }
-            NSDictionary *userInfo = errorDescription ? @{NSLocalizedDescriptionKey : errorDescription} : operationError.userInfo;
-            result.error = [NSError errorWithDomain:errorDomain code:errorCode userInfo:userInfo];
+
+            result.error = error;
         } else {
             if ([restKitOperation isKindOfClass:[RKObjectRequestOperation class]]) {
                 RKObjectRequestOperation *objectOperation = (RKObjectRequestOperation *)restKitOperation;
@@ -514,9 +534,13 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     
     if (!result.error && !result.request.responseAsObjects && [result.request.downloadDestinationPath length]) {
         NSError *fileSavingError = nil;
-        [result.body writeToFile:result.request.downloadDestinationPath options:NSDataWritingAtomic error:&fileSavingError];
+        [result.body writeToFile:result.request.downloadDestinationPath
+                         options:NSDataWritingAtomic
+                           error:&fileSavingError];
+
         if (fileSavingError) {
-            result.error = [NSError errorWithDomain:NSCocoaErrorDomain code:JSFileSavingErrorCode userInfo:fileSavingError.userInfo];
+            result.error = [[JSErrorBuilder sharedBuilder] errorWithCode:JSFileSavingErrorCode
+                                                                 message:fileSavingError.userInfo[NSLocalizedDescriptionKey]];
         }
     }
     
@@ -536,8 +560,10 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 
 - (JSOperationResult *) requestOperationForFailedConnection {
     JSOperationResult *result = [JSOperationResult new];
-    
-    result.error = [NSError errorWithDomain:NSURLErrorDomain code:JSServerNotReachableErrorCode userInfo:@{NSLocalizedDescriptionKey : [NSHTTPURLResponse localizedStringForStatusCode:502]}];
+
+    result.error = [[JSErrorBuilder sharedBuilder] networkErrorWithCode:JSServerNotReachableErrorCode
+                                                                message:[NSHTTPURLResponse localizedStringForStatusCode:502]];
+
     return result;
 }
 

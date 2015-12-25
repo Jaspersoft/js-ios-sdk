@@ -30,3 +30,4 @@
 
 #import "JSUtils.h"
 #import "JSConstants.h"
+#import "JSErrorBuilder.h"
