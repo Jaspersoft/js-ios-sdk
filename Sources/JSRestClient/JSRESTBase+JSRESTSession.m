@@ -85,18 +85,14 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
                         if (modulus && exponent) {
                             completion(modulus, exponent, nil);
                         } else {
-                            NSString *localizedDescription = JSCustomLocalizedString(@"session.encription.key.doesn't.valid", nil);
-                            NSDictionary *userInfo = @{NSLocalizedDescriptionKey : localizedDescription};
-                            error = [NSError errorWithDomain:NSURLErrorDomain code:JSClientErrorCode userInfo:userInfo];
+                            NSError *error = [JSErrorBuilder errorWithCode:JSClientErrorCode message:JSCustomLocalizedString(@"session.encription.key.doesn't.valid", nil)];
                             completion(nil, nil, error);
                         }
                     } else {
                         completion(nil, nil, error);
                     }
                 } else {
-                    NSString *localizedDescription = JSCustomLocalizedString(@"session.encription.key.data.empty", nil);
-                    NSDictionary *userInfo = @{NSLocalizedDescriptionKey : localizedDescription};
-                    error = [NSError errorWithDomain:NSURLErrorDomain code:JSClientErrorCode userInfo:userInfo];
+                    NSError *error = [JSErrorBuilder errorWithCode:JSClientErrorCode message:JSCustomLocalizedString(@"session.encription.key.data.empty", nil)];
                     completion(nil, nil, error);
                 }
             }

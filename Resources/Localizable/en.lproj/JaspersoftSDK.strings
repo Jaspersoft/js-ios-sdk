@@ -44,11 +44,22 @@
 "session.encription.key.data.empty" = "Encription Key data is empty.";
 "session.encription.key.doesn't.valid" = "Encription Key doesn't valid. Modulus or exponent is absent.";
 
-/* Report execution */
-"report.execution.executionResponce.doesn't.ready" = "Sorry, but report execution responce doesn't ready.";
-
 /* Report loader */
 "report.viewer.emptyreport.title" = "Report is empty.";
 
-/* Common */
-"error.readingresponse.msg" = "Failed to load data!";
+/* HTTP error messages */
+
+"error.http.400" = "400 - Bad Request. The request was invalid.";
+"error.http.401" = "401 - Unauthorized. Authorize please.";
+"error.http.403" = "403 - Permission Denied. The request is understood, but it has been refused.";
+"error.http.404" = "404 - Not Found. The URI requested is invalid or the resource requested does not exists.";
+"error.http.500" = "500 - Internal Server Error.";
+"error.http.502" = "502 - Bad Gateway.";
+"error.http.503" = "503 - Service Unavailable.";
+"error.http.504" = "504 - Gateway Timeout.";
+
+/* Common error */
+"error.reading.response.msg" = "Failed to load data!";
+"error.data.mapping.msg" = "Sorry, but response doesn't ready or invalid.";
+"error.other.msg" = "Sorry, but something went wrong.";
+"error.file.saving.msg" = "Sorry, failure to save file.";

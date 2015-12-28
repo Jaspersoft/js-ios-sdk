@@ -4,81 +4,80 @@
 
 #import "JSErrorBuilder.h"
 
-NSString * const JSErrorDomain = @"JSErrorDomain";
-NSString * const JSHTTPErrorDomain = @"JSHTTPErrorDomain";
-NSString * const JSAuthErrorDomain = @"JSAuthErrorDomain";
-
 NSString * const JSHTTPErrorResponseStatusKey = @"JSHTTPErrorResponseStatusKey";
 
 @implementation JSErrorBuilder
 
-+ (instancetype)sharedBuilder
-{
-    static JSErrorBuilder *sharedBuilder;
-    static dispatch_once_t token_once;
-
-    dispatch_once(&token_once, ^{
-        sharedBuilder = [self new];
-    });
-
-    return sharedBuilder;
-}
-
-
 #pragma mark - Public API
-- (NSError *)errorWithCode:(JSErrorCode)code message:(NSString *)message
-{
-    return [self createErrorWithDomain:JSErrorDomain
-                             errorCode:code
-                               message:message];
+
++ (NSError *)errorWithCode:(JSErrorCode)code {
+    return [self errorWithCode:code message:[self localizedMessageForStatusCode:code]];
 }
 
-- (NSError *)httpErrorWithCode:(JSErrorCode)code HTTPCode:(NSInteger)HTTPcode message:(NSString *)message
-{
-    NSString *errorDescription = message ?: [NSHTTPURLResponse localizedStringForStatusCode:HTTPcode];
++ (NSError *)errorWithCode:(JSErrorCode)code message:(NSString *)message {
+    return [self createErrorWithDomain:[self errorDomainForStatusCode:code]
+                             errorCode:code
+                              userInfo:@{NSLocalizedDescriptionKey : message}];
+}
 
++ (NSError *)httpErrorWithCode:(JSErrorCode)code HTTPCode:(NSInteger)HTTPcode {
+
+    NSDictionary *userInfo = @{NSLocalizedDescriptionKey : [NSHTTPURLResponse localizedStringForStatusCode:HTTPcode],
+                               JSHTTPErrorResponseStatusKey : @(HTTPcode)};
+    
     return [self createErrorWithDomain:JSHTTPErrorDomain
                              errorCode:code
-                               message:errorDescription
-                              userInfo:@{JSHTTPErrorResponseStatusKey : @(HTTPcode)}];
-}
-
-- (NSError *)authErrorWithCode:(JSErrorCode)code message:(NSString *)message
-{
-    return [self createErrorWithDomain:JSAuthErrorDomain
-                             errorCode:code
-                               message:message];
-}
-
-- (NSError *)networkErrorWithCode:(JSErrorCode)code message:(NSString *)message
-{
-    return [self createErrorWithDomain:NSURLErrorDomain
-                             errorCode:code
-                               message:message];
+                              userInfo:userInfo];
 }
 
 #pragma mark - Private API
-- (NSError *)createErrorWithDomain:(NSString *)domain errorCode:(NSInteger)errorCode message:(NSString *)message
-{
-    return [self createErrorWithDomain:domain
-                             errorCode:errorCode
-                               message:message
-                              userInfo:nil];
-}
-
-- (NSError *)createErrorWithDomain:(NSString *)domain
++ (NSError *)createErrorWithDomain:(NSString *)domain
                          errorCode:(NSInteger)errorCode
-                           message:(NSString *)message
-                          userInfo:(NSDictionary *)usrInfo
-{
-    NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:usrInfo];
-    if (message) {
-        userInfo[NSLocalizedDescriptionKey] = message;
-    }
+                          userInfo:(NSDictionary *)userInfo {
     NSError *error = [NSError errorWithDomain:domain
                                          code:errorCode
                                      userInfo:userInfo];
     return error;
+}
+
++ (NSString *)errorDomainForStatusCode:(JSErrorCode)errorCode {
+    switch (errorCode) {
+        case JSInvalidCredentialsErrorCode:
+        case JSSessionExpiredErrorCode:
+            return JSAuthErrorDomain;
+        
+        case JSHTTPErrorCode:
+        case JSServerNotReachableErrorCode:
+        case JSRequestTimeOutErrorCode:
+            return JSHTTPErrorDomain;
+
+        case JSClientErrorCode:
+        case JSDataMappingErrorCode:
+        case JSFileSavingErrorCode:
+        case JSOtherErrorCode:
+            return JSErrorDomain;
+    }
+}
+
++ (NSString *) localizedMessageForStatusCode:(JSErrorCode)errorCode {
+    switch (errorCode) {
+        case JSServerNotReachableErrorCode:
+            return JSCustomLocalizedString(@"error.http.502", nil);
+        case JSRequestTimeOutErrorCode:
+            return JSCustomLocalizedString(@"error.http.504", nil);
+        case JSInvalidCredentialsErrorCode:
+            return JSCustomLocalizedString(@"error.http.403", nil);
+        case JSSessionExpiredErrorCode:
+            return JSCustomLocalizedString(@"error.http.401", nil);
+        case JSClientErrorCode:
+            return JSCustomLocalizedString(@"error.readingresponse.msg", nil);
+        case JSDataMappingErrorCode:
+            return JSCustomLocalizedString(@"error.data.mapping.msg", nil);
+        case JSFileSavingErrorCode:
+            return JSCustomLocalizedString(@"error.file.saving.msg", nil);
+        default:
+            return JSCustomLocalizedString(@"error.other.msg", nil);
+    }
 }
 
 @end

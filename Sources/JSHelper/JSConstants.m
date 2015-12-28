@@ -29,6 +29,14 @@
 //
 
 #import "JSConstants.h"
+/**
+ @name Error Domains
+ @{
+ */
+NSString * const JSErrorDomain = @"JSErrorDomain";
+NSString * const JSHTTPErrorDomain = @"JSHTTPErrorDomain";
+NSString * const JSAuthErrorDomain = @"JSAuthErrorDomain";
+/** @} */
 
 /**
  @name JS Version Codes
@@ -68,6 +76,7 @@ NSString *const kJS_WS_TYPE_DASHBOARD_LEGACY = @"legacyDashboard";
 NSString *const kJS_WS_TYPE_DASHBOARD_STATE = @"dashboardState";
 NSString *const kJS_WS_TYPE_DOMAIN = @"domain";
 NSString *const kJS_WS_TYPE_DOMAIN_TOPIC = @"domainTopic";
+NSString *const kJS_WS_TYPE_FILE = @"file";
 NSString *const kJS_WS_TYPE_FOLDER = @"folder";
 NSString *const kJS_WS_TYPE_FONT = @"font";
 NSString *const kJS_WS_TYPE_IMG = @"img";
@@ -147,11 +156,3 @@ NSString *const kJS_ICD_TYPE_MULTI_SELECT_CHECKBOX = @"multiSelectCheckbox";
  */
 NSTimeInterval const kJSExecutionStatusCheckingInterval = 1.f;
 /** @} */
-
-/**
- @name Execution status checking
- @{
- */
-NSString *const kJS_ERROR_DOMAIN = @"JSSDKErorDomain";
-/** @} */
-

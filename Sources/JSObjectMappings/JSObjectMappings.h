@@ -53,6 +53,7 @@
 
 // Resources
 #import "JSResourceLookup.h"
+#import "JSContentResource.h"
 #import "JSResourceReportUnit.h"
 #import "JSResourceParameter.h"
 #import "JSResourcePatchRequest.h"

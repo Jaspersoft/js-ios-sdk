@@ -1,6 +1,6 @@
 /*
  * Jaspersoft Mobile SDK
- * Copyright (C) 2011 - 2014 Jaspersoft Corporation. All rights reserved.
+ * Copyright (C) 2011 - 2015 Jaspersoft Corporation. All rights reserved.
  * http://community.jaspersoft.com/project/mobile-sdk-ios
  *
  * Unless you have purchased a commercial license agreement from Jaspersoft,
@@ -20,21 +20,23 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with Jaspersoft Mobile SDK for iOS. If not, see
- * <http://www.gnu.org/licenses/lgpl".
+ * <http://www.gnu.org/licenses/lgpl>.
  */
 
 //
-//  JSRestClient.h
+//  JSContentResource.h
 //  Jaspersoft Corporation
 //
 
+/**
+ @author Olexandr Dahno odahno@tibco.com
+ @since 2.2.1
+ */
 
-#import "JSErrors.h"
-#import "JSProfile.h"
-#import "JSRestBase.h"
-#import "JSRESTBase+JSRESTReport.h"
-#import "JSRESTBase+JSRESTResource.h"
-#import "JSRESTBase+JSRESTSession.h"
-#import "JSRESTBase+JSRESTContentResource.h"
-#import "JSRequest.h"
 #import "JSSerializationDescriptorHolder.h"
+#import "JSResourceLookup.h"
+
+@interface JSContentResource : JSResourceLookup <JSSerializationDescriptorHolder>
+@property (nonatomic, retain, nonnull) NSString *content; //Base64 Data
+@property (nonatomic, retain, nonnull) NSString *fileFormat; //Format
+@end

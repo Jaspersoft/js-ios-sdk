@@ -39,6 +39,39 @@
  */
 
 /**
+ @name Error Codes
+ @{
+ */
+typedef NS_ENUM (NSInteger, JSErrorCode) {
+    JSOtherErrorCode                = 1000, // All other errors
+    JSServerNotReachableErrorCode,          // Server not reachable error
+    JSRequestTimeOutErrorCode,              // Request TimeOut error
+    
+    JSHTTPErrorCode,                        // HTTP erorrs (status codes 404, 500).
+    
+    JSInvalidCredentialsErrorCode,          // Invalid Credentilas error
+    JSSessionExpiredErrorCode,              // Session expired error
+    
+    JSClientErrorCode,                      // Client error code - when JSErrorDescriptor are received
+    
+    JSDataMappingErrorCode,                 // Data Mapping error code - when responce did load successfully, but can't be parsed
+    
+    JSFileSavingErrorCode,                  // Write to file and file saving error
+};
+/** @} */
+
+/**
+ @name JS Version Codes
+ @{
+ */
+extern NSString * const JSErrorDomain;
+extern NSString * const JSHTTPErrorDomain;
+extern NSString * const JSAuthErrorDomain;
+
+/** @} */
+
+
+/**
  @name JS Version Codes
  @{
  */
@@ -110,6 +143,7 @@ extern NSString *const kJS_WS_TYPE_DASHBOARD_LEGACY;
 extern NSString *const kJS_WS_TYPE_DASHBOARD_STATE;
 extern NSString *const kJS_WS_TYPE_DOMAIN;
 extern NSString *const kJS_WS_TYPE_DOMAIN_TOPIC;
+extern NSString *const kJS_WS_TYPE_FILE;
 extern NSString *const kJS_WS_TYPE_FOLDER;
 extern NSString *const kJS_WS_TYPE_FONT;
 extern NSString *const kJS_WS_TYPE_IMG;
@@ -200,11 +234,3 @@ typedef NS_ENUM(NSInteger, kJS_EXECUTION_STATUS) {
 };
 
 /** @} */
-
-/**
- @name Execution status checking
- @{
- */
-extern NSString *const kJS_ERROR_DOMAIN;
-/** @} */
-

@@ -151,7 +151,7 @@
                                         executionResponse.status.status == kJS_EXECUTION_STATUS_CANCELED) {
                                         if (strongSelf.loadPageCompletionBlock) {
                                             NSDictionary *userInfo = @{NSLocalizedDescriptionKey : executionResponse.errorDescriptor.message};
-                                            NSError *error = [NSError errorWithDomain:kJS_ERROR_DOMAIN
+                                            NSError *error = [NSError errorWithDomain:JSErrorDomain
                                                                                  code:JSReportLoaderErrorTypeLoadingCanceled
                                                                              userInfo:userInfo];
                                             strongSelf.loadPageCompletionBlock(NO, error);
@@ -172,10 +172,7 @@
                                     }
                                 } else {
                                     if (strongSelf.loadPageCompletionBlock) {
-                                        NSDictionary *userInfo = @{NSLocalizedDescriptionKey : JSCustomLocalizedString(@"error.readingresponse.msg", nil) };
-                                        NSError *error = [NSError errorWithDomain:kJS_ERROR_DOMAIN
-                                                                             code:JSClientErrorCode
-                                                                         userInfo:userInfo];
+                                        NSError *error = [JSErrorBuilder errorWithCode:JSClientErrorCode];
                                         strongSelf.loadPageCompletionBlock(NO, error);
                                     }
                                 }
@@ -218,10 +215,7 @@
                                             [strongSelf loadOutputResourcesForPage:page];
                                         } else {
                                             if (strongSelf.loadPageCompletionBlock) {
-                                                NSDictionary *userInfo = @{NSLocalizedDescriptionKey : JSCustomLocalizedString(@"error.readingresponse.msg", nil) };
-                                                NSError *error = [NSError errorWithDomain:kJS_ERROR_DOMAIN
-                                                                                     code:JSClientErrorCode
-                                                                                 userInfo:userInfo];
+                                                NSError *error = [JSErrorBuilder errorWithCode:JSClientErrorCode];
                                                 strongSelf.loadPageCompletionBlock(NO, error);
                                             }
                                         }
@@ -316,11 +310,7 @@
                                                    [strongSelf checkingExecutionStatus];
                                                } else {
                                                    if (strongSelf.loadPageCompletionBlock) {
-#warning NEED CHECK CANCEL STATUS!!!!
-                                                       NSDictionary *userInfo = @{NSLocalizedDescriptionKey : JSCustomLocalizedString(@"error.readingresponse.msg", nil) };
-                                                       NSError *error = [NSError errorWithDomain:kJS_ERROR_DOMAIN
-                                                                                            code:JSClientErrorCode
-                                                                                        userInfo:userInfo];
+                                                       NSError *error = [JSErrorBuilder errorWithCode:JSClientErrorCode ];
                                                        strongSelf.loadPageCompletionBlock(NO, error);
                                                    }
                                                }
@@ -358,7 +348,7 @@
 #pragma mark - Handlers
 - (void)handleEmptyReport {
     NSDictionary *userInfo = @{NSLocalizedDescriptionKey : JSCustomLocalizedString(@"report.viewer.emptyreport.title", nil)};
-    NSError *error = [NSError errorWithDomain:kJS_ERROR_DOMAIN
+    NSError *error = [NSError errorWithDomain:JSErrorDomain
                                          code:JSReportLoaderErrorTypeEmtpyReport
                                      userInfo:userInfo];
     if (self.loadPageCompletionBlock) {

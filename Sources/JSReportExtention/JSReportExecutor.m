@@ -188,7 +188,7 @@
         }
     }else {
         if (completion) {
-            NSError *error = [NSError errorWithDomain:kJS_ERROR_DOMAIN code:JSFileSavingErrorCode userInfo:@{NSLocalizedDescriptionKey : JSCustomLocalizedString(@"report.execution.executionResponce.doesn't.ready", nil)}];
+            NSError *error = [JSErrorBuilder errorWithCode:JSDataMappingErrorCode];
             completion(nil, error);
         }
     }

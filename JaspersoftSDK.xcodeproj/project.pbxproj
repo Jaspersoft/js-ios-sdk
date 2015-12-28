@@ -109,6 +109,10 @@
 		0849FCEE1C2C1D7D008F1064 /* JSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849FCE81C2C1D7D008F1064 /* JSUtils.m */; };
 		0899C4451C2D8FEE00CFBD91 /* JSErrorBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 0899C4431C2D8FEE00CFBD91 /* JSErrorBuilder.h */; };
 		0899C4461C2D8FEE00CFBD91 /* JSErrorBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0899C4441C2D8FEE00CFBD91 /* JSErrorBuilder.m */; };
+		0899C4491C3170AC00CFBD91 /* JSContentResource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0899C4471C3170AC00CFBD91 /* JSContentResource.h */; };
+		0899C44A1C3170AC00CFBD91 /* JSContentResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0899C4481C3170AC00CFBD91 /* JSContentResource.m */; };
+		0899C44D1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0899C44B1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.h */; };
+		0899C44E1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0899C44C1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.m */; };
 		722EF964428E5B92861DCAC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE65D84777378DA82ED7BA4 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -209,6 +213,10 @@
 		0849FCE81C2C1D7D008F1064 /* JSUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSUtils.m; sourceTree = "<group>"; };
 		0899C4431C2D8FEE00CFBD91 /* JSErrorBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSErrorBuilder.h; sourceTree = "<group>"; };
 		0899C4441C2D8FEE00CFBD91 /* JSErrorBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSErrorBuilder.m; sourceTree = "<group>"; };
+		0899C4471C3170AC00CFBD91 /* JSContentResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSContentResource.h; sourceTree = "<group>"; };
+		0899C4481C3170AC00CFBD91 /* JSContentResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSContentResource.m; sourceTree = "<group>"; };
+		0899C44B1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSRESTBase+JSRESTContentResource.h"; sourceTree = "<group>"; };
+		0899C44C1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSRESTContentResource.m"; sourceTree = "<group>"; };
 		1AE65D84777378DA82ED7BA4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B199A7873E268BCFDF3074C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		A14780856156D274B677AF06 /* TIB_jsm-sdk-ios_2.1.1_license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TIB_jsm-sdk-ios_2.1.1_license.txt"; sourceTree = "<group>"; };
@@ -271,6 +279,8 @@
 			isa = PBXGroup;
 			children = (
 				0849FC461C2B0A91008F1064 /* JSObjectMappings.h */,
+				0899C4471C3170AC00CFBD91 /* JSContentResource.h */,
+				0899C4481C3170AC00CFBD91 /* JSContentResource.m */,
 				0849FC321C2B0A91008F1064 /* JSDataType.h */,
 				0849FC331C2B0A91008F1064 /* JSDataType.m */,
 				0849FC341C2B0A91008F1064 /* JSDateTimeFormatValidationRule.h */,
@@ -348,6 +358,8 @@
 				0849FC711C2B0A91008F1064 /* JSProfile.m */,
 				0849FC721C2B0A91008F1064 /* JSRequest.h */,
 				0849FC731C2B0A91008F1064 /* JSRequest.m */,
+				0899C44B1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.h */,
+				0899C44C1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.m */,
 				0849FC741C2B0A91008F1064 /* JSRESTBase+JSRESTReport.h */,
 				0849FC751C2B0A91008F1064 /* JSRESTBase+JSRESTReport.m */,
 				0849FC761C2B0A91008F1064 /* JSRESTBase+JSRESTResource.h */,
@@ -494,6 +506,7 @@
 				0849FCE91C2C1D7D008F1064 /* JaspersoftSDK.h in Headers */,
 				0849FCCD1C2B0A92008F1064 /* JSRESTBase+JSRESTReport.h in Headers */,
 				0849FCD91C2B0A93008F1064 /* BasicEncodingRules.h in Headers */,
+				0899C44D1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.h in Headers */,
 				0849FCD31C2B0A92008F1064 /* JSRESTBase.h in Headers */,
 				0849FCEA1C2C1D7D008F1064 /* JSConstants.h in Headers */,
 				0849FCD51C2B0A92008F1064 /* JSRestClient.h in Headers */,
@@ -514,6 +527,7 @@
 				0849FCDB1C2B0A93008F1064 /* JSEncryptionManager.h in Headers */,
 				0849FCA61C2B0A91008F1064 /* JSReportExecutionRequest.h in Headers */,
 				0849FCCB1C2B0A92008F1064 /* JSRequest.h in Headers */,
+				0899C4491C3170AC00CFBD91 /* JSContentResource.h in Headers */,
 				0849FCC91C2B0A92008F1064 /* JSProfile.h in Headers */,
 				0849FC9F1C2B0A91008F1064 /* JSMandatoryValidationRule.h in Headers */,
 				0849FCC61C2B0A92008F1064 /* JSReportSaver.h in Headers */,
@@ -661,10 +675,12 @@
 				0849FCC51C2B0A92008F1064 /* JSReportPagesRange.m in Sources */,
 				0849FCB11C2B0A91008F1064 /* JSResourceLookup.m in Sources */,
 				0849FCBB1C2B0A92008F1064 /* JSReport.m in Sources */,
+				0899C44E1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.m in Sources */,
 				0849FCEB1C2C1D7D008F1064 /* JSConstants.m in Sources */,
 				0849FCDA1C2B0A93008F1064 /* BasicEncodingRules.m in Sources */,
 				0849FCC21C2B0A92008F1064 /* JSReportLoader.m in Sources */,
 				0849FCB31C2B0A91008F1064 /* JSResourceParameter.m in Sources */,
+				0899C44A1C3170AC00CFBD91 /* JSContentResource.m in Sources */,
 				0849FCD01C2B0A92008F1064 /* JSRESTBase+JSRESTResource.m in Sources */,
 				0849FCC71C2B0A92008F1064 /* JSReportSaver.m in Sources */,
 				0849FCCE1C2B0A92008F1064 /* JSRESTBase+JSRESTReport.m in Sources */,
