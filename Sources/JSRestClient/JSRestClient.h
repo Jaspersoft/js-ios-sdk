@@ -29,7 +29,6 @@
 //
 
 
-#import "JSErrors.h"
 #import "JSProfile.h"
 #import "JSRestBase.h"
 #import "JSRESTBase+JSRESTReport.h"

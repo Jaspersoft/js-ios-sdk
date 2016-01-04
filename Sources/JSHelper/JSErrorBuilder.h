@@ -3,6 +3,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSConstants.h"
 
 extern NSString * const JSHTTPErrorResponseStatusKey;
 
