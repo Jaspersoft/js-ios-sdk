@@ -425,7 +425,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
             NSError *error;
             if (httpOperation.response.statusCode == 401) {
 
-                error = [JSErrorBuilder httpErrorWithCode:JSHTTPErrorCode
+                error = [JSErrorBuilder httpErrorWithCode:JSSessionExpiredErrorCode
                                                  HTTPCode:httpOperation.response.statusCode];
 
             } else if (httpOperation.response.statusCode && !operationError) {
