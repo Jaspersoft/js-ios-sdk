@@ -111,18 +111,6 @@ extern NSString * const _Nonnull kJSRequestResponceType;
 - (void)sendRequest:(nonnull JSRequest *)request;
 
 /**
- Sends asynchronous request. Result will be passed as <code>JSOperationResult</code>
- instance to completionBlock provided in
- <code>JSRequest</code> object
- 
- @param jsRequest Models the request portion of an HTTP request/response cycle.
- @param headerFields Additional HTTP header fields for sending request.
-
- @since 1.9
- */
-- (void)sendRequest:(nonnull JSRequest *)jsRequest additionalHTTPHeaderFields:(null_unspecified NSDictionary *)headerFields;
-
-/**
  Gets server information details
  
  @return the ServerInfo value

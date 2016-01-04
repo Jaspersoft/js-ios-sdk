@@ -85,6 +85,11 @@ typedef enum {
 @property (nonatomic, strong, readonly, null_unspecified) NSDictionary *params;
 
 /**
+ A collection of additional header parameters of the request
+ */
+@property (nonatomic, strong, null_unspecified) NSDictionary *additionalHeaders;
+
+/**
  The HTTP method
  */
 @property (nonatomic, assign) RKRequestMethod method;

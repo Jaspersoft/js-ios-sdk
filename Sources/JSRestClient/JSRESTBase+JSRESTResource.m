@@ -90,7 +90,8 @@ NSString * const _parameterForceFullPage = @"forceFullPage";
     if (resourceType) {
         responceType = [NSString stringWithFormat:@"application/repository.%@+json", resourceType];
     }
-    [self sendRequest:request additionalHTTPHeaderFields:@{kJSRequestResponceType : responceType}];
+    request.additionalHeaders = @{kJSRequestResponceType : responceType};
+    [self sendRequest:request];
 }
 
 - (void)resourceLookupForURI:(NSString *)resourceURI

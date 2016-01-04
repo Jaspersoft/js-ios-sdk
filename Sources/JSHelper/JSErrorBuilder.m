@@ -15,9 +15,13 @@ NSString * const JSHTTPErrorResponseStatusKey = @"JSHTTPErrorResponseStatusKey";
 }
 
 + (NSError *)errorWithCode:(JSErrorCode)code message:(NSString *)message {
+    NSDictionary *userInfo;
+    if (message) {
+        userInfo = @{NSLocalizedDescriptionKey : message};
+    }
     return [self createErrorWithDomain:[self errorDomainForStatusCode:code]
                              errorCode:code
-                              userInfo:@{NSLocalizedDescriptionKey : message}];
+                              userInfo:userInfo];
 }
 
 + (NSError *)httpErrorWithCode:(JSErrorCode)code HTTPCode:(NSInteger)HTTPcode {

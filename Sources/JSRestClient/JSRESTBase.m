@@ -152,11 +152,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 #pragma mark -
 #pragma mark Public methods
 
-- (void)sendRequest:(nonnull JSRequest *)request {
-    [self sendRequest:request additionalHTTPHeaderFields:nil];
-}
-
-- (void)sendRequest:(nonnull JSRequest *)jsRequest additionalHTTPHeaderFields:(null_unspecified NSDictionary *)headerFields {
+- (void)sendRequest:(nonnull JSRequest *)jsRequest {
     if (!self.serverReachability.isReachable) {
         [self.serverReachability resetReachabilityStatus];
         [self sendCallBackForRequest:jsRequest withOperationResult:[self requestOperationForFailedConnection]];
@@ -212,9 +208,9 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     
     if ([urlRequest isKindOfClass:[NSMutableURLRequest class]]) {
         urlRequest.timeoutInterval = self.timeoutInterval;
-        if (headerFields && [headerFields count]) {
+        if (jsRequest.additionalHeaders.count) {
             NSMutableDictionary *headerFieldsDictionary = [NSMutableDictionary dictionaryWithDictionary:urlRequest.allHTTPHeaderFields];
-            [headerFieldsDictionary addEntriesFromDictionary:headerFields];
+            [headerFieldsDictionary addEntriesFromDictionary:jsRequest.additionalHeaders];
             [urlRequest setAllHTTPHeaderFields:headerFieldsDictionary];
         }
     }
