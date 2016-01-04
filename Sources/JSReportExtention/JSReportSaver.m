@@ -123,6 +123,25 @@
 }
 
 #pragma mark - Network calls
+- (void)downloadResourceFromURLString:(NSString *)resourceURLString
+                           completion:(void(^)(NSURL *location, NSURLResponse *response, NSError *error))completion {
+    NSURL *URL = [NSURL URLWithString:resourceURLString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    self.downloadTask = [session downloadTaskWithRequest:request
+                                       completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+                                           dispatch_async(dispatch_get_main_queue(), ^{
+                                               [[AFNetworkActivityIndicatorManager sharedManager] decrementActivityCount];
+                                               if (completion) {
+                                                   completion(location, response, error);
+                                               }
+                                           });
+                                       }];
+    [[AFNetworkActivityIndicatorManager sharedManager] incrementActivityCount];
+    [self.downloadTask resume];
+}
+
 - (void) downloadAttachments:(NSMutableArray *)attachments forExport:(JSExportExecutionResponse *)exportResponse withCompletion:(void(^)(NSError *error))completionBlock {
     if (attachments.count) {
         NSString *attachmentName = attachments.firstObject;
@@ -155,25 +174,6 @@
             completionBlock(nil);
         }
     }
-}
-
-- (void)downloadResourceFromURLString:(NSString *)resourceURLString
-                           completion:(void(^)(NSURL *location, NSURLResponse *response, NSError *error))completion {
-    NSURL *URL = [NSURL URLWithString:resourceURLString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-    
-    NSURLSession *session = [NSURLSession sharedSession];
-    self.downloadTask = [session downloadTaskWithRequest:request
-                                       completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-                                           dispatch_async(dispatch_get_main_queue(), ^{
-                                               [[AFNetworkActivityIndicatorManager sharedManager] decrementActivityCount];
-                                               if (completion) {
-                                                   completion(location, response, error);
-                                               }
-                                           });
-                                       }];
-    [[AFNetworkActivityIndicatorManager sharedManager] incrementActivityCount];
-    [self.downloadTask resume];
 }
 
 #pragma mark - URI helpers

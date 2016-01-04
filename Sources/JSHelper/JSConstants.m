@@ -107,9 +107,18 @@ NSString *const kJS_WS_TYPE_UNKNOW = @"unknow";
 NSString *const kJS_CONTENT_TYPE_PDF = @"pdf";
 NSString *const kJS_CONTENT_TYPE_HTML = @"html";
 NSString *const kJS_CONTENT_TYPE_XLS = @"xls";
+NSString *const kJS_CONTENT_TYPE_XLSX = @"xlsx";
 NSString *const kJS_CONTENT_TYPE_RTF = @"rtf";
 NSString *const kJS_CONTENT_TYPE_CSV = @"csv";
 NSString *const kJS_CONTENT_TYPE_IMG = @"img";
+NSString *const kJS_CONTENT_TYPE_ODT = @"odt";
+NSString *const kJS_CONTENT_TYPE_ODS = @"ods";
+NSString *const kJS_CONTENT_TYPE_JSON = @"json";
+NSString *const kJS_CONTENT_TYPE_PPT = @"ppt";
+NSString *const kJS_CONTENT_TYPE_PPTX = @"pptx";
+NSString *const kJS_CONTENT_TYPE_DOC = @"doc";
+NSString *const kJS_CONTENT_TYPE_DOCX = @"docx";
+
 /** @} */
 
 /**

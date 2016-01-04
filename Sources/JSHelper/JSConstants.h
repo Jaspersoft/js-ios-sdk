@@ -174,9 +174,18 @@ extern NSString *const kJS_WS_TYPE_UNKNOW;
 extern NSString *const kJS_CONTENT_TYPE_PDF;
 extern NSString *const kJS_CONTENT_TYPE_HTML;
 extern NSString *const kJS_CONTENT_TYPE_XLS;
+extern NSString *const kJS_CONTENT_TYPE_XLSX;
 extern NSString *const kJS_CONTENT_TYPE_RTF;
 extern NSString *const kJS_CONTENT_TYPE_CSV;
 extern NSString *const kJS_CONTENT_TYPE_IMG;
+extern NSString *const kJS_CONTENT_TYPE_ODT;
+extern NSString *const kJS_CONTENT_TYPE_ODS;
+extern NSString *const kJS_CONTENT_TYPE_JSON;
+extern NSString *const kJS_CONTENT_TYPE_PPT;
+extern NSString *const kJS_CONTENT_TYPE_PPTX;
+extern NSString *const kJS_CONTENT_TYPE_DOC;
+extern NSString *const kJS_CONTENT_TYPE_DOCX;
+
 /** @} */
 
 /**
