@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
 	### Subspecs	
 	s.subspec 'JSCore' do |jscSpec|	
 		jscSpec.dependency 'JaspersoftSDK/Resources'
-    	jscSpec.dependency 'RestKit/Core', '~> 0.24.0'
+    	jscSpec.dependency 'RestKit/Core', '0.24.1'
 		jscSpec.dependency 'ServerReachability'
 		
 		jscSpec.subspec 'JSHelper' do |jshSpec|
