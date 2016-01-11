@@ -120,6 +120,10 @@
     NSString *type = self.type;
     
     if ([self isSingleValueInputControl]) {
+        if ([kJS_ICD_TYPE_BOOL isEqualToString:self.type] && [self.state.error length]) {
+            self.state.value = [JSUtils stringFromBOOL:NO];
+            self.state.error = nil;
+        }
         if (self.state.value) {
             [values addObject:self.state.value];
         }
