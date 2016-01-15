@@ -47,7 +47,7 @@ typedef NS_ENUM (NSInteger, JSPermissionMask) {
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.7
  */
-@interface JSResourceLookup : NSObject <JSSerializationDescriptorHolder>
+@interface JSResourceLookup : NSObject <JSSerializationDescriptorHolder, NSCopying, NSSecureCoding>
 
 @property (nonatomic, retain, nonnull) NSString *label;
 @property (nonatomic, retain, nonnull) NSString *uri;
