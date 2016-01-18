@@ -277,6 +277,11 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 }
 
 - (void)cancelAllRequests {
+    for (JSCallBack *callBack in self.requestCallBacks) {
+        if ([callBack.restKitOperation respondsToSelector:@selector(cancel)]) {
+            [callBack.restKitOperation cancel];
+        }
+    }
     [self.requestCallBacks removeAllObjects];
     [self.restKitObjectManager.HTTPClient.operationQueue cancelAllOperations];
     [[RKObjectManager sharedManager].operationQueue cancelAllOperations];
