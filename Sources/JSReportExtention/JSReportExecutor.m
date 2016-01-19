@@ -175,13 +175,12 @@
                                         }
                                     } else {
                                         strongSelf.exportResponse = result.objects.firstObject;
-                                        if (strongSelf.exportResponse.status.status == kJS_EXECUTION_STATUS_QUEUED
-                                            || strongSelf.exportResponse.status.status == kJS_EXECUTION_STATUS_EXECUTION) {
+                                        if (strongSelf.exportResponse.status.status == kJS_EXECUTION_STATUS_QUEUED ||
+                                            strongSelf.exportResponse.status.status == kJS_EXECUTION_STATUS_EXECUTION ||
+                                            strongSelf.exportResponse.status.status == kJS_EXECUTION_STATUS_CANCELED) { // It's a bag on server-side, so if we didn't cancel it - it's valid!!!
                                             [strongSelf checkingExportStatus];
-                                        } else {
-                                            if (strongSelf.exportCompletion) {
-                                                strongSelf.exportCompletion(self.exportResponse, nil);
-                                            }
+                                        } else if (strongSelf.exportCompletion) {
+                                            strongSelf.exportCompletion(self.exportResponse, nil);
                                         }
                                     }
                                 }];
@@ -212,25 +211,29 @@
                                                    } else {
                                                        JSExecutionStatus *exportStatus = result.objects.firstObject;
                                                        if (exportStatus.status == kJS_EXECUTION_STATUS_QUEUED ||
-                                                           exportStatus.status == kJS_EXECUTION_STATUS_EXECUTION) {
+                                                           exportStatus.status == kJS_EXECUTION_STATUS_EXECUTION ||
+                                                           exportStatus.status == kJS_EXECUTION_STATUS_CANCELED) { // It's a bag on server-side, so if we didn't cancel it - it's valid!!!
                                                            [strongSelf checkingExportStatus];
-                                                       } else {
-                                                           if (exportStatus.status == kJS_EXECUTION_STATUS_READY) {
-                                                               __weak typeof(self) weakSelf = self;
-                                                               [self.restClient exportExecutionMetadataForRequestId:strongSelf.executionResponse.requestId
-                                                                                                           exportId:strongSelf.exportResponse.uuid
-                                                                                                    completionBlock:^(JSOperationResult * _Nullable result) {
-                                                                                                        __strong typeof(self) strongSelf = weakSelf;
-                                                                                                        if (!result.error && [result.objects count]) {
-                                                                                                            strongSelf.exportResponse = result.objects.firstObject;
-                                                                                                        }
-                                                                                                        if (strongSelf.exportCompletion) {
-                                                                                                            strongSelf.exportCompletion(strongSelf.exportResponse, result.error);
-                                                                                                        }
-                                                                                                    }];
-                                                           } else if (strongSelf.exportCompletion) {
-                                                               strongSelf.exportCompletion(strongSelf.exportResponse, nil);
-                                                           }
+                                                       } else if (exportStatus.status == kJS_EXECUTION_STATUS_READY) {
+                                                           __weak typeof(self) weakSelf = strongSelf;
+                                                           [strongSelf.restClient reportExecutionMetadataForRequestId:strongSelf.executionResponse.requestId
+                                                                                                      completionBlock:^(JSOperationResult *result) {
+                                                                                                          __strong typeof(self) strongSelf = weakSelf;
+                                                                                                          if (!result.error && [result.objects count]) {
+                                                                                                              strongSelf.executionResponse = result.objects.firstObject;
+                                                                                                              for (JSExportExecutionResponse *export in strongSelf.executionResponse.exports) {
+                                                                                                                  if ([export.uuid isEqualToString:self.exportResponse.uuid]) {
+                                                                                                                      self.exportResponse = export;
+                                                                                                                      break;
+                                                                                                                  }
+                                                                                                              }
+                                                                                                          }
+                                                                                                          if (strongSelf.exportCompletion) {
+                                                                                                              strongSelf.exportCompletion(strongSelf.exportResponse, result.error);
+                                                                                                          }
+                                                                                                      }];
+                                                       } else if (strongSelf.exportCompletion) {
+                                                           strongSelf.exportCompletion(strongSelf.exportResponse, nil);
                                                        }
                                                    }
                                                }];

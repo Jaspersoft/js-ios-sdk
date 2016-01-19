@@ -213,19 +213,6 @@
                                   completion:(nullable JSRequestCompletionBlock)block;
 
 /**
- Gets export execution metadata by request id and export id
- 
- @param executionID A <b>executionID</b> parameter of the report execution response
- @param exportId A <b>exportId</b> parameter of the export execution response
- @param block The block to inform of the results
- 
- @since 2.3
- */
-- (void)exportExecutionMetadataForRequestId:(nonnull NSString *)executionID
-                                   exportId:(nonnull NSString *)exportId
-                            completionBlock:(nullable JSRequestCompletionBlock)block;
-
-/**
  Loads report output and saves it by specified path if needed
 
  @param requestId A <b>requestId</b> parameter of the report execution response
