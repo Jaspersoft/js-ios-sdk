@@ -114,6 +114,10 @@
 		0899C44D1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0899C44B1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.h */; };
 		0899C44E1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0899C44C1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.m */; };
 		722EF964428E5B92861DCAC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE65D84777378DA82ED7BA4 /* libPods.a */; };
+		A14782B90B4E58E4F6BE84D4 /* JSDashboardResource.h in Headers */ = {isa = PBXBuildFile; fileRef = A1478CC03596AB88F83BC994 /* JSDashboardResource.h */; };
+		A14788539A7F2937B80169C2 /* JSDashboardResource.m in Sources */ = {isa = PBXBuildFile; fileRef = A1478D0833EB9C481BCF9FFB /* JSDashboardResource.m */; };
+		A1478871EBE9488407A9E262 /* JSResourceDashboardUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = A14785B461DF12FD80B3623B /* JSResourceDashboardUnit.h */; };
+		A1478AF6BB8B342AD0222411 /* JSResourceDashboardUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = A1478CDA504D12EDA0AEFEC9 /* JSResourceDashboardUnit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -220,6 +224,10 @@
 		1AE65D84777378DA82ED7BA4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B199A7873E268BCFDF3074C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		A14780856156D274B677AF06 /* TIB_jsm-sdk-ios_2.1.1_license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TIB_jsm-sdk-ios_2.1.1_license.txt"; sourceTree = "<group>"; };
+		A14785B461DF12FD80B3623B /* JSResourceDashboardUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResourceDashboardUnit.h; sourceTree = "<group>"; };
+		A1478CC03596AB88F83BC994 /* JSDashboardResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDashboardResource.h; sourceTree = "<group>"; };
+		A1478CDA504D12EDA0AEFEC9 /* JSResourceDashboardUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceDashboardUnit.m; sourceTree = "<group>"; };
+		A1478D0833EB9C481BCF9FFB /* JSDashboardResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDashboardResource.m; sourceTree = "<group>"; };
 		F5758F3D174E301800C355C1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		F5758F40174E302800C355C1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		F5758F42174E302E00C355C1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -325,6 +333,10 @@
 				0849FC5C1C2B0A91008F1064 /* JSResourceReportUnit.m */,
 				0849FC5D1C2B0A91008F1064 /* JSServerInfo.h */,
 				0849FC5E1C2B0A91008F1064 /* JSServerInfo.m */,
+				A1478CC03596AB88F83BC994 /* JSDashboardResource.h */,
+				A1478D0833EB9C481BCF9FFB /* JSDashboardResource.m */,
+				A14785B461DF12FD80B3623B /* JSResourceDashboardUnit.h */,
+				A1478CDA504D12EDA0AEFEC9 /* JSResourceDashboardUnit.m */,
 			);
 			path = JSObjectMappings;
 			sourceTree = "<group>";
@@ -531,6 +543,8 @@
 				0849FCC91C2B0A92008F1064 /* JSProfile.h in Headers */,
 				0849FC9F1C2B0A91008F1064 /* JSMandatoryValidationRule.h in Headers */,
 				0849FCC61C2B0A92008F1064 /* JSReportSaver.h in Headers */,
+				A14782B90B4E58E4F6BE84D4 /* JSDashboardResource.h in Headers */,
+				A1478871EBE9488407A9E262 /* JSResourceDashboardUnit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -687,6 +701,8 @@
 				0849FC941C2B0A91008F1064 /* JSExecutionStatus.m in Sources */,
 				0849FCA71C2B0A91008F1064 /* JSReportExecutionRequest.m in Sources */,
 				0849FCA01C2B0A91008F1064 /* JSMandatoryValidationRule.m in Sources */,
+				A14788539A7F2937B80169C2 /* JSDashboardResource.m in Sources */,
+				A1478AF6BB8B342AD0222411 /* JSResourceDashboardUnit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
