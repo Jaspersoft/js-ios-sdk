@@ -189,7 +189,18 @@
     [[NSFileManager defaultManager] moveItemAtPath:fromPath
                                             toPath:toPath
                                              error:&error];
-    return error;
+    if (error) { // Remove all UDID's path components from error message
+        NSMutableDictionary *userInfo = [error.userInfo mutableCopy];
+        NSString *errorMessage = userInfo[NSLocalizedDescriptionKey];
+        if (errorMessage) {
+            errorMessage = [errorMessage stringByReplacingOccurrencesOfString:fromPath withString:[toPath lastPathComponent]];
+            errorMessage = [errorMessage stringByReplacingOccurrencesOfString:toPath withString:[toPath lastPathComponent]];
+            
+            userInfo[NSLocalizedDescriptionKey] = errorMessage;
+        }
+        return [NSError errorWithDomain:error.domain code:error.code userInfo:userInfo];
+    }
+    return nil;
 }
 
 - (NSString *)attachmentPathWithName:(NSString *)attachmentName {

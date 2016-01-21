@@ -74,7 +74,7 @@ NSString * const JSHTTPErrorResponseStatusKey = @"JSHTTPErrorResponseStatusKey";
         case JSSessionExpiredErrorCode:
             return JSCustomLocalizedString(@"error.http.401", nil);
         case JSClientErrorCode:
-            return JSCustomLocalizedString(@"error.readingresponse.msg", nil);
+            return JSCustomLocalizedString(@"error.reading.response.msg", nil);
         case JSDataMappingErrorCode:
             return JSCustomLocalizedString(@"error.data.mapping.msg", nil);
         case JSFileSavingErrorCode:
