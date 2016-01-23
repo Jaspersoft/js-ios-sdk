@@ -99,10 +99,11 @@
 }
 
 - (void)cancel {
+    self.loadPageCompletionBlock = nil;
+    
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(makeStatusChecking) object:nil];
 #warning HERE NEED CANCEL ONLY OWN REQUESTS!
     [self.restClient cancelAllRequests];
-    self.loadPageCompletionBlock = nil;
     
     if ((self.reportExecutionStatus.status == kJS_EXECUTION_STATUS_EXECUTION || self.reportExecutionStatus.status == kJS_EXECUTION_STATUS_QUEUED) && self.report.requestId) {
         [self.restClient cancelReportExecution:self.report.requestId completionBlock:nil];
@@ -136,9 +137,7 @@
                         completionBlock:^(JSOperationResult *result) {
                             __strong typeof(self) strongSelf = weakSelf;
                             if (result.error) {
-                                if (strongSelf.loadPageCompletionBlock) {
-                                    strongSelf.loadPageCompletionBlock(NO, result.error);
-                                }
+                                [strongSelf handleError:result.error withLoadedObjects:result.objects forPage:NSNotFound];
                             } else {
                                 
                                 JSReportExecutionResponse *executionResponse = [result.objects firstObject];
@@ -149,13 +148,14 @@
                                     
                                     if (executionResponse.status.status == kJS_EXECUTION_STATUS_FAILED ||
                                         executionResponse.status.status == kJS_EXECUTION_STATUS_CANCELED) {
-                                        if (strongSelf.loadPageCompletionBlock) {
-                                            NSDictionary *userInfo = @{NSLocalizedDescriptionKey : executionResponse.errorDescriptor.message};
-                                            NSError *error = [NSError errorWithDomain:JSErrorDomain
-                                                                                 code:JSReportLoaderErrorTypeLoadingCanceled
-                                                                             userInfo:userInfo];
-                                            strongSelf.loadPageCompletionBlock(NO, error);
+                                        NSDictionary *userInfo;
+                                        if (executionResponse.errorDescriptor.message) {
+                                            userInfo = @{NSLocalizedDescriptionKey : executionResponse.errorDescriptor.message};
                                         }
+                                        NSError *error = [NSError errorWithDomain:JSErrorDomain
+                                                                             code:JSReportLoaderErrorTypeLoadingCanceled
+                                                                         userInfo:userInfo];
+                                        [strongSelf handleError:error withLoadedObjects:nil forPage:NSNotFound];
                                     } else {
                                         strongSelf.reportExecutionStatus = executionResponse.status;
                                         if (executionResponse.status.status == kJS_EXECUTION_STATUS_READY) {
@@ -171,10 +171,8 @@
                                         }
                                     }
                                 } else {
-                                    if (strongSelf.loadPageCompletionBlock) {
-                                        NSError *error = [JSErrorBuilder errorWithCode:JSClientErrorCode];
-                                        strongSelf.loadPageCompletionBlock(NO, error);
-                                    }
+                                    NSError *error = [JSErrorBuilder errorWithCode:JSClientErrorCode];
+                                    [strongSelf handleError:error withLoadedObjects:nil forPage:NSNotFound];
                                 }
                             }
                         }];
@@ -206,7 +204,7 @@
                                 completionBlock:^(JSOperationResult *result) {
                                     __strong typeof(self) strongSelf = weakSelf;
                                     if (result.error) {
-                                        strongSelf.loadPageCompletionBlock(NO, result.error);
+                                        [strongSelf handleError:result.error withLoadedObjects:result.objects forPage:page];
                                     } else {
                                         JSExportExecutionResponse *export = [result.objects firstObject];
                                         
@@ -214,10 +212,8 @@
                                             strongSelf.exportIdsDictionary[@(page)] = export.uuid;
                                             [strongSelf loadOutputResourcesForPage:page];
                                         } else {
-                                            if (strongSelf.loadPageCompletionBlock) {
-                                                NSError *error = [JSErrorBuilder errorWithCode:JSClientErrorCode];
-                                                strongSelf.loadPageCompletionBlock(NO, error);
-                                            }
+                                            NSError *error = [JSErrorBuilder errorWithCode:JSClientErrorCode];
+                                            [strongSelf handleError:error withLoadedObjects:nil forPage:page];
                                         }
                                     }
                                 }];
@@ -245,11 +241,10 @@
                       completionBlock:^(JSOperationResult *result) {
                           __strong typeof(self) strongSelf = weakSelf;
                           if (result.error && result.error.code != JSOtherErrorCode) {
-                              [strongSelf handleErrorWithOperationResult:result forPage:page];
+                              [strongSelf handleError:result.error withLoadedObjects:result.objects forPage:page];
                           } else {
-                              
                               if ([result.MIMEType isEqualToString:[JSUtils usedMimeType]]) {
-                                  [strongSelf handleErrorWithOperationResult:result forPage:page];
+                                  [strongSelf handleError:result.error withLoadedObjects:result.objects forPage:page];
                               } else {
                                   strongSelf.outputResourceType = [result.allHeaderFields[@"output-final"] boolValue]? JSReportLoaderOutputResourceType_Final : JSReportLoaderOutputResourceType_NotFinal;
                                   
@@ -283,7 +278,9 @@
 }
 
 - (void)startLoadReportHTML {
-    self.loadPageCompletionBlock(YES, nil);
+    if (self.loadPageCompletionBlock) {
+        self.loadPageCompletionBlock(YES, nil);
+    }
 }
 
 #pragma mark - Check status
@@ -298,9 +295,7 @@
                                        completionBlock:^(JSOperationResult *result) {
                                            __strong typeof(self) strongSelf = weakSelf;
                                            if (result.error) {
-                                               if (strongSelf.loadPageCompletionBlock) {
-                                                   strongSelf.loadPageCompletionBlock(NO, result.error);
-                                               }
+                                               [strongSelf handleError:result.error withLoadedObjects:result.objects forPage:NSNotFound];
                                            } else {
                                                strongSelf.reportExecutionStatus = [result.objects firstObject];
                                                if (strongSelf.reportExecutionStatus.status == kJS_EXECUTION_STATUS_READY) {
@@ -309,10 +304,8 @@
                                                           strongSelf.reportExecutionStatus.status == kJS_EXECUTION_STATUS_EXECUTION) {
                                                    [strongSelf checkingExecutionStatus];
                                                } else {
-                                                   if (strongSelf.loadPageCompletionBlock) {
-                                                       NSError *error = [JSErrorBuilder errorWithCode:JSClientErrorCode ];
-                                                       strongSelf.loadPageCompletionBlock(NO, error);
-                                                   }
+                                                   NSError *error = [JSErrorBuilder errorWithCode:JSClientErrorCode ];
+                                                   [strongSelf handleError:error withLoadedObjects:nil forPage:NSNotFound];
                                                }
                                            }
                                        }];
@@ -330,9 +323,8 @@
                                          completionBlock:^(JSOperationResult *result) {
                                              __strong typeof(self) strongSelf = weakSelf;
                                              if (result.error) {
-                                                 if (strongSelf.loadPageCompletionBlock) {
-                                                     strongSelf.loadPageCompletionBlock(NO, result.error);
-                                                 }
+                                                 [strongSelf handleError:result.error withLoadedObjects:result.objects forPage:NSNotFound];
+
                                              } else {
                                                  JSReportExecutionResponse *response = [result.objects firstObject];
                                                  NSInteger countOfPages = response.totalPages.integerValue;
@@ -351,23 +343,24 @@
     NSError *error = [NSError errorWithDomain:JSErrorDomain
                                          code:JSReportLoaderErrorTypeEmtpyReport
                                      userInfo:userInfo];
-    if (self.loadPageCompletionBlock) {
-        self.loadPageCompletionBlock(NO, error);
-    }
+    [self handleError:error withLoadedObjects:nil forPage:NSNotFound];
 }
 
-- (void)handleErrorWithOperationResult:(JSOperationResult *)result forPage:(NSInteger)page {
-    if (page == self.report.currentPage) {
+- (void)handleError:(NSError *)error withLoadedObjects:(NSArray *)objects forPage:(NSInteger)page {
+    if (page == self.report.currentPage || page == NSNotFound) {
         if (self.loadPageCompletionBlock) {
-            self.loadPageCompletionBlock(NO, result.error);
+            self.loadPageCompletionBlock(NO, error);
         }
-    } else {
-        JSErrorDescriptor *error = [result.objects firstObject];
-        BOOL isIllegalParameter = [error.errorCode isEqualToString:@"illegal.parameter.value.error"];
-        BOOL isPagesOutOfRange = [error.errorCode isEqualToString:@"export.pages.out.of.range"];
-        BOOL isExportFailed = [error.errorCode isEqualToString:@"export.failed"];
-        if (isIllegalParameter || isPagesOutOfRange || isExportFailed) {
-            [self.report updateCountOfPages:page - 1];
+        [self cancel];
+    } else if (objects.count){
+        JSErrorDescriptor *error = [objects firstObject];
+        if ([error isKindOfClass:[JSErrorDescriptor class]]) {
+            BOOL isIllegalParameter = [error.errorCode isEqualToString:@"illegal.parameter.value.error"];
+            BOOL isPagesOutOfRange = [error.errorCode isEqualToString:@"export.pages.out.of.range"];
+            BOOL isExportFailed = [error.errorCode isEqualToString:@"export.failed"];
+            if (isIllegalParameter || isPagesOutOfRange || isExportFailed) {
+                [self.report updateCountOfPages:page - 1];
+            }
         }
     }
 }
