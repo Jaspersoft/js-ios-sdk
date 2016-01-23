@@ -32,6 +32,7 @@
 #import "JSProfile.h"
 #import "JSRestBase.h"
 #import "JSRESTBase+JSRESTReport.h"
+#import "JSRESTBase+JSRESTDashboard.h"
 #import "JSRESTBase+JSRESTResource.h"
 #import "JSRESTBase+JSRESTSession.h"
 #import "JSRESTBase+JSRESTContentResource.h"
