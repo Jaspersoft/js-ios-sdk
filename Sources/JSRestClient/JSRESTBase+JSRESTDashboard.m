@@ -30,6 +30,8 @@
 
 #import "JSRESTBase+JSRESTDashboard.h"
 #import "JSDashboardComponent.h"
+#import "JSInputControlDescriptor.h"
+#import "JSReportParameter.h"
 
 
 @implementation JSRESTBase (JSRESTDashboard)
