@@ -66,7 +66,7 @@
     request.restVersion = JSRESTVersion_2;
     request.method = RKRequestMethodGET;
     request.completionBlock = block;
-    [self addReportParametersToRequest:request withSelectedValues:selectedValues];
+    [self addDashboardParametersToRequest:request withSelectedValues:selectedValues];
     request.asynchronous = async;
     [self sendRequest:request];
 }
@@ -84,7 +84,7 @@
     request.expectedModelClass = [JSInputControlState class];
     request.method = RKRequestMethodPOST;
     request.restVersion = JSRESTVersion_2;
-    [self addReportParametersToRequest:request withSelectedValues:selectedValues];
+    [self addDashboardParametersToRequest:request withSelectedValues:selectedValues];
     request.completionBlock = block;
     request.asynchronous = async;
     [self sendRequest:request];
@@ -112,7 +112,7 @@
     return fullReportsUri;
 }
 
-- (void) addReportParametersToRequest:(JSRequest *)request withSelectedValues:(NSArray *)selectedValues {
+- (void) addDashboardParametersToRequest:(JSRequest *)request withSelectedValues:(NSArray *)selectedValues {
     for (JSReportParameter *parameter in selectedValues) {
         [request addParameter:parameter.name withArrayValue:parameter.value];
     }
