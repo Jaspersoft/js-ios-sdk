@@ -94,7 +94,6 @@
 
 - (void)fetchPageNumber:(NSInteger)pageNumber withCompletion:(JSReportLoaderCompletionBlock)completionBlock {
     self.loadPageCompletionBlock = completionBlock;
-    [self.report updateCurrentPage:pageNumber];
     [self startExportExecutionForPage:pageNumber];
 }
 
@@ -102,7 +101,6 @@
     self.loadPageCompletionBlock = nil;
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(makeStatusChecking) object:nil];
-#warning HERE NEED CANCEL ONLY OWN REQUESTS!
     [self.restClient cancelAllRequests];
     
     if ((self.reportExecutionStatus.status == kJS_EXECUTION_STATUS_EXECUTION || self.reportExecutionStatus.status == kJS_EXECUTION_STATUS_QUEUED) && self.report.requestId) {

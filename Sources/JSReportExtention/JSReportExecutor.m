@@ -240,7 +240,6 @@
 }
 
 - (void)cancelReportExecution {
-#warning HERE NEED CANCEL ONLY OWN REQUESTS!
     [self.restClient cancelAllRequests];
 }
 

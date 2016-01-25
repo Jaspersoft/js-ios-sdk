@@ -62,7 +62,6 @@ typedef void(^JSReportLoaderCompletionBlock)(BOOL success, NSError * __nullable 
 - (void)cancel;
 
 @optional
-- (void)changeFromPage:(NSInteger)fromPage toPage:(NSInteger)toPage withCompletion:(nullable JSReportLoaderCompletionBlock)completion;
 - (void)applyReportParametersWithCompletion:(nullable JSReportLoaderCompletionBlock)completion;
 - (void)refreshReportWithCompletion:(nullable JSReportLoaderCompletionBlock)completion;
 
