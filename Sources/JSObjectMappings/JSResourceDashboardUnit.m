@@ -1,6 +1,6 @@
 /*
  * Jaspersoft Mobile SDK
- * Copyright (C) 2011 - 2014 Jaspersoft Corporation. All rights reserved.
+ * Copyright (C) 2011 - 2016 Jaspersoft Corporation. All rights reserved.
  * http://community.jaspersoft.com/project/mobile-sdk-ios
  *
  * Unless you have purchased a commercial license agreement from Jaspersoft,
@@ -20,22 +20,34 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with Jaspersoft Mobile SDK for iOS. If not, see
- * <http://www.gnu.org/licenses/lgpl".
+ * <http://www.gnu.org/licenses/lgpl>.
  */
 
 //
-//  JSRestClient.h
+//  JSResourceDashboardUnit.m
 //  Jaspersoft Corporation
 //
 
 
-#import "JSProfile.h"
-#import "JSRestBase.h"
-#import "JSRESTBase+JSRESTReport.h"
-#import "JSRESTBase+JSRESTDashboard.h"
-#import "JSRESTBase+JSRESTResource.h"
-#import "JSRESTBase+JSRESTSession.h"
-#import "JSRESTBase+JSRESTContentResource.h"
-#import "JSRESTBase+JSRESTDashboard.h"
-#import "JSRequest.h"
-#import "JSSerializationDescriptorHolder.h"
+#import "JSResourceDashboardUnit.h"
+#import "JSDashboardResource.h"
+
+
+@implementation JSResourceDashboardUnit
+
++ (nonnull NSString *)resourceRootKeyPath
+{
+    return @"dashboardUnit";
+}
+
+#pragma mark - JSSerializationDescriptorHolder
++ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+    RKObjectMapping *classMapping = [super classMappingForServerProfile:serverProfile];
+    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"resources"
+                                                                                 toKeyPath:@"resources"
+                                                                               withMapping:[JSDashboardResource classMappingForServerProfile:serverProfile]]];
+
+    return classMapping;
+}
+
+@end

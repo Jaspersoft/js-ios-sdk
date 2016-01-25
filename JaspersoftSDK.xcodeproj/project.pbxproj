@@ -114,6 +114,14 @@
 		0899C44D1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0899C44B1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.h */; };
 		0899C44E1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0899C44C1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.m */; };
 		722EF964428E5B92861DCAC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE65D84777378DA82ED7BA4 /* libPods.a */; };
+		A147800DD37B9AF78B86CEF8 /* JSRESTBase+JSRESTDashboard.h in Headers */ = {isa = PBXBuildFile; fileRef = A1478F16274972BB223D56F6 /* JSRESTBase+JSRESTDashboard.h */; };
+		A147807F7FC01CA5D92C4C37 /* JSDashboardComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = A147828C4698D5A889D3163B /* JSDashboardComponent.m */; };
+		A14781767852B1DC18420B3B /* JSDashboardResource.m in Sources */ = {isa = PBXBuildFile; fileRef = A14789D983E1009484952C1C /* JSDashboardResource.m */; };
+		A14781A79BFEC0119BA5EDDE /* JSResourceDashboardUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = A1478F9E07FF03E666755A23 /* JSResourceDashboardUnit.h */; };
+		A14784E4934B6443469F2097 /* JSResourceDashboardUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = A1478FD9723BF37C2BB58F2B /* JSResourceDashboardUnit.m */; };
+		A1478B2366FD595E1D5184F7 /* JSDashboardComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = A14780CE0E752AD263D1C79E /* JSDashboardComponent.h */; };
+		A1478CA432B170CFEDB4D4E4 /* JSRESTBase+JSRESTDashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = A1478FDBCBE0FE99F2512696 /* JSRESTBase+JSRESTDashboard.m */; };
+		A1478FB1834AD4371D17E79C /* JSDashboardResource.h in Headers */ = {isa = PBXBuildFile; fileRef = A14784FCE771FA8D974535B3 /* JSDashboardResource.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -220,6 +228,14 @@
 		1AE65D84777378DA82ED7BA4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B199A7873E268BCFDF3074C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		A14780856156D274B677AF06 /* TIB_jsm-sdk-ios_2.1.1_license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TIB_jsm-sdk-ios_2.1.1_license.txt"; sourceTree = "<group>"; };
+		A14780CE0E752AD263D1C79E /* JSDashboardComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDashboardComponent.h; sourceTree = "<group>"; };
+		A147828C4698D5A889D3163B /* JSDashboardComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDashboardComponent.m; sourceTree = "<group>"; };
+		A14784FCE771FA8D974535B3 /* JSDashboardResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDashboardResource.h; sourceTree = "<group>"; };
+		A14789D983E1009484952C1C /* JSDashboardResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDashboardResource.m; sourceTree = "<group>"; };
+		A1478F16274972BB223D56F6 /* JSRESTBase+JSRESTDashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSRESTBase+JSRESTDashboard.h"; sourceTree = "<group>"; };
+		A1478F9E07FF03E666755A23 /* JSResourceDashboardUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResourceDashboardUnit.h; sourceTree = "<group>"; };
+		A1478FD9723BF37C2BB58F2B /* JSResourceDashboardUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceDashboardUnit.m; sourceTree = "<group>"; };
+		A1478FDBCBE0FE99F2512696 /* JSRESTBase+JSRESTDashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSRESTDashboard.m"; sourceTree = "<group>"; };
 		F5758F3D174E301800C355C1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		F5758F40174E302800C355C1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		F5758F42174E302E00C355C1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -325,6 +341,12 @@
 				0849FC5C1C2B0A91008F1064 /* JSResourceReportUnit.m */,
 				0849FC5D1C2B0A91008F1064 /* JSServerInfo.h */,
 				0849FC5E1C2B0A91008F1064 /* JSServerInfo.m */,
+				A14780CE0E752AD263D1C79E /* JSDashboardComponent.h */,
+				A147828C4698D5A889D3163B /* JSDashboardComponent.m */,
+				A14784FCE771FA8D974535B3 /* JSDashboardResource.h */,
+				A14789D983E1009484952C1C /* JSDashboardResource.m */,
+				A1478F9E07FF03E666755A23 /* JSResourceDashboardUnit.h */,
+				A1478FD9723BF37C2BB58F2B /* JSResourceDashboardUnit.m */,
 			);
 			path = JSObjectMappings;
 			sourceTree = "<group>";
@@ -370,6 +392,8 @@
 				0849FC7B1C2B0A91008F1064 /* JSRESTBase.m */,
 				0849FC7D1C2B0A91008F1064 /* JSSerializationDescriptorHolder.h */,
 				0849FC7E1C2B0A91008F1064 /* KeychainItemWrapper */,
+				A1478F16274972BB223D56F6 /* JSRESTBase+JSRESTDashboard.h */,
+				A1478FDBCBE0FE99F2512696 /* JSRESTBase+JSRESTDashboard.m */,
 			);
 			path = JSRestClient;
 			sourceTree = "<group>";
@@ -531,6 +555,10 @@
 				0849FCC91C2B0A92008F1064 /* JSProfile.h in Headers */,
 				0849FC9F1C2B0A91008F1064 /* JSMandatoryValidationRule.h in Headers */,
 				0849FCC61C2B0A92008F1064 /* JSReportSaver.h in Headers */,
+				A147800DD37B9AF78B86CEF8 /* JSRESTBase+JSRESTDashboard.h in Headers */,
+				A1478B2366FD595E1D5184F7 /* JSDashboardComponent.h in Headers */,
+				A1478FB1834AD4371D17E79C /* JSDashboardResource.h in Headers */,
+				A14781A79BFEC0119BA5EDDE /* JSResourceDashboardUnit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -687,6 +715,10 @@
 				0849FC941C2B0A91008F1064 /* JSExecutionStatus.m in Sources */,
 				0849FCA71C2B0A91008F1064 /* JSReportExecutionRequest.m in Sources */,
 				0849FCA01C2B0A91008F1064 /* JSMandatoryValidationRule.m in Sources */,
+				A1478CA432B170CFEDB4D4E4 /* JSRESTBase+JSRESTDashboard.m in Sources */,
+				A147807F7FC01CA5D92C4C37 /* JSDashboardComponent.m in Sources */,
+				A14781767852B1DC18420B3B /* JSDashboardResource.m in Sources */,
+				A14784E4934B6443469F2097 /* JSResourceDashboardUnit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,6 +1,6 @@
 /*
  * Jaspersoft Mobile SDK
- * Copyright (C) 2011 - 2014 Jaspersoft Corporation. All rights reserved.
+ * Copyright (C) 2011 - 2016 Jaspersoft Corporation. All rights reserved.
  * http://community.jaspersoft.com/project/mobile-sdk-ios
  *
  * Unless you have purchased a commercial license agreement from Jaspersoft,
@@ -20,22 +20,25 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with Jaspersoft Mobile SDK for iOS. If not, see
- * <http://www.gnu.org/licenses/lgpl".
+ * <http://www.gnu.org/licenses/lgpl>.
  */
 
 //
-//  JSRestClient.h
+//  JSDashboardComponent.h
 //  Jaspersoft Corporation
 //
 
 
-#import "JSProfile.h"
-#import "JSRestBase.h"
-#import "JSRESTBase+JSRESTReport.h"
-#import "JSRESTBase+JSRESTDashboard.h"
-#import "JSRESTBase+JSRESTResource.h"
-#import "JSRESTBase+JSRESTSession.h"
-#import "JSRESTBase+JSRESTContentResource.h"
-#import "JSRESTBase+JSRESTDashboard.h"
-#import "JSRequest.h"
+
 #import "JSSerializationDescriptorHolder.h"
+
+@interface JSDashboardComponent : NSObject <JSSerializationDescriptorHolder>
+@property (nonatomic, strong) NSString *identifier;
+@property (nonatomic, strong) NSString *type;
+@property (nonatomic, strong) NSString *label;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *resourceId;
+@property (nonatomic, strong) NSString *resourceURI;
+@property (nonatomic, strong) NSString *ownerResourceURI;
+@property (nonatomic, strong) NSString *ownerResourceParameterName;
+@end
