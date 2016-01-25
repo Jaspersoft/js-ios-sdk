@@ -126,8 +126,17 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 }
 
 - (nonnull instancetype) initWithServerProfile:(nonnull JSProfile *)serverProfile keepLogged:(BOOL)keepLogged{
+    return [self initWithServerProfile:serverProfile keepLogged:keepLogged deleteCookies:YES];
+}
+
+- (nonnull instancetype) initWithServerProfile:(nonnull JSProfile *)serverProfile keepLogged:(BOOL)keepLogged deleteCookies:(BOOL)deleteCookies{
     self = [super init];
     if (self) {
+        if (deleteCookies) {
+            // Delete cookies for current server profile. If don't do this old credentials will be used
+            // instead new one
+            [self deleteCookies];
+        }
         self.keepSession = keepLogged;
         self.timeoutInterval = _defaultTimeoutInterval;
         self.serverProfile = serverProfile;
@@ -139,10 +148,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     _serverProfile = serverProfile;
     
     if (serverProfile) {
-        // Delete cookies for current server profile. If don't do this old credentials will be used
-        // instead new one
-        [self deleteCookies];
-        
         [self configureRestKitObjectManager];
         
         self.serverReachability = [ServerReachability reachabilityWithServer:serverProfile.serverUrl timeout:[JSUtils checkServerConnectionTimeout]];
@@ -347,6 +352,14 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         return self;
     }
     return nil;
+}
+
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone {
+    JSRESTBase *newRestClient = [[JSRESTBase allocWithZone:zone] initWithServerProfile:self.serverProfile keepLogged:self.keepSession deleteCookies:NO];
+    newRestClient.timeoutInterval = self.timeoutInterval;
+    return newRestClient;
 }
 
 #pragma mark -

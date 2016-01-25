@@ -55,7 +55,7 @@ extern NSString * const _Nonnull kJSRequestResponceType;
 */
 @class RKObjectManager, ServerReachability;
 
-@interface JSRESTBase : NSObject <NSSecureCoding>
+@interface JSRESTBase : NSObject <NSSecureCoding, NSCopying>
 
 /**
  The server profile instance contains connection details for 
