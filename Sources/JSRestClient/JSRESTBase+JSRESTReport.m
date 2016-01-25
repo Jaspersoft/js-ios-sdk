@@ -88,8 +88,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     [self sendRequest:request];
 }
 
-- (void)reportOptionsForReportURI:(NSString *)reportURI completion:(JSRequestCompletionBlock)block
-{
+- (void)reportOptionsForReportURI:(NSString *)reportURI completion:(JSRequestCompletionBlock)block {
     NSString *uri = [NSString stringWithFormat:@"%@%@%@", kJS_REST_REPORTS_URI, reportURI, kJS_REST_REPORT_OPTIONS_URI];
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
     request.expectedModelClass = [JSReportOption class];
@@ -100,8 +99,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 
 - (void)deleteReportOption:(JSReportOption *)reportOption
              withReportURI:(NSString *)reportURI
-                completion:(JSRequestCompletionBlock)completion
-{
+                completion:(JSRequestCompletionBlock)completion {
     NSString *requestURIString = [NSString stringWithFormat:@"%@%@%@/%@",
                                   kJS_REST_REPORTS_URI,
                                   reportURI,
@@ -117,8 +115,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 - (void)createReportOptionWithReportURI:(NSString *)reportURI
                             optionLabel:(NSString *)optionLabel
                        reportParameters:(NSArray <JSReportParameter *> *)reportParameters
-                             completion:(JSRequestCompletionBlock)completion
-{
+                             completion:(JSRequestCompletionBlock)completion {
     NSString *requestURIString = [NSString stringWithFormat:@"%@%@%@?label=%@&overwrite=%@",
                                   kJS_REST_REPORTS_URI,
                                   reportURI,
@@ -209,6 +206,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     request.method = RKRequestMethodPUT;
     request.restVersion = JSRESTVersion_2;
     request.completionBlock = block;
+    request.shouldResendRequestAfterSessionExpiration = NO;
     
     JSExecutionStatus *status = [JSExecutionStatus new];
     status.statusAsString = @"cancelled";
@@ -224,7 +222,8 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     request.method = RKRequestMethodPOST;
     request.restVersion = JSRESTVersion_2;
     request.completionBlock = block;
-    
+    request.shouldResendRequestAfterSessionExpiration = NO;
+
     JSExportExecutionRequest *executionRequest = [[JSExportExecutionRequest alloc] init];
     executionRequest.outputFormat = outputFormat;
     executionRequest.pages = pages;
@@ -247,6 +246,8 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     request.expectedModelClass = [JSReportExecutionResponse class];
     request.restVersion = JSRESTVersion_2;
     request.completionBlock = block;
+    request.shouldResendRequestAfterSessionExpiration = NO;
+
     [self sendRequest:request];
 }
 
@@ -256,6 +257,8 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     request.expectedModelClass = [JSExecutionStatus class];
     request.restVersion = JSRESTVersion_2;
     request.completionBlock = block;
+    request.shouldResendRequestAfterSessionExpiration = NO;
+
     [self sendRequest:request];
 }
 
@@ -265,6 +268,8 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     request.expectedModelClass = [JSExecutionStatus class];
     request.restVersion = JSRESTVersion_2;
     request.completionBlock = block;
+    request.shouldResendRequestAfterSessionExpiration = NO;
+
     [self sendRequest:request];
 }
 
@@ -275,6 +280,8 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
     request.restVersion = JSRESTVersion_2;
     request.completionBlock = block;
+    request.shouldResendRequestAfterSessionExpiration = NO;
+
     if (loadForSaving) {
         request.downloadDestinationPath = path;
         request.responseAsObjects = NO;
@@ -292,7 +299,8 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     request.completionBlock = block;
     request.downloadDestinationPath = path;
     request.responseAsObjects = NO;
-    
+    request.shouldResendRequestAfterSessionExpiration = NO;
+
     [self sendRequest:request];
 }
 

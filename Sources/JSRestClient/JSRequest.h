@@ -144,6 +144,15 @@ typedef enum {
 @property (nonatomic, copy, nullable) void(^multipartFormConstructingBodyBlock)(id <AFMultipartFormData> _Nullable formData);
 
 /**
+ The shouldResendRequestAfterSessionExpiration indicates if request can be resend after session was exired and recreated
+ 
+ **Default**: YES
+ 
+ @since 2.3
+ */
+@property (nonatomic, assign) BOOL shouldResendRequestAfterSessionExpiration;
+
+/**
  Returns a request instance with predefined uri.
  
  @param uri A request uri
