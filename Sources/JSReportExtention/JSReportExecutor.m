@@ -37,7 +37,7 @@
 #import "JSRESTBase+JSRESTReport.h"
 
 @interface JSReportExecutor()
-@property (nonatomic, strong, readwrite, nonnull) JSRESTBase *restClient;
+@property (nonatomic, copy, readwrite, nonnull) JSRESTBase *restClient;
 @property (nonatomic, strong, readwrite, nonnull) JSReportExecutionConfiguration *configuration;
 
 @property (nonatomic, strong, readwrite, nonnull) JSReport *report;
@@ -56,8 +56,8 @@
 - (instancetype)initWithReport:(JSReport *)report restClient:(nonnull JSRESTBase *)restClient {
     self = [super init];
     if (self) {
-        _report = report;
-        _restClient = restClient;
+        self.report = report;
+        self.restClient = restClient;
     }
     return self;
 }

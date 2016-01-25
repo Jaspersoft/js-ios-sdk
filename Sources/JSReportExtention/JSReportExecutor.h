@@ -44,7 +44,7 @@ typedef void(^JSExportExecutionCompletionBlock)(JSExportExecutionResponse * __nu
 
 
 @interface JSReportExecutor : NSObject
-@property (nonatomic, strong, readonly, nonnull) JSRESTBase *restClient;
+@property (nonatomic, copy, readonly, nonnull) JSRESTBase *restClient;
 @property (nonatomic, strong, readonly, nonnull) JSReportExecutionConfiguration *configuration;
 
 @property (nonatomic, strong, readonly, nonnull) JSReport *report;

@@ -36,7 +36,7 @@
 
 @interface JSReportLoader()
 @property (nonatomic, weak, readwrite) JSReport *report;
-@property (nonatomic, weak, readwrite) JSRESTBase *restClient;
+@property (nonatomic, copy) JSRESTBase *restClient;
 @property (nonatomic, assign, readwrite) BOOL isReportInLoadingProcess;
 
 // callbacks
@@ -56,8 +56,8 @@
 - (instancetype)initWithReport:(JSReport *)report restClient:(nonnull JSRESTBase *)restClient{
     self = [super init];
     if (self) {
-        _report = report;
-        _restClient = restClient;
+        self.report = report;
+        self.restClient = restClient;
     }
     return self;
 }
