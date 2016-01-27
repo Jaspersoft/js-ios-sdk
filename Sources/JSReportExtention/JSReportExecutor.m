@@ -240,6 +240,12 @@
 }
 
 - (void)cancelReportExecution {
+    self.executeCompletion = nil;
+    self.exportCompletion = nil;
+    
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(executionStatusChecking) object:nil];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(exportStatusChecking) object:nil];
+    
     [self.restClient cancelAllRequests];
 }
 

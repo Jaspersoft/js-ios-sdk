@@ -94,6 +94,7 @@
 
 - (void)fetchPageNumber:(NSInteger)pageNumber withCompletion:(JSReportLoaderCompletionBlock)completionBlock {
     self.loadPageCompletionBlock = completionBlock;
+    [self.report updateCurrentPage:pageNumber];
     [self startExportExecutionForPage:pageNumber];
 }
 
@@ -115,6 +116,11 @@
 - (void)applyReportParametersWithCompletion:(void (^)(BOOL success, NSError *error))completion {
     [self runReportWithPage:1 completion:completion];
 }
+
+- (BOOL) shouldDisplayLoadingView {
+    return YES;
+}
+
 
 #pragma mark - Private API
 
@@ -345,12 +351,7 @@
 }
 
 - (void)handleError:(NSError *)error withLoadedObjects:(NSArray *)objects forPage:(NSInteger)page {
-    if (page == self.report.currentPage || page == NSNotFound) {
-        if (self.loadPageCompletionBlock) {
-            self.loadPageCompletionBlock(NO, error);
-        }
-        [self cancel];
-    } else if (objects.count){
+    if (page != self.report.currentPage && page != NSNotFound && objects.count){
         JSErrorDescriptor *error = [objects firstObject];
         if ([error isKindOfClass:[JSErrorDescriptor class]]) {
             BOOL isIllegalParameter = [error.errorCode isEqualToString:@"illegal.parameter.value.error"];
@@ -360,6 +361,11 @@
                 [self.report updateCountOfPages:page - 1];
             }
         }
+    } else {
+        if (self.loadPageCompletionBlock) {
+            self.loadPageCompletionBlock(NO, error);
+        }
+        [self cancel];
     }
 }
 
