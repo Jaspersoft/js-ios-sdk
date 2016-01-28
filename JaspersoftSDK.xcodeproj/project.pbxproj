@@ -118,10 +118,20 @@
 		A147807F7FC01CA5D92C4C37 /* JSDashboardComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = A147828C4698D5A889D3163B /* JSDashboardComponent.m */; };
 		A14781767852B1DC18420B3B /* JSDashboardResource.m in Sources */ = {isa = PBXBuildFile; fileRef = A14789D983E1009484952C1C /* JSDashboardResource.m */; };
 		A14781A79BFEC0119BA5EDDE /* JSResourceDashboardUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = A1478F9E07FF03E666755A23 /* JSResourceDashboardUnit.h */; };
+		A1478449D2FAFA08F51A8C36 /* JSRESTBase+JSSchedule.h in Headers */ = {isa = PBXBuildFile; fileRef = A14788C87487E6E38FAC413D /* JSRESTBase+JSSchedule.h */; };
 		A14784E4934B6443469F2097 /* JSResourceDashboardUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = A1478FD9723BF37C2BB58F2B /* JSResourceDashboardUnit.m */; };
+		A147857A15CCC0EE16A3C2D3 /* JSScheduleTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = A147811960554DE953BB6FC7 /* JSScheduleTrigger.m */; };
+		A147864DB8024087AD318145 /* JSScheduleTrigger.h in Headers */ = {isa = PBXBuildFile; fileRef = A14782B2844E9E3717AF73D6 /* JSScheduleTrigger.h */; };
+		A1478671113039DEF1D30ABE /* JSScheduleJob.m in Sources */ = {isa = PBXBuildFile; fileRef = A1478FC0657A2C5AE60CA688 /* JSScheduleJob.m */; };
+		A1478853DBB60C2FD9C3C7FB /* JSScheduleJob.h in Headers */ = {isa = PBXBuildFile; fileRef = A14786260EDE28E3427B4003 /* JSScheduleJob.h */; };
+		A14789D7076E289DD1DBA342 /* JSScheduleJobResource.m in Sources */ = {isa = PBXBuildFile; fileRef = A147813DF61F2C9F8B7E1A69 /* JSScheduleJobResource.m */; };
 		A1478B2366FD595E1D5184F7 /* JSDashboardComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = A14780CE0E752AD263D1C79E /* JSDashboardComponent.h */; };
 		A1478CA432B170CFEDB4D4E4 /* JSRESTBase+JSRESTDashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = A1478FDBCBE0FE99F2512696 /* JSRESTBase+JSRESTDashboard.m */; };
+		A1478CBCB217D3A4C19CDBE7 /* JSScheduleJobState.m in Sources */ = {isa = PBXBuildFile; fileRef = A1478CA259B4BAD463F39B36 /* JSScheduleJobState.m */; };
+		A1478EF134484CF355BA4DF5 /* JSScheduleJobResource.h in Headers */ = {isa = PBXBuildFile; fileRef = A147879F9C5F9AE58DE2208B /* JSScheduleJobResource.h */; };
 		A1478FB1834AD4371D17E79C /* JSDashboardResource.h in Headers */ = {isa = PBXBuildFile; fileRef = A14784FCE771FA8D974535B3 /* JSDashboardResource.h */; };
+		A1478FC814F76B3AD331F43B /* JSRESTBase+JSSchedule.m in Sources */ = {isa = PBXBuildFile; fileRef = A147815111A4ADFCC724870F /* JSRESTBase+JSSchedule.m */; };
+		A1478FE74D5DDD802462C488 /* JSScheduleJobState.h in Headers */ = {isa = PBXBuildFile; fileRef = A147876D0CBB5A203071885F /* JSScheduleJobState.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -229,11 +239,21 @@
 		9B199A7873E268BCFDF3074C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		A14780856156D274B677AF06 /* TIB_jsm-sdk-ios_2.1.1_license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TIB_jsm-sdk-ios_2.1.1_license.txt"; sourceTree = "<group>"; };
 		A14780CE0E752AD263D1C79E /* JSDashboardComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDashboardComponent.h; sourceTree = "<group>"; };
+		A147811960554DE953BB6FC7 /* JSScheduleTrigger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSScheduleTrigger.m; sourceTree = "<group>"; };
+		A147813DF61F2C9F8B7E1A69 /* JSScheduleJobResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSScheduleJobResource.m; sourceTree = "<group>"; };
+		A147815111A4ADFCC724870F /* JSRESTBase+JSSchedule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSSchedule.m"; sourceTree = "<group>"; };
 		A147828C4698D5A889D3163B /* JSDashboardComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDashboardComponent.m; sourceTree = "<group>"; };
+		A14782B2844E9E3717AF73D6 /* JSScheduleTrigger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSScheduleTrigger.h; sourceTree = "<group>"; };
 		A14784FCE771FA8D974535B3 /* JSDashboardResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDashboardResource.h; sourceTree = "<group>"; };
+		A14786260EDE28E3427B4003 /* JSScheduleJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSScheduleJob.h; sourceTree = "<group>"; };
+		A147876D0CBB5A203071885F /* JSScheduleJobState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSScheduleJobState.h; sourceTree = "<group>"; };
+		A147879F9C5F9AE58DE2208B /* JSScheduleJobResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSScheduleJobResource.h; sourceTree = "<group>"; };
+		A14788C87487E6E38FAC413D /* JSRESTBase+JSSchedule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSRESTBase+JSSchedule.h"; sourceTree = "<group>"; };
 		A14789D983E1009484952C1C /* JSDashboardResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDashboardResource.m; sourceTree = "<group>"; };
+		A1478CA259B4BAD463F39B36 /* JSScheduleJobState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSScheduleJobState.m; sourceTree = "<group>"; };
 		A1478F16274972BB223D56F6 /* JSRESTBase+JSRESTDashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSRESTBase+JSRESTDashboard.h"; sourceTree = "<group>"; };
 		A1478F9E07FF03E666755A23 /* JSResourceDashboardUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResourceDashboardUnit.h; sourceTree = "<group>"; };
+		A1478FC0657A2C5AE60CA688 /* JSScheduleJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSScheduleJob.m; sourceTree = "<group>"; };
 		A1478FD9723BF37C2BB58F2B /* JSResourceDashboardUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceDashboardUnit.m; sourceTree = "<group>"; };
 		A1478FDBCBE0FE99F2512696 /* JSRESTBase+JSRESTDashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSRESTDashboard.m"; sourceTree = "<group>"; };
 		F5758F3D174E301800C355C1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -347,6 +367,14 @@
 				A14789D983E1009484952C1C /* JSDashboardResource.m */,
 				A1478F9E07FF03E666755A23 /* JSResourceDashboardUnit.h */,
 				A1478FD9723BF37C2BB58F2B /* JSResourceDashboardUnit.m */,
+				A14786260EDE28E3427B4003 /* JSScheduleJob.h */,
+				A1478FC0657A2C5AE60CA688 /* JSScheduleJob.m */,
+				A147879F9C5F9AE58DE2208B /* JSScheduleJobResource.h */,
+				A147813DF61F2C9F8B7E1A69 /* JSScheduleJobResource.m */,
+				A147876D0CBB5A203071885F /* JSScheduleJobState.h */,
+				A1478CA259B4BAD463F39B36 /* JSScheduleJobState.m */,
+				A14782B2844E9E3717AF73D6 /* JSScheduleTrigger.h */,
+				A147811960554DE953BB6FC7 /* JSScheduleTrigger.m */,
 			);
 			path = JSObjectMappings;
 			sourceTree = "<group>";
@@ -394,6 +422,8 @@
 				0849FC7E1C2B0A91008F1064 /* KeychainItemWrapper */,
 				A1478F16274972BB223D56F6 /* JSRESTBase+JSRESTDashboard.h */,
 				A1478FDBCBE0FE99F2512696 /* JSRESTBase+JSRESTDashboard.m */,
+				A14788C87487E6E38FAC413D /* JSRESTBase+JSSchedule.h */,
+				A147815111A4ADFCC724870F /* JSRESTBase+JSSchedule.m */,
 			);
 			path = JSRestClient;
 			sourceTree = "<group>";
@@ -559,6 +589,11 @@
 				A1478B2366FD595E1D5184F7 /* JSDashboardComponent.h in Headers */,
 				A1478FB1834AD4371D17E79C /* JSDashboardResource.h in Headers */,
 				A14781A79BFEC0119BA5EDDE /* JSResourceDashboardUnit.h in Headers */,
+				A1478853DBB60C2FD9C3C7FB /* JSScheduleJob.h in Headers */,
+				A1478EF134484CF355BA4DF5 /* JSScheduleJobResource.h in Headers */,
+				A1478FE74D5DDD802462C488 /* JSScheduleJobState.h in Headers */,
+				A147864DB8024087AD318145 /* JSScheduleTrigger.h in Headers */,
+				A1478449D2FAFA08F51A8C36 /* JSRESTBase+JSSchedule.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -719,6 +754,11 @@
 				A147807F7FC01CA5D92C4C37 /* JSDashboardComponent.m in Sources */,
 				A14781767852B1DC18420B3B /* JSDashboardResource.m in Sources */,
 				A14784E4934B6443469F2097 /* JSResourceDashboardUnit.m in Sources */,
+				A1478671113039DEF1D30ABE /* JSScheduleJob.m in Sources */,
+				A14789D7076E289DD1DBA342 /* JSScheduleJobResource.m in Sources */,
+				A1478CBCB217D3A4C19CDBE7 /* JSScheduleJobState.m in Sources */,
+				A147857A15CCC0EE16A3C2D3 /* JSScheduleTrigger.m in Sources */,
+				A1478FC814F76B3AD331F43B /* JSRESTBase+JSSchedule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

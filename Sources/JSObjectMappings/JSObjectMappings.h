@@ -65,3 +65,9 @@
 #import "JSResourceDashboardUnit.h"
 #import "JSDashboardResource.h"
 #import "JSDashboardComponent.h"
+
+// Schedules
+#import "JSScheduleJob.h"
+#import "JSScheduleJobResource.h"
+#import "JSScheduleJobState.h"
+#import "JSScheduleTrigger.h"

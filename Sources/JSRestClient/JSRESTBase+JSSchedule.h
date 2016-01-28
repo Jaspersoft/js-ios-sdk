@@ -1,6 +1,6 @@
 /*
  * Jaspersoft Mobile SDK
- * Copyright (C) 2011 - 2014 Jaspersoft Corporation. All rights reserved.
+ * Copyright (C) 2011 - 2016 Jaspersoft Corporation. All rights reserved.
  * http://community.jaspersoft.com/project/mobile-sdk-ios
  *
  * Unless you have purchased a commercial license agreement from Jaspersoft,
@@ -20,23 +20,28 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with Jaspersoft Mobile SDK for iOS. If not, see
- * <http://www.gnu.org/licenses/lgpl".
+ * <http://www.gnu.org/licenses/lgpl>.
  */
 
 //
-//  JSRestClient.h
+//  JSRESTBase+JSSchedule.h
 //  Jaspersoft Corporation
 //
 
 
-#import "JSProfile.h"
-#import "JSRestBase.h"
-#import "JSRESTBase+JSRESTReport.h"
-#import "JSRESTBase+JSRESTDashboard.h"
-#import "JSRESTBase+JSRESTResource.h"
-#import "JSRESTBase+JSRESTSession.h"
-#import "JSRESTBase+JSRESTContentResource.h"
-#import "JSRESTBase+JSRESTDashboard.h"
-#import "JSRESTBase+JSSchedule.h"
-#import "JSRequest.h"
-#import "JSSerializationDescriptorHolder.h"
+/**
+ @author Aleksandr Dakhno odahno@tibco.com
+ @since 2.3
+ */
+
+#import "JSRESTBase.h"
+
+@class JSScheduleJob;
+
+@interface JSRESTBase (JSSchedule)
+- (void)fetchScheduledJobResourcesWithCompletion:(JSRequestCompletionBlock)completion;
+
+- (void)createScheduledJobWithJob:(JSScheduleJob *)job completion:(JSRequestCompletionBlock)completion;
+
+- (void)deleteScheduledJobWithIdentifier:(NSInteger)identifier completion:(JSRequestCompletionBlock)completion;
+@end
