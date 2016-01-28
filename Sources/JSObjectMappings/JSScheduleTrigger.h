@@ -32,6 +32,8 @@
 */
 
 
+#import "JSSerializationDescriptorHolder.h"
+
 @interface JSScheduleTrigger : NSObject <JSSerializationDescriptorHolder>
 @property (nonatomic, strong) NSString *timezone;
 @property (nonatomic, strong) NSDate *startDate;

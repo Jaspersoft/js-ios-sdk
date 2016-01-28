@@ -33,6 +33,7 @@
 @since 2.3
 */
 
+#import "JSSerializationDescriptorHolder.h"
 @class JSScheduleJobState;
 
 @interface JSScheduleJobResource : NSObject <JSSerializationDescriptorHolder>

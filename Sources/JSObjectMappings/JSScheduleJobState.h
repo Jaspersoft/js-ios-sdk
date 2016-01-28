@@ -32,6 +32,8 @@
 @since 2.3
 */
 
+#import "JSSerializationDescriptorHolder.h"
+
 @interface JSScheduleJobState : NSObject <JSSerializationDescriptorHolder>
 @property (nonatomic, strong) NSDate *nextFireTime;
 @property (nonatomic, assign) NSString *value;
