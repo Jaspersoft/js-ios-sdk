@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name = 'JaspersoftSDK'
-	s.version = '2.3-beta'
+	s.version = '2.3'
 	s.summary = 'JaspersoftSDK - The simplest way to build JasperReports Server apps.'
 	s.description = <<-DESC
 		JaspersoftSDK for iOS is a set of Objective-C classes to easily connect
