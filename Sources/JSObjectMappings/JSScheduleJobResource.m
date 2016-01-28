@@ -54,7 +54,7 @@
 {
     RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
     [classMapping addAttributeMappingsFromDictionary:@{
-            @"id"           : @"identifier",
+            @"id"           : @"jobIdentifier",
             @"label"        : @"label",
             @"description"  : @"jobDescription",
             @"reportLabel"  : @"reportLabel",

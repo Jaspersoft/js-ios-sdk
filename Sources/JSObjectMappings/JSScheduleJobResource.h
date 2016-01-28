@@ -37,7 +37,7 @@
 @class JSScheduleJobState;
 
 @interface JSScheduleJobResource : NSObject <JSSerializationDescriptorHolder>
-@property (nonatomic, assign) NSInteger identifier;
+@property (nonatomic, assign) NSInteger jobIdentifier;
 @property (nonatomic, strong) NSString *label;
 @property (nonatomic, strong) NSString *jobDescription;
 @property (nonatomic, strong) NSString *reportLabel;
