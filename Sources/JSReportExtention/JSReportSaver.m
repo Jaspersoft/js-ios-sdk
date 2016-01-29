@@ -115,6 +115,7 @@
 }
 
 - (void)cancelSavingReport {
+    self.saveReportCompletion = nil;
     [self cancelReportExecution];
     [self.downloadTask cancelByProducingResumeData:^(NSData * _Nullable resumeData){
     }];
