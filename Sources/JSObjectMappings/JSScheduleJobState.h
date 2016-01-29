@@ -36,5 +36,5 @@
 
 @interface JSScheduleJobState : NSObject <JSSerializationDescriptorHolder>
 @property (nonatomic, strong) NSDate *nextFireTime;
-@property (nonatomic, assign) NSString *value;
+@property (nonatomic, strong) NSString *value;
 @end
