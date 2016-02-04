@@ -75,16 +75,24 @@
             self.executeCompletion(self.executionResponse, nil);
         }
     } else {
+        // We should run report execution only, without export execution. For old JRS versions we run report execution with fake export.
+        NSString *outputFormat;
+        NSString *pagesRangeString;
+        if (self.restClient.serverInfo.versionAsFloat < kJS_SERVER_VERSION_CODE_EMERALD_5_6_0) {
+            outputFormat = kJS_CONTENT_TYPE_PDF;
+            pagesRangeString = @"1";
+        }
+        
         __weak typeof(self) weakSelf = self;
         [self.restClient runReportExecution:self.report.reportURI
                                       async:self.configuration.asyncExecution
-                               outputFormat:self.configuration.outputFormat
+                               outputFormat:outputFormat
                                 interactive:self.configuration.interactive
                                   freshData:self.configuration.freshData
                            saveDataSnapshot:self.configuration.saveDataSnapshot
                            ignorePagination:self.configuration.ignorePagination
                              transformerKey:self.configuration.transformerKey
-                                      pages:self.configuration.pagesRange.formattedPagesRange
+                                      pages:pagesRangeString
                           attachmentsPrefix:self.configuration.attachmentsPrefix
                                  parameters:self.report.reportParameters
                             completionBlock:^(JSOperationResult *result) {
