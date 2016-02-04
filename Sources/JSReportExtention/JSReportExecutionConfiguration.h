@@ -36,7 +36,7 @@
 #import <Foundation/Foundation.h>
 #import "JSReportPagesRange.h"
 
-@class JSServerInfo;
+@class JSProfile;
 
 @interface JSReportExecutionConfiguration : NSObject
 
@@ -52,6 +52,6 @@
 
 +(nonnull instancetype)saveReportConfigurationWithFormat:(nonnull NSString *)format pagesRange:(nonnull JSReportPagesRange *)pagesRange;
 
-+(nonnull instancetype)viewReportConfigurationWithServerInfo:(nonnull JSServerInfo *)serverInfo;
++(nonnull instancetype)viewReportConfigurationWithServerProfile:(nonnull JSProfile *)serverProfile;
 
 @end

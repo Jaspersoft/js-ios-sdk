@@ -229,9 +229,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     executionRequest.pages = pages;
     if (self.serverInfo.versionAsFloat >= kJS_SERVER_VERSION_CODE_EMERALD_5_6_0) {
         executionRequest.baseUrl = self.serverProfile.serverUrl;
-        if (attachmentsPrefix) {
-            executionRequest.attachmentsPrefix = [NSString stringWithFormat:@"%@/%@%@", self.serverProfile.serverUrl, kJS_REST_SERVICES_V2_URI, attachmentsPrefix];
-        }
+        executionRequest.attachmentsPrefix = attachmentsPrefix;
     }
     request.body = executionRequest;
     [self sendRequest:request];

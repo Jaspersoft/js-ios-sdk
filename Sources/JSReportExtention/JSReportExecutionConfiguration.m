@@ -48,23 +48,23 @@
     return configuration;
 }
 
-+(nonnull instancetype)viewReportConfigurationWithServerInfo:(nonnull JSServerInfo *)serverInfo {
++(nonnull instancetype)viewReportConfigurationWithServerProfile:(nonnull JSProfile *)serverProfile {
     JSReportExecutionConfiguration *configuration = [JSReportExecutionConfiguration new];
     configuration.asyncExecution = YES;
-    configuration.interactive = [self isInteractiveForServerInfo:serverInfo];
+    configuration.interactive = [self isInteractiveForServerProfile:serverProfile];
     configuration.freshData = NO;
     configuration.saveDataSnapshot = YES;
     configuration.ignorePagination = NO;
     configuration.outputFormat = kJS_CONTENT_TYPE_HTML;
     configuration.transformerKey = nil;
-    configuration.attachmentsPrefix = kJS_REST_EXPORT_EXECUTION_ATTACHMENTS_PREFIX_URI;
+    configuration.attachmentsPrefix = [NSString stringWithFormat:@"%@/%@%@", serverProfile.serverUrl, kJS_REST_SERVICES_V2_URI, kJS_REST_EXPORT_EXECUTION_ATTACHMENTS_PREFIX_URI];
     configuration.pagesRange = [JSReportPagesRange allPagesRange];
     return configuration;
 }
 
 #pragma mark - Private API
-+ (BOOL)isInteractiveForServerInfo:(JSServerInfo *)serverInfo {
-    CGFloat currentVersion = serverInfo.versionAsFloat;
++ (BOOL)isInteractiveForServerProfile:(JSProfile *)serverProfile {
+    CGFloat currentVersion = serverProfile.serverInfo.versionAsFloat;
     CGFloat currentVersion_const = kJS_SERVER_VERSION_CODE_EMERALD_5_6_0;
     BOOL interactive = (currentVersion > currentVersion_const || currentVersion < currentVersion_const);
     return interactive;

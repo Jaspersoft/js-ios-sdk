@@ -48,6 +48,7 @@
 
 // cache
 @property (nonatomic, strong) NSMutableDictionary *cachedPages;
+@property (nonatomic, strong) JSReportExecutionConfiguration *configuration;
 
 @end
 
@@ -72,6 +73,13 @@
         _exportIdsDictionary = [NSMutableDictionary dictionary];
     }
     return _exportIdsDictionary;
+}
+
+- (JSReportExecutionConfiguration *)configuration {
+    if (!_configuration) {
+        _configuration = [JSReportExecutionConfiguration viewReportConfigurationWithServerProfile:self.restClient.serverProfile];
+    }
+    return _configuration;
 }
 
 #pragma mark - Public API
@@ -125,18 +133,17 @@
 #pragma mark - Private API
 
 - (void) runReportExecution {
-    JSReportExecutionConfiguration *configuration = [JSReportExecutionConfiguration viewReportConfigurationWithServerInfo:self.restClient.serverInfo];
     __weak typeof(self) weakSelf = self;
     [self.restClient runReportExecution:self.report.reportURI
-                                  async:configuration.asyncExecution
-                           outputFormat:configuration.outputFormat
-                            interactive:configuration.interactive
-                              freshData:configuration.freshData
-                       saveDataSnapshot:configuration.saveDataSnapshot
-                       ignorePagination:configuration.ignorePagination
-                         transformerKey:configuration.transformerKey
-                                  pages:configuration.pagesRange.formattedPagesRange
-                      attachmentsPrefix:kJS_REST_EXPORT_EXECUTION_ATTACHMENTS_PREFIX_URI
+                                  async:self.configuration.asyncExecution
+                           outputFormat:self.configuration.outputFormat
+                            interactive:self.configuration.interactive
+                              freshData:self.configuration.freshData
+                       saveDataSnapshot:self.configuration.saveDataSnapshot
+                       ignorePagination:self.configuration.ignorePagination
+                         transformerKey:self.configuration.transformerKey
+                                  pages:self.configuration.pagesRange.formattedPagesRange
+                      attachmentsPrefix:self.configuration.attachmentsPrefix
                              parameters:self.report.reportParameters
                         completionBlock:^(JSOperationResult *result) {
                             __strong typeof(self) strongSelf = weakSelf;
@@ -204,7 +211,7 @@
             [self.restClient runExportExecution:self.report.requestId
                                    outputFormat:kJS_CONTENT_TYPE_HTML
                                           pages:@(page).stringValue
-                              attachmentsPrefix:kJS_REST_EXPORT_EXECUTION_ATTACHMENTS_PREFIX_URI
+                              attachmentsPrefix:self.configuration.attachmentsPrefix
                                 completionBlock:^(JSOperationResult *result) {
                                     __strong typeof(self) strongSelf = weakSelf;
                                     if (result.error) {
