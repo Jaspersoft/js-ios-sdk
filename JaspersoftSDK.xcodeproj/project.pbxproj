@@ -237,7 +237,6 @@
 		0899C44C1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSRESTContentResource.m"; sourceTree = "<group>"; };
 		1AE65D84777378DA82ED7BA4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B199A7873E268BCFDF3074C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		A14780856156D274B677AF06 /* TIB_jsm-sdk-ios_2.1.1_license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TIB_jsm-sdk-ios_2.1.1_license.txt"; sourceTree = "<group>"; };
 		A14780CE0E752AD263D1C79E /* JSDashboardComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDashboardComponent.h; sourceTree = "<group>"; };
 		A147811960554DE953BB6FC7 /* JSScheduleTrigger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSScheduleTrigger.m; sourceTree = "<group>"; };
 		A147813DF61F2C9F8B7E1A69 /* JSScheduleJobResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSScheduleJobResource.m; sourceTree = "<group>"; };
@@ -245,6 +244,7 @@
 		A147828C4698D5A889D3163B /* JSDashboardComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDashboardComponent.m; sourceTree = "<group>"; };
 		A14782B2844E9E3717AF73D6 /* JSScheduleTrigger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSScheduleTrigger.h; sourceTree = "<group>"; };
 		A14784FCE771FA8D974535B3 /* JSDashboardResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDashboardResource.h; sourceTree = "<group>"; };
+		A14785ACF3E7073C96627DA5 /* TIB_jsm-sdk-ios_2.3.0_GA_license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TIB_jsm-sdk-ios_2.3.0_GA_license.txt"; sourceTree = "<group>"; };
 		A14786260EDE28E3427B4003 /* JSScheduleJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSScheduleJob.h; sourceTree = "<group>"; };
 		A147876D0CBB5A203071885F /* JSScheduleJobState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSScheduleJobState.h; sourceTree = "<group>"; };
 		A147879F9C5F9AE58DE2208B /* JSScheduleJobResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSScheduleJobResource.h; sourceTree = "<group>"; };
@@ -287,6 +287,7 @@
 			isa = PBXGroup;
 			children = (
 				0811BCA21C08903D006D0ABF /* Localizable */,
+				A14781C33B4F5C834CAA8E45 /* EULA */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -464,6 +465,14 @@
 			path = JSHelper;
 			sourceTree = "<group>";
 		};
+		A14781C33B4F5C834CAA8E45 /* EULA */ = {
+			isa = PBXGroup;
+			children = (
+				A14785ACF3E7073C96627DA5 /* TIB_jsm-sdk-ios_2.3.0_GA_license.txt */,
+			);
+			path = EULA;
+			sourceTree = "<group>";
+		};
 		D919A263B01FF70A80C7A549 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -482,7 +491,6 @@
 				0811BC8D1C0889B7006D0ABF /* Resources */,
 				F59768BE15E3C75F004165A7 /* Products */,
 				D919A263B01FF70A80C7A549 /* Pods */,
-				A14780856156D274B677AF06 /* TIB_jsm-sdk-ios_2.1.1_license.txt */,
 			);
 			sourceTree = "<group>";
 		};
