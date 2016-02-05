@@ -202,10 +202,8 @@
             @"label"                           : @"label",
             @"baseOutputFilename"              : @"baseOutputFilename",
             @"outputFormats.outputFormat"      : @"outputFormats",
-            @"startDate"                       : @"startDate",
             @"repositoryDestination.folderURI" : @"folderURI",
             @"outputTimeZone"                  : @"outputTimeZone",
-            @"error.defaultMessage"            : @"errorDescription"
     }];
 
     [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"trigger.simpleTrigger"
