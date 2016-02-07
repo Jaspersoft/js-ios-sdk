@@ -36,12 +36,12 @@
 
 #import "JSRESTBase.h"
 
-@class JSScheduleJob;
+@class JSScheduleMetadata;
 
 @interface JSRESTBase (JSSchedule)
-- (void)fetchScheduledJobResourcesWithCompletion:(JSRequestCompletionBlock)completion;
-
-- (void)createScheduledJobWithJob:(JSScheduleJob *)job completion:(JSRequestCompletionBlock)completion;
-
-- (void)deleteScheduledJobWithIdentifier:(NSInteger)identifier completion:(JSRequestCompletionBlock)completion;
+- (void)fetchSchedulesForResourceWithURI:(NSString *)resourceURI completion:(JSRequestCompletionBlock)completion;
+- (void)fetchScheduleMetadataWithId:(NSInteger)scheduleId completion:(JSRequestCompletionBlock)completion;
+- (void)createScheduleWithData:(JSScheduleMetadata *)data completion:(JSRequestCompletionBlock)completion;
+- (void)updateSchedule:(JSScheduleMetadata *)schedule completion:(JSRequestCompletionBlock)completion;
+- (void)deleteScheduleWithId:(NSInteger)identifier completion:(JSRequestCompletionBlock)completion;
 @end

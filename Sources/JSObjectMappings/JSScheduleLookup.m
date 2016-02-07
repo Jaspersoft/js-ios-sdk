@@ -22,19 +22,19 @@
 
 
 //
-//  JSScheduleJobResource.m
+//  JSScheduleLookup.m
 //  TIBCO JasperMobile
 //
 
-#import "JSScheduleJobResource.h"
+#import "JSScheduleLookup.h"
 #import "JSScheduleJobState.h"
 
 
-@implementation JSScheduleJobResource
+@implementation JSScheduleLookup
 
 + (nonnull NSString *)resourceRootKeyPath
 {
-    return @"scheduleJobResource";
+    return @"scheduleLookup";
 }
 
 #pragma mark - JSSerializationDescriptorHolder
@@ -54,18 +54,26 @@
 {
     RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
     [classMapping addAttributeMappingsFromDictionary:@{
-            @"id"           : @"jobIdentifier",
-            @"label"        : @"label",
-            @"description"  : @"jobDescription",
-            @"reportLabel"  : @"reportLabel",
-            @"reportUnitURI": @"reportUnitURI",
-            @"owner"        : @"owner",
+            @"id"                          : @"jobIdentifier",
+            @"version"                     : @"version",
+            @"reportUnitURI"               : @"reportUnitURI",
+            @"label"                       : @"label",
+            @"description"                 : @"scheduleDescription",
+            @"owner"                       : @"owner",
+            @"reportLabel"                 : @"reportLabel",
+            // trigger
+            @"reportLabel"                 : @"reportLabel",
+            // may be source parameters
+            @"baseOutputFilename"          : @"baseOutputFilename",
+            @"outputLocale"                : @"outputLocale",
+            @"mailNotification"            : @"mailNotification",
+            @"alert"                       : @"alert",
+            @"outputFormats.outputFormat"  : @"outputFormats",
     }];
 
     [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"state"
                                                                                  toKeyPath:@"state"
                                                                                withMapping:[JSScheduleJobState classMappingForServerProfile:serverProfile]]];
-
 
     return classMapping;
 }
@@ -73,5 +81,6 @@
 + (nonnull NSArray *)classMappingPathes {
     return @[[self resourceRootKeyPath], @"jobsummary"];
 }
+
 
 @end

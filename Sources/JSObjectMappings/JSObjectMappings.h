@@ -67,7 +67,7 @@
 #import "JSDashboardComponent.h"
 
 // Schedules
-#import "JSScheduleJob.h"
-#import "JSScheduleJobResource.h"
+#import "JSScheduleMetadata.h"
+#import "JSScheduleLookup.h"
 #import "JSScheduleJobState.h"
 #import "JSScheduleTrigger.h"

@@ -22,7 +22,7 @@
 
 
 //
-//  JSScheduleJobResource.h
+//  JSScheduleLookup.h
 //  TIBCO JasperMobile
 //
 
@@ -36,12 +36,13 @@
 #import "JSSerializationDescriptorHolder.h"
 @class JSScheduleJobState;
 
-@interface JSScheduleJobResource : NSObject <JSSerializationDescriptorHolder>
+@interface JSScheduleLookup : NSObject <JSSerializationDescriptorHolder>
 @property (nonatomic, assign) NSInteger jobIdentifier;
-@property (nonatomic, strong) NSString *label;
-@property (nonatomic, strong) NSString *jobDescription;
-@property (nonatomic, strong) NSString *reportLabel;
+@property (nonatomic, assign) NSInteger version;
 @property (nonatomic, strong) NSString *reportUnitURI;
+@property (nonatomic, strong) NSString *label;
+@property (nonatomic, strong) NSString *scheduleDescription;
 @property (nonatomic, strong) NSString *owner;
+@property (nonatomic, strong) NSString *reportLabel;
 @property (nonatomic, strong) JSScheduleJobState *state;
 @end

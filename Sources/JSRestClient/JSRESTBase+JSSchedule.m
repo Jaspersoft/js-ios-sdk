@@ -30,37 +30,68 @@
 
 
 #import "JSRESTBase+JSSchedule.h"
-#import "JSScheduleJobResource.h"
-#import "JSScheduleJob.h"
+#import "JSScheduleLookup.h"
+#import "JSScheduleMetadata.h"
 
 
 @implementation JSRESTBase (JSSchedule)
 
 #pragma mark - Public API
-- (void)fetchScheduledJobResourcesWithCompletion:(JSRequestCompletionBlock)completion
+- (void)fetchSchedulesForResourceWithURI:(NSString *)resourceURI completion:(JSRequestCompletionBlock)completion
 {
     NSString *fullURL = [NSString stringWithFormat:@"%@", @"/jobs"];
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURL];
-    request.expectedModelClass = [JSScheduleJobResource class];
+    request.expectedModelClass = [JSScheduleLookup class];
     request.restVersion = JSRESTVersion_2;
     request.method = RKRequestMethodGET;
+
+    if (resourceURI) {
+        [request addParameter:@"reportUnitURI" withStringValue:resourceURI];
+    }
+
     request.completionBlock = completion;
     [self sendRequest:request];
 }
 
-- (void)createScheduledJobWithJob:(JSScheduleJob *)job completion:(JSRequestCompletionBlock)completion
+- (void)fetchScheduleMetadataWithId:(NSInteger)scheduleId completion:(JSRequestCompletionBlock)completion
+{
+    NSString *fullURL = [NSString stringWithFormat:@"%@/%@", @"/jobs", @(scheduleId)];
+    JSRequest *request = [[JSRequest alloc] initWithUri:fullURL];
+    request.expectedModelClass = [JSScheduleMetadata class];
+    request.restVersion = JSRESTVersion_2;
+    request.method = RKRequestMethodGET;
+
+    request.completionBlock = completion;
+    [self sendRequest:request];
+}
+
+- (void)createScheduleWithData:(JSScheduleMetadata *)data completion:(JSRequestCompletionBlock)completion
 {
     NSString *fullURL = [NSString stringWithFormat:@"%@", @"/jobs"];
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURL];
-    request.expectedModelClass = [JSScheduleJob class];
-    request.body = job;
+    request.expectedModelClass = [JSScheduleMetadata class];
+    request.body = data;
     request.restVersion = JSRESTVersion_2;
     request.method = RKRequestMethodPUT;
     request.completionBlock = completion;
     [self sendRequest:request];
 }
 
-- (void)deleteScheduledJobWithIdentifier:(NSInteger)identifier completion:(JSRequestCompletionBlock)completion
+
+
+- (void)updateSchedule:(JSScheduleMetadata *)schedule completion:(JSRequestCompletionBlock)completion
+{
+    NSString *fullURL = [NSString stringWithFormat:@"%@/%@", @"/jobs", @(schedule.jobIdentifier)];
+    JSRequest *request = [[JSRequest alloc] initWithUri:fullURL];
+    request.expectedModelClass = [JSScheduleMetadata class];
+    request.body = schedule;
+    request.restVersion = JSRESTVersion_2;
+    request.method = RKRequestMethodPOST;
+    request.completionBlock = completion;
+    [self sendRequest:request];
+}
+
+- (void)deleteScheduleWithId:(NSInteger)identifier completion:(JSRequestCompletionBlock)completion
 {
     NSString *fullURL = [NSString stringWithFormat:@"%@/%@", @"/jobs", @(identifier)];
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURL];

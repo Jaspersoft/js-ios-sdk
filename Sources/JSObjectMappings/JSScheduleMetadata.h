@@ -22,7 +22,7 @@
 
 
 //
-//  JSScheduleJob.h
+//  JSScheduleMetadata.h
 //  TIBCO JasperMobile
 //
 
@@ -35,31 +35,20 @@
 #import "JSSerializationDescriptorHolder.h"
 @class JSScheduleTrigger;
 
-@interface JSScheduleJob : NSObject <JSSerializationDescriptorHolder>
-@property (nonatomic, strong) NSString *reportUnitURI;
+@interface JSScheduleMetadata : NSObject <JSSerializationDescriptorHolder>
+@property (nonatomic, assign) NSInteger jobIdentifier;
+@property (nonatomic, assign) NSInteger version;
+@property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) NSString *label;
+@property (nonatomic, strong) NSString *scheduleDescription;
+@property (nonatomic, strong) NSDate *creationDate;
+@property (nonatomic, strong) JSScheduleTrigger *trigger;
+@property (nonatomic, strong) NSString *reportUnitURI;
 @property (nonatomic, strong) NSString *baseOutputFilename;
-@property (nonatomic, strong) NSArray *outputFormats;
-@property (nonatomic, strong) NSDate *startDate;
-
+@property (nonatomic, strong) NSString *outputLocale;
+@property (nonatomic, strong) NSString *mailNotification;
+@property (nonatomic, strong) NSString *alert;
 @property (nonatomic, strong) NSString *folderURI;
 @property (nonatomic, strong) NSString *outputTimeZone;
-@property (nonatomic, strong) JSScheduleTrigger *trigger;
-
-@property (nonatomic, strong) NSString *errorDescription;
-
-- (instancetype)initWithReportURI:(NSString *)reportURI
-                            label:(NSString *)label
-                   outputFilename:(NSString *)outputFilename
-                        folderURI:(NSString *)folderURI
-                          formats:(NSArray *)format
-                        startDate:(NSDate *)startDate;
-
-+ (instancetype)jobWithReportURI:(NSString *)reportURI
-                           label:(NSString *)label
-                  outputFilename:(NSString *)outputFilename
-                       folderURI:(NSString *)folderURI
-                         formats:(NSArray *)format
-                       startDate:(NSDate *)startDate;
-- (NSData *)jobAsData;
+@property (nonatomic, strong) NSArray *outputFormats;
 @end
