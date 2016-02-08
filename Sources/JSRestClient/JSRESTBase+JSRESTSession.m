@@ -67,6 +67,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     request.responseAsObjects = NO;
     request.redirectAllowed = NO;
     request.asynchronous = YES;
+    request.shouldResendRequestAfterSessionExpiration = NO;
 
     [request setCompletionBlock:^(JSOperationResult *result) {
         if (completion) {
