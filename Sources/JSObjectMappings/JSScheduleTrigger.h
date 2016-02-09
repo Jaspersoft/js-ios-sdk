@@ -34,9 +34,14 @@
 
 #import "JSSerializationDescriptorHolder.h"
 
+typedef NS_ENUM(NSInteger, JSScheduleTriggerStartType) {
+    JSScheduleTriggerStartTypeImmediately = 1,
+    JSScheduleTriggerStartTypeAtDate,
+};
+
 @interface JSScheduleTrigger : NSObject <JSSerializationDescriptorHolder>
 @property (nonatomic, strong) NSString *timezone;
 @property (nonatomic, strong) NSDate *startDate;
-@property (nonatomic, assign) NSInteger startType;
+@property (nonatomic, assign) JSScheduleTriggerStartType startType;
 @property (nonatomic, assign) NSInteger occurrenceCount;
 @end
