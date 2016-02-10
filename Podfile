@@ -1,5 +1,6 @@
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '6.0'  
+platform :ios, '7.0'  
 
-pod 'RestKit/Core', '0.24.1'
+pod 'AFNetworking', '~> 3.0'
+pod 'EasyMapping', '~> 0.15'
 pod 'ServerReachability'

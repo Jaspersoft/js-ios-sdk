@@ -32,9 +32,9 @@
 @since 2.3
 */
 
-#import "JSSerializationDescriptorHolder.h"
+#import "EKMappingProtocol.h"
 
-@interface JSScheduleJobState : NSObject <JSSerializationDescriptorHolder>
+@interface JSScheduleJobState : NSObject <EKMappingProtocol>
 @property (nonatomic, strong) NSDate *nextFireTime;
 @property (nonatomic, strong) NSString *value;
 @end

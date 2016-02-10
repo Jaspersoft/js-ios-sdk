@@ -25,7 +25,7 @@
  */
 
 //
-//  JSSerializationDescriptorHolder.h
+//  EKMappingProtocol.h
 //  Jaspersoft Corporation
 //
 
@@ -41,7 +41,7 @@
  @since 1.9
  */
 
-@protocol JSSerializationDescriptorHolder <NSObject>
+@protocol EKMappingProtocol <NSObject>
 
 @optional
 /**

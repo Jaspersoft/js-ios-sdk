@@ -37,11 +37,11 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "JSSerializationDescriptorHolder.h"
+#import "EKMappingProtocol.h"
 
 @class JSInputControlDescriptor;
 
-@interface JSReportOption : NSObject <JSSerializationDescriptorHolder, NSCopying>
+@interface JSReportOption : NSObject <EKMappingProtocol, NSCopying>
 @property (nonatomic, strong, nullable) NSString *uri;
 @property (nonatomic, strong, nullable) NSString *identifier;
 @property (nonatomic, strong, nullable) NSString *label;

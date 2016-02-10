@@ -41,24 +41,24 @@
     return self;
 }
 
-#pragma mark - JSSerializationDescriptorHolder
+#pragma mark - EKMappingProtocol
 
-+ (nonnull NSArray <RKRequestDescriptor *> *)rkRequestDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-    NSMutableArray *descriptorsArray = [NSMutableArray array];
-    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
-                                                                      objectClass:self
-                                                                      rootKeyPath:@"reportParameter"
-                                                                           method:RKRequestMethodAny]];
-    return descriptorsArray;
-}
-
-+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-    [classMapping addAttributeMappingsFromDictionary:@{
-                                                       @"name": @"name",
-                                                       @"value": @"value",
-                                                       }];
-    return classMapping;
-}
+//+ (nonnull NSArray <RKRequestDescriptor *> *)rkRequestDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
+//    NSMutableArray *descriptorsArray = [NSMutableArray array];
+//    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
+//                                                                      objectClass:self
+//                                                                      rootKeyPath:@"reportParameter"
+//                                                                           method:RKRequestMethodAny]];
+//    return descriptorsArray;
+//}
+//
+//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+//    [classMapping addAttributeMappingsFromDictionary:@{
+//                                                       @"name": @"name",
+//                                                       @"value": @"value",
+//                                                       }];
+//    return classMapping;
+//}
 
 @end

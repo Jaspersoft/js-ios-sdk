@@ -37,37 +37,37 @@
     return @"dashboardComponent";
 }
 
-#pragma mark - JSSerializationDescriptorHolder
-+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-    NSMutableArray *descriptorsArray = [NSMutableArray array];
-    for (NSString *keyPath in [self classMappingPathes]) {
-        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
-                                                                                 method:RKRequestMethodAny
-                                                                            pathPattern:nil
-                                                                                keyPath:keyPath
-                                                                            statusCodes:nil]];
-    }
-    return descriptorsArray;
-}
-
-+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile
-{
-    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-    [classMapping addAttributeMappingsFromDictionary:@{
-            @"id"                        : @"identifier",
-            @"type"                      : @"type",
-            @"label"                     : @"label",
-            @"name"                      : @"name",
-            @"resourceId"                : @"resourceId",
-            @"resource"                  : @"resourceURI",
-            @"ownerResourceId"           : @"ownerResourceURI",
-            @"ownerResourceParameterName": @"ownerResourceParameterName",
-    }];
-    return classMapping;
-}
-
-+ (nonnull NSArray *)classMappingPathes {
-    return @[[self resourceRootKeyPath], @""];
-}
+#pragma mark - EKMappingProtocol
+//+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
+//    NSMutableArray *descriptorsArray = [NSMutableArray array];
+//    for (NSString *keyPath in [self classMappingPathes]) {
+//        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
+//                                                                                 method:RKRequestMethodAny
+//                                                                            pathPattern:nil
+//                                                                                keyPath:keyPath
+//                                                                            statusCodes:nil]];
+//    }
+//    return descriptorsArray;
+//}
+//
+//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile
+//{
+//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+//    [classMapping addAttributeMappingsFromDictionary:@{
+//            @"id"                        : @"identifier",
+//            @"type"                      : @"type",
+//            @"label"                     : @"label",
+//            @"name"                      : @"name",
+//            @"resourceId"                : @"resourceId",
+//            @"resource"                  : @"resourceURI",
+//            @"ownerResourceId"           : @"ownerResourceURI",
+//            @"ownerResourceParameterName": @"ownerResourceParameterName",
+//    }];
+//    return classMapping;
+//}
+//
+//+ (nonnull NSArray *)classMappingPathes {
+//    return @[[self resourceRootKeyPath], @""];
+//}
 
 @end

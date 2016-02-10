@@ -29,14 +29,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "JSSerializationDescriptorHolder.h"
+#import "EKMappingProtocol.h"
 
 /**
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.4
  */
-@interface JSReportParameter : NSObject <JSSerializationDescriptorHolder>
+@interface JSReportParameter : NSObject <EKMappingProtocol>
 
 @property (nonatomic, retain, nonnull) NSString *name;
 @property (nonatomic, retain, nonnull) NSArray *value;

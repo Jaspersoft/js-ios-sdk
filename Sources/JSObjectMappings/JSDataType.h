@@ -29,7 +29,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "JSSerializationDescriptorHolder.h"
+#import "EKMappingProtocol.h"
 
 /**
  @author Alexey Gubarev ogubarie@tibco.com
@@ -37,7 +37,7 @@
  */
 
 
-@interface JSDataType : NSObject <JSSerializationDescriptorHolder, NSCopying>
+@interface JSDataType : NSObject <EKMappingProtocol, NSCopying>
 
 @property (nonatomic, assign, readonly) kJS_DT_TYPE type;
 @property (nonatomic, strong, readonly) NSString *pattern;

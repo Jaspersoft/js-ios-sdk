@@ -70,37 +70,37 @@
     return [JSUtils BOOLFromString:self.strictMinAsString];
 }
 
-#pragma mark - JSSerializationDescriptorHolder
+#pragma mark - EKMappingProtocol
 
-+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-    NSMutableArray *descriptorsArray = [NSMutableArray array];
-    for (NSString *keyPath in [self classMappingPathes]) {
-        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
-                                                                                 method:RKRequestMethodAny
-                                                                            pathPattern:nil
-                                                                                keyPath:keyPath
-                                                                            statusCodes:nil]];
-    }
-    return descriptorsArray;
-}
-
-+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-    [classMapping addAttributeMappingsFromDictionary:@{
-                                                       @"type"      : @"typeAsString",
-                                                       @"strictMax" : @"strictMaxAsString",
-                                                       @"strictMin" : @"strictMinAsString",
-                                                       @"maxLength" : @"maxLengthAsString",
-                                                       @"maxValue"  : @"maxValue",
-                                                       @"minValue"  : @"minValue",
-                                                       @"pattern"   :  @"pattern",
-                                                       }];
-    return classMapping;
-}
-
-+ (NSArray *)classMappingPathes {
-    return @[@"dataType"];
-}
+//+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
+//    NSMutableArray *descriptorsArray = [NSMutableArray array];
+//    for (NSString *keyPath in [self classMappingPathes]) {
+//        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
+//                                                                                 method:RKRequestMethodAny
+//                                                                            pathPattern:nil
+//                                                                                keyPath:keyPath
+//                                                                            statusCodes:nil]];
+//    }
+//    return descriptorsArray;
+//}
+//
+//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+//    [classMapping addAttributeMappingsFromDictionary:@{
+//                                                       @"type"      : @"typeAsString",
+//                                                       @"strictMax" : @"strictMaxAsString",
+//                                                       @"strictMin" : @"strictMinAsString",
+//                                                       @"maxLength" : @"maxLengthAsString",
+//                                                       @"maxValue"  : @"maxValue",
+//                                                       @"minValue"  : @"minValue",
+//                                                       @"pattern"   :  @"pattern",
+//                                                       }];
+//    return classMapping;
+//}
+//
+//+ (NSArray *)classMappingPathes {
+//    return @[@"dataType"];
+//}
 
 #pragma mark - NSCopying
 

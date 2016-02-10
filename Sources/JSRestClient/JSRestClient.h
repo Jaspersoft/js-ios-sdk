@@ -39,4 +39,4 @@
 #import "JSRESTBase+JSRESTDashboard.h"
 #import "JSRESTBase+JSSchedule.h"
 #import "JSRequest.h"
-#import "JSSerializationDescriptorHolder.h"
+#import "EKMappingProtocol.h"

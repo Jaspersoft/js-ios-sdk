@@ -29,7 +29,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "JSSerializationDescriptorHolder.h"
+#import "EKMappingProtocol.h"
 
 
 /**
@@ -40,7 +40,7 @@
  @since 1.8
  */
 
-@interface JSExecutionStatus : NSObject <JSSerializationDescriptorHolder>
+@interface JSExecutionStatus : NSObject <EKMappingProtocol>
 
 @property (nonatomic, strong, nullable) NSString *statusAsString;
 @property (nonatomic, assign) kJS_EXECUTION_STATUS status;

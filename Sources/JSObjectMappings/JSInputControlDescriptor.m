@@ -147,64 +147,64 @@
     return values;
 }
 
-#pragma mark - JSSerializationDescriptorHolder
-+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-    NSMutableArray *descriptorsArray = [NSMutableArray array];
-    for (NSString *keyPath in [self classMappingPathes]) {
-        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
-                                                                                 method:RKRequestMethodAny
-                                                                            pathPattern:nil
-                                                                                keyPath:keyPath
-                                                                            statusCodes:nil]];
-    }
-    [descriptorsArray addObjectsFromArray:[JSInputControlOption rkResponseDescriptorsForServerProfile:serverProfile]];
-    
-    return descriptorsArray;
-}
-
-+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-    [classMapping addAttributeMappingsFromDictionary:@{
-                                                       @"id": @"uuid",
-                                                       @"uri": @"uri",
-                                                       @"label": @"label",
-                                                       @"mandatory": @"mandatory",
-                                                       @"readOnly": @"readOnly",
-                                                       @"type": @"type",
-                                                       @"visible": @"visible",
-                                                       @"masterDependencies": @"masterDependencies",
-                                                       @"slaveDependencies": @"slaveDependencies",
-                                                       @"masterSingleInputControlID": @"masterSingleInputControlID",
-                                                       @"slaveSingleInputControlID": @"slaveSingleInputControlID",
-                                                       }];
-    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"state"
-                                                                                 toKeyPath:@"state"
-                                                                               withMapping:[JSInputControlState classMappingForServerProfile:serverProfile]]];
-
-    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"dataType"
-                                                                                 toKeyPath:@"dataType"
-                                                                               withMapping:[JSDataType classMappingForServerProfile:serverProfile]]];
-
-    RKDynamicMapping* dynamicMapping = [RKDynamicMapping new];
-    [dynamicMapping setObjectMappingForRepresentationBlock:^RKObjectMapping *(id representation) {
-        id key = [[representation allKeys] lastObject];
-        if ([key isKindOfClass:[NSString class]] && [key isEqualToString:@"mandatoryValidationRule"]) {
-            return [JSMandatoryValidationRule classMappingForServerProfile:serverProfile];
-        } else if ([key isKindOfClass:[NSString class]] && [key isEqualToString:@"dateTimeFormatValidationRule"]) {
-            return [JSDateTimeFormatValidationRule classMappingForServerProfile:serverProfile];
-        }
-        return nil;
-    }];
-    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"validationRules"
-                                                                                 toKeyPath:@"validationRules"
-                                                                               withMapping:dynamicMapping]];
-    
-    return classMapping;
-}
-
-+ (NSArray *)classMappingPathes {
-    return @[@"inputControl"];
-}
+#pragma mark - EKMappingProtocol
+//+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
+//    NSMutableArray *descriptorsArray = [NSMutableArray array];
+//    for (NSString *keyPath in [self classMappingPathes]) {
+//        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
+//                                                                                 method:RKRequestMethodAny
+//                                                                            pathPattern:nil
+//                                                                                keyPath:keyPath
+//                                                                            statusCodes:nil]];
+//    }
+//    [descriptorsArray addObjectsFromArray:[JSInputControlOption rkResponseDescriptorsForServerProfile:serverProfile]];
+//    
+//    return descriptorsArray;
+//}
+//
+//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+//    [classMapping addAttributeMappingsFromDictionary:@{
+//                                                       @"id": @"uuid",
+//                                                       @"uri": @"uri",
+//                                                       @"label": @"label",
+//                                                       @"mandatory": @"mandatory",
+//                                                       @"readOnly": @"readOnly",
+//                                                       @"type": @"type",
+//                                                       @"visible": @"visible",
+//                                                       @"masterDependencies": @"masterDependencies",
+//                                                       @"slaveDependencies": @"slaveDependencies",
+//                                                       @"masterSingleInputControlID": @"masterSingleInputControlID",
+//                                                       @"slaveSingleInputControlID": @"slaveSingleInputControlID",
+//                                                       }];
+//    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"state"
+//                                                                                 toKeyPath:@"state"
+//                                                                               withMapping:[JSInputControlState classMappingForServerProfile:serverProfile]]];
+//
+//    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"dataType"
+//                                                                                 toKeyPath:@"dataType"
+//                                                                               withMapping:[JSDataType classMappingForServerProfile:serverProfile]]];
+//
+//    RKDynamicMapping* dynamicMapping = [RKDynamicMapping new];
+//    [dynamicMapping setObjectMappingForRepresentationBlock:^RKObjectMapping *(id representation) {
+//        id key = [[representation allKeys] lastObject];
+//        if ([key isKindOfClass:[NSString class]] && [key isEqualToString:@"mandatoryValidationRule"]) {
+//            return [JSMandatoryValidationRule classMappingForServerProfile:serverProfile];
+//        } else if ([key isKindOfClass:[NSString class]] && [key isEqualToString:@"dateTimeFormatValidationRule"]) {
+//            return [JSDateTimeFormatValidationRule classMappingForServerProfile:serverProfile];
+//        }
+//        return nil;
+//    }];
+//    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"validationRules"
+//                                                                                 toKeyPath:@"validationRules"
+//                                                                               withMapping:dynamicMapping]];
+//    
+//    return classMapping;
+//}
+//
+//+ (NSArray *)classMappingPathes {
+//    return @[@"inputControl"];
+//}
 
 
 #pragma mark - NSCopying

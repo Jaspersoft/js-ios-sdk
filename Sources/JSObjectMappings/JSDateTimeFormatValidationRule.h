@@ -29,14 +29,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "JSSerializationDescriptorHolder.h"
+#import "EKMappingProtocol.h"
 
 /**
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.4
  */
-@interface JSDateTimeFormatValidationRule : NSObject <JSSerializationDescriptorHolder, NSCopying>
+@interface JSDateTimeFormatValidationRule : NSObject <EKMappingProtocol, NSCopying>
 
 @property (nonatomic, retain) NSString *errorMessage;
 @property (nonatomic, retain) NSString *format;

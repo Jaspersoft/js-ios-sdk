@@ -32,14 +32,14 @@
 */
 
 
-#import "JSSerializationDescriptorHolder.h"
+#import "EKMappingProtocol.h"
 
 typedef NS_ENUM(NSInteger, JSScheduleTriggerStartType) {
     JSScheduleTriggerStartTypeImmediately = 1,
     JSScheduleTriggerStartTypeAtDate,
 };
 
-@interface JSScheduleTrigger : NSObject <JSSerializationDescriptorHolder>
+@interface JSScheduleTrigger : NSObject <JSObjectMappingsProtocol>
 @property (nonatomic, strong) NSString *timezone;
 @property (nonatomic, strong) NSDate *startDate;
 @property (nonatomic, assign) JSScheduleTriggerStartType startType;

@@ -29,14 +29,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "JSSerializationDescriptorHolder.h"
+#import "EKMappingProtocol.h"
 
 /**
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.9
  */
-@interface JSMandatoryValidationRule : NSObject <JSSerializationDescriptorHolder, NSCopying>
+@interface JSMandatoryValidationRule : NSObject <EKMappingProtocol, NSCopying>
 
 @property (nonatomic, retain) NSString *errorMessage;
 

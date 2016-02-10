@@ -33,30 +33,30 @@
 
 @implementation JSExportExecutionRequest
 
-#pragma mark - JSSerializationDescriptorHolder
-
-+ (nonnull NSArray <RKRequestDescriptor *> *)rkRequestDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-    NSMutableArray *descriptorsArray = [NSMutableArray array];
-    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
-                                                                      objectClass:self
-                                                                      rootKeyPath:nil
-                                                                           method:RKRequestMethodAny]];
-    return descriptorsArray;
-}
-
-+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-    [classMapping addAttributeMappingsFromDictionary:@{
-                                                       @"outputFormat": @"outputFormat",
-                                                       @"pages": @"pages",
-                                                       @"attachmentsPrefix": @"attachmentsPrefix",
-                                                       }];
-
-    if (serverProfile && serverProfile.serverInfo.versionAsFloat >= kJS_SERVER_VERSION_CODE_EMERALD_5_6_0) {
-        [classMapping addPropertyMapping:[RKAttributeMapping attributeMappingFromKeyPath:@"baseUrl" toKeyPath:@"baseUrl"]];
-    }
-
-    return classMapping;
-}
+#pragma mark - EKMappingProtocol
+//
+//+ (nonnull NSArray <RKRequestDescriptor *> *)rkRequestDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
+//    NSMutableArray *descriptorsArray = [NSMutableArray array];
+//    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
+//                                                                      objectClass:self
+//                                                                      rootKeyPath:nil
+//                                                                           method:RKRequestMethodAny]];
+//    return descriptorsArray;
+//}
+//
+//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+//    [classMapping addAttributeMappingsFromDictionary:@{
+//                                                       @"outputFormat": @"outputFormat",
+//                                                       @"pages": @"pages",
+//                                                       @"attachmentsPrefix": @"attachmentsPrefix",
+//                                                       }];
+//
+//    if (serverProfile && serverProfile.serverInfo.versionAsFloat >= kJS_SERVER_VERSION_CODE_EMERALD_5_6_0) {
+//        [classMapping addPropertyMapping:[RKAttributeMapping attributeMappingFromKeyPath:@"baseUrl" toKeyPath:@"baseUrl"]];
+//    }
+//
+//    return classMapping;
+//}
 
 @end

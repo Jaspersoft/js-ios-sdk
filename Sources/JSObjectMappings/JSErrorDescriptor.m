@@ -32,36 +32,36 @@
 
 @implementation JSErrorDescriptor
 
-#pragma mark - JSSerializationDescriptorHolder
-+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-    NSMutableArray *descriptorsArray = [NSMutableArray array];
-    for (NSString *keyPath in [self classMappingPathes]) {
-        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:(JSProfile *)serverProfile]
-                                                                                 method:RKRequestMethodAny
-                                                                            pathPattern:nil
-                                                                                keyPath:keyPath
-                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassServerError)]];
-        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:(JSProfile *)serverProfile]
-                                                                                 method:RKRequestMethodAny
-                                                                            pathPattern:nil
-                                                                                keyPath:keyPath
-                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassClientError)]];
-    }
-    return descriptorsArray;
-}
-
-+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-    [classMapping addAttributeMappingsFromDictionary:@{
-                                                       @"message": @"message",
-                                                       @"errorCode": @"errorCode",
-                                                       @"parameters": @"parameters",
-                                                       }];
-    return classMapping;
-}
-
-+ (nonnull NSArray *)classMappingPathes {
-    return @[@"errorDescriptor", @""];
-}
+#pragma mark - EKMappingProtocol
+//+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
+//    NSMutableArray *descriptorsArray = [NSMutableArray array];
+//    for (NSString *keyPath in [self classMappingPathes]) {
+//        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:(JSProfile *)serverProfile]
+//                                                                                 method:RKRequestMethodAny
+//                                                                            pathPattern:nil
+//                                                                                keyPath:keyPath
+//                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassServerError)]];
+//        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:(JSProfile *)serverProfile]
+//                                                                                 method:RKRequestMethodAny
+//                                                                            pathPattern:nil
+//                                                                                keyPath:keyPath
+//                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassClientError)]];
+//    }
+//    return descriptorsArray;
+//}
+//
+//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+//    [classMapping addAttributeMappingsFromDictionary:@{
+//                                                       @"message": @"message",
+//                                                       @"errorCode": @"errorCode",
+//                                                       @"parameters": @"parameters",
+//                                                       }];
+//    return classMapping;
+//}
+//
+//+ (nonnull NSArray *)classMappingPathes {
+//    return @[@"errorDescriptor", @""];
+//}
 
 @end

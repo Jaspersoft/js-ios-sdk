@@ -29,14 +29,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "JSSerializationDescriptorHolder.h"
+#import "EKMappingProtocol.h"
 
 /**
  @author Alexey Gubarev ogubarie@tibco.com
  @since 2.3
  */
 
-@interface JSResourceParameter : NSObject <JSSerializationDescriptorHolder>
+@interface JSResourceParameter : NSObject <EKMappingProtocol>
 
 @property (nonatomic, retain, nonnull) NSString *field;
 @property (nonatomic, retain, nullable) id value;

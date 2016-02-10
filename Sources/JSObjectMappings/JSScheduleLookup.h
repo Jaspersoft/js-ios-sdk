@@ -33,10 +33,10 @@
 @since 2.3
 */
 
-#import "JSSerializationDescriptorHolder.h"
+#import "EKMappingProtocol.h"
 @class JSScheduleJobState;
 
-@interface JSScheduleLookup : NSObject <JSSerializationDescriptorHolder>
+@interface JSScheduleLookup : NSObject <EKMappingProtocol>
 @property (nonatomic, assign) NSInteger jobIdentifier;
 @property (nonatomic, assign) NSInteger version;
 @property (nonatomic, strong) NSString *reportUnitURI;

@@ -58,47 +58,47 @@ NSString *const kJSExecutionStatusFailed = @"failed";
     return self.statusAsString;
 }
 
-+ (nonnull RKObjectMapping *)customMapping {
-    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-    [classMapping addAttributeMappingsFromDictionary:@{
-                                                       @"description": @"statusAsString",
-                                                       }];
-    return classMapping;
-}
+//+ (nonnull RKObjectMapping *)customMapping {
+//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+//    [classMapping addAttributeMappingsFromDictionary:@{
+//                                                       @"description": @"statusAsString",
+//                                                       }];
+//    return classMapping;
+//}
 
-#pragma mark - JSSerializationDescriptorHolder
+#pragma mark - EKMappingProtocol
 
-+ (nonnull NSArray <RKRequestDescriptor *> *)rkRequestDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-    NSMutableArray *descriptorsArray = [NSMutableArray array];
-    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
-                                                                      objectClass:self
-                                                                      rootKeyPath:nil
-                                                                           method:RKRequestMethodAny]];
-    return descriptorsArray;
-}
-
-+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-    NSMutableArray *descriptorsArray = [NSMutableArray array];
-    for (NSString *keyPath in [self classMappingPathes]) {
-        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
-                                                                                 method:RKRequestMethodAny
-                                                                            pathPattern:nil
-                                                                                keyPath:keyPath
-                                                                            statusCodes:nil]];
-    }
-    return descriptorsArray;
-}
-
-+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-    [classMapping addAttributeMappingsFromDictionary:@{
-                                                       @"value": @"statusAsString",
-                                                       }];
-    return classMapping;;
-}
-
-+ (nonnull NSArray *)classMappingPathes {
-    return @[@""];
-}
+//+ (nonnull NSArray <RKRequestDescriptor *> *)rkRequestDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
+//    NSMutableArray *descriptorsArray = [NSMutableArray array];
+//    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
+//                                                                      objectClass:self
+//                                                                      rootKeyPath:nil
+//                                                                           method:RKRequestMethodAny]];
+//    return descriptorsArray;
+//}
+//
+//+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
+//    NSMutableArray *descriptorsArray = [NSMutableArray array];
+//    for (NSString *keyPath in [self classMappingPathes]) {
+//        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
+//                                                                                 method:RKRequestMethodAny
+//                                                                            pathPattern:nil
+//                                                                                keyPath:keyPath
+//                                                                            statusCodes:nil]];
+//    }
+//    return descriptorsArray;
+//}
+//
+//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+//    [classMapping addAttributeMappingsFromDictionary:@{
+//                                                       @"value": @"statusAsString",
+//                                                       }];
+//    return classMapping;;
+//}
+//
+//+ (nonnull NSArray *)classMappingPathes {
+//    return @[@""];
+//}
 
 @end

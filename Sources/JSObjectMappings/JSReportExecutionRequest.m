@@ -33,40 +33,40 @@
 
 @implementation JSReportExecutionRequest
 
-#pragma mark - JSSerializationDescriptorHolder
+#pragma mark - EKMappingProtocol
 
-+ (nonnull NSArray <RKRequestDescriptor *> *)rkRequestDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-    NSMutableArray *descriptorsArray = [NSMutableArray array];
-    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
-                                                                      objectClass:self
-                                                                      rootKeyPath:nil
-                                                                           method:RKRequestMethodAny]];
-    return descriptorsArray;
-}
-
-+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-    [classMapping addAttributeMappingsFromDictionary:@{
-                                                       @"reportUnitUri": @"reportUnitUri",
-                                                       @"async": @"async",
-                                                       @"outputFormat": @"outputFormat",
-                                                       @"interactive": @"interactive",
-                                                       @"freshData": @"freshData",
-                                                       @"saveDataSnapshot": @"saveDataSnapshot",
-                                                       @"ignorePagination": @"ignorePagination",
-                                                       @"transformerKey": @"transformerKey",
-                                                       @"pages": @"pages",
-                                                       @"attachmentsPrefix": @"attachmentsPrefix",
-                                                       }];
-    if (serverProfile && serverProfile.serverInfo.versionAsFloat >= kJS_SERVER_VERSION_CODE_EMERALD_5_6_0) {
-        [classMapping addPropertyMapping:[RKAttributeMapping attributeMappingFromKeyPath:@"baseUrl" toKeyPath:@"baseURL"]];
-    }
-    
-    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"parameters.reportParameter"
-                                                                                 toKeyPath:@"parameters"
-                                                                               withMapping:[JSReportParameter classMappingForServerProfile:serverProfile]]];
-
-    return classMapping;
-}
-
+//+ (nonnull NSArray <RKRequestDescriptor *> *)rkRequestDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
+//    NSMutableArray *descriptorsArray = [NSMutableArray array];
+//    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
+//                                                                      objectClass:self
+//                                                                      rootKeyPath:nil
+//                                                                           method:RKRequestMethodAny]];
+//    return descriptorsArray;
+//}
+//
+//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+//    [classMapping addAttributeMappingsFromDictionary:@{
+//                                                       @"reportUnitUri": @"reportUnitUri",
+//                                                       @"async": @"async",
+//                                                       @"outputFormat": @"outputFormat",
+//                                                       @"interactive": @"interactive",
+//                                                       @"freshData": @"freshData",
+//                                                       @"saveDataSnapshot": @"saveDataSnapshot",
+//                                                       @"ignorePagination": @"ignorePagination",
+//                                                       @"transformerKey": @"transformerKey",
+//                                                       @"pages": @"pages",
+//                                                       @"attachmentsPrefix": @"attachmentsPrefix",
+//                                                       }];
+//    if (serverProfile && serverProfile.serverInfo.versionAsFloat >= kJS_SERVER_VERSION_CODE_EMERALD_5_6_0) {
+//        [classMapping addPropertyMapping:[RKAttributeMapping attributeMappingFromKeyPath:@"baseUrl" toKeyPath:@"baseURL"]];
+//    }
+//    
+//    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"parameters.reportParameter"
+//                                                                                 toKeyPath:@"parameters"
+//                                                                               withMapping:[JSReportParameter classMappingForServerProfile:serverProfile]]];
+//
+//    return classMapping;
+//}
+//
 @end

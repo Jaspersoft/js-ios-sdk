@@ -29,7 +29,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "JSSerializationDescriptorHolder.h"
+#import "EKMappingProtocol.h"
 
 /**
  Represents a report attachment entity for convenient XML serialization process
@@ -38,7 +38,7 @@
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.3
  */
-@interface JSReportAttachment : NSObject <JSSerializationDescriptorHolder>
+@interface JSReportAttachment : NSObject <EKMappingProtocol>
 
 @property (nonatomic, retain, nonnull) NSString *type;
 @property (nonatomic, retain, nonnull) NSString *name;

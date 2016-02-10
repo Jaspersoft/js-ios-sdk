@@ -30,9 +30,9 @@
 
 #import "JSProfile.h"
 #import "JSRequest.h"
-#import "JSSerializationDescriptorHolder.h"
+#import "EKMappingProtocol.h"
 #import "JSServerInfo.h"
-#import <AFNetworking/AFHTTPClient.h>
+#import <AFHTTPSessionManager.h>
 
 extern NSString * const _Nonnull kJSRequestContentType;
 extern NSString * const _Nonnull kJSRequestResponceType;
@@ -53,9 +53,9 @@ extern NSString * const _Nonnull kJSRequestResponceType;
 
  @since 1.3
 */
-@class RKObjectManager, ServerReachability;
+@class ServerReachability;
 
-@interface JSRESTBase : NSObject <NSSecureCoding, NSCopying>
+@interface JSRESTBase : AFHTTPSessionManager <NSSecureCoding, NSCopying>
 
 /**
  The server profile instance contains connection details for 
@@ -77,13 +77,6 @@ extern NSString * const _Nonnull kJSRequestResponceType;
  @since 1.8
  */
 @property (nonatomic, readonly, null_unspecified) NSArray <NSHTTPCookie *> *cookies;
-
-/**
- RestKit's RKObjectManager instance for mapping response (in JSON, XML and other formats) directly to object
- 
- @since 1.9
- */
-@property (nonatomic, strong, readonly, nonnull) RKObjectManager *restKitObjectManager;
 
 /**
  If YES REST Client will try to recreate HTTP session.

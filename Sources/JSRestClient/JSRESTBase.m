@@ -29,14 +29,12 @@
 //
 
 #import "JSRESTBase.h"
-#import "RKMIMETypeSerialization.h"
-#import "JSSerializationDescriptorHolder.h"
+#import "EKMappingProtocol.h"
 #import "JSErrorDescriptor.h"
 #import "JSRESTBase+JSRESTSession.h"
-#import "AFHTTPClient.h"
 #import "ServerReachability.h"
 #import "JSErrorBuilder.h"
-
+#import "AFNetworkActivityIndicatorManager.h"
 
 // Access key and value for content-type / charset
 NSString * const kJSRequestContentType = @"Content-Type";
@@ -79,19 +77,9 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 @end
 
 
-@interface RKObjectManager (CopyCredentials)
-
-- (void)copyStateFromHTTPClientToHTTPRequestOperation:(AFHTTPRequestOperation *)operation;
-
-@end
-
 @interface JSRESTBase()
 
 @property (nonatomic, strong, readwrite, nonnull) JSProfile *serverProfile;
-
-// RestKit's RKObjectManager instance for mapping response (in JSON, XML and other
-// formats) directly to object
-@property (nonatomic, strong) RKObjectManager *restKitObjectManager;
 
 // List of JSCallBack instances
 @property (nonatomic, strong) NSMutableArray <JSCallBack *> *requestCallBacks;
@@ -103,7 +91,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 @end
 
 @implementation JSRESTBase
-@synthesize restKitObjectManager = _restKitObjectManager;
 @synthesize serverProfile = _serverProfile;
 @synthesize requestCallBacks = _requestCallBacks;
 @synthesize timeoutInterval = _timeoutInterval;
@@ -113,16 +100,16 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 
 + (void)initialize {
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
-    NSError *error = nil;
-    NSRegularExpression *mimeType = [NSRegularExpression regularExpressionWithPattern:@"application/(.+\\+)?json" options:NSRegularExpressionCaseInsensitive error:&error];
-    if (!error) {
-        [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:mimeType];
-        [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:@"text/html"];
-        [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:@"text/plain"];
-    } else {
-        NSString *messageString = [NSString stringWithFormat:@"Unsupported mime type \"%@\"",mimeType.pattern];
-        @throw [NSException exceptionWithName:@"Unsupported mime type" reason:messageString userInfo:nil];
-    }
+//    NSError *error = nil;
+//    NSRegularExpression *mimeType = [NSRegularExpression regularExpressionWithPattern:@"application/(.+\\+)?json" options:NSRegularExpressionCaseInsensitive error:&error];
+//    if (!error) {
+//        [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:mimeType];
+//        [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:@"text/html"];
+//        [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:@"text/plain"];
+//    } else {
+//        NSString *messageString = [NSString stringWithFormat:@"Unsupported mime type \"%@\"",mimeType.pattern];
+//        @throw [NSException exceptionWithName:@"Unsupported mime type" reason:messageString userInfo:nil];
+//    }
 }
 
 - (nonnull instancetype) initWithServerProfile:(nonnull JSProfile *)serverProfile keepLogged:(BOOL)keepLogged{
@@ -130,7 +117,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 }
 
 - (nonnull instancetype) initWithServerProfile:(nonnull JSProfile *)serverProfile keepLogged:(BOOL)keepLogged deleteCookies:(BOOL)deleteCookies{
-    self = [super init];
+    self = [super initWithBaseURL:[NSURL URLWithString:serverProfile.serverUrl]];
     if (self) {
         if (deleteCookies) {
             // Delete cookies for current server profile. If don't do this old credentials will be used
@@ -167,17 +154,22 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     NSString *fullUri = [self fullUri:jsRequest.uri restVersion:jsRequest.restVersion];
     
     
-    for (RKRequestDescriptor *descriptor in self.restKitObjectManager.requestDescriptors) {
-        [self.restKitObjectManager removeRequestDescriptor:descriptor];
-    }
-    
-    id <JSSerializationDescriptorHolder> descriptiorHolder = jsRequest.body;
-    if (descriptiorHolder && [[descriptiorHolder class] respondsToSelector:@selector(rkRequestDescriptorsForServerProfile:)]) {
-        [self.restKitObjectManager addRequestDescriptorsFromArray:[[descriptiorHolder class] rkRequestDescriptorsForServerProfile:self.serverProfile]];
-    }
+//    for (RKRequestDescriptor *descriptor in self.restKitObjectManager.requestDescriptors) {
+//        [self.restKitObjectManager removeRequestDescriptor:descriptor];
+//    }
+//    
+//    id <EKMappingProtocol> descriptiorHolder = jsRequest.body;
+//    if (descriptiorHolder && [[descriptiorHolder class] respondsToSelector:@selector(rkRequestDescriptorsForServerProfile:)]) {
+//        [self.restKitObjectManager addRequestDescriptorsFromArray:[[descriptiorHolder class] rkRequestDescriptorsForServerProfile:self.serverProfile]];
+//    }
 
+    NSURLSessionDataTask *dataTask;
+    
+    
     NSMutableURLRequest *urlRequest;
     if (jsRequest.multipartFormConstructingBodyBlock) {
+        self.requestSerializer
+        
         urlRequest = [self.restKitObjectManager multipartFormRequestWithObject:self
                                                                         method:jsRequest.method
                                                                           path:fullUri

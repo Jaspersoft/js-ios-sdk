@@ -32,34 +32,34 @@
 
 @implementation JSReportAttachment
 
-#pragma mark - JSSerializationDescriptorHolder
-+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-    NSMutableArray *descriptorsArray = [NSMutableArray array];
-    for (NSString *keyPath in [self classMappingPathes]) {
-        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
-                                                                                 method:RKRequestMethodAny
-                                                                            pathPattern:nil
-                                                                                keyPath:keyPath
-                                                                            statusCodes:nil]];
-    }
-    
-    [descriptorsArray addObjectsFromArray:[JSReportAttachment rkResponseDescriptorsForServerProfile:serverProfile]];
-    
-    return descriptorsArray;
-}
-
-+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-    [classMapping addAttributeMappingsFromDictionary:@{
-                                                       @"text": @"name",
-                                                       @"type": @"type",
-                                                       }];
-    return classMapping;
-}
-
-+ (nonnull NSArray *)classMappingPathes {
-    return @[@""];
-}
-
+#pragma mark - EKMappingProtocol
+//+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
+//    NSMutableArray *descriptorsArray = [NSMutableArray array];
+//    for (NSString *keyPath in [self classMappingPathes]) {
+//        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
+//                                                                                 method:RKRequestMethodAny
+//                                                                            pathPattern:nil
+//                                                                                keyPath:keyPath
+//                                                                            statusCodes:nil]];
+//    }
+//    
+//    [descriptorsArray addObjectsFromArray:[JSReportAttachment rkResponseDescriptorsForServerProfile:serverProfile]];
+//    
+//    return descriptorsArray;
+//}
+//
+//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+//    [classMapping addAttributeMappingsFromDictionary:@{
+//                                                       @"text": @"name",
+//                                                       @"type": @"type",
+//                                                       }];
+//    return classMapping;
+//}
+//
+//+ (nonnull NSArray *)classMappingPathes {
+//    return @[@""];
+//}
+//
 
 @end

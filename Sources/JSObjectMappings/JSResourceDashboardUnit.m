@@ -40,14 +40,14 @@
     return @"dashboardUnit";
 }
 
-#pragma mark - JSSerializationDescriptorHolder
-+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-    RKObjectMapping *classMapping = [super classMappingForServerProfile:serverProfile];
-    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"resources"
-                                                                                 toKeyPath:@"resources"
-                                                                               withMapping:[JSDashboardResource classMappingForServerProfile:serverProfile]]];
-
-    return classMapping;
-}
+#pragma mark - EKMappingProtocol
+//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+//    RKObjectMapping *classMapping = [super classMappingForServerProfile:serverProfile];
+//    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"resources"
+//                                                                                 toKeyPath:@"resources"
+//                                                                               withMapping:[JSDashboardResource classMappingForServerProfile:serverProfile]]];
+//
+//    return classMapping;
+//}
 
 @end

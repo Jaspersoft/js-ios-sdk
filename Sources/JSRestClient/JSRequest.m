@@ -39,7 +39,7 @@
 - (nonnull instancetype)initWithUri:(nonnull NSString *)uri {
     if (self = [super init]) {
         self.uri = uri;
-        self.method = RKRequestMethodGET;
+        self.method = JSRequestHTTPMethodGET;
         self.responseAsObjects = YES;
         self.asynchronous = YES;
         self.restVersion = JSRESTVersion_1;
@@ -68,7 +68,7 @@
 }
 
 - (NSDictionary *)params {
-    if (self.method == RKRequestMethodGET || self.method == RKRequestMethodHEAD || self.method == RKRequestMethodDELETE) {
+    if (self.method == JSRequestHTTPMethodGET || self.method == JSRequestHTTPMethodHEAD || self.method == JSRequestHTTPMethodDELETE) {
         NSMutableDictionary *paramsDictionary = [NSMutableDictionary dictionary];
         for (NSString *key in self.parameters) {
             id value = [self.parameters objectForKey:key];

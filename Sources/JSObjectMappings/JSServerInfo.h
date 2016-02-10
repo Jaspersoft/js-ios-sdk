@@ -29,7 +29,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "JSSerializationDescriptorHolder.h"
+#import "EKMappingProtocol.h"
 
 /**
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
@@ -37,7 +37,7 @@
  @since 1.4
  */
 
-@interface JSServerInfo : NSObject <JSSerializationDescriptorHolder, NSSecureCoding>
+@interface JSServerInfo : NSObject <EKMappingProtocol, NSSecureCoding>
 
 @property (nonatomic, retain) NSString *build;
 @property (nonatomic, retain) NSString *edition;

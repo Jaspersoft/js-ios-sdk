@@ -37,50 +37,50 @@
     return @"scheduleLookup";
 }
 
-#pragma mark - JSSerializationDescriptorHolder
-+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-    NSMutableArray *descriptorsArray = [NSMutableArray array];
-    for (NSString *keyPath in [self classMappingPathes]) {
-        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
-                                                                                 method:RKRequestMethodAny
-                                                                            pathPattern:nil
-                                                                                keyPath:keyPath
-                                                                            statusCodes:nil]];
-    }
-    return descriptorsArray;
-}
-
-+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile
-{
-    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-    [classMapping addAttributeMappingsFromDictionary:@{
-            @"id"                          : @"jobIdentifier",
-            @"version"                     : @"version",
-            @"reportUnitURI"               : @"reportUnitURI",
-            @"label"                       : @"label",
-            @"description"                 : @"scheduleDescription",
-            @"owner"                       : @"owner",
-            @"reportLabel"                 : @"reportLabel",
-            // trigger
-            @"reportLabel"                 : @"reportLabel",
-            // may be source parameters
-            @"baseOutputFilename"          : @"baseOutputFilename",
-            @"outputLocale"                : @"outputLocale",
-            @"mailNotification"            : @"mailNotification",
-            @"alert"                       : @"alert",
-            @"outputFormats.outputFormat"  : @"outputFormats",
-    }];
-
-    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"state"
-                                                                                 toKeyPath:@"state"
-                                                                               withMapping:[JSScheduleJobState classMappingForServerProfile:serverProfile]]];
-
-    return classMapping;
-}
-
-+ (nonnull NSArray *)classMappingPathes {
-    return @[[self resourceRootKeyPath], @"jobsummary"];
-}
+#pragma mark - EKMappingProtocol
+//+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
+//    NSMutableArray *descriptorsArray = [NSMutableArray array];
+//    for (NSString *keyPath in [self classMappingPathes]) {
+//        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
+//                                                                                 method:RKRequestMethodAny
+//                                                                            pathPattern:nil
+//                                                                                keyPath:keyPath
+//                                                                            statusCodes:nil]];
+//    }
+//    return descriptorsArray;
+//}
+//
+//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile
+//{
+//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+//    [classMapping addAttributeMappingsFromDictionary:@{
+//            @"id"                          : @"jobIdentifier",
+//            @"version"                     : @"version",
+//            @"reportUnitURI"               : @"reportUnitURI",
+//            @"label"                       : @"label",
+//            @"description"                 : @"scheduleDescription",
+//            @"owner"                       : @"owner",
+//            @"reportLabel"                 : @"reportLabel",
+//            // trigger
+//            @"reportLabel"                 : @"reportLabel",
+//            // may be source parameters
+//            @"baseOutputFilename"          : @"baseOutputFilename",
+//            @"outputLocale"                : @"outputLocale",
+//            @"mailNotification"            : @"mailNotification",
+//            @"alert"                       : @"alert",
+//            @"outputFormats.outputFormat"  : @"outputFormats",
+//    }];
+//
+//    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"state"
+//                                                                                 toKeyPath:@"state"
+//                                                                               withMapping:[JSScheduleJobState classMappingForServerProfile:serverProfile]]];
+//
+//    return classMapping;
+//}
+//
+//+ (nonnull NSArray *)classMappingPathes {
+//    return @[[self resourceRootKeyPath], @"jobsummary"];
+//}
 
 
 @end

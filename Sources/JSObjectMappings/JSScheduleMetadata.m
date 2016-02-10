@@ -64,60 +64,60 @@
     return @"scheduleMetadata";
 }
 
-+ (nonnull NSArray <RKRequestDescriptor *> *)rkRequestDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-    NSMutableArray *descriptorsArray = [NSMutableArray array];
-    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
-                                                                      objectClass:self
-                                                                      rootKeyPath:nil
-                                                                           method:RKRequestMethodAny]];
-    return descriptorsArray;
-}
-
-#pragma mark - JSSerializationDescriptorHolder
-+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-    NSMutableArray *descriptorsArray = [NSMutableArray array];
-    for (NSString *keyPath in [self classMappingPathes]) {
-        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
-                                                                                 method:RKRequestMethodAny
-                                                                            pathPattern:nil
-                                                                                keyPath:keyPath
-                                                                            statusCodes:nil]];
-    }
-    return descriptorsArray;
-}
-
-+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile
-{
-    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-    [classMapping addAttributeMappingsFromDictionary:@{
-            @"id"                              : @"jobIdentifier",
-            @"version"                         : @"version",
-            @"username"                        : @"username",
-            @"label"                           : @"label",               // request
-            @"description"                     : @"scheduleDescription", // request
-            @"creationDate"                    : @"creationDate",
-            // trigger
-            @"source.reportUnitURI"            : @"reportUnitURI",       // request
-            // may be source parameters
-            @"baseOutputFilename"              : @"baseOutputFilename",  // request
-            @"outputLocale"                    : @"outputLocale",
-            @"mailNotification"                : @"mailNotification",
-            @"alert"                           : @"alert",
-            @"outputTimeZone"                  : @"outputTimeZone",      // request
-            @"repositoryDestination.folderURI" : @"folderURI",           // request
-            @"outputFormats.outputFormat"      : @"outputFormats",       // request
-    }];
-
-    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"trigger.simpleTrigger"
-                                                                                 toKeyPath:@"trigger"
-                                                                               withMapping:[JSScheduleTrigger classMappingForServerProfile:serverProfile]]];
-
-
-    return classMapping;
-}
-
-+ (nonnull NSArray *)classMappingPathes {
-    return @[[self resourceRootKeyPath], @""];
-}
+#pragma mark - EKMappingProtocol
+//+ (nonnull NSArray <RKRequestDescriptor *> *)rkRequestDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
+//    NSMutableArray *descriptorsArray = [NSMutableArray array];
+//    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
+//                                                                      objectClass:self
+//                                                                      rootKeyPath:nil
+//                                                                           method:RKRequestMethodAny]];
+//    return descriptorsArray;
+//}
+//
+//+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
+//    NSMutableArray *descriptorsArray = [NSMutableArray array];
+//    for (NSString *keyPath in [self classMappingPathes]) {
+//        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
+//                                                                                 method:RKRequestMethodAny
+//                                                                            pathPattern:nil
+//                                                                                keyPath:keyPath
+//                                                                            statusCodes:nil]];
+//    }
+//    return descriptorsArray;
+//}
+//
+//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile
+//{
+//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+//    [classMapping addAttributeMappingsFromDictionary:@{
+//            @"id"                              : @"jobIdentifier",
+//            @"version"                         : @"version",
+//            @"username"                        : @"username",
+//            @"label"                           : @"label",               // request
+//            @"description"                     : @"scheduleDescription", // request
+//            @"creationDate"                    : @"creationDate",
+//            // trigger
+//            @"source.reportUnitURI"            : @"reportUnitURI",       // request
+//            // may be source parameters
+//            @"baseOutputFilename"              : @"baseOutputFilename",  // request
+//            @"outputLocale"                    : @"outputLocale",
+//            @"mailNotification"                : @"mailNotification",
+//            @"alert"                           : @"alert",
+//            @"outputTimeZone"                  : @"outputTimeZone",      // request
+//            @"repositoryDestination.folderURI" : @"folderURI",           // request
+//            @"outputFormats.outputFormat"      : @"outputFormats",       // request
+//    }];
+//
+//    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"trigger.simpleTrigger"
+//                                                                                 toKeyPath:@"trigger"
+//                                                                               withMapping:[JSScheduleTrigger classMappingForServerProfile:serverProfile]]];
+//
+//
+//    return classMapping;
+//}
+//
+//+ (nonnull NSArray *)classMappingPathes {
+//    return @[[self resourceRootKeyPath], @""];
+//}
 
 @end

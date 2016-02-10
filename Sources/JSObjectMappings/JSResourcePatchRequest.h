@@ -29,7 +29,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "JSSerializationDescriptorHolder.h"
+#import "EKMappingProtocol.h"
 #import "JSResourceLookup.h"
 
 /**
@@ -37,7 +37,7 @@
  @since 2.3
  */
 
-@interface JSResourcePatchRequest : NSObject <JSSerializationDescriptorHolder>
+@interface JSResourcePatchRequest : NSObject <EKMappingProtocol>
 
 - (nonnull instancetype)initWithResource:(nonnull JSResourceLookup *)resource;
 

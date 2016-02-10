@@ -30,9 +30,9 @@
 
 
 
-#import "JSSerializationDescriptorHolder.h"
+#import "EKMappingProtocol.h"
 
-@interface JSDashboardComponent : NSObject <JSSerializationDescriptorHolder>
+@interface JSDashboardComponent : NSObject <EKMappingProtocol>
 @property (nonatomic, strong) NSString *identifier;
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) NSString *label;

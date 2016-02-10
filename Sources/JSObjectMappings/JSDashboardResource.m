@@ -37,16 +37,16 @@
     return @"dashboardResource";
 }
 
-#pragma mark - JSSerializationDescriptorHolder
-+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile
-{
-    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-    [classMapping addAttributeMappingsFromDictionary:@{
-            @"name": @"name",
-            @"type": @"type",
-            @"resource.resourceReference.uri": @"uri",
-    }];
-    return classMapping;
-}
+#pragma mark - EKMappingProtocol
+//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile
+//{
+//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+//    [classMapping addAttributeMappingsFromDictionary:@{
+//            @"name": @"name",
+//            @"type": @"type",
+//            @"resource.resourceReference.uri": @"uri",
+//    }];
+//    return classMapping;
+//}
 
 @end

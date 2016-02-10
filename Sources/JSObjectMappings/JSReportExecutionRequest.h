@@ -29,7 +29,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "JSSerializationDescriptorHolder.h"
+#import "EKMappingProtocol.h"
 #import "JSReportParameter.h"
 
 /**
@@ -39,7 +39,7 @@
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.8
  */
-@interface JSReportExecutionRequest : NSObject <JSSerializationDescriptorHolder>
+@interface JSReportExecutionRequest : NSObject <EKMappingProtocol>
 
 @property (nonatomic, retain, nonnull) NSString *reportUnitUri;
 @property (nonatomic, retain, nonnull) NSString *async;

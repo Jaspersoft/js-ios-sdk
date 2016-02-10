@@ -51,33 +51,33 @@
     return [[[self class] alloc] initWithResource:resource];
 }
 
-#pragma mark - JSSerializationDescriptorHolder
+#pragma mark - EKMappingProtocol
 
-+ (nonnull NSArray <RKRequestDescriptor *> *)rkRequestDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-    NSMutableArray *descriptorsArray = [NSMutableArray array];
-    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
-                                                                      objectClass:self
-                                                                      rootKeyPath:nil
-                                                                           method:RKRequestMethodAny]];
-    
-    return descriptorsArray;
-}
-
-+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-    [classMapping addAttributeMappingsFromDictionary:@{
-                                                       @"version": @"version"
-                                                       }];
-    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"patch"
-                                                                                 toKeyPath:@"patch"
-                                                                               withMapping:[JSResourceParameter classMappingForServerProfile:serverProfile]]];
-
-    return classMapping;
-}
-
-+ (NSArray<RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
-    return [JSResourceLookup rkResponseDescriptorsForServerProfile:serverProfile];
-}
+//+ (nonnull NSArray <RKRequestDescriptor *> *)rkRequestDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
+//    NSMutableArray *descriptorsArray = [NSMutableArray array];
+//    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
+//                                                                      objectClass:self
+//                                                                      rootKeyPath:nil
+//                                                                           method:RKRequestMethodAny]];
+//    
+//    return descriptorsArray;
+//}
+//
+//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
+//    [classMapping addAttributeMappingsFromDictionary:@{
+//                                                       @"version": @"version"
+//                                                       }];
+//    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"patch"
+//                                                                                 toKeyPath:@"patch"
+//                                                                               withMapping:[JSResourceParameter classMappingForServerProfile:serverProfile]]];
+//
+//    return classMapping;
+//}
+//
+//+ (NSArray<RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
+//    return [JSResourceLookup rkResponseDescriptorsForServerProfile:serverProfile];
+//}
 
 #pragma mark - Private API
 - (NSArray *)patchesArrayFromResource:(JSResourceLookup *)resource {

@@ -33,10 +33,10 @@
  @since 2.2.1
  */
 
-#import "JSSerializationDescriptorHolder.h"
+#import "EKMappingProtocol.h"
 #import "JSResourceLookup.h"
 
-@interface JSContentResource : JSResourceLookup <JSSerializationDescriptorHolder>
+@interface JSContentResource : JSResourceLookup <EKMappingProtocol>
 @property (nonatomic, retain, nonnull) NSString *content; //Base64 Data
 @property (nonatomic, retain, nonnull) NSString *fileFormat; //Format
 @end

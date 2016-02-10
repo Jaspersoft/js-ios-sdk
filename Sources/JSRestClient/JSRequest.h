@@ -29,9 +29,8 @@
 //
 
 #import "JSOperationResult.h"
-#import "RKHTTPUtilities.h"
-#import "JSSerializationDescriptorHolder.h"
-
+#import "EKMappingProtocol.h"
+#import "AFURLRequestSerialization.h"
 /**
  This block invoked when the request is complete.
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
@@ -51,6 +50,18 @@ typedef enum {
     JSRESTVersion_1,            // Unsupported. Use JSRESTVersion_2 version instead
     JSRESTVersion_2
 } JSRESTVersion;
+
+/**
+ Supported HTTP methods for requests
+ */
+typedef NS_OPTIONS(NSInteger, JSRequestHTTPMethod) {
+    JSRequestHTTPMethodGET          = 1 << 0,
+    JSRequestHTTPMethodPOST         = 1 << 1,
+    JSRequestHTTPMethodPUT          = 1 << 2,
+    JSRequestHTTPMethodDELETE       = 1 << 3,
+    JSRequestHTTPMethodPATCH        = 1 << 4,
+    JSRequestHTTPMethodHEAD         = 1 << 5
+};
 
 /**
  Models the request portion of an HTTP request/response cycle. Used by
@@ -77,7 +88,7 @@ typedef enum {
 /**
  Expected model class for mapping responce
  */
-@property (nonatomic, strong, nonnull) Class <JSSerializationDescriptorHolder> expectedModelClass;
+@property (nonatomic, strong, nonnull) Class <EKMappingProtocol> expectedModelClass;
 
 /**
  A collection of parameters of the request. Automatically will be added to URL
@@ -92,7 +103,7 @@ typedef enum {
 /**
  The HTTP method
  */
-@property (nonatomic, assign) RKRequestMethod method;
+@property (nonatomic, assign) JSRequestHTTPMethod method;
 
 /**
  A completionBlock invoke when the request is completed. If block is not

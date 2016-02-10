@@ -64,34 +64,34 @@ NSString * const kJSSavedServerInfoDatetimeFormatPatternKey = @"kJSSavedServerIn
     return _serverDateFormatFormatter;
 }
 
-#pragma mark - JSSerializationDescriptorHolder
+#pragma mark - EKMappingProtocol
 
-+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-    RKObjectMapping *responseMapping = [RKObjectMapping mappingForClass:self];
-    [responseMapping addAttributeMappingsFromDictionary:@{
-                                                          @"build": @"build",
-                                                          @"edition": @"edition",
-                                                          @"editionName": @"editionName",
-                                                          @"expiration": @"expiration",
-                                                          @"features": @"features",
-                                                          @"licenseType": @"licenseType",
-                                                          @"version": @"version",
-                                                          @"dateFormatPattern": @"dateFormatPattern",
-                                                          @"datetimeFormatPattern": @"datetimeFormatPattern",
-                                                          }];
-    NSMutableArray *descriptorsArray = [NSMutableArray array];
-    [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:responseMapping
-                                                                             method:RKRequestMethodAny
-                                                                        pathPattern:nil
-                                                                            keyPath:nil
-                                                                        statusCodes:nil]];
-    return descriptorsArray;
-}
-
-#pragma mark - NSSecureCoding
-+ (BOOL)supportsSecureCoding {
-    return YES;
-}
+//+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
+//    RKObjectMapping *responseMapping = [RKObjectMapping mappingForClass:self];
+//    [responseMapping addAttributeMappingsFromDictionary:@{
+//                                                          @"build": @"build",
+//                                                          @"edition": @"edition",
+//                                                          @"editionName": @"editionName",
+//                                                          @"expiration": @"expiration",
+//                                                          @"features": @"features",
+//                                                          @"licenseType": @"licenseType",
+//                                                          @"version": @"version",
+//                                                          @"dateFormatPattern": @"dateFormatPattern",
+//                                                          @"datetimeFormatPattern": @"datetimeFormatPattern",
+//                                                          }];
+//    NSMutableArray *descriptorsArray = [NSMutableArray array];
+//    [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:responseMapping
+//                                                                             method:RKRequestMethodAny
+//                                                                        pathPattern:nil
+//                                                                            keyPath:nil
+//                                                                        statusCodes:nil]];
+//    return descriptorsArray;
+//}
+//
+//#pragma mark - NSSecureCoding
+//+ (BOOL)supportsSecureCoding {
+//    return YES;
+//}
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:_build forKey:kJSSavedServerInfoBuildKey];

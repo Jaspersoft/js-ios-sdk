@@ -38,15 +38,15 @@
     return @"reportUnit";
 }
 
-#pragma mark - JSSerializationDescriptorHolder
+#pragma mark - EKMappingProtocol
 
-+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile
-{
-    RKObjectMapping *classMapping = [super classMappingForServerProfile:serverProfile];
-    [classMapping addAttributeMappingsFromDictionary:@{
-            @"alwaysPromptControls": @"alwaysPromptControls",
-    }];
-    return classMapping;
-}
+//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile
+//{
+//    RKObjectMapping *classMapping = [super classMappingForServerProfile:serverProfile];
+//    [classMapping addAttributeMappingsFromDictionary:@{
+//            @"alwaysPromptControls": @"alwaysPromptControls",
+//    }];
+//    return classMapping;
+//}
 
 @end
