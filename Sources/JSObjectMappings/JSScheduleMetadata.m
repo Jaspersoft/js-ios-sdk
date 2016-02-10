@@ -53,7 +53,7 @@
 {
     JSScheduleTrigger *simpleTrigger = [JSScheduleTrigger new];
     simpleTrigger.timezone = self.outputTimeZone;
-    simpleTrigger.startType = 2;
+    simpleTrigger.startType = JSScheduleTriggerStartTypeAtDate;
     simpleTrigger.occurrenceCount = 1;
     simpleTrigger.startDate = [NSDate date];
     return simpleTrigger;
