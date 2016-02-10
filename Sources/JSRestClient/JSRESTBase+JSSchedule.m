@@ -98,6 +98,7 @@
     request.restVersion = JSRESTVersion_2;
     request.method = RKRequestMethodDELETE;
     request.completionBlock = completion;
+    request.responseAsObjects = NO;
     [self sendRequest:request];
 }
 
