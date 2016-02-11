@@ -54,7 +54,7 @@ NSString * const _parameterForceFullPage = @"forceFullPage";
 - (void)modifyResource:(nonnull JSResourceLookup *)resource completionBlock:(nullable JSRequestCompletionBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourcesUri:resource.uri]];
     request.restVersion = JSRESTVersion_2;
-    request.method = RKRequestMethodPATCH;
+    request.method = JSRequestHTTPMethodPATCH;
     request.completionBlock = block;
     request.expectedModelClass = [JSResourceLookup class];
 
@@ -68,7 +68,7 @@ NSString * const _parameterForceFullPage = @"forceFullPage";
 - (void)deleteResource:(NSString *)uri completionBlock:(nullable JSRequestCompletionBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:uri]];
     request.restVersion = JSRESTVersion_2;
-    request.method = RKRequestMethodDELETE;
+    request.method = JSRequestHTTPMethodDELETE;
     request.completionBlock = block;
     [self sendRequest:request];
 }

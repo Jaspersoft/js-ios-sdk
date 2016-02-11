@@ -53,7 +53,7 @@ NSString * const kJSResourceLookupUpdateDate = @"kJSResourceLookupUpdateDate";
 //    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
 //                                                                      objectClass:self
 //                                                                      rootKeyPath:[self resourceRootKeyPath]
-//                                                                           method:RKRequestMethodAny]];
+//                                                                           method:JSRequestHTTPMethodAny]];
 //    return descriptorsArray;
 //}
 //
@@ -61,7 +61,7 @@ NSString * const kJSResourceLookupUpdateDate = @"kJSResourceLookupUpdateDate";
 //    NSMutableArray *descriptorsArray = [NSMutableArray array];
 //    for (NSString *keyPath in [self classMappingPathes]) {
 //        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
-//                                                                                 method:RKRequestMethodAny
+//                                                                                 method:JSRequestHTTPMethodAny
 //                                                                            pathPattern:nil
 //                                                                                keyPath:keyPath
 //                                                                            statusCodes:nil]];

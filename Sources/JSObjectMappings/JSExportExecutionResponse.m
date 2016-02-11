@@ -40,7 +40,7 @@
 //    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
 //                                                                      objectClass:self
 //                                                                      rootKeyPath:@"exportExecution"
-//                                                                           method:RKRequestMethodAny]];
+//                                                                           method:JSRequestHTTPMethodAny]];
 //    return descriptorsArray;
 //}
 //
@@ -48,7 +48,7 @@
 //    NSMutableArray *descriptorsArray = [NSMutableArray array];
 //    for (NSString *keyPath in [self classMappingPathes]) {
 //        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
-//                                                                                 method:RKRequestMethodAny
+//                                                                                 method:JSRequestHTTPMethodAny
 //                                                                            pathPattern:nil
 //                                                                                keyPath:keyPath
 //                                                                            statusCodes:nil]];

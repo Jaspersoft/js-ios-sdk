@@ -38,7 +38,7 @@
 //    NSMutableArray *descriptorsArray = [NSMutableArray array];
 //    for (NSString *keyPath in [self classMappingPathes]) {
 //        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
-//                                                                                 method:RKRequestMethodAny
+//                                                                                 method:JSRequestHTTPMethodAny
 //                                                                            pathPattern:nil
 //                                                                                keyPath:keyPath
 //                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassServerError | RKStatusCodeClassClientError)]];

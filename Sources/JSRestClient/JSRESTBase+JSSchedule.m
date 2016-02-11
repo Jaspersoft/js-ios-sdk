@@ -43,7 +43,7 @@
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURL];
     request.expectedModelClass = [JSScheduleLookup class];
     request.restVersion = JSRESTVersion_2;
-    request.method = RKRequestMethodGET;
+    request.method = JSRequestHTTPMethodGET;
 
     if (resourceURI) {
         [request addParameter:@"reportUnitURI" withStringValue:resourceURI];
@@ -59,7 +59,7 @@
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURL];
     request.expectedModelClass = [JSScheduleMetadata class];
     request.restVersion = JSRESTVersion_2;
-    request.method = RKRequestMethodGET;
+    request.method = JSRequestHTTPMethodGET;
 
     request.completionBlock = completion;
     [self sendRequest:request];
@@ -72,7 +72,7 @@
     request.expectedModelClass = [JSScheduleMetadata class];
     request.body = data;
     request.restVersion = JSRESTVersion_2;
-    request.method = RKRequestMethodPUT;
+    request.method = JSRequestHTTPMethodPUT;
     request.completionBlock = completion;
     [self sendRequest:request];
 }
@@ -86,7 +86,7 @@
     request.expectedModelClass = [JSScheduleMetadata class];
     request.body = schedule;
     request.restVersion = JSRESTVersion_2;
-    request.method = RKRequestMethodPOST;
+    request.method = JSRequestHTTPMethodPOST;
     request.completionBlock = completion;
     [self sendRequest:request];
 }
@@ -96,7 +96,7 @@
     NSString *fullURL = [NSString stringWithFormat:@"%@/%@", @"/jobs", @(identifier)];
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURL];
     request.restVersion = JSRESTVersion_2;
-    request.method = RKRequestMethodDELETE;
+    request.method = JSRequestHTTPMethodDELETE;
     request.completionBlock = completion;
     request.responseAsObjects = NO;
     [self sendRequest:request];

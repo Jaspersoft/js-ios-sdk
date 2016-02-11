@@ -81,7 +81,7 @@ NSString * const kJSSavedServerInfoDatetimeFormatPatternKey = @"kJSSavedServerIn
 //                                                          }];
 //    NSMutableArray *descriptorsArray = [NSMutableArray array];
 //    [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:responseMapping
-//                                                                             method:RKRequestMethodAny
+//                                                                             method:JSRequestHTTPMethodAny
 //                                                                        pathPattern:nil
 //                                                                            keyPath:nil
 //                                                                        statusCodes:nil]];

@@ -51,25 +51,24 @@ static NSTimeInterval const _defaultTimeoutInterval = 120;
 NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nResponse: %@";
 
 
-// Inner JSCallback class contains JSRequest and RKRequest instances.
+// Inner JSCallback class contains JSRequest and NSURLSessionTask instances.
 // JSRequest class uses for setting additional parameters to JSOperationResult
 // instance (i.e. downloadDestinationPath for files) which we want to associate
 // with returned response (but it cannot be done in any other way).
 @interface JSCallBack : NSObject
 
 @property (nonatomic, retain) JSRequest *request;
-@property (nonatomic, retain) id restKitOperation;
+@property (nonatomic, retain) NSURLSessionTask *dataTask;
 
-- (id)initWithRestKitOperation:(id)restKitOperation
-                       request:(JSRequest *)request;
+- (id)initWithDataTask:(NSURLSessionTask *)restKitOpdataTaskeration request:(JSRequest *)request;
 
 @end
 
 @implementation JSCallBack
-- (id)initWithRestKitOperation:(id)restKitOperation request:(JSRequest *)request {
+- (id)initWithDataTask:(NSURLSessionTask *)dataTask request:(JSRequest *)request {
     if (self = [super init]) {
         self.request = request;
-        self.restKitOperation = restKitOperation;
+        self.dataTask = dataTask;
     }
     return self;
 }
@@ -100,16 +99,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 
 + (void)initialize {
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
-//    NSError *error = nil;
-//    NSRegularExpression *mimeType = [NSRegularExpression regularExpressionWithPattern:@"application/(.+\\+)?json" options:NSRegularExpressionCaseInsensitive error:&error];
-//    if (!error) {
-//        [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:mimeType];
-//        [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:@"text/html"];
-//        [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:@"text/plain"];
-//    } else {
-//        NSString *messageString = [NSString stringWithFormat:@"Unsupported mime type \"%@\"",mimeType.pattern];
-//        @throw [NSException exceptionWithName:@"Unsupported mime type" reason:messageString userInfo:nil];
-//    }
 }
 
 - (nonnull instancetype) initWithServerProfile:(nonnull JSProfile *)serverProfile keepLogged:(BOOL)keepLogged{
@@ -127,19 +116,42 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         self.keepSession = keepLogged;
         self.timeoutInterval = _defaultTimeoutInterval;
         self.serverProfile = serverProfile;
+
+        self.requestSerializer = [AFJSONRequestSerializer serializer];
+        self.securityPolicy.allowInvalidCertificates = YES;
+        self.requestCallBacks = [NSMutableArray new];
+        self.serverReachability = [ServerReachability reachabilityWithServer:serverProfile.serverUrl timeout:[JSUtils checkServerConnectionTimeout]];
+
+        __weak typeof(self) weakSelf = self;
+        [self setTaskWillPerformHTTPRedirectionBlock:^NSURLRequest * _Nonnull(NSURLSession * _Nonnull session, NSURLSessionTask * _Nonnull task, NSURLResponse * _Nonnull response, NSURLRequest * _Nonnull request) {
+            if (response) {
+                __strong typeof(self) strongSelf = weakSelf;
+                if (strongSelf) {
+                    JSRequest *jsRequest = [strongSelf callBackForDataTask:task].request;
+                    if (jsRequest.redirectAllowed) {
+                        // we don't use the new request built for us, except for the URL
+                        NSURL *newURL = [request URL];
+                        // We rely on that here!
+                        NSMutableURLRequest *newRequest = [request mutableCopy];
+                        [newRequest setURL: newURL];
+                        return newRequest;
+                    }
+                }
+                return nil;
+            } else {
+                return request;
+            }
+        }];
+
     }
     return self;
 }
 
-- (void)setServerProfile:(JSProfile *)serverProfile {
-    _serverProfile = serverProfile;
-    
-    if (serverProfile) {
-        [self configureRestKitObjectManager];
-        
-        self.serverReachability = [ServerReachability reachabilityWithServer:serverProfile.serverUrl timeout:[JSUtils checkServerConnectionTimeout]];
-    }
+- (void)setTimeoutInterval:(NSTimeInterval)timeoutInterval {
+    self.requestSerializer.timeoutInterval = timeoutInterval;
+    self.session.configuration.timeoutIntervalForRequest = timeoutInterval;
 }
+
 
 #pragma mark -
 #pragma mark Public methods
@@ -150,109 +162,80 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         [self sendCallBackForRequest:jsRequest withOperationResult:[self requestOperationForFailedConnection]];
         return;
     }
-    // Full uri path with query params
-    NSString *fullUri = [self fullUri:jsRequest.uri restVersion:jsRequest.restVersion];
     
+    id parameters = jsRequest.body ? : jsRequest.params;
     
-//    for (RKRequestDescriptor *descriptor in self.restKitObjectManager.requestDescriptors) {
-//        [self.restKitObjectManager removeRequestDescriptor:descriptor];
-//    }
-//    
-//    id <EKMappingProtocol> descriptiorHolder = jsRequest.body;
-//    if (descriptiorHolder && [[descriptiorHolder class] respondsToSelector:@selector(rkRequestDescriptorsForServerProfile:)]) {
-//        [self.restKitObjectManager addRequestDescriptorsFromArray:[[descriptiorHolder class] rkRequestDescriptorsForServerProfile:self.serverProfile]];
-//    }
-
-    NSURLSessionDataTask *dataTask;
-    
-    
-    NSMutableURLRequest *urlRequest;
-    if (jsRequest.multipartFormConstructingBodyBlock) {
-        self.requestSerializer
-        
-        urlRequest = [self.restKitObjectManager multipartFormRequestWithObject:self
-                                                                        method:jsRequest.method
-                                                                          path:fullUri
-                                                                    parameters:nil
-                                                     constructingBodyWithBlock:jsRequest.multipartFormConstructingBodyBlock];
-    } else {
-        urlRequest = [self.restKitObjectManager requestWithObject:jsRequest.body
-                                                           method:jsRequest.method
-                                                             path:fullUri
-                                                       parameters:jsRequest.params];
-    }
-
-    RKHTTPRequestOperation *httpOperation = [[RKHTTPRequestOperation alloc] initWithRequest:urlRequest];
-    NSOperation *requestOperation = httpOperation;
-    
-    if (jsRequest.responseAsObjects) {
-        [self.restKitObjectManager performSelector:@selector(copyStateFromHTTPClientToHTTPRequestOperation:) withObject:httpOperation];
-        
-        NSArray *responseDescriptors = [jsRequest.expectedModelClass rkResponseDescriptorsForServerProfile:self.serverProfile];
-        
-        NSMutableArray *fullresponseDescriptors = [NSMutableArray arrayWithArray:responseDescriptors];
-        [fullresponseDescriptors addObjectsFromArray:[JSErrorDescriptor rkResponseDescriptorsForServerProfile:self.serverProfile]];
-        RKObjectRequestOperation *objectRequestOperation = [[RKObjectRequestOperation alloc] initWithHTTPRequestOperation:httpOperation responseDescriptors:fullresponseDescriptors];
-        
-        if (responseDescriptors.count == 0) {
-            NSMutableIndexSet *acceptableStatusCodes = [[NSMutableIndexSet alloc] initWithIndexSet:httpOperation.acceptableStatusCodes];
-            [acceptableStatusCodes addIndexes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-            httpOperation.acceptableStatusCodes = acceptableStatusCodes;
-        }
-        
-        requestOperation = objectRequestOperation;
-    }
-    
-    if ([urlRequest isKindOfClass:[NSMutableURLRequest class]]) {
-        urlRequest.timeoutInterval = self.timeoutInterval;
-        if (jsRequest.additionalHeaders.count) {
-            NSMutableDictionary *headerFieldsDictionary = [NSMutableDictionary dictionaryWithDictionary:urlRequest.allHTTPHeaderFields];
-            [headerFieldsDictionary addEntriesFromDictionary:jsRequest.additionalHeaders];
-            [urlRequest setAllHTTPHeaderFields:headerFieldsDictionary];
+    // Apply additional HTTP headers
+    if (jsRequest.additionalHeaders.count) {
+        NSMutableArray *alreadyInstalledHeaders = [[[self.requestSerializer HTTPRequestHeaders] allKeys] mutableCopy];
+        [alreadyInstalledHeaders addObjectsFromArray:[jsRequest.additionalHeaders allKeys]];
+        for (NSString *headerKey in alreadyInstalledHeaders) {
+            [self.requestSerializer setValue:jsRequest.additionalHeaders[headerKey] forHTTPHeaderField:headerKey];
         }
     }
     
-    [httpOperation setRedirectResponseBlock:^NSURLRequest *(NSURLConnection *connection, NSURLRequest *request, NSURLResponse *redirectResponse) {
-        if (redirectResponse) {
-            if (jsRequest.redirectAllowed) {
-                // we don't use the new request built for us, except for the URL
-                NSURL *newURL = [request URL];
-                // Previously, store the original request in _originalRequest.
-                // We rely on that here!
-                NSMutableURLRequest *newRequest = [urlRequest mutableCopy];
-                [newRequest setURL: newURL];
-                return newRequest;
-            } else {
-                return nil;
-            }
-        } else {
-            return request;
-        }
-    }];
+    NSError *serializationError = nil;
+    NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:jsRequest.httpMethod
+                                                                   URLString:[[NSURL URLWithString:jsRequest.fullURI relativeToURL:self.baseURL] absoluteString]
+                                                                  parameters:parameters error:&serializationError];
+    if (serializationError) {
+#warning HERE NEED HANDLE ERROR!!!
+        //        if (failure) {
+        //#pragma clang diagnostic push
+        //#pragma clang diagnostic ignored "-Wgnu"
+        //            dispatch_async(self.completionQueue ?: dispatch_get_main_queue(), ^{
+        //                failure(nil, serializationError);
+        //            });
+        //#pragma clang diagnostic pop
+        //        }
+        //
+        return;
+    }
     
-    // Creates bridge between RestKit's delegate and SDK delegate
-    [self.requestCallBacks addObject:[[JSCallBack alloc] initWithRestKitOperation:requestOperation
-                                                                          request:jsRequest]];
-    
-    [requestOperation start];
-    
+    dispatch_semaphore_t semaphore = nil;
     if (jsRequest.asynchronous) {
-        __weak typeof(self)weakSelf = self;
-        [((RKHTTPRequestOperation *)requestOperation) setCompletionBlockWithSuccess:^(NSOperation *operation, RKMappingResult *mappingResult) {
-            __strong typeof(self)strongSelf = weakSelf;
-            [strongSelf sendCallbackAboutOperation:operation];
-
-         } failure:^(NSOperation *operation, NSError *error) {
-            __strong typeof(self)strongSelf = weakSelf;
-            [strongSelf sendCallbackAboutOperation:operation];
-         }];
-    } else {
-        NSInteger maxConcurrentOperationCount = self.restKitObjectManager.HTTPClient.operationQueue.maxConcurrentOperationCount;
-        self.restKitObjectManager.HTTPClient.operationQueue.maxConcurrentOperationCount = 1;
-        [requestOperation waitUntilFinished];
-        self.restKitObjectManager.HTTPClient.operationQueue.maxConcurrentOperationCount = maxConcurrentOperationCount;
-        [self sendCallbackAboutOperation:requestOperation];
+        semaphore = dispatch_semaphore_create(0);
     }
+    NSURLSessionDataTask *dataTask = [self dataTaskWithRequest:request
+                                                uploadProgress:nil
+                                              downloadProgress:nil
+                                             completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *error) {
+                                                 if (error) {
+                                                 } else {
+                                                 }
+                                                 if (semaphore) {
+                                                     dispatch_semaphore_signal(semaphore);
+                                                 }
+                                             }];
+    // Creates bridge between RestKit's delegate and SDK delegate
+    [self.requestCallBacks addObject:[[JSCallBack alloc] initWithDataTask:dataTask
+                                                                  request:jsRequest]];
+    [dataTask resume];
+    
+    if(semaphore) {
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    }
+    
+    
+    //    if (jsRequest.responseAsObjects) {
+//        [self.restKitObjectManager performSelector:@selector(copyStateFromHTTPClientToHTTPRequestOperation:) withObject:httpOperation];
+//        
+//        NSArray *responseDescriptors = [jsRequest.expectedModelClass rkResponseDescriptorsForServerProfile:self.serverProfile];
+//        
+//        NSMutableArray *fullresponseDescriptors = [NSMutableArray arrayWithArray:responseDescriptors];
+//        [fullresponseDescriptors addObjectsFromArray:[JSErrorDescriptor rkResponseDescriptorsForServerProfile:self.serverProfile]];
+//        RKObjectRequestOperation *objectRequestOperation = [[RKObjectRequestOperation alloc] initWithHTTPRequestOperation:httpOperation responseDescriptors:fullresponseDescriptors];
+//        
+//        if (responseDescriptors.count == 0) {
+//            NSMutableIndexSet *acceptableStatusCodes = [[NSMutableIndexSet alloc] initWithIndexSet:httpOperation.acceptableStatusCodes];
+//            [acceptableStatusCodes addIndexes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+//            httpOperation.acceptableStatusCodes = acceptableStatusCodes;
+//        }
+//        
+//        requestOperation = objectRequestOperation;
+//    }
+
+    
 }
 
 - (nullable JSServerInfo *)serverInfo {
@@ -264,7 +247,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         request.completionBlock = ^(JSOperationResult *result) {
             if (!result.error && result.objects.count) {
                 self.serverProfile.serverInfo = [result.objects firstObject];
-                [[RKValueTransformer defaultValueTransformer] addValueTransformer:self.serverInfo.serverDateFormatFormatter];
             }
         };
         [self sendRequest:request];
@@ -274,18 +256,13 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 }
 
 - (void)cancelAllRequests {
-    for (JSCallBack *callBack in self.requestCallBacks) {
-        if ([callBack.restKitOperation respondsToSelector:@selector(cancel)]) {
-            [callBack.restKitOperation cancel];
-        }
-    }
+    [self.session invalidateAndCancel];
+    
     [self.requestCallBacks removeAllObjects];
-    [self.restKitObjectManager.HTTPClient.operationQueue cancelAllOperations];
-    [[RKObjectManager sharedManager].operationQueue cancelAllOperations];
 }
 
 - (BOOL)isNetworkReachable {
-    return (self.restKitObjectManager.HTTPClient.networkReachabilityStatus > 0);
+    return (self.reachabilityManager.networkReachabilityStatus > 0);
 }
 
 - (BOOL)isRequestPoolEmpty
@@ -298,7 +275,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         NSString *host = [[NSURL URLWithString:self.serverProfile.serverUrl] host];
         
         NSMutableArray *cookies = [NSMutableArray array];
-        for (NSHTTPCookie *cookie in [NSHTTPCookieStorage sharedHTTPCookieStorage].cookies) {
+        for (NSHTTPCookie *cookie in self.session.configuration.HTTPCookieStorage.cookies) {
             if ([cookie.domain isEqualToString:host]) {
                 [cookies addObject:cookie];
             }
@@ -311,7 +288,8 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 }
 
 - (void)deleteCookies {
-    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+#warning NEED CHECK CONFIGURATION COOKIE STORAGE INITIALISATION
+    NSHTTPCookieStorage *cookieStorage = self.session.configuration.HTTPCookieStorage;
     for (NSHTTPCookie *cookie in self.cookies) {
         [cookieStorage deleteCookie:cookie];
     }
@@ -356,46 +334,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 
 #pragma mark -
 #pragma mark Private methods
-
-- (void)configureRestKitObjectManager {
-    // Creates RKObjectManager for loading and mapping encoded response (i.e XML, JSON etc.)
-    // directly to objects
-    self.restKitObjectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:self.serverProfile.serverUrl]];
-    self.restKitObjectManager.HTTPClient.allowsInvalidSSLCertificate = YES;
-    [self.restKitObjectManager.HTTPClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
-    
-    // Sets default content-type to object manager
-    self.restKitObjectManager.requestSerializationMIMEType = [JSUtils usedMimeType];
-    [self.restKitObjectManager setAcceptHeaderWithMIMEType:[JSUtils usedMimeType]];
-
-    self.requestCallBacks = [NSMutableArray new];
-    [RKValueTransformer setDefaultValueTransformer:nil];
-}
-
-// Gets full uri (including rest prefix)
-- (NSString *)fullUri:(NSString *)uri restVersion:(JSRESTVersion)restVersion {
-    NSString *restServiceUri = nil;
-    
-    switch (restVersion) {
-        case JSRESTVersion_2:
-            restServiceUri = kJS_REST_SERVICES_V2_URI;
-            break;
-        case JSRESTVersion_1:
-            restServiceUri = kJS_REST_SERVICES_URI;
-            break;
-        default:
-            restServiceUri = @"";
-    }
-    
-    // Remove all [] for query params (i.e. query &PL_Country_multi_select[]=Mexico&PL_Country_multi_select[]=USA will
-    // be changed to &PL_Country_multi_select=Mexico&PL_Country_multi_select=USA without any [])
-    NSString *brackets = @"[]";
-    if ([uri rangeOfString:brackets].location != NSNotFound) {
-        uri = [uri stringByReplacingOccurrencesOfString:brackets withString:@""];
-    }
-    
-    return [NSString stringWithFormat:@"%@%@", restServiceUri, (uri ?: @"")];
-}
 
 // Initializes result with helping properties: http status code,
 // returned header fields and MIMEType
@@ -546,9 +484,9 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     }
 }
 
-- (JSCallBack *)callBackForOperation:(id)restKitOperation {
+- (JSCallBack *)callBackForDataTask:(NSURLSessionTask *)dataTask {
     for (JSCallBack *callBack in self.requestCallBacks) {
-        if (callBack.restKitOperation == restKitOperation) {
+        if (callBack.dataTask == dataTask) {
             return callBack;
         }
     }

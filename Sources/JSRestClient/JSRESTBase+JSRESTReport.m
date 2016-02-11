@@ -71,7 +71,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:NO]];
     request.expectedModelClass = [JSInputControlDescriptor class];
     request.restVersion = JSRESTVersion_2;
-    request.method = (ids && [ids count]) ? RKRequestMethodPOST : RKRequestMethodGET;
+    request.method = (ids && [ids count]) ? JSRequestHTTPMethodPOST : JSRequestHTTPMethodGET;
     request.completionBlock = block;
     [self addReportParametersToRequest:request withSelectedValues:selectedValues];
     [self sendRequest:request];
@@ -81,7 +81,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
                     selectedValues:(NSArray <JSReportParameter *> *)selectedValues completionBlock:(JSRequestCompletionBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:YES]];
     request.expectedModelClass = [JSInputControlState class];
-    request.method = RKRequestMethodPOST;
+    request.method = JSRequestHTTPMethodPOST;
     request.restVersion = JSRESTVersion_2;
     [self addReportParametersToRequest:request withSelectedValues:selectedValues];
     request.completionBlock = block;
@@ -107,7 +107,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
                                   reportOption.identifier];
     JSRequest *request = [[JSRequest alloc] initWithUri:requestURIString];
     request.restVersion = JSRESTVersion_2;
-    request.method = RKRequestMethodDELETE;
+    request.method = JSRequestHTTPMethodDELETE;
     request.completionBlock = completion;
     [self sendRequest:request];
 }
@@ -124,7 +124,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     JSRequest *request = [[JSRequest alloc] initWithUri:requestURIString];
     request.expectedModelClass = [JSReportOption class];
     request.restVersion = JSRESTVersion_2;
-    request.method = RKRequestMethodPOST;
+    request.method = JSRequestHTTPMethodPOST;
     [self addReportParametersToRequest:request withSelectedValues:reportParameters];
     request.completionBlock = completion;
     [self sendRequest:request];
@@ -176,7 +176,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
          attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray <JSReportParameter *> *)parameters completionBlock:(JSRequestCompletionBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportExecutionUri:nil]];
     request.expectedModelClass = [JSReportExecutionResponse class];
-    request.method = RKRequestMethodPOST;
+    request.method = JSRequestHTTPMethodPOST;
     request.restVersion = JSRESTVersion_2;
     request.completionBlock = block;
     
@@ -203,7 +203,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:kJS_REST_REPORT_EXECUTION_STATUS_URI];
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
     request.expectedModelClass = [JSExecutionStatus class];
-    request.method = RKRequestMethodPUT;
+    request.method = JSRequestHTTPMethodPUT;
     request.restVersion = JSRESTVersion_2;
     request.completionBlock = block;
     request.shouldResendRequestAfterSessionExpiration = NO;
@@ -219,7 +219,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
          attachmentsPrefix:(NSString *)attachmentsPrefix completionBlock:(JSRequestCompletionBlock)block {
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullExportExecutionUri:requestId]];
     request.expectedModelClass = [JSExportExecutionResponse class];
-    request.method = RKRequestMethodPOST;
+    request.method = JSRequestHTTPMethodPOST;
     request.restVersion = JSRESTVersion_2;
     request.completionBlock = block;
     request.shouldResendRequestAfterSessionExpiration = NO;

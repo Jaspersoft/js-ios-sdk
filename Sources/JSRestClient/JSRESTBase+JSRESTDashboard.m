@@ -45,7 +45,7 @@
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURL];
     request.expectedModelClass = [JSDashboardComponent class];
     request.restVersion = JSRESTVersion_2;
-    request.method = RKRequestMethodGET;
+    request.method = JSRequestHTTPMethodGET;
     request.completionBlock = block;
     [self sendRequest:request];
 }
@@ -64,7 +64,7 @@
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURI];
     request.expectedModelClass = [JSInputControlDescriptor class];
     request.restVersion = JSRESTVersion_2;
-    request.method = RKRequestMethodGET;
+    request.method = JSRequestHTTPMethodGET;
     request.completionBlock = block;
     [self addDashboardParametersToRequest:request withSelectedValues:selectedValues];
     request.asynchronous = async;
@@ -82,7 +82,7 @@
                                                                                  inputControls:ids
                                                                              initialValuesOnly:YES]];
     request.expectedModelClass = [JSInputControlState class];
-    request.method = RKRequestMethodPOST;
+    request.method = JSRequestHTTPMethodPOST;
     request.restVersion = JSRESTVersion_2;
     [self addDashboardParametersToRequest:request withSelectedValues:selectedValues];
     request.completionBlock = block;

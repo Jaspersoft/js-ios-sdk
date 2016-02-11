@@ -63,7 +63,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     JSRequest *request = [[JSRequest alloc] initWithUri:URI];
 
     request.restVersion = JSRESTVersion_None;
-    request.method = RKRequestMethodGET;
+    request.method = JSRequestHTTPMethodGET;
     request.responseAsObjects = NO;
     request.redirectAllowed = NO;
     request.asynchronous = YES;
@@ -106,7 +106,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
 - (void)fetchAuthenticationTokenWithUsername:(NSString *)username
                                     password:(NSString *)password
                                 organization:(NSString *)organization
-                                      method:(RKRequestMethod)requestMethod
+                                      method:(JSRequestHTTPMethod)requestMethod
                                 completion:(void(^)(BOOL isTokenFetchedSuccessful))completion
 {
     JSRequest *request = [[JSRequest alloc] initWithUri:kJS_REST_AUTHENTICATION_URI];
@@ -132,7 +132,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     [request addParameter:kJSAuthenticationTimezoneKey      withStringValue:[[NSTimeZone localTimeZone] name]];
     [request addParameter:kJSAuthenticationLocaleKey withStringValue:currentLocale];
 
-    if (requestMethod == RKRequestMethodPOST) {
+    if (requestMethod == JSRequestHTTPMethodPOST) {
         self.restKitObjectManager.requestSerializationMIMEType = RKMIMETypeFormURLEncoded;
     }
 
@@ -187,7 +187,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
         [strongSelf fetchAuthenticationTokenWithUsername:username
                                           password:encPassword
                                       organization:organization
-                                            method:RKRequestMethodPOST // TODO: make select method
+                                            method:JSRequestHTTPMethodPOST // TODO: make select method
                                         completion:^(BOOL isTokenFetchedSuccessful) {
                                             strongSelf.restKitObjectManager.requestSerializationMIMEType = RKMIMETypeJSON;
                                             if (completion) {
@@ -199,7 +199,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     [self fetchAuthenticationTokenWithUsername:username
                                       password:password
                                   organization:organization
-                                        method:RKRequestMethodPOST // TODO: make select method
+                                        method:JSRequestHTTPMethodPOST // TODO: make select method
                                     completion:^(BOOL isTokenFetchedSuccessful) {
                                         __strong typeof(self)strongSelf = weakSelf;
 #warning - WHY WE SET JSONType HERE??????

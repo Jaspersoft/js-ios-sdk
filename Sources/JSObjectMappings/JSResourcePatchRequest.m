@@ -58,7 +58,7 @@
 //    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
 //                                                                      objectClass:self
 //                                                                      rootKeyPath:nil
-//                                                                           method:RKRequestMethodAny]];
+//                                                                           method:JSRequestHTTPMethodAny]];
 //    
 //    return descriptorsArray;
 //}

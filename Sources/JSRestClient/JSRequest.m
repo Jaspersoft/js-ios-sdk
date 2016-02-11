@@ -82,4 +82,47 @@
     return [NSDictionary dictionaryWithDictionary:self.parameters];
 }
 
+#pragma mark - Accessors
+
+- (NSString *)fullURI {
+    NSString *restServiceUri = nil;
+    
+    switch (self.restVersion) {
+        case JSRESTVersion_2:
+            restServiceUri = kJS_REST_SERVICES_V2_URI;
+            break;
+        case JSRESTVersion_1:
+            restServiceUri = kJS_REST_SERVICES_URI;
+            break;
+        default:
+            restServiceUri = @"";
+    }
+    
+    // Remove all [] for query params (i.e. query &PL_Country_multi_select[]=Mexico&PL_Country_multi_select[]=USA will
+    // be changed to &PL_Country_multi_select=Mexico&PL_Country_multi_select=USA without any [])
+    NSString *brackets = @"[]";
+    if ([self.uri rangeOfString:brackets].location != NSNotFound) {
+        self.uri = [self.uri stringByReplacingOccurrencesOfString:brackets withString:@""];
+    }
+    
+    return [NSString stringWithFormat:@"%@%@", restServiceUri, (self.uri ?: @"")];
+}
+
+- (NSString *)httpMethod {
+    switch (self.method) {
+        case JSRequestHTTPMethodGET:
+            return @"GET";
+        case JSRequestHTTPMethodDELETE:
+            return @"DELETE";
+        case JSRequestHTTPMethodHEAD:
+            return @"HEAD";
+        case JSRequestHTTPMethodPOST:
+            return @"POST";
+        case JSRequestHTTPMethodPUT:
+            return @"PUT";
+        case JSRequestHTTPMethodPATCH:
+            return @"PATCH";
+    }
+}
+
 @end

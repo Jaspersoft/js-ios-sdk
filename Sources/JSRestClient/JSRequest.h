@@ -79,6 +79,13 @@ typedef NS_OPTIONS(NSInteger, JSRequestHTTPMethod) {
 @property (nonatomic, retain, nonnull) NSString *uri;
 
 /**
+ The full URI with restVersion prefix
+ 
+ @since 2.4
+ */
+@property (nonatomic, readonly, nonnull) NSString *fullURI;
+
+/**
  The HTTP body used for this request. Uses only for POST and PUT HTTP methods.
  Automatically will be serialized as string in the format (i.e XML, JSON, etc.) provided
  by the serializer
@@ -104,6 +111,13 @@ typedef NS_OPTIONS(NSInteger, JSRequestHTTPMethod) {
  The HTTP method
  */
 @property (nonatomic, assign) JSRequestHTTPMethod method;
+
+/**
+ The string notation of HTTP method
+ 
+ @since 2.4
+ */
+@property (nonatomic, readonly, nonnull) NSString *httpMethod;
 
 /**
  A completionBlock invoke when the request is completed. If block is not
@@ -146,13 +160,6 @@ typedef NS_OPTIONS(NSInteger, JSRequestHTTPMethod) {
  @since 1.9
  */
 @property (nonatomic, assign) BOOL redirectAllowed;
-
-/**
- Allow construct mulpipart body
-
- @since 2.1.2
- */
-@property (nonatomic, copy, nullable) void(^multipartFormConstructingBodyBlock)(id <AFMultipartFormData> _Nullable formData);
 
 /**
  The shouldResendRequestAfterSessionExpiration indicates if request can be resend after session was exired and recreated
