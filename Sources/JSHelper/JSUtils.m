@@ -29,7 +29,6 @@
 //
 
 #import "JSUtils.h"
-#import "RKMIMETypes.h"
 #import "JSInputControlDescriptor.h"
 #import "JSReportParameter.h"
 
@@ -77,7 +76,7 @@ NSString * const JSLocalizationBundleType = @"lproj";
 }
 
 + (nonnull NSString *)usedMimeType {
-    return RKMIMETypeJSON;
+    return @"application/json";
 }
 
 + (NSTimeInterval) checkServerConnectionTimeout {

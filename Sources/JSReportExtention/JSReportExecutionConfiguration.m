@@ -31,6 +31,7 @@
 
 #import "JSReportExecutionConfiguration.h"
 #import "JSServerInfo.h"
+#import "JSProfile.h"
 
 @implementation JSReportExecutionConfiguration
 
@@ -64,8 +65,8 @@
 
 #pragma mark - Private API
 + (BOOL)isInteractiveForServerProfile:(JSProfile *)serverProfile {
-    CGFloat currentVersion = serverProfile.serverInfo.versionAsFloat;
-    CGFloat currentVersion_const = kJS_SERVER_VERSION_CODE_EMERALD_5_6_0;
+    float currentVersion = serverProfile.serverInfo.versionAsFloat;
+    float currentVersion_const = kJS_SERVER_VERSION_CODE_EMERALD_5_6_0;
     BOOL interactive = (currentVersion > currentVersion_const || currentVersion < currentVersion_const);
     return interactive;
 }

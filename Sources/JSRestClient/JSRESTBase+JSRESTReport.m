@@ -38,7 +38,8 @@
 #import "JSInputControlOption.h"
 
 #import "JSReportExecutionRequest.h"
-#import "RKURLEncodedSerialization.h"
+
+#import "AFURLRequestSerialization.h"
 
 // Report query used for setting output format (i.e PDF, HTML, etc.)
 // and path for images (current dir) when exporting report in HTML
@@ -152,22 +153,25 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
             }
         }
     }
+#warning SHOULD CHECK THIS METHOD
+    NSString *urlString = [NSString stringWithFormat:@"%@/%@%@%@.%@", self.serverProfile.serverUrl,
+                           kJS_REST_SERVICES_V2_URI, kJS_REST_REPORTS_URI, uri, format];
+
     
-    NSString *url = [NSString stringWithFormat:@"%@/%@%@%@.%@", self.serverProfile.serverUrl,
-                     kJS_REST_SERVICES_V2_URI, kJS_REST_REPORTS_URI, uri, format];
+    AFHTTPRequestSerializer *urlSerializer = [AFHTTPRequestSerializer new];
+    NSURLRequest *urlRequest = [urlSerializer requestWithMethod:@"GET" URLString:urlString parameters:queryParams error:nil];
     
-    NSString *queryString = RKURLEncodedStringFromDictionaryWithEncoding(queryParams, NSUTF8StringEncoding);
-    url = [url stringByAppendingFormat:([url rangeOfString:@"?"].location == NSNotFound) ? @"?%@" : @"&%@" ,queryString];
+    urlString = [urlRequest URL].path;
     
     // TODO: remove code duplication...
     // Remove all [] for query params (i.e. query &PL_Country_multi_select[]=Mexico&PL_Country_multi_select[]=USA will
     // be changed to &PL_Country_multi_select=Mexico&PL_Country_multi_select=USA without any [])
     NSString *brackets = @"[]";
-    if ([url rangeOfString:brackets].location != NSNotFound) {
-        url = [url stringByReplacingOccurrencesOfString:brackets withString:@""];
+    if ([urlString rangeOfString:brackets].location != NSNotFound) {
+        urlString = [urlString stringByReplacingOccurrencesOfString:brackets withString:@""];
     }
     
-    return url;
+    return urlString;
 }
 
 - (void)runReportExecution:(NSString *)reportUnitUri async:(BOOL)async outputFormat:(NSString *)outputFormat

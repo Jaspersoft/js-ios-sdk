@@ -45,6 +45,6 @@
 @property (nonatomic, strong, nullable) NSString *statusAsString;
 @property (nonatomic, assign) kJS_EXECUTION_STATUS status;
 
-+ (nonnull RKObjectMapping *)customMapping;
+//+ (nonnull RKObjectMapping *)customMapping;
 
 @end

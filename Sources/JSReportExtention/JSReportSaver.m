@@ -34,6 +34,7 @@
 #import "JSReportExecutor.h"
 #import "JSReportExecutionConfiguration.h"
 #import "JSRESTBase+JSRESTReport.h"
+#import "AFNetworkActivityIndicatorManager.h"
 
 @interface JSReportSaver()
 

@@ -61,14 +61,14 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
 {
     NSString *URI = @"GetEncryptionKey";
     JSRequest *request = [[JSRequest alloc] initWithUri:URI];
-
+    
     request.restVersion = JSRESTVersion_None;
     request.method = JSRequestHTTPMethodGET;
     request.responseAsObjects = NO;
     request.redirectAllowed = NO;
     request.asynchronous = YES;
     request.shouldResendRequestAfterSessionExpiration = NO;
-
+    
     [request setCompletionBlock:^(JSOperationResult *result) {
         if (completion) {
             if (result.error) {
@@ -99,25 +99,24 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
             }
         }
     }];
-
+    
     [self sendRequest:request];
 }
 
 - (void)fetchAuthenticationTokenWithUsername:(NSString *)username
                                     password:(NSString *)password
                                 organization:(NSString *)organization
-                                      method:(JSRequestHTTPMethod)requestMethod
-                                completion:(void(^)(BOOL isTokenFetchedSuccessful))completion
+                                  completion:(void(^)(BOOL isTokenFetchedSuccessful))completion
 {
     JSRequest *request = [[JSRequest alloc] initWithUri:kJS_REST_AUTHENTICATION_URI];
     request.restVersion = JSRESTVersion_None;
-    request.method = requestMethod;
+    request.method = JSRequestHTTPMethodPOST;
     request.responseAsObjects = NO;
     request.redirectAllowed = NO;
     request.asynchronous = YES;
-
+    
     [self resetReachabilityStatus];
-
+    
     // Add locale to session
     NSString *currentLanguage = [[NSLocale preferredLanguages] objectAtIndex:0];
     NSInteger dividerPosition = [currentLanguage rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"_-"]].location;
@@ -125,44 +124,44 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
         currentLanguage = [currentLanguage substringToIndex:dividerPosition];
     }
     NSString *currentLocale = [[JSUtils supportedLocales] objectForKey:currentLanguage];
-
+    
     [request addParameter:kJSAuthenticationUsernameKey      withStringValue:username];
     [request addParameter:kJSAuthenticationPasswordKey      withStringValue:password];
     [request addParameter:kJSAuthenticationOrganizationKey  withStringValue:organization];
     [request addParameter:kJSAuthenticationTimezoneKey      withStringValue:[[NSTimeZone localTimeZone] name]];
     [request addParameter:kJSAuthenticationLocaleKey withStringValue:currentLocale];
-
-    if (requestMethod == JSRequestHTTPMethodPOST) {
-        self.restKitObjectManager.requestSerializationMIMEType = RKMIMETypeFormURLEncoded;
-    }
-
+    
+    NSMutableSet *urlEncodedHTTPMethods = [self.requestSerializer.HTTPMethodsEncodingParametersInURI mutableCopy];
+    [urlEncodedHTTPMethods addObject:@"POST"];
+    self.requestSerializer.HTTPMethodsEncodingParametersInURI = urlEncodedHTTPMethods;
+    
     [request setCompletionBlock:^(JSOperationResult *result) {
-            BOOL isTokenFetchedSuccessful;
-            switch (result.statusCode) {
-                case 401: // Unauthorized
-                case 403: { // Forbidden
-                    isTokenFetchedSuccessful = NO;
-                    break;
-                }
-                case 302: { // redirect
-                    BOOL isErrorRedirect = NO;
-                    // TODO: move handle of this error to up
-                    NSString *location = result.allHeaderFields[@"Location"];
-                    if (location) {
-                        NSRange errorStringRange = [location rangeOfString:@"error"];
-                        isErrorRedirect = errorStringRange.length > 0;
-                    }
-                    isTokenFetchedSuccessful = !result.error && !isErrorRedirect;
-                    break;
-                }
-                default: {
-                    isTokenFetchedSuccessful = (!result.error);
-                }
+        BOOL isTokenFetchedSuccessful;
+        switch (result.statusCode) {
+            case 401: // Unauthorized
+            case 403: { // Forbidden
+                isTokenFetchedSuccessful = NO;
+                break;
             }
-            if (completion) {
-                completion(isTokenFetchedSuccessful);
+            case 302: { // redirect
+                BOOL isErrorRedirect = NO;
+                // TODO: move handle of this error to up
+                NSString *location = result.allHeaderFields[@"Location"];
+                if (location) {
+                    NSRange errorStringRange = [location rangeOfString:@"error"];
+                    isErrorRedirect = errorStringRange.length > 0;
+                }
+                isTokenFetchedSuccessful = !result.error && !isErrorRedirect;
+                break;
             }
-        }];
+            default: {
+                isTokenFetchedSuccessful = (!result.error);
+            }
+        }
+        if (completion) {
+            completion(isTokenFetchedSuccessful);
+        }
+    }];
     [self sendRequest:request];
 }
 
@@ -171,7 +170,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     NSString *username = self.serverProfile.username;
     NSString *password = self.serverProfile.password;
     NSString *organization = self.serverProfile.organization;
-
+    
     __weak typeof(self)weakSelf = self;
 #if __has_include("JSSecurity.h")
     [self fetchEncryptionKeyWithCompletion:^(NSString *modulus, NSString *exponent, NSError *error) {
@@ -182,24 +181,25 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
                                              withModulus:modulus
                                                 exponent:exponent];
         }
-
+        
         __strong typeof(self)strongSelf = weakSelf;
         [strongSelf fetchAuthenticationTokenWithUsername:username
-                                          password:encPassword
-                                      organization:organization
-                                            method:JSRequestHTTPMethodPOST // TODO: make select method
-                                        completion:^(BOOL isTokenFetchedSuccessful) {
-                                            strongSelf.restKitObjectManager.requestSerializationMIMEType = RKMIMETypeJSON;
-                                            if (completion) {
-                                                completion(isTokenFetchedSuccessful);
-                                            }
-                                        }];
-        }];
-#else 
+                                                password:encPassword
+                                            organization:organization
+                                              completion:^(BOOL isTokenFetchedSuccessful) {
+                                                  NSMutableSet *urlEncodedHTTPMethods = [self.requestSerializer.HTTPMethodsEncodingParametersInURI mutableCopy];
+                                                  [urlEncodedHTTPMethods removeObject:@"POST"];
+                                                  self.requestSerializer.HTTPMethodsEncodingParametersInURI = urlEncodedHTTPMethods;
+                                                  
+                                                  if (completion) {
+                                                      completion(isTokenFetchedSuccessful);
+                                                  }
+                                              }];
+    }];
+#else
     [self fetchAuthenticationTokenWithUsername:username
                                       password:password
                                   organization:organization
-                                        method:JSRequestHTTPMethodPOST // TODO: make select method
                                     completion:^(BOOL isTokenFetchedSuccessful) {
                                         __strong typeof(self)strongSelf = weakSelf;
 #warning - WHY WE SET JSONType HERE??????
