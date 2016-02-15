@@ -30,6 +30,7 @@
 
 
 #import "JSRESTBase+JSRESTSession.h"
+#import "JSEncryptionData.h"
 
 #if __has_include("JSSecurity.h")
 #import "JSSecurity.h"
@@ -64,38 +65,44 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     
     request.restVersion = JSRESTVersion_None;
     request.method = JSRequestHTTPMethodGET;
-    request.responseAsObjects = NO;
+    request.responseAsObjects = YES;
+    request.expectedModelClass = [JSEncryptionData class];
     request.redirectAllowed = NO;
     request.asynchronous = YES;
     request.shouldResendRequestAfterSessionExpiration = NO;
+    request.additionalHeaders = @{kJSRequestResponceType : @"text/plain"};
     
     [request setCompletionBlock:^(JSOperationResult *result) {
         if (completion) {
             if (result.error) {
                 completion(nil, nil, result.error);
             } else {
-                NSData *jsonData = result.body;
-                NSError *error = nil;
-                if (jsonData) {
-                    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                                         options:NSJSONReadingMutableContainers
-                                                                           error:&error];
-                    if (json) {
-                        NSString *modulus = json[@"n"];
-                        NSString *exponent = json[@"e"];
-                        if (modulus && exponent) {
-                            completion(modulus, exponent, nil);
-                        } else {
-                            NSError *error = [JSErrorBuilder errorWithCode:JSClientErrorCode message:JSCustomLocalizedString(@"session.encription.key.doesn't.valid", nil)];
-                            completion(nil, nil, error);
-                        }
-                    } else {
-                        completion(nil, nil, error);
-                    }
-                } else {
-                    NSError *error = [JSErrorBuilder errorWithCode:JSClientErrorCode message:JSCustomLocalizedString(@"session.encription.key.data.empty", nil)];
-                    completion(nil, nil, error);
+                JSEncryptionData *encryptionData = [result.objects lastObject];
+                if (encryptionData) {
+                    //
                 }
+//                NSData *jsonData = result.body;
+//                NSError *error = nil;
+//                if (jsonData) {
+//                    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData
+//                                                                         options:NSJSONReadingMutableContainers
+//                                                                           error:&error];
+//                    if (json) {
+//                        NSString *modulus = json[@"n"];
+//                        NSString *exponent = json[@"e"];
+//                        if (modulus && exponent) {
+//                            completion(modulus, exponent, nil);
+//                        } else {
+//                            NSError *error = [JSErrorBuilder errorWithCode:JSClientErrorCode message:JSCustomLocalizedString(@"session.encription.key.doesn't.valid", nil)];
+//                            completion(nil, nil, error);
+//                        }
+//                    } else {
+//                        completion(nil, nil, error);
+//                    }
+//                } else {
+//                    NSError *error = [JSErrorBuilder errorWithCode:JSClientErrorCode message:JSCustomLocalizedString(@"session.encription.key.data.empty", nil)];
+//                    completion(nil, nil, error);
+//                }
             }
         }
     }];

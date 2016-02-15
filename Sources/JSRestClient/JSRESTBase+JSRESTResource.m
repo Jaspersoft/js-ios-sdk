@@ -86,7 +86,7 @@ NSString * const _parameterForceFullPage = @"forceFullPage";
     request.restVersion = JSRESTVersion_2;
     request.expectedModelClass = modelClass;
     request.completionBlock = block;
-    NSString *responceType = @"application/json";
+    NSString *responceType = [JSUtils usedMimeType];
     if (resourceType) {
         responceType = [NSString stringWithFormat:@"application/repository.%@+json", resourceType];
     }

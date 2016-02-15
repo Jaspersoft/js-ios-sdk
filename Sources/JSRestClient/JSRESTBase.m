@@ -118,6 +118,10 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         self.serverProfile = serverProfile;
 
         self.requestSerializer = [AFJSONRequestSerializer serializer];
+        [self.requestSerializer setValue:[JSUtils usedMimeType] forHTTPHeaderField:kJSRequestResponceType];
+        
+        self.responseSerializer.acceptableStatusCodes = nil;
+        
         self.securityPolicy.allowInvalidCertificates = YES;
         self.requestCallBacks = [NSMutableArray new];
         self.serverReachability = [ServerReachability reachabilityWithServer:serverProfile.serverUrl timeout:[JSUtils checkServerConnectionTimeout]];
@@ -165,19 +169,22 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     
     id parameters = jsRequest.body ? : jsRequest.params;
     
-    // Apply additional HTTP headers
-    if (jsRequest.additionalHeaders.count) {
-        NSMutableArray *alreadyInstalledHeaders = [[[self.requestSerializer HTTPRequestHeaders] allKeys] mutableCopy];
-        [alreadyInstalledHeaders addObjectsFromArray:[jsRequest.additionalHeaders allKeys]];
-        for (NSString *headerKey in alreadyInstalledHeaders) {
-            [self.requestSerializer setValue:jsRequest.additionalHeaders[headerKey] forHTTPHeaderField:headerKey];
-        }
+    NSString *customAcceptType = [jsRequest.additionalHeaders objectForKey:kJSRequestResponceType];
+    if (customAcceptType && ![self.responseSerializer.acceptableContentTypes containsObject:customAcceptType]) {
+        NSMutableSet *acceptableContentTypes = [self.responseSerializer.acceptableContentTypes mutableCopy];
+        [acceptableContentTypes addObject:customAcceptType];
+        self.responseSerializer.acceptableContentTypes = acceptableContentTypes;
     }
     
     NSError *serializationError = nil;
     NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:jsRequest.httpMethod
                                                                    URLString:[[NSURL URLWithString:jsRequest.fullURI relativeToURL:self.baseURL] absoluteString]
                                                                   parameters:parameters error:&serializationError];
+    
+    for (NSString *headerKey in [jsRequest.additionalHeaders allKeys]) {
+        [request setValue:jsRequest.additionalHeaders[headerKey] forHTTPHeaderField:headerKey];
+    }
+    
     if (serializationError) {
 #warning HERE NEED HANDLE ERROR!!!
         //        if (failure) {

@@ -59,6 +59,7 @@
 #import "JSResourcePatchRequest.h"
 
 // ServerInfo
+#import "JSEncryptionData.h"
 #import "JSServerInfo.h"
 
 // Dashboard
