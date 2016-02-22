@@ -28,6 +28,8 @@
 //  Jaspersoft Corporation
 //
 
+#import <Foundation/Foundation.h>
+
 #import "JSProfile.h"
 #import "JSRequest.h"
 #import "JSObjectMappingsProtocol.h"

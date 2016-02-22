@@ -61,13 +61,14 @@
     NSString *fullURI = [self constructFullURIWithDashboardURI:dashboardURI
                                                  inputControls:ids
                                              initialValuesOnly:NO];
+#warning SHOULD REIMPLEMENT THIS METHOD FOR SYNCHRONOUSLY LOADING!!!
+
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURI];
     request.expectedModelClass = [JSInputControlDescriptor class];
     request.restVersion = JSRESTVersion_2;
     request.method = JSRequestHTTPMethodGET;
     request.completionBlock = block;
     [self addDashboardParametersToRequest:request withSelectedValues:selectedValues];
-    request.asynchronous = async;
     [self sendRequest:request];
 }
 
@@ -78,6 +79,8 @@
                                                async:(BOOL)async
                                      completionBlock:(JSRequestCompletionBlock)block
 {
+#warning SHOULD REIMPLEMENT THIS METHOD FOR SYNCHRONOUSLY LOADING!!!
+
     JSRequest *request = [[JSRequest alloc] initWithUri:[self constructFullURIWithDashboardURI:dashboardURI
                                                                                  inputControls:ids
                                                                              initialValuesOnly:YES]];
@@ -86,7 +89,6 @@
     request.restVersion = JSRESTVersion_2;
     [self addDashboardParametersToRequest:request withSelectedValues:selectedValues];
     request.completionBlock = block;
-    request.asynchronous = async;
     [self sendRequest:request];
 }
 

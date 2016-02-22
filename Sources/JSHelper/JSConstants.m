@@ -125,6 +125,7 @@ NSString *const kJS_CONTENT_TYPE_DOCX = @"docx";
  @name REST URI Prefixes
  @{
  */
+NSString *const kJS_REST_ENCRYPTION_KEY_URI = @"GetEncryptionKey";
 NSString *const kJS_REST_AUTHENTICATION_URI = @"j_spring_security_check";
 NSString *const kJS_REST_SERVICES_URI = @"rest";
 NSString *const kJS_REST_SERVICES_V2_URI = @"rest_v2";

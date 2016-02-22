@@ -64,6 +64,14 @@ typedef NS_OPTIONS(NSInteger, JSRequestHTTPMethod) {
 };
 
 /**
+ Supported HTTP methods for requests
+ */
+typedef NS_OPTIONS(NSInteger, JSRequestSerializationType) {
+    JSRequestSerializationType_JSON         = 1 << 0,
+    JSRequestSerializationType_UrlEncoded   = 1 << 1
+};
+
+/**
  Models the request portion of an HTTP request/response cycle. Used by
  <code>JSRESTBase</code> class to send requests
  
@@ -113,6 +121,13 @@ typedef NS_OPTIONS(NSInteger, JSRequestHTTPMethod) {
 @property (nonatomic, assign) JSRequestHTTPMethod method;
 
 /**
+ The serialization type
+ 
+ @since 2.4
+ */
+@property (nonatomic, assign) JSRequestSerializationType serializationType;
+
+/**
  The string notation of HTTP method
  
  @since 2.4
@@ -137,13 +152,6 @@ typedef NS_OPTIONS(NSInteger, JSRequestHTTPMethod) {
  to determine which file will be downloaded (because all requests are asynchronous)
  */
 @property (nonatomic, retain, nullable) NSString *downloadDestinationPath;
-
-/**
- Determine asynchronous nature of request
- 
- **Default**: YES
- */
-@property (nonatomic, assign) BOOL asynchronous;
 
 /**
  The rest version of JasperReports server (affects for URI part)

@@ -192,6 +192,7 @@ extern NSString *const kJS_CONTENT_TYPE_DOCX;
  @name REST URI Prefixes
  @{
  */
+extern NSString *const kJS_REST_ENCRYPTION_KEY_URI;
 extern NSString *const kJS_REST_AUTHENTICATION_URI;
 extern NSString *const kJS_REST_SERVICES_URI;
 extern NSString *const kJS_REST_SERVICES_V2_URI;

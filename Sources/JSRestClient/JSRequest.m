@@ -40,8 +40,8 @@
     if (self = [super init]) {
         self.uri = uri;
         self.method = JSRequestHTTPMethodGET;
+        self.serializationType = JSRequestSerializationType_JSON;
         self.responseAsObjects = YES;
-        self.asynchronous = YES;
         self.restVersion = JSRESTVersion_1;
         self.parameters = [NSMutableDictionary dictionary];
         self.redirectAllowed = YES;

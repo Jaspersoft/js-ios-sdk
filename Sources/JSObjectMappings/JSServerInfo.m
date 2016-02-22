@@ -66,32 +66,17 @@ NSString * const kJSSavedServerInfoDatetimeFormatPatternKey = @"kJSSavedServerIn
 
 #pragma mark - JSObjectMappingsProtocol
 
-//+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-//    RKObjectMapping *responseMapping = [RKObjectMapping mappingForClass:self];
-//    [responseMapping addAttributeMappingsFromDictionary:@{
-//                                                          @"build": @"build",
-//                                                          @"edition": @"edition",
-//                                                          @"editionName": @"editionName",
-//                                                          @"expiration": @"expiration",
-//                                                          @"features": @"features",
-//                                                          @"licenseType": @"licenseType",
-//                                                          @"version": @"version",
-//                                                          @"dateFormatPattern": @"dateFormatPattern",
-//                                                          @"datetimeFormatPattern": @"datetimeFormatPattern",
-//                                                          }];
-//    NSMutableArray *descriptorsArray = [NSMutableArray array];
-//    [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:responseMapping
-//                                                                             method:JSRequestHTTPMethodAny
-//                                                                        pathPattern:nil
-//                                                                            keyPath:nil
-//                                                                        statusCodes:nil]];
-//    return descriptorsArray;
-//}
-//
-//#pragma mark - NSSecureCoding
-//+ (BOOL)supportsSecureCoding {
-//    return YES;
-//}
++ (nonnull EKObjectMapping *)ekObjectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        [mapping mapPropertiesFromArray:@[@"build", @"edition", @"editionName", @"expiration", @"features",
+                                          @"licenseType", @"version", @"dateFormatPattern", @"datetimeFormatPattern"]];
+    }];
+}
+
+#pragma mark - NSSecureCoding
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:_build forKey:kJSSavedServerInfoBuildKey];
