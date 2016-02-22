@@ -29,7 +29,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 #import "JSReportParameter.h"
 
 /**
@@ -39,7 +39,7 @@
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.8
  */
-@interface JSReportExecutionRequest : NSObject <EKMappingProtocol>
+@interface JSReportExecutionRequest : NSObject <JSObjectMappingsProtocol>
 
 @property (nonatomic, retain, nonnull) NSString *reportUnitUri;
 @property (nonatomic, retain, nonnull) NSString *async;

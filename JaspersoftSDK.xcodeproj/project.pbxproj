@@ -134,6 +134,7 @@
 		A1478FB1834AD4371D17E79C /* JSDashboardResource.h in Headers */ = {isa = PBXBuildFile; fileRef = A14784FCE771FA8D974535B3 /* JSDashboardResource.h */; };
 		A1478FC814F76B3AD331F43B /* JSRESTBase+JSSchedule.m in Sources */ = {isa = PBXBuildFile; fileRef = A147815111A4ADFCC724870F /* JSRESTBase+JSSchedule.m */; };
 		A1478FE74D5DDD802462C488 /* JSScheduleJobState.h in Headers */ = {isa = PBXBuildFile; fileRef = A147876D0CBB5A203071885F /* JSScheduleJobState.h */; };
+		BD194F891C75D50100C99DA9 /* JSObjectMappingsProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = BD194F881C75D50100C99DA9 /* JSObjectMappingsProtocol.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -260,6 +261,7 @@
 		A1478FC0657A2C5AE60CA688 /* JSScheduleMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSScheduleMetadata.m; sourceTree = "<group>"; };
 		A1478FD9723BF37C2BB58F2B /* JSResourceDashboardUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSResourceDashboardUnit.m; sourceTree = "<group>"; };
 		A1478FDBCBE0FE99F2512696 /* JSRESTBase+JSRESTDashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSRESTDashboard.m"; sourceTree = "<group>"; };
+		BD194F881C75D50100C99DA9 /* JSObjectMappingsProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSObjectMappingsProtocol.h; sourceTree = "<group>"; };
 		F5758F3D174E301800C355C1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		F5758F40174E302800C355C1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		F5758F42174E302E00C355C1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -320,6 +322,7 @@
 			isa = PBXGroup;
 			children = (
 				0849FC461C2B0A91008F1064 /* JSObjectMappings.h */,
+				BD194F881C75D50100C99DA9 /* JSObjectMappingsProtocol.h */,
 				0899C4471C3170AC00CFBD91 /* JSContentResource.h */,
 				0899C4481C3170AC00CFBD91 /* JSContentResource.m */,
 				0849FC321C2B0A91008F1064 /* JSDataType.h */,
@@ -564,6 +567,7 @@
 				0849FC971C2B0A91008F1064 /* JSExportExecutionResponse.h in Headers */,
 				0849FCB61C2B0A91008F1064 /* JSResourceReportUnit.h in Headers */,
 				0849FCA21C2B0A91008F1064 /* JSOperationResult.h in Headers */,
+				BD194F891C75D50100C99DA9 /* JSObjectMappingsProtocol.h in Headers */,
 				0849FC991C2B0A91008F1064 /* JSInputControlDescriptor.h in Headers */,
 				0849FCD71C2B0A93008F1064 /* KeychainItemWrapper.h in Headers */,
 				0849FCCF1C2B0A92008F1064 /* JSRESTBase+JSRESTResource.h in Headers */,

@@ -33,7 +33,7 @@
 #import "JSErrorDescriptor.h"
 #import "JSExecutionStatus.h"
 #import "JSReportOutputResource.h"
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 
 /**
  Represents an export entity for convenient XML serialization process
@@ -42,7 +42,7 @@
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.8
  */
-@interface JSExportExecutionResponse : NSObject <EKMappingProtocol>
+@interface JSExportExecutionResponse : NSObject <JSObjectMappingsProtocol>
 
 @property (nonatomic, retain, nonnull) NSString *uuid;
 @property (nonatomic, retain, nonnull) JSExecutionStatus *status;

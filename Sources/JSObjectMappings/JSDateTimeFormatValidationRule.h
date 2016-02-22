@@ -29,14 +29,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 
 /**
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.4
  */
-@interface JSDateTimeFormatValidationRule : NSObject <EKMappingProtocol, NSCopying>
+@interface JSDateTimeFormatValidationRule : NSObject <JSObjectMappingsProtocol, NSCopying>
 
 @property (nonatomic, retain) NSString *errorMessage;
 @property (nonatomic, retain) NSString *format;

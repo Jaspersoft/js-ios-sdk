@@ -32,7 +32,7 @@
 */
 
 
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 
 typedef NS_ENUM(NSInteger, JSScheduleTriggerStartType) {
     JSScheduleTriggerStartTypeImmediately = 1,

@@ -29,7 +29,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 
 /**
  @author Alexey Gubarev ogubarie@tibco.com
@@ -37,7 +37,7 @@
  */
 
 
-@interface JSDataType : NSObject <EKMappingProtocol, NSCopying>
+@interface JSDataType : NSObject <JSObjectMappingsProtocol, NSCopying>
 
 @property (nonatomic, assign, readonly) kJS_DT_TYPE type;
 @property (nonatomic, strong, readonly) NSString *pattern;

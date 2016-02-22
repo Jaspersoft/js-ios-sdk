@@ -29,7 +29,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 
 
 /**
@@ -40,7 +40,7 @@
  @since 1.8
  */
 
-@interface JSExecutionStatus : NSObject <EKMappingProtocol>
+@interface JSExecutionStatus : NSObject <JSObjectMappingsProtocol>
 
 @property (nonatomic, strong, nullable) NSString *statusAsString;
 @property (nonatomic, assign) kJS_EXECUTION_STATUS status;

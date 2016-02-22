@@ -37,7 +37,7 @@
     return @"dashboardResource";
 }
 
-#pragma mark - EKMappingProtocol
+#pragma mark - JSObjectMappingsProtocol
 //+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile
 //{
 //    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];

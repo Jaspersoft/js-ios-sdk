@@ -38,7 +38,7 @@
     return @"reportUnit";
 }
 
-#pragma mark - EKMappingProtocol
+#pragma mark - JSObjectMappingsProtocol
 
 //+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile
 //{

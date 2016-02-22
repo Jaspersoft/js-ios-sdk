@@ -29,7 +29,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 
 /**
  Represents an error descriptor for convenient XML serialization process
@@ -38,7 +38,7 @@
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.8
  */
-@interface JSErrorDescriptor : NSObject <EKMappingProtocol>
+@interface JSErrorDescriptor : NSObject <JSObjectMappingsProtocol>
 
 @property (nonatomic, retain, nonnull) NSString *message;
 @property (nonatomic, retain, nonnull) NSString *errorCode;

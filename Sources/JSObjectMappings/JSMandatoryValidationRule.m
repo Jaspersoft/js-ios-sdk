@@ -32,7 +32,7 @@
 
 @implementation JSMandatoryValidationRule
 
-#pragma mark - EKMappingProtocol
+#pragma mark - JSObjectMappingsProtocol
 
 //+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
 //    NSMutableArray *descriptorsArray = [NSMutableArray array];

@@ -29,7 +29,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 
 /**
  Represents an output resource for convenient XML serialization process
@@ -39,7 +39,7 @@
  @since 1.8
  */
 
-@interface JSReportOutputResource : NSObject <EKMappingProtocol>
+@interface JSReportOutputResource : NSObject <JSObjectMappingsProtocol>
 
 @property (nonatomic, retain, nonnull) NSString *contentType;
 @property (nonatomic, retain, nonnull) NSString *fileName;

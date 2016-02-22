@@ -33,10 +33,10 @@
 @since 2.3
 */
 
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 @class JSScheduleJobState;
 
-@interface JSScheduleLookup : NSObject <EKMappingProtocol>
+@interface JSScheduleLookup : NSObject <JSObjectMappingsProtocol>
 @property (nonatomic, assign) NSInteger jobIdentifier;
 @property (nonatomic, assign) NSInteger version;
 @property (nonatomic, strong) NSString *reportUnitURI;

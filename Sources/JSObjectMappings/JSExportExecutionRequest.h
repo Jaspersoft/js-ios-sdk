@@ -29,7 +29,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 
 /**
  Represents a export execution request descriptor for convenient XML serialization process
@@ -40,7 +40,7 @@
  */
 
 
-@interface JSExportExecutionRequest : NSObject<EKMappingProtocol>
+@interface JSExportExecutionRequest : NSObject<JSObjectMappingsProtocol>
 
 @property (nonatomic, retain, nonnull) NSString *outputFormat;
 @property (nonatomic, retain, nullable) NSString *pages;

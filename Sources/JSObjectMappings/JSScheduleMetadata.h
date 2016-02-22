@@ -32,10 +32,10 @@
 @since 2.3
 */
 
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 @class JSScheduleTrigger;
 
-@interface JSScheduleMetadata : NSObject <EKMappingProtocol>
+@interface JSScheduleMetadata : NSObject <JSObjectMappingsProtocol>
 @property (nonatomic, assign) NSInteger jobIdentifier;
 @property (nonatomic, assign) NSInteger version;
 @property (nonatomic, strong) NSString *username;

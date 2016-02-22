@@ -29,7 +29,7 @@
 //
 
 #import "JSOperationResult.h"
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 #import "AFURLRequestSerialization.h"
 /**
  This block invoked when the request is complete.
@@ -95,7 +95,7 @@ typedef NS_OPTIONS(NSInteger, JSRequestHTTPMethod) {
 /**
  Expected model class for mapping responce
  */
-@property (nonatomic, strong, nonnull) Class <EKMappingProtocol> expectedModelClass;
+@property (nonatomic, strong, nonnull) Class <JSObjectMappingsProtocol> expectedModelClass;
 
 /**
  A collection of parameters of the request. Automatically will be added to URL

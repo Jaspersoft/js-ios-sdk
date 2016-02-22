@@ -2,24 +2,24 @@
  * Jaspersoft Mobile SDK
  * Copyright (C) 2011 - 2014 Jaspersoft Corporation. All rights reserved.
  * http://community.jaspersoft.com/project/mobile-sdk-ios
- * 
+ *
  * Unless you have purchased a commercial license agreement from Jaspersoft,
  * the following license terms apply:
- * 
+ *
  * This program is part of Jaspersoft Mobile SDK for iOS.
- * 
+ *
  * Jaspersoft Mobile SDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Jaspersoft Mobile SDK is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public License
- * along with Jaspersoft Mobile SDK for iOS. If not, see 
+ * along with Jaspersoft Mobile SDK for iOS. If not, see
  * <http://www.gnu.org/licenses/lgpl>.
  */
 
@@ -29,12 +29,15 @@
 //
 
 #import "JSRESTBase.h"
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 #import "JSErrorDescriptor.h"
 #import "JSRESTBase+JSRESTSession.h"
 #import "ServerReachability.h"
 #import "JSErrorBuilder.h"
 #import "AFNetworkActivityIndicatorManager.h"
+
+#import "EKSerializer.h"
+#import "EKMapper.h"
 
 // Access key and value for content-type / charset
 NSString * const kJSRequestContentType = @"Content-Type";
@@ -116,16 +119,20 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         self.keepSession = keepLogged;
         self.timeoutInterval = _defaultTimeoutInterval;
         self.serverProfile = serverProfile;
-
+        
         self.requestSerializer = [AFJSONRequestSerializer serializer];
         [self.requestSerializer setValue:[JSUtils usedMimeType] forHTTPHeaderField:kJSRequestResponceType];
         
         self.responseSerializer.acceptableStatusCodes = nil;
+        NSMutableSet *acceptableContentTypes = [self.responseSerializer.acceptableContentTypes mutableCopy];
+        [acceptableContentTypes addObject:@"text/html"];
+        [acceptableContentTypes addObject:@"text/plain"];
+        self.responseSerializer.acceptableContentTypes = acceptableContentTypes;
         
         self.securityPolicy.allowInvalidCertificates = YES;
         self.requestCallBacks = [NSMutableArray new];
         self.serverReachability = [ServerReachability reachabilityWithServer:serverProfile.serverUrl timeout:[JSUtils checkServerConnectionTimeout]];
-
+        
         __weak typeof(self) weakSelf = self;
         [self setTaskWillPerformHTTPRedirectionBlock:^NSURLRequest * _Nonnull(NSURLSession * _Nonnull session, NSURLSessionTask * _Nonnull task, NSURLResponse * _Nonnull response, NSURLRequest * _Nonnull request) {
             if (response) {
@@ -146,7 +153,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
                 return request;
             }
         }];
-
+        
     }
     return self;
 }
@@ -163,12 +170,28 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 - (void)sendRequest:(nonnull JSRequest *)jsRequest {
     if (!self.serverReachability.isReachable) {
         [self.serverReachability resetReachabilityStatus];
-        [self sendCallBackForRequest:jsRequest withOperationResult:[self requestOperationForFailedConnection]];
+        [self sendCallBackForRequest:jsRequest withOperationResult:[self operationResultForFailedConnection]];
         return;
     }
     
-    id parameters = jsRequest.body ? : jsRequest.params;
     
+    // Merge parameters with httpBody
+    id parameters = [NSMutableDictionary dictionaryWithDictionary:jsRequest.params];
+    if (jsRequest.body) {
+        Class objectClass = [jsRequest.body class];
+        EKObjectMapping *objectMapping = [objectClass ekObjectMappingForServerProfile:self.serverProfile];
+        NSDictionary *serializedObject = [EKSerializer serializeObject:jsRequest.body withMapping:objectMapping];
+        
+        if (serializedObject) {
+            if ([objectClass respondsToSelector:@selector(requestObjectKeyPath)]) {
+                [parameters setObject:serializedObject forKey:[objectClass requestObjectKeyPath]];
+            } else {
+                [parameters addEntriesFromDictionary:serializedObject];
+            }
+        }
+    }
+    
+    // Merge HTTP headers
     NSString *customAcceptType = [jsRequest.additionalHeaders objectForKey:kJSRequestResponceType];
     if (customAcceptType && ![self.responseSerializer.acceptableContentTypes containsObject:customAcceptType]) {
         NSMutableSet *acceptableContentTypes = [self.responseSerializer.acceptableContentTypes mutableCopy];
@@ -179,23 +202,15 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     NSError *serializationError = nil;
     NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:jsRequest.httpMethod
                                                                    URLString:[[NSURL URLWithString:jsRequest.fullURI relativeToURL:self.baseURL] absoluteString]
-                                                                  parameters:parameters error:&serializationError];
+                                                                  parameters:parameters
+                                                                       error:&serializationError];
     
     for (NSString *headerKey in [jsRequest.additionalHeaders allKeys]) {
         [request setValue:jsRequest.additionalHeaders[headerKey] forHTTPHeaderField:headerKey];
     }
     
     if (serializationError) {
-#warning HERE NEED HANDLE ERROR!!!
-        //        if (failure) {
-        //#pragma clang diagnostic push
-        //#pragma clang diagnostic ignored "-Wgnu"
-        //            dispatch_async(self.completionQueue ?: dispatch_get_main_queue(), ^{
-        //                failure(nil, serializationError);
-        //            });
-        //#pragma clang diagnostic pop
-        //        }
-        //
+        [self sendCallBackForRequest:jsRequest withOperationResult:[self operationResultForSerializationError:serializationError]];
         return;
     }
     
@@ -203,23 +218,19 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     if (!jsRequest.asynchronous) {
         semaphore = dispatch_semaphore_create(0);
     }
+    
+    __weak typeof(self) weakSelf = self;
     NSURLSessionDataTask *dataTask = [self dataTaskWithRequest:request
                                                 uploadProgress:nil
                                               downloadProgress:nil
                                              completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *error) {
-                                                 if (jsRequest.completionBlock) {
-                                                     NSMutableArray *array = [@[response] mutableCopy];
-                                                     if (responseObject) {
-                                                         [array addObject:responseObject];
-                                                     }
-                                                     if (error) {
-                                                         [array addObject:error];
-                                                     }
-                                                     
-                                                     jsRequest.completionBlock(array);
-                                                 }
-                                                 if (error) {
-                                                 } else {
+                                                 __strong typeof(self) strongSelf = weakSelf;
+                                                 if (strongSelf) {
+                                                     JSOperationResult *operationResult = [strongSelf operationResultForRequest:jsRequest
+                                                                                                                   withResponce:(NSHTTPURLResponse *)response
+                                                                                                                 responseObject:responseObject
+                                                                                                                          error:error];
+                                                     [strongSelf sendCallBackForRequest:jsRequest withOperationResult:operationResult];
                                                  }
                                                  if (semaphore) {
                                                      dispatch_semaphore_signal(semaphore);
@@ -233,27 +244,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     if(semaphore) {
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     }
-    
-    
-    //    if (jsRequest.responseAsObjects) {
-//        [self.restKitObjectManager performSelector:@selector(copyStateFromHTTPClientToHTTPRequestOperation:) withObject:httpOperation];
-//        
-//        NSArray *responseDescriptors = [jsRequest.expectedModelClass rkResponseDescriptorsForServerProfile:self.serverProfile];
-//        
-//        NSMutableArray *fullresponseDescriptors = [NSMutableArray arrayWithArray:responseDescriptors];
-//        [fullresponseDescriptors addObjectsFromArray:[JSErrorDescriptor rkResponseDescriptorsForServerProfile:self.serverProfile]];
-//        RKObjectRequestOperation *objectRequestOperation = [[RKObjectRequestOperation alloc] initWithHTTPRequestOperation:httpOperation responseDescriptors:fullresponseDescriptors];
-//        
-//        if (responseDescriptors.count == 0) {
-//            NSMutableIndexSet *acceptableStatusCodes = [[NSMutableIndexSet alloc] initWithIndexSet:httpOperation.acceptableStatusCodes];
-//            [acceptableStatusCodes addIndexes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-//            httpOperation.acceptableStatusCodes = acceptableStatusCodes;
-//        }
-//        
-//        requestOperation = objectRequestOperation;
-//    }
-
-    
 }
 
 - (nullable JSServerInfo *)serverInfo {
@@ -269,7 +259,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         };
         [self sendRequest:request];
     }
-
+    
     return self.serverProfile.serverInfo;
 }
 
@@ -359,12 +349,9 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     JSOperationResult *result = [[JSOperationResult alloc] initWithStatusCode:response.statusCode
                                                               allHeaderFields:response.allHeaderFields
                                                                      MIMEType:response.MIMEType];
- 
-#warning NEED CHECK BODY TYPE!!!
-    result.body = responseObject;
-
-    // Error handling
+    
     result.request = request;
+    
     if ([result.request.uri isEqualToString:kJS_REST_AUTHENTICATION_URI]) {
         NSString *redirectURL = [response.allHeaderFields objectForKey:@"Location"];
         
@@ -373,128 +360,123 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         NSPredicate *redirectUrlValidator = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", redirectUrlRegex];
         if ([redirectUrlValidator evaluateWithObject:redirectURL]) {
             result.error = [JSErrorBuilder errorWithCode:JSInvalidCredentialsErrorCode];
-        } else if(error) {
-            result.error = error;
         } else {
-            result.error = nil;
+            result.error = [error copy];
         }
     } else {
-        NSError *operationError = error;
-        if (![result isSuccessful] || operationError) {
-            
-            NSError *error;
-            if (response.statusCode == 401) {
-                error = [JSErrorBuilder httpErrorWithCode:JSSessionExpiredErrorCode
-                                                 HTTPCode:response.statusCode];
-                
-            } else if (response.statusCode && !operationError) {
-                error = [JSErrorBuilder httpErrorWithCode:JSHTTPErrorCode
-                                                 HTTPCode:response.statusCode];
-                
-            } else if ([operationError.domain isEqualToString:NSURLErrorDomain]) {
-                switch (operationError.code) {
+        // Error handling
+        if (error) {
+            if ([error.domain isEqualToString:NSURLErrorDomain]) {
+                switch (error.code) {
                     case NSURLErrorUserCancelledAuthentication:
                     case NSURLErrorUserAuthenticationRequired: {
-                        error = [JSErrorBuilder errorWithCode:JSSessionExpiredErrorCode];
+                        result.error = [JSErrorBuilder errorWithCode:JSSessionExpiredErrorCode];
                         break;
                     }
                     case NSURLErrorTimedOut: {
-                        // TODO: Create Error message
-                        error = [JSErrorBuilder errorWithCode:JSRequestTimeOutErrorCode];
+                        result.error = [JSErrorBuilder errorWithCode:JSRequestTimeOutErrorCode];
                         break;
                     }
                     default: {
-                        error = [JSErrorBuilder httpErrorWithCode:JSHTTPErrorCode
-                                                         HTTPCode:response.statusCode];
+                        result.error = [JSErrorBuilder httpErrorWithCode:JSHTTPErrorCode
+                                                                HTTPCode:response.statusCode];
                     }
                 }
-                
-                //            } else {
-                //
-                //                JSErrorCode code = JSOtherErrorCode;
-                //                if (operationError.userInfo[RKObjectMapperErrorObjectsKey]) {
-                //                    result.objects = operationError.userInfo[RKObjectMapperErrorObjectsKey];
-                //                    code = JSClientErrorCode;
-                //                } else if (operationError.userInfo[RKDetailedErrorsKey]) {
-                //                    result.objects = operationError.userInfo[RKDetailedErrorsKey];
-                //                    code = JSDataMappingErrorCode;
-                //                }
-                //
-                //                NSString *message;
-                //                if (result.objects && [result.objects count]) {
-                //                    message = @"";
-                //                    for (JSErrorDescriptor *errDescriptor in result.objects) {
-                //                        if ([errDescriptor isKindOfClass:[errDescriptor class]]) {
-                //                            NSString *formatString = message.length ? @",\n%@" : @"%@";
-                //                            message = [message stringByAppendingFormat:formatString, errDescriptor.message];
-                //                        }
-                //                    }
-                //                }
-                //
-                //                error = [JSErrorBuilder errorWithCode:code message:message];
-                //            }
-                //
-                //            result.error = error;
-                //        } else {
-                //            if ([restKitOperation isKindOfClass:[RKObjectRequestOperation class]]) {
-                //                RKObjectRequestOperation *objectOperation = (RKObjectRequestOperation *)restKitOperation;
-                //                if (objectOperation.mappingResult) {
-                //                    result.objects = [objectOperation.mappingResult array];
-                //                }
-                //            }
+            } else if ([error.domain isEqualToString:AFURLResponseSerializationErrorDomain]) {
+                result.error = [JSErrorBuilder errorWithCode:JSDataMappingErrorCode];
+            }
+        } else if (response.statusCode && ![result isSuccessful]) {
+            if (response.statusCode == 401) {
+#warning NEED INITIALIZE JSSessionExpiredErrorCode ERROR IN ONE PLACE!!!
+                result.error = [JSErrorBuilder httpErrorWithCode:JSSessionExpiredErrorCode
+                                                        HTTPCode:response.statusCode];
+            } else {
+                result.error = [JSErrorBuilder httpErrorWithCode:JSHTTPErrorCode
+                                                        HTTPCode:response.statusCode];
             }
         }
-        if (result.error.code == JSSessionExpiredErrorCode) {
-            [self deleteCookies];
-        }
-        return result;
     }
-}
     
-- (void)sendCallbackAboutOperation:(id)restKitOperation{
-//    JSOperationResult *result = [self operationResultWithOperation:restKitOperation];
-//    
-//    JSCallBack *callBack = [self callBackForOperation:restKitOperation];
-//    if (callBack) {
-//        [self.requestCallBacks removeObject:callBack];
-//        
-//#ifndef __RELEASE__
-//        RKHTTPRequestOperation *httpOperation = [restKitOperation isKindOfClass:[RKObjectRequestOperation class]] ? [restKitOperation HTTPRequestOperation] : restKitOperation;
-//        NSLog(_requestFinishedTemplateMessage, [httpOperation.request.URL absoluteString], [result bodyAsString]);
-//#endif
-//        if (callBack.request.shouldResendRequestAfterSessionExpiration && result.error && result.error.code == JSSessionExpiredErrorCode && self.keepSession) {
-//            __weak typeof(self)weakSelf = self;
-//            [self verifyIsSessionAuthorizedWithCompletion:^(BOOL isSessionAuthorized) {
-//                __strong typeof(self)strongSelf = weakSelf;
-//                if (isSessionAuthorized) {
-//                    [strongSelf sendRequest:callBack.request];
-//                } else {
-//                    [strongSelf sendCallBackForRequest:callBack.request withOperationResult:result];
-//                }
-//            }];
-//        } else {
-//            [self sendCallBackForRequest:callBack.request withOperationResult:result];
-//        }
-//    }
+    // Save file if needed
+    if (!result.request.responseAsObjects && [responseObject isKindOfClass:[NSURL class]]) {
+        NSString *destinationFilePath = result.request.downloadDestinationPath;
+        NSString *sourceFilePath = [(NSURL *)responseObject absoluteString];
+        
+        if (!result.error && sourceFilePath && destinationFilePath && [[NSFileManager defaultManager] fileExistsAtPath:sourceFilePath]) {
+            NSError *fileSavingError = nil;
+            [[NSFileManager defaultManager] moveItemAtPath:sourceFilePath toPath:destinationFilePath error:&fileSavingError];
+            if (fileSavingError) {
+                result.error = [JSErrorBuilder errorWithCode:JSFileSavingErrorCode
+                                                     message:fileSavingError.userInfo[NSLocalizedDescriptionKey]];
+            }
+        } else {
+            result.error = [JSErrorBuilder errorWithCode:JSFileSavingErrorCode];
+        }
+        if (sourceFilePath && [[NSFileManager defaultManager] fileExistsAtPath:sourceFilePath]) {
+            [[NSFileManager defaultManager] removeItemAtPath:sourceFilePath error:nil];
+        }
+    } else { // Response object maping
+#warning NEED CHECK BODY TYPE!!!
+        result.body = responseObject;
+        
+        if (![result isSuccessful]) {
+            result.objects = [self objectFromExternalRepresentation:response
+                                                        withMappingClass:[JSErrorDescriptor class]];
+            
+            NSString *message = @"";
+            for (JSErrorDescriptor *errDescriptor in result.objects) {
+                if ([errDescriptor isKindOfClass:[errDescriptor class]]) {
+                    NSString *formatString = message.length ? @",\n%@" : @"%@";
+                    message = [message stringByAppendingFormat:formatString, errDescriptor.message];
+                }
+            }
+            if (message.length) {
+                result.error = [JSErrorBuilder errorWithCode:JSClientErrorCode message:message];
+            }
+        } else {
+            result.objects = [self objectFromExternalRepresentation:response
+                                                        withMappingClass:request.expectedModelClass];
+        }
+    }
+    
+    
+    if (result.error.code == JSSessionExpiredErrorCode) {
+        [self deleteCookies];
+    }
+    
+    return result;
 }
 
 - (void) sendCallBackForRequest:(JSRequest *)request withOperationResult:(JSOperationResult *)result {
-    result.request = request;
-    
-    if (!result.error && !result.request.responseAsObjects && [result.request.downloadDestinationPath length]) {
-        NSError *fileSavingError = nil;
-        [result.body writeToFile:result.request.downloadDestinationPath
-                         options:NSDataWritingAtomic
-                           error:&fileSavingError];
-
-        if (fileSavingError) {
-            result.error = [JSErrorBuilder errorWithCode:JSFileSavingErrorCode
-                                                                 message:fileSavingError.userInfo[NSLocalizedDescriptionKey]];
+    JSCallBack *callBack = [self callBackForRequest:request];
+    if (callBack) {
+        [self.requestCallBacks removeObject:callBack];
+        
+#ifndef __RELEASE__
+        NSLog(_requestFinishedTemplateMessage, [callBack.dataTask.originalRequest.URL absoluteString], [result bodyAsString]);
+#endif
+        if (callBack.request.shouldResendRequestAfterSessionExpiration && result.error && result.error.code == JSSessionExpiredErrorCode && self.keepSession) {
+            __weak typeof(self)weakSelf = self;
+            [self verifyIsSessionAuthorizedWithCompletion:^(BOOL isSessionAuthorized) {
+                __strong typeof(self)strongSelf = weakSelf;
+                if (isSessionAuthorized) {
+                    callBack.request.shouldResendRequestAfterSessionExpiration = NO;
+                    [strongSelf sendRequest:callBack.request];
+                } else {
+                    if (request.completionBlock) {
+                        dispatch_async(self.completionQueue ?: dispatch_get_main_queue(), ^{
+                            request.completionBlock(result);
+                        });
+                    }
+                }
+            }];
+        } else {
+            if (request.completionBlock) {
+                dispatch_async(self.completionQueue ?: dispatch_get_main_queue(), ^{
+                    request.completionBlock(result);
+                });
+            }
         }
-    }
-    
-    if (request.completionBlock) {
-        request.completionBlock(result);
     }
 }
 
@@ -507,9 +489,69 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     return nil;
 }
 
-- (JSOperationResult *) requestOperationForFailedConnection {
+- (JSCallBack *)callBackForRequest:(JSRequest *)request {
+    for (JSCallBack *callBack in self.requestCallBacks) {
+        if (callBack.request == request) {
+            return callBack;
+        }
+    }
+    return nil;
+}
+
+- (NSArray *)objectFromExternalRepresentation:(id)responceObject withMappingClass:(Class <JSObjectMappingsProtocol>)mappingClass {
+    NSMutableArray *rootKeyPathes = [NSMutableArray arrayWithObject:@""];
+    if ([mappingClass respondsToSelector:@selector(customMappingPathes)]) {
+        [rootKeyPathes addObjectsFromArray:[mappingClass customMappingPathes]];
+    }
+    
+    EKObjectMapping *mapping = [mappingClass ekObjectMappingForServerProfile:self.serverProfile];
+    
+    for (NSString *keyPath in rootKeyPathes) {
+        @autoreleasepool {
+            id nestedRepresentation = nil;
+            if ([keyPath isEqualToString:@""]) {
+                nestedRepresentation = responceObject;
+            } else {
+                nestedRepresentation = [responceObject valueForKeyPath:keyPath];
+            }
+            
+            // Handle value not found case
+            if (nestedRepresentation == nil || nestedRepresentation == [NSNull null]) {
+#ifndef __RELEASE__
+                NSLog(@"Value cann't be mapped for keyPath: %@", keyPath);
+#endif
+                continue;
+            }
+            
+            // Found something to map
+            id mappingResult = nil;
+            if ([nestedRepresentation isKindOfClass:[NSArray class]]) {
+                mappingResult = [EKMapper arrayOfObjectsFromExternalRepresentation:nestedRepresentation withMapping:mapping];
+            } else {
+                mappingResult = [EKMapper objectFromExternalRepresentation:nestedRepresentation withMapping:mapping];
+            }
+            if (mappingResult) { // TODO: Should check this logic for all requests!
+                if ([mappingResult isKindOfClass:[NSArray class]]) {
+                    return mappingResult;
+                } else {
+                    return @[mappingResult];
+                }
+            }
+        }
+    }
+    return nil;
+}
+
+- (JSOperationResult *) operationResultForFailedConnection {
     JSOperationResult *result = [JSOperationResult new];
     result.error = [JSErrorBuilder errorWithCode:JSServerNotReachableErrorCode];
+    return result;
+}
+
+- (JSOperationResult *) operationResultForSerializationError:(NSError *)serializationError {
+    JSOperationResult *result = [JSOperationResult new];
+#warning HERE SHOULD CORRECTLY INITIALIZE ERROR!!!
+    result.error = [NSError errorWithDomain:JSErrorDomain code:JSOtherErrorCode userInfo:serializationError.userInfo];
     return result;
 }
 

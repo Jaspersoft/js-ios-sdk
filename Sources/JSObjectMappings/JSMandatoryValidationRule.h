@@ -29,14 +29,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 
 /**
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.9
  */
-@interface JSMandatoryValidationRule : NSObject <EKMappingProtocol, NSCopying>
+@interface JSMandatoryValidationRule : NSObject <JSObjectMappingsProtocol, NSCopying>
 
 @property (nonatomic, retain) NSString *errorMessage;
 

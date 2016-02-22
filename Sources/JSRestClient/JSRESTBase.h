@@ -30,7 +30,7 @@
 
 #import "JSProfile.h"
 #import "JSRequest.h"
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 #import "JSServerInfo.h"
 #import <AFHTTPSessionManager.h>
 

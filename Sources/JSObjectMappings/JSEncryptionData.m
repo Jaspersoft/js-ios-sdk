@@ -32,4 +32,14 @@
 
 @implementation JSEncryptionData
 
+#pragma mark - JSObjectMappingsProtocol
+
++ (nonnull EKObjectMapping *)ekObjectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        [mapping mapPropertiesFromDictionary:@{@"n"         : @"exponent",
+                                               @"maxdigits" : @"maxdigits",
+                                               @"e"         : @"modulus"}];
+    }];
+}
+
 @end

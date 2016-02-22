@@ -29,7 +29,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 
 /**
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
@@ -37,7 +37,7 @@
  @since 1.4
  */
 
-@interface JSServerInfo : NSObject <EKMappingProtocol, NSSecureCoding>
+@interface JSServerInfo : NSObject <JSObjectMappingsProtocol, NSSecureCoding>
 
 @property (nonatomic, retain) NSString *build;
 @property (nonatomic, retain) NSString *edition;

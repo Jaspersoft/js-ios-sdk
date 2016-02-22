@@ -29,7 +29,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 
 /**
  Represents a report attachment entity for convenient XML serialization process
@@ -38,7 +38,7 @@
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.3
  */
-@interface JSReportAttachment : NSObject <EKMappingProtocol>
+@interface JSReportAttachment : NSObject <JSObjectMappingsProtocol>
 
 @property (nonatomic, retain, nonnull) NSString *type;
 @property (nonatomic, retain, nonnull) NSString *name;

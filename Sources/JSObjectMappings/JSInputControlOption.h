@@ -29,14 +29,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 
 /**
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.4
  */
-@interface JSInputControlOption : NSObject <EKMappingProtocol, NSCopying>
+@interface JSInputControlOption : NSObject <JSObjectMappingsProtocol, NSCopying>
 
 @property (nonatomic, retain) NSString *label;
 @property (nonatomic, retain) NSString *value;

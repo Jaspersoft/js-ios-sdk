@@ -29,7 +29,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 #import "JSResourceLookup.h"
 
 /**
@@ -37,7 +37,7 @@
  @since 2.3
  */
 
-@interface JSResourcePatchRequest : NSObject <EKMappingProtocol>
+@interface JSResourcePatchRequest : NSObject <JSObjectMappingsProtocol>
 
 - (nonnull instancetype)initWithResource:(nonnull JSResourceLookup *)resource;
 

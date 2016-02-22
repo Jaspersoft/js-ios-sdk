@@ -29,7 +29,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 #import "JSInputControlOption.h"
 
 /**
@@ -37,7 +37,7 @@
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.4
  */
-@interface JSInputControlState : NSObject <EKMappingProtocol, NSCopying>
+@interface JSInputControlState : NSObject <JSObjectMappingsProtocol, NSCopying>
 
 @property (nonatomic, retain) NSString *uuid;
 @property (nonatomic, retain) NSString *uri;

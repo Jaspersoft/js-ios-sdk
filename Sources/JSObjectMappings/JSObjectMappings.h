@@ -28,6 +28,7 @@
 //  Jaspersoft Corporation
 //
 
+#import "JSObjectMappingsProtocol.h"
 
 // ErrorDescriptor
 #import "JSErrorDescriptor.h"

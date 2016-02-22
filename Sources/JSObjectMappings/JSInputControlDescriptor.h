@@ -30,7 +30,7 @@
 
 #import "JSInputControlState.h"
 #import <Foundation/Foundation.h>
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 #import "JSMandatoryValidationRule.h"
 #import "JSDateTimeFormatValidationRule.h"
 #import "JSDataType.h"
@@ -41,7 +41,7 @@
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.4
  */
-@interface JSInputControlDescriptor : NSObject <EKMappingProtocol, NSCopying>
+@interface JSInputControlDescriptor : NSObject <JSObjectMappingsProtocol, NSCopying>
 
 @property (nonatomic, strong) NSString *uuid;
 @property (nonatomic, strong) NSString *label;

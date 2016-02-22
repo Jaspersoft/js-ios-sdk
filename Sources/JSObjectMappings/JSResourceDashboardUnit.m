@@ -40,7 +40,7 @@
     return @"dashboardUnit";
 }
 
-#pragma mark - EKMappingProtocol
+#pragma mark - JSObjectMappingsProtocol
 //+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
 //    RKObjectMapping *classMapping = [super classMappingForServerProfile:serverProfile];
 //    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"resources"

@@ -32,9 +32,9 @@
 @since 2.3
 */
 
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 
-@interface JSScheduleJobState : NSObject <EKMappingProtocol>
+@interface JSScheduleJobState : NSObject <JSObjectMappingsProtocol>
 @property (nonatomic, strong) NSDate *nextFireTime;
 @property (nonatomic, strong) NSString *value;
 @end

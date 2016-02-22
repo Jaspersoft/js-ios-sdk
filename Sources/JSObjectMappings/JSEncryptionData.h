@@ -29,7 +29,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 
 /**
  @author Alexey Gubarev ogubarie@tibco.com
@@ -39,7 +39,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface JSEncryptionData : NSObject<EKMappingProtocol>
+@interface JSEncryptionData : NSObject<JSObjectMappingsProtocol>
 
 @property (nonatomic, strong, nullable) NSString *modulus;
 @property (nonatomic, strong, nullable) NSString *exponent;

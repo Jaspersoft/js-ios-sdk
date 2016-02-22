@@ -25,7 +25,7 @@
  */
 
 //
-//  EKMappingProtocol.h
+//  JSObjectMappingsProtocol.h
 //  Jaspersoft Corporation
 //
 
@@ -41,7 +41,7 @@
  @since 1.9
  */
 
-@protocol EKMappingProtocol <NSObject>
+@protocol JSObjectMappingsProtocol <NSObject>
 
 @optional
 /**

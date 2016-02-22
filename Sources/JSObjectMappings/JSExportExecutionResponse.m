@@ -33,7 +33,7 @@
 
 @implementation JSExportExecutionResponse
 
-#pragma mark - EKMappingProtocol
+#pragma mark - JSObjectMappingsProtocol
 //
 //+ (nonnull NSArray <RKRequestDescriptor *> *)rkRequestDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
 //    NSMutableArray *descriptorsArray = [NSMutableArray array];

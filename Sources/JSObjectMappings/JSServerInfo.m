@@ -64,7 +64,7 @@ NSString * const kJSSavedServerInfoDatetimeFormatPatternKey = @"kJSSavedServerIn
     return _serverDateFormatFormatter;
 }
 
-#pragma mark - EKMappingProtocol
+#pragma mark - JSObjectMappingsProtocol
 
 //+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
 //    RKObjectMapping *responseMapping = [RKObjectMapping mappingForClass:self];

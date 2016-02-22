@@ -20,29 +20,48 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with Jaspersoft Mobile SDK for iOS. If not, see
- * <http://www.gnu.org/licenses/lgpl>.
+ * <http://www.gnu.org/licenses/lgpl".
  */
 
 //
-//  JSResourceParameter.h
+//  JSObjectMappingsProtocol.h
 //  Jaspersoft Corporation
 //
 
 #import <Foundation/Foundation.h>
-#import "JSObjectMappingsProtocol.h"
+#import "EKObjectMapping.h"
+#import "JSProfile.h"
 
 /**
+ Declares method that a class must implement so that it can provide support of
+ representing object as string
+ 
  @author Alexey Gubarev ogubarie@tibco.com
- @since 2.3
+ @since 2.4
  */
 
-@interface JSResourceParameter : NSObject <JSObjectMappingsProtocol>
+@protocol JSObjectMappingsProtocol <NSObject>
 
-@property (nonatomic, retain, nonnull) NSString *field;
-@property (nonatomic, retain, nullable) id value;
+@required
+/**
+ Returns a `EKObjectMapping` object for serialize/deserialize objects of the class.
+ @param serverProfile Server Profile for configuring mapping according to server version
+ @return A `EKObjectMapping` object for serialize/deserialize objects of the class.
+ */
++ (nonnull EKObjectMapping *)ekObjectMappingForServerProfile:(nonnull JSProfile *)serverProfile;
 
-- (nonnull instancetype)initWithField:(nonnull NSString *)field value:(nullable id)value;
+@optional
 
-+ (nonnull instancetype)resourceParameterWithField:(nonnull NSString *)field value:(nullable id)value;
+/**
+ Returns a keyPath of `NSString` type for serializing objects of the class to request.
+ @return a keyPath of `NSString` type for serializing objects of the class to request.
+ */
++ (nonnull NSString *)requestObjectKeyPath;
+
+/**
+ Returns an keyPathes array of `NSString` type for mapping objects from response.
+ @return an keyPathes array of `NSString` type for mapping objects from response.
+ */
++ (nonnull NSArray <NSString *> *)customMappingPathes;
 
 @end

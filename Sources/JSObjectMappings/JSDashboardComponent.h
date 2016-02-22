@@ -30,9 +30,9 @@
 
 
 
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 
-@interface JSDashboardComponent : NSObject <EKMappingProtocol>
+@interface JSDashboardComponent : NSObject <JSObjectMappingsProtocol>
 @property (nonatomic, strong) NSString *identifier;
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) NSString *label;

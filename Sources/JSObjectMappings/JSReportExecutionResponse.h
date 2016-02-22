@@ -31,7 +31,7 @@
 #import "JSErrorDescriptor.h"
 #import "JSExecutionStatus.h"
 #import <Foundation/Foundation.h>
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 #import "JSExportExecutionResponse.h"
 
 /**
@@ -41,7 +41,7 @@
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.7
  */
-@interface JSReportExecutionResponse : NSObject <EKMappingProtocol>
+@interface JSReportExecutionResponse : NSObject <JSObjectMappingsProtocol>
 
 @property (nonatomic, retain, nullable) NSNumber *totalPages;
 @property (nonatomic, retain, nonnull) NSNumber *currentPage;

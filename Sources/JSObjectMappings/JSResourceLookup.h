@@ -29,7 +29,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 
 typedef NS_ENUM (NSInteger, JSPermissionMask) {
     JSPermissionMask_Administration = 1 << 0,
@@ -47,7 +47,7 @@ typedef NS_ENUM (NSInteger, JSPermissionMask) {
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.7
  */
-@interface JSResourceLookup : NSObject <EKMappingProtocol, NSCopying, NSSecureCoding>
+@interface JSResourceLookup : NSObject <JSObjectMappingsProtocol, NSCopying, NSSecureCoding>
 
 @property (nonatomic, retain, nonnull) NSString *label;
 @property (nonatomic, retain, nonnull) NSString *uri;

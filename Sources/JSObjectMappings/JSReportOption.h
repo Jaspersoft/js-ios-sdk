@@ -37,11 +37,11 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "EKMappingProtocol.h"
+#import "JSObjectMappingsProtocol.h"
 
 @class JSInputControlDescriptor;
 
-@interface JSReportOption : NSObject <EKMappingProtocol, NSCopying>
+@interface JSReportOption : NSObject <JSObjectMappingsProtocol, NSCopying>
 @property (nonatomic, strong, nullable) NSString *uri;
 @property (nonatomic, strong, nullable) NSString *identifier;
 @property (nonatomic, strong, nullable) NSString *label;
