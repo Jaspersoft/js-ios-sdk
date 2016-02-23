@@ -199,24 +199,27 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         self.responseSerializer.acceptableContentTypes = acceptableContentTypes;
     }
     
-    // Hack for send parameters in body in url-encoded format
-    if (jsRequest.serializationType == JSRequestSerializationType_UrlEncoded) {
-        NSMutableSet *urlEncodedHTTPMethods = [self.requestSerializer.HTTPMethodsEncodingParametersInURI mutableCopy];
-        [urlEncodedHTTPMethods addObject:@"POST"];
-        self.requestSerializer.HTTPMethodsEncodingParametersInURI = urlEncodedHTTPMethods;
-    }
-    
     NSError *serializationError = nil;
     NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:jsRequest.httpMethod
                                                                    URLString:[[NSURL URLWithString:jsRequest.fullURI relativeToURL:self.baseURL] absoluteString]
                                                                   parameters:parameters
                                                                        error:&serializationError];
-    // Restore defaults
+    
+    // Hack for send parameters in body in url-encoded format
     if (jsRequest.serializationType == JSRequestSerializationType_UrlEncoded) {
-        NSMutableSet *urlEncodedHTTPMethods = [self.requestSerializer.HTTPMethodsEncodingParametersInURI mutableCopy];
-        [urlEncodedHTTPMethods removeObject:@"POST"];
-        self.requestSerializer.HTTPMethodsEncodingParametersInURI = urlEncodedHTTPMethods;
+        NSURLRequest *fakeRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:jsRequest.fullURI relativeToURL:self.baseURL]];
+        NSURLRequest *serializedFakeRequest = [[AFHTTPRequestSerializer serializer] requestBySerializingRequest:fakeRequest withParameters:parameters error:&serializationError];
+        NSString *fakeRequestUrlstring = serializedFakeRequest.URL.absoluteString;
+        NSInteger parametersStringIndex = [fakeRequestUrlstring rangeOfString:@"?"].location;
+        NSString *parametersString = [fakeRequestUrlstring substringFromIndex:parametersStringIndex + 1];
+        CFStringRef encodedValue = CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) parametersString, NULL, (CFStringRef) @"/", kCFStringEncodingUTF8);
+        parametersString = CFBridgingRelease(encodedValue);
+
+        [request setHTTPBody:[parametersString dataUsingEncoding:NSUTF8StringEncoding]];
+        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     }
+    NSLog(@"BODY: %@", [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]);
+
     
     for (NSString *headerKey in [jsRequest.additionalHeaders allKeys]) {
         [request setValue:jsRequest.additionalHeaders[headerKey] forHTTPHeaderField:headerKey];

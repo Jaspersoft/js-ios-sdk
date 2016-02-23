@@ -36,9 +36,9 @@
 
 + (nonnull EKObjectMapping *)ekObjectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
     return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
-        [mapping mapPropertiesFromDictionary:@{@"n"         : @"exponent",
+        [mapping mapPropertiesFromDictionary:@{@"e"         : @"exponent",
                                                @"maxdigits" : @"maxdigits",
-                                               @"e"         : @"modulus"}];
+                                               @"n"         : @"modulus"}];
     }];
 }
 
