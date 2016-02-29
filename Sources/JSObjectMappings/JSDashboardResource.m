@@ -32,21 +32,19 @@
 
 @implementation JSDashboardResource
 
-+ (nonnull NSString *)resourceRootKeyPath
-{
-    return @"dashboardResource";
+#pragma mark - JSObjectMappingsProtocol
++ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        [mapping mapPropertiesFromDictionary:@{
+                                               @"name": @"name",
+                                               @"type": @"type",
+                                               @"resource.resourceReference.uri": @"uri",
+                                               }];
+    }];
 }
 
-#pragma mark - JSObjectMappingsProtocol
-//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile
-//{
-//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-//    [classMapping addAttributeMappingsFromDictionary:@{
-//            @"name": @"name",
-//            @"type": @"type",
-//            @"resource.resourceReference.uri": @"uri",
-//    }];
-//    return classMapping;
-//}
++ (nonnull NSString *)requestObjectKeyPath {
+    return @"dashboardResource";
+}
 
 @end

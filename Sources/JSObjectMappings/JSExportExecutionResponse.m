@@ -34,54 +34,16 @@
 @implementation JSExportExecutionResponse
 
 #pragma mark - JSObjectMappingsProtocol
-//
-//+ (nonnull NSArray <RKRequestDescriptor *> *)rkRequestDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-//    NSMutableArray *descriptorsArray = [NSMutableArray array];
-//    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
-//                                                                      objectClass:self
-//                                                                      rootKeyPath:@"exportExecution"
-//                                                                           method:JSRequestHTTPMethodAny]];
-//    return descriptorsArray;
-//}
-//
-//+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-//    NSMutableArray *descriptorsArray = [NSMutableArray array];
-//    for (NSString *keyPath in [self classMappingPathes]) {
-//        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
-//                                                                                 method:JSRequestHTTPMethodAny
-//                                                                            pathPattern:nil
-//                                                                                keyPath:keyPath
-//                                                                            statusCodes:nil]];
-//    }
-//
-//    return descriptorsArray;
-//}
-//
-//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-//    [classMapping addAttributeMappingsFromDictionary:@{
-//                                                       @"id": @"uuid",
-//                                                       }];
-//    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"status"
-//                                                                            toKeyPath:@"status"
-//                                                                          withMapping:[JSExecutionStatus customMapping]]];
-//
-//    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"errorDescriptor"
-//                                                                                 toKeyPath:@"errorDescriptor"
-//                                                                               withMapping:[JSErrorDescriptor classMappingForServerProfile:serverProfile]]];
-//    
-//    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"outputResource"
-//                                                                                 toKeyPath:@"outputResource"
-//                                                                               withMapping:[JSReportOutputResource classMappingForServerProfile:serverProfile]]];
-//
-//    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"attachments"
-//                                                                                 toKeyPath:@"attachments"
-//                                                                               withMapping:[JSReportOutputResource classMappingForServerProfile:serverProfile]]];
-//    return classMapping;
-//}
-//
-//+ (nonnull NSArray *)classMappingPathes {
-//    return @[@""];
-//}
++ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        [mapping mapPropertiesFromDictionary:@{
+                                               @"id": @"uuid",
+                                               }];
+        [mapping hasOne:[JSExecutionStatus class] forKeyPath:@"status" forProperty:@"status" withObjectMapping:[JSExecutionStatus objectMappingForServerProfile:serverProfile]];
+        [mapping hasOne:[JSErrorDescriptor class] forKeyPath:@"errorDescriptor" forProperty:@"errorDescriptor" withObjectMapping:[JSErrorDescriptor objectMappingForServerProfile:serverProfile]];
+        [mapping hasOne:[JSReportOutputResource class] forKeyPath:@"outputResource" forProperty:@"outputResource" withObjectMapping:[JSReportOutputResource objectMappingForServerProfile:serverProfile]];
+        [mapping hasMany:[JSReportOutputResource class] forKeyPath:@"attachments" forProperty:@"attachments" withObjectMapping:[JSReportOutputResource objectMappingForServerProfile:serverProfile]];
+    }];
+}
 
 @end

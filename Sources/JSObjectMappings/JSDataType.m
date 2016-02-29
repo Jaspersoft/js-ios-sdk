@@ -30,87 +30,43 @@
 
 #import "JSDataType.h"
 
-
-@interface JSDataType ()
-@property (nonatomic, strong) NSString *typeAsString;
-@property (nonatomic, strong) NSString *strictMaxAsString;
-@property (nonatomic, strong) NSString *strictMinAsString;
-@property (nonatomic, strong) NSString *maxLengthAsString;
-@end
-
 @implementation JSDataType
 
-#pragma mark - CustomAccessories
-
-- (kJS_DT_TYPE)type {
-    if ([self.typeAsString isEqualToString:@"text"]) {
-        return kJS_DT_TYPE_TEXT;
-    } else if ([self.typeAsString isEqualToString:@"number"]) {
-        return kJS_DT_TYPE_NUMBER;
-    } else if ([self.typeAsString isEqualToString:@"date"]) {
-        return kJS_DT_TYPE_DATE;
-    } else if ([self.typeAsString isEqualToString:@"time"]) {
-        return kJS_DT_TYPE_TIME;
-    } else if ([self.typeAsString isEqualToString:@"datetime"]) {
-        return kJS_DT_TYPE_DATE_TIME;
-    }
-    
-    return kJS_DT_TYPE_UNKNOWN;
-}
-
-- (NSInteger)maxLength {
-    return [[self numberFromString:self.maxLengthAsString] integerValue];
-}
-
-- (BOOL)strictMax {
-    return [JSUtils BOOLFromString:self.strictMaxAsString];
-}
-
-- (BOOL)strictMin {
-    return [JSUtils BOOLFromString:self.strictMinAsString];
-}
-
 #pragma mark - JSObjectMappingsProtocol
++ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        NSDictionary *typesArray = @{ @"text": @(kJS_DT_TYPE_TEXT),
+                                      @"number": @(kJS_DT_TYPE_NUMBER),
+                                      @"date": @(kJS_DT_TYPE_DATE),
+                                      @"time": @(kJS_DT_TYPE_TIME),
+                                      @"datetime": @(kJS_DT_TYPE_DATE_TIME)};
 
-//+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-//    NSMutableArray *descriptorsArray = [NSMutableArray array];
-//    for (NSString *keyPath in [self classMappingPathes]) {
-//        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
-//                                                                                 method:JSRequestHTTPMethodAny
-//                                                                            pathPattern:nil
-//                                                                                keyPath:keyPath
-//                                                                            statusCodes:nil]];
-//    }
-//    return descriptorsArray;
-//}
-//
-//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-//    [classMapping addAttributeMappingsFromDictionary:@{
-//                                                       @"type"      : @"typeAsString",
-//                                                       @"strictMax" : @"strictMaxAsString",
-//                                                       @"strictMin" : @"strictMinAsString",
-//                                                       @"maxLength" : @"maxLengthAsString",
-//                                                       @"maxValue"  : @"maxValue",
-//                                                       @"minValue"  : @"minValue",
-//                                                       @"pattern"   :  @"pattern",
-//                                                       }];
-//    return classMapping;
-//}
-//
-//+ (NSArray *)classMappingPathes {
-//    return @[@"dataType"];
-//}
+        [mapping mapPropertiesFromDictionary:@{
+                                               @"strictMax" : @"strictMax",
+                                               @"strictMin" : @"strictMin",
+                                               @"maxLength" : @"maxLength",
+                                               @"maxValue"  : @"maxValue",
+                                               @"minValue"  : @"minValue",
+                                               @"pattern"   : @"pattern",
+                                               }];
+        
+        [mapping mapKeyPath:@"type" toProperty:@"type" withValueBlock:^(NSString *key, id value) {
+            return typesArray[value];
+        } reverseBlock:^id(id value) {
+            return [typesArray allKeysForObject:value].lastObject;
+        }];
+    }];
+}
 
 #pragma mark - NSCopying
 
 - (id)copyWithZone:(NSZone *)zone {
     if ([self isMemberOfClass: [JSDataType class]]) {
         JSDataType *newDatetype         = [[self class] allocWithZone:zone];
-        newDatetype.typeAsString        = [self.typeAsString copyWithZone:zone];
-        newDatetype.strictMaxAsString   = [self.strictMaxAsString copyWithZone:zone];
-        newDatetype.strictMinAsString   = [self.strictMinAsString copyWithZone:zone];
-        newDatetype.maxLengthAsString   = [self.maxLengthAsString copyWithZone:zone];
+        newDatetype->_type                = self.type;
+        newDatetype->_strictMax           = self.strictMax;
+        newDatetype->_strictMin           = self.strictMin;
+        newDatetype->_maxLength           = self.maxLength;
         newDatetype->_pattern             = [self.pattern copyWithZone:zone];
         newDatetype->_maxValue            = [self.maxValue copyWithZone:zone];
         newDatetype->_minValue            = [self.minValue copyWithZone:zone];

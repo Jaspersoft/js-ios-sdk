@@ -32,55 +32,28 @@
 
 @implementation JSScheduleLookup
 
-+ (nonnull NSString *)resourceRootKeyPath
-{
-    return @"scheduleLookup";
-}
-
 #pragma mark - JSObjectMappingsProtocol
-//+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-//    NSMutableArray *descriptorsArray = [NSMutableArray array];
-//    for (NSString *keyPath in [self classMappingPathes]) {
-//        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
-//                                                                                 method:JSRequestHTTPMethodAny
-//                                                                            pathPattern:nil
-//                                                                                keyPath:keyPath
-//                                                                            statusCodes:nil]];
-//    }
-//    return descriptorsArray;
-//}
-//
-//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile
-//{
-//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-//    [classMapping addAttributeMappingsFromDictionary:@{
-//            @"id"                          : @"jobIdentifier",
-//            @"version"                     : @"version",
-//            @"reportUnitURI"               : @"reportUnitURI",
-//            @"label"                       : @"label",
-//            @"description"                 : @"scheduleDescription",
-//            @"owner"                       : @"owner",
-//            @"reportLabel"                 : @"reportLabel",
-//            // trigger
-//            @"reportLabel"                 : @"reportLabel",
-//            // may be source parameters
-//            @"baseOutputFilename"          : @"baseOutputFilename",
-//            @"outputLocale"                : @"outputLocale",
-//            @"mailNotification"            : @"mailNotification",
-//            @"alert"                       : @"alert",
-//            @"outputFormats.outputFormat"  : @"outputFormats",
-//    }];
-//
-//    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"state"
-//                                                                                 toKeyPath:@"state"
-//                                                                               withMapping:[JSScheduleJobState classMappingForServerProfile:serverProfile]]];
-//
-//    return classMapping;
-//}
-//
-//+ (nonnull NSArray *)classMappingPathes {
-//    return @[[self resourceRootKeyPath], @"jobsummary"];
-//}
-
++ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        [mapping mapPropertiesFromDictionary:@{
+                                               @"id"                          : @"jobIdentifier",
+                                               @"version"                     : @"version",
+                                               @"reportUnitURI"               : @"reportUnitURI",
+                                               @"label"                       : @"label",
+                                               @"description"                 : @"scheduleDescription",
+                                               @"owner"                       : @"owner",
+                                               @"reportLabel"                 : @"reportLabel",
+                                               // trigger
+                                               @"reportLabel"                 : @"reportLabel",
+                                               // may be source parameters
+                                               @"baseOutputFilename"          : @"baseOutputFilename",
+                                               @"outputLocale"                : @"outputLocale",
+                                               @"mailNotification"            : @"mailNotification",
+                                               @"alert"                       : @"alert",
+                                               @"outputFormats.outputFormat"  : @"outputFormats",
+                                               }];
+        [mapping hasOne:[JSScheduleJobState class] forKeyPath:@"state" forProperty:@"state" withObjectMapping:[JSScheduleJobState objectMappingForServerProfile:serverProfile]];
+    }];
+}
 
 @end

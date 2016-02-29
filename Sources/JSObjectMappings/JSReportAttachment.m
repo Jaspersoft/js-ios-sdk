@@ -33,33 +33,13 @@
 @implementation JSReportAttachment
 
 #pragma mark - JSObjectMappingsProtocol
-//+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-//    NSMutableArray *descriptorsArray = [NSMutableArray array];
-//    for (NSString *keyPath in [self classMappingPathes]) {
-//        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
-//                                                                                 method:JSRequestHTTPMethodAny
-//                                                                            pathPattern:nil
-//                                                                                keyPath:keyPath
-//                                                                            statusCodes:nil]];
-//    }
-//    
-//    [descriptorsArray addObjectsFromArray:[JSReportAttachment rkResponseDescriptorsForServerProfile:serverProfile]];
-//    
-//    return descriptorsArray;
-//}
-//
-//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-//    [classMapping addAttributeMappingsFromDictionary:@{
-//                                                       @"text": @"name",
-//                                                       @"type": @"type",
-//                                                       }];
-//    return classMapping;
-//}
-//
-//+ (nonnull NSArray *)classMappingPathes {
-//    return @[@""];
-//}
-//
++ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        [mapping mapPropertiesFromDictionary:@{
+                                               @"text": @"name",
+                                               @"type": @"type",
+                                               }];
+    }];
+}
 
 @end

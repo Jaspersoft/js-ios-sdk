@@ -130,7 +130,7 @@
     } else if ([kJS_ICD_TYPE_SINGLE_SELECT isEqualToString:type] ||
                [kJS_ICD_TYPE_SINGLE_SELECT_RADIO isEqualToString:type]) {
         for (JSInputControlOption *option in self.state.options) {
-            if (option.selected.boolValue) {
+            if (option.selected) {
                 [values addObject:option.value];
                 break;
             }
@@ -138,7 +138,7 @@
     } else if ([kJS_ICD_TYPE_MULTI_SELECT isEqualToString:type] ||
                [kJS_ICD_TYPE_MULTI_SELECT_CHECKBOX isEqualToString:type]) {
         for (JSInputControlOption *option in self.state.options) {
-            if (option.selected.boolValue) {
+            if (option.selected) {
                 [values addObject:option.value];
             }
         }
@@ -148,64 +148,38 @@
 }
 
 #pragma mark - JSObjectMappingsProtocol
-//+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-//    NSMutableArray *descriptorsArray = [NSMutableArray array];
-//    for (NSString *keyPath in [self classMappingPathes]) {
-//        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
-//                                                                                 method:JSRequestHTTPMethodAny
-//                                                                            pathPattern:nil
-//                                                                                keyPath:keyPath
-//                                                                            statusCodes:nil]];
-//    }
-//    [descriptorsArray addObjectsFromArray:[JSInputControlOption rkResponseDescriptorsForServerProfile:serverProfile]];
-//    
-//    return descriptorsArray;
-//}
-//
-//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-//    [classMapping addAttributeMappingsFromDictionary:@{
-//                                                       @"id": @"uuid",
-//                                                       @"uri": @"uri",
-//                                                       @"label": @"label",
-//                                                       @"mandatory": @"mandatory",
-//                                                       @"readOnly": @"readOnly",
-//                                                       @"type": @"type",
-//                                                       @"visible": @"visible",
-//                                                       @"masterDependencies": @"masterDependencies",
-//                                                       @"slaveDependencies": @"slaveDependencies",
-//                                                       @"masterSingleInputControlID": @"masterSingleInputControlID",
-//                                                       @"slaveSingleInputControlID": @"slaveSingleInputControlID",
-//                                                       }];
-//    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"state"
-//                                                                                 toKeyPath:@"state"
-//                                                                               withMapping:[JSInputControlState classMappingForServerProfile:serverProfile]]];
-//
-//    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"dataType"
-//                                                                                 toKeyPath:@"dataType"
-//                                                                               withMapping:[JSDataType classMappingForServerProfile:serverProfile]]];
-//
-//    RKDynamicMapping* dynamicMapping = [RKDynamicMapping new];
-//    [dynamicMapping setObjectMappingForRepresentationBlock:^RKObjectMapping *(id representation) {
-//        id key = [[representation allKeys] lastObject];
-//        if ([key isKindOfClass:[NSString class]] && [key isEqualToString:@"mandatoryValidationRule"]) {
-//            return [JSMandatoryValidationRule classMappingForServerProfile:serverProfile];
-//        } else if ([key isKindOfClass:[NSString class]] && [key isEqualToString:@"dateTimeFormatValidationRule"]) {
-//            return [JSDateTimeFormatValidationRule classMappingForServerProfile:serverProfile];
-//        }
-//        return nil;
-//    }];
-//    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"validationRules"
-//                                                                                 toKeyPath:@"validationRules"
-//                                                                               withMapping:dynamicMapping]];
-//    
-//    return classMapping;
-//}
-//
-//+ (NSArray *)classMappingPathes {
-//    return @[@"inputControl"];
-//}
-
++ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        [mapping mapPropertiesFromDictionary:@{
+                                               @"id": @"uuid",
+                                               @"uri": @"uri",
+                                               @"label": @"label",
+                                               @"mandatory": @"mandatory",
+                                               @"readOnly": @"readOnly",
+                                               @"type": @"type",
+                                               @"visible": @"visible",
+                                               @"masterDependencies": @"masterDependencies",
+                                               @"slaveDependencies": @"slaveDependencies",
+                                               @"masterSingleInputControlID": @"masterSingleInputControlID",
+                                               @"slaveSingleInputControlID": @"slaveSingleInputControlID",
+                                               }];
+        [mapping hasOne:[JSInputControlState class] forKeyPath:@"state" forProperty:@"state" withObjectMapping:[JSInputControlState objectMappingForServerProfile:serverProfile]];
+        [mapping hasOne:[JSDataType class] forKeyPath:@"dataType" forProperty:@"dataType" withObjectMapping:[JSDataType objectMappingForServerProfile:serverProfile]];
+        
+        EKObjectMapping *validationRulesMapping = [EKObjectMapping mappingForClass:[NSObject class] withBlock:^(EKObjectMapping *mapping) {
+            [mapping mapKeyPath:@"validationRules" toProperty:@"validationRules" withValueBlock:^id(NSString *key, id value) {
+                if ([key isKindOfClass:[NSString class]] && [key isEqualToString:@"mandatoryValidationRule"]) {
+                    return [JSMandatoryValidationRule objectMappingForServerProfile:serverProfile];
+                } else if ([key isKindOfClass:[NSString class]] && [key isEqualToString:@"dateTimeFormatValidationRule"]) {
+                    return [JSDateTimeFormatValidationRule objectMappingForServerProfile:serverProfile];
+                }
+                return nil;
+                
+            }];
+        }];
+        [mapping hasMany:[NSObject class] forKeyPath:@"validationRules" forProperty:@"validationRules" withObjectMapping:validationRulesMapping];
+    }];
+}
 
 #pragma mark - NSCopying
 

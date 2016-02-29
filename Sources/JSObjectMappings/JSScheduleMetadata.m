@@ -59,65 +59,33 @@
     return simpleTrigger;
 }
 
-+ (nonnull NSString *)resourceRootKeyPath
-{
-    return @"scheduleMetadata";
+#pragma mark - JSObjectMappingsProtocol
++ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        [mapping mapPropertiesFromDictionary:@{
+                                               @"id"                              : @"jobIdentifier",
+                                               @"version"                         : @"version",
+                                               @"username"                        : @"username",
+                                               @"label"                           : @"label",               // request
+                                               @"description"                     : @"scheduleDescription", // request
+                                               @"creationDate"                    : @"creationDate",
+                                               // trigger
+                                               @"source.reportUnitURI"            : @"reportUnitURI",       // request
+                                               // may be source parameters
+                                               @"baseOutputFilename"              : @"baseOutputFilename",  // request
+                                               @"outputLocale"                    : @"outputLocale",
+                                               @"mailNotification"                : @"mailNotification",
+                                               @"alert"                           : @"alert",
+                                               @"outputTimeZone"                  : @"outputTimeZone",      // request
+                                               @"repositoryDestination.folderURI" : @"folderURI",           // request
+                                               @"outputFormats.outputFormat"      : @"outputFormats",       // request
+                                               }];
+        [mapping hasOne:[JSScheduleTrigger class] forKeyPath:@"trigger.simpleTrigger" forProperty:@"trigger" withObjectMapping:[JSScheduleTrigger objectMappingForServerProfile:serverProfile]];
+    }];
 }
 
-#pragma mark - JSObjectMappingsProtocol
-//+ (nonnull NSArray <RKRequestDescriptor *> *)rkRequestDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-//    NSMutableArray *descriptorsArray = [NSMutableArray array];
-//    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
-//                                                                      objectClass:self
-//                                                                      rootKeyPath:nil
-//                                                                           method:JSRequestHTTPMethodAny]];
-//    return descriptorsArray;
-//}
-//
-//+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-//    NSMutableArray *descriptorsArray = [NSMutableArray array];
-//    for (NSString *keyPath in [self classMappingPathes]) {
-//        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
-//                                                                                 method:JSRequestHTTPMethodAny
-//                                                                            pathPattern:nil
-//                                                                                keyPath:keyPath
-//                                                                            statusCodes:nil]];
-//    }
-//    return descriptorsArray;
-//}
-//
-//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile
-//{
-//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-//    [classMapping addAttributeMappingsFromDictionary:@{
-//            @"id"                              : @"jobIdentifier",
-//            @"version"                         : @"version",
-//            @"username"                        : @"username",
-//            @"label"                           : @"label",               // request
-//            @"description"                     : @"scheduleDescription", // request
-//            @"creationDate"                    : @"creationDate",
-//            // trigger
-//            @"source.reportUnitURI"            : @"reportUnitURI",       // request
-//            // may be source parameters
-//            @"baseOutputFilename"              : @"baseOutputFilename",  // request
-//            @"outputLocale"                    : @"outputLocale",
-//            @"mailNotification"                : @"mailNotification",
-//            @"alert"                           : @"alert",
-//            @"outputTimeZone"                  : @"outputTimeZone",      // request
-//            @"repositoryDestination.folderURI" : @"folderURI",           // request
-//            @"outputFormats.outputFormat"      : @"outputFormats",       // request
-//    }];
-//
-//    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"trigger.simpleTrigger"
-//                                                                                 toKeyPath:@"trigger"
-//                                                                               withMapping:[JSScheduleTrigger classMappingForServerProfile:serverProfile]]];
-//
-//
-//    return classMapping;
-//}
-//
-//+ (nonnull NSArray *)classMappingPathes {
-//    return @[[self resourceRootKeyPath], @""];
-//}
++ (nonnull NSString *)requestObjectKeyPath {
+    return @"scheduleMetadata";
+}
 
 @end

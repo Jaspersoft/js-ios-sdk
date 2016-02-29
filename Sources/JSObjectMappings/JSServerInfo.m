@@ -66,7 +66,7 @@ NSString * const kJSSavedServerInfoDatetimeFormatPatternKey = @"kJSSavedServerIn
 
 #pragma mark - JSObjectMappingsProtocol
 
-+ (nonnull EKObjectMapping *)ekObjectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
++ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
     return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
         [mapping mapPropertiesFromArray:@[@"build", @"edition", @"editionName", @"expiration", @"features",
                                           @"licenseType", @"version", @"dateFormatPattern", @"datetimeFormatPattern"]];

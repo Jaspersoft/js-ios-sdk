@@ -1,6 +1,6 @@
 /*
  * Jaspersoft Mobile SDK
- * Copyright (C) 2011 - 2014 Jaspersoft Corporation. All rights reserved.
+ * Copyright (C) 2011 - 2015 Jaspersoft Corporation. All rights reserved.
  * http://community.jaspersoft.com/project/mobile-sdk-ios
  *
  * Unless you have purchased a commercial license agreement from Jaspersoft,
@@ -24,22 +24,23 @@
  */
 
 //
-//  JSEncryptionData.m
+//  JSMapping.h
 //  Jaspersoft Corporation
 //
 
-#import "JSEncryptionData.h"
+/**
+ @author Alexey Gubarev ogubarie@tibco.com
+ @since 2.4
+ */
 
-@implementation JSEncryptionData
+#import <Foundation/Foundation.h>
+#import "EKObjectMapping.h"
 
-#pragma mark - JSObjectMappingsProtocol
+@interface JSMapping : NSObject
+@property (nonatomic, strong, readonly) EKObjectMapping *objectMapping;
+@property (nonatomic, strong, readonly) NSString *keyPath;
 
-+ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
-        [mapping mapPropertiesFromDictionary:@{@"e"         : @"exponent",
-                                               @"maxdigits" : @"maxdigits",
-                                               @"n"         : @"modulus"}];
-    }];
-}
+- (instancetype) initWithObjectMapping:(EKObjectMapping *)objectMapping keyPath:(NSString *)keyPath;
++ (instancetype) mappingWithObjectMapping:(EKObjectMapping *)objectMapping keyPath:(NSString *)keyPath;
 
 @end

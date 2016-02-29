@@ -33,32 +33,16 @@
 @implementation JSInputControlOption
 
 #pragma mark - JSObjectMappingsProtocol
-
-//+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-//    NSMutableArray *descriptorsArray = [NSMutableArray array];
-//    for (NSString *keyPath in [self classMappingPathes]) {
-//        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
-//                                                                                 method:JSRequestHTTPMethodAny
-//                                                                            pathPattern:nil
-//                                                                                keyPath:keyPath
-//                                                                            statusCodes:nil]];
-//    }
-//    return descriptorsArray;
-//}
-//
-//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-//    [classMapping addAttributeMappingsFromDictionary:@{
-//                                                       @"label": @"label",
-//                                                       @"value": @"value",
-//                                                       @"selected": @"selected",
-//                                                       }];
-//    return classMapping;
-//}
-//
-//+ (NSArray *)classMappingPathes {
-//    return @[@""];
-//}
++ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        [mapping mapPropertiesFromDictionary:@{
+                                               @"label": @"label",
+                                               @"value": @"value",
+                                               @"selected": @"selected",
+                                               }];
+        
+    }];
+}
 
 #pragma mark - NSCopying
 
@@ -67,7 +51,7 @@
         JSInputControlOption *newInputControlOption = [[self class] allocWithZone:zone];
         newInputControlOption.label     = [self.label copyWithZone:zone];
         newInputControlOption.value     = [self.value copyWithZone:zone];
-        newInputControlOption.selected  = [self.selected copyWithZone:zone];
+        newInputControlOption.selected  = self.selected;
         return newInputControlOption;
     } else {
         NSString *messageString = [NSString stringWithFormat:@"You need to implement \"copyWithZone:\" method in %@",NSStringFromClass([self class])];

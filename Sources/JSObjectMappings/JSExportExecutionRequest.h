@@ -24,7 +24,7 @@
  */
 
 //
-//  JSReportExecutionRequest.h
+//  JSExportExecutionRequest.h
 //  Jaspersoft Corporation
 //
 
@@ -34,7 +34,6 @@
 /**
  Represents a export execution request descriptor for convenient XML serialization process
  
- @author Alexey Gubarev ogubarie@tibco.com
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.9
  */

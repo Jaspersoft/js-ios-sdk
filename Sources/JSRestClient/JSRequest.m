@@ -108,8 +108,8 @@
     return [NSString stringWithFormat:@"%@%@", restServiceUri, (self.uri ?: @"")];
 }
 
-- (NSString *)httpMethod {
-    switch (self.method) {
++ (nonnull NSString *)httpMethodStringRepresentation:(JSRequestHTTPMethod)method {
+    switch (method) {
         case JSRequestHTTPMethodGET:
             return @"GET";
         case JSRequestHTTPMethodDELETE:

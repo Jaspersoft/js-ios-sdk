@@ -34,29 +34,13 @@
 
 
 #pragma mark - JSObjectMappingsProtocol
-//+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-//    NSMutableArray *descriptorsArray = [NSMutableArray array];
-//    for (NSString *keyPath in [self classMappingPathes]) {
-//        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
-//                                                                                 method:JSRequestHTTPMethodAny
-//                                                                            pathPattern:nil
-//                                                                                keyPath:keyPath
-//                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassServerError | RKStatusCodeClassClientError)]];
-//    }
-//    return descriptorsArray;
-//}
-//
-//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-//    [classMapping addAttributeMappingsFromDictionary:@{
-//                                                       @"contentType": @"contentType",
-//                                                       @"fileName": @"fileName",
-//                                                       }];
-//    return classMapping;
-//}
-//
-//+ (NSArray *)classMappingPathes {
-//    return @[@""];
-//}
++ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        [mapping mapPropertiesFromDictionary:@{
+                                               @"contentType": @"contentType",
+                                               @"fileName": @"fileName",
+                                               }];
+    }];
+}
 
 @end

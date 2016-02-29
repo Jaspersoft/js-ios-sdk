@@ -33,20 +33,11 @@
 
 @implementation JSResourceReportUnit
 
-+ (nonnull NSString *)resourceRootKeyPath
-{
-    return @"reportUnit";
-}
-
 #pragma mark - JSObjectMappingsProtocol
-
-//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile
-//{
-//    RKObjectMapping *classMapping = [super classMappingForServerProfile:serverProfile];
-//    [classMapping addAttributeMappingsFromDictionary:@{
-//            @"alwaysPromptControls": @"alwaysPromptControls",
-//    }];
-//    return classMapping;
-//}
++ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+    EKObjectMapping *mapping = [super objectMappingForServerProfile:serverProfile];
+    [mapping mapPropertiesFromArray:@[@"alwaysPromptControls"]];
+    return mapping;
+}
 
 @end

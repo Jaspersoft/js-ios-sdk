@@ -48,7 +48,7 @@
  @param serverProfile Server Profile for configuring mapping according to server version
  @return A `EKObjectMapping` object for serialize/deserialize objects of the class.
  */
-+ (nonnull EKObjectMapping *)ekObjectMappingForServerProfile:(nonnull JSProfile *)serverProfile;
++ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile;
 
 @optional
 
@@ -57,11 +57,5 @@
  @return a keyPath of `NSString` type for serializing objects of the class to request.
  */
 + (nonnull NSString *)requestObjectKeyPath;
-
-/**
- Returns an keyPathes array of `NSString` type for mapping objects from response.
- @return an keyPathes array of `NSString` type for mapping objects from response.
- */
-+ (nonnull NSArray <NSString *> *)customMappingPathes;
 
 @end

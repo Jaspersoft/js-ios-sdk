@@ -33,35 +33,14 @@
 @implementation JSErrorDescriptor
 
 #pragma mark - JSObjectMappingsProtocol
-//+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-//    NSMutableArray *descriptorsArray = [NSMutableArray array];
-//    for (NSString *keyPath in [self classMappingPathes]) {
-//        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:(JSProfile *)serverProfile]
-//                                                                                 method:JSRequestHTTPMethodAny
-//                                                                            pathPattern:nil
-//                                                                                keyPath:keyPath
-//                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassServerError)]];
-//        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:(JSProfile *)serverProfile]
-//                                                                                 method:JSRequestHTTPMethodAny
-//                                                                            pathPattern:nil
-//                                                                                keyPath:keyPath
-//                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassClientError)]];
-//    }
-//    return descriptorsArray;
-//}
-//
-//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-//    [classMapping addAttributeMappingsFromDictionary:@{
-//                                                       @"message": @"message",
-//                                                       @"errorCode": @"errorCode",
-//                                                       @"parameters": @"parameters",
-//                                                       }];
-//    return classMapping;
-//}
-//
-//+ (nonnull NSArray *)classMappingPathes {
-//    return @[@"errorDescriptor", @""];
-//}
++ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        [mapping mapPropertiesFromDictionary:@{
+                                               @"message": @"message",
+                                               @"errorCode": @"errorCode",
+                                               @"parameters": @"parameters",
+                                               }];
+    }];
+}
 
 @end

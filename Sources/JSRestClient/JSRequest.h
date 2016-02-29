@@ -29,8 +29,8 @@
 //
 
 #import "JSOperationResult.h"
-#import "JSObjectMappingsProtocol.h"
 #import "AFURLRequestSerialization.h"
+#import "JSMapping.h"
 /**
  This block invoked when the request is complete.
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
@@ -101,11 +101,6 @@ typedef NS_OPTIONS(NSInteger, JSRequestSerializationType) {
 @property (nonatomic, retain, nullable) id body;
 
 /**
- Expected model class for mapping responce
- */
-@property (nonatomic, strong, nonnull) Class <JSObjectMappingsProtocol> expectedModelClass;
-
-/**
  A collection of parameters of the request. Automatically will be added to URL
  */
 @property (nonatomic, strong, readonly, null_unspecified) NSDictionary *params;
@@ -128,11 +123,11 @@ typedef NS_OPTIONS(NSInteger, JSRequestSerializationType) {
 @property (nonatomic, assign) JSRequestSerializationType serializationType;
 
 /**
- The string notation of HTTP method
+ Expected mapping for serialize responce
  
  @since 2.4
  */
-@property (nonatomic, readonly, nonnull) NSString *httpMethod;
+@property (nonatomic, strong, nonnull) JSMapping *objectMapping;
 
 /**
  A completionBlock invoke when the request is completed. If block is not
@@ -210,4 +205,10 @@ typedef NS_OPTIONS(NSInteger, JSRequestSerializationType) {
  */
 - (void)addParameter:(nonnull NSString *)parameter withArrayValue:(nonnull NSArray *)value;
 
+/**
+ The string representation of HTTP method
+ 
+ @since 2.4
+ */
++ (nonnull NSString *)httpMethodStringRepresentation:(JSRequestHTTPMethod)method;
 @end

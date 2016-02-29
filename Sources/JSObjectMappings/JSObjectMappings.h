@@ -29,6 +29,7 @@
 //
 
 #import "JSObjectMappingsProtocol.h"
+#import "JSMapping.h"
 
 // ErrorDescriptor
 #import "JSErrorDescriptor.h"

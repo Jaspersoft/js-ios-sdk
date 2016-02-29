@@ -43,7 +43,7 @@
 {
     NSString *fullURL = [NSString stringWithFormat:@"%@%@_files/%@", kJS_REST_RESOURCES_URI, dashboardURI, @"components"];
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURL];
-    request.expectedModelClass = [JSDashboardComponent class];
+    request.objectMapping = [JSMapping mappingWithObjectMapping:[JSDashboardComponent objectMappingForServerProfile:self.serverProfile] keyPath:nil];
     request.restVersion = JSRESTVersion_2;
     request.method = JSRequestHTTPMethodGET;
     request.completionBlock = block;
@@ -61,10 +61,10 @@
     NSString *fullURI = [self constructFullURIWithDashboardURI:dashboardURI
                                                  inputControls:ids
                                              initialValuesOnly:NO];
-#warning SHOULD REIMPLEMENT THIS METHOD FOR SYNCHRONOUSLY LOADING!!!
+#warning SHOULD REIMPLEMENT THIS METHOD FOR ASYNCHRONOUSLY LOADING!!!
 
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURI];
-    request.expectedModelClass = [JSInputControlDescriptor class];
+    request.objectMapping = [JSMapping mappingWithObjectMapping:[JSInputControlDescriptor objectMappingForServerProfile:self.serverProfile] keyPath:@"inputControl"];
     request.restVersion = JSRESTVersion_2;
     request.method = JSRequestHTTPMethodGET;
     request.completionBlock = block;
@@ -79,12 +79,12 @@
                                                async:(BOOL)async
                                      completionBlock:(JSRequestCompletionBlock)block
 {
-#warning SHOULD REIMPLEMENT THIS METHOD FOR SYNCHRONOUSLY LOADING!!!
+#warning SHOULD REIMPLEMENT THIS METHOD FOR ASYNCHRONOUSLY LOADING!!!
 
     JSRequest *request = [[JSRequest alloc] initWithUri:[self constructFullURIWithDashboardURI:dashboardURI
                                                                                  inputControls:ids
                                                                              initialValuesOnly:YES]];
-    request.expectedModelClass = [JSInputControlState class];
+    request.objectMapping = [JSMapping mappingWithObjectMapping:[JSInputControlState objectMappingForServerProfile:self.serverProfile] keyPath:@"inputControlState"];
     request.method = JSRequestHTTPMethodPOST;
     request.restVersion = JSRESTVersion_2;
     [self addDashboardParametersToRequest:request withSelectedValues:selectedValues];

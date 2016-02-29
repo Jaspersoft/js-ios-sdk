@@ -53,31 +53,14 @@
 
 #pragma mark - JSObjectMappingsProtocol
 
-//+ (nonnull NSArray <RKRequestDescriptor *> *)rkRequestDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-//    NSMutableArray *descriptorsArray = [NSMutableArray array];
-//    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
-//                                                                      objectClass:self
-//                                                                      rootKeyPath:nil
-//                                                                           method:JSRequestHTTPMethodAny]];
-//    
-//    return descriptorsArray;
-//}
-//
-//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-//    [classMapping addAttributeMappingsFromDictionary:@{
-//                                                       @"version": @"version"
-//                                                       }];
-//    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"patch"
-//                                                                                 toKeyPath:@"patch"
-//                                                                               withMapping:[JSResourceParameter classMappingForServerProfile:serverProfile]]];
-//
-//    return classMapping;
-//}
-//
-//+ (NSArray<RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(JSProfile *)serverProfile {
-//    return [JSResourceLookup rkResponseDescriptorsForServerProfile:serverProfile];
-//}
++ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        [mapping mapPropertiesFromDictionary:@{
+                                               @"version": @"version"
+                                               }];
+        [mapping hasMany:[JSResourceParameter class] forKeyPath:@"patch" forProperty:@"patch" withObjectMapping:[JSResourceParameter objectMappingForServerProfile:serverProfile]];
+    }];
+}
 
 #pragma mark - Private API
 - (NSArray *)patchesArrayFromResource:(JSResourceLookup *)resource {

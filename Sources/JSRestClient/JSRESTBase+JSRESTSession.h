@@ -48,4 +48,15 @@
  */
 - (void)verifyIsSessionAuthorizedWithCompletion:(void (^)(BOOL isSessionAuthorized))completion;
 
+/**
+ Fetch Server Info
+ 
+ @return block The block to inform of the results
+ 
+ @since 2.4
+ */
+- (void)fetchServerInfoWithCompletion:(JSRequestCompletionBlock)completion;
+
+extern NSString * const kJSSessionDidAuthorized;
+
 @end

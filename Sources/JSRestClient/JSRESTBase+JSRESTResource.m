@@ -56,7 +56,7 @@ NSString * const _parameterForceFullPage = @"forceFullPage";
     request.restVersion = JSRESTVersion_2;
     request.method = JSRequestHTTPMethodPATCH;
     request.completionBlock = block;
-    request.expectedModelClass = [JSResourceLookup class];
+    request.objectMapping = [JSMapping mappingWithObjectMapping:[JSResourceLookup objectMappingForServerProfile:self.serverProfile] keyPath:@"resourceLookup"];
 
     JSResourcePatchRequest *patchRequest = [JSResourcePatchRequest patchRecuestWithResource:resource];
     request.body = patchRequest;
@@ -84,7 +84,7 @@ NSString * const _parameterForceFullPage = @"forceFullPage";
     }
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
     request.restVersion = JSRESTVersion_2;
-    request.expectedModelClass = modelClass;
+    request.objectMapping = [JSMapping mappingWithObjectMapping:[modelClass objectMappingForServerProfile:self.serverProfile] keyPath:nil];
     request.completionBlock = block;
     NSString *responceType = [JSUtils usedMimeType];
     if (resourceType) {
@@ -128,8 +128,8 @@ NSString * const _parameterForceFullPage = @"forceFullPage";
 {
     JSRequest *request = [[JSRequest alloc] initWithUri:kJS_REST_RESOURCES_URI];
     request.restVersion = JSRESTVersion_2;
-    request.expectedModelClass = [JSResourceLookup class];
-    
+    request.objectMapping = [JSMapping mappingWithObjectMapping:[JSResourceLookup objectMappingForServerProfile:self.serverProfile] keyPath:@"resourceLookup"];
+
     [request addParameter:_parameterFolderUri withStringValue:folderUri];
     [request addParameter:_parameterQuery withStringValue:query];
     [request addParameter:_parameterType withArrayValue:types];

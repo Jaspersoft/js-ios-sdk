@@ -105,17 +105,12 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 }
 
 - (nonnull instancetype) initWithServerProfile:(nonnull JSProfile *)serverProfile keepLogged:(BOOL)keepLogged{
-    return [self initWithServerProfile:serverProfile keepLogged:keepLogged deleteCookies:YES];
-}
-
-- (nonnull instancetype) initWithServerProfile:(nonnull JSProfile *)serverProfile keepLogged:(BOOL)keepLogged deleteCookies:(BOOL)deleteCookies{
     self = [super initWithBaseURL:[NSURL URLWithString:serverProfile.serverUrl]];
     if (self) {
-        if (deleteCookies) {
-            // Delete cookies for current server profile. If don't do this old credentials will be used
-            // instead new one
-            [self deleteCookies];
-        }
+        // Delete cookies for current server profile. If don't do this old credentials will be used
+        // instead new one
+        [self deleteCookies];
+        
         self.keepSession = keepLogged;
         self.timeoutInterval = _defaultTimeoutInterval;
         self.serverProfile = serverProfile;
@@ -124,45 +119,57 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         [self.requestSerializer setValue:[JSUtils usedMimeType] forHTTPHeaderField:kJSRequestResponceType];
         
         self.responseSerializer.acceptableStatusCodes = nil;
-        NSMutableSet *acceptableContentTypes = [self.responseSerializer.acceptableContentTypes mutableCopy];
-        [acceptableContentTypes addObject:@"text/html"];
-        [acceptableContentTypes addObject:@"text/plain"];
-        self.responseSerializer.acceptableContentTypes = acceptableContentTypes;
+        self.responseSerializer.acceptableContentTypes = nil;
         
         self.securityPolicy.allowInvalidCertificates = YES;
-        self.requestCallBacks = [NSMutableArray new];
-        self.serverReachability = [ServerReachability reachabilityWithServer:serverProfile.serverUrl timeout:[JSUtils checkServerConnectionTimeout]];
         
-        __weak typeof(self) weakSelf = self;
-        [self setTaskWillPerformHTTPRedirectionBlock:^NSURLRequest * _Nonnull(NSURLSession * _Nonnull session, NSURLSessionTask * _Nonnull task, NSURLResponse * _Nonnull response, NSURLRequest * _Nonnull request) {
-            if (response) {
-                __strong typeof(self) strongSelf = weakSelf;
-                if (strongSelf) {
-                    JSRequest *jsRequest = [strongSelf callBackForDataTask:task].request;
-                    if (jsRequest.redirectAllowed) {
-                        // we don't use the new request built for us, except for the URL
-                        NSURL *newURL = [request URL];
-                        // We rely on that here!
-                        NSMutableURLRequest *newRequest = [request mutableCopy];
-                        [newRequest setURL: newURL];
-                        return newRequest;
-                    }
-                }
-                return nil;
-            } else {
-                return request;
-            }
-        }];
-        
+        [self configureRequestRedirectionHandling];
     }
     return self;
 }
 
-- (void)setTimeoutInterval:(NSTimeInterval)timeoutInterval {
-    self.requestSerializer.timeoutInterval = timeoutInterval;
-    self.session.configuration.timeoutIntervalForRequest = timeoutInterval;
+- (void) configureRequestRedirectionHandling {
+    __weak typeof(self) weakSelf = self;
+    [self setTaskWillPerformHTTPRedirectionBlock:^NSURLRequest * _Nonnull(NSURLSession * _Nonnull session, NSURLSessionTask * _Nonnull task, NSURLResponse * _Nonnull response, NSURLRequest * _Nonnull request) {
+        if (response) {
+            __strong typeof(self) strongSelf = weakSelf;
+            if (strongSelf) {
+                JSRequest *jsRequest = [strongSelf callBackForDataTask:task].request;
+                if (jsRequest.redirectAllowed) {
+                    // we don't use the new request built for us, except for the URL
+                    NSURL *newURL = [request URL];
+                    // We rely on that here!
+                    NSMutableURLRequest *newRequest = [request mutableCopy];
+                    [newRequest setURL: newURL];
+                    return newRequest;
+                }
+            }
+            return nil;
+        } else {
+            return request;
+        }
+    }];
 }
 
+- (NSMutableArray<JSCallBack *> *)requestCallBacks {
+    if (!_requestCallBacks) {
+        _requestCallBacks = [NSMutableArray new];
+    }
+    return _requestCallBacks;
+}
+
+- (void)setTimeoutInterval:(NSTimeInterval)timeoutInterval {
+    if (_timeoutInterval != timeoutInterval) {
+        _timeoutInterval = timeoutInterval;
+        self.requestSerializer.timeoutInterval = timeoutInterval;
+        self.session.configuration.timeoutIntervalForRequest = timeoutInterval;
+    }
+}
+
+- (void)setServerProfile:(JSProfile *)serverProfile {
+    _serverProfile = serverProfile;
+    self.serverReachability = [ServerReachability reachabilityWithServer:serverProfile.serverUrl timeout:[JSUtils checkServerConnectionTimeout]];
+}
 
 #pragma mark -
 #pragma mark Public methods
@@ -179,7 +186,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     id parameters = [NSMutableDictionary dictionaryWithDictionary:jsRequest.params];
     if (jsRequest.body) {
         Class objectClass = [jsRequest.body class];
-        EKObjectMapping *objectMapping = [objectClass ekObjectMappingForServerProfile:self.serverProfile];
+        EKObjectMapping *objectMapping = [objectClass objectMappingForServerProfile:self.serverProfile];
         NSDictionary *serializedObject = [EKSerializer serializeObject:jsRequest.body withMapping:objectMapping];
         
         if (serializedObject) {
@@ -191,19 +198,16 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         }
     }
     
-    // Merge HTTP headers
-    NSString *customAcceptType = [jsRequest.additionalHeaders objectForKey:kJSRequestResponceType];
-    if (customAcceptType && ![self.responseSerializer.acceptableContentTypes containsObject:customAcceptType]) {
-        NSMutableSet *acceptableContentTypes = [self.responseSerializer.acceptableContentTypes mutableCopy];
-        [acceptableContentTypes addObject:customAcceptType];
-        self.responseSerializer.acceptableContentTypes = acceptableContentTypes;
-    }
-    
     NSError *serializationError = nil;
-    NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:jsRequest.httpMethod
+    NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:[JSRequest httpMethodStringRepresentation:jsRequest.method]
                                                                    URLString:[[NSURL URLWithString:jsRequest.fullURI relativeToURL:self.baseURL] absoluteString]
                                                                   parameters:parameters
                                                                        error:&serializationError];
+    
+    // Merge HTTP headers
+    for (NSString *headerKey in [jsRequest.additionalHeaders allKeys]) {
+        [request setValue:jsRequest.additionalHeaders[headerKey] forHTTPHeaderField:headerKey];
+    }
     
     // Hack for send parameters in body in url-encoded format
     if (jsRequest.serializationType == JSRequestSerializationType_UrlEncoded) {
@@ -218,11 +222,8 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         [request setHTTPBody:[parametersString dataUsingEncoding:NSUTF8StringEncoding]];
         [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     }
-    NSLog(@"BODY: %@", [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]);
-
-    
-    for (NSString *headerKey in [jsRequest.additionalHeaders allKeys]) {
-        [request setValue:jsRequest.additionalHeaders[headerKey] forHTTPHeaderField:headerKey];
+    if (request.HTTPBody) {
+        NSLog(@"BODY: %@", [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]);
     }
     
     if (serializationError) {
@@ -304,6 +305,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
     [aCoder encodeObject:self.serverProfile forKey:kJSSavedSessionServerProfileKey];
     [aCoder encodeBool:self.keepSession forKey:kJSSavedSessionKeepSessionKey];
     [aCoder encodeFloat:self.timeoutInterval forKey:kJSSavedSessionTimeoutKey];
@@ -312,11 +314,13 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 - (id)initWithCoder:(NSCoder *)aDecoder {
     JSProfile *serverProfile = [aDecoder decodeObjectForKey:kJSSavedSessionServerProfileKey];
     if (serverProfile) {
-        self = [super init];
+        self = [super initWithCoder:aDecoder];
         if (self) {
             self.serverProfile = serverProfile;
             self.keepSession = [aDecoder decodeBoolForKey:kJSSavedSessionKeepSessionKey];
             self.timeoutInterval = [aDecoder decodeFloatForKey:kJSSavedSessionTimeoutKey];
+            
+            [self configureRequestRedirectionHandling];
         }
         return self;
     }
@@ -326,8 +330,11 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 #pragma mark - NSCopying
 
 - (id)copyWithZone:(NSZone *)zone {
-    JSRESTBase *newRestClient = [[JSRESTBase allocWithZone:zone] initWithServerProfile:self.serverProfile keepLogged:self.keepSession deleteCookies:NO];
+    JSRESTBase *newRestClient = [super copyWithZone:zone];
     newRestClient.timeoutInterval = self.timeoutInterval;
+    newRestClient.keepSession = self.keepSession;
+    newRestClient.serverProfile = self.serverProfile;
+    [newRestClient configureRequestRedirectionHandling];
     return newRestClient;
 }
 
@@ -353,7 +360,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
             }
             case 302: { // redirect
                 NSString *redirectURL = [response.allHeaderFields objectForKey:@"Location"];
-                NSString *redirectUrlRegex = [NSString stringWithFormat:@"%@/login.html;((jsessionid=.+)?)\\?error=1", self.serverProfile.serverUrl];
+                NSString *redirectUrlRegex = [NSString stringWithFormat:@"%@/login.html(;?)((jsessionid=.+)?)\\?error=1", self.serverProfile.serverUrl];
                 NSPredicate *redirectUrlValidator = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", redirectUrlRegex];
                 isTokenFetchedSuccessful = ![redirectUrlValidator evaluateWithObject:redirectURL];
                 break;
@@ -363,11 +370,21 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
             }
         }
         if (!isTokenFetchedSuccessful) {
-            result.error = error ?: [JSErrorBuilder errorWithCode:JSInvalidCredentialsErrorCode];
+            result.error = [JSErrorBuilder errorWithCode:JSInvalidCredentialsErrorCode];
+        } else if (error && [error.domain isEqualToString:NSURLErrorDomain]) {
+            result.error = error;
         }
     } else {
         // Error handling
-        if (error) {
+        if (response.statusCode && ![result isSuccessful]) {
+            if (response.statusCode == 401 || response.statusCode == 403) {
+                result.error = [JSErrorBuilder httpErrorWithCode:JSSessionExpiredErrorCode
+                                                        HTTPCode:response.statusCode];
+            } else {
+                result.error = [JSErrorBuilder httpErrorWithCode:JSHTTPErrorCode
+                                                        HTTPCode:response.statusCode];
+            }
+        } else if (error) {
             if ([error.domain isEqualToString:NSURLErrorDomain]) {
                 switch (error.code) {
                     case NSURLErrorUserCancelledAuthentication:
@@ -386,15 +403,9 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
                 }
             } else if ([error.domain isEqualToString:AFURLResponseSerializationErrorDomain]) {
                 result.error = [JSErrorBuilder errorWithCode:JSDataMappingErrorCode];
-            }
-        } else if (response.statusCode && ![result isSuccessful]) {
-            if (response.statusCode == 401 || response.statusCode == 403) {
-#warning NEED INITIALIZE JSSessionExpiredErrorCode ERROR IN ONE PLACE!!!
-                result.error = [JSErrorBuilder httpErrorWithCode:JSSessionExpiredErrorCode
-                                                        HTTPCode:response.statusCode];
             } else {
-                result.error = [JSErrorBuilder httpErrorWithCode:JSHTTPErrorCode
-                                                        HTTPCode:response.statusCode];
+                result.error = [JSErrorBuilder errorWithCode:JSClientErrorCode
+                                                     message:error.userInfo[NSLocalizedDescriptionKey]];
             }
         }
     }
@@ -426,8 +437,9 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         }
 
         if (![result isSuccessful]) {
+            JSMapping *mapping = [JSMapping mappingWithObjectMapping:[[JSErrorDescriptor class] objectMappingForServerProfile:self.serverProfile] keyPath:@"errorDescriptor"];
             result.objects = [self objectFromExternalRepresentation:responseObject
-                                                        withMappingClass:[JSErrorDescriptor class]];
+                                                        withMapping:mapping];
             
             NSString *message = @"";
             for (JSErrorDescriptor *errDescriptor in result.objects) {
@@ -441,7 +453,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
             }
         } else {
             result.objects = [self objectFromExternalRepresentation:responseObject
-                                                        withMappingClass:request.expectedModelClass];
+                                                        withMapping:request.objectMapping];
         }
     }
     
@@ -504,46 +516,31 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     return nil;
 }
 
-- (NSArray *)objectFromExternalRepresentation:(id)responceObject withMappingClass:(Class <JSObjectMappingsProtocol>)mappingClass {
-    NSMutableArray *rootKeyPathes = [NSMutableArray arrayWithObject:@""];
-    if ([mappingClass respondsToSelector:@selector(customMappingPathes)]) {
-        [rootKeyPathes addObjectsFromArray:[mappingClass customMappingPathes]];
+- (NSArray *)objectFromExternalRepresentation:(id)responceObject withMapping:(JSMapping *)mapping {
+    id nestedRepresentation = nil;
+    if ([mapping.keyPath length]) {
+        nestedRepresentation = [responceObject valueForKeyPath:mapping.keyPath];
+    } else {
+        nestedRepresentation = responceObject;
     }
     
-    EKObjectMapping *mapping = [mappingClass ekObjectMappingForServerProfile:self.serverProfile];
-    
-    for (NSString *keyPath in rootKeyPathes) {
-        @autoreleasepool {
-            id nestedRepresentation = nil;
-            if ([keyPath isEqualToString:@""]) {
-                nestedRepresentation = responceObject;
-            } else {
-                nestedRepresentation = [responceObject valueForKeyPath:keyPath];
-            }
-            
-            // Handle value not found case
-            if (nestedRepresentation == nil || nestedRepresentation == [NSNull null]) {
-#ifndef __RELEASE__
-                NSLog(@"Value cann't be mapped for keyPath: %@", keyPath);
-#endif
-                continue;
-            }
-            
-            // Found something to map
-            id mappingResult = nil;
-            if ([nestedRepresentation isKindOfClass:[NSArray class]]) {
-                mappingResult = [EKMapper arrayOfObjectsFromExternalRepresentation:nestedRepresentation withMapping:mapping];
-            } else {
-                mappingResult = [EKMapper objectFromExternalRepresentation:nestedRepresentation withMapping:mapping];
-            }
+    if (nestedRepresentation && nestedRepresentation != [NSNull null]) {
+        // Found something to map
+        if ([nestedRepresentation isKindOfClass:[NSArray class]]) {
+            id mappingResult = [EKMapper arrayOfObjectsFromExternalRepresentation:nestedRepresentation withMapping:mapping.objectMapping];
             if (mappingResult) {
-                if ([mappingResult isKindOfClass:[NSArray class]]) {
-                    return mappingResult;
-                } else {
-                    return @[mappingResult];
-                }
+                return mappingResult;
+            }
+        } else {
+            id mappingResult = [EKMapper objectFromExternalRepresentation:nestedRepresentation withMapping:mapping.objectMapping];
+            if (mappingResult) {
+                return @[mappingResult];
             }
         }
+    } else { // Handle value not found case
+#ifndef __RELEASE__
+        NSLog(@"Value cann't be mapped for mapping: %@", mapping);
+#endif
     }
     return nil;
 }

@@ -24,7 +24,7 @@
  */
 
 //
-//  JSReportExecutionRequest.h
+//  JSExportExecutionRequest.m
 //  Jaspersoft Corporation
 //
 
@@ -34,29 +34,17 @@
 @implementation JSExportExecutionRequest
 
 #pragma mark - JSObjectMappingsProtocol
-//
-//+ (nonnull NSArray <RKRequestDescriptor *> *)rkRequestDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-//    NSMutableArray *descriptorsArray = [NSMutableArray array];
-//    [descriptorsArray addObject:[RKRequestDescriptor requestDescriptorWithMapping:[[self classMappingForServerProfile:serverProfile] inverseMapping]
-//                                                                      objectClass:self
-//                                                                      rootKeyPath:nil
-//                                                                           method:JSRequestHTTPMethodAny]];
-//    return descriptorsArray;
-//}
-//
-//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-//    [classMapping addAttributeMappingsFromDictionary:@{
-//                                                       @"outputFormat": @"outputFormat",
-//                                                       @"pages": @"pages",
-//                                                       @"attachmentsPrefix": @"attachmentsPrefix",
-//                                                       }];
-//
-//    if (serverProfile && serverProfile.serverInfo.versionAsFloat >= kJS_SERVER_VERSION_CODE_EMERALD_5_6_0) {
-//        [classMapping addPropertyMapping:[RKAttributeMapping attributeMappingFromKeyPath:@"baseUrl" toKeyPath:@"baseUrl"]];
-//    }
-//
-//    return classMapping;
-//}
++ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        [mapping mapPropertiesFromDictionary:@{
+                                               @"outputFormat": @"outputFormat",
+                                               @"pages": @"pages",
+                                               @"attachmentsPrefix": @"attachmentsPrefix",
+                                               }];
+        if (serverProfile && serverProfile.serverInfo.versionAsFloat >= kJS_SERVER_VERSION_CODE_EMERALD_5_6_0) {
+            [mapping mapPropertiesFromArray:@[@"baseUrl"]];
+        }
+    }];
+}
 
 @end

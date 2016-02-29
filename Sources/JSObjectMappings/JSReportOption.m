@@ -50,46 +50,15 @@
 }
 
 #pragma mark - JSObjectMappingsProtocol
-//+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-//    NSMutableArray *descriptorsArray = [NSMutableArray array];
-//    for (NSString *keyPath in [self classMappingPathes]) {
-//        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
-//                                                                                 method:JSRequestHTTPMethodAny
-//                                                                            pathPattern:nil
-//                                                                                keyPath:keyPath
-//                                                                            statusCodes:nil]];
-//    }
-//    return descriptorsArray;
-//}
-//
-//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-//    [classMapping addAttributeMappingsFromDictionary:@{
-//                                                       @"id": @"identifier",
-//                                                       @"uri": @"uri",
-//                                                       @"label": @"label"
-//                                                       }];
-//    
-//    RKDynamicMapping* dynamicMapping = [RKDynamicMapping new];
-//    [dynamicMapping setObjectMappingForRepresentationBlock:^RKObjectMapping *(id representation) {
-//        id key = [[representation allKeys] lastObject];
-//        if ([key isKindOfClass:[NSString class]] && [key isEqualToString:@"mandatoryValidationRule"]) {
-//            return [JSMandatoryValidationRule classMappingForServerProfile:serverProfile];
-//        } else if ([key isKindOfClass:[NSString class]] && [key isEqualToString:@"dateTimeFormatValidationRule"]) {
-//            return [JSDateTimeFormatValidationRule classMappingForServerProfile:serverProfile];
-//        }
-//        return nil;
-//    }];
-//    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"validationRules"
-//                                                                                 toKeyPath:@"validationRules"
-//                                                                               withMapping:dynamicMapping]];
-//    
-//    return classMapping;
-//}
-//
-//+ (NSArray *)classMappingPathes {
-//    return @[@"reportOptionsSummary", @""];
-//}
++ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        [mapping mapPropertiesFromDictionary:@{
+                                               @"id": @"identifier",
+                                               @"uri": @"uri",
+                                               @"label": @"label"
+                                               }];
+    }];
+}
 
 #pragma mark - NSCopying
 

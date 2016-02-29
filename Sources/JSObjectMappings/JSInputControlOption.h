@@ -40,6 +40,6 @@
 
 @property (nonatomic, retain) NSString *label;
 @property (nonatomic, retain) NSString *value;
-@property (nonatomic, retain) NSString *selected;
+@property (nonatomic, assign) BOOL selected;
 
 @end

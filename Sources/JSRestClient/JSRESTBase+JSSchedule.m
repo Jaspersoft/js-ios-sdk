@@ -41,7 +41,7 @@
 {
     NSString *fullURL = [NSString stringWithFormat:@"%@", @"/jobs"];
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURL];
-    request.expectedModelClass = [JSScheduleLookup class];
+    request.objectMapping = [JSMapping mappingWithObjectMapping:[JSScheduleLookup objectMappingForServerProfile:self.serverProfile] keyPath:@"scheduleLookup"];
     request.restVersion = JSRESTVersion_2;
     request.method = JSRequestHTTPMethodGET;
 
@@ -57,7 +57,7 @@
 {
     NSString *fullURL = [NSString stringWithFormat:@"%@/%@", @"/jobs", @(scheduleId)];
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURL];
-    request.expectedModelClass = [JSScheduleMetadata class];
+    request.objectMapping = [JSMapping mappingWithObjectMapping:[JSScheduleMetadata objectMappingForServerProfile:self.serverProfile] keyPath:@"scheduleMetadata"];
     request.restVersion = JSRESTVersion_2;
     request.method = JSRequestHTTPMethodGET;
 
@@ -69,7 +69,7 @@
 {
     NSString *fullURL = [NSString stringWithFormat:@"%@", @"/jobs"];
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURL];
-    request.expectedModelClass = [JSScheduleMetadata class];
+    request.objectMapping = [JSMapping mappingWithObjectMapping:[JSScheduleMetadata objectMappingForServerProfile:self.serverProfile] keyPath:@"scheduleMetadata"];
     request.body = data;
     request.restVersion = JSRESTVersion_2;
     request.method = JSRequestHTTPMethodPUT;
@@ -83,7 +83,7 @@
 {
     NSString *fullURL = [NSString stringWithFormat:@"%@/%@", @"/jobs", @(schedule.jobIdentifier)];
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURL];
-    request.expectedModelClass = [JSScheduleMetadata class];
+    request.objectMapping = [JSMapping mappingWithObjectMapping:[JSScheduleMetadata objectMappingForServerProfile:self.serverProfile] keyPath:@"scheduleMetadata"];
     request.body = schedule;
     request.restVersion = JSRESTVersion_2;
     request.method = JSRequestHTTPMethodPOST;

@@ -41,13 +41,10 @@
 }
 
 #pragma mark - JSObjectMappingsProtocol
-//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-//    RKObjectMapping *classMapping = [super classMappingForServerProfile:serverProfile];
-//    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"resources"
-//                                                                                 toKeyPath:@"resources"
-//                                                                               withMapping:[JSDashboardResource classMappingForServerProfile:serverProfile]]];
-//
-//    return classMapping;
-//}
++ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+    EKObjectMapping *mapping = [super objectMappingForServerProfile:serverProfile];
+    [mapping hasOne:[JSDashboardResource class] forKeyPath:@"resources" forProperty:@"resources" withObjectMapping:[JSDashboardResource objectMappingForServerProfile:serverProfile]];
+    return mapping;
+}
 
 @end

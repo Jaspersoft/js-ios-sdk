@@ -36,6 +36,9 @@
 #import "JSSecurity.h"
 #endif
 
+NSString * const kJSSessionDidAuthorized            = @"JSSessionDidAuthorized";
+
+
 NSString * const kJSAuthenticationUsernameKey       = @"j_username";
 NSString * const kJSAuthenticationPasswordKey       = @"j_password";
 NSString * const kJSAuthenticationOrganizationKey   = @"orgId";
@@ -94,23 +97,26 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     }
 }
 
-#pragma mark - Private API
 - (void)fetchServerInfoWithCompletion:(JSRequestCompletionBlock)completion {
     JSRequest *request = [[JSRequest alloc] initWithUri:kJS_REST_SERVER_INFO_URI];
-    request.expectedModelClass = [JSServerInfo class];
+    request.objectMapping = [JSMapping mappingWithObjectMapping:[JSServerInfo objectMappingForServerProfile:self.serverProfile] keyPath:nil];
     request.restVersion = JSRESTVersion_2;
     request.completionBlock = completion;
     [self sendRequest:request];
 }
+
+#pragma mark - Private API
 
 - (void)fetchEncryptionKeyWithCompletion:(void(^)(JSEncryptionData *encryptionData, NSError *error))completion
 {
     JSRequest *request = [[JSRequest alloc] initWithUri:kJS_REST_ENCRYPTION_KEY_URI];
     
     request.restVersion = JSRESTVersion_None;
-    request.expectedModelClass = [JSEncryptionData class];
+    request.objectMapping = [JSMapping mappingWithObjectMapping:[JSEncryptionData objectMappingForServerProfile:self.serverProfile] keyPath:nil];
     request.redirectAllowed = NO;
     request.shouldResendRequestAfterSessionExpiration = NO;
+    
+    [self deleteCookies];
     
     [request setCompletionBlock:^(JSOperationResult *result) {
         if (completion) {
@@ -139,7 +145,6 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     request.serializationType = JSRequestSerializationType_UrlEncoded;
 
     [self resetReachabilityStatus];
-    [self deleteCookies];
     
     // Add locale to session
     NSString *currentLanguage = [[NSLocale preferredLanguages] objectAtIndex:0];
@@ -157,6 +162,9 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     
     
     [request setCompletionBlock:^(JSOperationResult *result) {
+        if (!result.error) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kJSSessionDidAuthorized object:self];
+        }
         if (completion) {
             completion(!result.error);
         }

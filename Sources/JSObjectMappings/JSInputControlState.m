@@ -33,37 +33,18 @@
 @implementation JSInputControlState
 
 #pragma mark - JSObjectMappingsProtocol
-
-//+ (nonnull NSArray <RKResponseDescriptor *> *)rkResponseDescriptorsForServerProfile:(nonnull JSProfile *)serverProfile {
-//    NSMutableArray *descriptorsArray = [NSMutableArray array];
-//    for (NSString *keyPath in [self classMappingPathes]) {
-//        [descriptorsArray addObject:[RKResponseDescriptor responseDescriptorWithMapping:[self classMappingForServerProfile:serverProfile]
-//                                                                                 method:JSRequestHTTPMethodAny
-//                                                                            pathPattern:nil
-//                                                                                keyPath:keyPath
-//                                                                            statusCodes:nil]];
-//    }
-//
-//    return descriptorsArray;
-//}
-//
-//+ (nonnull RKObjectMapping *)classMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-//    RKObjectMapping *classMapping = [RKObjectMapping mappingForClass:self];
-//    [classMapping addAttributeMappingsFromDictionary:@{
-//                                                       @"id": @"uuid",
-//                                                       @"uri": @"uri",
-//                                                       @"value": @"value",
-//                                                       @"error": @"error",
-//                                                       }];
-//    [classMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"options"
-//                                                                                 toKeyPath:@"options"
-//                                                                               withMapping:[JSInputControlOption classMappingForServerProfile:serverProfile]]];
-//    return classMapping;
-//}
-//
-//+ (NSArray *)classMappingPathes {
-//    return @[@"inputControlState"];
-//}
++ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        [mapping mapPropertiesFromDictionary:@{
+                                               @"id": @"uuid",
+                                               @"uri": @"uri",
+                                               @"value": @"value",
+                                               @"error": @"error",
+                                               }];
+        [mapping hasMany:[JSInputControlOption class] forKeyPath:@"options" forProperty:@"options" withObjectMapping:[JSInputControlOption objectMappingForServerProfile:serverProfile]];
+        
+    }];
+}
 
 #pragma mark - NSCopying
 
