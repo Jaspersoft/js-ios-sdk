@@ -185,15 +185,29 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     // Merge parameters with httpBody
     id parameters = [NSMutableDictionary dictionaryWithDictionary:jsRequest.params];
     if (jsRequest.body) {
-        Class objectClass = [jsRequest.body class];
-        EKObjectMapping *objectMapping = [objectClass objectMappingForServerProfile:self.serverProfile];
-        NSDictionary *serializedObject = [EKSerializer serializeObject:jsRequest.body withMapping:objectMapping];
+        Class objectClass;
+        EKObjectMapping *objectMapping;
+        id serializedObject;
+        
+        if ([jsRequest.body isKindOfClass:[NSArray class]]) {
+            objectClass = [[jsRequest.body lastObject] class];
+            objectMapping = [objectClass objectMappingForServerProfile:self.serverProfile];
+            serializedObject = [EKSerializer serializeCollection:jsRequest.body withMapping:objectMapping];
+        } else {
+            objectClass = [jsRequest.body class];
+            objectMapping = [objectClass objectMappingForServerProfile:self.serverProfile];
+            serializedObject = [EKSerializer serializeObject:jsRequest.body withMapping:objectMapping];
+        }
         
         if (serializedObject) {
-            if ([objectClass respondsToSelector:@selector(requestObjectKeyPath)]) {
-                [parameters setObject:serializedObject forKey:[objectClass requestObjectKeyPath]];
+            if ([serializedObject isKindOfClass:[NSArray class]]) {
+                parameters = serializedObject;
             } else {
-                [parameters addEntriesFromDictionary:serializedObject];
+                if ([objectClass respondsToSelector:@selector(requestObjectKeyPath)]) {
+                    [parameters setObject:serializedObject forKey:[objectClass requestObjectKeyPath]];
+                } else {
+                    [parameters addEntriesFromDictionary:serializedObject];
+                }
             }
         }
     }
@@ -402,7 +416,12 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
                     }
                 }
             } else if ([error.domain isEqualToString:AFURLResponseSerializationErrorDomain]) {
-                result.error = [JSErrorBuilder errorWithCode:JSDataMappingErrorCode];
+                if ([result.MIMEType isEqualToString:[JSUtils usedMimeType]]) {
+                    result.error = [JSErrorBuilder errorWithCode:JSDataMappingErrorCode];
+                } else {
+                    result.body = [error.userInfo objectForKey:AFNetworkingOperationFailingURLResponseDataErrorKey];
+                    result.error = [JSErrorBuilder errorWithCode:JSOtherErrorCode];
+                }
             } else {
                 result.error = [JSErrorBuilder errorWithCode:JSClientErrorCode
                                                      message:error.userInfo[NSLocalizedDescriptionKey]];

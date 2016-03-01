@@ -49,7 +49,7 @@
                                                @"attachmentsPrefix": @"attachmentsPrefix",
                                                }];
         if (serverProfile && serverProfile.serverInfo.versionAsFloat >= kJS_SERVER_VERSION_CODE_EMERALD_5_6_0) {
-            [mapping mapPropertiesFromArray:@[@"baseUrl"]];
+            [mapping mapPropertiesFromDictionary:@{@"baseUrl" : @"baseURL"}];
         }
         [mapping hasMany:[JSReportParameter class] forKeyPath:@"parameters.reportParameter" forProperty:@"parameters" withObjectMapping:[JSReportParameter objectMappingForServerProfile:serverProfile]];
     }];

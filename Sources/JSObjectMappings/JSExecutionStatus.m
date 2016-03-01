@@ -49,8 +49,4 @@
     }];
 }
 
-+ (nonnull NSString *)requestObjectKeyPath {
-    return @"dashboardResource";
-}
-
 @end

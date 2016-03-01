@@ -29,6 +29,7 @@
 //
 
 #import "JSReportExecutionResponse.h"
+#import "EKMapper.h"
 
 @implementation JSReportExecutionResponse
 
@@ -42,8 +43,10 @@
                                                @"requestId": @"requestId",
                                                }];
         [mapping hasOne:[JSErrorDescriptor class] forKeyPath:@"errorDescriptor" forProperty:@"errorDescriptor" withObjectMapping:[JSErrorDescriptor objectMappingForServerProfile:serverProfile]];
-        [mapping hasOne:[JSExecutionStatus class] forKeyPath:@"status" forProperty:@"status" withObjectMapping:[JSExecutionStatus objectMappingForServerProfile:serverProfile]];
-        
+        [mapping mapKeyPath:@"status" toProperty:@"status" withValueBlock:^id(NSString *key, id value) {
+            NSDictionary *statusDictionary = @{@"value" : value};
+            return [EKMapper objectFromExternalRepresentation:statusDictionary withMapping:[JSExecutionStatus objectMappingForServerProfile:serverProfile]];
+        }];
         [mapping hasMany:[JSExportExecutionResponse class] forKeyPath:@"exports" forProperty:@"exports" withObjectMapping:[JSExportExecutionResponse objectMappingForServerProfile:serverProfile]];
     }];
 }

@@ -30,6 +30,7 @@
 
 #import "JSExportExecutionResponse.h"
 #import "JSReportAttachment.h"
+#import "EKMapper.h"
 
 @implementation JSExportExecutionResponse
 
@@ -39,7 +40,10 @@
         [mapping mapPropertiesFromDictionary:@{
                                                @"id": @"uuid",
                                                }];
-        [mapping hasOne:[JSExecutionStatus class] forKeyPath:@"status" forProperty:@"status" withObjectMapping:[JSExecutionStatus objectMappingForServerProfile:serverProfile]];
+        [mapping mapKeyPath:@"status" toProperty:@"status" withValueBlock:^id(NSString *key, id value) {
+            NSDictionary *statusDictionary = @{@"value" : value};
+            return [EKMapper objectFromExternalRepresentation:statusDictionary withMapping:[JSExecutionStatus objectMappingForServerProfile:serverProfile]];
+        }];
         [mapping hasOne:[JSErrorDescriptor class] forKeyPath:@"errorDescriptor" forProperty:@"errorDescriptor" withObjectMapping:[JSErrorDescriptor objectMappingForServerProfile:serverProfile]];
         [mapping hasOne:[JSReportOutputResource class] forKeyPath:@"outputResource" forProperty:@"outputResource" withObjectMapping:[JSReportOutputResource objectMappingForServerProfile:serverProfile]];
         [mapping hasMany:[JSReportOutputResource class] forKeyPath:@"attachments" forProperty:@"attachments" withObjectMapping:[JSReportOutputResource objectMappingForServerProfile:serverProfile]];
