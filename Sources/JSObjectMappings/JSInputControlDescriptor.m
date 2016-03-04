@@ -30,6 +30,7 @@
 
 #import "JSInputControlOption.h"
 #import "JSInputControlDescriptor.h"
+#import "EKMapper.h"
 
 @interface JSInputControlDescriptor()
 @property (nonatomic, retain) NSArray *validationRules;
@@ -165,19 +166,24 @@
                                                }];
         [mapping hasOne:[JSInputControlState class] forKeyPath:@"state" forProperty:@"state" withObjectMapping:[JSInputControlState objectMappingForServerProfile:serverProfile]];
         [mapping hasOne:[JSDataType class] forKeyPath:@"dataType" forProperty:@"dataType" withObjectMapping:[JSDataType objectMappingForServerProfile:serverProfile]];
-        
-        EKObjectMapping *validationRulesMapping = [EKObjectMapping mappingForClass:[NSObject class] withBlock:^(EKObjectMapping *mapping) {
-            [mapping mapKeyPath:@"validationRules" toProperty:@"validationRules" withValueBlock:^id(NSString *key, id value) {
-                if ([key isKindOfClass:[NSString class]] && [key isEqualToString:@"mandatoryValidationRule"]) {
-                    return [JSMandatoryValidationRule objectMappingForServerProfile:serverProfile];
-                } else if ([key isKindOfClass:[NSString class]] && [key isEqualToString:@"dateTimeFormatValidationRule"]) {
-                    return [JSDateTimeFormatValidationRule objectMappingForServerProfile:serverProfile];
+
+        [mapping mapKeyPath:@"validationRules" toProperty:@"validationRules" withValueBlock:^id(NSString *key, id value) {
+            NSArray *validationRulesArray = value;
+            NSMutableArray *validationRules = [NSMutableArray array];
+            for (NSDictionary *rule in validationRulesArray) {
+                EKObjectMapping *mapping = nil;
+                NSString *rootKey = [[rule allKeys] lastObject];
+                if ([rootKey isEqualToString:@"mandatoryValidationRule"]) {
+                    mapping = [JSMandatoryValidationRule objectMappingForServerProfile:serverProfile];
+                } else if ([rootKey isEqualToString:@"dateTimeFormatValidationRule"]){
+                    mapping = [JSDateTimeFormatValidationRule objectMappingForServerProfile:serverProfile];
                 }
-                return nil;
-                
-            }];
+                if (mapping) {
+                    [validationRules addObject:[EKMapper objectFromExternalRepresentation:rule withMapping:mapping]];
+                }
+            }
+            return validationRules;
         }];
-        [mapping hasMany:[NSObject class] forKeyPath:@"validationRules" forProperty:@"validationRules" withObjectMapping:validationRulesMapping];
     }];
 }
 

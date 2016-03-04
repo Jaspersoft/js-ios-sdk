@@ -151,7 +151,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
             }
         }
     }
-#warning SHOULD CHECK THIS METHOD
+
     NSString *urlString = [NSString stringWithFormat:@"%@/%@%@%@.%@", self.serverProfile.serverUrl,
                            kJS_REST_SERVICES_V2_URI, kJS_REST_REPORTS_URI, uri, format];
 

@@ -30,6 +30,7 @@
 
 #import "JSReportExecutionRequest.h"
 #import "JSServerInfo.h"
+#import "EKSerializer.h"
 
 @implementation JSReportExecutionRequest
 
@@ -51,7 +52,12 @@
         if (serverProfile && serverProfile.serverInfo.versionAsFloat >= kJS_SERVER_VERSION_CODE_EMERALD_5_6_0) {
             [mapping mapPropertiesFromDictionary:@{@"baseUrl" : @"baseURL"}];
         }
-        [mapping hasMany:[JSReportParameter class] forKeyPath:@"parameters.reportParameter" forProperty:@"parameters" withObjectMapping:[JSReportParameter objectMappingForServerProfile:serverProfile]];
+        [mapping mapKeyPath:@"parameters" toProperty:@"parameters" withValueBlock:^id(NSString *key, id value) {
+            return nil; // Hack, here we need only reverse mapping
+        } reverseBlock:^id(id value) {
+            NSArray *parametersArray = [EKSerializer serializeCollection:value withMapping:[JSReportParameter objectMappingForServerProfile:serverProfile]];
+            return @{@"reportParameter" : parametersArray};
+        }];
     }];
 }
 

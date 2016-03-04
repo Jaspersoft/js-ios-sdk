@@ -286,14 +286,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 
 - (NSArray *)cookies {
     if (self.serverProfile.serverUrl) {
-        NSString *host = [[NSURL URLWithString:self.serverProfile.serverUrl] host];
-        
-        NSMutableArray *cookies = [NSMutableArray array];
-        for (NSHTTPCookie *cookie in self.session.configuration.HTTPCookieStorage.cookies) {
-            if ([cookie.domain isEqualToString:host]) {
-                [cookies addObject:cookie];
-            }
-        }
+        NSArray *cookies = [self.session.configuration.HTTPCookieStorage cookiesForURL:[NSURL URLWithString:self.serverProfile.serverUrl]];
         return [cookies sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
             return [[obj1 expiresDate] compare:[obj2 expiresDate]];
         }];
@@ -302,10 +295,8 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 }
 
 - (void)deleteCookies {
-#warning NEED CHECK CONFIGURATION COOKIE STORAGE INITIALISATION
-    NSHTTPCookieStorage *cookieStorage = self.session.configuration.HTTPCookieStorage;
     for (NSHTTPCookie *cookie in self.cookies) {
-        [cookieStorage deleteCookie:cookie];
+        [self.session.configuration.HTTPCookieStorage deleteCookie:cookie];
     }
 }
 
@@ -390,16 +381,14 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         }
     } else {
         // Error handling
-        if (response.statusCode && ![result isSuccessful]) {
-            if (response.statusCode == 401 || response.statusCode == 403) {
+        if (![result isSuccessful] || error) {
+            if (response.statusCode == 401) {
                 result.error = [JSErrorBuilder httpErrorWithCode:JSSessionExpiredErrorCode
                                                         HTTPCode:response.statusCode];
-            } else {
+            } else if (response.statusCode && !error) {
                 result.error = [JSErrorBuilder httpErrorWithCode:JSHTTPErrorCode
                                                         HTTPCode:response.statusCode];
-            }
-        } else if (error) {
-            if ([error.domain isEqualToString:NSURLErrorDomain]) {
+            } else if ([error.domain isEqualToString:NSURLErrorDomain]) {
                 switch (error.code) {
                     case NSURLErrorUserCancelledAuthentication:
                     case NSURLErrorUserAuthenticationRequired: {
@@ -416,71 +405,70 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
                     }
                 }
             } else if ([error.domain isEqualToString:AFURLResponseSerializationErrorDomain]) {
+                result.body = [error.userInfo objectForKey:AFNetworkingOperationFailingURLResponseDataErrorKey];
+
                 if ([result.MIMEType isEqualToString:[JSUtils usedMimeType]]) {
                     result.error = [JSErrorBuilder errorWithCode:JSDataMappingErrorCode];
                 } else {
-                    result.body = [error.userInfo objectForKey:AFNetworkingOperationFailingURLResponseDataErrorKey];
                     result.error = [JSErrorBuilder errorWithCode:JSOtherErrorCode];
                 }
             } else {
-                result.error = [JSErrorBuilder errorWithCode:JSClientErrorCode
+                result.error = [JSErrorBuilder errorWithCode:JSOtherErrorCode
                                                      message:error.userInfo[NSLocalizedDescriptionKey]];
             }
         }
-    }
-    
-    // Save file if needed
-    if (!result.request.responseAsObjects && [responseObject isKindOfClass:[NSURL class]]) {
-        NSString *destinationFilePath = result.request.downloadDestinationPath;
-        NSString *sourceFilePath = [(NSURL *)responseObject absoluteString];
-        
-        if (!result.error && sourceFilePath && destinationFilePath && [[NSFileManager defaultManager] fileExistsAtPath:sourceFilePath]) {
-            NSError *fileSavingError = nil;
-            [[NSFileManager defaultManager] moveItemAtPath:sourceFilePath toPath:destinationFilePath error:&fileSavingError];
-            if (fileSavingError) {
-                result.error = [JSErrorBuilder errorWithCode:JSFileSavingErrorCode
-                                                     message:fileSavingError.userInfo[NSLocalizedDescriptionKey]];
-            }
-        } else {
-            result.error = [JSErrorBuilder errorWithCode:JSFileSavingErrorCode];
-        }
-        if (sourceFilePath && [[NSFileManager defaultManager] fileExistsAtPath:sourceFilePath]) {
-            [[NSFileManager defaultManager] removeItemAtPath:sourceFilePath error:nil];
-        }
-    } else if(result.request.responseAsObjects && responseObject) { // Response object maping
-#warning NEED CHECK BODY TYPE!!!
-        NSError *convertingError = nil;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:responseObject options:0 error:&convertingError];
-        if (!convertingError) {
-            result.body = jsonData;
-        }
 
-        if (![result isSuccessful]) {
-            JSMapping *mapping = [JSMapping mappingWithObjectMapping:[[JSErrorDescriptor class] objectMappingForServerProfile:self.serverProfile] keyPath:@"errorDescriptor"];
-            result.objects = [self objectFromExternalRepresentation:responseObject
-                                                        withMapping:mapping];
+        // Save file if needed
+        if (!result.request.responseAsObjects && [responseObject isKindOfClass:[NSURL class]]) {
+            NSString *destinationFilePath = result.request.downloadDestinationPath;
+            NSString *sourceFilePath = [(NSURL *)responseObject absoluteString];
             
-            NSString *message = @"";
-            for (JSErrorDescriptor *errDescriptor in result.objects) {
-                if ([errDescriptor isKindOfClass:[errDescriptor class]]) {
-                    NSString *formatString = message.length ? @",\n%@" : @"%@";
-                    message = [message stringByAppendingFormat:formatString, errDescriptor.message];
+            if (!result.error && sourceFilePath && destinationFilePath && [[NSFileManager defaultManager] fileExistsAtPath:sourceFilePath]) {
+                NSError *fileSavingError = nil;
+                [[NSFileManager defaultManager] moveItemAtPath:sourceFilePath toPath:destinationFilePath error:&fileSavingError];
+                if (fileSavingError) {
+                    result.error = [JSErrorBuilder errorWithCode:JSFileSavingErrorCode
+                                                         message:fileSavingError.userInfo[NSLocalizedDescriptionKey]];
                 }
+            } else {
+                result.error = [JSErrorBuilder errorWithCode:JSFileSavingErrorCode];
             }
-            if (message.length) {
-                result.error = [JSErrorBuilder errorWithCode:JSClientErrorCode message:message];
+            if (sourceFilePath && [[NSFileManager defaultManager] fileExistsAtPath:sourceFilePath]) {
+                [[NSFileManager defaultManager] removeItemAtPath:sourceFilePath error:nil];
             }
-        } else {
-            result.objects = [self objectFromExternalRepresentation:responseObject
-                                                        withMapping:request.objectMapping];
+        } else if(result.request.responseAsObjects && responseObject) { // Response object maping
+            NSError *convertingError = nil;
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:responseObject options:0 error:&convertingError];
+            if (!convertingError) {
+                result.body = jsonData;
+            }
+            
+            if (![result isSuccessful]) {
+                JSMapping *mapping = [JSMapping mappingWithObjectMapping:[[JSErrorDescriptor class] objectMappingForServerProfile:self.serverProfile] keyPath:nil];
+                result.objects = [self objectFromExternalRepresentation:responseObject
+                                                            withMapping:mapping];
+                
+                NSString *message = @"";
+                for (JSErrorDescriptor *errDescriptor in result.objects) {
+                    if ([errDescriptor isKindOfClass:[errDescriptor class]]) {
+                        NSString *formatString = message.length ? @",\n%@" : @"%@";
+                        message = [message stringByAppendingFormat:formatString, errDescriptor.message];
+                    }
+                }
+                if (message.length) {
+                    result.error = [JSErrorBuilder errorWithCode:JSClientErrorCode message:message];
+                }
+            } else {
+                result.objects = [self objectFromExternalRepresentation:responseObject
+                                                            withMapping:request.objectMapping];
+            }
         }
     }
-    
-    
+
     if (result.error.code == JSSessionExpiredErrorCode) {
         [self deleteCookies];
     }
-    
+
     return result;
 }
 
@@ -572,7 +560,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 
 - (JSOperationResult *) operationResultForSerializationError:(NSError *)serializationError {
     JSOperationResult *result = [JSOperationResult new];
-#warning HERE SHOULD CORRECTLY INITIALIZE ERROR!!!
     result.error = [NSError errorWithDomain:JSErrorDomain code:JSOtherErrorCode userInfo:serializationError.userInfo];
     return result;
 }
