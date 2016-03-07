@@ -27,8 +27,8 @@ Pod::Spec.new do |s|
 	### Subspecs	
 	s.subspec 'JSCore' do |jscSpec|	
 		jscSpec.dependency 'JaspersoftSDK/Resources'
-    	jscSpec.dependency 'AFNetworking', '~> 3.0'
-    	jscSpec.dependency 'EasyMapping', '~> 0.15'
+    	jscSpec.dependency 'AFNetworking', '3.0.4'
+    	jscSpec.dependency 'EasyMapping', '0.16.1'
 		jscSpec.dependency 'ServerReachability'
 		
 		jscSpec.subspec 'JSHelper' do |jshSpec|
