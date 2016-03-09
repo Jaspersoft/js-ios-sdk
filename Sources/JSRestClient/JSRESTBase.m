@@ -275,29 +275,13 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     [self.requestCallBacks removeAllObjects];
 }
 
-- (BOOL)isNetworkReachable {
-    return (self.reachabilityManager.networkReachabilityStatus > 0);
-}
-
-- (BOOL)isRequestPoolEmpty
-{
-    return self.requestCallBacks.count == 0;
-}
-
-- (NSArray *)cookies {
-    if (self.serverProfile.serverUrl) {
-        NSArray *cookies = [self.session.configuration.HTTPCookieStorage cookiesForURL:[NSURL URLWithString:self.serverProfile.serverUrl]];
-        return [cookies sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-            return [[obj1 expiresDate] compare:[obj2 expiresDate]];
-        }];
-    }
-    return nil;
-}
-
 - (void)deleteCookies {
-    for (NSHTTPCookie *cookie in self.cookies) {
-        [self.session.configuration.HTTPCookieStorage deleteCookie:cookie];
-    }
+    [self updateCookiesWithCookies:nil];
+}
+
+- (void)updateCookiesWithCookies:(NSArray <NSHTTPCookie *>* __nullable)cookies
+{
+    _cookies = cookies;
 }
 
 - (void)resetReachabilityStatus {

@@ -50,51 +50,47 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
 #pragma mark - Public API
 
 - (void)verifyIsSessionAuthorizedWithCompletion:(void (^)(BOOL isSessionAuthorized))completion {
-    if ([self.cookies count]) {
-        if (completion) {
-            completion(YES);
-        }
-    } else {
-        // Get server info
-        __weak typeof(self)weakSelf = self;
-        [self fetchServerInfoWithCompletion:^(JSOperationResult * _Nullable result) {
-            if (!result.error && result.objects.count) {
-                __strong typeof(self) strongSelf = weakSelf;
-                NSString *username = strongSelf.serverProfile.username;
-                NSString *password = strongSelf.serverProfile.password;
-                NSString *organization = strongSelf.serverProfile.organization;
+    [self deleteCookies];
 
-                strongSelf.serverProfile.serverInfo = [result.objects firstObject];
-                
-                // Try to get authentication token
+    // Get server info
+    __weak typeof(self)weakSelf = self;
+    [self fetchServerInfoWithCompletion:^(JSOperationResult * _Nullable result) {
+        if (!result.error && result.objects.count) {
+            __strong typeof(self) strongSelf = weakSelf;
+            NSString *username = strongSelf.serverProfile.username;
+            NSString *password = strongSelf.serverProfile.password;
+            NSString *organization = strongSelf.serverProfile.organization;
+
+            strongSelf.serverProfile.serverInfo = [result.objects firstObject];
+
+            // Try to get authentication token
 #if __has_include("JSSecurity.h")
-                __weak typeof(self)weakSelf = strongSelf;
-                [strongSelf fetchEncryptionKeyWithCompletion:^(JSEncryptionData *encryptionData, NSError *error) {
-                    NSString *encPassword = password;
-                    if (encryptionData.modulus && encryptionData.exponent) {
-                        JSEncryptionManager *encryptionManager = [JSEncryptionManager new];
-                        encPassword = [encryptionManager encryptText:password
-                                                         withModulus:encryptionData.modulus
-                                                            exponent:encryptionData.exponent];
-                    }
-                    
-                    __strong typeof(self)strongSelf = weakSelf;
-                    [strongSelf fetchAuthenticationTokenWithUsername:username
-                                                            password:encPassword
-                                                        organization:organization
-                                                          completion:completion];
-                }];
-#else
+            __weak typeof(self)weakSelf = strongSelf;
+            [strongSelf fetchEncryptionKeyWithCompletion:^(JSEncryptionData *encryptionData, NSError *error) {
+                NSString *encPassword = password;
+                if (encryptionData.modulus && encryptionData.exponent) {
+                    JSEncryptionManager *encryptionManager = [JSEncryptionManager new];
+                    encPassword = [encryptionManager encryptText:password
+                                                     withModulus:encryptionData.modulus
+                                                        exponent:encryptionData.exponent];
+                }
+
+                __strong typeof(self)strongSelf = weakSelf;
                 [strongSelf fetchAuthenticationTokenWithUsername:username
+                                                        password:encPassword
+                                                    organization:organization
+                                                      completion:completion];
+            }];
+#else
+            [strongSelf fetchAuthenticationTokenWithUsername:username
                                                   password:password
                                               organization:organization
                                                 completion:completion];
 #endif
-            } else if(completion) {
-                completion(NO);
-            }
-        }];
-    }
+        } else if(completion) {
+            completion(NO);
+        }
+    }];
 }
 
 - (void)fetchServerInfoWithCompletion:(JSRequestCompletionBlock)completion {
@@ -115,8 +111,6 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     request.objectMapping = [JSMapping mappingWithObjectMapping:[JSEncryptionData objectMappingForServerProfile:self.serverProfile] keyPath:nil];
     request.redirectAllowed = NO;
     request.shouldResendRequestAfterSessionExpiration = NO;
-    
-    [self deleteCookies];
     
     [request setCompletionBlock:^(JSOperationResult *result) {
         if (completion) {
@@ -163,6 +157,12 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     
     [request setCompletionBlock:^(JSOperationResult *result) {
         if (!result.error) {
+
+            NSURL *url = [NSURL URLWithString:result.request.fullURI];
+            NSArray *cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:result.allHeaderFields
+                                                                      forURL:url];
+            [self updateCookiesWithCookies:cookies];
+
             [[NSNotificationCenter defaultCenter] postNotificationName:kJSSessionDidAuthorized object:self];
         }
         if (completion) {

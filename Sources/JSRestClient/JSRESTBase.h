@@ -113,24 +113,10 @@ extern NSString * const _Nonnull kJSRequestResponceType;
  */
 - (nullable JSServerInfo *)serverInfo;
 
-/**
- Checks if network is available
- 
- @return A boolean value represents network is availability
- */
-- (BOOL)isNetworkReachable;
-
 /** 
  Cancels all requests 
  */
 - (void)cancelAllRequests;
-
-/**
- Check if request pool is empty (no any active request exists)
- 
- @return YES if request pool is empty, otherwise returns NO
- */
-- (BOOL)isRequestPoolEmpty;
 
 /**
  Deletes all cookies for specified server
@@ -138,6 +124,14 @@ extern NSString * const _Nonnull kJSRequestResponceType;
  @since 1.9
  */
 - (void)deleteCookies;
+
+/**
+ Update cookies
+
+ @since 2.4
+ */
+
+- (void)updateCookiesWithCookies:(NSArray <NSHTTPCookie *>* __nullable)cookies;
 
 /**
  Reset reachability to server status
