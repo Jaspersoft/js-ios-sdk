@@ -270,7 +270,9 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 }
 
 - (void)cancelAllRequests {
-    [self.session invalidateAndCancel];
+    for (JSCallBack *callback in self.requestCallBacks) {
+        [callback.dataTask cancel];
+    }
     
     [self.requestCallBacks removeAllObjects];
 }
