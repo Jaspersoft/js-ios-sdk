@@ -41,9 +41,6 @@
 @property (nonatomic, strong, nullable) NSString *tempReportDirectory;
 @property (nonatomic, copy) JSSaveReportCompletion saveReportCompletion;
 
-@property (nonatomic, strong) NSURLSessionDownloadTask *downloadTask;
-
-
 @end
 
 @implementation JSReportSaver
@@ -118,30 +115,26 @@
 - (void)cancelSavingReport {
     self.saveReportCompletion = nil;
     [self cancelReportExecution];
-    [self.downloadTask cancelByProducingResumeData:^(NSData * _Nullable resumeData){
-    }];
+    [self.restClient cancelAllRequests];
     
     [self removeTempReportDirectory];
 }
 
 #pragma mark - Network calls
 - (void)downloadResourceFromURLString:(NSString *)resourceURLString
-                           completion:(void(^)(NSURL *location, NSURLResponse *response, NSError *error))completion {
-    NSURL *URL = [NSURL URLWithString:resourceURLString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-    
-    NSURLSession *session = [NSURLSession sharedSession];
-    self.downloadTask = [session downloadTaskWithRequest:request
-                                       completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-                                           dispatch_async(dispatch_get_main_queue(), ^{
-                                               [[AFNetworkActivityIndicatorManager sharedManager] decrementActivityCount];
-                                               if (completion) {
-                                                   completion(location, response, error);
-                                               }
-                                           });
-                                       }];
+                            toFileUrl:(NSURL *)fileUrl
+                           completion:(void(^)(NSURL *filePath, NSURLResponse *response, NSError *error))completion {
     [[AFNetworkActivityIndicatorManager sharedManager] incrementActivityCount];
-    [self.downloadTask resume];
+
+    [[self.restClient.session downloadTaskWithURL:[NSURL URLWithString:resourceURLString]
+                                completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        [[AFNetworkActivityIndicatorManager sharedManager] decrementActivityCount];
+                                        if (completion) {
+                                            completion(location, response, error);
+                                        }
+                                    });
+                                }] resume];
 }
 
 - (void) downloadAttachments:(NSMutableArray *)attachments forExport:(JSExportExecutionResponse *)exportResponse withCompletion:(void(^)(NSError *error))completionBlock {
