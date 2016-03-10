@@ -36,7 +36,6 @@
 
 @implementation JSRESTBase (JSRESTDashboard)
 
-
 #pragma mark - Components
 - (void)fetchDashboardComponentsWithURI:(NSString *)dashboardURI
                              completion:(nullable JSRequestCompletionBlock)block
@@ -52,44 +51,82 @@
 
 
 #pragma mark - Work with Input Controls
-- (void)inputControlsForDashboardWithURI:(nonnull NSString *)dashboardURI
-                                     ids:(nullable NSArray <NSString *> *)ids
-                          selectedValues:(nullable NSArray <JSReportParameter *> *)selectedValues
-                                   async:(BOOL)async
-                         completionBlock:(nullable JSRequestCompletionBlock)block
+- (void)inputControlsForDashboardWithParameters:(nullable NSArray <JSParameter *> *)params
+                                completionBlock:(nonnull JSRequestCompletionBlock)block
 {
-    NSString *fullURI = [self constructFullURIWithDashboardURI:dashboardURI
-                                                 inputControls:ids
-                                             initialValuesOnly:NO];
-#warning SHOULD REIMPLEMENT THIS METHOD FOR ASYNCHRONOUSLY LOADING!!!
-
-    JSRequest *request = [[JSRequest alloc] initWithUri:fullURI];
-    request.objectMapping = [JSMapping mappingWithObjectMapping:[JSInputControlDescriptor objectMappingForServerProfile:self.serverProfile] keyPath:@"inputControl"];
-    request.restVersion = JSRESTVersion_2;
-    request.method = JSRequestHTTPMethodGET;
-    request.completionBlock = block;
-    [self addDashboardParametersToRequest:request withSelectedValues:selectedValues];
-    [self sendRequest:request];
+    NSMutableArray *requestsArray = [NSMutableArray array];
+    for (JSParameter *parameter in params) {
+        NSString *fullURI = [self constructFullURIWithDashboardURI:parameter.name
+                                                           inputControls:parameter.value
+                                                       initialValuesOnly:NO];
+        
+        JSRequest *request = [[JSRequest alloc] initWithUri:fullURI];
+        request.objectMapping = [JSMapping mappingWithObjectMapping:[JSInputControlDescriptor objectMappingForServerProfile:self.serverProfile] keyPath:@"inputControl"];
+        request.restVersion = JSRESTVersion_2;
+        [requestsArray addObject:request];
+    }
+    
+    NSMutableArray *inputControlsArray = [NSMutableArray array];
+    [self sendRequests:requestsArray withDestination:inputControlsArray completion:^(NSError *error) {
+        JSOperationResult *operationResult = [JSOperationResult new];
+        if (error) {
+            operationResult.error = error;
+        } else {
+            operationResult.objects = inputControlsArray;
+        }
+        block(operationResult);
+    }];
 }
 
+- (void) sendRequests:(NSArray *)requests withDestination:(NSMutableArray *)destination completion:(void(^)(NSError *error))completion{
+    if ([requests count]) {
+        JSRequest *request = [requests lastObject];
+        __weak typeof(self) weakSelf = self;
+        request.completionBlock = ^(JSOperationResult *result){
+            if (result.error && result.error.code == JSInvalidCredentialsErrorCode) {
+                if (completion) {
+                    completion(result.error);
+                }
+            } else {
+                if(!result.error) {
+                    [(destination) addObjectsFromArray:result.objects];
+                }
+                __strong typeof(self) strongSelf = weakSelf;
+                NSArray *availableRequests = [requests objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, requests.count - 1)]];
+                [strongSelf sendRequests:availableRequests withDestination:destination completion:completion];
+            }
+        };
+        [self sendRequest:request];
+    } else if(completion) {
+        completion(nil);
+    }
+}
 
-- (void)updatedInputControlValuesForDashboardWithURI:(NSString *)dashboardURI
-                                                 ids:(NSArray <NSString *> *)ids
-                                      selectedValues:(NSArray <JSReportParameter *> *)selectedValues
-                                               async:(BOOL)async
-                                     completionBlock:(JSRequestCompletionBlock)block
+- (void)updatedInputControlValuesForDashboardWithParameters:(nullable NSArray <JSParameter *> *)params
+                                            completionBlock:(nullable JSRequestCompletionBlock)block
 {
-#warning SHOULD REIMPLEMENT THIS METHOD FOR ASYNCHRONOUSLY LOADING!!!
-
-    JSRequest *request = [[JSRequest alloc] initWithUri:[self constructFullURIWithDashboardURI:dashboardURI
-                                                                                 inputControls:ids
-                                                                             initialValuesOnly:YES]];
-    request.objectMapping = [JSMapping mappingWithObjectMapping:[JSInputControlState objectMappingForServerProfile:self.serverProfile] keyPath:@"inputControlState"];
-    request.method = JSRequestHTTPMethodPOST;
-    request.restVersion = JSRESTVersion_2;
-    [self addDashboardParametersToRequest:request withSelectedValues:selectedValues];
-    request.completionBlock = block;
-    [self sendRequest:request];
+    NSMutableArray *requestsArray = [NSMutableArray array];
+    for (JSParameter *parameter in params) {
+        JSRequest *request = [[JSRequest alloc] initWithUri:[self constructFullURIWithDashboardURI:parameter.name
+                                                                                     inputControls:nil
+                                                                                 initialValuesOnly:YES]];
+        request.objectMapping = [JSMapping mappingWithObjectMapping:[JSInputControlState objectMappingForServerProfile:self.serverProfile] keyPath:@"inputControlState"];
+        request.method = JSRequestHTTPMethodPOST;
+        request.restVersion = JSRESTVersion_2;
+        [self addDashboardParametersToRequest:request withSelectedValues:parameter.value];
+        [requestsArray addObject:request];
+    }
+    
+    NSMutableArray *inputControlStatesArray = [NSMutableArray array];
+    [self sendRequests:requestsArray withDestination:inputControlStatesArray completion:^(NSError *error) {
+        JSOperationResult *operationResult = [JSOperationResult new];
+        if (error) {
+            operationResult.error = error;
+        } else {
+            operationResult.objects = inputControlStatesArray;
+        }
+        block(operationResult);
+    }];
 }
 
 #pragma mark - Private API

@@ -31,16 +31,6 @@
 #import "JSReportParameter.h"
 
 @implementation JSReportParameter
-
-- (nonnull instancetype)initWithName:(nonnull NSString *)name value:(nonnull NSArray *)value {
-    if (self = [super init]) {
-        self.name = name;
-        self.value = value;
-    }
-    
-    return self;
-}
-
 #pragma mark - JSObjectMappingsProtocol
 + (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
     return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {

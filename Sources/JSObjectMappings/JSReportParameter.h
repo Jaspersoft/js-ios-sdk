@@ -30,17 +30,13 @@
 
 #import <Foundation/Foundation.h>
 #import "JSObjectMappingsProtocol.h"
+#import "JSParameter.h"
 
 /**
  @author Vlad Zavadskii vzavadskii@jaspersoft.com
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.4
  */
-@interface JSReportParameter : NSObject <JSObjectMappingsProtocol>
-
-@property (nonatomic, retain, nonnull) NSString *name;
-@property (nonatomic, retain, nonnull) NSArray *value;
-
-- (nonnull instancetype)initWithName:(nonnull NSString *)name value:(nonnull NSArray *)value;
+@interface JSReportParameter : JSParameter <JSObjectMappingsProtocol>
 
 @end

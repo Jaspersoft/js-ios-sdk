@@ -145,8 +145,8 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
             if ([reportParam.value count] > 1) {
                 [queryParams setObject:reportParam.value forKey:reportParam.name];
             } else {
-                if (reportParam.value.lastObject) {
-                    [queryParams setObject:reportParam.value.lastObject forKey:reportParam.name];
+                if ([reportParam.value lastObject]) {
+                    [queryParams setObject:[reportParam.value lastObject] forKey:reportParam.name];
                 }
             }
         }

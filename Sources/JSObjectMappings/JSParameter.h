@@ -24,35 +24,25 @@
  */
 
 //
-//  JSResourceParameter.m
+//  JSParameter.h
 //  Jaspersoft Corporation
 //
 
+#import <Foundation/Foundation.h>
+#import "JSObjectMappingsProtocol.h"
 
-#import "JSResourceParameter.h"
+/**
+ @author Alexey Gubarev ogubarie@tibco.com
+ @since 2.3
+ */
 
-@implementation JSResourceParameter
+@interface JSParameter : NSObject <JSObjectMappingsProtocol>
 
-- (nonnull instancetype)initWithField:(nonnull NSString *)field value:(nullable id)value {
-    if (self = [super init]) {
-        self.field = field;
-        self.value = value;
-    }
-    return self;
-}
+@property (nonatomic, strong, nonnull) NSString *name;
+@property (nonatomic, strong, nullable) id value;
 
-+ (nonnull instancetype)resourceParameterWithField:(nonnull NSString *)field value:(nullable id)value {
-    return [[[self class] alloc] initWithField:field value:value];
-}
+- (nonnull instancetype)initWithName:(nonnull NSString *)name value:(nullable id)value;
 
-#pragma mark - JSObjectMappingsProtocol
-+ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
-        [mapping mapPropertiesFromDictionary:@{
-                                               @"field": @"field",
-                                               @"value": @"value",
-                                               }];
-    }];
-}
++ (nonnull instancetype)parameterWithName:(nonnull NSString *)name value:(nullable id)value;
 
 @end

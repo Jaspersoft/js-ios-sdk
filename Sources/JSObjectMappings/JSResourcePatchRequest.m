@@ -29,7 +29,7 @@
 //
 
 #import "JSResourcePatchRequest.h"
-#import "JSResourceParameter.h"
+#import "JSParameter.h"
 
 @interface JSResourcePatchRequest()
 @property (nonatomic, strong, nonnull) NSNumber *version;
@@ -58,15 +58,15 @@
         [mapping mapPropertiesFromDictionary:@{
                                                @"version": @"version"
                                                }];
-        [mapping hasMany:[JSResourceParameter class] forKeyPath:@"patch" forProperty:@"patch" withObjectMapping:[JSResourceParameter objectMappingForServerProfile:serverProfile]];
+        [mapping hasMany:[JSParameter class] forKeyPath:@"patch" forProperty:@"patch" withObjectMapping:[JSParameter objectMappingForServerProfile:serverProfile]];
     }];
 }
 
 #pragma mark - Private API
 - (NSArray *)patchesArrayFromResource:(JSResourceLookup *)resource {
     NSMutableArray *patchesArray = [NSMutableArray array];
-    [patchesArray addObject:[JSResourceParameter resourceParameterWithField:@"label" value:resource.label]];
-    [patchesArray addObject:[JSResourceParameter resourceParameterWithField:@"description" value:resource.resourceDescription]];
+    [patchesArray addObject:[JSParameter parameterWithName:@"label" value:resource.label]];
+    [patchesArray addObject:[JSParameter parameterWithName:@"description" value:resource.resourceDescription]];
     return [patchesArray copy];
 }
 

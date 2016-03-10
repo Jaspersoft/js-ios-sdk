@@ -30,6 +30,7 @@
 
 
 #import "JSRESTBase.h"
+#import "JSParameter.h"
 
 @interface JSRESTBase (JSRESTDashboard)
 
@@ -39,36 +40,24 @@
 /**
  Gets the list of states of input controls with specified IDs for the report with specified URI and according to selected values
 
- @param dashboardURI repository URI of the dashboard
- @param ids list of input controls IDs
- @param selectedValues list of input controls selected values
- @param async Determine asynchronous nature of request
+ @param params list of repository URIs of the dashboard with relative input controls IDs
  @param block The block to inform of the results
 
  @since 2.3
  */
 
-- (void)inputControlsForDashboardWithURI:(nonnull NSString *)dashboardURI
-                                     ids:(nullable NSArray <NSString *> *)ids
-                          selectedValues:(nullable NSArray <JSReportParameter *> *)selectedValues
-                                   async:(BOOL)async
-                         completionBlock:(nullable JSRequestCompletionBlock)block;
+- (void)inputControlsForDashboardWithParameters:(nullable NSArray <JSParameter *> *)params
+                                completionBlock:(nonnull JSRequestCompletionBlock)block;
 
 /**
  Gets the list of states of input controls with specified IDs for the report with specified URI and according to selected values
 
- @param dashboardURI repository URI of the dashboard
- @param ids list of input controls IDs
- @param selectedValues list of input controls selected values
- @param async Determine asynchronous nature of request
+ @param params list of repository URIs of the dashboard with relative input controls selected values
  @param block The block to inform of the results
 
  @since 2.3
  */
 
-- (void)updatedInputControlValuesForDashboardWithURI:(nonnull NSString *)dashboardURI
-                                                 ids:(nullable NSArray <NSString *> *)ids
-                                      selectedValues:(nullable NSArray <JSReportParameter *> *)selectedValues
-                                               async:(BOOL)async
-                                     completionBlock:(nullable JSRequestCompletionBlock)block;
+- (void)updatedInputControlValuesForDashboardWithParameters:(nullable NSArray <JSParameter *> *)params
+                                            completionBlock:(nullable JSRequestCompletionBlock)block;
 @end
