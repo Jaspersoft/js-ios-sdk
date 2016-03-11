@@ -462,31 +462,31 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     JSCallBack *callBack = [self callBackForRequest:request];
     if (callBack) {
         [self.requestCallBacks removeObject:callBack];
-        
 #ifndef __RELEASE__
         NSLog(_requestFinishedTemplateMessage, [callBack.dataTask.originalRequest.URL absoluteString], [result bodyAsString]);
 #endif
-        if (callBack.request.shouldResendRequestAfterSessionExpiration && result.error && result.error.code == JSSessionExpiredErrorCode && self.keepSession) {
-            __weak typeof(self)weakSelf = self;
-            [self verifyIsSessionAuthorizedWithCompletion:^(BOOL isSessionAuthorized) {
-                __strong typeof(self)strongSelf = weakSelf;
-                if (isSessionAuthorized) {
-                    callBack.request.shouldResendRequestAfterSessionExpiration = NO;
-                    [strongSelf sendRequest:callBack.request];
-                } else {
-                    if (request.completionBlock) {
-                        dispatch_async(self.completionQueue ?: dispatch_get_main_queue(), ^{
-                            request.completionBlock(result);
-                        });
-                    }
+    }
+
+    if (request.shouldResendRequestAfterSessionExpiration && result.error && result.error.code == JSSessionExpiredErrorCode && self.keepSession) {
+        __weak typeof(self)weakSelf = self;
+        [self verifyIsSessionAuthorizedWithCompletion:^(BOOL isSessionAuthorized) {
+            __strong typeof(self)strongSelf = weakSelf;
+            if (isSessionAuthorized) {
+                request.shouldResendRequestAfterSessionExpiration = NO;
+                [strongSelf sendRequest:request];
+            } else {
+                if (request.completionBlock) {
+                    dispatch_async(self.completionQueue ?: dispatch_get_main_queue(), ^{
+                        request.completionBlock(result);
+                    });
                 }
-            }];
-        } else {
-            if (request.completionBlock) {
-                dispatch_async(self.completionQueue ?: dispatch_get_main_queue(), ^{
-                    request.completionBlock(result);
-                });
             }
+        }];
+    } else {
+        if (request.completionBlock) {
+            dispatch_async(self.completionQueue ?: dispatch_get_main_queue(), ^{
+                request.completionBlock(result);
+            });
         }
     }
 }
