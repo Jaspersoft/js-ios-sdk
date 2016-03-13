@@ -213,29 +213,30 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     }
     
     NSError *serializationError = nil;
-    NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:[JSRequest httpMethodStringRepresentation:jsRequest.method]
-                                                                   URLString:[[NSURL URLWithString:jsRequest.fullURI relativeToURL:self.baseURL] absoluteString]
-                                                                  parameters:parameters
-                                                                       error:&serializationError];
+
+    NSMutableURLRequest *request;
+    switch(jsRequest.serializationType) {
+        case JSRequestSerializationType_UrlEncoded: {
+            request = [[AFHTTPRequestSerializer serializer] requestWithMethod:[JSRequest httpMethodStringRepresentation:jsRequest.method]
+                                                                    URLString:[[NSURL URLWithString:jsRequest.fullURI relativeToURL:self.baseURL] absoluteString]
+                                                                   parameters:parameters
+                                                                        error:&serializationError];
+            break;
+        }
+        case JSRequestSerializationType_JSON: {
+            request = [self.requestSerializer requestWithMethod:[JSRequest httpMethodStringRepresentation:jsRequest.method]
+                                                      URLString:[[NSURL URLWithString:jsRequest.fullURI relativeToURL:self.baseURL] absoluteString]
+                                                     parameters:parameters
+                                                          error:&serializationError];
+            break;
+        }
+    }
     
     // Merge HTTP headers
     for (NSString *headerKey in [jsRequest.additionalHeaders allKeys]) {
         [request setValue:jsRequest.additionalHeaders[headerKey] forHTTPHeaderField:headerKey];
     }
-    
-    // Hack for send parameters in body in url-encoded format
-    if (jsRequest.serializationType == JSRequestSerializationType_UrlEncoded) {
-        NSURLRequest *fakeRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:jsRequest.fullURI relativeToURL:self.baseURL]];
-        NSURLRequest *serializedFakeRequest = [[AFHTTPRequestSerializer serializer] requestBySerializingRequest:fakeRequest withParameters:parameters error:&serializationError];
-        NSString *fakeRequestUrlstring = serializedFakeRequest.URL.absoluteString;
-        NSInteger parametersStringIndex = [fakeRequestUrlstring rangeOfString:@"?"].location;
-        NSString *parametersString = [fakeRequestUrlstring substringFromIndex:parametersStringIndex + 1];
-        CFStringRef encodedValue = CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) parametersString, NULL, (CFStringRef) @"/", kCFStringEncodingUTF8);
-        parametersString = CFBridgingRelease(encodedValue);
 
-        [request setHTTPBody:[parametersString dataUsingEncoding:NSUTF8StringEncoding]];
-        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    }
     if (request.HTTPBody) {
         NSLog(@"BODY: %@", [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]);
     }
@@ -447,6 +448,12 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
             } else {
                 result.objects = [self objectFromExternalRepresentation:responseObject
                                                             withMapping:request.objectMapping];
+            }
+        } else if (!result.request.responseAsObjects && responseObject) { // Return raw data
+            NSError *convertingError = nil;
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:responseObject options:0 error:&convertingError];
+            if (!convertingError) {
+                result.body = jsonData;
             }
         }
     }
