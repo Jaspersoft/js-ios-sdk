@@ -58,7 +58,7 @@ typedef NS_ENUM(NSInteger, JSHighchartServiceType) {
 @interface JSReportComponent: NSObject <JSObjectMappingsProtocol, NSCopying>
 @property (nonatomic, copy, nonnull) NSString *identifier;
 @property (nonatomic, assign) JSReportComponentType type;
-@property (nonatomic, strong, nullable) id <NSCopying> structure;
+@property (nonatomic, strong, nullable) NSObject <NSCopying>* structure;
 @end
 
 @interface JSReportComponentChartStructure: NSObject <JSObjectMappingsProtocol, NSCopying>
