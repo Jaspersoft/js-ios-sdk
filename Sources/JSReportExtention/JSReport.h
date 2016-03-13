@@ -36,7 +36,7 @@
 
 #import "JSResourceLookup.h"
 
-@class JSReportOption, JSInputControlDescriptor, JSReportParameter;
+@class JSReportOption, JSInputControlDescriptor, JSReportParameter, JSReportComponent;
 
 extern NSString * const kJSReportIsMutlipageDidChangedNotification;
 extern NSString * const kJSReportCountOfPagesDidChangeNotification;
@@ -55,6 +55,10 @@ extern NSString * const kJSReportCurrentPageDidChangeNotification;
 @property (nonatomic, assign, readonly) BOOL isReportEmpty;
 @property (nonatomic, strong, readonly) NSString *requestId;
 @property (nonatomic, assign) BOOL isReportAlreadyLoaded;
+
+// Report Components
+@property (nonatomic, copy) NSArray <JSReportComponent *>*reportComponents;
+@property (nonatomic, assign, getter=isElasticChart) BOOL elasticChart;
 
 // html
 @property (nonatomic, copy, readonly) NSString *HTMLString;

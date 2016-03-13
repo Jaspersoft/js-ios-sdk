@@ -33,6 +33,7 @@
 #import "JSResourceLookup.h"
 #import "JSInputControlDescriptor.h"
 #import "JSReportParameter.h"
+#import "JSReportComponent.h"
 
 NSString * const kJSReportIsMutlipageDidChangedNotification = @"kJSReportIsMutlipageDidChangedNotification";
 NSString * const kJSReportCountOfPagesDidChangeNotification = @"kJSReportCountOfPagesDidChangeNotification";
@@ -138,6 +139,24 @@ NSString * const kJSReportCurrentPageDidChangeNotification = @"kJSReportCurrentP
     return _reportParameters;
 }
 
+- (void)setReportComponents:(NSArray *)reportComponents
+{
+    _reportComponents = [reportComponents copy];
+
+    self.elasticChart = NO;
+    for (JSReportComponent *component in reportComponents) {
+        if (component.type == JSReportComponentTypeChart) {
+            NSArray *services = ((JSReportComponentChartStructure *)component.structure).services;
+            if (services.count == 1) {
+                JSHighchartServiceType serviceType = (JSHighchartServiceType) ((NSNumber *)services.firstObject).integerValue;
+                if (serviceType == JSHighchartServiceTypeAdhoc) {
+                    self.elasticChart = YES;
+                    break;
+                }
+            }
+        }
+    }
+}
 
 #pragma mark - Public API
 
