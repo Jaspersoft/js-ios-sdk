@@ -55,13 +55,13 @@ typedef NS_ENUM(NSInteger, JSHighchartServiceType) {
     JSHighchartServiceTypeItemHyperlink,
 };
 
-@interface JSReportComponent: NSObject <JSObjectMappingsProtocol>
+@interface JSReportComponent: NSObject <JSObjectMappingsProtocol, NSCopying>
 @property (nonatomic, copy, nonnull) NSString *identifier;
 @property (nonatomic, assign) JSReportComponentType type;
-@property (nonatomic, strong, nullable) id structure;
+@property (nonatomic, strong, nullable) id <NSCopying> structure;
 @end
 
-@interface JSReportComponentChartStructure: NSObject <JSObjectMappingsProtocol>
+@interface JSReportComponentChartStructure: NSObject <JSObjectMappingsProtocol, NSCopying>
 @property (nonatomic, copy, nonnull) NSString *module;
 @property (nonatomic, copy, nonnull) NSString *uimodule;
 @property (nonatomic, copy, nonnull) NSString *charttype;
@@ -73,12 +73,12 @@ typedef NS_ENUM(NSInteger, JSHighchartServiceType) {
 @property (nonatomic, copy, nonnull) NSArray *services;
 @end
 
-@interface JSReportComponentTableStructure: NSObject <JSObjectMappingsProtocol>
+@interface JSReportComponentTableStructure: NSObject <JSObjectMappingsProtocol, NSCopying>
 @property (nonatomic, copy, nonnull) NSString *module;
 @property (nonatomic, copy, nonnull) NSString *uimodule;
 @end
 
-@interface JSReportComponentColumnStructure: NSObject <JSObjectMappingsProtocol>
+@interface JSReportComponentColumnStructure: NSObject <JSObjectMappingsProtocol, NSCopying>
 @property (nonatomic, copy, nonnull) NSString *name;
 @property (nonatomic, copy, nonnull) NSString *parentId;
 @property (nonatomic, copy, nonnull) NSString *selector;
@@ -91,11 +91,11 @@ typedef NS_ENUM(NSInteger, JSHighchartServiceType) {
 @property (nonatomic, assign) BOOL canFormatConditionally;
 @end
 
-@interface JSReportComponentBookmarksStructure: NSObject <JSObjectMappingsProtocol>
+@interface JSReportComponentBookmarksStructure: NSObject <JSObjectMappingsProtocol, NSCopying>
 @property (nonatomic, copy, nullable) NSArray *bookmarks;
 @end
 
-@interface JSReportComponentCrosstabStructure: NSObject <JSObjectMappingsProtocol>
+@interface JSReportComponentCrosstabStructure: NSObject <JSObjectMappingsProtocol, NSCopying>
 @property (nonatomic, copy, nullable) NSString *module;
 @property (nonatomic, copy, nullable) NSString *uimodule;
 @property (nonatomic, copy, nullable) NSString *fragmentId;
@@ -104,11 +104,11 @@ typedef NS_ENUM(NSInteger, JSHighchartServiceType) {
 @property (nonatomic, assign) BOOL hasFloatingHeaders;
 @end
 
-@interface JSReportComponentHyperlinksStructure: NSObject <JSObjectMappingsProtocol>
+@interface JSReportComponentHyperlinksStructure: NSObject <JSObjectMappingsProtocol, NSCopying>
 @property (nonatomic, copy, nullable) NSArray *hyperlinks;
 @end
 
-@interface JSReportComponentFusionStructure: NSObject <JSObjectMappingsProtocol>
+@interface JSReportComponentFusionStructure: NSObject <JSObjectMappingsProtocol, NSCopying>
 @property (nonatomic, copy, nullable) NSString *module;
 @property (nonatomic, copy, nullable) id instanceData;
 @end

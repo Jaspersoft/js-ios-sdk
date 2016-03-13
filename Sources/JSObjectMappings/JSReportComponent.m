@@ -58,6 +58,20 @@
     }];
 }
 
+#pragma mark - NSCopying
+- (id)copyWithZone:(NSZone *)zone {
+
+    JSReportComponent *copiedComponent = [[[self class] allocWithZone:zone] init];
+    if (copiedComponent) {
+        copiedComponent.identifier = [self.identifier copyWithZone:zone];
+        copiedComponent.type = self.type;
+        if ([self.structure conformsToProtocol:@protocol(NSCopying)]) {
+            copiedComponent.structure = [self.structure copyWithZone:zone];
+        }
+    }
+    return copiedComponent;
+}
+
 @end
 
 @implementation JSReportComponentChartStructure
@@ -99,6 +113,25 @@
     }];
 }
 
+#pragma mark - NSCopying
+- (id)copyWithZone:(NSZone *)zone {
+
+    JSReportComponentChartStructure *copiedStructure = [[[self class] allocWithZone:zone] init];
+    if (copiedStructure) {
+        copiedStructure.module = [self.module copyWithZone:zone];
+        copiedStructure.uimodule = [self.uimodule copyWithZone:zone];
+        copiedStructure.charttype = [self.charttype copyWithZone:zone];
+        copiedStructure.interactive = self.interactive;
+        copiedStructure.datetimeSupported = self.datetimeSupported;
+        copiedStructure.treemapSupported = self.treemapSupported;
+        copiedStructure.globalOptions = [self.globalOptions copyWithZone:zone];
+        copiedStructure.hcinstancedata = [self.hcinstancedata copyWithZone:zone];
+        copiedStructure.services = [self.services copyWithZone:zone];
+
+    }
+    return copiedStructure;
+}
+
 @end
 
 @implementation JSReportComponentTableStructure
@@ -111,6 +144,17 @@
                 @"uimodule",
         ]];
     }];
+}
+
+#pragma mark - NSCopying
+- (id)copyWithZone:(NSZone *)zone {
+
+    JSReportComponentTableStructure *copiedStructure = [[[self class] allocWithZone:zone] init];
+    if (copiedStructure) {
+        copiedStructure.module = [self.module copyWithZone:zone];
+        copiedStructure.uimodule = [self.uimodule copyWithZone:zone];
+    }
+    return copiedStructure;
 }
 
 @end
@@ -135,6 +179,25 @@
     }];
 }
 
+#pragma mark - NSCopying
+- (id)copyWithZone:(NSZone *)zone {
+
+    JSReportComponentColumnStructure *copiedStructure = [[[self class] allocWithZone:zone] init];
+    if (copiedStructure) {
+        copiedStructure.name = [self.name copyWithZone:zone];
+        copiedStructure.parentId = [self.parentId copyWithZone:zone];
+        copiedStructure.selector = [self.selector copyWithZone:zone];
+        copiedStructure.proxySelector = [self.proxySelector copyWithZone:zone];
+        copiedStructure.columnIndex = self.columnIndex;
+        copiedStructure.columnLabel = [self.columnLabel copyWithZone:zone];
+        copiedStructure.dataType = [self.dataType copyWithZone:zone];
+        copiedStructure.canSort = self.canSort;
+        copiedStructure.canFilter = self.canFilter;
+        copiedStructure.canFormatConditionally = self.canFormatConditionally;
+    }
+    return copiedStructure;
+}
+
 @end
 
 @implementation JSReportComponentBookmarksStructure
@@ -144,6 +207,16 @@
     return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
 
     }];
+}
+
+#pragma mark - NSCopying
+- (id)copyWithZone:(NSZone *)zone {
+
+    JSReportComponentBookmarksStructure *copiedStructure = [[[self class] allocWithZone:zone] init];
+    if (copiedStructure) {
+        copiedStructure.bookmarks = [self.bookmarks copyWithZone:zone];
+    }
+    return copiedStructure;
 }
 
 @end
@@ -164,6 +237,21 @@
     }];
 }
 
+#pragma mark - NSCopying
+- (id)copyWithZone:(NSZone *)zone {
+
+    JSReportComponentCrosstabStructure *copiedStructure = [[[self class] allocWithZone:zone] init];
+    if (copiedStructure) {
+        copiedStructure.module = [self.module copyWithZone:zone];
+        copiedStructure.uimodule = [self.uimodule copyWithZone:zone];
+        copiedStructure.fragmentId = [self.fragmentId copyWithZone:zone];
+        copiedStructure.crosstabId = [self.crosstabId copyWithZone:zone];
+        copiedStructure.startColumnIndex = self.startColumnIndex;
+        copiedStructure.hasFloatingHeaders = self.hasFloatingHeaders;
+    }
+    return copiedStructure;
+}
+
 @end
 
 @implementation JSReportComponentHyperlinksStructure
@@ -173,6 +261,16 @@
     return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
 
     }];
+}
+
+#pragma mark - NSCopying
+- (id)copyWithZone:(NSZone *)zone {
+
+    JSReportComponentHyperlinksStructure *copiedStructure = [[[self class] allocWithZone:zone] init];
+    if (copiedStructure) {
+        copiedStructure.hyperlinks = [self.hyperlinks copyWithZone:zone];
+    }
+    return copiedStructure;
 }
 
 @end
@@ -187,6 +285,17 @@
             @"instanceData",
         ]];
     }];
+}
+
+#pragma mark - NSCopying
+- (id)copyWithZone:(NSZone *)zone {
+
+    JSReportComponentFusionStructure *copiedStructure = [[[self class] allocWithZone:zone] init];
+    if (copiedStructure) {
+        copiedStructure.module = [self.module copyWithZone:zone];
+        copiedStructure.instanceData = self.instanceData; // TODO: investigate to copy this.
+    }
+    return copiedStructure;
 }
 
 @end
