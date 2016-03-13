@@ -52,6 +52,7 @@
 #import "JSReportExecutionRequest.h"
 #import "JSReportExecutionResponse.h"
 #import "JSReportOutputResource.h"
+#import "JSReportComponent.h"
 
 // Resources
 #import "JSResourceLookup.h"
