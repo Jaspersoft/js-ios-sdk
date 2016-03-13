@@ -301,6 +301,6 @@
 
  @since 2.4
  */
-- (void)fetchReportComponentsWithRequestId:(NSString *)requestId
-                                completion:(nullable JSRequestCompletionBlock)block;
+- (void)fetchReportComponentsWithRequestId:(nonnull NSString *)requestId
+                                completion:(nonnull JSRequestCompletionBlock)block;
 @end

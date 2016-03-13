@@ -447,8 +447,8 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 
 @implementation JSRESTBase (JSReport)
 
-- (void)fetchReportComponentsWithRequestId:(NSString *)requestId
-                                completion:(nullable JSRequestCompletionBlock)block
+- (void)fetchReportComponentsWithRequestId:(nonnull NSString *)requestId
+                                completion:(nonnull JSRequestCompletionBlock)block
 {
     NSString *uri = @"getReportComponents.html";
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
