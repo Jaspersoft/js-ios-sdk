@@ -288,3 +288,19 @@
 - (void)saveReportAttachment:(nonnull NSString *)requestId exportOutput:(nonnull NSString *)exportOutput attachmentName:(nonnull NSString *)attachmentName path:(nonnull NSString *)path completionBlock:(nullable JSRequestCompletionBlock)block;
 
 @end
+
+
+
+@interface JSRESTBase (JSReport)
+
+/**
+ Get report components
+
+ @param requestId A <b>requestId</b> parameter of the report execution response
+ @param block The block to inform of the results
+
+ @since 2.4
+ */
+- (void)fetchReportComponentsWithRequestId:(NSString *)requestId
+                                completion:(nullable JSRequestCompletionBlock)block;
+@end

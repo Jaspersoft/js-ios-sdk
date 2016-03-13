@@ -444,3 +444,29 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 }
 
 @end
+
+@implementation JSRESTBase (JSReport)
+
+- (void)fetchReportComponentsWithRequestId:(NSString *)requestId
+                                completion:(nullable JSRequestCompletionBlock)block
+{
+    NSString *uri = @"getReportComponents.html";
+    JSRequest *request = [[JSRequest alloc] initWithUri:uri];
+    request.restVersion = JSRESTVersion_None;
+    request.method = JSRequestHTTPMethodPOST;
+    request.redirectAllowed = NO;
+    request.responseAsObjects = NO;
+    request.serializationType = JSRequestSerializationType_UrlEncoded;
+
+    [request addParameter:@"jasperPrintName"
+          withStringValue:requestId];
+
+    [request addParameter:@"pageIndex"
+         withIntegerValue:0];
+
+    request.completionBlock = block;
+
+    [self sendRequest:request];
+}
+
+@end
