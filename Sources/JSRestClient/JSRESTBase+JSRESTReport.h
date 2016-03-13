@@ -140,10 +140,38 @@
  
  @since 1.8
  */
-- (void)runReportExecution:(nonnull NSString *)reportUnitUri async:(BOOL)async outputFormat:(nonnull NSString *)outputFormat
-               interactive:(BOOL)interactive freshData:(BOOL)freshData saveDataSnapshot:(BOOL)saveDataSnapshot
-          ignorePagination:(BOOL)ignorePagination transformerKey:(nullable NSString *)transformerKey pages:(nullable NSString *)pages
-         attachmentsPrefix:(nullable NSString *)attachmentsPrefix parameters:(nullable NSArray <JSReportParameter *> *)parameters completionBlock:(nullable JSRequestCompletionBlock)block;
+- (void)runReportExecution:(nonnull NSString *)reportUnitUri
+                     async:(BOOL)async
+              outputFormat:(nonnull NSString *)outputFormat
+               interactive:(BOOL)interactive
+                 freshData:(BOOL)freshData
+          saveDataSnapshot:(BOOL)saveDataSnapshot
+          ignorePagination:(BOOL)ignorePagination
+            transformerKey:(nullable NSString *)transformerKey
+                     pages:(nullable NSString *)pages
+         attachmentsPrefix:(nullable NSString *)attachmentsPrefix
+                parameters:(nullable NSArray <JSReportParameter *> *)parameters
+           completionBlock:(nullable JSRequestCompletionBlock)block;
+
+/**
+ Executes report with new parameter - 'markupType'
+
+ @since 2.4
+ */
+
+- (void)runReportExecution:(nonnull NSString *)reportUnitUri
+                     async:(BOOL)async
+              outputFormat:(nonnull NSString *)outputFormat
+                markupType:(JSMarkupType)markupType
+               interactive:(BOOL)interactive
+                 freshData:(BOOL)freshData
+          saveDataSnapshot:(BOOL)saveDataSnapshot
+          ignorePagination:(BOOL)ignorePagination
+            transformerKey:(nullable NSString *)transformerKey
+                     pages:(nullable NSString *)pages
+         attachmentsPrefix:(nullable NSString *)attachmentsPrefix
+                parameters:(nullable NSArray <JSReportParameter *> *)parameters
+           completionBlock:(nullable JSRequestCompletionBlock)block;
 
 /**
  Cancel Report Execution
@@ -166,8 +194,25 @@
  
  @since 1.9
  */
-- (void)runExportExecution:(nonnull NSString *)requestId outputFormat:(nonnull NSString *)outputFormat pages:(nullable NSString *)pages
-         attachmentsPrefix:(nullable NSString *)attachmentsPrefix completionBlock:(nullable JSRequestCompletionBlock)block;
+- (void)runExportExecution:(nonnull NSString *)requestId
+              outputFormat:(nonnull NSString *)outputFormat
+                     pages:(nullable NSString *)pages
+         attachmentsPrefix:(nullable NSString *)attachmentsPrefix
+           completionBlock:(nullable JSRequestCompletionBlock)block;
+
+/**
+ Run Export Execution with new parameter - 'markupType'
+
+ @since 2.4
+ */
+
+- (void)runExportExecution:(nonnull NSString *)requestId
+              outputFormat:(nonnull NSString *)outputFormat
+                     pages:(nullable NSString *)pages
+                markupType:(JSMarkupType)markupType
+         attachmentsPrefix:(nullable NSString *)attachmentsPrefix
+           completionBlock:(nullable JSRequestCompletionBlock)block;
+
 
 /**
  Generates the report output url

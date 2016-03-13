@@ -172,16 +172,54 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     return urlString;
 }
 
-- (void)runReportExecution:(NSString *)reportUnitUri async:(BOOL)async outputFormat:(NSString *)outputFormat
-               interactive:(BOOL)interactive freshData:(BOOL)freshData saveDataSnapshot:(BOOL)saveDataSnapshot
-          ignorePagination:(BOOL)ignorePagination transformerKey:(NSString *)transformerKey pages:(NSString *)pages
-         attachmentsPrefix:(NSString *)attachmentsPrefix parameters:(NSArray <JSReportParameter *> *)parameters completionBlock:(JSRequestCompletionBlock)block {
+- (void)runReportExecution:(NSString *)reportUnitUri
+                     async:(BOOL)async
+              outputFormat:(NSString *)outputFormat
+               interactive:(BOOL)interactive
+                 freshData:(BOOL)freshData
+          saveDataSnapshot:(BOOL)saveDataSnapshot
+          ignorePagination:(BOOL)ignorePagination
+            transformerKey:(NSString *)transformerKey
+                     pages:(NSString *)pages
+         attachmentsPrefix:(NSString *)attachmentsPrefix
+                parameters:(NSArray <JSReportParameter *> *)parameters
+           completionBlock:(JSRequestCompletionBlock)block
+{
+    [self runReportExecution:reportUnitUri
+                       async:async
+                outputFormat:outputFormat
+                  markupType:JSMarkupTypeFull
+                 interactive:interactive
+                   freshData:freshData
+            saveDataSnapshot:saveDataSnapshot
+            ignorePagination:ignorePagination
+              transformerKey:transformerKey
+                       pages:pages
+           attachmentsPrefix:attachmentsPrefix
+                  parameters:parameters
+             completionBlock:block];
+}
+
+- (void)runReportExecution:(nonnull NSString *)reportUnitUri
+                     async:(BOOL)async
+              outputFormat:(nonnull NSString *)outputFormat
+                markupType:(JSMarkupType)markupType
+               interactive:(BOOL)interactive
+                 freshData:(BOOL)freshData
+          saveDataSnapshot:(BOOL)saveDataSnapshot
+          ignorePagination:(BOOL)ignorePagination
+            transformerKey:(nullable NSString *)transformerKey
+                     pages:(nullable NSString *)pages
+         attachmentsPrefix:(nullable NSString *)attachmentsPrefix
+                parameters:(nullable NSArray <JSReportParameter *> *)parameters
+           completionBlock:(nullable JSRequestCompletionBlock)block
+{
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportExecutionUri:nil]];
     request.objectMapping = [JSMapping mappingWithObjectMapping:[JSReportExecutionResponse objectMappingForServerProfile:self.serverProfile] keyPath:nil];
     request.method = JSRequestHTTPMethodPOST;
     request.restVersion = JSRESTVersion_2;
     request.completionBlock = block;
-    
+
     JSReportExecutionRequest *executionRequest = [[JSReportExecutionRequest alloc] init];
     executionRequest.reportUnitUri = reportUnitUri;
     executionRequest.async = [JSUtils stringFromBOOL:async];
@@ -194,12 +232,19 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     executionRequest.pages = pages;
     executionRequest.attachmentsPrefix = attachmentsPrefix;
     executionRequest.parameters = parameters;
+
     if (self.serverInfo.versionAsFloat >= kJS_SERVER_VERSION_CODE_EMERALD_5_6_0) {
         executionRequest.baseURL = self.serverProfile.serverUrl;
     }
+
+    if (self.serverInfo.versionAsFloat >= kJS_SERVER_VERSION_CODE_AMBER_6_0_0) {
+        executionRequest.markupType = markupType;
+    }
+
     request.body = executionRequest;
     [self sendRequest:request];
 }
+
 
 - (void)cancelReportExecution:(NSString *)requestId completionBlock:(JSRequestCompletionBlock)block {
     NSString *uri = [[self fullReportExecutionUri:requestId] stringByAppendingString:kJS_REST_REPORT_EXECUTION_STATUS_URI];
@@ -217,8 +262,27 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     [self sendRequest:request];
 }
 
-- (void)runExportExecution:(NSString *)requestId outputFormat:(NSString *)outputFormat pages:(NSString *)pages
-         attachmentsPrefix:(NSString *)attachmentsPrefix completionBlock:(JSRequestCompletionBlock)block {
+- (void)runExportExecution:(NSString *)requestId
+              outputFormat:(NSString *)outputFormat
+                     pages:(NSString *)pages
+         attachmentsPrefix:(NSString *)attachmentsPrefix
+           completionBlock:(JSRequestCompletionBlock)block
+{
+    [self runExportExecution:requestId
+                outputFormat:outputFormat
+                       pages:pages
+                  markupType:JSMarkupTypeFull
+           attachmentsPrefix:attachmentsPrefix
+             completionBlock:block];
+}
+
+- (void)runExportExecution:(nonnull NSString *)requestId
+              outputFormat:(nonnull NSString *)outputFormat
+                     pages:(nullable NSString *)pages
+                markupType:(JSMarkupType)markupType
+         attachmentsPrefix:(nullable NSString *)attachmentsPrefix
+           completionBlock:(nullable JSRequestCompletionBlock)block
+{
     JSRequest *request = [[JSRequest alloc] initWithUri:[self fullExportExecutionUri:requestId]];
     request.objectMapping = [JSMapping mappingWithObjectMapping:[JSExportExecutionResponse objectMappingForServerProfile:self.serverProfile] keyPath:nil];
     request.method = JSRequestHTTPMethodPOST;
@@ -229,10 +293,16 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     JSExportExecutionRequest *executionRequest = [[JSExportExecutionRequest alloc] init];
     executionRequest.outputFormat = outputFormat;
     executionRequest.pages = pages;
+
     if (self.serverInfo.versionAsFloat >= kJS_SERVER_VERSION_CODE_EMERALD_5_6_0) {
         executionRequest.baseUrl = self.serverProfile.serverUrl;
         executionRequest.attachmentsPrefix = attachmentsPrefix;
     }
+
+    if (self.serverInfo.versionAsFloat >= kJS_SERVER_VERSION_CODE_AMBER_6_0_0) {
+        executionRequest.markupType = markupType;
+    }
+
     request.body = executionRequest;
     [self sendRequest:request];
 }

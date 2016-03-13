@@ -52,6 +52,7 @@
 @property (nonatomic, retain, nullable) NSString *transformerKey;
 @property (nonatomic, retain, nullable) NSString *pages;
 @property (nonatomic, retain, nullable) NSString *attachmentsPrefix;
+@property (nonatomic, assign) JSMarkupType markupType;
 @property (nonatomic, retain, nullable) NSArray <JSReportParameter *> *parameters;
 
 @end

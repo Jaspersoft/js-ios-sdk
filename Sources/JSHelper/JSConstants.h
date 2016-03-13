@@ -244,3 +244,15 @@ typedef NS_ENUM(NSInteger, kJS_EXECUTION_STATUS) {
 };
 
 /** @} */
+
+/**
+ @name Markup Type
+ @{
+ */
+
+typedef NS_ENUM(NSInteger, JSMarkupType) {
+    JSMarkupTypeFull,
+    JSMarkupTypeEmbeddable
+};
+
+/** @} */

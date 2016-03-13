@@ -52,6 +52,21 @@
         if (serverProfile && serverProfile.serverInfo.versionAsFloat >= kJS_SERVER_VERSION_CODE_EMERALD_5_6_0) {
             [mapping mapPropertiesFromDictionary:@{@"baseUrl" : @"baseURL"}];
         }
+
+        if (serverProfile && serverProfile.serverInfo.versionAsFloat >= kJS_SERVER_VERSION_CODE_AMBER_6_0_0) {
+
+            NSDictionary *markupTypes = @{
+                    @"full": @(JSMarkupTypeFull),
+                    @"embeddable": @(JSMarkupTypeEmbeddable)
+            };
+
+            [mapping mapKeyPath:@"markupType" toProperty:@"markupType" withValueBlock:^(NSString *key, id value) {
+                return markupTypes[value];
+            } reverseBlock:^id(id value) {
+                return [markupTypes allKeysForObject:value].lastObject;
+            }];
+        }
+
         [mapping mapKeyPath:@"parameters" toProperty:@"parameters" withValueBlock:^id(NSString *key, id value) {
             return nil; // Hack, here we need only reverse mapping
         } reverseBlock:^id(id value) {

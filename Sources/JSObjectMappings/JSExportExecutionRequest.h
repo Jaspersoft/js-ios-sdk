@@ -45,5 +45,5 @@
 @property (nonatomic, retain, nullable) NSString *pages;
 @property (nonatomic, retain, nullable) NSString *attachmentsPrefix;
 @property (nonatomic, retain, nonnull) NSString *baseUrl;
-
+@property (nonatomic, assign) JSMarkupType markupType;
 @end
