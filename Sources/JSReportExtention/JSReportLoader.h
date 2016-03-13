@@ -45,5 +45,5 @@ typedef NS_ENUM(NSInteger, JSReportLoaderOutputResourceType) {
 };
 
 @interface JSReportLoader : NSObject <JSReportLoaderProtocol>
-
+@property (nonatomic, assign) BOOL needEmbeddableOutput;
 @end

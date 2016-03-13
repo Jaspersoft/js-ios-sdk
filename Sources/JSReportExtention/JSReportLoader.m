@@ -137,6 +137,7 @@
     [self.restClient runReportExecution:self.report.reportURI
                                   async:self.configuration.asyncExecution
                            outputFormat:self.configuration.outputFormat
+                             markupType:(self.needEmbeddableOutput ? JSMarkupTypeEmbeddable : JSMarkupTypeFull)
                             interactive:self.configuration.interactive
                               freshData:self.configuration.freshData
                        saveDataSnapshot:self.configuration.saveDataSnapshot
@@ -211,6 +212,7 @@
             [self.restClient runExportExecution:self.report.requestId
                                    outputFormat:kJS_CONTENT_TYPE_HTML
                                           pages:@(page).stringValue
+                                     markupType:(self.needEmbeddableOutput ? JSMarkupTypeEmbeddable : JSMarkupTypeFull)
                               attachmentsPrefix:self.configuration.attachmentsPrefix
                                 completionBlock:^(JSOperationResult *result) {
                                     __strong typeof(self) strongSelf = weakSelf;
