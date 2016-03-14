@@ -28,6 +28,7 @@
 //  Jaspersoft Corporation
 //
 
+#import <EasyMapping/EKMapper.h>
 #import "JSReportExecutionRequest.h"
 #import "JSReportExecutionResponse.h"
 #import "JSExportExecutionRequest.h"
@@ -38,6 +39,7 @@
 #import "JSInputControlOption.h"
 
 #import "AFURLRequestSerialization.h"
+#import "JSReportComponent.h"
 
 // Report query used for setting output format (i.e PDF, HTML, etc.)
 // and path for images (current dir) when exporting report in HTML
@@ -467,6 +469,99 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     request.completionBlock = block;
 
     [self sendRequest:request];
+}
+
+- (void)reportComponentForReportWithExecutionId:(nonnull NSString *)executionId
+                                     completion:(void(^ __nonnull)(NSArray * __nullable , NSError * __nullable ))completion
+{
+    [self fetchReportComponentsWithRequestId:executionId
+                                  completion:^(JSOperationResult *result) {
+                                             NSError *error = result.error;
+                                             if (error) {
+                                                 completion(nil, error);
+                                             } else {
+                                                 NSError *serializeError;
+                                                 NSData *responseData = result.body;
+                                                 id response = [NSJSONSerialization JSONObjectWithData:responseData
+                                                                                               options:NSJSONReadingAllowFragments
+                                                                                                 error:&serializeError];
+                                                 NSMutableArray *components = [@[] mutableCopy];
+                                                 if ([response isKindOfClass:[NSDictionary class]]) {
+
+                                                     for (NSDictionary *compoentRepresentationKey in response) {
+                                                         JSReportComponent *component = [JSReportComponent new];
+                                                         [EKMapper fillObject:component
+                                                   fromExternalRepresentation:response[compoentRepresentationKey]
+                                                                  withMapping:[JSReportComponent objectMappingForServerProfile:self.serverProfile]];
+                                                         switch(component.type) {
+                                                             case JSReportComponentTypeUndefined: {
+                                                                 break;
+                                                             }
+                                                             case JSReportComponentTypeChart: {
+                                                                 JSReportComponentChartStructure *chartStructure = [JSReportComponentChartStructure new];
+                                                                 [EKMapper fillObject:chartStructure
+                                                           fromExternalRepresentation:response[compoentRepresentationKey]
+                                                                          withMapping:[JSReportComponentChartStructure objectMappingForServerProfile:self.serverProfile]];
+                                                                 component.structure = chartStructure;
+                                                                 break;
+                                                             }
+                                                             case JSReportComponentTypeTable: {
+                                                                 JSReportComponentTableStructure *talbeStructure = [JSReportComponentTableStructure new];
+                                                                 [EKMapper fillObject:talbeStructure
+                                                           fromExternalRepresentation:response[compoentRepresentationKey]
+                                                                          withMapping:[JSReportComponentTableStructure objectMappingForServerProfile:self.serverProfile]];
+                                                                 component.structure = talbeStructure;
+                                                                 break;
+                                                             }
+                                                             case JSReportComponentTypeColumn: {
+                                                                 JSReportComponentColumnStructure *columnStructure = [JSReportComponentColumnStructure new];
+                                                                 [EKMapper fillObject:columnStructure
+                                                           fromExternalRepresentation:response[compoentRepresentationKey]
+                                                                          withMapping:[JSReportComponentColumnStructure objectMappingForServerProfile:self.serverProfile]];
+                                                                 component.structure = columnStructure;
+                                                                 break;
+                                                             }
+                                                             case JSReportComponentTypeFusion: {
+                                                                 JSReportComponentFusionStructure *fusionStructure = [JSReportComponentFusionStructure new];
+                                                                 [EKMapper fillObject:fusionStructure
+                                                           fromExternalRepresentation:response[compoentRepresentationKey]
+                                                                          withMapping:[JSReportComponentFusionStructure objectMappingForServerProfile:self.serverProfile]];
+                                                                 component.structure = fusionStructure;
+                                                                 break;
+                                                             }
+                                                             case JSReportComponentTypeCrosstab: {
+                                                                 JSReportComponentCrosstabStructure *crosstabStructure = [JSReportComponentCrosstabStructure new];
+                                                                 [EKMapper fillObject:crosstabStructure
+                                                           fromExternalRepresentation:response[compoentRepresentationKey]
+                                                                          withMapping:[JSReportComponentCrosstabStructure objectMappingForServerProfile:self.serverProfile]];
+                                                                 component.structure = crosstabStructure;
+                                                                 break;
+                                                             }
+                                                             case JSReportComponentTypeHyperlinks: {
+                                                                 JSReportComponentHyperlinksStructure *hyperlinksStructure = [JSReportComponentHyperlinksStructure new];
+                                                                 [EKMapper fillObject:hyperlinksStructure
+                                                           fromExternalRepresentation:response[compoentRepresentationKey]
+                                                                          withMapping:[JSReportComponentHyperlinksStructure objectMappingForServerProfile:self.serverProfile]];
+                                                                 component.structure = hyperlinksStructure;
+                                                                 break;
+                                                             }
+                                                             case JSReportComponentTypeBookmarks: {
+                                                                 JSReportComponentBookmarksStructure *bookmarksStructure = [JSReportComponentBookmarksStructure new];
+                                                                 [EKMapper fillObject:bookmarksStructure
+                                                           fromExternalRepresentation:response[compoentRepresentationKey]
+                                                                          withMapping:[JSReportComponentBookmarksStructure objectMappingForServerProfile:self.serverProfile]];
+                                                                 component.structure = bookmarksStructure;
+                                                                 break;
+                                                             }
+                                                         }
+                                                         [components addObject:component];
+                                                     }
+                                                     completion(components, nil);
+                                                 } else {
+                                                     completion(nil, serializeError);
+                                                 }
+                                             }
+                                         }];
 }
 
 @end

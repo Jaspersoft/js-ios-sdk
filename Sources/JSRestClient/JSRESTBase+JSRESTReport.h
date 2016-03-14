@@ -33,6 +33,7 @@
 #import "JSReportOption.h"
 #import "JSReportParameter.h"
 
+@class JSReportComponent;
 
 /**
  Extentions to <code>JSRESTBase</code> class for working with reports by REST calls.
@@ -303,4 +304,15 @@
  */
 - (void)fetchReportComponentsWithRequestId:(nonnull NSString *)requestId
                                 completion:(nonnull JSRequestCompletionBlock)block;
+
+/**
+ High level API for getting report components
+
+ @param executionId A <b>executionId</b> parameter of the report execution response
+ @param completion The block to inform of the results
+
+ @since 2.4
+ */
+- (void)reportComponentForReportWithExecutionId:(nonnull NSString *)executionId
+                                     completion:(void(^ __nonnull)(NSArray <JSReportComponent *>* __nullable , NSError * __nullable ))completion;
 @end
