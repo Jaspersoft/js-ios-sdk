@@ -450,6 +450,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 @implementation JSRESTBase (JSReport)
 
 - (void)fetchReportComponentsWithRequestId:(nonnull NSString *)requestId
+                                pageNumber:(NSInteger)pageNumber
                                 completion:(nonnull JSRequestCompletionBlock)block
 {
     NSString *uri = @"getReportComponents.html";
@@ -463,8 +464,9 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     [request addParameter:@"jasperPrintName"
           withStringValue:requestId];
 
+    NSAssert( (pageNumber - 1) >= 0, @"Request report components for wrong page." );
     [request addParameter:@"pageIndex"
-         withIntegerValue:0];
+         withIntegerValue:(pageNumber - 1)];
 
     request.completionBlock = block;
 
@@ -472,9 +474,11 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 }
 
 - (void)reportComponentForReportWithExecutionId:(nonnull NSString *)executionId
+                                     pageNumber:(NSInteger)pageNumber
                                      completion:(void(^ __nonnull)(NSArray * __nullable , NSError * __nullable ))completion
 {
     [self fetchReportComponentsWithRequestId:executionId
+                                  pageNumber:(NSInteger)pageNumber
                                   completion:^(JSOperationResult *result) {
                                              NSError *error = result.error;
                                              if (error) {

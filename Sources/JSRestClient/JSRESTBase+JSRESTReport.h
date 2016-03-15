@@ -303,6 +303,7 @@
  @since 2.4
  */
 - (void)fetchReportComponentsWithRequestId:(nonnull NSString *)requestId
+                                pageNumber:(NSInteger)pageNumber
                                 completion:(nonnull JSRequestCompletionBlock)block;
 
 /**
@@ -314,5 +315,6 @@
  @since 2.4
  */
 - (void)reportComponentForReportWithExecutionId:(nonnull NSString *)executionId
+                                     pageNumber:(NSInteger)pageNumber
                                      completion:(void(^ __nonnull)(NSArray <JSReportComponent *>* __nullable , NSError * __nullable ))completion;
 @end
