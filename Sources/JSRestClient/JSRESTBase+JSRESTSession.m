@@ -107,7 +107,10 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
             } else {
                 result.error = [JSErrorBuilder errorWithCode:JSServerNotReachableErrorCode];
             }
+        } else if (result.error.code == JSOtherErrorCode) {
+            result.error = [JSErrorBuilder errorWithCode:JSServerNotReachableErrorCode];
         }
+        
         if (completion) {
             completion(result);
         }
