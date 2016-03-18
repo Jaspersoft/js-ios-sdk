@@ -98,6 +98,11 @@ NSString * const JSLocalizationBundleType = @"lproj";
     return [NSString stringWithFormat:@"%@.BackgroundSessionConfigurationIdentifier", [NSBundle mainBundle].bundleIdentifier];
 }
 
++ (float) minSupportedServerVersion
+{
+    return kJS_SERVER_VERSION_CODE_EMERALD_5_5_0;
+}
+
 @end
 
 NSString *JSCustomLocalizedString(NSString *key, NSString *comment) {

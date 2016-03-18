@@ -32,7 +32,6 @@
 #import "JSObjectMappingsProtocol.h"
 #import "JSErrorDescriptor.h"
 #import "JSRESTBase+JSRESTSession.h"
-#import "ServerReachability.h"
 #import "JSErrorBuilder.h"
 #import "AFNetworkActivityIndicatorManager.h"
 
@@ -166,22 +165,10 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     }
 }
 
-- (void)setServerProfile:(JSProfile *)serverProfile {
-    _serverProfile = serverProfile;
-    self.serverReachability = [ServerReachability reachabilityWithServer:serverProfile.serverUrl timeout:[JSUtils checkServerConnectionTimeout]];
-}
-
 #pragma mark -
 #pragma mark Public methods
 
 - (void)sendRequest:(nonnull JSRequest *)jsRequest {
-    if (!self.serverReachability.isReachable) {
-        [self.serverReachability resetReachabilityStatus];
-        [self sendCallBackForRequest:jsRequest withOperationResult:[self operationResultForFailedConnection]];
-        return;
-    }
-    
-    
     // Merge parameters with httpBody
     id parameters = [NSMutableDictionary dictionaryWithDictionary:jsRequest.params];
     if (jsRequest.body) {
@@ -285,10 +272,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 - (void)updateCookiesWithCookies:(NSArray <NSHTTPCookie *>* __nullable)cookies
 {
     _cookies = cookies;
-}
-
-- (void)resetReachabilityStatus {
-    [self.serverReachability resetReachabilityStatus];
 }
 
 #pragma mark - NSSecureCoding
@@ -543,12 +526,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 #endif
     }
     return nil;
-}
-
-- (JSOperationResult *) operationResultForFailedConnection {
-    JSOperationResult *result = [JSOperationResult new];
-    result.error = [JSErrorBuilder errorWithCode:JSServerNotReachableErrorCode];
-    return result;
 }
 
 - (JSOperationResult *) operationResultForSerializationError:(NSError *)serializationError {

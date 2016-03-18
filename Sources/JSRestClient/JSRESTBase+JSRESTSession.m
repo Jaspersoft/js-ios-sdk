@@ -97,7 +97,21 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     JSRequest *request = [[JSRequest alloc] initWithUri:kJS_REST_SERVER_INFO_URI];
     request.objectMapping = [JSMapping mappingWithObjectMapping:[JSServerInfo objectMappingForServerProfile:self.serverProfile] keyPath:nil];
     request.restVersion = JSRESTVersion_2;
-    request.completionBlock = completion;
+    request.completionBlock = ^(JSOperationResult *_Nullable result){
+        if (!result.error) {
+            if (result.objects.count) {
+                JSServerInfo *serverInfo = result.objects.lastObject;
+                if (serverInfo.versionAsFloat < [JSUtils minSupportedServerVersion]) {
+                    result.error = [JSErrorBuilder errorWithCode:JSServerVersionNotSupportedErrorCode];
+                }
+            } else {
+                result.error = [JSErrorBuilder errorWithCode:JSServerNotReachableErrorCode];
+            }
+        }
+        if (completion) {
+            completion(result);
+        }
+    };
     [self sendRequest:request];
 }
 
@@ -137,8 +151,6 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     request.responseAsObjects = NO;
     request.redirectAllowed = NO;
     request.serializationType = JSRequestSerializationType_UrlEncoded;
-
-    [self resetReachabilityStatus];
     
     // Add locale to session
     NSString *currentLanguage = [[NSLocale preferredLanguages] objectAtIndex:0];

@@ -45,6 +45,8 @@
 typedef NS_ENUM (NSInteger, JSErrorCode) {
     JSOtherErrorCode                = 1000, // All other errors
     JSServerNotReachableErrorCode,          // Server not reachable error
+    JSServerVersionNotSupportedErrorCode,   // Server version not supported error
+
     JSRequestTimeOutErrorCode,              // Request TimeOut error
     
     JSHTTPErrorCode,                        // HTTP erorrs (status codes 404, 500).

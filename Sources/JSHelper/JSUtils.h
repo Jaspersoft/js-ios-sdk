@@ -128,6 +128,15 @@
  */
 + (nonnull NSString *)backgroundSessionConfigurationIdentifier;
 
+/**
+ Get minimal supported version of JRS
+ 
+ @return A minimal supported version of JRS
+ 
+ @since 2.4
+ */
++ (float) minSupportedServerVersion;
+
 @end
 
 /**

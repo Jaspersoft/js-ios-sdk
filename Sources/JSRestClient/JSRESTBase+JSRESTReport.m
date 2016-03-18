@@ -475,7 +475,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 
 - (void)reportComponentForReportWithExecutionId:(nonnull NSString *)executionId
                                      pageNumber:(NSInteger)pageNumber
-                                     completion:(void(^ __nonnull)(NSArray * __nullable , NSError * __nullable ))completion
+                                     completion:(void(^ __nonnull)(NSArray <JSReportComponent *>* __nullable , NSError * __nullable ))completion
 {
     [self fetchReportComponentsWithRequestId:executionId
                                   pageNumber:(NSInteger)pageNumber

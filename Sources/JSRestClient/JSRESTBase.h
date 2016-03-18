@@ -133,10 +133,4 @@ extern NSString * const _Nonnull kJSRequestResponceType;
 
 - (void)updateCookiesWithCookies:(NSArray <NSHTTPCookie *>* __nullable)cookies;
 
-/**
- Reset reachability to server status
- 
- @since 1.9
- */
-- (void)resetReachabilityStatus;
 @end
