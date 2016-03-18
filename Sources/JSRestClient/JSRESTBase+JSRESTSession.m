@@ -49,7 +49,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
 
 #pragma mark - Public API
 
-- (void)verifyIsSessionAuthorizedWithCompletion:(void (^)(BOOL isSessionAuthorized))completion {
+- (void)verifyIsSessionAuthorizedWithCompletion:(JSRequestCompletionBlock)completion {
     [self deleteCookies];
 
     // Get server info
@@ -88,7 +88,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
                                                 completion:completion];
 #endif
         } else if(completion) {
-            completion(NO);
+            completion(result);
         }
     }];
 }
@@ -143,7 +143,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
 - (void)fetchAuthenticationTokenWithUsername:(NSString *)username
                                     password:(NSString *)password
                                 organization:(NSString *)organization
-                                  completion:(void(^)(BOOL isTokenFetchedSuccessful))completion
+                                  completion:(JSRequestCompletionBlock)completion
 {
     JSRequest *request = [[JSRequest alloc] initWithUri:kJS_REST_AUTHENTICATION_URI];
     request.restVersion = JSRESTVersion_None;
@@ -178,7 +178,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
             [[NSNotificationCenter defaultCenter] postNotificationName:kJSSessionDidAuthorized object:self];
         }
         if (completion) {
-            completion(!result.error);
+            completion(result);
         }
     }];
     [self sendRequest:request];

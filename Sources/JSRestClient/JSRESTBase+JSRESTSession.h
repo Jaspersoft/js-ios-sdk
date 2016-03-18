@@ -42,11 +42,11 @@
 /**
  Checks if session is authorized
  
- @return A boolean value represents session is authorized
+ @return block The block to inform of the results
  
  @since 1.9
  */
-- (void)verifyIsSessionAuthorizedWithCompletion:(void (^)(BOOL isSessionAuthorized))completion;
+- (void)verifyIsSessionAuthorizedWithCompletion:(JSRequestCompletionBlock)completion;
 
 /**
  Fetch Server Info
