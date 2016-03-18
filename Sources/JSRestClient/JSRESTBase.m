@@ -459,9 +459,9 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 
     if (request.shouldResendRequestAfterSessionExpiration && result.error && result.error.code == JSSessionExpiredErrorCode && self.keepSession) {
         __weak typeof(self)weakSelf = self;
-        [self verifyIsSessionAuthorizedWithCompletion:^(BOOL isSessionAuthorized) {
+        [self verifyIsSessionAuthorizedWithCompletion:^(JSOperationResult * _Nullable result) {
             __strong typeof(self)strongSelf = weakSelf;
-            if (isSessionAuthorized) {
+            if (!result.error) {
                 request.shouldResendRequestAfterSessionExpiration = NO;
                 [strongSelf sendRequest:request];
             } else {
