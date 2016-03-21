@@ -28,6 +28,7 @@
 
 #import "JSScheduleMetadata.h"
 #import "JSScheduleTrigger.h"
+#import "JSServerInfo.h"
 
 @implementation JSScheduleMetadata
 
@@ -68,7 +69,6 @@
                                                @"username"                        : @"username",
                                                @"label"                           : @"label",               // request
                                                @"description"                     : @"scheduleDescription", // request
-                                               @"creationDate"                    : @"creationDate",
                                                // trigger
                                                @"source.reportUnitURI"            : @"reportUnitURI",       // request
                                                // may be source parameters
@@ -80,6 +80,7 @@
                                                @"repositoryDestination.folderURI" : @"folderURI",           // request
                                                @"outputFormats.outputFormat"      : @"outputFormats",       // request
                                                }];
+        [mapping mapKeyPath:@"creationDate" toProperty:@"creationDate" withDateFormatter:[serverProfile.serverInfo serverDateFormatFormatter]];
         [mapping hasOne:[JSScheduleTrigger class] forKeyPath:@"trigger.simpleTrigger" forProperty:@"trigger" withObjectMapping:[JSScheduleTrigger objectMappingForServerProfile:serverProfile]];
     }];
 }

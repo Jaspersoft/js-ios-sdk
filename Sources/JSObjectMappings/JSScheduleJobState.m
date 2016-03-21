@@ -27,6 +27,7 @@
 //
 
 #import "JSScheduleJobState.h"
+#import "JSServerInfo.h"
 
 
 @implementation JSScheduleJobState
@@ -36,9 +37,9 @@
 + (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
     return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
         [mapping mapPropertiesFromDictionary:@{
-                                               @"nextFireTime": @"nextFireTime",
                                                @"value": @"value",
                                                }];
+        [mapping mapKeyPath:@"nextFireTime" toProperty:@"nextFireTime" withDateFormatter:[serverProfile.serverInfo serverDateFormatFormatter]];
     }];
 }
 

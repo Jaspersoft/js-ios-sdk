@@ -28,6 +28,7 @@
 
 
 #import "JSScheduleTrigger.h"
+#import "JSServerInfo.h"
 
 
 @implementation JSScheduleTrigger
@@ -37,10 +38,10 @@
     return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
         [mapping mapPropertiesFromDictionary:@{
                                                @"timezone"         : @"timezone",
-                                               @"startDate"        : @"startDate",
                                                @"startType"        : @"startType",
                                                @"occurrenceCount"  : @"occurrenceCount",
                                                }];
+        [mapping mapKeyPath:@"startDate" toProperty:@"startDate" withDateFormatter:[serverProfile.serverInfo serverDateFormatFormatter]];
     }];
 }
 

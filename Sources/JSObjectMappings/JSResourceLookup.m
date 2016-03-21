@@ -29,6 +29,7 @@
 //
 
 #import "JSResourceLookup.h"
+#import "JSServerInfo.h"
 
 NSString * const kJSResourceLookupLabel = @"kJSResourceLookupLabel";
 NSString * const kJSResourceLookupURI = @"kJSResourceLookupURI";
@@ -50,10 +51,10 @@ NSString * const kJSResourceLookupUpdateDate = @"kJSResourceLookupUpdateDate";
                                                @"description": @"resourceDescription",
                                                @"resourceType": @"resourceType",
                                                @"version": @"version",
-                                               @"permissionMask": @"permissionMask",
-                                               @"creationDate": @"creationDate",
-                                               @"updateDate": @"updateDate",
+                                               @"permissionMask": @"permissionMask"
                                                }];
+        [mapping mapKeyPath:@"creationDate" toProperty:@"creationDate" withDateFormatter:[serverProfile.serverInfo serverDateFormatFormatter]];
+        [mapping mapKeyPath:@"updateDate" toProperty:@"updateDate" withDateFormatter:[serverProfile.serverInfo serverDateFormatFormatter]];
     }];
 }
 
