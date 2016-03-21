@@ -154,7 +154,12 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     request.responseAsObjects = NO;
     request.redirectAllowed = NO;
     request.serializationType = JSRequestSerializationType_UrlEncoded;
-    
+
+    NSString *serverDomain = [self.serverProfile.serverUrl stringByDeletingLastPathComponent];
+    request.additionalHeaders = @{
+            @"x-jasper-xdm" : serverDomain
+    };
+
     // Add locale to session
     NSString *currentLanguage = [[NSLocale preferredLanguages] objectAtIndex:0];
     NSInteger dividerPosition = [currentLanguage rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"_-"]].location;
