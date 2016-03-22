@@ -22,24 +22,25 @@
 
 
 //
-//  JMDateFormatterFactory.m
+//  JSDateFormatterFactory.m
 //  TIBCO JasperMobile
 //
 
-#import "JMDateFormatterFactory.h"
+#import "JSDateFormatterFactory.h"
 
-@interface JMDateFormatterFactory()
+@interface JSDateFormatterFactory()
 @property (nonatomic, strong) NSDictionary <NSString *, NSDateFormatter *> *formatters;
 @end
 
-@implementation JMDateFormatterFactory
+@implementation JSDateFormatterFactory
 
 + (instancetype)sharedFactory {
-    static JMDateFormatterFactory *sharedFactory;
+    static JSDateFormatterFactory *sharedFactory;
     static dispatch_once_t predicate;
     dispatch_once(&predicate, ^{
-        sharedFactory = [JMDateFormatterFactory new];
+        sharedFactory = [JSDateFormatterFactory new];
     });
+    return sharedFactory;
 }
 
 - (NSDateFormatter *)formatterWithPattern:(NSString *)pattern

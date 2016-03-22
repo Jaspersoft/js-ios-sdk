@@ -22,7 +22,7 @@
 
 
 //
-//  JMDateFormatterFactory.h
+//  JSDateFormatterFactory.h
 //  TIBCO JasperMobile
 //
 
@@ -33,7 +33,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface JMDateFormatterFactory : NSObject
+@interface JSDateFormatterFactory : NSObject
 + (instancetype)sharedFactory;
 - (NSDateFormatter *)formatterWithPattern:(NSString *)pattern;
 @end
