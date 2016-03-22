@@ -33,6 +33,7 @@
 #import "JSHelper.h"
 #import "JSRestClient.h"
 #import "JSObjectMappings.h"
+#import "JMDateFormatterFactory.h"
 
 #if __has_include("JSReportExtention.h")
 #import "JSReportExtention.h"
