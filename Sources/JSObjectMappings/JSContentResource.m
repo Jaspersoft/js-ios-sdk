@@ -36,12 +36,12 @@
 #pragma mark - JSObjectMappingsProtocol
 
 + (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
-        [mapping mapPropertiesFromDictionary:@{
-                                               @"type": @"fileFormat",
-                                               @"content": @"content"
-                                               }];
-    }];
+    EKObjectMapping *mapping = [super objectMappingForServerProfile:serverProfile];
+    [mapping mapPropertiesFromDictionary:@{
+                                           @"type": @"fileFormat",
+                                           @"content": @"content"
+                                           }];
+    return mapping;
 }
 
 + (nonnull NSString *)requestObjectKeyPath {

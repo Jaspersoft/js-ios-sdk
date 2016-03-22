@@ -47,69 +47,51 @@
 
 #pragma mark - Public API
 - (void)saveReportWithName:(NSString *)name format:(NSString *)format pagesRange:(JSReportPagesRange *)pagesRange completion:(JSSaveReportCompletion)completionBlock {
-    NSString *tempAppDirectory = NSTemporaryDirectory();
-    self.tempReportDirectory = [tempAppDirectory stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
-    NSError *error;
-    BOOL isCreadtedTempDirectory = [[NSFileManager defaultManager] createDirectoryAtPath:self.tempReportDirectory
-                                                             withIntermediateDirectories:YES
-                                                                              attributes:nil
-                                                                                   error:&error];
-    if (!isCreadtedTempDirectory) {
-        if (completionBlock) {
-            completionBlock(nil, error);
-        }
-    } else {
-        self.saveReportCompletion = completionBlock;
-        
-        __weak typeof(self)weakSelf = self;
-        JSReportExecutionConfiguration *saveReportConfiguration = [JSReportExecutionConfiguration saveReportConfigurationWithFormat:format pagesRange:pagesRange];
-        [self executeWithConfiguration:saveReportConfiguration completion:^(JSReportExecutionResponse * _Nullable executionResponse, NSError * _Nullable error) {
-            __strong typeof(self) strongSelf = weakSelf;
-            if (error) {
-                [self sendCallbackWithError:error];
-            } else {
-                __weak typeof(self)weakSelf = strongSelf;
-                [strongSelf exportWithRange:pagesRange outputFormat:format completion:^(JSExportExecutionResponse * _Nullable exportResponse, NSError * _Nullable error) {
-                    __strong typeof(self)strongSelf = weakSelf;
-                    if (error) {
-                        [self sendCallbackWithError:error];
-                    } else {
-                        NSString *exportID = exportResponse.uuid;
-                        // Fix for JRS version smaller 5.6.0
-                        if (strongSelf.restClient.serverInfo.versionAsFloat < kJS_SERVER_VERSION_CODE_EMERALD_5_6_0) {
-                            exportID = [NSString stringWithFormat:@"%@;pages=%@;", format, pagesRange.formattedPagesRange];
-                            NSString *attachmentPrefix = strongSelf.configuration.attachmentsPrefix;
-                            exportID = [exportID stringByAppendingFormat:@"attachmentsPrefix=%@;", attachmentPrefix];
-                        }
-                        NSString *outputResourceURLString = [strongSelf.restClient generateReportOutputUrl:strongSelf.executionResponse.requestId exportOutput:exportID];
-                        
-                        __weak typeof(self)weakSelf = strongSelf;
-                        [strongSelf downloadResourceFromURLString:outputResourceURLString
-                                                 completion:^(NSURL *location, NSURLResponse *response, NSError *error) {
-                                                     __strong typeof(self)strongSelf = weakSelf;
-                                                     if (error) {
-                                                         [self sendCallbackWithError:error];
-                                                     } else {
-                                                         // save report to disk
-                                                         NSString *temtReportPath = [[self.tempReportDirectory stringByAppendingPathComponent:name] stringByAppendingPathExtension:format];
-                                                         NSError *moveError = [strongSelf moveResourceFromPath:location.path toPath:temtReportPath];
-                                                         if (moveError) {
-                                                             [self sendCallbackWithError:moveError];
-                                                         } else {
-                                                             
-                                                             // save attachments or exit
-                                                             NSMutableArray *attachmentNames = [exportResponse.attachments valueForKeyPath:@"@unionOfObjects.fileName"];
-                                                             [strongSelf downloadAttachments:attachmentNames forExport:exportResponse withCompletion:^(NSError *error) {
-                                                                 [self sendCallbackWithError:error];
-                                                             }];
-                                                         }
-                                                     }
-                                                 }];
+    self.saveReportCompletion = completionBlock;
+    
+    __weak typeof(self)weakSelf = self;
+    JSReportExecutionConfiguration *saveReportConfiguration = [JSReportExecutionConfiguration saveReportConfigurationWithFormat:format pagesRange:pagesRange];
+    [self executeWithConfiguration:saveReportConfiguration completion:^(JSReportExecutionResponse * _Nullable executionResponse, NSError * _Nullable error) {
+        __strong typeof(self) strongSelf = weakSelf;
+        if (error) {
+            [self sendCallbackWithError:error];
+        } else {
+            __weak typeof(self)weakSelf = strongSelf;
+            [strongSelf exportWithRange:pagesRange outputFormat:format completion:^(JSExportExecutionResponse * _Nullable exportResponse, NSError * _Nullable error) {
+                __strong typeof(self)strongSelf = weakSelf;
+                if (error) {
+                    [self sendCallbackWithError:error];
+                } else {
+                    NSString *exportID = exportResponse.uuid;
+                    // Fix for JRS version smaller 5.6.0
+                    if (strongSelf.restClient.serverInfo.versionAsFloat < kJS_SERVER_VERSION_CODE_EMERALD_5_6_0) {
+                        exportID = [NSString stringWithFormat:@"%@;pages=%@;", format, pagesRange.formattedPagesRange];
+                        NSString *attachmentPrefix = strongSelf.configuration.attachmentsPrefix;
+                        exportID = [exportID stringByAppendingFormat:@"attachmentsPrefix=%@;", attachmentPrefix];
                     }
-                }];
-            }
-        }];
-    }
+                    NSString *outputResourceURLString = [strongSelf.restClient generateReportOutputUrl:strongSelf.executionResponse.requestId exportOutput:exportID];
+                    
+                    // save report to disk
+                    NSString *tempAppDirectory = NSTemporaryDirectory();
+                    self.tempReportDirectory = [tempAppDirectory stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
+                    NSString *tempReportPath = [[self.tempReportDirectory stringByAppendingPathComponent:name] stringByAppendingPathExtension:format];
+                    __weak typeof(self)weakSelf = strongSelf;
+                    [JSReportSaver downloadResourceWithRestClient:self.restClient fromURLString:outputResourceURLString destinationPath:tempReportPath completion:^(NSError *error) {
+                        __strong typeof(self)strongSelf = weakSelf;
+                        if (error) {
+                            [self sendCallbackWithError:error];
+                        } else {
+                            // save attachments or exit
+                            NSMutableArray *attachmentNames = [exportResponse.attachments valueForKeyPath:@"@unionOfObjects.fileName"];
+                            [strongSelf downloadAttachments:attachmentNames forExport:exportResponse withCompletion:^(NSError *error) {
+                                [self sendCallbackWithError:error];
+                            }];
+                        }
+                    }];
+                }
+            }];
+        }
+    }];
 }
 
 - (void)cancelSavingReport {
@@ -121,48 +103,60 @@
 }
 
 #pragma mark - Network calls
-- (void)downloadResourceFromURLString:(NSString *)resourceURLString
-                           completion:(void(^)(NSURL *filePath, NSURLResponse *response, NSError *error))completion {
-    [[AFNetworkActivityIndicatorManager sharedManager] incrementActivityCount];
-
-    [[self.restClient.session downloadTaskWithURL:[NSURL URLWithString:resourceURLString]
-                                completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                        [[AFNetworkActivityIndicatorManager sharedManager] decrementActivityCount];
-                                        if (completion) {
-                                            completion(location, response, error);
-                                        }
-                                    });
-                                }] resume];
++ (void)downloadResourceWithRestClient:(JSRESTBase *)restClient
+                         fromURLString:(NSString *)resourceURLString
+                      destinationPath:(NSString *)destinationPath
+                            completion:(void(^)(NSError *error))completion {
+    NSString *fileDirectory = [destinationPath stringByDeletingLastPathComponent];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:fileDirectory isDirectory:nil]) {
+        NSError * directoryCreationError = nil;
+        [[NSFileManager defaultManager] createDirectoryAtPath:fileDirectory
+                                  withIntermediateDirectories:YES
+                                                   attributes:nil
+                                                        error:&directoryCreationError];
+        if (directoryCreationError) {
+            if (completion) {
+                completion(directoryCreationError);
+            }
+            return;
+        }
+    }
+    NSURLRequest *request = [restClient.requestSerializer requestWithMethod:[JSRequest httpMethodStringRepresentation: JSRequestHTTPMethodGET]
+                                                                  URLString:resourceURLString parameters:nil error:nil];
+    [[restClient downloadTaskWithRequest:request
+                                progress:nil
+                             destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+                                 return [NSURL fileURLWithPath:destinationPath];
+                             } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+                                 if (error && [[NSFileManager defaultManager] fileExistsAtPath:filePath.path]) {
+                                     [[NSFileManager defaultManager] removeItemAtPath:filePath.path error:nil];
+                                 }
+                                 if (completion) {
+                                     completion(error);
+                                 }
+                             }] resume];
 }
 
 - (void) downloadAttachments:(NSMutableArray *)attachments forExport:(JSExportExecutionResponse *)exportResponse withCompletion:(void(^)(NSError *error))completionBlock {
     if (attachments.count) {
         NSString *attachmentName = attachments.firstObject;
         NSString *attachmentURLString = [[self exportURLWithExportID:exportResponse.uuid] stringByAppendingFormat:@"attachments/%@", attachmentName];
+        NSString *attachmentPath = [self attachmentPathWithName:attachmentName];
+
         
         __weak typeof(self)weakSelf = self;
-        [self downloadResourceFromURLString:attachmentURLString
-                                 completion:^(NSURL *location, NSURLResponse *response, NSError *error) {
-                                     __strong typeof(self)strongSelf = weakSelf;
-                                     if (error) {
-                                         if (completionBlock) {
-                                             completionBlock(error);
-                                         }
-                                     } else {
-                                         NSString *attachmentPath = [strongSelf attachmentPathWithName:attachmentName];
-                                         NSError *moveError = [strongSelf moveResourceFromPath:location.path toPath:attachmentPath];
-                                         if (moveError) {
-                                             if (completionBlock) {
-                                                 completionBlock(moveError);
-                                             }
-                                         } else {
-                                             [attachments removeObject:attachmentName];
-                                             [strongSelf downloadAttachments:attachments forExport:exportResponse withCompletion:completionBlock];
-                                         }
-                                     }
-                                 }];
+        [JSReportSaver downloadResourceWithRestClient:self.restClient fromURLString:attachmentURLString destinationPath:attachmentPath completion:^(NSError *error) {
 
+            __strong typeof(self)strongSelf = weakSelf;
+            if (error) {
+                if (completionBlock) {
+                    completionBlock(error);
+                }
+            } else {
+                [attachments removeObject:attachmentName];
+                [strongSelf downloadAttachments:attachments forExport:exportResponse withCompletion:completionBlock];
+            }
+        }];
     } else {
         if (completionBlock) {
             completionBlock(nil);
@@ -209,8 +203,8 @@
 - (void) sendCallbackWithError:(NSError *)error {
     if (self.saveReportCompletion) {
         if (error) {
-            [self cancelSavingReport];
             self.saveReportCompletion(nil , error);
+            [self cancelSavingReport];
         } else {
             NSURL *reportURL = [NSURL fileURLWithPath:self.tempReportDirectory isDirectory:YES];
             self.saveReportCompletion(reportURL, nil);

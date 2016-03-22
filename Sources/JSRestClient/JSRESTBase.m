@@ -101,6 +101,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 
 + (void)initialize {
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+    [AFNetworkActivityIndicatorManager sharedManager].activationDelay = 0;
 }
 
 - (nonnull instancetype) initWithServerProfile:(nonnull JSProfile *)serverProfile keepLogged:(BOOL)keepLogged{

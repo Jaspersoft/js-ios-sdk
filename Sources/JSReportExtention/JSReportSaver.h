@@ -47,8 +47,10 @@ typedef void(^JSSaveReportCompletion)(NSURL * _Nullable savedReportFolderURL, NS
 - (void) saveReportWithName:(nonnull NSString *)name format:(nonnull NSString *)format
                  pagesRange:(nonnull JSReportPagesRange *)pagesRange completion:(nullable JSSaveReportCompletion)completionBlock;
 
-- (void)downloadResourceFromURLString:(nonnull NSString *)resourceURLString
-                           completion:(nullable void(^)(NSURL *_Nullable location, NSURLResponse *_Nullable response, NSError *_Nullable error))completion;
++ (void)downloadResourceWithRestClient:(nonnull JSRESTBase *)restClient
+                         fromURLString:(nonnull NSString *)resourceURLString
+                       destinationPath:(nonnull NSString *)destinationPath
+                            completion:(void(^_Nullable)(NSError * _Nullable error))completion;
 
 - (void) cancelSavingReport;
 
