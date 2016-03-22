@@ -41,7 +41,8 @@
 {
     NSString *fullURL = [NSString stringWithFormat:@"%@", @"/jobs"];
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURL];
-    request.objectMapping = [JSMapping mappingWithObjectMapping:[JSScheduleLookup objectMappingForServerProfile:self.serverProfile] keyPath:@"scheduleLookup"];
+    request.objectMapping = [JSMapping mappingWithObjectMapping:[JSScheduleLookup objectMappingForServerProfile:self.serverProfile]
+                                                        keyPath:@"jobsummary"];
     request.restVersion = JSRESTVersion_2;
     request.method = JSRequestHTTPMethodGET;
 
