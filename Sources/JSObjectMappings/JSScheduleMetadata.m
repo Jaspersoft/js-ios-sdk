@@ -104,13 +104,13 @@
                  }
 
                  if (value[@"simpleTrigger"]) {
-                     JSScheduleSimpleTrigger *trigger = [EKMapper objectFromExternalRepresentation:value
+                     JSScheduleSimpleTrigger *trigger = [EKMapper objectFromExternalRepresentation:value[@"simpleTrigger"]
                                                                                        withMapping:[JSScheduleSimpleTrigger objectMappingForServerProfile:serverProfile]];
                      return @{
                              @(JSScheduleTriggerTypeSimple) : trigger
                      };
                  } else if (value[@"calendarTrigger"]) {
-                     JSScheduleCalendarTrigger *trigger = [EKMapper objectFromExternalRepresentation:value
+                     JSScheduleCalendarTrigger *trigger = [EKMapper objectFromExternalRepresentation:value[@"calendarTrigger"]
                                                                                          withMapping:[JSScheduleCalendarTrigger objectMappingForServerProfile:serverProfile]];
                      return @{
                              @(JSScheduleTriggerTypeCalendar) : trigger
@@ -128,11 +128,11 @@
 
                     NSDictionary *trigger = value;
                     if (trigger[@(JSScheduleTriggerTypeSimple)]) {
-                        NSDictionary *represenatation = [EKSerializer serializeObject:value
+                        NSDictionary *represenatation = [EKSerializer serializeObject:trigger[@(JSScheduleTriggerTypeSimple)]
                                                                           withMapping:[JSScheduleSimpleTrigger objectMappingForServerProfile:serverProfile]];
                         return represenatation;
                     } else if (trigger[@(JSScheduleTriggerTypeCalendar)]) {
-                        NSDictionary *represenatation = [EKSerializer serializeObject:value
+                        NSDictionary *represenatation = [EKSerializer serializeObject:trigger[@(JSScheduleTriggerTypeCalendar)]
                                                                           withMapping:[JSScheduleCalendarTrigger objectMappingForServerProfile:serverProfile]];
                         return represenatation;
                     } else {
