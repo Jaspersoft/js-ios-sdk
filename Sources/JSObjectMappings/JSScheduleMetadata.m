@@ -31,6 +31,7 @@
 #import "JSServerInfo.h"
 #import "EKMapper.h"
 #import "EKSerializer.h"
+#import "JSDateFormatterFactory.h"
 
 @implementation JSScheduleMetadata
 
@@ -54,10 +55,44 @@
                 @"repositoryDestination.folderURI" : @"folderURI",           // request
                 @"outputFormats.outputFormat"      : @"outputFormats",       // request
         }];
+
+        // Date mapping
+        id(^valueBlock)(NSString *key, id value) = ^id(NSString *key, id value) {
+            if (value == nil)
+                return nil;
+
+            if (![value isKindOfClass:[NSString class]]) {
+                return [NSNull null];
+            }
+
+            NSDateFormatter *formatter = [[JSDateFormatterFactory sharedFactory] formatterWithPattern:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+            NSDate *date = [formatter dateFromString:value];
+            if (!date) {
+                formatter = [[JSDateFormatterFactory sharedFactory] formatterWithPattern:@"yyyy-MM-dd'T'HH:mm:ssZ"];
+                date = [formatter dateFromString:value];
+            }
+            return date;
+        };
+
+        id(^reverseBlock)(id value) = ^id(id value) {
+            if (value == nil)
+                return nil;
+
+            if (![value isKindOfClass:[NSDate class]]) {
+                return [NSNull null];
+            }
+
+            NSDateFormatter *formatter = [serverProfile.serverInfo serverDateFormatFormatter];
+            NSString *string = [formatter stringFromDate:value];
+            return string;
+        };
+
         [mapping mapKeyPath:@"creationDate"
                  toProperty:@"creationDate"
-          withDateFormatter:[serverProfile.serverInfo serverDateFormatFormatter]];
+             withValueBlock:valueBlock
+               reverseBlock:reverseBlock];
 
+        // Trigger mapping
         [mapping mapKeyPath:@"trigger"
                  toProperty:@"trigger"
              withValueBlock:^id(NSString *key, id value) {
@@ -95,9 +130,11 @@
                     if (trigger[@(JSScheduleTriggerTypeSimple)]) {
                         NSDictionary *represenatation = [EKSerializer serializeObject:value
                                                                           withMapping:[JSScheduleSimpleTrigger objectMappingForServerProfile:serverProfile]];
+                        return represenatation;
                     } else if (trigger[@(JSScheduleTriggerTypeCalendar)]) {
                         NSDictionary *represenatation = [EKSerializer serializeObject:value
                                                                           withMapping:[JSScheduleCalendarTrigger objectMappingForServerProfile:serverProfile]];
+                        return represenatation;
                     } else {
                         return [NSNull null];
                     }
