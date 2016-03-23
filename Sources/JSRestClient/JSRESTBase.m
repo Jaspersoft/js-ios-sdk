@@ -366,13 +366,16 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
                         result.error = [JSErrorBuilder errorWithCode:JSSessionExpiredErrorCode];
                         break;
                     }
+                    case NSURLErrorCannotFindHost: {
+                        result.error = [JSErrorBuilder errorWithCode:JSServerNotReachableErrorCode];
+                        break;
+                    }
                     case NSURLErrorTimedOut: {
                         result.error = [JSErrorBuilder errorWithCode:JSRequestTimeOutErrorCode];
                         break;
                     }
                     default: {
-                        result.error = [JSErrorBuilder httpErrorWithCode:JSHTTPErrorCode
-                                                                HTTPCode:response.statusCode];
+                        result.error = [JSErrorBuilder errorWithCode:JSHTTPErrorCode message:error.localizedDescription];
                     }
                 }
             } else if ([error.domain isEqualToString:AFURLResponseSerializationErrorDomain]) {
