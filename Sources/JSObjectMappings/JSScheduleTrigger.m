@@ -29,6 +29,7 @@
 
 #import "JSScheduleTrigger.h"
 #import "JSServerInfo.h"
+#import "JSDateFormatterFactory.h"
 
 
 @implementation JSScheduleTrigger
@@ -37,11 +38,45 @@
 + (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
     return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
         [mapping mapPropertiesFromDictionary:@{
-                                               @"timezone"         : @"timezone",
-                                               @"startType"        : @"startType",
-                                               @"occurrenceCount"  : @"occurrenceCount",
-                                               }];
-        [mapping mapKeyPath:@"startDate" toProperty:@"startDate" withDateFormatter:[serverProfile.serverInfo serverDateFormatFormatter]];
+                @"timezone"         : @"timezone",
+                @"startType"        : @"startType",
+                @"occurrenceCount"  : @"occurrenceCount",
+        }];
+
+        id(^valueBlock)(NSString *key, id value) = ^id(NSString *key, id value) {
+            if (value == nil)
+                return nil;
+
+            if (![value isKindOfClass:[NSString class]]) {
+                return [NSNull null];
+            }
+
+            NSDateFormatter *formatter = [[JSDateFormatterFactory sharedFactory] formatterWithPattern:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+            NSDate *date = [formatter dateFromString:value];
+            if (!date) {
+                formatter = [[JSDateFormatterFactory sharedFactory] formatterWithPattern:@"yyyy-MM-dd'T'HH:mm:ssZ"];
+                date = [formatter dateFromString:value];
+            }
+            return date;
+        };
+
+        id(^reverseBlock)(id value) = ^id(id value) {
+            if (value == nil)
+                return nil;
+
+            if (![value isKindOfClass:[NSDate class]]) {
+                return [NSNull null];
+            }
+
+            NSDateFormatter *formatter = [serverProfile.serverInfo serverDateFormatFormatter];
+            NSString *string = [formatter stringFromDate:value];
+            return string;
+        };
+
+        [mapping mapKeyPath:@"startDate"
+                 toProperty:@"startDate"
+             withValueBlock:valueBlock
+               reverseBlock:reverseBlock];
     }];
 }
 

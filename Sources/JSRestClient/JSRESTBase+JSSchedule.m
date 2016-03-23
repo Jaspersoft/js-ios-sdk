@@ -58,7 +58,8 @@
 {
     NSString *fullURL = [NSString stringWithFormat:@"%@/%@", @"/jobs", @(scheduleId)];
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURL];
-    request.objectMapping = [JSMapping mappingWithObjectMapping:[JSScheduleMetadata objectMappingForServerProfile:self.serverProfile] keyPath:@"scheduleMetadata"];
+    request.objectMapping = [JSMapping mappingWithObjectMapping:[JSScheduleMetadata objectMappingForServerProfile:self.serverProfile]
+                                                        keyPath:nil];
     request.restVersion = JSRESTVersion_2;
     request.method = JSRequestHTTPMethodGET;
 
@@ -70,7 +71,8 @@
 {
     NSString *fullURL = [NSString stringWithFormat:@"%@", @"/jobs"];
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURL];
-    request.objectMapping = [JSMapping mappingWithObjectMapping:[JSScheduleMetadata objectMappingForServerProfile:self.serverProfile] keyPath:@"scheduleMetadata"];
+    request.objectMapping = [JSMapping mappingWithObjectMapping:[JSScheduleMetadata objectMappingForServerProfile:self.serverProfile]
+                                                        keyPath:nil];
     request.body = data;
     request.restVersion = JSRESTVersion_2;
     request.method = JSRequestHTTPMethodPUT;
@@ -84,7 +86,8 @@
 {
     NSString *fullURL = [NSString stringWithFormat:@"%@/%@", @"/jobs", @(schedule.jobIdentifier)];
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURL];
-    request.objectMapping = [JSMapping mappingWithObjectMapping:[JSScheduleMetadata objectMappingForServerProfile:self.serverProfile] keyPath:@"scheduleMetadata"];
+    request.objectMapping = [JSMapping mappingWithObjectMapping:[JSScheduleMetadata objectMappingForServerProfile:self.serverProfile]
+                                                        keyPath:nil];
     request.body = schedule;
     request.restVersion = JSRESTVersion_2;
     request.method = JSRequestHTTPMethodPOST;

@@ -55,7 +55,6 @@
                 formatter = [[JSDateFormatterFactory sharedFactory] formatterWithPattern:@"yyyy-MM-dd'T'HH:mm:ssZ"];
                 date = [formatter dateFromString:value];
             }
-            NSLog(@"date: %@", date);
             return date;
         };
 
@@ -63,7 +62,7 @@
             if (value == nil)
                 return nil;
 
-            if (![value isKindOfClass:[NSString class]]) {
+            if (![value isKindOfClass:[NSDate class]]) {
                 return [NSNull null];
             }
 

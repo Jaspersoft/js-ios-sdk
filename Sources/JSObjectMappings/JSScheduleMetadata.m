@@ -29,12 +29,15 @@
 #import "JSScheduleMetadata.h"
 #import "JSScheduleTrigger.h"
 #import "JSServerInfo.h"
+#import "EKMapper.h"
+#import "EKSerializer.h"
 
 @implementation JSScheduleMetadata
 
 #pragma mark - Custom Accessors
 - (JSScheduleTrigger *)trigger
 {
+    NSLog(@"%@ - %@", NSStringFromClass(self.class), NSStringFromSelector(_cmd));
     if (!_trigger) {
         _trigger = [self simpleTrigger];
     }
@@ -64,29 +67,53 @@
 + (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
     return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
         [mapping mapPropertiesFromDictionary:@{
-                                               @"id"                              : @"jobIdentifier",
-                                               @"version"                         : @"version",
-                                               @"username"                        : @"username",
-                                               @"label"                           : @"label",               // request
-                                               @"description"                     : @"scheduleDescription", // request
-                                               // trigger
-                                               @"source.reportUnitURI"            : @"reportUnitURI",       // request
-                                               // may be source parameters
-                                               @"baseOutputFilename"              : @"baseOutputFilename",  // request
-                                               @"outputLocale"                    : @"outputLocale",
-                                               @"mailNotification"                : @"mailNotification",
-                                               @"alert"                           : @"alert",
-                                               @"outputTimeZone"                  : @"outputTimeZone",      // request
-                                               @"repositoryDestination.folderURI" : @"folderURI",           // request
-                                               @"outputFormats.outputFormat"      : @"outputFormats",       // request
-                                               }];
-        [mapping mapKeyPath:@"creationDate" toProperty:@"creationDate" withDateFormatter:[serverProfile.serverInfo serverDateFormatFormatter]];
-        [mapping hasOne:[JSScheduleTrigger class] forKeyPath:@"trigger.simpleTrigger" forProperty:@"trigger" withObjectMapping:[JSScheduleTrigger objectMappingForServerProfile:serverProfile]];
-    }];
-}
+                @"id"                              : @"jobIdentifier",
+                @"version"                         : @"version",
+                @"username"                        : @"username",
+                @"label"                           : @"label",               // request
+                @"description"                     : @"scheduleDescription", // request
+                // trigger
+                @"source.reportUnitURI"            : @"reportUnitURI",       // request
+                // may be source parameters
+                @"baseOutputFilename"              : @"baseOutputFilename",  // request
+                @"outputLocale"                    : @"outputLocale",
+                @"mailNotification"                : @"mailNotification",
+                @"alert"                           : @"alert",
+                @"outputTimeZone"                  : @"outputTimeZone",      // request
+                @"repositoryDestination.folderURI" : @"folderURI",           // request
+                @"outputFormats.outputFormat"      : @"outputFormats",       // request
+        }];
+        [mapping mapKeyPath:@"creationDate"
+                 toProperty:@"creationDate"
+          withDateFormatter:[serverProfile.serverInfo serverDateFormatFormatter]];
 
-+ (nonnull NSString *)requestObjectKeyPath {
-    return @"scheduleMetadata";
+        [mapping mapKeyPath:@"trigger.simpleTrigger"
+                 toProperty:@"trigger"
+             withValueBlock:^id(NSString *key, id value) {
+                 if (value == nil)
+                     return nil;
+
+                 if (![value isKindOfClass:[NSDictionary class]]) {
+                     return [NSNull null];
+                 }
+
+                 JSScheduleTrigger *trigger = [EKMapper objectFromExternalRepresentation:value
+                                                                             withMapping:[JSScheduleTrigger objectMappingForServerProfile:serverProfile]];
+                 return trigger;
+             } reverseBlock:^id(id value) {
+                    if (value == nil)
+                        return nil;
+
+                    if (![value isKindOfClass:[JSScheduleTrigger class]]) {
+                        return [NSNull null];
+                    }
+
+                    NSDictionary *represenatation = [EKSerializer serializeObject:value
+                                                                      withMapping:[JSScheduleTrigger objectMappingForServerProfile:serverProfile]];
+                    return represenatation;
+                }];
+
+    }];
 }
 
 @end
