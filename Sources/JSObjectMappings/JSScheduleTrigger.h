@@ -39,9 +39,45 @@ typedef NS_ENUM(NSInteger, JSScheduleTriggerStartType) {
     JSScheduleTriggerStartTypeAtDate,
 };
 
+typedef NS_ENUM(NSInteger, JSScheduleTriggerType) {
+    JSScheduleTriggerTypeSimple,
+    JSScheduleTriggerTypeCalendar
+};
+
 @interface JSScheduleTrigger : NSObject <JSObjectMappingsProtocol>
 @property (nonatomic, strong) NSString *timezone;
+@property (nonatomic, strong) NSString *calendarName;
 @property (nonatomic, strong) NSDate *startDate;
+@property (nonatomic, strong) NSDate *endDate;
 @property (nonatomic, assign) JSScheduleTriggerStartType startType;
+@property (nonatomic, assign) NSInteger misfireInstruction;
+@end
+
+
+typedef NS_ENUM(NSInteger, JSScheduleSimpleTriggerRecurrenceIntervalType) {
+    JSScheduleSimpleTriggerRecurrenceIntervalTypeMinute,
+    JSScheduleSimpleTriggerRecurrenceIntervalTypeHour,
+    JSScheduleSimpleTriggerRecurrenceIntervalTypeDay,
+    JSScheduleSimpleTriggerRecurrenceIntervalTypeWeek
+};
+
+@interface JSScheduleSimpleTrigger : JSScheduleTrigger
 @property (nonatomic, assign) NSInteger occurrenceCount;
+@property (nonatomic, assign) NSInteger recurrenceInterval;
+@property (nonatomic, assign) JSScheduleSimpleTriggerRecurrenceIntervalType recurrenceIntervalUnit;
+@end
+
+typedef NS_ENUM(NSInteger, JSScheduleCalendarTriggerDaysType) {
+    JSScheduleCalendarTriggerDaysTypeAll,
+    JSScheduleCalendarTriggerDaysTypeWeek,
+    JSScheduleCalendarTriggerDaysTypeMonth
+};
+
+@interface JSScheduleCalendarTrigger : JSScheduleTrigger
+@property (nonatomic, strong) NSString *minutes;
+@property (nonatomic, strong) NSString *hours;
+@property (nonatomic, strong) NSString *months;
+@property (nonatomic, assign) JSScheduleCalendarTriggerDaysType daysType;
+@property (nonatomic, strong) NSArray <NSNumber *>*weekDays;
+@property (nonatomic, strong) NSArray <NSNumber *>*monthDays;
 @end

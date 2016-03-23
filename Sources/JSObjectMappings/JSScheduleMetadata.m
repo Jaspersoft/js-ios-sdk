@@ -34,35 +34,6 @@
 
 @implementation JSScheduleMetadata
 
-#pragma mark - Custom Accessors
-- (JSScheduleTrigger *)trigger
-{
-    NSLog(@"%@ - %@", NSStringFromClass(self.class), NSStringFromSelector(_cmd));
-    if (!_trigger) {
-        _trigger = [self simpleTrigger];
-    }
-    return _trigger;
-}
-
-- (NSString *)outputTimeZone
-{
-    if (!_outputTimeZone) {
-        _outputTimeZone = @"Europe/Helsinki";
-    }
-    return _outputTimeZone;
-}
-
-#pragma mark - Helpers
-- (JSScheduleTrigger *)simpleTrigger
-{
-    JSScheduleTrigger *simpleTrigger = [JSScheduleTrigger new];
-    simpleTrigger.timezone = self.outputTimeZone;
-    simpleTrigger.startType = JSScheduleTriggerStartTypeAtDate;
-    simpleTrigger.occurrenceCount = 1;
-    simpleTrigger.startDate = [NSDate date];
-    return simpleTrigger;
-}
-
 #pragma mark - JSObjectMappingsProtocol
 + (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
     return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
@@ -87,7 +58,7 @@
                  toProperty:@"creationDate"
           withDateFormatter:[serverProfile.serverInfo serverDateFormatFormatter]];
 
-        [mapping mapKeyPath:@"trigger.simpleTrigger"
+        [mapping mapKeyPath:@"trigger"
                  toProperty:@"trigger"
              withValueBlock:^id(NSString *key, id value) {
                  if (value == nil)
@@ -97,20 +68,39 @@
                      return [NSNull null];
                  }
 
-                 JSScheduleTrigger *trigger = [EKMapper objectFromExternalRepresentation:value
-                                                                             withMapping:[JSScheduleTrigger objectMappingForServerProfile:serverProfile]];
-                 return trigger;
+                 if (value[@"simpleTrigger"]) {
+                     JSScheduleSimpleTrigger *trigger = [EKMapper objectFromExternalRepresentation:value
+                                                                                       withMapping:[JSScheduleSimpleTrigger objectMappingForServerProfile:serverProfile]];
+                     return @{
+                             @(JSScheduleTriggerTypeSimple) : trigger
+                     };
+                 } else if (value[@"calendarTrigger"]) {
+                     JSScheduleCalendarTrigger *trigger = [EKMapper objectFromExternalRepresentation:value
+                                                                                         withMapping:[JSScheduleCalendarTrigger objectMappingForServerProfile:serverProfile]];
+                     return @{
+                             @(JSScheduleTriggerTypeCalendar) : trigger
+                     };
+                 } else {
+                     return [NSNull null];
+                 }
              } reverseBlock:^id(id value) {
                     if (value == nil)
                         return nil;
 
-                    if (![value isKindOfClass:[JSScheduleTrigger class]]) {
+                    if (![value isKindOfClass:[NSDictionary class]]) {
                         return [NSNull null];
                     }
 
-                    NSDictionary *represenatation = [EKSerializer serializeObject:value
-                                                                      withMapping:[JSScheduleTrigger objectMappingForServerProfile:serverProfile]];
-                    return represenatation;
+                    NSDictionary *trigger = value;
+                    if (trigger[@(JSScheduleTriggerTypeSimple)]) {
+                        NSDictionary *represenatation = [EKSerializer serializeObject:value
+                                                                          withMapping:[JSScheduleSimpleTrigger objectMappingForServerProfile:serverProfile]];
+                    } else if (trigger[@(JSScheduleTriggerTypeCalendar)]) {
+                        NSDictionary *represenatation = [EKSerializer serializeObject:value
+                                                                          withMapping:[JSScheduleCalendarTrigger objectMappingForServerProfile:serverProfile]];
+                    } else {
+                        return [NSNull null];
+                    }
                 }];
 
     }];

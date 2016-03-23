@@ -37,12 +37,26 @@
 #pragma mark - JSObjectMappingsProtocol
 + (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
     return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
-        [mapping mapPropertiesFromDictionary:@{
-                @"timezone"         : @"timezone",
-                @"startType"        : @"startType",
-                @"occurrenceCount"  : @"occurrenceCount",
+
+        [mapping mapPropertiesFromArray:@[
+                @"timezone",
+                @"calendarName",
+                @"misfireInstruction",
+        ]];
+
+        // Start type
+        NSDictionary *startTypes = @{
+                @(1): @(JSScheduleTriggerStartTypeImmediately),
+                @(2): @(JSScheduleTriggerStartTypeAtDate)
+        };
+
+        [mapping mapKeyPath:@"startType" toProperty:@"startType" withValueBlock:^(NSString *key, id value) {
+            return startTypes[value];
+        } reverseBlock:^id(id value) {
+            return [startTypes allKeysForObject:value].lastObject;
         }];
 
+        // Start date and End date
         id(^valueBlock)(NSString *key, id value) = ^id(NSString *key, id value) {
             if (value == nil)
                 return nil;
@@ -77,6 +91,71 @@
                  toProperty:@"startDate"
              withValueBlock:valueBlock
                reverseBlock:reverseBlock];
+
+        [mapping mapKeyPath:@"endDate"
+                 toProperty:@"endDate"
+             withValueBlock:valueBlock
+               reverseBlock:reverseBlock];
+    }];
+}
+
+@end
+
+
+@implementation JSScheduleSimpleTrigger
+
+#pragma mark - JSObjectMappingsProtocol
++ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        [mapping mapPropertiesFromArray:@[
+                @"occurrenceCount",
+                @"recurrenceInterval",
+        ]];
+
+        // Recurrence interval type
+        NSDictionary *recurrenceIntervalUnits = @{
+                @"MINUTE": @(JSScheduleSimpleTriggerRecurrenceIntervalTypeMinute),
+                @"HOUR"  : @(JSScheduleSimpleTriggerRecurrenceIntervalTypeHour),
+                @"DAY"   : @(JSScheduleSimpleTriggerRecurrenceIntervalTypeDay),
+                @"WEEK"  : @(JSScheduleSimpleTriggerRecurrenceIntervalTypeWeek)
+        };
+
+        [mapping mapKeyPath:@"recurrenceIntervalUnit" toProperty:@"recurrenceIntervalUnit" withValueBlock:^(NSString *key, id value) {
+            return recurrenceIntervalUnits[value];
+        } reverseBlock:^id(id value) {
+            return [recurrenceIntervalUnits allKeysForObject:value].lastObject;
+        }];
+    }];
+}
+
+@end
+
+
+@implementation JSScheduleCalendarTrigger
+
+#pragma mark - JSObjectMappingsProtocol
++ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        [mapping mapPropertiesFromArray:@[
+                @"minutes",
+                @"hours",
+                @"months",
+        ]];
+
+        // Calendar Days Type
+        NSDictionary *calendarTriggerDaysTypes = @{
+                @"ALL"   : @(JSScheduleCalendarTriggerDaysTypeAll),
+                @"WEEK"  : @(JSScheduleCalendarTriggerDaysTypeWeek),
+                @"MONTH" : @(JSScheduleCalendarTriggerDaysTypeMonth)
+        };
+
+        [mapping mapKeyPath:@"recurrenceIntervalUnit" toProperty:@"recurrenceIntervalUnit" withValueBlock:^(NSString *key, id value) {
+            return calendarTriggerDaysTypes[value];
+        } reverseBlock:^id(id value) {
+            return [calendarTriggerDaysTypes allKeysForObject:value].lastObject;
+        }];
+
+        // TODO: add mapping for 'weekDays' and 'monthDays'
     }];
 }
 
