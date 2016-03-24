@@ -38,11 +38,14 @@
 + (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
     return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
 
-        [mapping mapPropertiesFromArray:@[
-                @"timezone",
-                @"calendarName",
-                @"misfireInstruction",
-        ]];
+        [mapping mapPropertiesFromDictionary:@{
+                @"id"                 : @"triggerIdentifier",
+                @"version"            : @"version",
+                @"timezone"           : @"timezone",
+                @"calendarName"       : @"calendarName",
+                @"misfireInstruction" : @"misfireInstruction",
+                @"timestampPattern"   : @"timestampPattern",
+        }];
 
         // Start type
         NSDictionary *startTypes = @{
@@ -76,13 +79,13 @@
 
         id(^reverseBlock)(id value) = ^id(id value) {
             if (value == nil)
-                return nil;
+                return [NSNull null];
 
             if (![value isKindOfClass:[NSDate class]]) {
                 return [NSNull null];
             }
 
-            NSDateFormatter *formatter = [serverProfile.serverInfo serverDateFormatFormatter];
+            NSDateFormatter *formatter = [[JSDateFormatterFactory sharedFactory] formatterWithPattern:@"yyyy-MM-dd HH:mm"];
             NSString *string = [formatter stringFromDate:value];
             return string;
         };
@@ -124,7 +127,19 @@
     [mapping mapKeyPath:@"recurrenceIntervalUnit" toProperty:@"recurrenceIntervalUnit" withValueBlock:^(NSString *key, id value) {
         return recurrenceIntervalUnits[value];
     } reverseBlock:^id(id value) {
-        return [recurrenceIntervalUnits allKeysForObject:value].lastObject;
+        if (!value) {
+            return [NSNull null];
+        }
+
+        if (![value isKindOfClass:[NSNumber class]]) {
+            return [NSNull null];
+        }
+        JSScheduleSimpleTriggerRecurrenceIntervalType recurrenceIntervalType = (JSScheduleSimpleTriggerRecurrenceIntervalType) ((NSNumber *)value).integerValue;
+        if (recurrenceIntervalType == JSScheduleSimpleTriggerRecurrenceIntervalTypeNone) {
+            return [NSNull null];
+        } else {
+            return [recurrenceIntervalUnits allKeysForObject:value].lastObject;
+        }
     }];
 
     return mapping;

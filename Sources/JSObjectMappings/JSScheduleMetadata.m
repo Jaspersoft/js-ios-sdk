@@ -59,7 +59,7 @@
         // Date mapping
         id(^valueBlock)(NSString *key, id value) = ^id(NSString *key, id value) {
             if (value == nil)
-                return nil;
+                return [NSNull null];
 
             if (![value isKindOfClass:[NSString class]]) {
                 return [NSNull null];
@@ -76,13 +76,13 @@
 
         id(^reverseBlock)(id value) = ^id(id value) {
             if (value == nil)
-                return nil;
+                return [NSNull null];
 
             if (![value isKindOfClass:[NSDate class]]) {
                 return [NSNull null];
             }
 
-            NSDateFormatter *formatter = [serverProfile.serverInfo serverDateFormatFormatter];
+            NSDateFormatter *formatter = [[JSDateFormatterFactory sharedFactory] formatterWithPattern:@"yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"];
             NSString *string = [formatter stringFromDate:value];
             return string;
         };
@@ -120,7 +120,7 @@
                  }
              } reverseBlock:^id(id value) {
                     if (value == nil)
-                        return nil;
+                        return [NSNull null];
 
                     if (![value isKindOfClass:[NSDictionary class]]) {
                         return [NSNull null];
@@ -130,16 +130,19 @@
                     if (trigger[@(JSScheduleTriggerTypeSimple)]) {
                         NSDictionary *represenatation = [EKSerializer serializeObject:trigger[@(JSScheduleTriggerTypeSimple)]
                                                                           withMapping:[JSScheduleSimpleTrigger objectMappingForServerProfile:serverProfile]];
-                        return represenatation;
+                        return @{
+                                @"simpleTrigger" : represenatation
+                        };
                     } else if (trigger[@(JSScheduleTriggerTypeCalendar)]) {
                         NSDictionary *represenatation = [EKSerializer serializeObject:trigger[@(JSScheduleTriggerTypeCalendar)]
                                                                           withMapping:[JSScheduleCalendarTrigger objectMappingForServerProfile:serverProfile]];
-                        return represenatation;
+                        return @{
+                                @"calendarTrigger" : represenatation
+                        };
                     } else {
                         return [NSNull null];
                     }
                 }];
-
     }];
 }
 

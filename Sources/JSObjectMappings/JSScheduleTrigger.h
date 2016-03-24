@@ -45,16 +45,20 @@ typedef NS_ENUM(NSInteger, JSScheduleTriggerType) {
 };
 
 @interface JSScheduleTrigger : NSObject <JSObjectMappingsProtocol>
+@property (nonatomic, strong) NSNumber *triggerIdentifier;
+@property (nonatomic, strong) NSNumber *version;
 @property (nonatomic, strong) NSString *timezone;
 @property (nonatomic, strong) NSString *calendarName;
+@property (nonatomic, strong) NSString *timestampPattern;
 @property (nonatomic, strong) NSDate *startDate;
 @property (nonatomic, strong) NSDate *endDate;
 @property (nonatomic, assign) JSScheduleTriggerStartType startType;
-@property (nonatomic, assign) NSInteger misfireInstruction;
+@property (nonatomic, assign) NSNumber *misfireInstruction;
 @end
 
 
 typedef NS_ENUM(NSInteger, JSScheduleSimpleTriggerRecurrenceIntervalType) {
+    JSScheduleSimpleTriggerRecurrenceIntervalTypeNone,
     JSScheduleSimpleTriggerRecurrenceIntervalTypeMinute,
     JSScheduleSimpleTriggerRecurrenceIntervalTypeHour,
     JSScheduleSimpleTriggerRecurrenceIntervalTypeDay,
@@ -62,8 +66,8 @@ typedef NS_ENUM(NSInteger, JSScheduleSimpleTriggerRecurrenceIntervalType) {
 };
 
 @interface JSScheduleSimpleTrigger : JSScheduleTrigger
-@property (nonatomic, assign) NSInteger occurrenceCount;
-@property (nonatomic, assign) NSInteger recurrenceInterval;
+@property (nonatomic, assign) NSNumber *occurrenceCount;
+@property (nonatomic, assign) NSNumber *recurrenceInterval;
 @property (nonatomic, assign) JSScheduleSimpleTriggerRecurrenceIntervalType recurrenceIntervalUnit;
 @end
 
