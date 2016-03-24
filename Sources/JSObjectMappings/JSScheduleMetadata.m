@@ -65,12 +65,8 @@
                 return [NSNull null];
             }
 
-            NSDateFormatter *formatter = [[JSDateFormatterFactory sharedFactory] formatterWithPattern:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+            NSDateFormatter *formatter = [[JSDateFormatterFactory sharedFactory] formatterWithPattern:@"yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"];
             NSDate *date = [formatter dateFromString:value];
-            if (!date) {
-                formatter = [[JSDateFormatterFactory sharedFactory] formatterWithPattern:@"yyyy-MM-dd'T'HH:mm:ssZ"];
-                date = [formatter dateFromString:value];
-            }
             return date;
         };
 
