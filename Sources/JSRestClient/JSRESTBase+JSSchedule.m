@@ -64,6 +64,10 @@
     request.method = JSRequestHTTPMethodGET;
 
     request.completionBlock = completion;
+    request.additionalHeaders = @{
+            kJSRequestContentType  : @"application/job+json",
+            kJSRequestResponceType : @"application/job+json"
+    };
     [self sendRequest:request];
 }
 
@@ -78,8 +82,8 @@
     request.method = JSRequestHTTPMethodPUT;
     request.completionBlock = completion;
     request.additionalHeaders = @{
-            kJSRequestContentType : @"application/job+json",
-            @"Accept"             : @"application/job+json"
+            kJSRequestContentType  : @"application/job+json",
+            kJSRequestResponceType : @"application/job+json"
     };
     [self sendRequest:request];
 }
@@ -97,8 +101,8 @@
     request.method = JSRequestHTTPMethodPOST;
     request.completionBlock = completion;
     request.additionalHeaders = @{
-            kJSRequestContentType : @"application/job+json",
-            @"Accept"             : @"application/job+json"
+            kJSRequestContentType  : @"application/job+json",
+            kJSRequestResponceType : @"application/job+json"
     };
     [self sendRequest:request];
 }
@@ -111,6 +115,10 @@
     request.method = JSRequestHTTPMethodDELETE;
     request.completionBlock = completion;
     request.responseAsObjects = NO;
+    request.additionalHeaders = @{
+            kJSRequestContentType  : @"application/job+json",
+            kJSRequestResponceType : @"application/job+json"
+    };
     [self sendRequest:request];
 }
 
