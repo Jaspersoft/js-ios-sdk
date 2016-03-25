@@ -155,7 +155,8 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     request.redirectAllowed = NO;
     request.serializationType = JSRequestSerializationType_UrlEncoded;
 
-    NSString *serverDomain = [self.serverProfile.serverUrl stringByDeletingLastPathComponent];
+    NSURL *serverURL = [NSURL URLWithString:self.serverProfile.serverUrl];
+    NSString *serverDomain = [NSString stringWithFormat:@"%@://%@%@", serverURL.scheme, serverURL.host, serverURL.port ? [NSString stringWithFormat:@":%@", serverURL.port] : @""];
     request.additionalHeaders = @{
             @"x-jasper-xdm" : serverDomain
     };

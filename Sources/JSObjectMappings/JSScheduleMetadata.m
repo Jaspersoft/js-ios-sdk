@@ -31,37 +31,9 @@
 #import "JSServerInfo.h"
 #import "EKMapper.h"
 #import "EKSerializer.h"
+#import "JSDateFormatterFactory.h"
 
 @implementation JSScheduleMetadata
-
-#pragma mark - Custom Accessors
-- (JSScheduleTrigger *)trigger
-{
-    NSLog(@"%@ - %@", NSStringFromClass(self.class), NSStringFromSelector(_cmd));
-    if (!_trigger) {
-        _trigger = [self simpleTrigger];
-    }
-    return _trigger;
-}
-
-- (NSString *)outputTimeZone
-{
-    if (!_outputTimeZone) {
-        _outputTimeZone = @"Europe/Helsinki";
-    }
-    return _outputTimeZone;
-}
-
-#pragma mark - Helpers
-- (JSScheduleTrigger *)simpleTrigger
-{
-    JSScheduleTrigger *simpleTrigger = [JSScheduleTrigger new];
-    simpleTrigger.timezone = self.outputTimeZone;
-    simpleTrigger.startType = JSScheduleTriggerStartTypeAtDate;
-    simpleTrigger.occurrenceCount = 1;
-    simpleTrigger.startDate = [NSDate date];
-    return simpleTrigger;
-}
 
 #pragma mark - JSObjectMappingsProtocol
 + (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
@@ -83,11 +55,41 @@
                 @"repositoryDestination.folderURI" : @"folderURI",           // request
                 @"outputFormats.outputFormat"      : @"outputFormats",       // request
         }];
+
+        // Date mapping
+        id(^valueBlock)(NSString *key, id value) = ^id(NSString *key, id value) {
+            if (value == nil)
+                return [NSNull null];
+
+            if (![value isKindOfClass:[NSString class]]) {
+                return [NSNull null];
+            }
+
+            NSDateFormatter *formatter = [[JSDateFormatterFactory sharedFactory] formatterWithPattern:@"yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"];
+            NSDate *date = [formatter dateFromString:value];
+            return date;
+        };
+
+        id(^reverseBlock)(id value) = ^id(id value) {
+            if (value == nil)
+                return [NSNull null];
+
+            if (![value isKindOfClass:[NSDate class]]) {
+                return [NSNull null];
+            }
+
+            NSDateFormatter *formatter = [[JSDateFormatterFactory sharedFactory] formatterWithPattern:@"yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"];
+            NSString *string = [formatter stringFromDate:value];
+            return string;
+        };
+
         [mapping mapKeyPath:@"creationDate"
                  toProperty:@"creationDate"
-          withDateFormatter:[serverProfile.serverInfo serverDateFormatFormatter]];
+             withValueBlock:valueBlock
+               reverseBlock:reverseBlock];
 
-        [mapping mapKeyPath:@"trigger.simpleTrigger"
+        // Trigger mapping
+        [mapping mapKeyPath:@"trigger"
                  toProperty:@"trigger"
              withValueBlock:^id(NSString *key, id value) {
                  if (value == nil)
@@ -97,22 +99,46 @@
                      return [NSNull null];
                  }
 
-                 JSScheduleTrigger *trigger = [EKMapper objectFromExternalRepresentation:value
-                                                                             withMapping:[JSScheduleTrigger objectMappingForServerProfile:serverProfile]];
-                 return trigger;
+                 if (value[@"simpleTrigger"]) {
+                     JSScheduleSimpleTrigger *trigger = [EKMapper objectFromExternalRepresentation:value[@"simpleTrigger"]
+                                                                                       withMapping:[JSScheduleSimpleTrigger objectMappingForServerProfile:serverProfile]];
+                     return @{
+                             @(JSScheduleTriggerTypeSimple) : trigger
+                     };
+                 } else if (value[@"calendarTrigger"]) {
+                     JSScheduleCalendarTrigger *trigger = [EKMapper objectFromExternalRepresentation:value[@"calendarTrigger"]
+                                                                                         withMapping:[JSScheduleCalendarTrigger objectMappingForServerProfile:serverProfile]];
+                     return @{
+                             @(JSScheduleTriggerTypeCalendar) : trigger
+                     };
+                 } else {
+                     return [NSNull null];
+                 }
              } reverseBlock:^id(id value) {
                     if (value == nil)
-                        return nil;
+                        return [NSNull null];
 
-                    if (![value isKindOfClass:[JSScheduleTrigger class]]) {
+                    if (![value isKindOfClass:[NSDictionary class]]) {
                         return [NSNull null];
                     }
 
-                    NSDictionary *represenatation = [EKSerializer serializeObject:value
-                                                                      withMapping:[JSScheduleTrigger objectMappingForServerProfile:serverProfile]];
-                    return represenatation;
+                    NSDictionary *trigger = value;
+                    if (trigger[@(JSScheduleTriggerTypeSimple)]) {
+                        NSDictionary *represenatation = [EKSerializer serializeObject:trigger[@(JSScheduleTriggerTypeSimple)]
+                                                                          withMapping:[JSScheduleSimpleTrigger objectMappingForServerProfile:serverProfile]];
+                        return @{
+                                @"simpleTrigger" : represenatation
+                        };
+                    } else if (trigger[@(JSScheduleTriggerTypeCalendar)]) {
+                        NSDictionary *represenatation = [EKSerializer serializeObject:trigger[@(JSScheduleTriggerTypeCalendar)]
+                                                                          withMapping:[JSScheduleCalendarTrigger objectMappingForServerProfile:serverProfile]];
+                        return @{
+                                @"calendarTrigger" : represenatation
+                        };
+                    } else {
+                        return [NSNull null];
+                    }
                 }];
-
     }];
 }
 
