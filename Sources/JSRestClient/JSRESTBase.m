@@ -43,7 +43,6 @@ NSString * const kJSRequestContentType = @"Content-Type";
 NSString * const kJSRequestResponceType = @"Accept";
 
 NSString * const kJSSavedSessionServerProfileKey    = @"JSSavedSessionServerProfileKey";
-NSString * const kJSSavedSessionTimeoutKey          = @"JSSavedSessionTimeoutKey";
 NSString * const kJSSavedSessionKeepSessionKey      = @"JSSavedSessionKeepSessionKey";
 
 // Default value for timeout interval
@@ -87,14 +86,11 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 
 @property (nonatomic, assign, readwrite) BOOL keepSession;
 
-@property (nonatomic, strong) ServerReachability *serverReachability;
-
 @end
 
 @implementation JSRESTBase
 @synthesize serverProfile = _serverProfile;
 @synthesize requestCallBacks = _requestCallBacks;
-@synthesize timeoutInterval = _timeoutInterval;
 
 #pragma mark -
 #pragma mark Initialization
@@ -112,7 +108,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         [self deleteCookies];
         
         self.keepSession = keepLogged;
-        self.timeoutInterval = _defaultTimeoutInterval;
         self.serverProfile = serverProfile;
         
         self.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -156,14 +151,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         _requestCallBacks = [NSMutableArray new];
     }
     return _requestCallBacks;
-}
-
-- (void)setTimeoutInterval:(NSTimeInterval)timeoutInterval {
-    if (_timeoutInterval != timeoutInterval) {
-        _timeoutInterval = timeoutInterval;
-        self.requestSerializer.timeoutInterval = timeoutInterval;
-        self.session.configuration.timeoutIntervalForRequest = timeoutInterval;
-    }
 }
 
 #pragma mark -
@@ -284,7 +271,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     [super encodeWithCoder:aCoder];
     [aCoder encodeObject:self.serverProfile forKey:kJSSavedSessionServerProfileKey];
     [aCoder encodeBool:self.keepSession forKey:kJSSavedSessionKeepSessionKey];
-    [aCoder encodeFloat:self.timeoutInterval forKey:kJSSavedSessionTimeoutKey];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -294,7 +280,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         if (self) {
             self.serverProfile = serverProfile;
             self.keepSession = [aDecoder decodeBoolForKey:kJSSavedSessionKeepSessionKey];
-            self.timeoutInterval = [aDecoder decodeFloatForKey:kJSSavedSessionTimeoutKey];
             
             [self configureRequestRedirectionHandling];
         }
@@ -307,7 +292,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 
 - (id)copyWithZone:(NSZone *)zone {
     JSRESTBase *newRestClient = [super copyWithZone:zone];
-    newRestClient.timeoutInterval = self.timeoutInterval;
     newRestClient.keepSession = self.keepSession;
     newRestClient.serverProfile = self.serverProfile;
     [newRestClient configureRequestRedirectionHandling];
