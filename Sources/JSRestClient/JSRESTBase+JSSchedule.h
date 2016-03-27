@@ -38,7 +38,32 @@
 
 @class JSScheduleMetadata;
 
+typedef NS_ENUM(NSInteger, JSScheduleSearchSortType) {
+    JSScheduleSearchSortTypeNone,
+    JSScheduleSearchSortTypeJobId,
+    JSScheduleSearchSortTypeJobName,
+    JSScheduleSearchSortTypeReportURI,
+    JSScheduleSearchSortTypeReportName,
+    JSScheduleSearchSortTypeReportFolder,
+    JSScheduleSearchSortTypeOwner,
+    JSScheduleSearchSortTypeStatus,
+    JSScheduleSearchSortTypeLastRun,
+    JSScheduleSearchSortTypeNextRun
+};
+
+@interface JSScheduleSearchParameters: NSObject
+@property (nonatomic, strong) NSString *reportUnitURI;
+@property (nonatomic, strong) NSString *owner;
+@property (nonatomic, strong) NSString *label;
+@property (nonatomic, strong) NSString *example; // not use yet
+@property (nonatomic, strong) NSNumber *startIndex;
+@property (nonatomic, assign) NSNumber *numberOfRows;
+@property (nonatomic, assign) JSScheduleSearchSortType sortType;
+@property (nonatomic, assign) NSNumber *isAscending;
+@end
+
 @interface JSRESTBase (JSSchedule)
+- (void)fetchSchedulesWithSearchParameters:(JSScheduleSearchParameters *)parameters completion:(JSRequestCompletionBlock)completion;
 - (void)fetchSchedulesForResourceWithURI:(NSString *)resourceURI completion:(JSRequestCompletionBlock)completion;
 - (void)fetchScheduleMetadataWithId:(NSInteger)scheduleId completion:(JSRequestCompletionBlock)completion;
 - (void)createScheduleWithData:(JSScheduleMetadata *)data completion:(JSRequestCompletionBlock)completion;
