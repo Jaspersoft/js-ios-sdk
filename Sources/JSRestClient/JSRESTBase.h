@@ -55,7 +55,6 @@ extern NSString * const _Nonnull kJSRequestResponceType;
 
  @since 1.3
 */
-@class ServerReachability;
 
 @interface JSRESTBase : AFHTTPSessionManager <NSSecureCoding, NSCopying>
 
@@ -64,14 +63,6 @@ extern NSString * const _Nonnull kJSRequestResponceType;
  JasperReports server
  */
 @property (nonatomic, strong, readonly, nonnull) JSProfile *serverProfile;
-
-/**
- The timeout interval which will be used as default value for all requests if
- they does not provide its own timeout interval
- 
- **Default**: 120.0 seconds
- */
-@property (nonatomic, assign) NSTimeInterval timeoutInterval;
 
 /**
  An NSArray of NSHTTPCookie objects
