@@ -247,10 +247,9 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 
 - (void)cancelAllRequests {
     for (JSCallBack *callback in self.requestCallBacks) {
+        [self.requestCallBacks removeObject:callback];
         [callback.dataTask cancel];
     }
-    
-    [self.requestCallBacks removeAllObjects];
 }
 
 - (void)deleteCookies {
@@ -320,7 +319,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
             }
             case 302: { // redirect
                 NSString *redirectURL = [response.allHeaderFields objectForKey:@"Location"];
-                NSString *redirectUrlRegex = [NSString stringWithFormat:@"%@/login.html(;?)((jsessionid=.+)?)\\?error=1", self.serverProfile.serverUrl];
+                NSString *redirectUrlRegex = [NSString stringWithFormat:@"(.*?)/login.html(;?)((jsessionid=.+)?)\\?error=1"];
                 NSPredicate *redirectUrlValidator = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", redirectUrlRegex];
                 isTokenFetchedSuccessful = ![redirectUrlValidator evaluateWithObject:redirectURL];
                 break;
@@ -350,7 +349,9 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
                         result.error = [JSErrorBuilder errorWithCode:JSSessionExpiredErrorCode];
                         break;
                     }
-                    case NSURLErrorCannotFindHost: {
+                    case NSURLErrorCannotFindHost:
+                    case NSURLErrorCannotConnectToHost:
+                    case NSURLErrorResourceUnavailable:{
                         result.error = [JSErrorBuilder errorWithCode:JSServerNotReachableErrorCode];
                         break;
                     }
