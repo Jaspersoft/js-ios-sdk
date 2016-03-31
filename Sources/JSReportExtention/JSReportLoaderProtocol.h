@@ -51,7 +51,7 @@ typedef void(^JSReportLoaderCompletionBlock)(BOOL success, NSError * __nullable 
 @protocol JSReportLoaderProtocol <NSObject>
 
 @required
-@property (nonatomic, weak, readonly) JSReport *report;
+@property (nonatomic, weak, readonly, null_unspecified) JSReport *report;
 @property (nonatomic, assign, readonly) BOOL isReportInLoadingProcess;
 
 - (nonnull instancetype)initWithReport:(nonnull JSReport *)report restClient:(nonnull JSRESTBase *)restClient;

@@ -49,13 +49,13 @@
  Gets the list of states of input controls with specified IDs for the report with specified URI and according to selected values
  
  @param reportUri repository URI of the report
- @param ids list of input controls IDs
  @param selectedValues list of input controls selected values
  @param block The block to inform of the results
  
  @since 1.6
  */
-- (void)inputControlsForReport:(nonnull NSString *)reportUri ids:(nullable NSArray <NSString *> *)ids selectedValues:(nullable NSArray <JSReportParameter *> *)selectedValues completionBlock:(nullable JSRequestCompletionBlock)block;
+- (void)inputControlsForReport:(nonnull NSString *)reportUri selectedValues:(nullable NSArray <JSReportParameter *> *)selectedValues
+               completionBlock:(nullable JSRequestCompletionBlock)block;
 
 /**
  Gets the states with updated values for input controls with specified IDs and according to selected values

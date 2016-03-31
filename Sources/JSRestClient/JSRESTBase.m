@@ -45,9 +45,6 @@ NSString * const kJSRequestResponceType = @"Accept";
 NSString * const kJSSavedSessionServerProfileKey    = @"JSSavedSessionServerProfileKey";
 NSString * const kJSSavedSessionKeepSessionKey      = @"JSSavedSessionKeepSessionKey";
 
-// Default value for timeout interval
-static NSTimeInterval const _defaultTimeoutInterval = 120;
-
 // Helper template message indicates that request was finished successfully
 NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nResponse: %@";
 

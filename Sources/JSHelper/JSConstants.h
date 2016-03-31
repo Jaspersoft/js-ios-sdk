@@ -98,7 +98,6 @@ extern NSString *const kJS_SERVER_EDITION_PRO;
  @{
  */
 typedef NS_ENUM (NSInteger, kJS_ICD_TYPE) {
-    kJS_ICD_TYPE_UNKNOWN = 0,
     kJS_ICD_TYPE_BOOL,
     kJS_ICD_TYPE_SINGLE_VALUE_TEXT,
     kJS_ICD_TYPE_SINGLE_VALUE_NUMBER,

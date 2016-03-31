@@ -67,12 +67,12 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 
 @implementation JSRESTBase (JSRESTReportOptions)
 
-- (void)inputControlsForReport:(NSString *)reportUri ids:(NSArray <NSString *> *)ids
-                selectedValues:(NSArray <JSReportParameter *> *)selectedValues completionBlock:(JSRequestCompletionBlock)block {
-    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullReportsUriForIC:reportUri withInputControls:ids initialValuesOnly:NO]];
+- (void)inputControlsForReport:(NSString *)reportUri selectedValues:(NSArray <JSReportParameter *> *)selectedValues
+               completionBlock:(JSRequestCompletionBlock)block {
+    JSRequest *request = [[JSRequest alloc] initWithUri:[NSString stringWithFormat:@"%@%@%@", kJS_REST_REPORTS_URI, (reportUri ?: @""), kJS_REST_INPUT_CONTROLS_URI]];
     request.objectMapping = [JSMapping mappingWithObjectMapping:[JSInputControlDescriptor objectMappingForServerProfile:self.serverProfile] keyPath:@"inputControl"];
     request.restVersion = JSRESTVersion_2;
-    request.method = (ids && [ids count]) ? JSRequestHTTPMethodPOST : JSRequestHTTPMethodGET;
+    request.method = ([selectedValues count]) ? JSRequestHTTPMethodPOST : JSRequestHTTPMethodGET;
     request.completionBlock = block;
     [self addReportParametersToRequest:request withSelectedValues:selectedValues];
     [self sendRequest:request];
