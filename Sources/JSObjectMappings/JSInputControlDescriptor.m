@@ -55,7 +55,7 @@
     } else if ([self.state.error length]) {
         return self.state.error;
     }
-    if (self.dataType && [self isSingleValueInputControl] && self.state.value) {
+    if (self.dataType && self.state.value) {
         id valueObject, minValue, maxValue;
         switch (self.dataType.type) {
             case kJS_DT_TYPE_DATE:
@@ -118,33 +118,43 @@
 
 - (NSArray *)selectedValues {
     NSMutableArray *values = [[NSMutableArray alloc] init];
-    NSString *type = self.type;
     
-    if ([self isSingleValueInputControl]) {
-        if ([kJS_ICD_TYPE_BOOL isEqualToString:self.type] && [self.state.error length]) {
-            self.state.value = [JSUtils stringFromBOOL:NO];
-            self.state.error = nil;
-        }
-        if (self.state.value) {
-            [values addObject:self.state.value];
-        }
-    } else if ([kJS_ICD_TYPE_SINGLE_SELECT isEqualToString:type] ||
-               [kJS_ICD_TYPE_SINGLE_SELECT_RADIO isEqualToString:type]) {
-        for (JSInputControlOption *option in self.state.options) {
-            if (option.selected) {
-                [values addObject:option.value];
-                break;
+    switch (self.type) {
+        case kJS_ICD_TYPE_BOOL:
+            if ([self.state.error length]) {
+                self.state.value = [JSUtils stringFromBOOL:NO];
+                self.state.error = nil;
             }
-        }
-    } else if ([kJS_ICD_TYPE_MULTI_SELECT isEqualToString:type] ||
-               [kJS_ICD_TYPE_MULTI_SELECT_CHECKBOX isEqualToString:type]) {
-        for (JSInputControlOption *option in self.state.options) {
-            if (option.selected) {
-                [values addObject:option.value];
+        case kJS_ICD_TYPE_SINGLE_VALUE_TEXT:
+        case kJS_ICD_TYPE_SINGLE_VALUE_NUMBER:
+        case kJS_ICD_TYPE_SINGLE_VALUE_DATE:
+        case kJS_ICD_TYPE_SINGLE_VALUE_TIME:
+        case kJS_ICD_TYPE_SINGLE_VALUE_DATETIME: {
+            if (self.state.value) {
+                [values addObject:self.state.value];
             }
+            break;
+        }
+        case kJS_ICD_TYPE_SINGLE_SELECT:
+        case kJS_ICD_TYPE_SINGLE_SELECT_RADIO:{
+            for (JSInputControlOption *option in self.state.options) {
+                if (option.selected) {
+                    [values addObject:option.value];
+                    break;
+                }
+            }
+            break;
+        }
+        case kJS_ICD_TYPE_MULTI_SELECT:
+        case kJS_ICD_TYPE_MULTI_SELECT_CHECKBOX:{
+            for (JSInputControlOption *option in self.state.options) {
+                if (option.selected) {
+                    [values addObject:option.value];
+                }
+            }
+            break;
         }
     }
-    
     return values;
 }
 
@@ -164,9 +174,28 @@
                                                @"masterSingleInputControlID": @"masterSingleInputControlID",
                                                @"slaveSingleInputControlID": @"slaveSingleInputControlID",
                                                }];
+        
         [mapping hasOne:[JSInputControlState class] forKeyPath:@"state" forProperty:@"state" withObjectMapping:[JSInputControlState objectMappingForServerProfile:serverProfile]];
         [mapping hasOne:[JSDataType class] forKeyPath:@"dataType" forProperty:@"dataType" withObjectMapping:[JSDataType objectMappingForServerProfile:serverProfile]];
 
+        NSDictionary *typesArray = @{ @"bool":                  @(kJS_ICD_TYPE_BOOL),
+                                      @"singleValueText":       @(kJS_ICD_TYPE_SINGLE_VALUE_TEXT),
+                                      @"singleValueNumber":     @(kJS_ICD_TYPE_SINGLE_VALUE_NUMBER),
+                                      @"singleValueDate":       @(kJS_ICD_TYPE_SINGLE_VALUE_DATE),
+                                      @"singleValueTime":       @(kJS_ICD_TYPE_SINGLE_VALUE_TIME),
+                                      @"singleValueDatetime":   @(kJS_ICD_TYPE_SINGLE_VALUE_DATETIME),
+                                      @"singleSelect":          @(kJS_ICD_TYPE_SINGLE_SELECT),
+                                      @"singleSelectRadio":     @(kJS_ICD_TYPE_SINGLE_SELECT_RADIO),
+                                      @"multiSelect":           @(kJS_ICD_TYPE_MULTI_SELECT),
+                                      @"multiSelectCheckbox":   @(kJS_ICD_TYPE_MULTI_SELECT_CHECKBOX)};
+        
+        [mapping mapKeyPath:@"type" toProperty:@"type" withValueBlock:^(NSString *key, id value) {
+            return typesArray[value];
+        } reverseBlock:^id(id value) {
+            return [typesArray allKeysForObject:value].lastObject;
+        }];
+
+        
         [mapping mapKeyPath:@"validationRules" toProperty:@"validationRules" withValueBlock:^id(NSString *key, id value) {
             NSArray *validationRulesArray = value;
             NSMutableArray *validationRules = [NSMutableArray array];
@@ -196,12 +225,12 @@
         newInputControlDescriptor.label                 = [self.label copyWithZone:zone];
         newInputControlDescriptor.mandatory             = [self.mandatory copyWithZone:zone];
         newInputControlDescriptor.readOnly              = [self.readOnly copyWithZone:zone];
-        newInputControlDescriptor.type                  = [self.type copyWithZone:zone];
         newInputControlDescriptor.uri                   = [self.uri copyWithZone:zone];
         newInputControlDescriptor.visible               = [self.visible copyWithZone:zone];
         newInputControlDescriptor.state                 = [self.state copyWithZone:zone];
         newInputControlDescriptor.validationRules       = [self.validationRules copyWithZone:zone];
         newInputControlDescriptor.dataType              = [self.dataType copyWithZone:zone];
+        newInputControlDescriptor.type                  = self.type;
         if (self.masterDependencies) {
             newInputControlDescriptor.masterDependencies    = [[NSArray alloc] initWithArray:self.masterDependencies copyItems:YES];
         }
@@ -223,15 +252,6 @@
         }
     }
     return nil;
-}
-
-- (BOOL) isSingleValueInputControl {
-    return ([kJS_ICD_TYPE_BOOL isEqualToString:self.type] ||
-            [kJS_ICD_TYPE_SINGLE_VALUE_TEXT isEqualToString:self.type] ||
-            [kJS_ICD_TYPE_SINGLE_VALUE_NUMBER isEqualToString:self.type] ||
-            [kJS_ICD_TYPE_SINGLE_VALUE_DATE isEqualToString:self.type] ||
-            [kJS_ICD_TYPE_SINGLE_VALUE_TIME isEqualToString:self.type] ||
-            [kJS_ICD_TYPE_SINGLE_VALUE_DATETIME isEqualToString:self.type]);
 }
 
 @end

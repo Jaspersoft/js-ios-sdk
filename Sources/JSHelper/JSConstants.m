@@ -145,22 +145,6 @@ NSString *const kJS_REST_EXPORT_EXECUTION_ATTACHMENTS_PREFIX_URI = @"/reportExec
 /** @} */
 
 /**
- @name Input Control Descriptor Types
- @{
- */
-NSString *const kJS_ICD_TYPE_BOOL = @"bool";
-NSString *const kJS_ICD_TYPE_SINGLE_VALUE_TEXT = @"singleValueText";
-NSString *const kJS_ICD_TYPE_SINGLE_VALUE_NUMBER = @"singleValueNumber";
-NSString *const kJS_ICD_TYPE_SINGLE_VALUE_DATE = @"singleValueDate";
-NSString *const kJS_ICD_TYPE_SINGLE_VALUE_TIME = @"singleValueTime";
-NSString *const kJS_ICD_TYPE_SINGLE_VALUE_DATETIME = @"singleValueDatetime";
-NSString *const kJS_ICD_TYPE_SINGLE_SELECT = @"singleSelect";
-NSString *const kJS_ICD_TYPE_SINGLE_SELECT_RADIO = @"singleSelectRadio";
-NSString *const kJS_ICD_TYPE_MULTI_SELECT = @"multiSelect";
-NSString *const kJS_ICD_TYPE_MULTI_SELECT_CHECKBOX = @"multiSelectCheckbox";
-/** @} */
-
-/**
  @name Execution status checking
  @{
  */

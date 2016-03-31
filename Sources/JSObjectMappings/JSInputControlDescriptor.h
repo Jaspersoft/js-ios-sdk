@@ -47,7 +47,7 @@
 @property (nonatomic, strong) NSString *label;
 @property (nonatomic, strong) NSString *mandatory;
 @property (nonatomic, strong) NSString *readOnly;
-@property (nonatomic, strong) NSString *type;
+@property (nonatomic, assign) kJS_ICD_TYPE type;
 @property (nonatomic, strong) NSString *uri;
 @property (nonatomic, strong) NSString *visible;
 @property (nonatomic, strong) NSArray <NSString *> *masterDependencies;
