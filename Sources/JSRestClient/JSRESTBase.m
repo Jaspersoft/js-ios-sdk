@@ -244,8 +244,11 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 
 - (void)cancelAllRequests {
     for (JSCallBack *callback in self.requestCallBacks) {
-        [self.requestCallBacks removeObject:callback];
-        [callback.dataTask cancel];
+        @synchronized (callback) {
+            callback.request.completionBlock = nil;
+            [callback.dataTask cancel];
+            [self.requestCallBacks removeObject:callback];
+        }
     }
 }
 
