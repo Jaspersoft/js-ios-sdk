@@ -42,7 +42,7 @@
 @property (nonatomic, strong) NSString *label;
 @property (nonatomic, strong) NSString *scheduleDescription;
 @property (nonatomic, strong) NSDate *creationDate;
-@property (nonatomic, strong) NSDictionary <NSNumber *, JSScheduleTrigger *>*trigger;
+@property (nonatomic, strong) JSScheduleTrigger *trigger;
 @property (nonatomic, strong) NSString *reportUnitURI;
 @property (nonatomic, strong) NSString *baseOutputFilename;
 @property (nonatomic, strong) NSString *outputLocale;

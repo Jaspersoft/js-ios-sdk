@@ -102,35 +102,35 @@
                  if (value[@"simpleTrigger"]) {
                      JSScheduleSimpleTrigger *trigger = [EKMapper objectFromExternalRepresentation:value[@"simpleTrigger"]
                                                                                        withMapping:[JSScheduleSimpleTrigger objectMappingForServerProfile:serverProfile]];
-                     return @{
-                             @(JSScheduleTriggerTypeSimple) : trigger
-                     };
+                     trigger.type = JSScheduleTriggerTypeSimple;
+                     return trigger;
                  } else if (value[@"calendarTrigger"]) {
                      JSScheduleCalendarTrigger *trigger = [EKMapper objectFromExternalRepresentation:value[@"calendarTrigger"]
                                                                                          withMapping:[JSScheduleCalendarTrigger objectMappingForServerProfile:serverProfile]];
-                     return @{
-                             @(JSScheduleTriggerTypeCalendar) : trigger
-                     };
+                     trigger.type = JSScheduleTriggerTypeCalendar;
+                     return trigger;
                  } else {
-                     return [NSNull null];
+                     JSScheduleTrigger *trigger = [JSScheduleTrigger new];
+                     trigger.type = JSScheduleTriggerTypeNone;
+                     return trigger;
                  }
              } reverseBlock:^id(id value) {
                     if (value == nil)
-                        return [NSNull null];
+                        return nil;
 
-                    if (![value isKindOfClass:[NSDictionary class]]) {
+                    if (![value isKindOfClass:[JSScheduleTrigger class]]) {
                         return [NSNull null];
                     }
 
-                    NSDictionary *trigger = value;
-                    if (trigger[@(JSScheduleTriggerTypeSimple)]) {
-                        NSDictionary *represenatation = [EKSerializer serializeObject:trigger[@(JSScheduleTriggerTypeSimple)]
+                    JSScheduleTrigger *trigger = value;
+                    if (trigger.type == JSScheduleTriggerTypeSimple) {
+                        NSDictionary *represenatation = [EKSerializer serializeObject:trigger
                                                                           withMapping:[JSScheduleSimpleTrigger objectMappingForServerProfile:serverProfile]];
                         return @{
                                 @"simpleTrigger" : represenatation
                         };
-                    } else if (trigger[@(JSScheduleTriggerTypeCalendar)]) {
-                        NSDictionary *represenatation = [EKSerializer serializeObject:trigger[@(JSScheduleTriggerTypeCalendar)]
+                    } else if (trigger.type == JSScheduleTriggerTypeCalendar) {
+                        NSDictionary *represenatation = [EKSerializer serializeObject:trigger
                                                                           withMapping:[JSScheduleCalendarTrigger objectMappingForServerProfile:serverProfile]];
                         return @{
                                 @"calendarTrigger" : represenatation

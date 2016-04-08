@@ -75,7 +75,7 @@
 
         id(^reverseBlock)(id value) = ^id(id value) {
             if (value == nil)
-                return [NSNull null];
+                return nil;
 
             if (![value isKindOfClass:[NSDate class]]) {
                 return [NSNull null];
@@ -124,7 +124,7 @@
         return recurrenceIntervalUnits[value];
     } reverseBlock:^id(id value) {
         if (!value) {
-            return [NSNull null];
+            return nil;
         }
 
         if (![value isKindOfClass:[NSNumber class]]) {

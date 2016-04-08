@@ -40,6 +40,7 @@ typedef NS_ENUM(NSInteger, JSScheduleTriggerStartType) {
 };
 
 typedef NS_ENUM(NSInteger, JSScheduleTriggerType) {
+    JSScheduleTriggerTypeNone,
     JSScheduleTriggerTypeSimple,
     JSScheduleTriggerTypeCalendar
 };
@@ -53,6 +54,7 @@ typedef NS_ENUM(NSInteger, JSScheduleTriggerType) {
 @property (nonatomic, strong) NSDate *startDate;
 @property (nonatomic, strong) NSDate *endDate;
 @property (nonatomic, assign) JSScheduleTriggerStartType startType;
+@property (nonatomic, assign) JSScheduleTriggerType type;
 @property (nonatomic, assign) NSNumber *misfireInstruction;
 @end
 
