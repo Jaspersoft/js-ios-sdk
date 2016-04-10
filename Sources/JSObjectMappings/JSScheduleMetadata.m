@@ -102,18 +102,22 @@
                  if (value[@"simpleTrigger"]) {
                      JSScheduleSimpleTrigger *trigger = [EKMapper objectFromExternalRepresentation:value[@"simpleTrigger"]
                                                                                        withMapping:[JSScheduleSimpleTrigger objectMappingForServerProfile:serverProfile]];
-                     trigger.type = JSScheduleTriggerTypeSimple;
+                     id reccurenceInterval = value[@"simpleTrigger"][@"recurrenceInterval"];
+                     id recurrenceIntervalUnit = value[@"simpleTrigger"][@"recurrenceIntervalUnit"];
+                     if (!reccurenceInterval && !recurrenceIntervalUnit) {
+                         trigger.type = JSScheduleTriggerTypeNone;
+                     } else {
+                         trigger.type = JSScheduleTriggerTypeSimple;
+                     }
                      return trigger;
                  } else if (value[@"calendarTrigger"]) {
                      JSScheduleCalendarTrigger *trigger = [EKMapper objectFromExternalRepresentation:value[@"calendarTrigger"]
                                                                                          withMapping:[JSScheduleCalendarTrigger objectMappingForServerProfile:serverProfile]];
                      trigger.type = JSScheduleTriggerTypeCalendar;
                      return trigger;
-                 } else {
-                     JSScheduleTrigger *trigger = [JSScheduleTrigger new];
-                     trigger.type = JSScheduleTriggerTypeNone;
-                     return trigger;
                  }
+
+                 return nil;
              } reverseBlock:^id(id value) {
                     if (value == nil)
                         return nil;
@@ -123,7 +127,7 @@
                     }
 
                     JSScheduleTrigger *trigger = value;
-                    if (trigger.type == JSScheduleTriggerTypeSimple) {
+                    if (trigger.type == JSScheduleTriggerTypeSimple || trigger.type == JSScheduleTriggerTypeNone) {
                         NSDictionary *represenatation = [EKSerializer serializeObject:trigger
                                                                           withMapping:[JSScheduleSimpleTrigger objectMappingForServerProfile:serverProfile]];
                         return @{
