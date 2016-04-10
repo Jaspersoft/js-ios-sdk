@@ -153,7 +153,7 @@
     [mapping mapPropertiesFromArray:@[
             @"minutes",
             @"hours",
-            @"months",
+            @"monthDays",
     ]];
 
     // Calendar Days Type
@@ -163,13 +163,72 @@
             @"MONTH" : @(JSScheduleCalendarTriggerDaysTypeMonth)
     };
 
-    [mapping mapKeyPath:@"recurrenceIntervalUnit" toProperty:@"recurrenceIntervalUnit" withValueBlock:^(NSString *key, id value) {
+    [mapping mapKeyPath:@"daysType" toProperty:@"daysType" withValueBlock:^(NSString *key, id value) {
         return calendarTriggerDaysTypes[value];
     } reverseBlock:^id(id value) {
         return [calendarTriggerDaysTypes allKeysForObject:value].lastObject;
     }];
 
-    // TODO: add mapping for 'weekDays' and 'monthDays'
+    // TODO: add mapping for 'monthDays'
+    [mapping mapKeyPath:@"weekDays"
+             toProperty:@"weekDays"
+         withValueBlock:^id(NSString *key, id value) {
+             if (value == nil)
+                 return nil;
+
+             if (![value isKindOfClass:[NSDictionary class]]) {
+                 return [NSNull null];
+             }
+
+             id days = value[@"day"];
+             NSMutableArray *daysAsNumber = [NSMutableArray new];
+             for (NSString *day in days) {
+                 NSNumber *dayAsNumber = @(day.integerValue);
+                 [daysAsNumber addObject:dayAsNumber];
+             }
+             if (days) {
+                 return daysAsNumber;
+             } else {
+                 return [NSNull null];
+             }
+         } reverseBlock:^id(id value) {
+                if (value == nil)
+                    return nil;
+                if (![value isKindOfClass:[NSArray class]]) {
+                    return [NSNull null];
+                }
+                return @{@"day":value};
+            }];
+
+    [mapping mapKeyPath:@"months"
+             toProperty:@"months"
+         withValueBlock:^id(NSString *key, id value) {
+             if (value == nil)
+                 return nil;
+
+             if (![value isKindOfClass:[NSDictionary class]]) {
+                 return [NSNull null];
+             }
+
+             id months = value[@"month"];
+             NSMutableArray *monthsAsNumber = [NSMutableArray new];
+             for (NSString *month in months) {
+                 NSNumber *monthAsNumber = @(month.integerValue);
+                 [monthsAsNumber addObject:monthAsNumber];
+             }
+             if (months) {
+                 return monthsAsNumber;
+             } else {
+                 return [NSNull null];
+             }
+         } reverseBlock:^id(id value) {
+                if (value == nil)
+                    return nil;
+                if (![value isKindOfClass:[NSArray class]]) {
+                    return [NSNull null];
+                }
+                return @{@"month":value};
+            }];
 
     return mapping;
 }

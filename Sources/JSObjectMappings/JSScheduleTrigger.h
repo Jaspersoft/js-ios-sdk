@@ -82,8 +82,8 @@ typedef NS_ENUM(NSInteger, JSScheduleCalendarTriggerDaysType) {
 @interface JSScheduleCalendarTrigger : JSScheduleTrigger
 @property (nonatomic, strong) NSString *minutes;
 @property (nonatomic, strong) NSString *hours;
-@property (nonatomic, strong) NSString *months;
+@property (nonatomic, strong) NSString *monthDays;
 @property (nonatomic, assign) JSScheduleCalendarTriggerDaysType daysType;
 @property (nonatomic, strong) NSArray <NSNumber *>*weekDays;
-@property (nonatomic, strong) NSArray <NSNumber *>*monthDays;
+@property (nonatomic, strong) NSArray <NSNumber *>*months;
 @end
