@@ -57,9 +57,9 @@ typedef NS_ENUM(NSInteger, JSScheduleSearchSortType) {
 @property (nonatomic, strong) NSString *label;
 @property (nonatomic, strong) NSString *example; // not use yet
 @property (nonatomic, strong) NSNumber *startIndex;
-@property (nonatomic, assign) NSNumber *numberOfRows;
+@property (nonatomic, strong) NSNumber *numberOfRows;
 @property (nonatomic, assign) JSScheduleSearchSortType sortType;
-@property (nonatomic, assign) NSNumber *isAscending;
+@property (nonatomic, strong) NSNumber *isAscending;
 @end
 
 @interface JSRESTBase (JSSchedule)

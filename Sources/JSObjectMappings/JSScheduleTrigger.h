@@ -55,7 +55,7 @@ typedef NS_ENUM(NSInteger, JSScheduleTriggerType) {
 @property (nonatomic, strong) NSDate *endDate;
 @property (nonatomic, assign) JSScheduleTriggerStartType startType;
 @property (nonatomic, assign) JSScheduleTriggerType type;
-@property (nonatomic, assign) NSNumber *misfireInstruction;
+@property (nonatomic, strong) NSNumber *misfireInstruction;
 @end
 
 
@@ -68,8 +68,8 @@ typedef NS_ENUM(NSInteger, JSScheduleSimpleTriggerRecurrenceIntervalType) {
 };
 
 @interface JSScheduleSimpleTrigger : JSScheduleTrigger
-@property (nonatomic, assign) NSNumber *occurrenceCount;
-@property (nonatomic, assign) NSNumber *recurrenceInterval;
+@property (nonatomic, strong) NSNumber *occurrenceCount;
+@property (nonatomic, strong) NSNumber *recurrenceInterval;
 @property (nonatomic, assign) JSScheduleSimpleTriggerRecurrenceIntervalType recurrenceIntervalUnit;
 @end
 
