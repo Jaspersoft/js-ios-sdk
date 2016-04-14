@@ -29,7 +29,7 @@
 #import "JSDateFormatterFactory.h"
 
 @interface JSDateFormatterFactory()
-@property (nonatomic, strong) NSDictionary <NSString *, NSDateFormatter *> *formatters;
+@property (nonatomic, strong) NSMutableDictionary <NSString *, NSDateFormatter *> *formatters;
 @end
 
 @implementation JSDateFormatterFactory
@@ -45,18 +45,27 @@
 
 - (NSDateFormatter *)formatterWithPattern:(NSString *)pattern
 {
+    NSDateFormatter *formatter = [self formatterWithPattern:pattern timeZone:nil];
+    return formatter;
+}
+
+- (NSDateFormatter *)formatterWithPattern:(NSString *)pattern timeZone:(NSTimeZone *)timeZone
+{
     NSDateFormatter *formatter = self.formatters[pattern];
     if (!formatter) {
-        formatter = [self createFormatterWithPattern:pattern];
+        formatter = [self createFormatterWithPattern:pattern timeZone:timeZone];
+        self.formatters[pattern] = formatter;
     }
     return formatter;
 }
 
 #pragma mark - Helpers
-- (NSDateFormatter *)createFormatterWithPattern:(NSString *)pattern
+- (NSDateFormatter *)createFormatterWithPattern:(NSString *)pattern timeZone:(NSTimeZone *)timeZone
 {
     NSDateFormatter *formatter = [NSDateFormatter new];
-    formatter.timeZone = [NSTimeZone timeZoneWithName:@"GMT"];
+    if (timezone) {
+        formatter.timeZone = timeZone;
+    }
     formatter.dateFormat = pattern;
     return formatter;
 }

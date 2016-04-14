@@ -36,4 +36,5 @@
 @interface JSDateFormatterFactory : NSObject
 + (instancetype)sharedFactory;
 - (NSDateFormatter *)formatterWithPattern:(NSString *)pattern;
+- (NSDateFormatter *)formatterWithPattern:(NSString *)pattern timeZone:(NSTimeZone *)timeZone;
 @end
