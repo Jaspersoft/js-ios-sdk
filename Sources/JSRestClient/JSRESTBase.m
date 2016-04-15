@@ -258,7 +258,12 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 
 - (void)updateCookiesWithCookies:(NSArray <NSHTTPCookie *>* __nullable)cookies
 {
+    BOOL isCookiesChanged = (_cookies != cookies) && cookies.count > 0;
     _cookies = cookies;
+    if (isCookiesChanged) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:JSRestClientDidChangeCookies
+                                                            object:nil];
+    }
 }
 
 #pragma mark - NSSecureCoding

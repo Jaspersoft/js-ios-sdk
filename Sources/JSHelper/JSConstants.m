@@ -150,3 +150,5 @@ NSString *const kJS_REST_EXPORT_EXECUTION_ATTACHMENTS_PREFIX_URI = @"/reportExec
  */
 NSTimeInterval const kJSExecutionStatusCheckingInterval = 1.f;
 /** @} */
+
+NSString *const JSRestClientDidChangeCookies = @"JSRestClientDidChangeCookies";

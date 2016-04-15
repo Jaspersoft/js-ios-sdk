@@ -240,3 +240,5 @@ typedef NS_ENUM(NSInteger, JSMarkupType) {
 };
 
 /** @} */
+
+extern NSString *const JSRestClientDidChangeCookies;
