@@ -57,7 +57,7 @@
             [self sendCallbackWithError:error];
         } else {
             __weak typeof(self)weakSelf = strongSelf;
-            [strongSelf exportWithRange:pagesRange outputFormat:format completion:^(JSExportExecutionResponse * _Nullable exportResponse, NSError * _Nullable error) {
+            [strongSelf exportWithCompletion:^(JSExportExecutionResponse * _Nullable exportResponse, NSError * _Nullable error) {
                 __strong typeof(self)strongSelf = weakSelf;
                 if (error) {
                     [self sendCallbackWithError:error];

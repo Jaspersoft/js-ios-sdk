@@ -155,44 +155,31 @@
                                        }];
 }
 
-- (void)exportWithRange:(nonnull JSReportPagesRange *)pagesRange outputFormat:(nonnull NSString *)format completion:(nullable JSExportExecutionCompletionBlock)completion {
+- (void)exportWithCompletion:(nullable JSExportExecutionCompletionBlock)completion {
     if (self.executionResponse && self.executionResponse.status.status == kJS_EXECUTION_STATUS_READY) {
         self.exportCompletion = completion;
-        NSArray *exports = self.executionResponse.exports;
-        
-        if ([pagesRange isEqual:self.configuration.pagesRange] && [format isEqualToString:self.configuration.outputFormat] && [exports count]) {
-            self.exportResponse = exports.firstObject;
-            if (self.exportResponse.status.status == kJS_EXECUTION_STATUS_READY) {
-                if (self.exportCompletion) {
-                    self.exportCompletion(self.exportResponse, nil);
-                }
-            } else {
-                [self checkingExportStatus];
-            }
-        } else {
-            __weak typeof(self) weakSelf = self;
-            [self.restClient runExportExecution:self.executionResponse.requestId
-                                   outputFormat:self.configuration.outputFormat
-                                          pages:self.configuration.pagesRange.formattedPagesRange
-                              attachmentsPrefix:self.configuration.attachmentsPrefix
-                                completionBlock:^(JSOperationResult *result) {
-                                    __strong typeof(self) strongSelf = weakSelf;
-                                    if (result.error) {
-                                        if (strongSelf.exportCompletion) {
-                                            strongSelf.exportCompletion(nil, result.error);
-                                        }
-                                    } else {
-                                        strongSelf.exportResponse = result.objects.firstObject;
-                                        if (strongSelf.exportResponse.status.status == kJS_EXECUTION_STATUS_QUEUED ||
-                                            strongSelf.exportResponse.status.status == kJS_EXECUTION_STATUS_EXECUTION ||
-                                            strongSelf.exportResponse.status.status == kJS_EXECUTION_STATUS_CANCELED) { // It's a bag on server-side, so if we didn't cancel it - it's valid!!!
-                                            [strongSelf checkingExportStatus];
-                                        } else if (strongSelf.exportCompletion) {
-                                            strongSelf.exportCompletion(self.exportResponse, nil);
-                                        }
+        __weak typeof(self) weakSelf = self;
+        [self.restClient runExportExecution:self.executionResponse.requestId
+                               outputFormat:self.configuration.outputFormat
+                                      pages:self.configuration.pagesRange.formattedPagesRange
+                          attachmentsPrefix:self.configuration.attachmentsPrefix
+                            completionBlock:^(JSOperationResult *result) {
+                                __strong typeof(self) strongSelf = weakSelf;
+                                if (result.error) {
+                                    if (strongSelf.exportCompletion) {
+                                        strongSelf.exportCompletion(nil, result.error);
                                     }
-                                }];
-        }
+                                } else {
+                                    strongSelf.exportResponse = result.objects.firstObject;
+                                    if (strongSelf.exportResponse.status.status == kJS_EXECUTION_STATUS_QUEUED ||
+                                        strongSelf.exportResponse.status.status == kJS_EXECUTION_STATUS_EXECUTION ||
+                                        strongSelf.exportResponse.status.status == kJS_EXECUTION_STATUS_CANCELED) { // It's a bag on server-side, so if we didn't cancel it - it's valid!!!
+                                        [strongSelf checkingExportStatus];
+                                    } else if (strongSelf.exportCompletion) {
+                                        strongSelf.exportCompletion(self.exportResponse, nil);
+                                    }
+                                }
+                            }];
     }else {
         if (completion) {
             NSError *error = [JSErrorBuilder errorWithCode:JSDataMappingErrorCode];

@@ -58,7 +58,7 @@ typedef void(^JSExportExecutionCompletionBlock)(JSExportExecutionResponse * __nu
 // Execute report
 - (void)executeWithConfiguration:(nonnull JSReportExecutionConfiguration *)configuration completion:(nullable JSReportExecutionCompletionBlock)completion;
 
-- (void)exportWithRange:(nonnull JSReportPagesRange *)pagesRange outputFormat:(nonnull NSString *)format completion:(nullable JSExportExecutionCompletionBlock)completion;
+- (void)exportWithCompletion:(nullable JSExportExecutionCompletionBlock)completion;
 
 - (void)cancelReportExecution;
 
