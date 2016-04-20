@@ -1,4 +1,4 @@
-Jaspersoft Mobile SDK for iOS version 1.8
+Jaspersoft Mobile SDK for iOS version 2.4
 Copyright (C) 2011 - 2014 Jaspersoft Corporation. All rights reserved.
 http://community.jaspersoft.com/project/mobile-sdk-ios
 
@@ -25,8 +25,8 @@ along with Jaspersoft Mobile SDK for iOS. If not, see
 THIRD PARTY COMPONENTS
 -------------------------------
 This software includes third party software subject to the associated copyrights, as follows:
-- RestKit v0.24.1 (Apache v2.0) - http://restkit.org/
-- ServerReachability v0.0.2 (MIT) - https://github.com/ogubariev/ServerReachability
+- AFNetworking v3.0.4 (MIT) - https://github.com/AFNetworking/AFNetworking
+- EasyMapping v0.16.1 (MIT) - https://github.com/lucasmedeirosleite/EasyMapping
 - BasicEncodingRules - https://github.com/StCredZero/SCZ-BasicEncodingRules-iOS
 
 The text of licenses for the above software is included with the
