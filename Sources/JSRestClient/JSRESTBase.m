@@ -296,7 +296,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 - (id)copyWithZone:(NSZone *)zone {
     JSRESTBase *newRestClient = [super copyWithZone:zone];
     newRestClient.keepSession = self.keepSession;
-    newRestClient.serverProfile = self.serverProfile;
+    newRestClient.serverProfile = [self.serverProfile copyWithZone:zone];
     [newRestClient configureRequestRedirectionHandling];
     return newRestClient;
 }

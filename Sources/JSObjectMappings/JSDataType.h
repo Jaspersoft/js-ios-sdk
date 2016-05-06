@@ -39,12 +39,12 @@
 
 @interface JSDataType : NSObject <JSObjectMappingsProtocol, NSCopying>
 
-@property (nonatomic, assign, readonly) kJS_DT_TYPE type;
-@property (nonatomic, strong, readonly) NSString *pattern;
-@property (nonatomic, strong, readonly) id maxValue;
-@property (nonatomic, strong, readonly) id minValue;
-@property (nonatomic, assign, readonly) BOOL strictMax;
-@property (nonatomic, assign, readonly) BOOL strictMin;
-@property (nonatomic, assign, readonly) NSInteger maxLength;     
+@property (nonatomic, assign) kJS_DT_TYPE type;
+@property (nonatomic, strong) NSString *pattern;
+@property (nonatomic, strong) id maxValue;
+@property (nonatomic, strong) id minValue;
+@property (nonatomic, assign) BOOL strictMax;
+@property (nonatomic, assign) BOOL strictMin;
+@property (nonatomic, assign) NSInteger maxLength;
 
 @end

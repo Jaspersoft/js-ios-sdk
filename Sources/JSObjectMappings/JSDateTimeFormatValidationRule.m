@@ -36,8 +36,8 @@
 + (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
     return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
         [mapping mapPropertiesFromDictionary:@{
-                                               @"dateTimeFormatValidationRule.errorMessage": @"errorMessage",
-                                               @"dateTimeFormatValidationRule.format": @"format",
+                                               @"errorMessage": @"errorMessage",
+                                               @"format": @"format",
                                                }];
     }];
 }
@@ -45,14 +45,9 @@
 #pragma mark - NSCopying
 
 - (id)copyWithZone:(NSZone *)zone {
-    if ([self isMemberOfClass: [JSDateTimeFormatValidationRule class]]) {
-        JSDateTimeFormatValidationRule *newDateTimeFormatValidationRule = [[self class] allocWithZone:zone];
-        newDateTimeFormatValidationRule.errorMessage    = [self.errorMessage copyWithZone:zone];
-        newDateTimeFormatValidationRule.format          = [self.format copyWithZone:zone];
-        return newDateTimeFormatValidationRule;
-    } else {
-        NSString *messageString = [NSString stringWithFormat:@"You need to implement \"copyWithZone:\" method in \"%@\" subclass",NSStringFromClass([self class])];
-        @throw [NSException exceptionWithName:@"Method implementation is missing" reason:messageString userInfo:nil];
-    }
+    JSDateTimeFormatValidationRule *newDateTimeFormatValidationRule = [[self class] allocWithZone:zone];
+    newDateTimeFormatValidationRule.errorMessage    = [self.errorMessage copyWithZone:zone];
+    newDateTimeFormatValidationRule.format          = [self.format copyWithZone:zone];
+    return newDateTimeFormatValidationRule;
 }
 @end

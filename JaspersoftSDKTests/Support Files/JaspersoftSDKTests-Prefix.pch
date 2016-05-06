@@ -1,0 +1,16 @@
+//
+// Prefix header for all source files of the 'JaspersoftSDKTests' target in the 'JaspersoftSDK' project
+//
+
+#ifdef __OBJC__
+#import <Foundation/Foundation.h>
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+#import "JSConstants.h"
+#import "JSUtils.h"
+
+#import "XCTestCase+EasyMapping.h"
+#import "JSObjectRepresentationProvider.h"
+#import "JSServerProfileProvider.h"
+
+#endif

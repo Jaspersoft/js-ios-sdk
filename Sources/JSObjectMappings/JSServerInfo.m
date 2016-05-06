@@ -105,4 +105,20 @@ NSString * const kJSSavedServerInfoDatetimeFormatPatternKey = @"kJSSavedServerIn
     }
     return self;
 }
+
+#pragma mark - NSCopying
+- (id)copyWithZone:(NSZone *)zone {
+    JSServerInfo *copiedInfo = [[JSServerInfo allocWithZone:zone] init];
+    copiedInfo.build = [self.build copyWithZone:zone];
+    copiedInfo.edition = [self.edition copyWithZone:zone];
+    copiedInfo.editionName = [self.editionName copyWithZone:zone];
+    copiedInfo.expiration = [self.expiration copyWithZone:zone];
+    copiedInfo.features = [self.features copyWithZone:zone];
+    copiedInfo.licenseType = [self.licenseType copyWithZone:zone];
+    copiedInfo.version = [self.version copyWithZone:zone];
+    copiedInfo.dateFormatPattern = [self.dateFormatPattern copyWithZone:zone];
+    copiedInfo.datetimeFormatPattern = [self.datetimeFormatPattern copyWithZone:zone];
+    
+    return copiedInfo;
+}
 @end

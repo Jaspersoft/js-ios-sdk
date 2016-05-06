@@ -49,7 +49,7 @@
 + (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
     return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
         [mapping mapPropertiesFromDictionary:@{
-                                               @"name": @"field",
+                                               @"field": @"name",
                                                @"value": @"value",
                                                }];
     }];

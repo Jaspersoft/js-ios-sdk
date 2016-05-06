@@ -29,7 +29,6 @@
 //
 
 #import "JSExportExecutionResponse.h"
-#import "JSReportAttachment.h"
 #import "EKMapper.h"
 
 @implementation JSExportExecutionResponse

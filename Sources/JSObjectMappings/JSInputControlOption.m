@@ -47,15 +47,10 @@
 #pragma mark - NSCopying
 
 - (id)copyWithZone:(NSZone *)zone {
-    if ([self isMemberOfClass: [JSInputControlOption class]]) {
-        JSInputControlOption *newInputControlOption = [[self class] allocWithZone:zone];
-        newInputControlOption.label     = [self.label copyWithZone:zone];
-        newInputControlOption.value     = [self.value copyWithZone:zone];
-        newInputControlOption.selected  = self.selected;
-        return newInputControlOption;
-    } else {
-        NSString *messageString = [NSString stringWithFormat:@"You need to implement \"copyWithZone:\" method in %@",NSStringFromClass([self class])];
-        @throw [NSException exceptionWithName:@"Method implementation is missing" reason:messageString userInfo:nil];
-    }
+    JSInputControlOption *newInputControlOption = [[self class] allocWithZone:zone];
+    newInputControlOption.label     = [self.label copyWithZone:zone];
+    newInputControlOption.value     = [self.value copyWithZone:zone];
+    newInputControlOption.selected  = self.selected;
+    return newInputControlOption;
 }
 @end

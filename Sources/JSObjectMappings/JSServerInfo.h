@@ -37,7 +37,7 @@
  @since 1.4
  */
 
-@interface JSServerInfo : NSObject <JSObjectMappingsProtocol, NSSecureCoding>
+@interface JSServerInfo : NSObject <JSObjectMappingsProtocol, NSSecureCoding, NSCopying>
 
 @property (nonatomic, retain) NSString *build;
 @property (nonatomic, retain) NSString *edition;

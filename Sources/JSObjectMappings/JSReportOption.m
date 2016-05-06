@@ -43,7 +43,14 @@
 
 - (BOOL)isEqual:(nullable id)object
 {
-    if (self == object || ([self.uri isEqualToString:[object uri]] && [self.label isEqualToString:[object label]])) {
+    if (![self isKindOfClass:[object class]]) {
+        return NO;
+    }
+    if (self == object) {
+        return YES;
+    }
+    
+    if ((self.uri == [object uri] || [self.uri isEqualToString:[object uri]]) && (self.label == [object label] || [self.label isEqualToString:[object label]])) {
         return YES;
     }
     return NO;

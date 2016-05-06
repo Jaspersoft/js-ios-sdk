@@ -1,0 +1,17 @@
+{
+    "uri":"\/public\/Samples\/Ad_Hoc_Views\/01__Geographic_Results_by_Segment_files\/sales__product__low_fat_1",
+    "id":"sales__product__low_fat_1",
+    "errorMessage":"This field is mandatory so you must enter data.",
+    "options":[
+               {
+               "selected":true,
+               "label":"true",
+               "value":"true"
+               },
+               {
+               "selected":true,
+               "label":"false",
+               "value":"false"
+               }
+               ]
+}

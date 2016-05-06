@@ -43,7 +43,6 @@
 #import "JSDateTimeFormatValidationRule.h"
 
 // Reports
-#import "JSReportAttachment.h"
 #import "JSReportOption.h"
 #import "JSReportParameter.h"
 #import "JSExecutionStatus.h"

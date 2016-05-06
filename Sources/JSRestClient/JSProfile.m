@@ -30,6 +30,7 @@
 
 #import "JSProfile.h"
 #import "KeychainItemWrapper.h"
+#import "JSServerInfo.h"
 
 #if __has_include("JSSecurity.h")
 #import "JSSecurity.h"
@@ -66,6 +67,7 @@ NSString * const kJSSavedProfileServerInfoKey   = @"JSSavedProfileServerInfoKey"
                                                                 organization:self.organization
                                                                     username:self.username
                                                                     password:self.password];
+    copiedProfile.serverInfo = [self.serverInfo copyWithZone:zone];
     return copiedProfile;
 }
 

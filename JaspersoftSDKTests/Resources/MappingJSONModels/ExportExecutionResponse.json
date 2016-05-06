@@ -1,0 +1,23 @@
+{
+    "status":"ready",
+    "id":"1ec75241-accf-46a9-a295-4b23b3590ab8",
+    "outputResource":{
+        "fileName":"01._Geographic_Results_by_Segment_Report.html",
+        "contentType":"text\/html",
+        "pages":"1",
+        "outputFinal":true
+    },
+    "attachments":[
+                   {
+                   "contentType":"image\/png",
+                   "fileName":"img_0_0_1"
+                   }
+                   ],
+    "errorDescriptor":{
+        "message":"Export Failed",
+        "errorCode":"export.failed",
+        "parameters":[
+                      "illegal.parameter.value.error"
+                      ]
+    }
+}

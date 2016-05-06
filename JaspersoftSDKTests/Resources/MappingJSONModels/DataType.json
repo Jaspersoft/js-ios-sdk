@@ -1,0 +1,7 @@
+{
+   "type":"number",
+   "strictMax":false,
+   "strictMin":false,
+   "maxValue": 100,
+   "minValue": 0
+}

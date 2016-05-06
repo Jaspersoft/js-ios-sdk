@@ -65,22 +65,17 @@ NSString * const kJSResourceLookupUpdateDate = @"kJSResourceLookupUpdateDate";
 #pragma mark - NSCopying
 
 - (id)copyWithZone:(NSZone *)zone {
-    if ([self isMemberOfClass: [JSResourceLookup class]]) {
-        JSResourceLookup *newResourceLookup     = [[self class] allocWithZone:zone];
-        newResourceLookup.label                 = [self.label  copyWithZone:zone];
-        newResourceLookup.uri                   = [self.uri copyWithZone:zone];
-        newResourceLookup.resourceDescription   = [self.resourceDescription copyWithZone:zone];
-        newResourceLookup.resourceType          = [self.resourceType copyWithZone:zone];
-        newResourceLookup.version               = [self.version copyWithZone:zone];
-        newResourceLookup.permissionMask        = [self.permissionMask copyWithZone:zone];
-        newResourceLookup.creationDate          = [self.creationDate copyWithZone:zone];
-        newResourceLookup.updateDate            = [self.updateDate copyWithZone:zone];
-
-        return newResourceLookup;
-    } else {
-        NSString *messageString = [NSString stringWithFormat:@"You need to implement \"copyWithZone:\" method in %@",NSStringFromClass([self class])];
-        @throw [NSException exceptionWithName:@"Method implementation is missing" reason:messageString userInfo:nil];
-    }
+    JSResourceLookup *newResourceLookup     = [[self class] allocWithZone:zone];
+    newResourceLookup.label                 = [self.label  copyWithZone:zone];
+    newResourceLookup.uri                   = [self.uri copyWithZone:zone];
+    newResourceLookup.resourceDescription   = [self.resourceDescription copyWithZone:zone];
+    newResourceLookup.resourceType          = [self.resourceType copyWithZone:zone];
+    newResourceLookup.version               = [self.version copyWithZone:zone];
+    newResourceLookup.permissionMask        = [self.permissionMask copyWithZone:zone];
+    newResourceLookup.creationDate          = [self.creationDate copyWithZone:zone];
+    newResourceLookup.updateDate            = [self.updateDate copyWithZone:zone];
+    
+    return newResourceLookup;
 }
 
 #pragma mark - NSSecureCoding

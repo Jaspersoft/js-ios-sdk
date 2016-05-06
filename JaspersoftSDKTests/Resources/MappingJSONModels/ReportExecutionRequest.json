@@ -1,0 +1,23 @@
+{
+    "ignorePagination":"false",
+    "attachmentsPrefix":"_",
+    "saveDataSnapshot":"true",
+    "async":"true",
+    "freshData":"false",
+    "markupType":"full",
+    "interactive":"false",
+    "baseUrl":"http:\/\/test.url",
+    "reportUnitUri":"\/public\/Samples\/Reports\/04._Product_Results_by_Store_Type_Report",
+    "outputFormat":"html",
+    "pages":"1-10",
+    "parameters":{
+        "reportParameter":[
+                           {
+                           "name":"sales__store__store_contact__store_country_1",
+                           "value":[
+                                    "Mexico"
+                                    ]
+                           }
+                           ]
+    }
+}

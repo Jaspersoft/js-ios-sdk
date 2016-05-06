@@ -49,4 +49,14 @@
     }];
 }
 
+- (BOOL)isEqual:(id)object {
+    if (![object isKindOfClass:[JSExecutionStatus class]]) {
+        return NO;
+    }
+    if (self == object) {
+        return YES;
+    }
+    return self.status == [object status];
+}
+
 @end

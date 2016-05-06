@@ -35,7 +35,7 @@
 #pragma mark - JSObjectMappingsProtocol
 + (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
     return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
-        NSDictionary *typesArray = @{ @"text": @(kJS_DT_TYPE_TEXT),
+        NSDictionary *typesDictionary = @{ @"text": @(kJS_DT_TYPE_TEXT),
                                       @"number": @(kJS_DT_TYPE_NUMBER),
                                       @"date": @(kJS_DT_TYPE_DATE),
                                       @"time": @(kJS_DT_TYPE_TIME),
@@ -51,9 +51,9 @@
                                                }];
         
         [mapping mapKeyPath:@"type" toProperty:@"type" withValueBlock:^(NSString *key, id value) {
-            return typesArray[value];
+            return typesDictionary[value];
         } reverseBlock:^id(id value) {
-            return [typesArray allKeysForObject:value].lastObject;
+            return [typesDictionary allKeysForObject:value].lastObject;
         }];
     }];
 }
@@ -61,31 +61,16 @@
 #pragma mark - NSCopying
 
 - (id)copyWithZone:(NSZone *)zone {
-    if ([self isMemberOfClass: [JSDataType class]]) {
-        JSDataType *newDatetype         = [[self class] allocWithZone:zone];
-        newDatetype->_type                = self.type;
-        newDatetype->_strictMax           = self.strictMax;
-        newDatetype->_strictMin           = self.strictMin;
-        newDatetype->_maxLength           = self.maxLength;
-        newDatetype->_pattern             = [self.pattern copyWithZone:zone];
-        newDatetype->_maxValue            = [self.maxValue copyWithZone:zone];
-        newDatetype->_minValue            = [self.minValue copyWithZone:zone];
-        
-        return newDatetype;
-    } else {
-        NSString *messageString = [NSString stringWithFormat:@"You need to implement \"copyWithZone:\" method in \"%@\" subclass",NSStringFromClass([self class])];
-        @throw [NSException exceptionWithName:@"Method implementation is missing" reason:messageString userInfo:nil];
-    }
+    JSDataType *newDatetype         = [[self class] allocWithZone:zone];
+    newDatetype->_type                = self.type;
+    newDatetype->_strictMax           = self.strictMax;
+    newDatetype->_strictMin           = self.strictMin;
+    newDatetype->_maxLength           = self.maxLength;
+    newDatetype->_pattern             = [self.pattern copyWithZone:zone];
+    newDatetype->_maxValue            = [self.maxValue copyWithZone:zone];
+    newDatetype->_minValue            = [self.minValue copyWithZone:zone];
+    
+    return newDatetype;
 }
 
-#pragma mark - Utils
-- (NSNumber *)numberFromString:(NSString *)string {
-    NSNumber *number = nil;
-    if (string && [string isKindOfClass:[NSString class]]) {
-        NSNumberFormatter *formatter = [NSNumberFormatter new];
-        formatter.numberStyle = NSNumberFormatterDecimalStyle;
-        number = [formatter numberFromString:string];
-    }
-    return number;
-}
 @end

@@ -1,0 +1,4 @@
+{
+   "errorMessage":"This field is mandatory so you must enter data.",
+   "format":"yyyy-MM-dd'T'HH:mm:ss"
+}
