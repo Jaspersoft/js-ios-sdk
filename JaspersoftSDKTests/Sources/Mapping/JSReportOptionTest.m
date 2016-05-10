@@ -56,6 +56,7 @@
 
 - (void)testIsEquals {
     JSReportOption *mappedObject = [EKMapper objectFromExternalRepresentation:self.jsonObject withMapping:self.mapping];
+    XCTAssertFalse([mappedObject isEqual:self]);
     XCTAssertTrue([mappedObject isEqual:mappedObject]);
     JSReportOption *newObject = [JSReportOption new];
     newObject.label = mappedObject.label;

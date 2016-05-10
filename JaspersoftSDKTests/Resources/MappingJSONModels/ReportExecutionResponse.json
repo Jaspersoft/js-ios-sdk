@@ -14,5 +14,12 @@
                ],
     "currentPage":1988,
     "requestId":"4979b98c-7eee-41f6-aa52-e6eab0063eba",
-    "reportURI":"\/public\/Samples\/Reports\/04._Product_Results_by_Store_Type_Report"
+    "reportURI":"\/public\/Samples\/Reports\/04._Product_Results_by_Store_Type_Report",
+    "errorDescriptor":{
+        "message":"Export Failed",
+        "errorCode":"export.failed",
+        "parameters":[
+                      "illegal.parameter.value.error"
+                      ]
+    }
 }

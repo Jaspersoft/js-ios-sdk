@@ -1,0 +1,12 @@
+{
+    "id":"Store_Country",
+    "label":"Country:",
+    "name":"Store Country",
+    "resourceId":"Store_Country",
+    "ownerResourceId":"/temp/tmpAdv_1414686450998_tqqd",
+    "ownerResourceParameterName":"store_country_1",
+    "resource":"/public/AAT1_files/tmpAdv_1414686450998_tqqd_files/store_country_1",
+    "type":"inputControl",
+    "dashletHyperlinkTarget":"Parent",
+    "dashletHyperlinkUrl":"/public/Samples/Topics/CrosstabDemo",
+}

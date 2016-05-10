@@ -4,7 +4,8 @@
    "creationDate":"2016-05-03T17:55:33",
    "version":0,
    "label":"Area Spline Stacked Percent ",
-   "description":"The interesting report",
+   "description":"",
    "uri":"\/organizations\/organization_1\/IreportCharts\/SteckedPercentAreaSpline",
-   "permissionMask":1
+   "permissionMask":1,
+   "alwaysPromptControls":true
 }

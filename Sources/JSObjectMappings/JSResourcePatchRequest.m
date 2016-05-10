@@ -31,11 +31,6 @@
 #import "JSResourcePatchRequest.h"
 #import "JSParameter.h"
 
-@interface JSResourcePatchRequest()
-@property (nonatomic, strong, nonnull) NSNumber *version;
-@property (nonatomic, strong, nonnull) NSArray *patch;
-@end
-
 @implementation JSResourcePatchRequest
 
 - (nonnull instancetype)initWithResource:(nonnull JSResourceLookup *)resource {

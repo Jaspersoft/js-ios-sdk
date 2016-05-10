@@ -1,0 +1,13 @@
+{
+    "version":1,
+    "patch":[
+             {
+             "field":"label",
+             "value":"ResourceName"
+             },
+             {
+             "field":"description",
+             "value":"ResourceDescription"
+             }
+    ]
+}

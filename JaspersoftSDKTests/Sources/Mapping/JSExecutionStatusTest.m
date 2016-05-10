@@ -54,6 +54,8 @@
 
 - (void)testIsEquals {
     JSExecutionStatus *mappedObject = [EKMapper objectFromExternalRepresentation:self.jsonObject withMapping:self.mapping];
+    XCTAssertFalse([mappedObject isEqual:self]);
+    
     XCTAssertTrue([mappedObject isEqual:mappedObject]);
     JSExecutionStatus *newObject = [JSExecutionStatus new];
     newObject.status = mappedObject.status;

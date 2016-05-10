@@ -39,6 +39,9 @@
 
 @interface JSResourcePatchRequest : NSObject <JSObjectMappingsProtocol>
 
+@property (nonatomic, strong, nonnull) NSNumber *version;
+@property (nonatomic, strong, nonnull) NSArray *patch;
+
 - (nonnull instancetype)initWithResource:(nonnull JSResourceLookup *)resource;
 
 + (nonnull instancetype)patchRecuestWithResource:(nonnull JSResourceLookup *)resource;
