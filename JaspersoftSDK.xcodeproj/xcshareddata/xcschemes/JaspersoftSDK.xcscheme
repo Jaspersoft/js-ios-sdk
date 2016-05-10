@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "088BE37E1CCF73F9004FEAA9"
+               BuildableName = "JaspersoftSDKTests.xctest"
+               BlueprintName = "JaspersoftSDKTests"
+               ReferencedContainer = "container:JaspersoftSDK.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "F59768BC15E3C75F004165A7"
+            BuildableName = "libJaspersoftSDK.a"
+            BlueprintName = "JaspersoftSDK"
+            ReferencedContainer = "container:JaspersoftSDK.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
