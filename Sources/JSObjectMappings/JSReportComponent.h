@@ -29,7 +29,7 @@
 
 /**
 @author Aleksandr Dakhno odahno@tibco.com
-@since 2.4
+@since 2.5
 */
 
 #import "JSObjectMappingsProtocol.h"

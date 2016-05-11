@@ -89,7 +89,7 @@ typedef NS_OPTIONS(NSInteger, JSRequestSerializationType) {
 /**
  The full URI with restVersion prefix
  
- @since 2.4
+ @since 2.5
  */
 @property (nonatomic, readonly, nonnull) NSString *fullURI;
 
@@ -118,14 +118,14 @@ typedef NS_OPTIONS(NSInteger, JSRequestSerializationType) {
 /**
  The serialization type
  
- @since 2.4
+ @since 2.5
  */
 @property (nonatomic, assign) JSRequestSerializationType serializationType;
 
 /**
  Expected mapping for serialize responce
  
- @since 2.4
+ @since 2.5
  */
 @property (nonatomic, strong, nonnull) JSMapping *objectMapping;
 
@@ -208,7 +208,7 @@ typedef NS_OPTIONS(NSInteger, JSRequestSerializationType) {
 /**
  The string representation of HTTP method
  
- @since 2.4
+ @since 2.5
  */
 + (nonnull NSString *)httpMethodStringRepresentation:(JSRequestHTTPMethod)method;
 @end

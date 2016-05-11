@@ -119,7 +119,7 @@ extern NSString * const _Nonnull kJSRequestResponceType;
 /**
  Update cookies
 
- @since 2.4
+ @since 2.5
  */
 
 - (void)updateCookiesWithCookies:(NSArray <NSHTTPCookie *>* __nullable)cookies;

@@ -35,7 +35,7 @@ $ edit Podfile
 
 platform :ios, '6.0' 
 # Or platform :osx, '10.7'
-pod 'JaspersoftSDK', :git => 'https://github.com/Jaspersoft/js-ios-sdk.git', :tag => '2.4', :subspecs => ['JSCore', 'JSSecurity', 'JSReportExtention']
+pod 'JaspersoftSDK', :git => 'https://github.com/Jaspersoft/js-ios-sdk.git', :tag => '2.5', :subspecs => ['JSCore', 'JSSecurity', 'JSReportExtention']
 post_install do |installer_representation|
   installer_representation.project.targets.each do |target|
     if target.name == "Pods-JaspersoftSDK"

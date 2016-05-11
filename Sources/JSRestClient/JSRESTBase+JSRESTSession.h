@@ -53,7 +53,7 @@
  
  @return block The block to inform of the results
  
- @since 2.4
+ @since 2.5
  */
 - (void)fetchServerInfoWithCompletion:(JSRequestCompletionBlock)completion;
 

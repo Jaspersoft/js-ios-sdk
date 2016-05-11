@@ -133,7 +133,7 @@
  
  @return A minimal supported version of JRS
  
- @since 2.4
+ @since 2.5
  */
 + (float) minSupportedServerVersion;
 

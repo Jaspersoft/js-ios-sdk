@@ -155,6 +155,7 @@
 		0811BCAB1C08903E006D0ABF /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
 		0817D9901C71CBD300111256 /* JSEncryptionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSEncryptionData.h; sourceTree = "<group>"; };
 		0817D9911C71CBD300111256 /* JSEncryptionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSEncryptionData.m; sourceTree = "<group>"; };
+		08414F791CE32D0200140A83 /* TIB_jsm-sdk-ios_2.5.0_license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TIB_jsm-sdk-ios_2.5.0_license.txt"; sourceTree = "<group>"; };
 		0849FC321C2B0A91008F1064 /* JSDataType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDataType.h; sourceTree = "<group>"; };
 		0849FC331C2B0A91008F1064 /* JSDataType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDataType.m; sourceTree = "<group>"; };
 		0849FC341C2B0A91008F1064 /* JSDateTimeFormatValidationRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDateTimeFormatValidationRule.h; sourceTree = "<group>"; };
@@ -253,7 +254,6 @@
 		A147828C4698D5A889D3163B /* JSDashboardComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDashboardComponent.m; sourceTree = "<group>"; };
 		A14782B2844E9E3717AF73D6 /* JSScheduleTrigger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSScheduleTrigger.h; sourceTree = "<group>"; };
 		A14784FCE771FA8D974535B3 /* JSDashboardResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDashboardResource.h; sourceTree = "<group>"; };
-		A14785ACF3E7073C96627DA5 /* TIB_jsm-sdk-ios_2.3.0_GA_license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TIB_jsm-sdk-ios_2.3.0_GA_license.txt"; sourceTree = "<group>"; };
 		A14786260EDE28E3427B4003 /* JSScheduleMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSScheduleMetadata.h; sourceTree = "<group>"; };
 		A147863E63707758748F5870 /* JSReportComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportComponent.m; sourceTree = "<group>"; };
 		A147876D0CBB5A203071885F /* JSScheduleJobState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSScheduleJobState.h; sourceTree = "<group>"; };
@@ -492,7 +492,7 @@
 		A14781C33B4F5C834CAA8E45 /* EULA */ = {
 			isa = PBXGroup;
 			children = (
-				A14785ACF3E7073C96627DA5 /* TIB_jsm-sdk-ios_2.3.0_GA_license.txt */,
+				08414F791CE32D0200140A83 /* TIB_jsm-sdk-ios_2.5.0_license.txt */,
 			);
 			path = EULA;
 			sourceTree = "<group>";
@@ -720,7 +720,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "buildNumber=\"2.2\"\n#appledoc Xcode script\n# Start constants\ncompany=\"TIBCO Jaspersoft\";\ncompanyID=\"com.Jaspersoft.TIBCO\";\ncompanyURL=\"http://TIBCO.com\";\ntarget=\"iphoneos\";\noutputPath=\"~/Developer/help/js-ios-sdk/$buildNumber\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--output \"${outputPath}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
+			shellScript = "buildNumber=\"2.5\"\n#appledoc Xcode script\n# Start constants\ncompany=\"TIBCO Jaspersoft\";\ncompanyID=\"com.Jaspersoft.TIBCO\";\ncompanyURL=\"http://TIBCO.com\";\ntarget=\"iphoneos\";\noutputPath=\"~/Developer/help/js-ios-sdk/$buildNumber\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--output \"${outputPath}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
 		};
 		936962AFE0075F3901B56B92 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

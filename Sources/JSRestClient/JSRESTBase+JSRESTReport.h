@@ -157,7 +157,7 @@
 /**
  Executes report with new parameter - 'markupType'
 
- @since 2.4
+ @since 2.5
  */
 
 - (void)runReportExecution:(nonnull NSString *)reportUnitUri
@@ -204,7 +204,7 @@
 /**
  Run Export Execution with new parameter - 'markupType'
 
- @since 2.4
+ @since 2.5
  */
 
 - (void)runExportExecution:(nonnull NSString *)requestId
@@ -300,7 +300,7 @@
  @param requestId A <b>requestId</b> parameter of the report execution response
  @param block The block to inform of the results
 
- @since 2.4
+ @since 2.5
  */
 - (void)fetchReportComponentsWithRequestId:(nonnull NSString *)requestId
                                 pageNumber:(NSInteger)pageNumber
@@ -312,7 +312,7 @@
  @param executionId A <b>executionId</b> parameter of the report execution response
  @param completion The block to inform of the results
 
- @since 2.4
+ @since 2.5
  */
 - (void)reportComponentForReportWithExecutionId:(nonnull NSString *)executionId
                                      pageNumber:(NSInteger)pageNumber

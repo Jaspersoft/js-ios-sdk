@@ -30,7 +30,7 @@
 
 /**
  @author Alexey Gubarev ogubarie@tibco.com
- @since 2.4
+ @since 2.5
  */
 
 #import <Foundation/Foundation.h>
