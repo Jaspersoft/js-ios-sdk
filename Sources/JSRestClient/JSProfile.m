@@ -82,7 +82,7 @@ NSString * const kJSSavedProfileServerInfoKey   = @"JSSavedProfileServerInfoKey"
 #if __has_include("JSSecurity.h")
     JSEncryptionManager *encryptionManager = [JSEncryptionManager new];
     encryptedUsername = [encryptionManager encryptText:_username withKey:[NSString stringWithFormat:@"%@.%@", kJSSavedProfileUsernameKey, _alias]];
-    encryptedPassword = [encryptionManager encryptText:_username withKey:[NSString stringWithFormat:@"%@.%@", kJSSavedProfilePasswordKey, _alias]];
+    encryptedPassword = [encryptionManager encryptText:_password withKey:[NSString stringWithFormat:@"%@.%@", kJSSavedProfilePasswordKey, _alias]];
 #endif
     
     // Store username and password in Keychain
