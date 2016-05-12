@@ -73,6 +73,7 @@
 		08414F721CE22BFB00140A83 /* ResourceReportUnit.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414F711CE22BFB00140A83 /* ResourceReportUnit.json */; };
 		08414F741CE22CE100140A83 /* JSDashboardComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 08414F731CE22CE100140A83 /* JSDashboardComponent.m */; };
 		08414F761CE235A700140A83 /* DashboardComponent.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414F751CE235A700140A83 /* DashboardComponent.json */; };
+		08414F7E1CE3529800140A83 /* JSReportComponentTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 08414F7D1CE3529800140A83 /* JSReportComponentTest.m */; };
 		0849FC8D1C2B0A91008F1064 /* JSDataType.h in Headers */ = {isa = PBXBuildFile; fileRef = 0849FC321C2B0A91008F1064 /* JSDataType.h */; };
 		0849FC8E1C2B0A91008F1064 /* JSDataType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849FC331C2B0A91008F1064 /* JSDataType.m */; };
 		0849FC8F1C2B0A91008F1064 /* JSDateTimeFormatValidationRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 0849FC341C2B0A91008F1064 /* JSDateTimeFormatValidationRule.h */; };
@@ -264,6 +265,7 @@
 		08414F731CE22CE100140A83 /* JSDashboardComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDashboardComponent.m; sourceTree = "<group>"; };
 		08414F751CE235A700140A83 /* DashboardComponent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DashboardComponent.json; sourceTree = "<group>"; };
 		08414F791CE32D0200140A83 /* TIB_jsm-sdk-ios_2.5.0_license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TIB_jsm-sdk-ios_2.5.0_license.txt"; sourceTree = "<group>"; };
+		08414F7D1CE3529800140A83 /* JSReportComponentTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportComponentTest.m; sourceTree = "<group>"; };
 		0849FC321C2B0A91008F1064 /* JSDataType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDataType.h; sourceTree = "<group>"; };
 		0849FC331C2B0A91008F1064 /* JSDataType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDataType.m; sourceTree = "<group>"; };
 		0849FC341C2B0A91008F1064 /* JSDateTimeFormatValidationRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDateTimeFormatValidationRule.h; sourceTree = "<group>"; };
@@ -678,6 +680,7 @@
 				08414F6B1CE21BA400140A83 /* JSResourcePatchRequestTest.m */,
 				08414F6F1CE22B3800140A83 /* JSResourceReportUnitTest.m */,
 				08414F731CE22CE100140A83 /* JSDashboardComponent.m */,
+				08414F7D1CE3529800140A83 /* JSReportComponentTest.m */,
 			);
 			path = Mapping;
 			sourceTree = "<group>";
@@ -1058,6 +1061,7 @@
 				08414F1C1CDB56FA00140A83 /* JSContentResourceTest.m in Sources */,
 				088BE39E1CD0E93B004FEAA9 /* JSServerInfoTest.m in Sources */,
 				08414F5B1CDCC85400140A83 /* JSReportExecutionResponseTest.m in Sources */,
+				08414F7E1CE3529800140A83 /* JSReportComponentTest.m in Sources */,
 				08414F381CDB902B00140A83 /* JSExportExecutionRequestTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

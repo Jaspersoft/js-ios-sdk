@@ -50,6 +50,15 @@
     [self isEqualProfile:profile toProfile:copiedObject];
 }
 
+- (void)testIsEqualProfileToProfile {
+    JSProfile *profile = [JSServerProfileProvider serverProfileWithVersion:kJS_SERVER_VERSION_CODE_UNKNOWN];
+    JSProfile *copiedObject = [profile copy];
+    
+    [self isEqualProfile:profile toProfile:profile];
+    [self isEqualProfile:profile toProfile:copiedObject];
+}
+
+#pragma mark - Helper
 - (void)isEqualProfile:(JSProfile *)profile toProfile:(JSProfile *)otherProfile {
     XCTAssertTrue([profile isKindOfClass:[otherProfile class]]);
 
