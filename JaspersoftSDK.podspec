@@ -1,16 +1,16 @@
 Pod::Spec.new do |s|
 	s.name = 'JaspersoftSDK'
-	s.version = '2.4'
+	s.version = '2.5'
 	s.summary = 'JaspersoftSDK - The simplest way to build JasperReports Server apps.'
 	s.description = <<-DESC
 		JaspersoftSDK for iOS is a set of Objective-C classes to easily connect
 		and consume the services provided by JasperReports Server
-		using the REST API (available in JasperReports Server 5.5.0 or greater).!
+		using the REST API (available in JasperReports Server 6.0.0 or greater).!
 	DESC
 	s.homepage = 'http://community.jaspersoft.com/project/mobile-sdk-ios'
 	s.license = { :type => 'GNU GPL v.3', :file => 'LICENSE.txt' }
 	s.author = 'TIBCO Software'
-	s.platform = :ios, '6.0'
+	s.platform = :ios, '7.0'
 	s.source = { :git => 'https://github.com/Jaspersoft/js-ios-sdk.git', :tag => s.version.to_s }
 	s.public_header_files = "Sources/*.h"
 	s.framework = 'Foundation'	

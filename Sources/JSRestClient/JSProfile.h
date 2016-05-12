@@ -46,7 +46,7 @@
  The alias is mainly used to display profile's name in UI (i.e. when displays
  a list of available servers)
  */
-@property (nonatomic, readonly, nonnull) NSString *alias;
+@property (nonatomic, nonnull) NSString *alias;
 
 /**
  The URL of JasperReports Server.
