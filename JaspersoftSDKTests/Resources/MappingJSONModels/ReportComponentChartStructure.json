@@ -1,0 +1,23 @@
+{
+    "module":"jive.highcharts",
+    "uimodule":"jive.interactive.highchart",
+    "globalOptions":{
+        "lang":{
+            "thousandsSep":",",
+            "decimalPoint":"."
+        }
+    },
+    "hcinstancedata":{
+        "services":[
+                    {
+                    "service":"adhocHighchartsSettingService",
+                    "data":{}
+                    }
+                    ],
+        "renderto":"Highc_highchartsConfig_398992904_12_1475077415",
+    },
+    "charttype":"MultiAxisColumn",
+    "treemapSupported":true,
+    "interactive":true,
+    "datetimeSupported":true
+}

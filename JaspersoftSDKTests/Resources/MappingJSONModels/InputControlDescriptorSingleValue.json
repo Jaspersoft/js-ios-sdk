@@ -1,0 +1,33 @@
+{
+    "id":"date_and",
+    "mandatory":false,
+    "label":"and",
+    "masterDependencies":[
+    
+    ],
+    "uri":"repo:\/organizations\/organization_1\/AdditionalResourcesForTesting\/Reports_With_Controls\/Date\/Date_between_1_1_files\/date_and",
+    "slaveDependencies":[
+    
+    ],
+    "state":{
+        "uri":"\/organizations\/organization_1\/AdditionalResourcesForTesting\/Reports_With_Controls\/Date\/Date_between_1_1_files\/date_and",
+        "id":"date_and",
+        "value":"2016-05-17"
+    },
+    "type":"singleValueDate",
+    "validationRules":[
+                       {
+                       "dateTimeFormatValidationRule":{
+                       "errorMessage":"Specify a valid date value.",
+                       "format":"yyyy-MM-dd"
+                       }
+                       }
+                       ],
+    "dataType":{
+        "type":"date",
+        "strictMax":false,
+        "strictMin":false
+    },
+    "visible":true,
+    "readOnly":false
+}

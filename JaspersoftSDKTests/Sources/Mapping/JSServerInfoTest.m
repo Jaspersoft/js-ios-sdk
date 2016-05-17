@@ -46,10 +46,10 @@
     XCTAssertEqual(expectedVersion, [mappedObject versionAsFloat], @"Version incorrect converted to float!");
 }
 
-- (void)testSetverDataFormatter {
+- (void)testServerDateFormatter {
     JSServerInfo *mappedObject = [EKMapper objectFromExternalRepresentation:self.jsonObject withMapping:self.mapping];
     NSDateFormatter *formatter = [mappedObject serverDateFormatFormatter];
-    XCTAssertEqual(formatter.dateFormat, [self.jsonObject valueForKey:@"datetimeFormatPattern"], @"Server date formatter incorrect initialized!");
+    XCTAssertEqualObjects(formatter.dateFormat, [self.jsonObject valueForKey:@"datetimeFormatPattern"]);
 }
 
 - (void)testNSSecureCodingProtocolSupport {

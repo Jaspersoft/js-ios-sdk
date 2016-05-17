@@ -1,0 +1,28 @@
+{
+    "startType":2,
+    "startDate":"2016-05-13 17:42",
+    "endDate":"2016-05-14 07:46",
+    "id":13167,
+    "recurrenceInterval":12,
+    "recurrenceIntervalUnit":"DAY",
+    "timezone":"America\/Los_Angeles",
+    "misfireInstruction":0,
+    "version":3,
+    "occurrenceCount":-1,
+    "weekDays":{
+        "day":[
+               2,
+               4
+               ]
+    },
+    "months":{
+        "month":[
+                 1,
+                 3,
+                 5
+                 ]
+    },
+    "daysType":"WEEK",
+    "hours":"10",
+    "minutes":"30"
+}

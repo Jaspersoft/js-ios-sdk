@@ -29,6 +29,8 @@
 //
 
 #import "JSServerInfo.h"
+#import "JSDateFormatterFactory.h"
+
 NSString * const kJSSavedServerInfoBuildKey                 = @"JSSavedServerInfoBuildKey";
 NSString * const kJSSavedServerInfoEditionKey               = @"JSSavedServerInfoEditionKey";
 NSString * const kJSSavedServerInfoEditionNameKey           = @"JSSavedServerInfoEditionNameKey";
@@ -38,10 +40,6 @@ NSString * const kJSSavedServerInfoLicenseTypeKey           = @"JSSavedServerInf
 NSString * const kJSSavedServerInfoVersionKey               = @"JSSavedServerInfoVersionKey";
 NSString * const kJSSavedServerInfoDateFormatPatternKey     = @"JSSavedServerInfoDateFormatPatternKey";
 NSString * const kJSSavedServerInfoDatetimeFormatPatternKey = @"kJSSavedServerInfoDatetimeFormatPatternKey";
-
-@interface JSServerInfo ()
-@property (nonatomic, strong, readwrite) NSDateFormatter *serverDateFormatFormatter;
-@end
 
 @implementation JSServerInfo
 
@@ -56,12 +54,7 @@ NSString * const kJSSavedServerInfoDatetimeFormatPatternKey = @"kJSSavedServerIn
 }
 
 - (NSDateFormatter *)serverDateFormatFormatter {
-    if (!_serverDateFormatFormatter) {
-        _serverDateFormatFormatter = [NSDateFormatter new];
-        _serverDateFormatFormatter.timeZone = [NSTimeZone timeZoneWithName:@"GMT"];
-        _serverDateFormatFormatter.dateFormat = self.datetimeFormatPattern;
-    }
-    return _serverDateFormatFormatter;
+    return [[JSDateFormatterFactory sharedFactory] formatterWithPattern:self.datetimeFormatPattern timeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
 }
 
 #pragma mark - JSObjectMappingsProtocol

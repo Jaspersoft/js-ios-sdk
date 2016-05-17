@@ -74,6 +74,29 @@
 		08414F741CE22CE100140A83 /* JSDashboardComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 08414F731CE22CE100140A83 /* JSDashboardComponent.m */; };
 		08414F761CE235A700140A83 /* DashboardComponent.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414F751CE235A700140A83 /* DashboardComponent.json */; };
 		08414F7E1CE3529800140A83 /* JSReportComponentTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 08414F7D1CE3529800140A83 /* JSReportComponentTest.m */; };
+		08414F801CE4AFA400140A83 /* ReportComponent.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414F7F1CE4AFA400140A83 /* ReportComponent.json */; };
+		08414F821CE4B57100140A83 /* ReportComponentTableStructure.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414F811CE4B57100140A83 /* ReportComponentTableStructure.json */; };
+		08414F871CE4C57200140A83 /* ReportComponentChartStructure.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414F831CE4C57200140A83 /* ReportComponentChartStructure.json */; };
+		08414F881CE4C57200140A83 /* ReportComponentColumnStructure.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414F841CE4C57200140A83 /* ReportComponentColumnStructure.json */; };
+		08414F891CE4C57200140A83 /* ReportComponentCrosstabStructure.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414F851CE4C57200140A83 /* ReportComponentCrosstabStructure.json */; };
+		08414F8A1CE4C57200140A83 /* ReportComponentFusionStructure.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414F861CE4C57200140A83 /* ReportComponentFusionStructure.json */; };
+		08414F8C1CE5B6B700140A83 /* JSScheduleJobStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 08414F8B1CE5B6B700140A83 /* JSScheduleJobStateTest.m */; };
+		08414F8E1CE5B7BF00140A83 /* JSDateFormatterFactoryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 08414F8D1CE5B7BF00140A83 /* JSDateFormatterFactoryTest.m */; };
+		08414F901CE5F2FD00140A83 /* ScheduleJobState.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414F8F1CE5F2FD00140A83 /* ScheduleJobState.json */; };
+		08414F921CE6022D00140A83 /* JSScheduleLookupTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 08414F911CE6022D00140A83 /* JSScheduleLookupTest.m */; };
+		08414F941CE6049E00140A83 /* ScheduleLookup.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414F931CE6049E00140A83 /* ScheduleLookup.json */; };
+		08414F961CE605DB00140A83 /* JSScheduleTriggerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 08414F951CE605DB00140A83 /* JSScheduleTriggerTest.m */; };
+		08414F981CE60A2F00140A83 /* ScheduleTrigger.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414F971CE60A2F00140A83 /* ScheduleTrigger.json */; };
+		08414F9A1CE610B900140A83 /* ScheduleMetadata.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414F991CE610B900140A83 /* ScheduleMetadata.json */; };
+		08414F9C1CEB0F5600140A83 /* ScheduleSimpleTrigger.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414F9B1CEB0F5600140A83 /* ScheduleSimpleTrigger.json */; };
+		08414F9E1CEB12E900140A83 /* ScheduleCalendarTrigger.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414F9D1CEB12E900140A83 /* ScheduleCalendarTrigger.json */; };
+		08414FA01CEB475900140A83 /* JSScheduleMetadataTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 08414F9F1CEB475900140A83 /* JSScheduleMetadataTest.m */; };
+		08414FA21CEB683200140A83 /* JSInputControlDescriptorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 08414FA11CEB683200140A83 /* JSInputControlDescriptorTest.m */; };
+		08414FA41CEB6E0B00140A83 /* InputControlDescriptor.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414FA31CEB6E0B00140A83 /* InputControlDescriptor.json */; };
+		08414FA71CEB701000140A83 /* InputControlDescriptorDateTimeRule.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414FA51CEB701000140A83 /* InputControlDescriptorDateTimeRule.json */; };
+		08414FA81CEB701000140A83 /* InputControlDescriptorMandatoryRule.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414FA61CEB701000140A83 /* InputControlDescriptorMandatoryRule.json */; };
+		08414FAB1CEB75E800140A83 /* InputControlDescriptorSelectableValue.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414FA91CEB75E800140A83 /* InputControlDescriptorSelectableValue.json */; };
+		08414FAC1CEB75E800140A83 /* InputControlDescriptorSingleValue.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414FAA1CEB75E800140A83 /* InputControlDescriptorSingleValue.json */; };
 		0849FC8D1C2B0A91008F1064 /* JSDataType.h in Headers */ = {isa = PBXBuildFile; fileRef = 0849FC321C2B0A91008F1064 /* JSDataType.h */; };
 		0849FC8E1C2B0A91008F1064 /* JSDataType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849FC331C2B0A91008F1064 /* JSDataType.m */; };
 		0849FC8F1C2B0A91008F1064 /* JSDateTimeFormatValidationRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 0849FC341C2B0A91008F1064 /* JSDateTimeFormatValidationRule.h */; };
@@ -266,6 +289,29 @@
 		08414F751CE235A700140A83 /* DashboardComponent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DashboardComponent.json; sourceTree = "<group>"; };
 		08414F791CE32D0200140A83 /* TIB_jsm-sdk-ios_2.5.0_license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TIB_jsm-sdk-ios_2.5.0_license.txt"; sourceTree = "<group>"; };
 		08414F7D1CE3529800140A83 /* JSReportComponentTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportComponentTest.m; sourceTree = "<group>"; };
+		08414F7F1CE4AFA400140A83 /* ReportComponent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ReportComponent.json; sourceTree = "<group>"; };
+		08414F811CE4B57100140A83 /* ReportComponentTableStructure.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ReportComponentTableStructure.json; sourceTree = "<group>"; };
+		08414F831CE4C57200140A83 /* ReportComponentChartStructure.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ReportComponentChartStructure.json; sourceTree = "<group>"; };
+		08414F841CE4C57200140A83 /* ReportComponentColumnStructure.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ReportComponentColumnStructure.json; sourceTree = "<group>"; };
+		08414F851CE4C57200140A83 /* ReportComponentCrosstabStructure.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ReportComponentCrosstabStructure.json; sourceTree = "<group>"; };
+		08414F861CE4C57200140A83 /* ReportComponentFusionStructure.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ReportComponentFusionStructure.json; sourceTree = "<group>"; };
+		08414F8B1CE5B6B700140A83 /* JSScheduleJobStateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSScheduleJobStateTest.m; sourceTree = "<group>"; };
+		08414F8D1CE5B7BF00140A83 /* JSDateFormatterFactoryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDateFormatterFactoryTest.m; sourceTree = "<group>"; };
+		08414F8F1CE5F2FD00140A83 /* ScheduleJobState.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ScheduleJobState.json; sourceTree = "<group>"; };
+		08414F911CE6022D00140A83 /* JSScheduleLookupTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSScheduleLookupTest.m; sourceTree = "<group>"; };
+		08414F931CE6049E00140A83 /* ScheduleLookup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ScheduleLookup.json; sourceTree = "<group>"; };
+		08414F951CE605DB00140A83 /* JSScheduleTriggerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSScheduleTriggerTest.m; sourceTree = "<group>"; };
+		08414F971CE60A2F00140A83 /* ScheduleTrigger.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ScheduleTrigger.json; sourceTree = "<group>"; };
+		08414F991CE610B900140A83 /* ScheduleMetadata.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ScheduleMetadata.json; sourceTree = "<group>"; };
+		08414F9B1CEB0F5600140A83 /* ScheduleSimpleTrigger.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ScheduleSimpleTrigger.json; sourceTree = "<group>"; };
+		08414F9D1CEB12E900140A83 /* ScheduleCalendarTrigger.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ScheduleCalendarTrigger.json; sourceTree = "<group>"; };
+		08414F9F1CEB475900140A83 /* JSScheduleMetadataTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSScheduleMetadataTest.m; sourceTree = "<group>"; };
+		08414FA11CEB683200140A83 /* JSInputControlDescriptorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSInputControlDescriptorTest.m; sourceTree = "<group>"; };
+		08414FA31CEB6E0B00140A83 /* InputControlDescriptor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InputControlDescriptor.json; sourceTree = "<group>"; };
+		08414FA51CEB701000140A83 /* InputControlDescriptorDateTimeRule.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InputControlDescriptorDateTimeRule.json; sourceTree = "<group>"; };
+		08414FA61CEB701000140A83 /* InputControlDescriptorMandatoryRule.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InputControlDescriptorMandatoryRule.json; sourceTree = "<group>"; };
+		08414FA91CEB75E800140A83 /* InputControlDescriptorSelectableValue.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InputControlDescriptorSelectableValue.json; sourceTree = "<group>"; };
+		08414FAA1CEB75E800140A83 /* InputControlDescriptorSingleValue.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InputControlDescriptorSingleValue.json; sourceTree = "<group>"; };
 		0849FC321C2B0A91008F1064 /* JSDataType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDataType.h; sourceTree = "<group>"; };
 		0849FC331C2B0A91008F1064 /* JSDataType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDataType.m; sourceTree = "<group>"; };
 		0849FC341C2B0A91008F1064 /* JSDateTimeFormatValidationRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDateTimeFormatValidationRule.h; sourceTree = "<group>"; };
@@ -642,6 +688,7 @@
 				08414F3F1CDC7FF500140A83 /* JSObjectRepresentationProviderTest.m */,
 				08414F411CDC814900140A83 /* JSServerProfileProviderTest.m */,
 				081773901CD38A1300899B3A /* JSProfileTest.m */,
+				08414F8D1CE5B7BF00140A83 /* JSDateFormatterFactoryTest.m */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -681,6 +728,11 @@
 				08414F6F1CE22B3800140A83 /* JSResourceReportUnitTest.m */,
 				08414F731CE22CE100140A83 /* JSDashboardComponent.m */,
 				08414F7D1CE3529800140A83 /* JSReportComponentTest.m */,
+				08414F8B1CE5B6B700140A83 /* JSScheduleJobStateTest.m */,
+				08414F911CE6022D00140A83 /* JSScheduleLookupTest.m */,
+				08414F951CE605DB00140A83 /* JSScheduleTriggerTest.m */,
+				08414F9F1CEB475900140A83 /* JSScheduleMetadataTest.m */,
+				08414FA11CEB683200140A83 /* JSInputControlDescriptorTest.m */,
 			);
 			path = Mapping;
 			sourceTree = "<group>";
@@ -707,6 +759,11 @@
 				08414F201CDB6A2900140A83 /* ResourceLookup.json */,
 				0817738E1CD37C2200899B3A /* EncryptionData.json */,
 				088BE3A51CD10BB7004FEAA9 /* ServerInfo.json */,
+				08414FA31CEB6E0B00140A83 /* InputControlDescriptor.json */,
+				08414FA51CEB701000140A83 /* InputControlDescriptorDateTimeRule.json */,
+				08414FA61CEB701000140A83 /* InputControlDescriptorMandatoryRule.json */,
+				08414FA91CEB75E800140A83 /* InputControlDescriptorSelectableValue.json */,
+				08414FAA1CEB75E800140A83 /* InputControlDescriptorSingleValue.json */,
 				08414F4C1CDC942600140A83 /* InputControlOption.json */,
 				08414F501CDC974C00140A83 /* InputControlState.json */,
 				08414F541CDCA4AC00140A83 /* Parameter.json */,
@@ -718,6 +775,18 @@
 				08414F6D1CE21F1500140A83 /* ResourcePatchRequest.json */,
 				08414F711CE22BFB00140A83 /* ResourceReportUnit.json */,
 				08414F751CE235A700140A83 /* DashboardComponent.json */,
+				08414F7F1CE4AFA400140A83 /* ReportComponent.json */,
+				08414F811CE4B57100140A83 /* ReportComponentTableStructure.json */,
+				08414F841CE4C57200140A83 /* ReportComponentColumnStructure.json */,
+				08414F831CE4C57200140A83 /* ReportComponentChartStructure.json */,
+				08414F851CE4C57200140A83 /* ReportComponentCrosstabStructure.json */,
+				08414F861CE4C57200140A83 /* ReportComponentFusionStructure.json */,
+				08414F8F1CE5F2FD00140A83 /* ScheduleJobState.json */,
+				08414F931CE6049E00140A83 /* ScheduleLookup.json */,
+				08414F991CE610B900140A83 /* ScheduleMetadata.json */,
+				08414F971CE60A2F00140A83 /* ScheduleTrigger.json */,
+				08414F9B1CEB0F5600140A83 /* ScheduleSimpleTrigger.json */,
+				08414F9D1CEB12E900140A83 /* ScheduleCalendarTrigger.json */,
 			);
 			path = MappingJSONModels;
 			sourceTree = "<group>";
@@ -958,25 +1027,42 @@
 				08414F621CDCE04800140A83 /* JaspersoftSDK.strings in Resources */,
 				08414F3A1CDB955400140A83 /* ExportExecutionRequest.json in Resources */,
 				08414F6A1CE217F200140A83 /* ReportOutputResource.json in Resources */,
+				08414F941CE6049E00140A83 /* ScheduleLookup.json in Resources */,
 				08414F611CDCD9D600140A83 /* ReportOption.json in Resources */,
+				08414FAC1CEB75E800140A83 /* InputControlDescriptorSingleValue.json in Resources */,
 				08414F2D1CDB779D00140A83 /* DateTimeFormatValidationRule.json in Resources */,
 				08414F591CDCB14900140A83 /* ReportExecutionRequest.json in Resources */,
+				08414FA41CEB6E0B00140A83 /* InputControlDescriptor.json in Resources */,
 				08414F661CE216D300140A83 /* ReportParameter.json in Resources */,
 				08414F5D1CDCD1F100140A83 /* ReportExecutionResponse.json in Resources */,
 				0817738F1CD37C2200899B3A /* EncryptionData.json in Resources */,
 				08414F221CDB6A2900140A83 /* ResourceLookup.json in Resources */,
+				08414F891CE4C57200140A83 /* ReportComponentCrosstabStructure.json in Resources */,
+				08414F8A1CE4C57200140A83 /* ReportComponentFusionStructure.json in Resources */,
+				08414F9A1CE610B900140A83 /* ScheduleMetadata.json in Resources */,
 				08414F261CDB726700140A83 /* DataType.json in Resources */,
+				08414F801CE4AFA400140A83 /* ReportComponent.json in Resources */,
 				08414F4D1CDC942600140A83 /* InputControlOption.json in Resources */,
 				08414F2E1CDB779D00140A83 /* MandatoryValidationRule.json in Resources */,
+				08414F9E1CEB12E900140A83 /* ScheduleCalendarTrigger.json in Resources */,
 				08414F6E1CE21F1500140A83 /* ResourcePatchRequest.json in Resources */,
 				08414F551CDCA4AC00140A83 /* Parameter.json in Resources */,
 				08414F761CE235A700140A83 /* DashboardComponent.json in Resources */,
 				08414F321CDB7BAE00140A83 /* ErrorDescriptor.json in Resources */,
 				08414F211CDB6A2900140A83 /* ContentResource.json in Resources */,
+				08414F881CE4C57200140A83 /* ReportComponentColumnStructure.json in Resources */,
 				08414F721CE22BFB00140A83 /* ResourceReportUnit.json in Resources */,
+				08414F871CE4C57200140A83 /* ReportComponentChartStructure.json in Resources */,
+				08414FA71CEB701000140A83 /* InputControlDescriptorDateTimeRule.json in Resources */,
+				08414FA81CEB701000140A83 /* InputControlDescriptorMandatoryRule.json in Resources */,
 				088BE3A61CD10BB7004FEAA9 /* ServerInfo.json in Resources */,
+				08414F9C1CEB0F5600140A83 /* ScheduleSimpleTrigger.json in Resources */,
+				08414FAB1CEB75E800140A83 /* InputControlDescriptorSelectableValue.json in Resources */,
+				08414F821CE4B57100140A83 /* ReportComponentTableStructure.json in Resources */,
 				08414F3E1CDB980C00140A83 /* ExportExecutionResponse.json in Resources */,
 				08414F361CDB7CDD00140A83 /* ExecutionStatus.json in Resources */,
+				08414F981CE60A2F00140A83 /* ScheduleTrigger.json in Resources */,
+				08414F901CE5F2FD00140A83 /* ScheduleJobState.json in Resources */,
 				08414F511CDC974C00140A83 /* InputControlState.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1035,15 +1121,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				08414F701CE22B3800140A83 /* JSResourceReportUnitTest.m in Sources */,
+				08414F8C1CE5B6B700140A83 /* JSScheduleJobStateTest.m in Sources */,
 				08414F1E1CDB583D00140A83 /* JSResourceLookupTest.m in Sources */,
 				08414F401CDC7FF500140A83 /* JSObjectRepresentationProviderTest.m in Sources */,
 				08414F5F1CDCD6DD00140A83 /* JSReportOptionTest.m in Sources */,
 				08414F341CDB7C1300140A83 /* JSExecutionStatusTest.m in Sources */,
+				08414FA01CEB475900140A83 /* JSScheduleMetadataTest.m in Sources */,
 				08414F281CDB738800140A83 /* JSDateTimeFormatValidationRuleTest.m in Sources */,
 				08414F681CE2178500140A83 /* JSReportOutputResourceTest.m in Sources */,
 				08414F241CDB6FCB00140A83 /* JSDataTypeTest.m in Sources */,
 				08414F301CDB799B00140A83 /* JSErrorDescriptorTest.m in Sources */,
 				081773911CD38A1300899B3A /* JSProfileTest.m in Sources */,
+				08414F8E1CE5B7BF00140A83 /* JSDateFormatterFactoryTest.m in Sources */,
 				08414F4F1CDC961D00140A83 /* JSInputControlStateTest.m in Sources */,
 				08414F3C1CDB961D00140A83 /* JSExportExecutionResponseTest.m in Sources */,
 				08414F491CDC817500140A83 /* JSServerProfileProvider.m in Sources */,
@@ -1052,10 +1141,13 @@
 				088BE38F1CCF761E004FEAA9 /* JaspersoftSDKTests.m in Sources */,
 				08414F6C1CE21BA400140A83 /* JSResourcePatchRequestTest.m in Sources */,
 				08414F741CE22CE100140A83 /* JSDashboardComponent.m in Sources */,
+				08414FA21CEB683200140A83 /* JSInputControlDescriptorTest.m in Sources */,
 				08414F481CDC817500140A83 /* JSObjectRepresentationProvider.m in Sources */,
+				08414F921CE6022D00140A83 /* JSScheduleLookupTest.m in Sources */,
 				08414F4B1CDC931D00140A83 /* JSInputControlOptionTest.m in Sources */,
 				08414F531CDCA32800140A83 /* JSParameterTest.m in Sources */,
 				08414F571CDCABCE00140A83 /* JSReportExecutionRequestTest.m in Sources */,
+				08414F961CE605DB00140A83 /* JSScheduleTriggerTest.m in Sources */,
 				08414F2A1CDB774600140A83 /* JSMandatoryValidationRuleTest.m in Sources */,
 				0817738C1CD376D600899B3A /* JSEncryptionDataTest.m in Sources */,
 				08414F1C1CDB56FA00140A83 /* JSContentResourceTest.m in Sources */,

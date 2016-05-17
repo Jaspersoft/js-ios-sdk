@@ -49,13 +49,18 @@
                 return [NSNull null];
             }
 
-            NSDateFormatter *formatter = [[JSDateFormatterFactory sharedFactory] formatterWithPattern:@"yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"];
-            NSDate *date = [formatter dateFromString:value];
-            if (!date) {
-                formatter = [[JSDateFormatterFactory sharedFactory] formatterWithPattern:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
-                date = [formatter dateFromString:value];
+            NSMutableArray *formattersArray = [NSMutableArray array];
+            [formattersArray addObject:[[JSDateFormatterFactory sharedFactory] formatterWithPattern:@"yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"]];
+            [formattersArray addObject:[[JSDateFormatterFactory sharedFactory] formatterWithPattern:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"]];
+            [formattersArray addObject:serverProfile.serverInfo.serverDateFormatFormatter];
+
+            for (NSDateFormatter *formatter in formattersArray) {
+                NSDate *date = [formatter dateFromString:value];
+                if (date) {
+                    return date;
+                }
             }
-            return date;
+            return nil;
         };
 
         id(^reverseBlock)(id value) = ^id(id value) {

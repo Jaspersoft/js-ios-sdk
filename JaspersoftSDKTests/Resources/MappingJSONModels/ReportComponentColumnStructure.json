@@ -1,0 +1,12 @@
+{
+    "columnLabel":"Address",
+    "canFilter":true,
+    "selector":".jrcolHeader",
+    "canSort":true,
+    "columnIndex":3,
+    "proxySelector":".jrcel",
+    "dataType":"Text",
+    "canFormatConditionally":true,
+    "name":"billing_address_street",
+    "parentId":"f60eaf95-57ee-4fd0-bddd-ad38fce3bd29"
+}

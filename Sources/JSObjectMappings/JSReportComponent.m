@@ -200,27 +200,6 @@
 
 @end
 
-@implementation JSReportComponentBookmarksStructure
-
-#pragma mark - JSObjectMappingsProtocol
-+ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
-
-    }];
-}
-
-#pragma mark - NSCopying
-- (id)copyWithZone:(NSZone *)zone {
-
-    JSReportComponentBookmarksStructure *copiedStructure = [[[self class] allocWithZone:zone] init];
-    if (copiedStructure) {
-        copiedStructure.bookmarks = [self.bookmarks copyWithZone:zone];
-    }
-    return copiedStructure;
-}
-
-@end
-
 @implementation JSReportComponentCrosstabStructure
 
 #pragma mark - JSObjectMappingsProtocol
@@ -248,27 +227,6 @@
         copiedStructure.crosstabId = [self.crosstabId copyWithZone:zone];
         copiedStructure.startColumnIndex = self.startColumnIndex;
         copiedStructure.hasFloatingHeaders = self.hasFloatingHeaders;
-    }
-    return copiedStructure;
-}
-
-@end
-
-@implementation JSReportComponentHyperlinksStructure
-
-#pragma mark - JSObjectMappingsProtocol
-+ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
-
-    }];
-}
-
-#pragma mark - NSCopying
-- (id)copyWithZone:(NSZone *)zone {
-
-    JSReportComponentHyperlinksStructure *copiedStructure = [[[self class] allocWithZone:zone] init];
-    if (copiedStructure) {
-        copiedStructure.hyperlinks = [self.hyperlinks copyWithZone:zone];
     }
     return copiedStructure;
 }

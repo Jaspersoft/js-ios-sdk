@@ -42,9 +42,7 @@
                 @"id"                 : @"triggerIdentifier",
                 @"version"            : @"version",
                 @"timezone"           : @"timezone",
-                @"calendarName"       : @"calendarName",
                 @"misfireInstruction" : @"misfireInstruction",
-                @"timestampPattern"   : @"timestampPattern",
         }];
 
         // Start type

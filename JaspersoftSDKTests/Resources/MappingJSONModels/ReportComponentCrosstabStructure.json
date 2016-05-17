@@ -1,0 +1,8 @@
+{
+    "module":"jive.crosstab",
+    "uimodule":"jive.crosstab.interactive",
+    "startColumnIndex":0,
+    "hasFloatingHeaders":true,
+    "fragmentId":"12fbcded-c4d1-4db8-9aac-2e15524ed875.0",
+    "crosstabId":"12fbcded-c4d1-4db8-9aac-2e15524ed875",
+}

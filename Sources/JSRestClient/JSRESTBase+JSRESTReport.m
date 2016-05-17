@@ -526,20 +526,11 @@
                                                           component.structure = crosstabStructure;
                                                           break;
                                                       }
-                                                      case JSReportComponentTypeHyperlinks: {
-                                                          JSReportComponentHyperlinksStructure *hyperlinksStructure = [JSReportComponentHyperlinksStructure new];
-                                                          [EKMapper fillObject:hyperlinksStructure
-                                                    fromExternalRepresentation:response[compoentRepresentationKey]
-                                                                   withMapping:[JSReportComponentHyperlinksStructure objectMappingForServerProfile:self.serverProfile]];
-                                                          component.structure = hyperlinksStructure;
-                                                          break;
-                                                      }
-                                                      case JSReportComponentTypeBookmarks: {
-                                                          JSReportComponentBookmarksStructure *bookmarksStructure = [JSReportComponentBookmarksStructure new];
-                                                          [EKMapper fillObject:bookmarksStructure
-                                                    fromExternalRepresentation:response[compoentRepresentationKey]
-                                                                   withMapping:[JSReportComponentBookmarksStructure objectMappingForServerProfile:self.serverProfile]];
-                                                          component.structure = bookmarksStructure;
+
+                                                      default: {
+#ifndef __RELEASE__
+                                                          NSLog(@"Warning! May be you use some different type, but not implement structure mapping and filling for it!");
+#endif
                                                           break;
                                                       }
                                                   }

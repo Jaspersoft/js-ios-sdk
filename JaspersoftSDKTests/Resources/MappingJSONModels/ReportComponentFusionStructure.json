@@ -1,0 +1,13 @@
+{
+    "module":"jive.fusion",
+    "instanceData":{
+        "height":290,
+        "dataFormat":"xml",
+        "renderAt":"Fusion_1345423418",
+        "id":"id_Fusion_1345423418",
+        "transparent":false,
+        "width":555,
+        "type":"stackedcolumn2d",
+        "dataSource":"${dataSource}"
+    }
+}

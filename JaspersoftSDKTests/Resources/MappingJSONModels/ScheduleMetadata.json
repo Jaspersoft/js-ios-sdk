@@ -1,0 +1,39 @@
+{
+    "source":{
+        "reportUnitURI":"\/public\/Samples\/Reports\/07g.RevenueDetailReport",
+        "parameters":{
+            "parameterValues":{
+                "ProductFamily":[
+                                 "Drink",
+                                 "Food",
+                                 "Non-Consumable"
+                                 ]
+            }
+        }
+    },
+    "outputFormats":{
+        "outputFormat":[
+                        "PDF"
+                        ]
+    },
+    "id":13169,
+    "creationDate":"2016-05-12T02:22:03.361-07:00",
+    "baseOutputFilename":"07g.RevenueDetailReport",
+    "outputTimeZone":"America\/Los_Angeles",
+    "username":"superuser",
+    "version":0,
+    "label":"еуіе",
+    "trigger":{
+        "simpleTrigger":{
+            "startType":1,
+            "recurrenceInterval":1,
+            "id":13167,
+            "recurrenceIntervalUnit":"DAY",
+            "timezone":"America\/Los_Angeles",
+            "misfireInstruction":0,
+            "version":0,
+            "occurrenceCount":-1
+        }
+    },
+    "repositoryDestination":{ }
+}

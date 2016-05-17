@@ -1,0 +1,14 @@
+{
+    "owner":"superuser",
+    "id":13169,
+    "reportLabel":"07g. Revenue Detail Report",
+    "description":"Schedule for 07g. Revenue Detail Report",
+    "version":0,
+    "reportUnitURI":"\/public\/Samples\/Reports\/07g.RevenueDetailReport",
+    "label":"еуіе",
+    "state":{
+        "nextFireTime":"2016-05-14T02:22:00-07:00",
+        "value":"NORMAL",
+        "previousFireTime":"2016-05-13T02:22:00-07:00"
+    }
+}

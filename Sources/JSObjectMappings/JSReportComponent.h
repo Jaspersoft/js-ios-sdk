@@ -91,10 +91,6 @@ typedef NS_ENUM(NSInteger, JSHighchartServiceType) {
 @property (nonatomic, assign) BOOL canFormatConditionally;
 @end
 
-@interface JSReportComponentBookmarksStructure: NSObject <JSObjectMappingsProtocol, NSCopying>
-@property (nonatomic, copy, nullable) NSArray *bookmarks;
-@end
-
 @interface JSReportComponentCrosstabStructure: NSObject <JSObjectMappingsProtocol, NSCopying>
 @property (nonatomic, copy, nullable) NSString *module;
 @property (nonatomic, copy, nullable) NSString *uimodule;
@@ -102,10 +98,6 @@ typedef NS_ENUM(NSInteger, JSHighchartServiceType) {
 @property (nonatomic, copy, nullable) NSString *crosstabId;
 @property (nonatomic, assign) NSInteger startColumnIndex;
 @property (nonatomic, assign) BOOL hasFloatingHeaders;
-@end
-
-@interface JSReportComponentHyperlinksStructure: NSObject <JSObjectMappingsProtocol, NSCopying>
-@property (nonatomic, copy, nullable) NSArray *hyperlinks;
 @end
 
 @interface JSReportComponentFusionStructure: NSObject <JSObjectMappingsProtocol, NSCopying>

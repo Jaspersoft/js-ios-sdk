@@ -170,9 +170,7 @@
                                                @"type": @"type",
                                                @"visible": @"visible",
                                                @"masterDependencies": @"masterDependencies",
-                                               @"slaveDependencies": @"slaveDependencies",
-                                               @"masterSingleInputControlID": @"masterSingleInputControlID",
-                                               @"slaveSingleInputControlID": @"slaveSingleInputControlID",
+                                               @"slaveDependencies": @"slaveDependencies"
                                                }];
         
         [mapping hasOne:[JSInputControlState class] forKeyPath:@"state" forProperty:@"state" withObjectMapping:[JSInputControlState objectMappingForServerProfile:serverProfile]];

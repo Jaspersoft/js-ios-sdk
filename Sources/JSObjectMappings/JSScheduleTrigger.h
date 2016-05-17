@@ -49,8 +49,6 @@ typedef NS_ENUM(NSInteger, JSScheduleTriggerType) {
 @property (nonatomic, strong) NSNumber *triggerIdentifier;
 @property (nonatomic, strong) NSNumber *version;
 @property (nonatomic, strong) NSString *timezone;
-@property (nonatomic, strong) NSString *calendarName;
-@property (nonatomic, strong) NSString *timestampPattern;
 @property (nonatomic, strong) NSDate *startDate;
 @property (nonatomic, strong) NSDate *endDate;
 @property (nonatomic, assign) JSScheduleTriggerStartType startType;

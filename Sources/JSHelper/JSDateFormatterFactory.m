@@ -39,6 +39,7 @@
     static dispatch_once_t predicate;
     dispatch_once(&predicate, ^{
         sharedFactory = [JSDateFormatterFactory new];
+        sharedFactory.formatters = [NSMutableDictionary new];
     });
     return sharedFactory;
 }
@@ -51,10 +52,11 @@
 
 - (NSDateFormatter *)formatterWithPattern:(NSString *)pattern timeZone:(NSTimeZone *)timeZone
 {
-    NSDateFormatter *formatter = self.formatters[pattern];
+    NSString *formatterKey = [timeZone name] ? [pattern stringByAppendingPathExtension:[timeZone name]] : pattern;
+    NSDateFormatter *formatter = self.formatters[formatterKey];
     if (!formatter) {
         formatter = [self createFormatterWithPattern:pattern timeZone:timeZone];
-        self.formatters[pattern] = formatter;
+        self.formatters[formatterKey] = formatter;
     }
     return formatter;
 }
