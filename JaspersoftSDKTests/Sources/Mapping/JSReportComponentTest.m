@@ -166,7 +166,7 @@
     expectedObject.fragmentId = [self.jsonObject valueForKey:@"fragmentId"];
     expectedObject.crosstabId = [self.jsonObject valueForKey:@"crosstabId"];
     expectedObject.startColumnIndex = [[self.jsonObject valueForKey:@"startColumnIndex"] integerValue];
-    expectedObject.hasFloatingHeaders = [self.jsonObject valueForKey:@"hasFloatingHeaders"];
+    expectedObject.hasFloatingHeaders = [[self.jsonObject valueForKey:@"hasFloatingHeaders"] boolValue];
 
     [self testObjectFromExternalRepresentation:self.jsonObject withMapping:self.mapping expectedObject:expectedObject];
 }
@@ -229,9 +229,9 @@
     expectedObject.module = [self.jsonObject valueForKey:@"module"];
     expectedObject.uimodule = [self.jsonObject valueForKey:@"uimodule"];
     expectedObject.charttype = [self.jsonObject valueForKey:@"charttype"];
-    expectedObject.interactive = [self.jsonObject valueForKey:@"interactive"];
-    expectedObject.datetimeSupported = [self.jsonObject valueForKey:@"datetimeSupported"];
-    expectedObject.treemapSupported = [self.jsonObject valueForKey:@"treemapSupported"];
+    expectedObject.interactive = [[self.jsonObject valueForKey:@"interactive"] boolValue];
+    expectedObject.datetimeSupported = [[self.jsonObject valueForKey:@"datetimeSupported"] boolValue];
+    expectedObject.treemapSupported = [[self.jsonObject valueForKey:@"treemapSupported"] boolValue];
     expectedObject.globalOptions = [self.jsonObject valueForKey:@"globalOptions"];
     expectedObject.hcinstancedata = [self.jsonObject valueForKey:@"hcinstancedata"];
 
