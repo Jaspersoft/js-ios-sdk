@@ -43,14 +43,6 @@
                                                @"description"                 : @"scheduleDescription",
                                                @"owner"                       : @"owner",
                                                @"reportLabel"                 : @"reportLabel",
-                                               // trigger
-                                               @"reportLabel"                 : @"reportLabel",
-                                               // may be source parameters
-                                               @"baseOutputFilename"          : @"baseOutputFilename",
-                                               @"outputLocale"                : @"outputLocale",
-                                               @"mailNotification"            : @"mailNotification",
-                                               @"alert"                       : @"alert",
-                                               @"outputFormats.outputFormat"  : @"outputFormats",
                                                }];
         [mapping hasOne:[JSScheduleJobState class] forKeyPath:@"state" forProperty:@"state" withObjectMapping:[JSScheduleJobState objectMappingForServerProfile:serverProfile]];
     }];

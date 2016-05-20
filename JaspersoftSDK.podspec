@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
 	s.description = <<-DESC
 		JaspersoftSDK for iOS is a set of Objective-C classes to easily connect
 		and consume the services provided by JasperReports Server
-		using the REST API (available in JasperReports Server 6.0.0 or greater).!
+		using the REST API (available in JasperReports Server 5.5.0 or greater).!
 	DESC
 	s.homepage = 'http://community.jaspersoft.com/project/mobile-sdk-ios'
 	s.license = { :type => 'GNU GPL v.3', :file => 'LICENSE.txt' }

@@ -76,7 +76,7 @@ extern NSString * const _Nonnull kJSRequestResponceType;
  
  @since 1.9
  */
-@property (nonatomic, assign, readonly) BOOL keepSession;
+@property (nonatomic, assign) BOOL keepSession;
 
 /**
  Returns a rest base instance. 
@@ -124,4 +124,12 @@ extern NSString * const _Nonnull kJSRequestResponceType;
 
 - (void)updateCookiesWithCookies:(NSArray <NSHTTPCookie *>* __nullable)cookies;
 
+/**
+ Returns a percent-escaped string.
+ @param string The string to be percent-escaped
+
+ @return The percent-escaped string
+ @since 2.5
+ */
+- (nonnull NSString *)encodeString:(nonnull NSString *)string;
 @end

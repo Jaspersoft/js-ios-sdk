@@ -100,7 +100,7 @@ NSString * const JSLocalizationBundleType = @"lproj";
 
 + (float) minSupportedServerVersion
 {
-    return kJS_SERVER_VERSION_CODE_AMBER_6_0_0;
+    return kJS_SERVER_VERSION_CODE_EMERALD_5_5_0;
 }
 
 @end

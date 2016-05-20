@@ -120,7 +120,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     NSString *requestURIString = [NSString stringWithFormat:@"%@%@%@?label=%@&overwrite=%@",
                                                             kJS_REST_REPORTS_URI,
                                                             reportURI,
-                                                            kJS_REST_REPORT_OPTIONS_URI, optionLabel, [JSUtils stringFromBOOL:YES]];
+                                                            kJS_REST_REPORT_OPTIONS_URI, [self encodeString:optionLabel], [JSUtils stringFromBOOL:YES]];
 
     JSRequest *request = [[JSRequest alloc] initWithUri:requestURIString];
     request.objectMapping = [JSMapping mappingWithObjectMapping:[JSReportOption objectMappingForServerProfile:self.serverProfile] keyPath:nil];
@@ -228,12 +228,15 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     executionRequest.interactive = [JSUtils stringFromBOOL:interactive];
     executionRequest.freshData = [JSUtils stringFromBOOL:freshData];
     executionRequest.saveDataSnapshot = [JSUtils stringFromBOOL:saveDataSnapshot];
-    executionRequest.ignorePagination = [JSUtils stringFromBOOL:ignorePagination];
     executionRequest.outputFormat = outputFormat;
     executionRequest.transformerKey = transformerKey;
     executionRequest.pages = pages;
     executionRequest.attachmentsPrefix = attachmentsPrefix;
     executionRequest.parameters = parameters;
+    
+    if (ignorePagination) {
+        executionRequest.ignorePagination = [JSUtils stringFromBOOL:ignorePagination];
+    }
 
     if (self.serverInfo.versionAsFloat >= kJS_SERVER_VERSION_CODE_EMERALD_5_6_0) {
         executionRequest.baseURL = self.serverProfile.serverUrl;
@@ -427,7 +430,6 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
                                                       format, _baseReportQueryOutputFormatParam, nil];
 }
 
-// TODO: refactor, find better way to make URL encoded string
 - (NSString *)encodeAttachmentsPrefix:(NSString *)exportOutput {
     NSRange prefixRange = [exportOutput rangeOfString:@"attachmentsPrefix="];
 
@@ -436,8 +438,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
         NSRange valueRange = NSMakeRange(location, exportOutput.length - location);
         NSString *value = [exportOutput substringWithRange:valueRange];
         if (value.length) {
-            CFStringRef encodedValue = CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) value, NULL, (CFStringRef) @"!*’();:@&=+$,/?%#[]", kCFStringEncodingUTF8);
-            value = CFBridgingRelease(encodedValue);
+            value = [self encodeString:value];
             exportOutput = [exportOutput stringByReplacingCharactersInRange:valueRange withString:value];
         }
     }

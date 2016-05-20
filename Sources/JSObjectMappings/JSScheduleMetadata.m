@@ -34,28 +34,46 @@
 #import "JSDateFormatterFactory.h"
 
 @implementation JSScheduleMetadata
+@dynamic reportUnitURI;
+@dynamic folderURI;
+
+- (NSString *)folderURI {
+    return self.repositoryDestination[@"folderURI"];
+}
+
+- (void)setFolderURI:(NSString *)folderURI {
+    NSMutableDictionary *mutableRepositoryDestination = [self.repositoryDestination mutableCopy];
+    mutableRepositoryDestination[@"folderURI"] = folderURI;
+    self.repositoryDestination = mutableRepositoryDestination;
+}
+
+- (NSString *)reportUnitURI {
+    return self.source[@"reportUnitURI"];
+}
+
+- (void)setReportUnitURI:(NSString *)reportUnitURI {
+    NSMutableDictionary *mutableSource = [self.source mutableCopy];
+    mutableSource[@"reportUnitURI"] = reportUnitURI;
+    self.source = mutableSource;
+}
 
 #pragma mark - JSObjectMappingsProtocol
 + (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
     return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        [mapping mapPropertiesFromArray:@[@"version", @"label", @"outputTimeZone", @"baseOutputFilename",
+                                        @"username", @"outputLocale", @"alert", @"mailNotification",
+                                          @"source", @"repositoryDestination",
+                                               ]];
+
+        
         [mapping mapPropertiesFromDictionary:@{
                 @"id"                              : @"jobIdentifier",
-                @"version"                         : @"version",
-                @"username"                        : @"username",
-                @"label"                           : @"label",               // request
-                @"description"                     : @"scheduleDescription", // request
-                // trigger
-                @"source.reportUnitURI"            : @"reportUnitURI",       // request
-                // may be source parameters
-                @"baseOutputFilename"              : @"baseOutputFilename",  // request
-                @"outputLocale"                    : @"outputLocale",
-                @"mailNotification"                : @"mailNotification",
-                @"alert"                           : @"alert",
-                @"outputTimeZone"                  : @"outputTimeZone",      // request
-                @"repositoryDestination.folderURI" : @"folderURI",           // request
-                @"outputFormats.outputFormat"      : @"outputFormats",       // request
+                @"description"                     : @"scheduleDescription",
+                @"outputFormats.outputFormat"      : @"outputFormats",
         }];
 
+        
+        
         // Date mapping
         id(^valueBlock)(NSString *key, id value) = ^id(NSString *key, id value) {
             if (value == nil)
