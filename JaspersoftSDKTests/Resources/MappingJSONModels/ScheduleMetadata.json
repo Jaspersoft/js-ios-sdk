@@ -1,13 +1,66 @@
 {
+    "id":19504,
+    "description":"ftp job",
+    "label":"ftp",
+    "version":0,
+    "mailNotification":{
+        "skipNotificationWhenJobFails":false,
+        "skipEmptyReports":false,
+        "id":0,
+        "resultSendType":"SEND",
+        "subject":"ogubarie ",
+        "ccAddresses":{
+            "address":[
+            
+            ]
+        },
+        "version":-1,
+        "bccAddresses":{
+            "address":[
+            
+            ]
+        },
+        "toAddresses":{
+            "address":[
+                       "ogubarie@tibco.com"
+                       ]
+        },
+        "messageText":"ogubarie ogubarie ogubarie ",
+        "includingStackTraceWhenJobFails":false
+    },
+    "outputTimeZone":"America\/Los_Angeles",
+    "trigger":{
+        "simpleTrigger":{
+            "startType":2,
+            "endDate":"2016-05-29 00:00",
+            "id":19500,
+            "startDate":"2016-05-21 03:17",
+            "recurrenceInterval":1,
+            "timezone":"America\/Los_Angeles",
+            "misfireInstruction":0,
+            "version":0,
+            "recurrenceIntervalUnit":"DAY",
+            "occurrenceCount":-1
+        }
+    },
     "source":{
-        "reportUnitURI":"\/public\/Samples\/Reports\/07g.RevenueDetailReport",
+        "reportUnitURI":"\/public\/Samples\/Reports\/01._Geographic_Results_by_Segment_Report",
         "parameters":{
             "parameterValues":{
-                "ProductFamily":[
-                                 "Drink",
-                                 "Food",
-                                 "Non-Consumable"
-                                 ]
+                "sales__product__product_name_1":[
+                
+                ],
+                "sales__product__recyclable_package_1":[
+                                                        "true",
+                                                        "false"
+                                                        ],
+                "sales__product__low_fat_1":[
+                                             "true",
+                                             "false"
+                                             ],
+                "sales_fact_ALL__store_sales_2013_1":[
+                                                      "19"
+                                                      ]
             }
         }
     },
@@ -16,24 +69,41 @@
                         "PDF"
                         ]
     },
-    "id":13169,
-    "creationDate":"2016-05-12T02:22:03.361-07:00",
-    "baseOutputFilename":"07g.RevenueDetailReport",
-    "outputTimeZone":"America\/Los_Angeles",
+    "baseOutputFilename":"01._Geographic_Results_by_Segment_Report",
     "username":"superuser",
-    "version":0,
-    "label":"еуіе",
-    "trigger":{
-        "simpleTrigger":{
-            "startType":1,
-            "recurrenceInterval":1,
-            "id":13167,
-            "recurrenceIntervalUnit":"DAY",
-            "timezone":"America\/Los_Angeles",
-            "misfireInstruction":0,
-            "version":0,
-            "occurrenceCount":-1
-        }
+    "repositoryDestination":{
+        "saveToRepository":true,
+        "usingDefaultReportOutputFolderURI":false,
+        "id":19501,
+        "sequentialFilenames":false,
+        "version":-1,
+        "overwriteFiles":true,
+        "outputFTPInfo":{
+            "port":21,
+            "userName":"anonymous",
+            "serverName":"ftp.freenet.de",
+            "folderPath":"\/pub\/filepilot\/",
+            "type":"ftp",
+            "implicit":true,
+            "pbsz":0
+        },
+        "folderURI":"\/public\/Samples\/Reports"
     },
-    "repositoryDestination":{ }
+    "alert":{
+        "includingStackTrace":false,
+        "messageTextWhenJobFails":"ogubarie ogubarie ogubarie \nfailure",
+        "id":0,
+        "messageText":"ogubarie ogubarie ogubarie \nsuccess",
+        "subject":"ogubarie ",
+        "version":-1,
+        "recipient":"OWNER_AND_ADMIN",
+        "toAddresses":{
+            "address":[
+                       "ogubarie@tibco.com"
+                       ]
+        },
+        "jobState":"ALL",
+        "includingReportJobInfo":true
+    },
+    "creationDate":"2016-05-20T03:58:15.827-07:00"
 }

@@ -45,6 +45,8 @@
     expectedObject.folderURI = [self.jsonObject valueForKeyPath:@"repositoryDestination.folderURI"];
     expectedObject.outputTimeZone = [self.jsonObject valueForKey:@"outputTimeZone"];
     expectedObject.outputFormats = [self.jsonObject valueForKeyPath:@"outputFormats.outputFormat"];
+    expectedObject.source = [self.jsonObject valueForKey:@"source"];
+    expectedObject.repositoryDestination = [self.jsonObject valueForKey:@"repositoryDestination"];
     expectedObject.creationDate = [self.formatter dateFromString:[self.jsonObject valueForKey:@"creationDate"]];
     
     EKObjectMapping *triggerMapping = [JSScheduleSimpleTrigger objectMappingForServerProfile:[JSServerProfileProvider serverProfileWithVersion:kJS_SERVER_VERSION_CODE_UNKNOWN]];
@@ -68,6 +70,8 @@
     expectedObject.folderURI = [self.jsonObject valueForKeyPath:@"repositoryDestination.folderURI"];
     expectedObject.outputTimeZone = [self.jsonObject valueForKey:@"outputTimeZone"];
     expectedObject.outputFormats = [self.jsonObject valueForKeyPath:@"outputFormats.outputFormat"];
+    expectedObject.source = [self.jsonObject valueForKey:@"source"];
+    expectedObject.repositoryDestination = [self.jsonObject valueForKey:@"repositoryDestination"];
     expectedObject.creationDate = [self.formatter dateFromString:[self.jsonObject valueForKey:@"creationDate"]];
 
     EKObjectMapping *triggerMapping = [JSScheduleSimpleTrigger objectMappingForServerProfile:[JSServerProfileProvider serverProfileWithVersion:kJS_SERVER_VERSION_CODE_UNKNOWN]];
