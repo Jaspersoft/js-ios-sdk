@@ -106,8 +106,6 @@
                             optionLabel:(NSString *)optionLabel
                        reportParameters:(NSArray <JSReportParameter *> *)reportParameters
                              completion:(JSRequestCompletionBlock)completion {
-#warning APP CRASHES AFTER INPUT FEW DIFFERENT WORDS IN REPORT OPTIONS NAME BECAUSE IT IS NOT ENCODED!!!!!!!!
-
     NSString *requestURIString = [NSString stringWithFormat:@"%@%@%@?label=%@&overwrite=%@",
                                                             kJS_REST_REPORTS_URI,
                                                             reportURI.hostEncodedString,
