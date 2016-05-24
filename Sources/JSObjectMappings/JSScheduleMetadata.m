@@ -42,7 +42,7 @@
 }
 
 - (void)setFolderURI:(NSString *)folderURI {
-    NSMutableDictionary *mutableRepositoryDestination = [self.repositoryDestination mutableCopy];
+    NSMutableDictionary *mutableRepositoryDestination = [NSMutableDictionary dictionaryWithDictionary:self.repositoryDestination];
     mutableRepositoryDestination[@"folderURI"] = folderURI;
     self.repositoryDestination = mutableRepositoryDestination;
 }
@@ -52,7 +52,7 @@
 }
 
 - (void)setReportUnitURI:(NSString *)reportUnitURI {
-    NSMutableDictionary *mutableSource = [self.source mutableCopy];
+    NSMutableDictionary *mutableSource = [NSMutableDictionary dictionaryWithDictionary:self.source];
     mutableSource[@"reportUnitURI"] = reportUnitURI;
     self.source = mutableSource;
 }

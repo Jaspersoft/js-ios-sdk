@@ -132,7 +132,39 @@
                                      [[NSFileManager defaultManager] removeItemAtPath:filePath.path error:nil];
                                  }
                                  if (completion) {
-                                     completion(error);
+                                     NSError *handledError = error;
+                                     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+                                     
+                                     if (httpResponse.statusCode == 401) {
+                                         handledError = [JSErrorBuilder httpErrorWithCode:JSSessionExpiredErrorCode
+                                                                                 HTTPCode:httpResponse.statusCode];
+                                     } else if (httpResponse.statusCode && !error) {
+                                         handledError = [JSErrorBuilder httpErrorWithCode:JSHTTPErrorCode
+                                                                                 HTTPCode:httpResponse.statusCode];
+                                     } else if ([error.domain isEqualToString:NSURLErrorDomain]) {
+                                         switch (error.code) {
+                                             case NSURLErrorUserCancelledAuthentication:
+                                             case NSURLErrorUserAuthenticationRequired: {
+                                                 handledError = [JSErrorBuilder errorWithCode:JSSessionExpiredErrorCode];
+                                                 break;
+                                             }
+                                             case NSURLErrorCannotFindHost:
+                                             case NSURLErrorCannotConnectToHost:
+                                             case NSURLErrorResourceUnavailable:{
+                                                 handledError = [JSErrorBuilder errorWithCode:JSServerNotReachableErrorCode];
+                                                 break;
+                                             }
+                                             case NSURLErrorTimedOut: {
+                                                 handledError = [JSErrorBuilder errorWithCode:JSRequestTimeOutErrorCode];
+                                                 break;
+                                             }
+                                             default: {
+                                                 handledError = [JSErrorBuilder errorWithCode:JSHTTPErrorCode message:error.localizedDescription];
+                                             }
+                                         }
+                                     }
+                                     
+                                     completion(handledError);
                                  }
                              }] resume];
 }
