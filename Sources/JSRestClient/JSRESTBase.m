@@ -241,7 +241,8 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 }
 
 - (void)cancelAllRequests {
-    for (JSCallBack *callback in self.requestCallBacks) {
+    while (self.requestCallBacks.count) {
+        JSCallBack *callback = [self.requestCallBacks firstObject];
         @synchronized (callback) {
             callback.request.completionBlock = nil;
             [callback.dataTask cancel];
