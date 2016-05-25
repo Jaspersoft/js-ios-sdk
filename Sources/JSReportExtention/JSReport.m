@@ -266,4 +266,25 @@ NSString * const kJSReportCurrentPageDidChangeNotification = @"kJSReportCurrentP
     return description;
 }
 
+#pragma mark - NSCopying
+- (id)copyWithZone:(NSZone *)zone {
+    JSReport *newReport     = [[self class] allocWithZone:zone];
+    newReport.availableReportOptions = [[NSMutableArray alloc] initWithArray:self.availableReportOptions copyItems:YES];
+    newReport.activeReportOption = [self.activeReportOption copyWithZone:zone];
+    newReport.currentPage = self.currentPage;
+    newReport.countOfPages = self.countOfPages;
+    newReport.isMultiPageReport = self.isMultiPageReport;
+    newReport.isReportWithInputControls = self.isReportWithInputControls;
+    newReport.isReportEmpty = self.isReportEmpty;
+    newReport.requestId = [self.requestId copyWithZone:zone];
+    newReport.HTMLString = [self.HTMLString copyWithZone:zone];
+    newReport.baseURLString = [self.baseURLString copyWithZone:zone];
+    newReport.reportParameters = [[NSArray alloc] initWithArray:self.reportParameters copyItems:YES];
+    newReport.isReportAlreadyLoaded = self.isReportAlreadyLoaded;
+    newReport.reportComponents = [[NSArray alloc] initWithArray:self.reportComponents copyItems:YES];
+    newReport.elasticChart = self.elasticChart;
+    
+    return newReport;
+}
+
 @end

@@ -55,4 +55,11 @@
     }];
 }
 
+#pragma mark - NSCopying
+- (id)copyWithZone:(NSZone *)zone {
+    JSParameter *parameter = [[self class] allocWithZone:zone];
+    parameter.name = [self.name copyWithZone:zone];
+    parameter.value = [self.value copyWithZone:zone];
+    return parameter;
+}
 @end

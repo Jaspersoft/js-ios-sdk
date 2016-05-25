@@ -36,7 +36,7 @@
  @since 2.3
  */
 
-@interface JSParameter : NSObject <JSObjectMappingsProtocol>
+@interface JSParameter : NSObject <JSObjectMappingsProtocol, NSCopying>
 
 @property (nonatomic, strong, nonnull) NSString *name;
 @property (nonatomic, strong, nullable) id value;

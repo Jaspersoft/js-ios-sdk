@@ -45,4 +45,12 @@
     return @"reportParameter";
 }
 
+#pragma mark - NSCopying
+- (id)copyWithZone:(NSZone *)zone {
+    JSReportParameter *parameter = [super copyWithZone:zone];
+    parameter.name = [self.name copyWithZone:zone];
+    parameter.value = [self.value copyWithZone:zone];
+    return parameter;
+}
+
 @end

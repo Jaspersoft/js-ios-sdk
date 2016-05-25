@@ -42,7 +42,7 @@ extern NSString * const kJSReportIsMutlipageDidChangedNotification;
 extern NSString * const kJSReportCountOfPagesDidChangeNotification;
 extern NSString * const kJSReportCurrentPageDidChangeNotification;
 
-@interface JSReport : NSObject
+@interface JSReport : NSObject <NSCopying>
 // getters
 @property (nonatomic, strong, readonly) JSResourceLookup *resourceLookup;
 
@@ -63,8 +63,6 @@ extern NSString * const kJSReportCurrentPageDidChangeNotification;
 // html
 @property (nonatomic, copy, readonly) NSString *HTMLString;
 @property (nonatomic, copy, readonly) NSString *baseURLString;
-// input controls
-@property (nonatomic, assign, readonly) BOOL isInputControlsLoaded;
 
 // report options
 @property (nonatomic, strong, readonly) NSArray <JSReportOption *> *reportOptions;

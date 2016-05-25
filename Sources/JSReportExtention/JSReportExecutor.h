@@ -47,7 +47,7 @@ typedef void(^JSExportExecutionCompletionBlock)(JSExportExecutionResponse * __nu
 @property (nonatomic, copy, readonly, nonnull) JSRESTBase *restClient;
 @property (nonatomic, strong, readonly, nonnull) JSReportExecutionConfiguration *configuration;
 
-@property (nonatomic, strong, readonly, nonnull) JSReport *report;
+@property (nonatomic, copy, readonly, nonnull) JSReport *report;
 @property (nonatomic, strong, readonly, nonnull) JSReportExecutionResponse *executionResponse;
 @property (nonatomic, strong, readonly, nonnull) JSExportExecutionResponse *exportResponse;
 

@@ -40,7 +40,7 @@
 @property (nonatomic, copy, readwrite, nonnull) JSRESTBase *restClient;
 @property (nonatomic, strong, readwrite, nonnull) JSReportExecutionConfiguration *configuration;
 
-@property (nonatomic, strong, readwrite, nonnull) JSReport *report;
+@property (nonatomic, copy, readwrite, nonnull) JSReport *report;
 @property (nonatomic, strong, readwrite, nonnull) JSReportExecutionResponse *executionResponse;
 @property (nonatomic, strong, readwrite, nonnull) JSExportExecutionResponse *exportResponse;
 

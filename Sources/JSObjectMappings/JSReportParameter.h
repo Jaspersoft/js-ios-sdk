@@ -37,6 +37,6 @@
  @author Alexey Gubarev ogubarie@tibco.com
  @since 1.4
  */
-@interface JSReportParameter : JSParameter <JSObjectMappingsProtocol>
+@interface JSReportParameter : JSParameter <JSObjectMappingsProtocol, NSCopying>
 
 @end
