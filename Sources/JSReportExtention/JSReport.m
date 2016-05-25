@@ -269,7 +269,7 @@ NSString * const kJSReportCurrentPageDidChangeNotification = @"kJSReportCurrentP
 #pragma mark - NSCopying
 - (id)copyWithZone:(NSZone *)zone {
     JSReport *newReport     = [[self class] allocWithZone:zone];
-    newReport.availableReportOptions = [[NSMutableArray alloc] initWithArray:self.availableReportOptions copyItems:YES];
+    newReport->_resourceLookup = [self.resourceLookup copyWithZone:zone];
     newReport.activeReportOption = [self.activeReportOption copyWithZone:zone];
     newReport.currentPage = self.currentPage;
     newReport.countOfPages = self.countOfPages;
@@ -279,11 +279,19 @@ NSString * const kJSReportCurrentPageDidChangeNotification = @"kJSReportCurrentP
     newReport.requestId = [self.requestId copyWithZone:zone];
     newReport.HTMLString = [self.HTMLString copyWithZone:zone];
     newReport.baseURLString = [self.baseURLString copyWithZone:zone];
-    newReport.reportParameters = [[NSArray alloc] initWithArray:self.reportParameters copyItems:YES];
     newReport.isReportAlreadyLoaded = self.isReportAlreadyLoaded;
-    newReport.reportComponents = [[NSArray alloc] initWithArray:self.reportComponents copyItems:YES];
     newReport.elasticChart = self.elasticChart;
     
+    if (self.availableReportOptions.count) {
+        newReport.availableReportOptions = [[NSMutableArray alloc] initWithArray:self.availableReportOptions copyItems:YES];
+    }
+    if (self.reportParameters.count) {
+        newReport.reportParameters = [[NSArray alloc] initWithArray:self.reportParameters copyItems:YES];
+    }
+    if (self.reportComponents) {
+        newReport.reportComponents = [[NSArray alloc] initWithArray:self.reportComponents copyItems:YES];
+    }
+
     return newReport;
 }
 
