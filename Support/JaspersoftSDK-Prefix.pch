@@ -8,4 +8,5 @@
     #import <MobileCoreServices/MobileCoreServices.h>
     #import "JSConstants.h"
     #import "JSUtils.h"
+    #import "NSString+JSURLEncodings.h"
 #endif

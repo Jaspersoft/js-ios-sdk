@@ -140,6 +140,8 @@
 		BD0A8F061C7F646A00C63F44 /* JSMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = BD0A8F041C7F646A00C63F44 /* JSMapping.h */; };
 		BD0A8F071C7F646A00C63F44 /* JSMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = BD0A8F051C7F646A00C63F44 /* JSMapping.m */; };
 		BD194F891C75D50100C99DA9 /* JSObjectMappingsProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = BD194F881C75D50100C99DA9 /* JSObjectMappingsProtocol.h */; };
+		BD991C5A1CF76B5B00859145 /* NSString+JSURLEncodings.h in Headers */ = {isa = PBXBuildFile; fileRef = BD991C581CF76B5B00859145 /* NSString+JSURLEncodings.h */; };
+		BD991C5B1CF76B5B00859145 /* NSString+JSURLEncodings.m in Sources */ = {isa = PBXBuildFile; fileRef = BD991C591CF76B5B00859145 /* NSString+JSURLEncodings.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -272,6 +274,8 @@
 		BD0A8F041C7F646A00C63F44 /* JSMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMapping.h; sourceTree = "<group>"; };
 		BD0A8F051C7F646A00C63F44 /* JSMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMapping.m; sourceTree = "<group>"; };
 		BD194F881C75D50100C99DA9 /* JSObjectMappingsProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSObjectMappingsProtocol.h; sourceTree = "<group>"; };
+		BD991C581CF76B5B00859145 /* NSString+JSURLEncodings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JSURLEncodings.h"; sourceTree = "<group>"; };
+		BD991C591CF76B5B00859145 /* NSString+JSURLEncodings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JSURLEncodings.m"; sourceTree = "<group>"; };
 		F5758F3D174E301800C355C1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		F5758F40174E302800C355C1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		F5758F42174E302E00C355C1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -485,6 +489,8 @@
 				0849FCE81C2C1D7D008F1064 /* JSUtils.m */,
 				A1478E5FF766BDE05BFDB838 /* JSDateFormatterFactory.h */,
 				A1478F2F9E43E7F32310F7FB /* JSDateFormatterFactory.m */,
+				BD991C581CF76B5B00859145 /* NSString+JSURLEncodings.h */,
+				BD991C591CF76B5B00859145 /* NSString+JSURLEncodings.m */,
 			);
 			path = JSHelper;
 			sourceTree = "<group>";
@@ -589,6 +595,7 @@
 				0849FCD71C2B0A93008F1064 /* KeychainItemWrapper.h in Headers */,
 				0849FCCF1C2B0A92008F1064 /* JSRESTBase+JSRESTResource.h in Headers */,
 				0849FC951C2B0A91008F1064 /* JSExportExecutionRequest.h in Headers */,
+				BD991C5A1CF76B5B00859145 /* NSString+JSURLEncodings.h in Headers */,
 				0899C4451C2D8FEE00CFBD91 /* JSErrorBuilder.h in Headers */,
 				0849FCAE1C2B0A91008F1064 /* JSReportParameter.h in Headers */,
 				0849FCDD1C2B0A93008F1064 /* JSSecurity.h in Headers */,
@@ -755,6 +762,7 @@
 				0849FCEE1C2C1D7D008F1064 /* JSUtils.m in Sources */,
 				0849FCCC1C2B0A92008F1064 /* JSRequest.m in Sources */,
 				0849FCA31C2B0A91008F1064 /* JSOperationResult.m in Sources */,
+				BD991C5B1CF76B5B00859145 /* NSString+JSURLEncodings.m in Sources */,
 				0849FCB71C2B0A91008F1064 /* JSResourceReportUnit.m in Sources */,
 				0849FCAD1C2B0A91008F1064 /* JSReportOutputResource.m in Sources */,
 				0849FCAF1C2B0A91008F1064 /* JSReportParameter.m in Sources */,

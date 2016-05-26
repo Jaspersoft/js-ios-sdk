@@ -52,7 +52,7 @@ NSString * const _parameterForceFullPage = @"forceFullPage";
 #pragma mark Public methods for REST V2 resources API
 
 - (void)modifyResource:(nonnull JSResourceLookup *)resource completionBlock:(nullable JSRequestCompletionBlock)block {
-    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourcesUri:resource.uri]];
+    JSRequest *request = [[JSRequest alloc] initWithUri:[self fullResourceUri:resource.uri]];
     request.restVersion = JSRESTVersion_2;
     request.method = JSRequestHTTPMethodPATCH;
     request.completionBlock = block;
@@ -80,7 +80,7 @@ NSString * const _parameterForceFullPage = @"forceFullPage";
 {
     NSString *uri = kJS_REST_RESOURCES_URI;
     if (resourceURI && ![resourceURI isEqualToString:@"/"]) {
-        uri = [uri stringByAppendingString:resourceURI];
+        uri = [uri stringByAppendingString:resourceURI.hostEncodedString];
     }
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
     request.restVersion = JSRESTVersion_2;
@@ -146,20 +146,14 @@ NSString * const _parameterForceFullPage = @"forceFullPage";
 
 - (NSString *)generateThumbnailImageUrl:(NSString *)resourceURI
 {
-    NSString *restURI = kJS_REST_SERVICES_V2_URI;
-    NSString *thumbnailURI = kJS_REST_RESOURCE_THUMBNAIL_URI;
-    return  [NSString stringWithFormat:@"%@/%@%@%@?defaultAllowed=false", self.serverProfile.serverUrl, restURI, thumbnailURI, resourceURI];
+    return  [NSString stringWithFormat:@"%@/%@%@%@?defaultAllowed=false", self.serverProfile.serverUrl, kJS_REST_SERVICES_V2_URI, kJS_REST_RESOURCE_THUMBNAIL_URI, resourceURI.hostEncodedString];
 }
 
 #pragma mark -
 #pragma mark Private methods
 
-- (NSString *)fullResourcesUri:(NSString *)uri {
-    return [NSString stringWithFormat:@"%@%@", kJS_REST_RESOURCES_URI, (uri ?: @"")];
-}
-
 - (NSString *)fullResourceUri:(NSString *)uri {
-    return [NSString stringWithFormat:@"%@%@", kJS_REST_RESOURCE_URI, (uri ?: @"")];
+    return [NSString stringWithFormat:@"%@%@", kJS_REST_RESOURCE_URI, (uri.hostEncodedString ?: @"")];
 }
 
 @end

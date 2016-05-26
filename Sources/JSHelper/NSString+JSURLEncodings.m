@@ -22,25 +22,29 @@
 
 
 //
-//  JSErrorBuilder.h
+//  NSString(JSURLEncodings).m
 //  TIBCO JasperMobile
 //
 
-/**
- @author Aleksandr Dakhno odahno@tibco.com
- @since 2.3
- */
+#import "NSString+JSURLEncodings.h"
 
-#import <Foundation/Foundation.h>
-#import "JSConstants.h"
+@implementation NSString(JSURLEncodings)
 
-extern NSString * const JSHTTPErrorResponseStatusKey;
+- (nonnull NSString *)hostEncodedString {
+    NSArray *components = [self componentsSeparatedByString:@"/"];
+    NSMutableArray *encodedComponentsArray = [NSMutableArray array];
+    for (NSString *component in components) {
+        [encodedComponentsArray addObject:[component encodedStringWithCharSet:[NSCharacterSet URLHostAllowedCharacterSet]]];
+    }
+    return [encodedComponentsArray componentsJoinedByString:@"/"];
+}
 
-@interface JSErrorBuilder : NSObject
+- (nonnull NSString *)queryEncodedString {
+    return [self encodedStringWithCharSet:[NSCharacterSet URLQueryAllowedCharacterSet]];
+}
 
-+ (NSError *)errorWithCode:(JSErrorCode)code;
-+ (NSError *)errorWithCode:(JSErrorCode)code message:(NSString *)message;
-
-+ (NSError *)httpErrorWithCode:(JSErrorCode)code HTTPCode:(NSInteger)HTTPcode;
+- (NSString *)encodedStringWithCharSet:(NSCharacterSet *)characterSet {
+    return [self stringByAddingPercentEncodingWithAllowedCharacters:characterSet];
+}
 
 @end

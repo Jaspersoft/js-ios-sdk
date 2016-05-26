@@ -33,14 +33,13 @@
 #import "JSInputControlDescriptor.h"
 #import "JSReportParameter.h"
 
-
 @implementation JSRESTBase (JSRESTDashboard)
 
 #pragma mark - Components
 - (void)fetchDashboardComponentsWithURI:(NSString *)dashboardURI
                              completion:(nullable JSRequestCompletionBlock)block
 {
-    NSString *fullURL = [NSString stringWithFormat:@"%@%@_files/%@", kJS_REST_RESOURCES_URI, dashboardURI, @"components"];
+    NSString *fullURL = [NSString stringWithFormat:@"%@%@_files/%@", kJS_REST_RESOURCES_URI, dashboardURI.hostEncodedString, @"components"];
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURL];
     request.objectMapping = [JSMapping mappingWithObjectMapping:[JSDashboardComponent objectMappingForServerProfile:self.serverProfile] keyPath:nil];
     request.restVersion = JSRESTVersion_2;
@@ -134,12 +133,12 @@
                              inputControls:(NSArray <NSString *> *)dependencies
                              initialValuesOnly:(BOOL)initialValuesOnly
 {
-    NSString *fullReportsUri = [NSString stringWithFormat:@"%@%@%@", kJS_REST_REPORTS_URI, (uri ?: @""), kJS_REST_INPUT_CONTROLS_URI];
+    NSString *fullReportsUri = [NSString stringWithFormat:@"%@%@%@", kJS_REST_REPORTS_URI, (uri.hostEncodedString ?: @""), kJS_REST_INPUT_CONTROLS_URI];
 
     if (dependencies && dependencies.count) {
         NSMutableString *dependenciesUriPart = [[NSMutableString alloc] initWithString:@"/"];
         for (NSString *dependency in dependencies) {
-            [dependenciesUriPart appendFormat:@"%@;", dependency];
+            [dependenciesUriPart appendFormat:@"%@;", dependency.hostEncodedString];
         }
         fullReportsUri = [fullReportsUri stringByAppendingString:dependenciesUriPart];
     }

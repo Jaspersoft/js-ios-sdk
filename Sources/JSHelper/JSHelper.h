@@ -32,3 +32,4 @@
 #import "JSConstants.h"
 #import "JSErrorBuilder.h"
 #import "JSDateFormatterFactory.h"
+#import "NSString+JSURLEncodings.h"

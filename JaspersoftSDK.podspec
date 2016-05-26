@@ -49,6 +49,7 @@ Pod::Spec.new do |s|
 
 			#import "JSConstants.h"
 			#import "JSUtils.h"
+  			#import "NSString+JSURLEncodings.h"
 
 			#define _AFNETWORKING_PIN_SSL_CERTIFICATES_
 			#if __IPHONE_OS_VERSION_MIN_REQUIRED

@@ -41,26 +41,15 @@
 #import "AFURLRequestSerialization.h"
 #import "JSReportComponent.h"
 
-// Report query used for setting output format (i.e PDF, HTML, etc.)
-// and path for images (current dir) when exporting report in HTML
-static NSString * const _baseReportQueryImagesParam = @"IMAGES_URI";
-static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT";
-
 
 @interface JSRESTBase (PrivateAPI)
 - (void) addReportParametersToRequest:(JSRequest *)request withSelectedValues:(NSArray *)selectedValues;
 
 - (NSString *)fullReportExecutionUri:(NSString *)requestId;
 
-- (NSString *)fullDownloadReportFileUri:(NSString *)uuid;
-
-- (NSString *)fullRunReportUri:(NSString *)uri;
-
 - (NSString *)fullReportsUriForIC:(NSString *)uri withInputControls:(NSArray <NSString *> *)dependencies initialValuesOnly:(BOOL)initialValuesOnly;
 
 - (NSString *)fullExportExecutionUri:(NSString *)requestId;
-
-- (NSDictionary *)runReportQueryParams:(NSString *)format;
 
 - (NSString *)encodeAttachmentsPrefix:(NSString *)exportOutput;
 @end
@@ -69,7 +58,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 
 - (void)inputControlsForReport:(NSString *)reportUri selectedValues:(NSArray <JSReportParameter *> *)selectedValues
                completionBlock:(JSRequestCompletionBlock)block {
-    JSRequest *request = [[JSRequest alloc] initWithUri:[NSString stringWithFormat:@"%@%@%@", kJS_REST_REPORTS_URI, (reportUri ?: @""), kJS_REST_INPUT_CONTROLS_URI]];
+    JSRequest *request = [[JSRequest alloc] initWithUri:[NSString stringWithFormat:@"%@%@%@", kJS_REST_REPORTS_URI, (reportUri.hostEncodedString ?: @""), kJS_REST_INPUT_CONTROLS_URI]];
     request.objectMapping = [JSMapping mappingWithObjectMapping:[JSInputControlDescriptor objectMappingForServerProfile:self.serverProfile] keyPath:@"inputControl"];
     request.restVersion = JSRESTVersion_2;
     request.method = ([selectedValues count]) ? JSRequestHTTPMethodPOST : JSRequestHTTPMethodGET;
@@ -90,7 +79,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 }
 
 - (void)reportOptionsForReportURI:(NSString *)reportURI completion:(JSRequestCompletionBlock)block {
-    NSString *uri = [NSString stringWithFormat:@"%@%@%@", kJS_REST_REPORTS_URI, reportURI, kJS_REST_REPORT_OPTIONS_URI];
+    NSString *uri = [NSString stringWithFormat:@"%@%@%@", kJS_REST_REPORTS_URI, reportURI.hostEncodedString, kJS_REST_REPORT_OPTIONS_URI];
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
     request.objectMapping = [JSMapping mappingWithObjectMapping:[JSReportOption objectMappingForServerProfile:self.serverProfile] keyPath:@"reportOptionsSummary"];
     request.restVersion = JSRESTVersion_2;
@@ -103,9 +92,9 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
                 completion:(JSRequestCompletionBlock)completion {
     NSString *requestURIString = [NSString stringWithFormat:@"%@%@%@/%@",
                                                             kJS_REST_REPORTS_URI,
-                                                            reportURI,
+                                                            reportURI.hostEncodedString,
                                                             kJS_REST_REPORT_OPTIONS_URI,
-                                                            reportOption.identifier];
+                                                            reportOption.identifier.hostEncodedString];
     JSRequest *request = [[JSRequest alloc] initWithUri:requestURIString];
     request.restVersion = JSRESTVersion_2;
     request.method = JSRequestHTTPMethodDELETE;
@@ -119,8 +108,8 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
                              completion:(JSRequestCompletionBlock)completion {
     NSString *requestURIString = [NSString stringWithFormat:@"%@%@%@?label=%@&overwrite=%@",
                                                             kJS_REST_REPORTS_URI,
-                                                            reportURI,
-                                                            kJS_REST_REPORT_OPTIONS_URI, [self encodeString:optionLabel], [JSUtils stringFromBOOL:YES]];
+                                                            reportURI.hostEncodedString,
+                                                            kJS_REST_REPORT_OPTIONS_URI, optionLabel.queryEncodedString, [JSUtils stringFromBOOL:YES]];
 
     JSRequest *request = [[JSRequest alloc] initWithUri:requestURIString];
     request.objectMapping = [JSMapping mappingWithObjectMapping:[JSReportOption objectMappingForServerProfile:self.serverProfile] keyPath:nil];
@@ -155,7 +144,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     }
 
     NSString *urlString = [NSString stringWithFormat:@"%@/%@%@%@.%@", self.serverProfile.serverUrl,
-                                                     kJS_REST_SERVICES_V2_URI, kJS_REST_REPORTS_URI, uri, format];
+                                                     kJS_REST_SERVICES_V2_URI, kJS_REST_REPORTS_URI, uri.hostEncodedString, format.hostEncodedString];
 
 
     AFHTTPRequestSerializer *urlSerializer = [AFHTTPRequestSerializer new];
@@ -389,27 +378,17 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
 }
 
 - (NSString *)fullReportExecutionUri:(NSString *)requestId {
-    NSString *reportExecutionUri = kJS_REST_REPORT_EXECUTION_URI;
-
-    if (!requestId.length) return reportExecutionUri;
-    return [NSString stringWithFormat:@"%@/%@", reportExecutionUri, requestId];
-}
-
-- (NSString *)fullDownloadReportFileUri:(NSString *)uuid {
-    return [NSString stringWithFormat:@"%@/%@", kJS_REST_REPORT_URI, uuid];
-}
-
-- (NSString *)fullRunReportUri:(NSString *)uri {
-    return [NSString stringWithFormat:@"%@%@", kJS_REST_REPORT_URI, (uri ?: @"")];
+    if (!requestId.length) return kJS_REST_REPORT_EXECUTION_URI;
+    return [NSString stringWithFormat:@"%@/%@", kJS_REST_REPORT_EXECUTION_URI, requestId];
 }
 
 - (NSString *)fullReportsUriForIC:(NSString *)uri withInputControls:(NSArray <NSString *> *)dependencies initialValuesOnly:(BOOL)initialValuesOnly {
-    NSString *fullReportsUri = [NSString stringWithFormat:@"%@%@%@", kJS_REST_REPORTS_URI, (uri ?: @""), kJS_REST_INPUT_CONTROLS_URI];
+    NSString *fullReportsUri = [NSString stringWithFormat:@"%@%@%@", kJS_REST_REPORTS_URI, (uri.hostEncodedString ?: @""), kJS_REST_INPUT_CONTROLS_URI];
 
     if (dependencies && dependencies.count) {
         NSMutableString *dependenciesUriPart = [[NSMutableString alloc] initWithString:@"/"];
         for (NSString *dependency in dependencies) {
-            [dependenciesUriPart appendFormat:@"%@;", dependency];
+            [dependenciesUriPart appendFormat:@"%@;", dependency.hostEncodedString];
         }
         fullReportsUri = [fullReportsUri stringByAppendingString:dependenciesUriPart];
     }
@@ -425,11 +404,6 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
     return [NSString stringWithFormat:@"%@/%@%@", kJS_REST_REPORT_EXECUTION_URI, requestId, kJS_REST_EXPORT_EXECUTION_URI];
 }
 
-- (NSDictionary *)runReportQueryParams:(NSString *)format {
-    return [NSDictionary dictionaryWithObjectsAndKeys:@"./", _baseReportQueryImagesParam,
-                                                      format, _baseReportQueryOutputFormatParam, nil];
-}
-
 - (NSString *)encodeAttachmentsPrefix:(NSString *)exportOutput {
     NSRange prefixRange = [exportOutput rangeOfString:@"attachmentsPrefix="];
 
@@ -438,8 +412,7 @@ static NSString * const _baseReportQueryOutputFormatParam = @"RUN_OUTPUT_FORMAT"
         NSRange valueRange = NSMakeRange(location, exportOutput.length - location);
         NSString *value = [exportOutput substringWithRange:valueRange];
         if (value.length) {
-            value = [self encodeString:value];
-            exportOutput = [exportOutput stringByReplacingCharactersInRange:valueRange withString:value];
+            exportOutput = [exportOutput stringByReplacingCharactersInRange:valueRange withString:value.queryEncodedString];
         }
     }
 

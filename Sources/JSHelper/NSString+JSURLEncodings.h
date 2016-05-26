@@ -22,25 +22,20 @@
 
 
 //
-//  JSErrorBuilder.h
+//  NSString(JSURLEncodings).h
 //  TIBCO JasperMobile
 //
 
 /**
- @author Aleksandr Dakhno odahno@tibco.com
- @since 2.3
+ @author Alexey Gubarev ogubarie@tibco.com
+ @since 2.5
  */
 
 #import <Foundation/Foundation.h>
-#import "JSConstants.h"
 
-extern NSString * const JSHTTPErrorResponseStatusKey;
+@interface NSString(JSURLEncodings)
 
-@interface JSErrorBuilder : NSObject
+- (nonnull NSString *)hostEncodedString;
 
-+ (NSError *)errorWithCode:(JSErrorCode)code;
-+ (NSError *)errorWithCode:(JSErrorCode)code message:(NSString *)message;
-
-+ (NSError *)httpErrorWithCode:(JSErrorCode)code HTTPCode:(NSInteger)HTTPcode;
-
+- (nonnull NSString *)queryEncodedString;
 @end

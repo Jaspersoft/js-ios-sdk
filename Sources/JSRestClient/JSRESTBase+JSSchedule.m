@@ -49,7 +49,7 @@
         @throw wrongActionxception;
     }
 
-    NSString *fullURL = [NSString stringWithFormat:@"%@", @"/jobs"];
+    NSString *fullURL = @"/jobs";
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURL];
     request.restVersion = JSRESTVersion_2;
     request.method = JSRequestHTTPMethodGET;
@@ -92,7 +92,7 @@
 
 - (void)fetchScheduleMetadataWithId:(NSInteger)scheduleId completion:(JSRequestCompletionBlock)completion
 {
-    NSString *fullURL = [NSString stringWithFormat:@"%@/%@", @"/jobs", @(scheduleId)];
+    NSString *fullURL = [NSString stringWithFormat:@"/jobs/%@", @(scheduleId)];
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURL];
     request.objectMapping = [JSMapping mappingWithObjectMapping:[JSScheduleMetadata objectMappingForServerProfile:self.serverProfile]
                                                         keyPath:nil];
@@ -109,7 +109,7 @@
 
 - (void)createScheduleWithData:(JSScheduleMetadata *)data completion:(JSRequestCompletionBlock)completion
 {
-    NSString *fullURL = [NSString stringWithFormat:@"%@", @"/jobs"];
+    NSString *fullURL = @"/jobs";
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURL];
     request.objectMapping = [JSMapping mappingWithObjectMapping:[JSScheduleMetadata objectMappingForServerProfile:self.serverProfile]
                                                         keyPath:nil];
@@ -128,7 +128,7 @@
 
 - (void)updateSchedule:(JSScheduleMetadata *)schedule completion:(JSRequestCompletionBlock)completion
 {
-    NSString *fullURL = [NSString stringWithFormat:@"%@/%@", @"/jobs", @(schedule.jobIdentifier)];
+    NSString *fullURL = [NSString stringWithFormat:@"/jobs/%@", @(schedule.jobIdentifier)];
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURL];
     request.objectMapping = [JSMapping mappingWithObjectMapping:[JSScheduleMetadata objectMappingForServerProfile:self.serverProfile]
                                                         keyPath:nil];
@@ -145,7 +145,7 @@
 
 - (void)deleteScheduleWithId:(NSInteger)identifier completion:(JSRequestCompletionBlock)completion
 {
-    NSString *fullURL = [NSString stringWithFormat:@"%@/%@", @"/jobs", @(identifier)];
+    NSString *fullURL = [NSString stringWithFormat:@"/jobs/%@", @(identifier)];
     JSRequest *request = [[JSRequest alloc] initWithUri:fullURL];
     request.restVersion = JSRESTVersion_2;
     request.method = JSRequestHTTPMethodDELETE;

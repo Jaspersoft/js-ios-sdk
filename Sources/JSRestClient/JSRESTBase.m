@@ -527,14 +527,4 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     return result;
 }
 
-// TODO: refactor, find better way to make URL encoded string
-- (NSString *)encodeString:(NSString *)string {
-    if (string.length) {
-        NSString *charactersToEncoding = @":#[]@!$&'()*+,;=/?";
-        CFStringRef encodedValue = CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) string, NULL, (CFStringRef) charactersToEncoding, kCFStringEncodingUTF8);
-        string = CFBridgingRelease(encodedValue);
-    }
-    
-    return string;
-}
 @end
