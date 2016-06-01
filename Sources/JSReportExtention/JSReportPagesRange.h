@@ -34,7 +34,7 @@
  @since 2.3
  */
 
-@interface JSReportPagesRange : NSObject
+@interface JSReportPagesRange : NSObject <NSCopying>
 
 @property (nonatomic, assign) NSUInteger startPage;
 @property (nonatomic, assign) NSUInteger endPage;

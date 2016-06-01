@@ -71,6 +71,15 @@
     return [NSString stringWithFormat:@"%@-%@", @(self.startPage), @(self.endPage)];
 }
 
+#pragma mark - NSCopying
+- (id)copyWithZone:(NSZone *)zone {
+    JSReportPagesRange *newRange = [[self class] allocWithZone:zone];
+    newRange.startPage = self.startPage;
+    newRange.endPage = self.endPage;
+
+    return newRange;
+}
+
 #pragma mark - Description
 - (NSString *)description {
     return [NSString stringWithFormat:@"PagesRange from: %@, to: %@", @(self.startPage), @(self.endPage)];

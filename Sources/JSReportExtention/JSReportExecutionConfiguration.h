@@ -48,7 +48,7 @@
 @property (nonatomic, strong, nullable) NSString *transformerKey;
 @property (nonatomic, strong, nonnull) NSString *outputFormat;
 @property (nonatomic, strong, nonnull) NSString *attachmentsPrefix;
-@property (nonatomic, strong, nonnull) JSReportPagesRange *pagesRange;
+@property (nonatomic, copy, nonnull) JSReportPagesRange *pagesRange;
 
 +(nonnull instancetype)saveReportConfigurationWithFormat:(nonnull NSString *)format pagesRange:(nonnull JSReportPagesRange *)pagesRange;
 
