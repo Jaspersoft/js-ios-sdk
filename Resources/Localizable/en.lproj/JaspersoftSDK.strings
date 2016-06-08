@@ -61,6 +61,7 @@
 /* Common error */
 "error.unknownhost.dialog.msg" = "The specified hostname could not be found.";
 "error.server.version.not.supported" = "Wrong server version or URL.";
+"error.accept.type.not.supported" = "Accept type isn't supported.";
 "error.reading.response.msg" = "Failed to load data!";
 "error.data.mapping.msg" = "Sorry, but response doesn't ready or invalid.";
 "error.other.msg" = "Sorry, but something went wrong.";

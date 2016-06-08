@@ -52,14 +52,15 @@ NSString * const JSLocalizationBundleType = @"lproj";
 }
 
 + (NSString *)localizedStringForKey:(NSString *)key comment:(nullable NSString *)comment{
-#warning SHOULD CHECK ON REAL DEVICE!!!!!!!!
-    NSURL *currentBundleURL = [[NSBundle bundleForClass:[self class]] bundleURL];
-    NSBundle *currentBundle = [NSBundle bundleWithURL:currentBundleURL];
-    NSURL *localizationBundleURL = [currentBundle URLForResource:JSLocalizationTable withExtension:@"strings"];
+    NSURL *localizationBundleURL = [[NSBundle mainBundle] URLForResource:JSLocalizationTable withExtension:@"bundle"];
+    if (!localizationBundleURL) {
+        localizationBundleURL = [[NSBundle bundleForClass:[self class]] bundleURL];
+    }
+    
     NSBundle *localizationBundle = localizationBundleURL ? [NSBundle bundleWithURL:localizationBundleURL] : [NSBundle mainBundle];
     
-    NSString *localizedString = NSLocalizedStringFromTableInBundle(key, JSLocalizationTable, currentBundle, comment);
-    
+    NSString *localizedString = NSLocalizedStringFromTableInBundle(key, JSLocalizationTable, localizationBundle, comment);
+
     if (![[NSLocale preferredLanguages][0] isEqualToString:JSPreferredLanguage] && [localizedString isEqualToString:key]) {
         NSString *path = [localizationBundle pathForResource:JSPreferredLanguage ofType:JSLocalizationBundleType];
         NSBundle *preferredLanguageBundle = [NSBundle bundleWithPath:path];

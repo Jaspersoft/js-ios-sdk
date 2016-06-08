@@ -253,7 +253,7 @@
                                  path:nil
                       completionBlock:^(JSOperationResult *result) {
                           __strong typeof(self) strongSelf = weakSelf;
-                          if (result.error && result.error.code != JSOtherErrorCode) {
+                          if (result.error && result.error.code != JSUnsupportedAcceptTypeErrorCode) {
                               [strongSelf handleError:result.error withLoadedObjects:result.objects forPage:page];
                           } else {
                               if ([result.MIMEType isEqualToString:[JSUtils usedMimeType]]) {

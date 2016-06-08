@@ -110,9 +110,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         
         self.responseSerializer.acceptableStatusCodes = nil;
         self.responseSerializer.acceptableContentTypes = nil;
-        
-        self.securityPolicy.allowInvalidCertificates = YES;
-        
+                
         [self configureRequestRedirectionHandling];
     }
     return self;
@@ -373,7 +371,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
                 if ([result.MIMEType isEqualToString:[JSUtils usedMimeType]]) {
                     result.error = [JSErrorBuilder errorWithCode:JSDataMappingErrorCode];
                 } else {
-                    result.error = [JSErrorBuilder errorWithCode:JSOtherErrorCode];
+                    result.error = [JSErrorBuilder errorWithCode:JSUnsupportedAcceptTypeErrorCode];
                 }
             } else {
                 result.error = [JSErrorBuilder errorWithCode:JSOtherErrorCode

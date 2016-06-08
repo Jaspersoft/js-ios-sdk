@@ -83,6 +83,7 @@ NSString * const JSHTTPErrorResponseStatusKey = @"JSHTTPErrorResponseStatusKey";
         case JSDataMappingErrorCode:
         case JSFileSavingErrorCode:
         case JSServerVersionNotSupportedErrorCode:
+        case JSUnsupportedAcceptTypeErrorCode:
         case JSOtherErrorCode:
             return JSErrorDomain;
     }
@@ -106,6 +107,8 @@ NSString * const JSHTTPErrorResponseStatusKey = @"JSHTTPErrorResponseStatusKey";
             return JSCustomLocalizedString(@"error.file.saving.msg", nil);
         case JSServerVersionNotSupportedErrorCode:
             return JSCustomLocalizedString(@"error.server.version.not.supported", nil);
+        case JSUnsupportedAcceptTypeErrorCode:
+            return JSCustomLocalizedString(@"error.accept.type.not.supported", nil);
         default:
             return JSCustomLocalizedString(@"error.other.msg", nil);
     }

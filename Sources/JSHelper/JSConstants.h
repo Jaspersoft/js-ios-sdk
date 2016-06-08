@@ -58,6 +58,8 @@ typedef NS_ENUM (NSInteger, JSErrorCode) {
     
     JSDataMappingErrorCode,                 // Data Mapping error code - when responce did load successfully, but can't be parsed
     
+    JSUnsupportedAcceptTypeErrorCode,       // Unsupported Accept Type error code - when responce did load successfully, but can't be parsed because has unsupported accept code
+
     JSFileSavingErrorCode,                  // Write to file and file saving error
 };
 /** @} */

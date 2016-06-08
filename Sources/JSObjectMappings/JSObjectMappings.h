@@ -65,8 +65,6 @@
 #import "JSServerInfo.h"
 
 // Dashboard
-#import "JSResourceDashboardUnit.h"
-#import "JSDashboardResource.h"
 #import "JSDashboardComponent.h"
 
 // Schedules

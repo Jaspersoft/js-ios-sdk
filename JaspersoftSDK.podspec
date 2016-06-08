@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name = 'JaspersoftSDK'
-	s.version = '2.5'
+	s.version = '2.6'
 	s.summary = 'JaspersoftSDK - The simplest way to build JasperReports Server apps.'
 	s.description = <<-DESC
 		JaspersoftSDK for iOS is a set of Objective-C classes to easily connect
@@ -27,8 +27,8 @@ Pod::Spec.new do |s|
 	### Subspecs	
 	s.subspec 'JSCore' do |jscSpec|	
 		jscSpec.dependency 'JaspersoftSDK/Resources'
-    		jscSpec.dependency 'AFNetworking', '3.0.4'
-    		jscSpec.dependency 'EasyMapping', '0.16.1'
+    		jscSpec.dependency 'AFNetworking', '3.1.0'
+    		jscSpec.dependency 'EasyMapping', '0.17.0'
 		
 		jscSpec.subspec 'JSHelper' do |jshSpec|
     		jshSpec.source_files = 'Sources/JSHelper'
