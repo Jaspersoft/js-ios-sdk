@@ -132,7 +132,7 @@ NSString * const kJSReportCurrentPageDidChangeNotification = @"kJSReportCurrentP
 - (NSArray *)reportParameters
 {
     if (!_reportParameters) {
-        if ([self.reportOptions indexOfObject:self.activeReportOption] == NSNotFound) {
+        if ([self.reportOptions indexOfObjectIdenticalTo:self.activeReportOption] == NSNotFound) {
             _reportParameters = [JSUtils reportParametersFromInputControls:self.activeReportOption.inputControls];
         }
     }
