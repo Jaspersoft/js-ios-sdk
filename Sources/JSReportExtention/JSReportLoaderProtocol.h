@@ -57,14 +57,14 @@ typedef void(^JSReportLoaderCompletionBlock)(BOOL success, NSError * __nullable 
 - (nonnull instancetype)initWithReport:(nonnull JSReport *)report restClient:(nonnull JSRESTBase *)restClient;
 + (nonnull instancetype)loaderWithReport:(nonnull JSReport *)report restClient:(nonnull JSRESTBase *)restClient;
 
-- (void)runReportWithPage:(NSInteger)page completion:(nullable JSReportLoaderCompletionBlock)completionBlock;
-- (void)fetchPageNumber:(NSInteger)pageNumber withCompletion:(nullable JSReportLoaderCompletionBlock)completionBlock;
+- (void)runReportWithPage:(NSInteger)page completion:(nonnull JSReportLoaderCompletionBlock)completion;
+- (void)fetchPageNumber:(NSInteger)pageNumber withCompletion:(nonnull JSReportLoaderCompletionBlock)completionBlock;
 - (void)cancel;
 
 @optional
 
 - (BOOL) shouldDisplayLoadingView;
-- (void) applyReportParametersWithCompletion:(nullable JSReportLoaderCompletionBlock)completion;
-- (void) refreshReportWithCompletion:(nullable JSReportLoaderCompletionBlock)completion;
+- (void) applyReportParametersWithCompletion:(nonnull JSReportLoaderCompletionBlock)completion;
+- (void) refreshReportWithCompletion:(nonnull JSReportLoaderCompletionBlock)completion;
 
 @end
