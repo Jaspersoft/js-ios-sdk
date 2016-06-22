@@ -49,6 +49,7 @@
 // cache
 @property (nonatomic, strong) NSMutableDictionary *cachedPages;
 @property (nonatomic, strong) JSReportExecutionConfiguration *configuration;
+@property (nonatomic, assign, getter=isCancelAllOperations) BOOL cancelAllOperations;
 
 @end
 
@@ -88,15 +89,15 @@
     [self.report restoreDefaultState];
 
     self.loadPageCompletionBlock = completionBlock;
-    
+
 
     [self.report updateCurrentPage:page];
-    
+
     // restore default state of loader
     self.exportIdsDictionary = [@{} mutableCopy];
     self.isReportInLoadingProcess = YES;
     self.outputResourceType = JSReportLoaderOutputResourceType_None;
-    
+
     [self runReportExecution];
 }
 
@@ -107,11 +108,12 @@
 }
 
 - (void)cancel {
+    self.cancelAllOperations = YES;
     self.loadPageCompletionBlock = nil;
-    
+
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(makeStatusChecking) object:nil];
     [self.restClient cancelAllRequests];
-    
+
     if ((self.reportExecutionStatus.status == kJS_EXECUTION_STATUS_EXECUTION || self.reportExecutionStatus.status == kJS_EXECUTION_STATUS_QUEUED) && self.report.requestId) {
         [self.restClient cancelReportExecution:self.report.requestId completionBlock:nil];
     }
@@ -133,6 +135,9 @@
 #pragma mark - Private API
 
 - (void) runReportExecution {
+    if (self.isCancelAllOperations) {
+        return;
+    }
     __weak typeof(self) weakSelf = self;
     [self.restClient runReportExecution:self.report.reportURI
                                   async:self.configuration.asyncExecution
@@ -148,16 +153,19 @@
                              parameters:self.report.reportParameters
                         completionBlock:^(JSOperationResult *result) {
                             __strong typeof(self) strongSelf = weakSelf;
+                            if (strongSelf.isCancelAllOperations) {
+                                return;
+                            }
                             if (result.error) {
                                 [strongSelf handleError:result.error withLoadedObjects:result.objects forPage:NSNotFound];
                             } else {
-                                
+
                                 JSReportExecutionResponse *executionResponse = [result.objects firstObject];
                                 NSString *requestId = executionResponse.requestId;
-                                
+
                                 if (requestId) {
                                     [strongSelf.report updateRequestId:requestId];
-                                    
+
                                     if (executionResponse.status.status == kJS_EXECUTION_STATUS_FAILED ||
                                         executionResponse.status.status == kJS_EXECUTION_STATUS_CANCELED) {
                                         NSDictionary *userInfo;
@@ -191,6 +199,9 @@
 }
 
 - (void) startExportExecutionForPage:(NSInteger)page {
+    if (self.isCancelAllOperations) {
+        return;
+    }
     NSDictionary *cachedPages = [self cachedReportPages];
     NSString *HTMLString = cachedPages[@(page)];
     if (HTMLString && self.loadPageCompletionBlock) { // show cached page
@@ -199,7 +210,7 @@
 #endif
         [self.report updateHTMLString:HTMLString baseURLSring:self.report.baseURLString];
         self.report.isReportAlreadyLoaded = (HTMLString.length > 0);
-        
+
         [self startLoadReportHTML];
     } else { // export page
         NSString *exportID = self.exportIdsDictionary[@(page)];
@@ -216,11 +227,14 @@
                               attachmentsPrefix:self.configuration.attachmentsPrefix
                                 completionBlock:^(JSOperationResult *result) {
                                     __strong typeof(self) strongSelf = weakSelf;
+                                    if (strongSelf.isCancelAllOperations) {
+                                        return;
+                                    }
                                     if (result.error) {
                                         [strongSelf handleError:result.error withLoadedObjects:result.objects forPage:page];
                                     } else {
                                         JSExportExecutionResponse *export = [result.objects firstObject];
-                                        
+
                                         if (export.uuid.length) {
                                             strongSelf.exportIdsDictionary[@(page)] = export.uuid;
                                             [strongSelf loadOutputResourcesForPage:page];
@@ -235,17 +249,20 @@
 }
 
 - (void)loadOutputResourcesForPage:(NSInteger)page {
+    if (self.isCancelAllOperations) {
+        return;
+    }
     if (page == self.report.currentPage) {
         self.outputResourceType = JSReportLoaderOutputResourceType_LoadingNow;
     }
     NSString *exportID = self.exportIdsDictionary[@(page)];
-    
+
     // Fix for JRS version smaller 5.6.0
     NSString *fullExportID = exportID;
     if (self.restClient.serverInfo.versionAsFloat < kJS_SERVER_VERSION_CODE_EMERALD_5_6_0) {
         fullExportID = [NSString stringWithFormat:@"%@;pages=%@", exportID, @(page)];
     }
-    
+
     __weak typeof(self) weakSelf = self;
     [self.restClient loadReportOutput:self.report.requestId
                          exportOutput:fullExportID
@@ -253,6 +270,9 @@
                                  path:nil
                       completionBlock:^(JSOperationResult *result) {
                           __strong typeof(self) strongSelf = weakSelf;
+                          if (strongSelf.isCancelAllOperations) {
+                              return;
+                          }
                           if (result.error && result.error.code != JSUnsupportedAcceptTypeErrorCode) {
                               [strongSelf handleError:result.error withLoadedObjects:result.objects forPage:page];
                           } else {
@@ -260,11 +280,11 @@
                                   [strongSelf handleError:result.error withLoadedObjects:result.objects forPage:page];
                               } else {
                                   strongSelf.outputResourceType = [result.allHeaderFields[@"output-final"] boolValue]? JSReportLoaderOutputResourceType_Final : JSReportLoaderOutputResourceType_NotFinal;
-                                  
+
                                   if (strongSelf.outputResourceType == JSReportLoaderOutputResourceType_Final) {
                                       [strongSelf cacheHTMLString:result.bodyAsString forPageNumber:page];
                                   }
-                                  
+
                                   if (page == strongSelf.report.currentPage) { // show current page
                                       strongSelf.isReportInLoadingProcess = NO;
                                       if (strongSelf.loadPageCompletionBlock) {
@@ -274,13 +294,13 @@
                                           [strongSelf startLoadReportHTML];
                                       }
                                   }
-                                  
+
                                   // Try to load second page
                                   if (strongSelf.report.currentPage == 1) {
                                       if ([strongSelf.exportIdsDictionary count] == 1) {
                                           [strongSelf startExportExecutionForPage:2];
                                       }
-                                      
+
                                       if (page == 2 && [strongSelf.exportIdsDictionary count] == 2) {
                                           [strongSelf.report updateIsMultiPageReport:YES];
                                       }
@@ -299,14 +319,23 @@
 #pragma mark - Check status
 
 - (void)checkingExecutionStatus {
+    if (self.isCancelAllOperations) {
+        return;
+    }
     [self performSelector:@selector(makeStatusChecking) withObject:nil afterDelay:kJSExecutionStatusCheckingInterval];
 }
 
 - (void) makeStatusChecking {
+    if (self.isCancelAllOperations) {
+        return;
+    }
     __weak typeof(self) weakSelf = self;
     [self.restClient reportExecutionStatusForRequestId:self.report.requestId
                                        completionBlock:^(JSOperationResult *result) {
                                            __strong typeof(self) strongSelf = weakSelf;
+                                           if (strongSelf.isCancelAllOperations) {
+                                               return;
+                                           }
                                            if (result.error) {
                                                [strongSelf handleError:result.error withLoadedObjects:result.objects forPage:NSNotFound];
                                            } else {
@@ -314,7 +343,7 @@
                                                if (strongSelf.reportExecutionStatus.status == kJS_EXECUTION_STATUS_READY) {
                                                    [strongSelf stopStatusChecking];
                                                } else if (strongSelf.reportExecutionStatus.status == kJS_EXECUTION_STATUS_QUEUED ||
-                                                          strongSelf.reportExecutionStatus.status == kJS_EXECUTION_STATUS_EXECUTION) {
+                                                       strongSelf.reportExecutionStatus.status == kJS_EXECUTION_STATUS_EXECUTION) {
                                                    [strongSelf checkingExecutionStatus];
                                                } else {
                                                    NSError *error = [JSErrorBuilder errorWithCode:JSClientErrorCode ];
@@ -325,16 +354,22 @@
 }
 
 - (void)stopStatusChecking {
+    if (self.isCancelAllOperations) {
+        return;
+    }
     BOOL isNotFinal = self.outputResourceType == JSReportLoaderOutputResourceType_NotFinal;
     BOOL isLoadingNow = self.outputResourceType == JSReportLoaderOutputResourceType_LoadingNow;
     if (isNotFinal && !isLoadingNow) {
         [self startExportExecutionForPage:self.report.currentPage];
     }
-    
+
     __weak typeof(self) weakSelf = self;
     [self.restClient reportExecutionMetadataForRequestId:self.report.requestId
                                          completionBlock:^(JSOperationResult *result) {
                                              __strong typeof(self) strongSelf = weakSelf;
+                                             if (strongSelf.isCancelAllOperations) {
+                                                 return;
+                                             }
                                              if (result.error) {
                                                  [strongSelf handleError:result.error withLoadedObjects:result.objects forPage:NSNotFound];
 
