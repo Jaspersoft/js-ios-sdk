@@ -259,7 +259,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     _cookies = cookies;
     if (isCookiesChanged) {
         [[NSNotificationCenter defaultCenter] postNotificationName:JSRestClientDidChangeCookies
-                                                            object:nil];
+                                                            object:self];
     }
 }
 
