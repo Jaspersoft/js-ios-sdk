@@ -32,7 +32,8 @@
 #import "JSInputControlDescriptor.h"
 #import "JSReportParameter.h"
 
-NSString * const JSLocalizationTable = @"JaspersoftSDK";
+NSString * const JSLocalizationBundleName = @"JaspersoftSDK";
+NSString * const JSLocalizationTable = @"Localizable";
 NSString * const JSPreferredLanguage = @"en";
 NSString * const JSLocalizationBundleType = @"lproj";
 
@@ -52,7 +53,7 @@ NSString * const JSLocalizationBundleType = @"lproj";
 }
 
 + (NSString *)localizedStringForKey:(NSString *)key comment:(nullable NSString *)comment{
-    NSURL *localizationBundleURL = [[NSBundle mainBundle] URLForResource:JSLocalizationTable withExtension:@"bundle"];
+    NSURL *localizationBundleURL = [[NSBundle mainBundle] URLForResource:JSLocalizationBundleName withExtension:@"bundle"];
     if (!localizationBundleURL) {
         localizationBundleURL = [[NSBundle bundleForClass:[self class]] bundleURL];
     }

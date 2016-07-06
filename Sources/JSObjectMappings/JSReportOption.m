@@ -37,7 +37,7 @@
 + (JSReportOption *)defaultReportOption
 {
     JSReportOption *reportOption = [JSReportOption new];
-    reportOption.label = JSCustomLocalizedString(@"report.options.default.option.title", nil);
+    reportOption.label = JSCustomLocalizedString(@"report_options_default_option_title", nil);
     return reportOption;
 }
 

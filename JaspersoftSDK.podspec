@@ -64,7 +64,7 @@ Pod::Spec.new do |s|
 		EOS
 	end
 	s.subspec 'Resources' do |resSpec|
-		resSpec.ios.resource_bundle = { 'JaspersoftSDK' => 'Resources/Localizable/*.lproj' }
+		resSpec.ios.resource_bundle = { 'JaspersoftSDK' => 'Resources/Localizable/JaspersoftSDK.strings/*.lproj' }
 	end
 
 	s.subspec 'JSSecurity' do |jssSpec|

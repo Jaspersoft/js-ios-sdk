@@ -44,7 +44,7 @@
 
 - (void)testDefaultReportOption {
     JSReportOption *option = [JSReportOption new];
-    option.label = JSCustomLocalizedString(@"report.options.default.option.title", nil);
+    option.label = JSCustomLocalizedString(@"report_options_default_option_title", nil);
     
     JSReportOption *defaultOption = [JSReportOption defaultReportOption];
     XCTAssertNotNil(defaultOption.label);

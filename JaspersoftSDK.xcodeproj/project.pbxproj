@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		08008D7C1D2D677200B8C227 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 08008D7B1D2D677200B8C227 /* README.md */; };
+		08008D7D1D2D690A00B8C227 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 08008D6F1D2D677200B8C227 /* Localizable.strings */; };
 		08061B6C1C919187004F5E49 /* JSParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = 08061B6A1C919187004F5E49 /* JSParameter.h */; };
 		08061B6D1C919187004F5E49 /* JSParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = 08061B6B1C919187004F5E49 /* JSParameter.m */; };
 		0817738C1CD376D600899B3A /* JSEncryptionDataTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0817738B1CD376D600899B3A /* JSEncryptionDataTest.m */; };
@@ -62,7 +64,6 @@
 		08414F5D1CDCD1F100140A83 /* ReportExecutionResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414F5C1CDCD1F100140A83 /* ReportExecutionResponse.json */; };
 		08414F5F1CDCD6DD00140A83 /* JSReportOptionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 08414F5E1CDCD6DD00140A83 /* JSReportOptionTest.m */; };
 		08414F611CDCD9D600140A83 /* ReportOption.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414F601CDCD9D600140A83 /* ReportOption.json */; };
-		08414F621CDCE04800140A83 /* JaspersoftSDK.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0811BCA31C08903D006D0ABF /* JaspersoftSDK.strings */; };
 		08414F641CE2160E00140A83 /* JSReportParameterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 08414F631CE2160E00140A83 /* JSReportParameterTest.m */; };
 		08414F661CE216D300140A83 /* ReportParameter.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414F651CE216D300140A83 /* ReportParameter.json */; };
 		08414F681CE2178500140A83 /* JSReportOutputResourceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 08414F671CE2178500140A83 /* JSReportOutputResourceTest.m */; };
@@ -225,16 +226,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		08008D6C1D2D677200B8C227 /* Errors.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Errors.txt; sourceTree = "<group>"; };
+		08008D6D1D2D677200B8C227 /* Other.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Other.txt; sourceTree = "<group>"; };
+		08008D701D2D677200B8C227 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		08008D711D2D677200B8C227 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		08008D721D2D677200B8C227 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		08008D731D2D677200B8C227 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		08008D741D2D677200B8C227 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		08008D751D2D677200B8C227 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		08008D761D2D677200B8C227 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
+		08008D771D2D677200B8C227 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/Localizable.strings; sourceTree = "<group>"; };
+		08008D7A1D2D677200B8C227 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		08008D7B1D2D677200B8C227 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		08061B6A1C919187004F5E49 /* JSParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSParameter.h; sourceTree = "<group>"; };
 		08061B6B1C919187004F5E49 /* JSParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSParameter.m; sourceTree = "<group>"; };
-		0811BCA41C08903D006D0ABF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
-		0811BCA51C08903D006D0ABF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
-		0811BCA61C08903E006D0ABF /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
-		0811BCA71C08903E006D0ABF /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
-		0811BCA81C08903E006D0ABF /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
-		0811BCA91C08903E006D0ABF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
-		0811BCAA1C08903E006D0ABF /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
-		0811BCAB1C08903E006D0ABF /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
 		0817738B1CD376D600899B3A /* JSEncryptionDataTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSEncryptionDataTest.m; sourceTree = "<group>"; };
 		0817738D1CD3774400899B3A /* JaspersoftSDKTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JaspersoftSDKTests-Prefix.pch"; sourceTree = "<group>"; };
 		0817738E1CD37C2200899B3A /* EncryptionData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EncryptionData.json; sourceTree = "<group>"; };
@@ -464,6 +469,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		08008D6B1D2D677200B8C227 /* all_values */ = {
+			isa = PBXGroup;
+			children = (
+				08008D6C1D2D677200B8C227 /* Errors.txt */,
+				08008D6D1D2D677200B8C227 /* Other.txt */,
+			);
+			path = all_values;
+			sourceTree = "<group>";
+		};
+		08008D6E1D2D677200B8C227 /* JaspersoftSDK.strings */ = {
+			isa = PBXGroup;
+			children = (
+				08008D6F1D2D677200B8C227 /* Localizable.strings */,
+			);
+			path = JaspersoftSDK.strings;
+			sourceTree = "<group>";
+		};
+		08008D781D2D677200B8C227 /* New_Strings */ = {
+			isa = PBXGroup;
+			children = (
+				08008D791D2D677200B8C227 /* Localizable.strings */,
+			);
+			path = New_Strings;
+			sourceTree = "<group>";
+		};
 		0811BC8D1C0889B7006D0ABF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -476,7 +506,10 @@
 		0811BCA21C08903D006D0ABF /* Localizable */ = {
 			isa = PBXGroup;
 			children = (
-				0811BCA31C08903D006D0ABF /* JaspersoftSDK.strings */,
+				08008D6B1D2D677200B8C227 /* all_values */,
+				08008D6E1D2D677200B8C227 /* JaspersoftSDK.strings */,
+				08008D781D2D677200B8C227 /* New_Strings */,
+				08008D7B1D2D677200B8C227 /* README.md */,
 			);
 			path = Localizable;
 			sourceTree = "<group>";
@@ -960,6 +993,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F59768CA15E3C75F004165A7 /* Build configuration list for PBXNativeTarget "JaspersoftSDK" */;
 			buildPhases = (
+				08008D6A1D2D670E00B8C227 /* ShellScript */,
 				5062EA71E05BB4AA8A505805 /* Check Pods Manifest.lock */,
 				F59768B915E3C75F004165A7 /* Sources */,
 				F59768BA15E3C75F004165A7 /* Frameworks */,
@@ -1024,7 +1058,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				08414F621CDCE04800140A83 /* JaspersoftSDK.strings in Resources */,
+				08008D7D1D2D690A00B8C227 /* Localizable.strings in Resources */,
 				08414F3A1CDB955400140A83 /* ExportExecutionRequest.json in Resources */,
 				08414F6A1CE217F200140A83 /* ReportOutputResource.json in Resources */,
 				08414F941CE6049E00140A83 /* ScheduleLookup.json in Resources */,
@@ -1070,6 +1104,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		08008D6A1D2D670E00B8C227 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"Start compiling localizations\"\nlocalizationFolderPath=${SRCROOT}/Resources/Localizable\nallLocalizationsFolderPath=$localizationFolderPath/all_values\nallLocalizationsFileName=locales.txt\noutputPathNewStrings=$localizationFolderPath/New_Strings\noutputPath=$localizationFolderPath/JaspersoftSDK.strings\ncat \"$allLocalizationsFolderPath/\"*.txt > $localizationFolderPath/$allLocalizationsFileName\n\nif [ -d \"$outputPath\" ]; then\necho \"$outputPath exist\"\nrm -r \"$outputPath\"\nrm -r \"$outputPathNewStrings\"\nfi\n\necho \"$outputPath doesn't exist\"\n#localizable strings\nmkdir \"$outputPath\"\nmkdir \"$outputPath/de.lproj\"\nmkdir \"$outputPath/en.lproj\"\nmkdir \"$outputPath/es.lproj\"\nmkdir \"$outputPath/fr.lproj\"\nmkdir \"$outputPath/it.lproj\"\nmkdir \"$outputPath/ja.lproj\"\nmkdir \"$outputPath/pt.lproj\"\nmkdir \"$outputPath/zh.lproj\"\n#new strings\nmkdir \"$outputPathNewStrings\"\nmkdir \"$outputPathNewStrings/en.lproj\"\n#create new localizables\n/usr/local/bin/twine generate-all-string-files \"$localizationFolderPath/$allLocalizationsFileName\" \"$outputPathNewStrings/\" --tags new\n/usr/local/bin/twine generate-all-string-files \"$localizationFolderPath/$allLocalizationsFileName\" \"$outputPath/\"\n\nrm \"$localizationFolderPath/$allLocalizationsFileName\"\necho \"Finish compiling localizations\"";
+		};
 		5062EA71E05BB4AA8A505805 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1204,6 +1251,7 @@
 				0849FCCE1C2B0A92008F1064 /* JSRESTBase+JSRESTReport.m in Sources */,
 				0849FC941C2B0A91008F1064 /* JSExecutionStatus.m in Sources */,
 				0849FCA71C2B0A91008F1064 /* JSReportExecutionRequest.m in Sources */,
+				08008D7C1D2D677200B8C227 /* README.md in Sources */,
 				0849FCA01C2B0A91008F1064 /* JSMandatoryValidationRule.m in Sources */,
 				A1478CA432B170CFEDB4D4E4 /* JSRESTBase+JSRESTDashboard.m in Sources */,
 				A147807F7FC01CA5D92C4C37 /* JSDashboardComponent.m in Sources */,
@@ -1229,19 +1277,27 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		0811BCA31C08903D006D0ABF /* JaspersoftSDK.strings */ = {
+		08008D6F1D2D677200B8C227 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				0811BCA41C08903D006D0ABF /* de */,
-				0811BCA51C08903D006D0ABF /* en */,
-				0811BCA61C08903E006D0ABF /* es */,
-				0811BCA71C08903E006D0ABF /* fr */,
-				0811BCA81C08903E006D0ABF /* it */,
-				0811BCA91C08903E006D0ABF /* ja */,
-				0811BCAA1C08903E006D0ABF /* pt */,
-				0811BCAB1C08903E006D0ABF /* zh */,
+				08008D701D2D677200B8C227 /* de */,
+				08008D711D2D677200B8C227 /* en */,
+				08008D721D2D677200B8C227 /* es */,
+				08008D731D2D677200B8C227 /* fr */,
+				08008D741D2D677200B8C227 /* it */,
+				08008D751D2D677200B8C227 /* ja */,
+				08008D761D2D677200B8C227 /* pt */,
+				08008D771D2D677200B8C227 /* zh */,
 			);
-			name = JaspersoftSDK.strings;
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		08008D791D2D677200B8C227 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				08008D7A1D2D677200B8C227 /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
