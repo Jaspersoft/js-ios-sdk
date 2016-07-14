@@ -52,13 +52,9 @@ NSString * const kJSReportCurrentPageDidChangeNotification = @"kJSReportCurrentP
 // html
 @property (nonatomic, copy, readwrite) NSString *HTMLString;
 @property (nonatomic, copy, readwrite) NSString *baseURLString;
-
-@property (nonatomic, copy, readwrite) NSArray *reportParameters;
 @end
 
 @implementation JSReport
-@synthesize activeReportOption = _activeReportOption;
-@dynamic reportOptions;
 @dynamic reportURI;
 
 
@@ -68,9 +64,7 @@ NSString * const kJSReportCurrentPageDidChangeNotification = @"kJSReportCurrentP
     self = [super init];
     if (self) {
         _resourceLookup = resourceLookup;
-        
         [self restoreDefaultState];
-        
         _isReportEmpty = YES;
     }
     return self;
@@ -101,42 +95,9 @@ NSString * const kJSReportCurrentPageDidChangeNotification = @"kJSReportCurrentP
     [self postNotificationCurrentPageChanged];
 }
 
-- (NSArray *)reportOptions
-{
-    return self.availableReportOptions;
-}
-
-- (JSReportOption *)activeReportOption
-{
-    if (_activeReportOption) {
-        return _activeReportOption;
-    }
-    return [self.reportOptions firstObject];
-}
-
-
-- (void)setActiveReportOption:(JSReportOption *)activeReportOption
-{
-    _activeReportOption = activeReportOption;
-    _reportParameters = nil;
-}
-
 - (NSString *)reportURI
 {
-    if ([self.activeReportOption.uri length]) {
-        return self.activeReportOption.uri;
-    }
     return self.resourceLookup.uri;
-}
-
-- (NSArray *)reportParameters
-{
-    if (!_reportParameters) {
-        if ([self.reportOptions indexOfObjectIdenticalTo:self.activeReportOption] == NSNotFound) {
-            _reportParameters = [JSUtils reportParametersFromInputControls:self.activeReportOption.inputControls];
-        }
-    }
-    return _reportParameters;
 }
 
 - (void)setReportComponents:(NSArray *)reportComponents
@@ -160,38 +121,12 @@ NSString * const kJSReportCurrentPageDidChangeNotification = @"kJSReportCurrentP
 
 #pragma mark - Public API
 
-- (void)generateReportOptionsWithInputControls:(NSArray *)inputControls;
-{
-    if ([inputControls count]) {
-        _isReportWithInputControls = YES;
-        JSReportOption *defaultReportOption = [JSReportOption defaultReportOption];
-        defaultReportOption.inputControls = [[NSArray alloc] initWithArray:inputControls copyItems:YES];
-        self.availableReportOptions = [@[defaultReportOption] mutableCopy];
-        _reportParameters = nil;
-    }
-}
-
-- (void)addReportOptions:(NSArray *)reportOptions
-{
-    [self.availableReportOptions addObjectsFromArray:reportOptions];
-}
-
-- (void)removeReportOption:(JSReportOption *)reportOption
-{
-    [self.availableReportOptions removeObject:reportOption];
-}
-
-- (void)updateReportParameters:(NSArray *)reportParameters
-{
-    _reportParameters = [reportParameters copy];
-}
-
 - (void)updateCurrentPage:(NSInteger)currentPage
 {
     if (self.currentPage == currentPage) {
         return;
     }
-    
+
     self.currentPage = currentPage;
 }
 
@@ -200,10 +135,10 @@ NSString * const kJSReportCurrentPageDidChangeNotification = @"kJSReportCurrentP
     if (self.countOfPages == countOfPages) {
         return;
     }
-    
+
     self.isReportEmpty = countOfPages == 0 || countOfPages == NSNotFound;
     self.countOfPages = countOfPages;
-    
+
     if (countOfPages != NSNotFound) {
         self.isMultiPageReport = countOfPages > 1;
     }
@@ -270,7 +205,6 @@ NSString * const kJSReportCurrentPageDidChangeNotification = @"kJSReportCurrentP
 - (id)copyWithZone:(NSZone *)zone {
     JSReport *newReport     = [[self class] allocWithZone:zone];
     newReport->_resourceLookup = [self.resourceLookup copyWithZone:zone];
-    newReport.activeReportOption = [self.activeReportOption copyWithZone:zone];
     newReport.currentPage = self.currentPage;
     newReport.countOfPages = self.countOfPages;
     newReport.isMultiPageReport = self.isMultiPageReport;
