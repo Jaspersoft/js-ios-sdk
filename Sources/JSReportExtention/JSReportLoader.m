@@ -261,7 +261,7 @@ initialParameters:(nullable NSArray <JSReportParameter *> *)initialParameters
         NSLog(@"load cached page");
 #endif
         [self.report updateHTMLString:HTMLString baseURLSring:self.report.baseURLString];
-        self.report.isReportAlreadyLoaded = (HTMLString.length > 0);
+        self.state = JSReportLoaderStateReady;
 
         [self startLoadReportHTML];
     } else { // export page
@@ -339,10 +339,10 @@ initialParameters:(nullable NSArray <JSReportParameter *> *)initialParameters
 
                                   if (page == strongSelf.report.currentPage) { // show current page
                                       strongSelf.state = JSReportLoaderStateReady;
+                                      [strongSelf.report updateCurrentPage:page];
                                       if (strongSelf.loadPageCompletionBlock) {
                                           [strongSelf.report updateHTMLString:result.bodyAsString
                                                                  baseURLSring:strongSelf.restClient.serverProfile.serverUrl];
-                                          strongSelf.report.isReportAlreadyLoaded = (result.bodyAsString.length > 0);
                                           [strongSelf startLoadReportHTML];
                                       }
                                   }
