@@ -191,19 +191,25 @@
 		722EF964428E5B92861DCAC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE65D84777378DA82ED7BA4 /* libPods.a */; };
 		A147800DD37B9AF78B86CEF8 /* JSRESTBase+JSRESTDashboard.h in Headers */ = {isa = PBXBuildFile; fileRef = A1478F16274972BB223D56F6 /* JSRESTBase+JSRESTDashboard.h */; };
 		A147807F7FC01CA5D92C4C37 /* JSDashboardComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = A147828C4698D5A889D3163B /* JSDashboardComponent.m */; };
+		A14783AEA5266354993F7F4C /* JSReportPart.h in Headers */ = {isa = PBXBuildFile; fileRef = A1478BAC3C92E5793C65F8E9 /* JSReportPart.h */; };
 		A1478449D2FAFA08F51A8C36 /* JSRESTBase+JSSchedule.h in Headers */ = {isa = PBXBuildFile; fileRef = A14788C87487E6E38FAC413D /* JSRESTBase+JSSchedule.h */; };
 		A147857A15CCC0EE16A3C2D3 /* JSScheduleTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = A147811960554DE953BB6FC7 /* JSScheduleTrigger.m */; };
 		A14786144C8D16D581ECA7D5 /* JSReportComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = A147863E63707758748F5870 /* JSReportComponent.m */; };
 		A147864DB8024087AD318145 /* JSScheduleTrigger.h in Headers */ = {isa = PBXBuildFile; fileRef = A14782B2844E9E3717AF73D6 /* JSScheduleTrigger.h */; };
+		A1478667B278BA5A9B1B05A6 /* JSReportBookmark.m in Sources */ = {isa = PBXBuildFile; fileRef = A14786E9F3841863C2C32B99 /* JSReportBookmark.m */; };
 		A1478671113039DEF1D30ABE /* JSScheduleMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = A1478FC0657A2C5AE60CA688 /* JSScheduleMetadata.m */; };
+		A1478715161A334AAD4A0DFC /* JSReportBookmark.h in Headers */ = {isa = PBXBuildFile; fileRef = A1478D4DAE50A9711D3A00EF /* JSReportBookmark.h */; };
 		A1478853DBB60C2FD9C3C7FB /* JSScheduleMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = A14786260EDE28E3427B4003 /* JSScheduleMetadata.h */; };
+		A147892CF5B36E93EF8C5778 /* JSReportPart.m in Sources */ = {isa = PBXBuildFile; fileRef = A14783C85F8A6E55B6A0FCCA /* JSReportPart.m */; };
 		A14789D7076E289DD1DBA342 /* JSScheduleLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = A147813DF61F2C9F8B7E1A69 /* JSScheduleLookup.m */; };
 		A14789D7C67ED26B7DED7A09 /* JSDateFormatterFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = A1478E5FF766BDE05BFDB838 /* JSDateFormatterFactory.h */; };
 		A1478A75DCE4466F783BEEEB /* JSReportComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = A147898826A139D7447590B4 /* JSReportComponent.h */; };
 		A1478B2366FD595E1D5184F7 /* JSDashboardComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = A14780CE0E752AD263D1C79E /* JSDashboardComponent.h */; };
 		A1478CA432B170CFEDB4D4E4 /* JSRESTBase+JSRESTDashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = A1478FDBCBE0FE99F2512696 /* JSRESTBase+JSRESTDashboard.m */; };
 		A1478CBCB217D3A4C19CDBE7 /* JSScheduleJobState.m in Sources */ = {isa = PBXBuildFile; fileRef = A1478CA259B4BAD463F39B36 /* JSScheduleJobState.m */; };
+		A1478CE668255138CB7CFEA6 /* JSReportDestination.m in Sources */ = {isa = PBXBuildFile; fileRef = A1478A9FDC07CAC502A29AC7 /* JSReportDestination.m */; };
 		A1478DD6E4A12B15D8ABDB78 /* JSDateFormatterFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A1478F2F9E43E7F32310F7FB /* JSDateFormatterFactory.m */; };
+		A1478E5D0DBBAD45140B2161 /* JSReportDestination.h in Headers */ = {isa = PBXBuildFile; fileRef = A1478014B4C3C942E0467991 /* JSReportDestination.h */; };
 		A1478EF134484CF355BA4DF5 /* JSScheduleLookup.h in Headers */ = {isa = PBXBuildFile; fileRef = A147879F9C5F9AE58DE2208B /* JSScheduleLookup.h */; };
 		A1478FC814F76B3AD331F43B /* JSRESTBase+JSSchedule.m in Sources */ = {isa = PBXBuildFile; fileRef = A147815111A4ADFCC724870F /* JSRESTBase+JSSchedule.m */; };
 		A1478FE74D5DDD802462C488 /* JSScheduleJobState.h in Headers */ = {isa = PBXBuildFile; fileRef = A147876D0CBB5A203071885F /* JSScheduleJobState.h */; };
@@ -406,19 +412,25 @@
 		0899C44C1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSRESTContentResource.m"; sourceTree = "<group>"; };
 		1AE65D84777378DA82ED7BA4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B199A7873E268BCFDF3074C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		A1478014B4C3C942E0467991 /* JSReportDestination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportDestination.h; sourceTree = "<group>"; };
 		A14780CE0E752AD263D1C79E /* JSDashboardComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDashboardComponent.h; sourceTree = "<group>"; };
 		A147811960554DE953BB6FC7 /* JSScheduleTrigger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSScheduleTrigger.m; sourceTree = "<group>"; };
 		A147813DF61F2C9F8B7E1A69 /* JSScheduleLookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSScheduleLookup.m; sourceTree = "<group>"; };
 		A147815111A4ADFCC724870F /* JSRESTBase+JSSchedule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSSchedule.m"; sourceTree = "<group>"; };
 		A147828C4698D5A889D3163B /* JSDashboardComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDashboardComponent.m; sourceTree = "<group>"; };
 		A14782B2844E9E3717AF73D6 /* JSScheduleTrigger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSScheduleTrigger.h; sourceTree = "<group>"; };
+		A14783C85F8A6E55B6A0FCCA /* JSReportPart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportPart.m; sourceTree = "<group>"; };
 		A14786260EDE28E3427B4003 /* JSScheduleMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSScheduleMetadata.h; sourceTree = "<group>"; };
 		A147863E63707758748F5870 /* JSReportComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportComponent.m; sourceTree = "<group>"; };
+		A14786E9F3841863C2C32B99 /* JSReportBookmark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportBookmark.m; sourceTree = "<group>"; };
 		A147876D0CBB5A203071885F /* JSScheduleJobState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSScheduleJobState.h; sourceTree = "<group>"; };
 		A147879F9C5F9AE58DE2208B /* JSScheduleLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSScheduleLookup.h; sourceTree = "<group>"; };
 		A14788C87487E6E38FAC413D /* JSRESTBase+JSSchedule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSRESTBase+JSSchedule.h"; sourceTree = "<group>"; };
 		A147898826A139D7447590B4 /* JSReportComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportComponent.h; sourceTree = "<group>"; };
+		A1478A9FDC07CAC502A29AC7 /* JSReportDestination.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportDestination.m; sourceTree = "<group>"; };
+		A1478BAC3C92E5793C65F8E9 /* JSReportPart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportPart.h; sourceTree = "<group>"; };
 		A1478CA259B4BAD463F39B36 /* JSScheduleJobState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSScheduleJobState.m; sourceTree = "<group>"; };
+		A1478D4DAE50A9711D3A00EF /* JSReportBookmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportBookmark.h; sourceTree = "<group>"; };
 		A1478E5FF766BDE05BFDB838 /* JSDateFormatterFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDateFormatterFactory.h; sourceTree = "<group>"; };
 		A1478F16274972BB223D56F6 /* JSRESTBase+JSRESTDashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSRESTBase+JSRESTDashboard.h"; sourceTree = "<group>"; };
 		A1478F2F9E43E7F32310F7FB /* JSDateFormatterFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDateFormatterFactory.m; sourceTree = "<group>"; };
@@ -590,6 +602,12 @@
 				0849FC6B1C2B0A91008F1064 /* JSReportPagesRange.m */,
 				0849FC6C1C2B0A91008F1064 /* JSReportSaver.h */,
 				0849FC6D1C2B0A91008F1064 /* JSReportSaver.m */,
+				A14786E9F3841863C2C32B99 /* JSReportBookmark.m */,
+				A1478D4DAE50A9711D3A00EF /* JSReportBookmark.h */,
+				A14783C85F8A6E55B6A0FCCA /* JSReportPart.m */,
+				A1478BAC3C92E5793C65F8E9 /* JSReportPart.h */,
+				A1478A9FDC07CAC502A29AC7 /* JSReportDestination.m */,
+				A1478014B4C3C942E0467991 /* JSReportDestination.h */,
 			);
 			path = JSReportExtention;
 			sourceTree = "<group>";
@@ -932,6 +950,9 @@
 				A1478449D2FAFA08F51A8C36 /* JSRESTBase+JSSchedule.h in Headers */,
 				A1478A75DCE4466F783BEEEB /* JSReportComponent.h in Headers */,
 				A14789D7C67ED26B7DED7A09 /* JSDateFormatterFactory.h in Headers */,
+				A1478715161A334AAD4A0DFC /* JSReportBookmark.h in Headers */,
+				A14783AEA5266354993F7F4C /* JSReportPart.h in Headers */,
+				A1478E5D0DBBAD45140B2161 /* JSReportDestination.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1215,6 +1236,9 @@
 				0817D9931C71CBD300111256 /* JSEncryptionData.m in Sources */,
 				A14786144C8D16D581ECA7D5 /* JSReportComponent.m in Sources */,
 				A1478DD6E4A12B15D8ABDB78 /* JSDateFormatterFactory.m in Sources */,
+				A1478667B278BA5A9B1B05A6 /* JSReportBookmark.m in Sources */,
+				A147892CF5B36E93EF8C5778 /* JSReportPart.m in Sources */,
+				A1478CE668255138CB7CFEA6 /* JSReportDestination.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
