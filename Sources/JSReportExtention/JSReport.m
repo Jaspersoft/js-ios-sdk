@@ -37,11 +37,11 @@
 #import "JSReportBookmark.h"
 #import "JSReportPart.h"
 
-NSString * const kJSReportIsMutlipageDidChangedNotification = @"kJSReportIsMutlipageDidChangedNotification";
-NSString * const kJSReportCountOfPagesDidChangeNotification = @"kJSReportCountOfPagesDidChangeNotification";
-NSString * const kJSReportCurrentPageDidChangeNotification = @"kJSReportCurrentPageDidChangeNotification";
-NSString * const JMReportBookmarksDidUpdateNotification = @"JMReportBookmarksDidUpdateNotification";
-NSString * const JMReportPartsDidUpdateNotification = @"JMReportPartsDidUpdateNotification";
+NSString * const JSReportIsMutlipageDidChangedNotification = @"JSReportIsMutlipageDidChangedNotification";
+NSString * const JSReportCountOfPagesDidChangeNotification = @"JSReportCountOfPagesDidChangeNotification";
+NSString * const JSReportCurrentPageDidChangeNotification  = @"JSReportCurrentPageDidChangeNotification";
+NSString * const JSReportBookmarksDidUpdateNotification    = @"JSReportBookmarksDidUpdateNotification";
+NSString * const JSReportPartsDidUpdateNotification        = @"JSReportPartsDidUpdateNotification";
 
 @interface JSReport()
 @property (nonatomic, strong) NSMutableArray *availableReportOptions;
@@ -125,14 +125,14 @@ NSString * const JMReportPartsDidUpdateNotification = @"JMReportPartsDidUpdateNo
 - (void)setBookmarks:(NSArray<JSReportBookmark *> *)bookmarks
 {
     _bookmarks = bookmarks;
-    [[NSNotificationCenter defaultCenter] postNotificationName:JMReportBookmarksDidUpdateNotification
+    [[NSNotificationCenter defaultCenter] postNotificationName:JSReportBookmarksDidUpdateNotification
                                                         object:self];
 }
 
 - (void)setParts:(NSArray<JSReportPart *> *)parts
 {
     _parts = parts;
-    [[NSNotificationCenter defaultCenter] postNotificationName:JMReportPartsDidUpdateNotification
+    [[NSNotificationCenter defaultCenter] postNotificationName:JSReportPartsDidUpdateNotification
                                                         object:self];
 }
 
@@ -182,19 +182,19 @@ NSString * const JMReportPartsDidUpdateNotification = @"JMReportPartsDidUpdateNo
 #pragma mark - Notifications
 - (void)postNotificationMultipageReport
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kJSReportIsMutlipageDidChangedNotification
+    [[NSNotificationCenter defaultCenter] postNotificationName:JSReportIsMutlipageDidChangedNotification
                                                         object:self];
 }
 
 - (void)postNotificationCountOfPages
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kJSReportCountOfPagesDidChangeNotification
+    [[NSNotificationCenter defaultCenter] postNotificationName:JSReportCountOfPagesDidChangeNotification
                                                         object:self];
 }
 
 - (void)postNotificationCurrentPageChanged
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kJSReportCurrentPageDidChangeNotification
+    [[NSNotificationCenter defaultCenter] postNotificationName:JSReportCurrentPageDidChangeNotification
                                                         object:self];
 }
 

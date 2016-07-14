@@ -34,14 +34,14 @@
  @since 2.3
  */
 
-@import UIKit;
+#import <UIKit/UIKit.h>;
 #import "JSResourceLookup.h"
 
+extern NSString * __nonnull const JSReportIsMutlipageDidChangedNotification;
+extern NSString * __nonnull const JSReportCountOfPagesDidChangeNotification;
+extern NSString * __nonnull const JSReportCurrentPageDidChangeNotification;
 extern NSString * __nonnull const JSReportBookmarksDidUpdateNotification;
 extern NSString * __nonnull const JSReportPartsDidUpdateNotification;
-extern NSString * __nonnull const kJSReportIsMutlipageDidChangedNotification;
-extern NSString * __nonnull const kJSReportCountOfPagesDidChangeNotification;
-extern NSString * __nonnull const kJSReportCurrentPageDidChangeNotification;
 
 @class JSReportOption, JSInputControlDescriptor, JSReportParameter, JSReportComponent;
 @class JSReportBookmark;
