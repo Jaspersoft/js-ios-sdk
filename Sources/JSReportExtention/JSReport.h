@@ -34,45 +34,52 @@
  @since 2.3
  */
 
+@import UIKit;
 #import "JSResourceLookup.h"
 
-@class JSReportOption, JSInputControlDescriptor, JSReportParameter, JSReportComponent;
+extern NSString * __nonnull const JSReportBookmarksDidUpdateNotification;
+extern NSString * __nonnull const JSReportPartsDidUpdateNotification;
+extern NSString * __nonnull const kJSReportIsMutlipageDidChangedNotification;
+extern NSString * __nonnull const kJSReportCountOfPagesDidChangeNotification;
+extern NSString * __nonnull const kJSReportCurrentPageDidChangeNotification;
 
-extern NSString * const kJSReportIsMutlipageDidChangedNotification;
-extern NSString * const kJSReportCountOfPagesDidChangeNotification;
-extern NSString * const kJSReportCurrentPageDidChangeNotification;
+@class JSReportOption, JSInputControlDescriptor, JSReportParameter, JSReportComponent;
+@class JSReportBookmark;
+@class JSReportPart;
 
 @interface JSReport : NSObject <NSCopying>
 // getters
-@property (nonatomic, strong, readonly) JSResourceLookup *resourceLookup;
-
-@property (nonatomic, copy) NSArray <JSReportParameter *> *reportParameters;
-@property (nonatomic, copy, readonly) NSString *reportURI;
+@property (nonatomic, strong, readonly) JSResourceLookup * __nonnull resourceLookup;
 @property (nonatomic, assign, readonly) NSInteger currentPage;
 @property (nonatomic, assign, readonly) NSInteger countOfPages;
 @property (nonatomic, assign, readonly) BOOL isMultiPageReport;
-@property (nonatomic, assign) BOOL isReportWithInputControls;
 @property (nonatomic, assign, readonly) BOOL isReportEmpty;
-@property (nonatomic, strong, readonly) NSString *requestId;
-@property (nonatomic, assign) BOOL isReportAlreadyLoaded;
+@property (nonatomic, strong, readonly) NSString * __nullable requestId;
+
+@property (nonatomic, copy) NSArray <JSReportParameter *> * __nullable reportParameters;
+@property (nonatomic, copy, readonly) NSString * __nonnull reportURI;
 
 // Report Components
-@property (nonatomic, copy) NSArray <JSReportComponent *>*reportComponents;
+@property (nonatomic, copy) NSArray <JSReportComponent *> * __nullable reportComponents;
 @property (nonatomic, assign, getter=isElasticChart) BOOL elasticChart;
 
 // html
-@property (nonatomic, copy, readonly) NSString *HTMLString;
-@property (nonatomic, copy, readonly) NSString *baseURLString;
+@property (nonatomic, copy, readonly) NSString * __nullable HTMLString;
+@property (nonatomic, copy, readonly) NSString * __nullable baseURLString;
 
-- (instancetype)initWithResourceLookup:(JSResourceLookup *)resourceLookup;
-+ (instancetype)reportWithResourceLookup:(JSResourceLookup *)resourceLookup;
+@property (nonatomic, strong) UIImage * __nullable thumbnailImage;
+@property (nonatomic, strong) NSArray <JSReportBookmark *>* __nullable bookmarks; /** @since 2.6 */
+@property (nonatomic, strong) NSArray <JSReportPart *>* __nullable parts; /** @since 2.6 */
+
+- (instancetype __nullable)initWithResourceLookup:(JSResourceLookup * __nullable)resourceLookup;
++ (instancetype __nullable)reportWithResourceLookup:(JSResourceLookup * __nullable)resourceLookup;
 
 // update state
 - (void)updateCurrentPage:(NSInteger)currentPage;
 - (void)updateCountOfPages:(NSInteger)countOfPages;
-- (void)updateHTMLString:(NSString *)HTMLString
-            baseURLSring:(NSString *)baseURLString;
-- (void)updateRequestId:(NSString *)requestId;
+- (void)updateHTMLString:(NSString * __nullable)HTMLString
+            baseURLSring:(NSString * __nullable)baseURLString;
+- (void)updateRequestId:(NSString * __nullable)requestId;
 - (void)updateIsMultiPageReport:(BOOL)isMultiPageReport;
 // restore state
 - (void)restoreDefaultState;

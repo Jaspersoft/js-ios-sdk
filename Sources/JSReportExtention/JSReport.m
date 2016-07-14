@@ -34,10 +34,14 @@
 #import "JSInputControlDescriptor.h"
 #import "JSReportParameter.h"
 #import "JSReportComponent.h"
+#import "JSReportBookmark.h"
+#import "JSReportPart.h"
 
 NSString * const kJSReportIsMutlipageDidChangedNotification = @"kJSReportIsMutlipageDidChangedNotification";
 NSString * const kJSReportCountOfPagesDidChangeNotification = @"kJSReportCountOfPagesDidChangeNotification";
 NSString * const kJSReportCurrentPageDidChangeNotification = @"kJSReportCurrentPageDidChangeNotification";
+NSString * const JMReportBookmarksDidUpdateNotification = @"JMReportBookmarksDidUpdateNotification";
+NSString * const JMReportPartsDidUpdateNotification = @"JMReportPartsDidUpdateNotification";
 
 @interface JSReport()
 @property (nonatomic, strong) NSMutableArray *availableReportOptions;
@@ -118,6 +122,20 @@ NSString * const kJSReportCurrentPageDidChangeNotification = @"kJSReportCurrentP
     }
 }
 
+- (void)setBookmarks:(NSArray<JSReportBookmark *> *)bookmarks
+{
+    _bookmarks = bookmarks;
+    [[NSNotificationCenter defaultCenter] postNotificationName:JMReportBookmarksDidUpdateNotification
+                                                        object:self];
+}
+
+- (void)setParts:(NSArray<JSReportPart *> *)parts
+{
+    _parts = parts;
+    [[NSNotificationCenter defaultCenter] postNotificationName:JMReportPartsDidUpdateNotification
+                                                        object:self];
+}
+
 #pragma mark - Public API
 
 - (void)updateCurrentPage:(NSInteger)currentPage
@@ -191,6 +209,8 @@ NSString * const kJSReportCurrentPageDidChangeNotification = @"kJSReportCurrentP
     self.isReportEmpty = YES;
     self.reportParameters = nil;
     self.requestId = nil;
+    self.bookmarks = nil;
+    self.parts = nil;
 }
 
 #pragma mark - Helpers
@@ -207,14 +227,14 @@ NSString * const kJSReportCurrentPageDidChangeNotification = @"kJSReportCurrentP
     newReport.currentPage = self.currentPage;
     newReport.countOfPages = self.countOfPages;
     newReport.isMultiPageReport = self.isMultiPageReport;
-    newReport.isReportWithInputControls = self.isReportWithInputControls;
     newReport.isReportEmpty = self.isReportEmpty;
     newReport.requestId = [self.requestId copyWithZone:zone];
     newReport.HTMLString = [self.HTMLString copyWithZone:zone];
     newReport.baseURLString = [self.baseURLString copyWithZone:zone];
-    newReport.isReportAlreadyLoaded = self.isReportAlreadyLoaded;
+    newReport.bookmarks = [self.bookmarks copyWithZone:zone];
+    newReport.parts = [self.parts copyWithZone:zone];
     newReport.elasticChart = self.elasticChart;
-    
+
     if (self.availableReportOptions.count) {
         newReport.availableReportOptions = [[NSMutableArray alloc] initWithArray:self.availableReportOptions copyItems:YES];
     }
