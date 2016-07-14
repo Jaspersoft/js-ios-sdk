@@ -30,6 +30,9 @@
 
 #import "JSReport.h"
 #import "JSReportPagesRange.h"
+#import "JSReportBookmark.h"
+#import "JSReportPart.h"
+#import "JSReportDestination.h"
 #import "JSReportExecutionConfiguration.h"
 #import "JSReportLoaderProtocol.h"
 #import "JSReportExecutor.h"
