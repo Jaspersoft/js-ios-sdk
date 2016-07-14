@@ -45,7 +45,6 @@ NSString * const kJSReportCurrentPageDidChangeNotification = @"kJSReportCurrentP
 @property (nonatomic, assign, readwrite) NSInteger currentPage;
 @property (nonatomic, assign, readwrite) NSInteger countOfPages;
 @property (nonatomic, assign, readwrite) BOOL isMultiPageReport;
-@property (nonatomic, assign, readwrite) BOOL isReportWithInputControls;
 @property (nonatomic, assign, readwrite) BOOL isReportEmpty;
 @property (nonatomic, strong, readwrite) NSString *requestId;
 

@@ -51,7 +51,7 @@ extern NSString * const kJSReportCurrentPageDidChangeNotification;
 @property (nonatomic, assign, readonly) NSInteger currentPage;
 @property (nonatomic, assign, readonly) NSInteger countOfPages;
 @property (nonatomic, assign, readonly) BOOL isMultiPageReport;
-@property (nonatomic, assign, readonly) BOOL isReportWithInputControls;
+@property (nonatomic, assign) BOOL isReportWithInputControls;
 @property (nonatomic, assign, readonly) BOOL isReportEmpty;
 @property (nonatomic, strong, readonly) NSString *requestId;
 @property (nonatomic, assign) BOOL isReportAlreadyLoaded;
