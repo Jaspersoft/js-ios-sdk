@@ -35,9 +35,9 @@
 #import "JSExportExecutionResponse.h"
 
 @interface JSReportLoader()
-@property (nonatomic, weak, readwrite) JSReport *report;
+@property (nonatomic, assign, readwrite) JSReportLoaderState state;
+@property (nonatomic, strong, readwrite) JSReport *report;
 @property (nonatomic, copy) JSRESTBase *restClient;
-@property (nonatomic, assign, readwrite) BOOL isReportInLoadingProcess;
 
 // callbacks
 @property (nonatomic, copy) JSReportLoaderCompletionBlock loadPageCompletionBlock;
@@ -49,23 +49,24 @@
 // cache
 @property (nonatomic, strong) NSMutableDictionary *cachedPages;
 @property (nonatomic, strong) JSReportExecutionConfiguration *configuration;
-@property (nonatomic, assign, getter=isCancelAllOperations) BOOL cancelAllOperations;
 
 @end
 
 @implementation JSReportLoader
 #pragma mark - Lifecycle
-- (instancetype)initWithReport:(JSReport *)report restClient:(nonnull JSRESTBase *)restClient{
+- (nonnull instancetype)initWithRestClient:(nonnull JSRESTBase *)restClient
+{
     self = [super init];
     if (self) {
-        self.report = report;
-        self.restClient = restClient;
+        _restClient = restClient;
+        _state = JSReportLoaderStateInitial;
     }
     return self;
 }
 
-+ (instancetype)loaderWithReport:(JSReport *)report restClient:(nonnull JSRESTBase *)restClient {
-    return [[self alloc] initWithReport:report restClient:restClient];
++ (nonnull instancetype)loaderWithRestClient:(nonnull JSRESTBase *)restClient
+{
+    return [[self alloc] initWithRestClient:restClient];
 }
 
 #pragma mark - Custom accessors
@@ -84,31 +85,83 @@
 }
 
 #pragma mark - Public API
-- (void)runReportWithPage:(NSInteger)page completion:(JSReportLoaderCompletionBlock)completionBlock; {
+- (void)runReport:(nonnull JSReport *)report
+      initialPage:(nullable NSNumber *)initialPage
+initialParameters:(nullable NSArray <JSReportParameter *> *)initialParameters
+       completion:(nonnull JSReportLoaderCompletionBlock)completion
+{
+    NSAssert(completion != nil, @"Completion is nil");
+
     [self clearCachedReportPages];
-    [self.report restoreDefaultState];
 
-    self.loadPageCompletionBlock = completionBlock;
+    self.loadPageCompletionBlock = completion;
 
-
-    [self.report updateCurrentPage:page];
+    self.report = report;
+    self.report.reportParameters = initialParameters;
+    if (initialPage) {
+        NSAssert(![initialPage isKindOfClass:[NSNumber class]], @"Wrong class of initial page value");
+        [self.report updateCurrentPage:initialPage.integerValue];
+    } else {
+        [self.report updateCurrentPage:1];
+    }
 
     // restore default state of loader
     self.exportIdsDictionary = [@{} mutableCopy];
-    self.isReportInLoadingProcess = YES;
     self.outputResourceType = JSReportLoaderOutputResourceType_None;
 
+    self.state = JSReportLoaderStateLoading;
     [self runReportExecution];
 }
 
-- (void)fetchPageNumber:(NSInteger)pageNumber withCompletion:(JSReportLoaderCompletionBlock)completionBlock {
-    self.loadPageCompletionBlock = completionBlock;
-    [self.report updateCurrentPage:pageNumber];
-    [self startExportExecutionForPage:pageNumber];
+- (void)runReportWithReportURI:(nonnull NSString *)reportURI
+                   initialPage:(nullable NSNumber *)initialPage
+             initialParameters:(nullable NSArray <JSReportParameter *> *)initialParameters
+                    completion:(nonnull JSReportLoaderCompletionBlock)completion
+{
+    JSResourceLookup *resourceLookup = [JSResourceLookup new];
+    resourceLookup.uri = reportURI;
+    JSReport *report = [JSReport reportWithResourceLookup:resourceLookup];
+
+    [self runReport:report
+        initialPage:initialPage
+  initialParameters:initialParameters
+         completion:completion];
 }
 
-- (void)cancel {
-    self.cancelAllOperations = YES;
+- (void)fetchPage:(nonnull NSNumber *)page
+       completion:(nonnull JSReportLoaderCompletionBlock)completion
+{
+    NSAssert(completion != nil, @"Completion is nil");
+    NSAssert(page != nil, @"page is nil");
+    NSAssert(![page isKindOfClass:[NSNumber class]], @"Wrong class of initial page value");
+
+    self.loadPageCompletionBlock = completion;
+    [self.report updateCurrentPage:page.integerValue];
+
+    self.state = JSReportLoaderStateLoading;
+    [self startExportExecutionForPage:page.integerValue];
+}
+
+- (void)refreshReportWithCompletion:(nonnull JSReportLoaderCompletionBlock)completion
+{
+    [self runReport:self.report
+        initialPage:nil
+  initialParameters:nil
+         completion:completion];
+}
+
+- (void) applyReportParameters:(nullable NSArray <JSReportParameter *> *)parameters
+                    completion:(nonnull JSReportLoaderCompletionBlock)completion
+{
+    [self runReport:self.report
+        initialPage:nil
+  initialParameters:parameters
+         completion:completion];
+}
+
+- (void)cancel
+{
+    self.state = JSReportLoaderStateCancel;
     self.loadPageCompletionBlock = nil;
 
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(makeStatusChecking) object:nil];
@@ -119,23 +172,22 @@
     }
 }
 
-- (void)refreshReportWithCompletion:(void(^)(BOOL success, NSError *error))completion {
-    [self runReportWithPage:1 completion:completion];
+- (void)reset
+{
+    [self cancel];
+    self.report = nil;
+    self.state = JSReportLoaderStateInitial;
 }
 
-- (void)applyReportParametersWithCompletion:(void (^)(BOOL success, NSError *error))completion {
-    [self runReportWithPage:1 completion:completion];
-}
-
-- (BOOL) shouldDisplayLoadingView {
+- (BOOL) shouldDisplayLoadingView
+{
     return YES;
 }
-
 
 #pragma mark - Private API
 
 - (void) runReportExecution {
-    if (self.isCancelAllOperations) {
+    if (self.state == JSReportLoaderStateCancel) {
         return;
     }
     __weak typeof(self) weakSelf = self;
@@ -153,7 +205,7 @@
                              parameters:self.report.reportParameters
                         completionBlock:^(JSOperationResult *result) {
                             __strong typeof(self) strongSelf = weakSelf;
-                            if (strongSelf.isCancelAllOperations) {
+                            if (strongSelf.state == JSReportLoaderStateCancel) {
                                 return;
                             }
                             if (result.error) {
@@ -167,7 +219,7 @@
                                     [strongSelf.report updateRequestId:requestId];
 
                                     if (executionResponse.status.status == kJS_EXECUTION_STATUS_FAILED ||
-                                        executionResponse.status.status == kJS_EXECUTION_STATUS_CANCELED) {
+                                            executionResponse.status.status == kJS_EXECUTION_STATUS_CANCELED) {
                                         NSDictionary *userInfo;
                                         if (executionResponse.errorDescriptor.message) {
                                             userInfo = @{NSLocalizedDescriptionKey : executionResponse.errorDescriptor.message};
@@ -199,7 +251,7 @@
 }
 
 - (void) startExportExecutionForPage:(NSInteger)page {
-    if (self.isCancelAllOperations) {
+    if (self.state == JSReportLoaderStateCancel) {
         return;
     }
     NSDictionary *cachedPages = [self cachedReportPages];
@@ -227,7 +279,7 @@
                               attachmentsPrefix:self.configuration.attachmentsPrefix
                                 completionBlock:^(JSOperationResult *result) {
                                     __strong typeof(self) strongSelf = weakSelf;
-                                    if (strongSelf.isCancelAllOperations) {
+                                    if (strongSelf.state == JSReportLoaderStateCancel) {
                                         return;
                                     }
                                     if (result.error) {
@@ -249,7 +301,7 @@
 }
 
 - (void)loadOutputResourcesForPage:(NSInteger)page {
-    if (self.isCancelAllOperations) {
+    if (self.state == JSReportLoaderStateCancel) {
         return;
     }
     if (page == self.report.currentPage) {
@@ -270,7 +322,7 @@
                                  path:nil
                       completionBlock:^(JSOperationResult *result) {
                           __strong typeof(self) strongSelf = weakSelf;
-                          if (strongSelf.isCancelAllOperations) {
+                          if (self.state == JSReportLoaderStateCancel) {
                               return;
                           }
                           if (result.error && result.error.code != JSUnsupportedAcceptTypeErrorCode) {
@@ -286,7 +338,7 @@
                                   }
 
                                   if (page == strongSelf.report.currentPage) { // show current page
-                                      strongSelf.isReportInLoadingProcess = NO;
+                                      strongSelf.state = JSReportLoaderStateReady;
                                       if (strongSelf.loadPageCompletionBlock) {
                                           [strongSelf.report updateHTMLString:result.bodyAsString
                                                                  baseURLSring:strongSelf.restClient.serverProfile.serverUrl];
@@ -319,21 +371,21 @@
 #pragma mark - Check status
 
 - (void)checkingExecutionStatus {
-    if (self.isCancelAllOperations) {
+    if (self.state == JSReportLoaderStateCancel) {
         return;
     }
     [self performSelector:@selector(makeStatusChecking) withObject:nil afterDelay:kJSExecutionStatusCheckingInterval];
 }
 
 - (void) makeStatusChecking {
-    if (self.isCancelAllOperations) {
+    if (self.state == JSReportLoaderStateCancel) {
         return;
     }
     __weak typeof(self) weakSelf = self;
     [self.restClient reportExecutionStatusForRequestId:self.report.requestId
                                        completionBlock:^(JSOperationResult *result) {
                                            __strong typeof(self) strongSelf = weakSelf;
-                                           if (strongSelf.isCancelAllOperations) {
+                                           if (strongSelf.state == JSReportLoaderStateCancel) {
                                                return;
                                            }
                                            if (result.error) {
@@ -354,7 +406,7 @@
 }
 
 - (void)stopStatusChecking {
-    if (self.isCancelAllOperations) {
+    if (self.state == JSReportLoaderStateCancel) {
         return;
     }
     BOOL isNotFinal = self.outputResourceType == JSReportLoaderOutputResourceType_NotFinal;
@@ -367,7 +419,7 @@
     [self.restClient reportExecutionMetadataForRequestId:self.report.requestId
                                          completionBlock:^(JSOperationResult *result) {
                                              __strong typeof(self) strongSelf = weakSelf;
-                                             if (strongSelf.isCancelAllOperations) {
+                                             if (strongSelf.state == JSReportLoaderStateCancel) {
                                                  return;
                                              }
                                              if (result.error) {
@@ -395,6 +447,8 @@
 }
 
 - (void)handleError:(NSError *)error withLoadedObjects:(NSArray *)objects forPage:(NSInteger)page {
+    self.state = JSReportLoaderStateFailed;
+
     if (page != self.report.currentPage && page != NSNotFound && objects.count){
         JSErrorDescriptor *error = [objects firstObject];
         if ([error isKindOfClass:[JSErrorDescriptor class]]) {

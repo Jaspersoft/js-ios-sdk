@@ -44,27 +44,41 @@ typedef NS_ENUM(NSInteger, JSReportLoaderErrorType) {
     JSReportLoaderErrorTypeLoadingCanceled
 };
 
+typedef NS_ENUM(NSInteger, JSReportLoaderState) {
+    JSReportLoaderStateInitial,
+    JSReportLoaderStateLoading,
+    JSReportLoaderStateReady,
+    JSReportLoaderStateFailed,
+    JSReportLoaderStateCancel
+};
+
 typedef void(^JSReportLoaderCompletionBlock)(BOOL success, NSError * __nullable error);
 
 @class JSRESTBase;
 
 @protocol JSReportLoaderProtocol <NSObject>
+@property (nonatomic, strong, readonly, nonnull) JSReport *report;
+@property (nonatomic, assign, readonly) JSReportLoaderState state;
 
-@required
-@property (nonatomic, weak, readonly, null_unspecified) JSReport *report;
-@property (nonatomic, assign, readonly) BOOL isReportInLoadingProcess;
+- (nonnull instancetype)initWithRestClient:(nonnull JSRESTBase *)restClient;
++ (nonnull instancetype)loaderWithRestClient:(nonnull JSRESTBase *)restClient;
 
-- (nonnull instancetype)initWithReport:(nonnull JSReport *)report restClient:(nonnull JSRESTBase *)restClient;
-+ (nonnull instancetype)loaderWithReport:(nonnull JSReport *)report restClient:(nonnull JSRESTBase *)restClient;
-
-- (void)runReportWithPage:(NSInteger)page completion:(nonnull JSReportLoaderCompletionBlock)completion;
-- (void)fetchPageNumber:(NSInteger)pageNumber withCompletion:(nonnull JSReportLoaderCompletionBlock)completionBlock;
+- (void)runReport:(nonnull JSReport *)report
+      initialPage:(nullable NSNumber *)initialPage
+initialParameters:(nullable NSArray <JSReportParameter *> *)initialParameters
+       completion:(nonnull JSReportLoaderCompletionBlock)completion;
+- (void)runReportWithReportURI:(nonnull NSString *)reportURI
+                   initialPage:(nullable NSNumber *)initialPage
+             initialParameters:(nullable NSArray <JSReportParameter *> *)initialParameters
+                    completion:(nonnull JSReportLoaderCompletionBlock)completion;
+- (void)fetchPage:(nonnull NSNumber *)page
+       completion:(nonnull JSReportLoaderCompletionBlock)completionBlock;
+- (void) applyReportParameters:(nullable NSArray <JSReportParameter *> *)parameters
+                    completion:(nonnull JSReportLoaderCompletionBlock)completion;
+- (void) refreshReportWithCompletion:(nonnull JSReportLoaderCompletionBlock)completion;
 - (void)cancel;
+- (void)reset;
 
 @optional
-
 - (BOOL) shouldDisplayLoadingView;
-- (void) applyReportParametersWithCompletion:(nonnull JSReportLoaderCompletionBlock)completion;
-- (void) refreshReportWithCompletion:(nonnull JSReportLoaderCompletionBlock)completion;
-
 @end
