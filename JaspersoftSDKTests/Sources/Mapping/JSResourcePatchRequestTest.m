@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "JSResourcePatchRequest.h"
 #import "JSResourceLookup.h"
-#import "JSParameter.h"
+#import "JSPatchResourceParameter.h"
 #import "EKMapper.h"
 
 @interface JSResourcePatchRequestTest : XCTestCase
@@ -33,7 +33,7 @@
 - (void)testObjectMapping {
     JSResourcePatchRequest *expectedObject = [JSResourcePatchRequest new];
     expectedObject.version = [self.jsonObject valueForKey:@"version"];
-    EKObjectMapping *parameterMapping = [JSParameter objectMappingForServerProfile:[JSServerProfileProvider serverProfileWithVersion:kJS_SERVER_VERSION_CODE_UNKNOWN]];
+    EKObjectMapping *parameterMapping = [JSPatchResourceParameter objectMappingForServerProfile:[JSServerProfileProvider serverProfileWithVersion:kJS_SERVER_VERSION_CODE_UNKNOWN]];
     expectedObject.patch = [EKMapper arrayOfObjectsFromExternalRepresentation:[self.jsonObject valueForKey:@"patch"] withMapping:parameterMapping];
 
     [self testObjectFromExternalRepresentation:self.jsonObject withMapping:self.mapping expectedObject:expectedObject];
@@ -42,7 +42,7 @@
 - (void)testObjectSerialization {
     JSResourcePatchRequest *expectedObject = [JSResourcePatchRequest new];
     expectedObject.version = [self.jsonObject valueForKey:@"version"];
-    EKObjectMapping *parameterMapping = [JSParameter objectMappingForServerProfile:[JSServerProfileProvider serverProfileWithVersion:kJS_SERVER_VERSION_CODE_UNKNOWN]];
+    EKObjectMapping *parameterMapping = [JSPatchResourceParameter objectMappingForServerProfile:[JSServerProfileProvider serverProfileWithVersion:kJS_SERVER_VERSION_CODE_UNKNOWN]];
     expectedObject.patch = [EKMapper arrayOfObjectsFromExternalRepresentation:[self.jsonObject valueForKey:@"patch"] withMapping:parameterMapping];
     
     [self testSerializeObject:expectedObject withMapping:self.mapping expectedRepresentation:self.jsonObject];
@@ -54,7 +54,7 @@
     XCTAssertNotNil(patchRequest);
     XCTAssertEqualObjects(patchRequest.version, self.resource.version);
     
-    for (JSParameter *parameter in patchRequest.patch) {
+    for (JSPatchResourceParameter *parameter in patchRequest.patch) {
         XCTAssertNotNil(parameter.name);
         if ([parameter.name isEqualToString:@"label"]) {
             XCTAssertEqualObjects(parameter.value, self.resource.label);

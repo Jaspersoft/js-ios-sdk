@@ -29,7 +29,7 @@
 //
 
 #import "JSResourcePatchRequest.h"
-#import "JSParameter.h"
+#import "JSPatchResourceParameter.h"
 
 @implementation JSResourcePatchRequest
 
@@ -53,15 +53,15 @@
         [mapping mapPropertiesFromDictionary:@{
                                                @"version": @"version"
                                                }];
-        [mapping hasMany:[JSParameter class] forKeyPath:@"patch" forProperty:@"patch" withObjectMapping:[JSParameter objectMappingForServerProfile:serverProfile]];
+        [mapping hasMany:[JSPatchResourceParameter class] forKeyPath:@"patch" forProperty:@"patch" withObjectMapping:[JSPatchResourceParameter objectMappingForServerProfile:serverProfile]];
     }];
 }
 
 #pragma mark - Private API
 - (NSArray *)patchesArrayFromResource:(JSResourceLookup *)resource {
     NSMutableArray *patchesArray = [NSMutableArray array];
-    [patchesArray addObject:[JSParameter parameterWithName:@"label" value:resource.label]];
-    [patchesArray addObject:[JSParameter parameterWithName:@"description" value:resource.resourceDescription]];
+    [patchesArray addObject:[JSPatchResourceParameter parameterWithName:@"label" value:resource.label]];
+    [patchesArray addObject:[JSPatchResourceParameter parameterWithName:@"description" value:resource.resourceDescription]];
     return [patchesArray copy];
 }
 

@@ -20,33 +20,13 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with Jaspersoft Mobile SDK for iOS. If not, see
- * <http://www.gnu.org/licenses/lgpl>.
+ * <http://www.gnu.org/licenses/lgpl".
  */
 
 //
-//  JSReportSaver.h
+//  JSDashboardExtention.h
 //  Jaspersoft Corporation
 //
 
-/**
- @author Aleksandr Dakhno odahno@tibco.com
- @author Alexey Gubarev ogubarie@tibco.com
- @since 2.3
- */
-
-#import <Foundation/Foundation.h>
-#import "JSReportExecutor.h"
-#import "JSReportPagesRange.h"
-
-@class JSReport, JSRESTBase, JSReportExecutionResponse;
-
-typedef void(^JSSaveReportCompletion)(NSURL * _Nullable savedReportFolderURL, NSError * _Nullable error);
-
-@interface JSReportSaver : JSReportExecutor
-
-- (void) saveReportWithName:(nonnull NSString *)name format:(nonnull NSString *)format
-                 pagesRange:(nonnull JSReportPagesRange *)pagesRange completion:(nullable JSSaveReportCompletion)completionBlock;
-
-- (void) cancelSavingReport;
-
-@end
+#import "JSDashboard.h"
+#import "JSDashboardSaver.h"

@@ -30,7 +30,7 @@
 
 
 #import "JSRESTBase.h"
-#import "JSParameter.h"
+#import "JSDashboardParameter.h"
 
 @interface JSRESTBase (JSRESTDashboard)
 
@@ -46,7 +46,7 @@
  @since 2.3
  */
 
-- (void)inputControlsForDashboardWithParameters:(nullable NSArray <JSParameter *> *)params
+- (void)inputControlsForDashboardWithParameters:(nullable NSArray <JSDashboardParameter *> *)params
                                 completionBlock:(nonnull JSRequestCompletionBlock)block;
 
 /**
@@ -58,6 +58,20 @@
  @since 2.3
  */
 
-- (void)updatedInputControlValuesForDashboardWithParameters:(nullable NSArray <JSParameter *> *)params
+- (void)updatedInputControlValuesForDashboardWithParameters:(nullable NSArray <JSDashboardParameter *> *)params
                                             completionBlock:(nullable JSRequestCompletionBlock)block;
+
+- (void)runDashboardExportExecutionWithURI:(nonnull NSString *)dashboardURI
+                                  toFormat:(nullable NSString *)format
+                                parameters:(nullable NSArray <JSDashboardParameter *> *)params
+                                completion:(nullable JSRequestCompletionBlock)block;
+
+- (void)dashboardExportExecutionStatusWithJobID:(nonnull NSString *)jobID
+                                     completion:(nullable JSRequestCompletionBlock)block;
+
+- (void)cancelDashboardExportExecutionWithJobID:(nonnull NSString *)jobID
+                                     completion:(nullable JSRequestCompletionBlock)block;
+
+- (nonnull NSString *)generateDashboardOutputUrl:(nonnull NSString *)jobID;
+
 @end

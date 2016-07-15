@@ -144,6 +144,9 @@ NSString *const kJS_REST_SERVER_INFO_URI = @"/serverInfo";
 NSString *const kJS_REST_REPORT_EXECUTION_URI = @"/reportExecutions";
 NSString *const kJS_REST_REPORT_EXECUTION_STATUS_URI = @"/status";
 NSString *const kJS_REST_EXPORT_EXECUTION_URI = @"/exports";
+NSString *const kJS_REST_DASHBOARD_EXECUTION_URI = @"/dashboardExecutions";
+NSString *const kJS_REST_DASHBOARD_EXECUTION_STATUS_URI = @"/status";
+
 NSString *const kJS_REST_EXPORT_EXECUTION_ATTACHMENTS_PREFIX_URI = @"/reportExecutions/{reportExecutionId}/exports/{exportExecutionId}/attachments/";
 /** @} */
 

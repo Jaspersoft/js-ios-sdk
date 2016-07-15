@@ -24,42 +24,32 @@
  */
 
 //
-//  JSParameter.m
+//  JSDashboardExportExecutionResource.m
 //  Jaspersoft Corporation
 //
 
+#import "JSDashboardExportExecutionResource.h"
+#import "EKSerializer.h"
+#import "EKMapper.h"
 
-#import "JSParameter.h"
-
-@implementation JSParameter
-
-- (nonnull instancetype)initWithName:(NSString *)name value:(id)value {
-    if (self = [super init]) {
-        self.name = name;
-        self.value = value;
-    }
-    return self;
-}
-
-+ (nonnull instancetype)parameterWithName:(nonnull NSString *)name value:(nullable id)value {
-    return [[[self class] alloc] initWithName:name value:value];
-}
-
+@implementation JSDashboardExportExecutionResource
 #pragma mark - JSObjectMappingsProtocol
 + (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
     return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        [mapping mapPropertiesFromArray:@[@"uri", @"format", @"width", @"height"]];
         [mapping mapPropertiesFromDictionary:@{
-                                               @"name": @"name",
-                                               @"value": @"value",
+                                               @"id": @"identifier"
                                                }];
+        
+        [mapping mapKeyPath:@"parameters" toProperty:@"parameters" withValueBlock:^id(NSString *key, id value) {
+            NSArray *arrayOfRepresenations = value[[JSDashboardParameter requestObjectKeyPath]];
+            NSArray *parameters = [EKMapper arrayOfObjectsFromExternalRepresentation:arrayOfRepresenations withMapping:[JSDashboardParameter objectMappingForServerProfile:serverProfile]];
+            return parameters;
+        } reverseBlock:^id(id value) {
+            NSArray *parametersArray = [EKSerializer serializeCollection:value withMapping:[JSDashboardParameter objectMappingForServerProfile:serverProfile]];
+            return @{[JSDashboardParameter requestObjectKeyPath] : parametersArray};
+        }];
     }];
 }
 
-#pragma mark - NSCopying
-- (id)copyWithZone:(NSZone *)zone {
-    JSParameter *parameter = [[self class] allocWithZone:zone];
-    parameter.name = [self.name copyWithZone:zone];
-    parameter.value = [self.value copyWithZone:zone];
-    return parameter;
-}
 @end

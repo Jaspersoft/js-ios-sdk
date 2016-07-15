@@ -77,5 +77,9 @@ Pod::Spec.new do |s|
 	    jsreSpec.dependency 'JaspersoftSDK/JSCore'
     	jsreSpec.source_files = 'Sources/JSReportExtention.h', 'Sources/JSReportExtention'
 	end
-
+	
+	s.subspec 'JSDashboardExtention' do |jsreSpec|
+	    jsreSpec.dependency 'JaspersoftSDK/JSCore'
+    	jsreSpec.source_files = 'Sources/JSDashboardExtention.h', 'Sources/JSDashboardExtention'
+	end
 end

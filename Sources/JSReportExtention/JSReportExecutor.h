@@ -36,6 +36,7 @@
 
 #import "JSReportExecutionResponse.h"
 #import "JSExportExecutionResponse.h"
+#import "JSFileSaver.h"
 
 @class JSRESTBase, JSReport, JSReportExecutionConfiguration, JSReportPagesRange;
 
@@ -43,7 +44,7 @@ typedef void(^JSReportExecutionCompletionBlock)(JSReportExecutionResponse * __nu
 typedef void(^JSExportExecutionCompletionBlock)(JSExportExecutionResponse * __nullable exportResponse, NSError * __nullable error);
 
 
-@interface JSReportExecutor : NSObject
+@interface JSReportExecutor : JSFileSaver
 @property (nonatomic, copy, readonly, nonnull) JSRESTBase *restClient;
 @property (nonatomic, strong, readonly, nonnull) JSReportExecutionConfiguration *configuration;
 

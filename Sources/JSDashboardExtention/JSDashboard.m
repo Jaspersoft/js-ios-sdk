@@ -24,29 +24,38 @@
  */
 
 //
-//  JSReportSaver.h
+//  JSDashboard.m
 //  Jaspersoft Corporation
 //
 
-/**
- @author Aleksandr Dakhno odahno@tibco.com
- @author Alexey Gubarev ogubarie@tibco.com
- @since 2.3
- */
+#import "JSDashboard.h"
 
-#import <Foundation/Foundation.h>
-#import "JSReportExecutor.h"
-#import "JSReportPagesRange.h"
+@implementation JSDashboard
+#pragma mark - LifyCycle
+- (instancetype)initWithResourceLookup:(JSResourceLookup *)resource
+{
+    self = [super init];
+    if (self) {
+        _resourceLookup = resource;
+        _resourceURI = resource.uri;
+    }
+    return self;
+}
 
-@class JSReport, JSRESTBase, JSReportExecutionResponse;
++ (instancetype)dashboardWithResourceLookup:(JSResourceLookup *)resource
+{
+    return [[self alloc] initWithResourceLookup:resource];
+}
 
-typedef void(^JSSaveReportCompletion)(NSURL * _Nullable savedReportFolderURL, NSError * _Nullable error);
-
-@interface JSReportSaver : JSReportExecutor
-
-- (void) saveReportWithName:(nonnull NSString *)name format:(nonnull NSString *)format
-                 pagesRange:(nonnull JSReportPagesRange *)pagesRange completion:(nullable JSSaveReportCompletion)completionBlock;
-
-- (void) cancelSavingReport;
+#pragma mark - NSCopying
+- (id)copyWithZone:(NSZone *)zone {
+    JSDashboard *newDashboard     = [[self class] allocWithZone:zone];
+    newDashboard->_resourceLookup = [self.resourceLookup copyWithZone:zone];
+    newDashboard->_resourceURI = [self.resourceURI copyWithZone:zone];
+    if ([self.inputControls count]) {
+        newDashboard.inputControls = [[NSArray alloc] initWithArray:self.inputControls copyItems:YES];
+    }
+    return newDashboard;
+}
 
 @end

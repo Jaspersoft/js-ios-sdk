@@ -32,6 +32,8 @@
 #import "JSDashboardComponent.h"
 #import "JSInputControlDescriptor.h"
 #import "JSReportParameter.h"
+#import "JSDashboardExportExecutionResource.h"
+#import "JSDashboardExportExecutionStatus.h"
 
 @implementation JSRESTBase (JSRESTDashboard)
 
@@ -50,11 +52,11 @@
 
 
 #pragma mark - Work with Input Controls
-- (void)inputControlsForDashboardWithParameters:(nullable NSArray <JSParameter *> *)params
+- (void)inputControlsForDashboardWithParameters:(nullable NSArray <JSDashboardParameter *> *)params
                                 completionBlock:(nonnull JSRequestCompletionBlock)block
 {
     NSMutableArray *requestsArray = [NSMutableArray array];
-    for (JSParameter *parameter in params) {
+    for (JSDashboardParameter *parameter in params) {
         NSString *fullURI = [self constructFullURIWithDashboardURI:parameter.name
                                                            inputControls:parameter.value
                                                        initialValuesOnly:NO];
@@ -101,11 +103,11 @@
     }
 }
 
-- (void)updatedInputControlValuesForDashboardWithParameters:(nullable NSArray <JSParameter *> *)params
+- (void)updatedInputControlValuesForDashboardWithParameters:(nullable NSArray <JSDashboardParameter *> *)params
                                             completionBlock:(nullable JSRequestCompletionBlock)block
 {
     NSMutableArray *requestsArray = [NSMutableArray array];
-    for (JSParameter *parameter in params) {
+    for (JSDashboardParameter *parameter in params) {
         JSRequest *request = [[JSRequest alloc] initWithUri:[self constructFullURIWithDashboardURI:parameter.name
                                                                                      inputControls:nil
                                                                                  initialValuesOnly:YES]];
@@ -126,6 +128,55 @@
         }
         block(operationResult);
     }];
+}
+
+- (void)runDashboardExportExecutionWithURI:(nonnull NSString *)dashboardURI
+                                  toFormat:(nullable NSString *)format
+                                parameters:(nullable NSArray <JSDashboardParameter *> *)params
+                                completion:(nullable JSRequestCompletionBlock)block
+{
+    JSDashboardExportExecutionResource *resource = [JSDashboardExportExecutionResource new];
+    resource.uri = dashboardURI;
+    resource.format = format;
+    resource.parameters = params;
+
+    JSRequest *request = [[JSRequest alloc] initWithUri:kJS_REST_DASHBOARD_EXECUTION_URI];
+    request.objectMapping = [JSMapping mappingWithObjectMapping:[JSDashboardExportExecutionResource objectMappingForServerProfile:self.serverProfile] keyPath:nil];
+    request.method = JSRequestHTTPMethodPOST;
+    request.restVersion = JSRESTVersion_2;
+    request.body = resource;
+    request.completionBlock = block;
+    [self sendRequest:request];
+}
+
+- (void)dashboardExportExecutionStatusWithJobID:(nonnull NSString *)jobID
+                                     completion:(nullable JSRequestCompletionBlock)block
+{
+    NSString *uri = [NSString stringWithFormat:@"%@/%@%@", kJS_REST_DASHBOARD_EXECUTION_URI, jobID, kJS_REST_DASHBOARD_EXECUTION_STATUS_URI];
+    JSRequest *request = [[JSRequest alloc] initWithUri:uri];
+    request.objectMapping = [JSMapping mappingWithObjectMapping:[JSDashboardExportExecutionStatus objectMappingForServerProfile:self.serverProfile] keyPath:nil];
+    request.restVersion = JSRESTVersion_2;
+    request.completionBlock = block;
+    request.shouldResendRequestAfterSessionExpiration = NO;
+    
+    [self sendRequest:request];
+}
+
+- (void)cancelDashboardExportExecutionWithJobID:(nonnull NSString *)jobID
+                                     completion:(nullable JSRequestCompletionBlock)block
+{
+    NSString *uri = [NSString stringWithFormat:@"%@%@", kJS_REST_DASHBOARD_EXECUTION_URI, jobID];
+    JSRequest *request = [[JSRequest alloc] initWithUri:uri];
+    request.method = JSRequestHTTPMethodDELETE;
+    request.restVersion = JSRESTVersion_2;
+    request.completionBlock = block;
+    request.shouldResendRequestAfterSessionExpiration = NO;
+    
+    [self sendRequest:request];
+}
+
+- (NSString *)generateDashboardOutputUrl:(NSString *)jobID {
+    return [NSString stringWithFormat:@"%@/%@%@/%@/outputResource", self.serverProfile.serverUrl, kJS_REST_SERVICES_V2_URI, kJS_REST_DASHBOARD_EXECUTION_URI, jobID];
 }
 
 #pragma mark - Private API
@@ -151,7 +202,7 @@
 }
 
 - (void) addDashboardParametersToRequest:(JSRequest *)request withSelectedValues:(NSArray *)selectedValues {
-    for (JSReportParameter *parameter in selectedValues) {
+    for (JSDashboardParameter *parameter in selectedValues) {
         [request addParameter:parameter.name withArrayValue:parameter.value];
     }
 }

@@ -24,29 +24,26 @@
  */
 
 //
-//  JSReportSaver.h
+//  JSDashboardExportExecutionStatus.m
 //  Jaspersoft Corporation
 //
 
-/**
- @author Aleksandr Dakhno odahno@tibco.com
- @author Alexey Gubarev ogubarie@tibco.com
- @since 2.3
- */
+#import "JSDashboardExportExecutionStatus.h"
+#import "EKMapper.h"
 
-#import <Foundation/Foundation.h>
-#import "JSReportExecutor.h"
-#import "JSReportPagesRange.h"
-
-@class JSReport, JSRESTBase, JSReportExecutionResponse;
-
-typedef void(^JSSaveReportCompletion)(NSURL * _Nullable savedReportFolderURL, NSError * _Nullable error);
-
-@interface JSReportSaver : JSReportExecutor
-
-- (void) saveReportWithName:(nonnull NSString *)name format:(nonnull NSString *)format
-                 pagesRange:(nonnull JSReportPagesRange *)pagesRange completion:(nullable JSSaveReportCompletion)completionBlock;
-
-- (void) cancelSavingReport;
+@implementation JSDashboardExportExecutionStatus
+#pragma mark - JSObjectMappingsProtocol
++ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        [mapping mapPropertiesFromDictionary:@{
+                                               @"progress": @"progress",
+                                               @"id": @"identifier"
+                                               }];
+        [mapping mapKeyPath:@"status" toProperty:@"status" withValueBlock:^id(NSString *key, id value) {
+            NSDictionary *statusDictionary = @{@"value" : value};
+            return [EKMapper objectFromExternalRepresentation:statusDictionary withMapping:[JSExecutionStatus objectMappingForServerProfile:serverProfile]];
+        }];
+    }];
+}
 
 @end

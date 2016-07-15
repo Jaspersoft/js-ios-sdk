@@ -31,6 +31,7 @@
 #import <Foundation/Foundation.h>
 #import "JSObjectMappingsProtocol.h"
 #import "JSResourceLookup.h"
+#import "JSPatchResourceParameter.h"
 
 /**
  @author Alexey Gubarev ogubarie@tibco.com
@@ -40,7 +41,7 @@
 @interface JSResourcePatchRequest : NSObject <JSObjectMappingsProtocol>
 
 @property (nonatomic, strong, nonnull) NSNumber *version;
-@property (nonatomic, strong, nonnull) NSArray *patch;
+@property (nonatomic, strong, nonnull) NSArray <JSPatchResourceParameter *> *patch;
 
 - (nonnull instancetype)initWithResource:(nonnull JSResourceLookup *)resource;
 

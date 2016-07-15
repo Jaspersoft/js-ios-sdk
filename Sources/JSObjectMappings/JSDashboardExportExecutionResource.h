@@ -24,29 +24,26 @@
  */
 
 //
-//  JSReportSaver.h
+//  JSDashboardExportExecutionResource.h
 //  Jaspersoft Corporation
 //
 
+#import <Foundation/Foundation.h>
+#import "JSObjectMappingsProtocol.h"
+#import "JSDashboardParameter.h"
 /**
- @author Aleksandr Dakhno odahno@tibco.com
  @author Alexey Gubarev ogubarie@tibco.com
- @since 2.3
+ @since 2.6
  */
 
-#import <Foundation/Foundation.h>
-#import "JSReportExecutor.h"
-#import "JSReportPagesRange.h"
 
-@class JSReport, JSRESTBase, JSReportExecutionResponse;
+@interface JSDashboardExportExecutionResource : NSObject <JSObjectMappingsProtocol>
+@property (nonatomic, strong) NSString *identifier;
+@property (nonatomic, strong) NSString *uri;
+@property (nonatomic, strong) NSString *format;
+@property (nonatomic, strong) NSNumber *width;
+@property (nonatomic, strong) NSNumber *height;
 
-typedef void(^JSSaveReportCompletion)(NSURL * _Nullable savedReportFolderURL, NSError * _Nullable error);
-
-@interface JSReportSaver : JSReportExecutor
-
-- (void) saveReportWithName:(nonnull NSString *)name format:(nonnull NSString *)format
-                 pagesRange:(nonnull JSReportPagesRange *)pagesRange completion:(nullable JSSaveReportCompletion)completionBlock;
-
-- (void) cancelSavingReport;
+@property (nonatomic, strong) NSArray <JSDashboardParameter *> *parameters;
 
 @end

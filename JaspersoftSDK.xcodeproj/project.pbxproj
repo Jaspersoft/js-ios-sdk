@@ -214,9 +214,25 @@
 		A1478EF134484CF355BA4DF5 /* JSScheduleLookup.h in Headers */ = {isa = PBXBuildFile; fileRef = A147879F9C5F9AE58DE2208B /* JSScheduleLookup.h */; };
 		A1478FC814F76B3AD331F43B /* JSRESTBase+JSSchedule.m in Sources */ = {isa = PBXBuildFile; fileRef = A147815111A4ADFCC724870F /* JSRESTBase+JSSchedule.m */; };
 		A1478FE74D5DDD802462C488 /* JSScheduleJobState.h in Headers */ = {isa = PBXBuildFile; fileRef = A147876D0CBB5A203071885F /* JSScheduleJobState.h */; };
+		B24C4AC173770F1F0579BF93 /* libPods-JaspersoftSDKTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 197230D4143B7CADD4623F26 /* libPods-JaspersoftSDKTests.a */; };
 		BD0A8F061C7F646A00C63F44 /* JSMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = BD0A8F041C7F646A00C63F44 /* JSMapping.h */; };
 		BD0A8F071C7F646A00C63F44 /* JSMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = BD0A8F051C7F646A00C63F44 /* JSMapping.m */; };
 		BD194F891C75D50100C99DA9 /* JSObjectMappingsProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = BD194F881C75D50100C99DA9 /* JSObjectMappingsProtocol.h */; };
+		BD3688F51D357AC5008837BE /* JSFileSaver.h in Headers */ = {isa = PBXBuildFile; fileRef = BD3688F31D357AC5008837BE /* JSFileSaver.h */; };
+		BD3688F61D357AC5008837BE /* JSFileSaver.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3688F41D357AC5008837BE /* JSFileSaver.m */; };
+		BD8AE8861D352886006B5595 /* JSDashboardExportExecutionResource.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8AE8841D352886006B5595 /* JSDashboardExportExecutionResource.h */; };
+		BD8AE8871D352886006B5595 /* JSDashboardExportExecutionResource.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8AE8851D352886006B5595 /* JSDashboardExportExecutionResource.m */; };
+		BD8AE88A1D355ED4006B5595 /* JSPatchResourceParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8AE8881D355ED4006B5595 /* JSPatchResourceParameter.h */; };
+		BD8AE88B1D355ED4006B5595 /* JSPatchResourceParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8AE8891D355ED4006B5595 /* JSPatchResourceParameter.m */; };
+		BD8AE88E1D356047006B5595 /* JSDashboardParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8AE88C1D356047006B5595 /* JSDashboardParameter.h */; };
+		BD8AE88F1D356047006B5595 /* JSDashboardParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8AE88D1D356047006B5595 /* JSDashboardParameter.m */; };
+		BD8AE8921D35670A006B5595 /* JSDashboardExportExecutionStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8AE8901D35670A006B5595 /* JSDashboardExportExecutionStatus.h */; };
+		BD8AE8931D35670A006B5595 /* JSDashboardExportExecutionStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8AE8911D35670A006B5595 /* JSDashboardExportExecutionStatus.m */; };
+		BD8AE8971D3569E8006B5595 /* JSDashboardSaver.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8AE8951D3569E8006B5595 /* JSDashboardSaver.h */; };
+		BD8AE8981D3569E8006B5595 /* JSDashboardSaver.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8AE8961D3569E8006B5595 /* JSDashboardSaver.m */; };
+		BD8AE89B1D356C4F006B5595 /* JSDashboard.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8AE8991D356C4F006B5595 /* JSDashboard.h */; };
+		BD8AE89C1D356C4F006B5595 /* JSDashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8AE89A1D356C4F006B5595 /* JSDashboard.m */; };
+		BD8AE89E1D357253006B5595 /* JSDashboardExtention.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8AE89D1D357253006B5595 /* JSDashboardExtention.h */; };
 		BD991C5A1CF76B5B00859145 /* NSString+JSURLEncodings.h in Headers */ = {isa = PBXBuildFile; fileRef = BD991C581CF76B5B00859145 /* NSString+JSURLEncodings.h */; };
 		BD991C5B1CF76B5B00859145 /* NSString+JSURLEncodings.m in Sources */ = {isa = PBXBuildFile; fileRef = BD991C591CF76B5B00859145 /* NSString+JSURLEncodings.m */; };
 		FFD65C5964595F50D9326C49 /* libPods-JaspersoftSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F85CFDE522786E932150FC50 /* libPods-JaspersoftSDK.a */; };
@@ -448,6 +464,21 @@
 		BD0A8F041C7F646A00C63F44 /* JSMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMapping.h; sourceTree = "<group>"; };
 		BD0A8F051C7F646A00C63F44 /* JSMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMapping.m; sourceTree = "<group>"; };
 		BD194F881C75D50100C99DA9 /* JSObjectMappingsProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSObjectMappingsProtocol.h; sourceTree = "<group>"; };
+		BD3688F31D357AC5008837BE /* JSFileSaver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSFileSaver.h; sourceTree = "<group>"; };
+		BD3688F41D357AC5008837BE /* JSFileSaver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSFileSaver.m; sourceTree = "<group>"; };
+		BD8AE8841D352886006B5595 /* JSDashboardExportExecutionResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDashboardExportExecutionResource.h; sourceTree = "<group>"; };
+		BD8AE8851D352886006B5595 /* JSDashboardExportExecutionResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDashboardExportExecutionResource.m; sourceTree = "<group>"; };
+		BD8AE8881D355ED4006B5595 /* JSPatchResourceParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSPatchResourceParameter.h; sourceTree = "<group>"; };
+		BD8AE8891D355ED4006B5595 /* JSPatchResourceParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSPatchResourceParameter.m; sourceTree = "<group>"; };
+		BD8AE88C1D356047006B5595 /* JSDashboardParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDashboardParameter.h; sourceTree = "<group>"; };
+		BD8AE88D1D356047006B5595 /* JSDashboardParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDashboardParameter.m; sourceTree = "<group>"; };
+		BD8AE8901D35670A006B5595 /* JSDashboardExportExecutionStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDashboardExportExecutionStatus.h; sourceTree = "<group>"; };
+		BD8AE8911D35670A006B5595 /* JSDashboardExportExecutionStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDashboardExportExecutionStatus.m; sourceTree = "<group>"; };
+		BD8AE8951D3569E8006B5595 /* JSDashboardSaver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDashboardSaver.h; sourceTree = "<group>"; };
+		BD8AE8961D3569E8006B5595 /* JSDashboardSaver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDashboardSaver.m; sourceTree = "<group>"; };
+		BD8AE8991D356C4F006B5595 /* JSDashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDashboard.h; sourceTree = "<group>"; };
+		BD8AE89A1D356C4F006B5595 /* JSDashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDashboard.m; sourceTree = "<group>"; };
+		BD8AE89D1D357253006B5595 /* JSDashboardExtention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDashboardExtention.h; sourceTree = "<group>"; };
 		BD991C581CF76B5B00859145 /* NSString+JSURLEncodings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JSURLEncodings.h"; sourceTree = "<group>"; };
 		BD991C591CF76B5B00859145 /* NSString+JSURLEncodings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JSURLEncodings.m"; sourceTree = "<group>"; };
 		CE241112233BFF779E325E40 /* Pods-JaspersoftSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JaspersoftSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-JaspersoftSDK/Pods-JaspersoftSDK.release.xcconfig"; sourceTree = "<group>"; };
@@ -553,6 +584,7 @@
 				0849FCE21C2C1D7D008F1064 /* JSHelper */,
 				0849FC311C2B0A91008F1064 /* JSObjectMappings */,
 				0849FC5F1C2B0A91008F1064 /* JSReportExtention */,
+				BD8AE8941D3569C0006B5595 /* JSDashboardExtention */,
 				0849FC6E1C2B0A91008F1064 /* JSRestClient */,
 				0849FC811C2B0A91008F1064 /* JSSecurity */,
 			);
@@ -568,6 +600,12 @@
 				BD0A8F051C7F646A00C63F44 /* JSMapping.m */,
 				0899C4471C3170AC00CFBD91 /* JSContentResource.h */,
 				0899C4481C3170AC00CFBD91 /* JSContentResource.m */,
+				BD8AE88C1D356047006B5595 /* JSDashboardParameter.h */,
+				BD8AE88D1D356047006B5595 /* JSDashboardParameter.m */,
+				BD8AE8841D352886006B5595 /* JSDashboardExportExecutionResource.h */,
+				BD8AE8851D352886006B5595 /* JSDashboardExportExecutionResource.m */,
+				BD8AE8901D35670A006B5595 /* JSDashboardExportExecutionStatus.h */,
+				BD8AE8911D35670A006B5595 /* JSDashboardExportExecutionStatus.m */,
 				0849FC321C2B0A91008F1064 /* JSDataType.h */,
 				0849FC331C2B0A91008F1064 /* JSDataType.m */,
 				0849FC341C2B0A91008F1064 /* JSDateTimeFormatValidationRule.h */,
@@ -594,6 +632,8 @@
 				0849FC481C2B0A91008F1064 /* JSOperationResult.m */,
 				08061B6A1C919187004F5E49 /* JSParameter.h */,
 				08061B6B1C919187004F5E49 /* JSParameter.m */,
+				BD8AE8881D355ED4006B5595 /* JSPatchResourceParameter.h */,
+				BD8AE8891D355ED4006B5595 /* JSPatchResourceParameter.m */,
 				0849FC4B1C2B0A91008F1064 /* JSReportExecutionRequest.h */,
 				0849FC4C1C2B0A91008F1064 /* JSReportExecutionRequest.m */,
 				0849FC4D1C2B0A91008F1064 /* JSReportExecutionResponse.h */,
@@ -712,6 +752,8 @@
 				0849FCE51C2C1D7D008F1064 /* JSConstants.m */,
 				0899C4431C2D8FEE00CFBD91 /* JSErrorBuilder.h */,
 				0899C4441C2D8FEE00CFBD91 /* JSErrorBuilder.m */,
+				BD3688F31D357AC5008837BE /* JSFileSaver.h */,
+				BD3688F41D357AC5008837BE /* JSFileSaver.m */,
 				0849FCE71C2C1D7D008F1064 /* JSUtils.h */,
 				0849FCE81C2C1D7D008F1064 /* JSUtils.m */,
 				A1478E5FF766BDE05BFDB838 /* JSDateFormatterFactory.h */,
@@ -871,6 +913,19 @@
 			path = EULA;
 			sourceTree = "<group>";
 		};
+		BD8AE8941D3569C0006B5595 /* JSDashboardExtention */ = {
+			isa = PBXGroup;
+			children = (
+				BD8AE89D1D357253006B5595 /* JSDashboardExtention.h */,
+				BD8AE8991D356C4F006B5595 /* JSDashboard.h */,
+				BD8AE89A1D356C4F006B5595 /* JSDashboard.m */,
+				BD8AE8951D3569E8006B5595 /* JSDashboardSaver.h */,
+				BD8AE8961D3569E8006B5595 /* JSDashboardSaver.m */,
+			);
+			name = JSDashboardExtention;
+			path = Sources/JSDashboardExtention;
+			sourceTree = SOURCE_ROOT;
+		};
 		F59768B215E3C75E004165A7 = {
 			isa = PBXGroup;
 			children = (
@@ -949,6 +1004,7 @@
 				0849FCBC1C2B0A92008F1064 /* JSReportExecutionConfiguration.h in Headers */,
 				0849FCAA1C2B0A91008F1064 /* JSReportOption.h in Headers */,
 				0849FC8D1C2B0A91008F1064 /* JSDataType.h in Headers */,
+				BD8AE8921D35670A006B5595 /* JSDashboardExportExecutionStatus.h in Headers */,
 				0849FCBA1C2B0A92008F1064 /* JSReport.h in Headers */,
 				0849FC9B1C2B0A91008F1064 /* JSInputControlOption.h in Headers */,
 				0849FC971C2B0A91008F1064 /* JSExportExecutionResponse.h in Headers */,
@@ -977,6 +1033,7 @@
 				0849FCD11C2B0A92008F1064 /* JSRESTBase+JSRESTSession.h in Headers */,
 				0849FCAC1C2B0A91008F1064 /* JSReportOutputResource.h in Headers */,
 				0849FC9D1C2B0A91008F1064 /* JSInputControlState.h in Headers */,
+				BD8AE8861D352886006B5595 /* JSDashboardExportExecutionResource.h in Headers */,
 				0849FCC11C2B0A92008F1064 /* JSReportLoader.h in Headers */,
 				0849FCB01C2B0A91008F1064 /* JSResourceLookup.h in Headers */,
 				0849FC911C2B0A91008F1064 /* JSErrorDescriptor.h in Headers */,
@@ -986,7 +1043,9 @@
 				0849FCDB1C2B0A93008F1064 /* JSEncryptionManager.h in Headers */,
 				0849FCA61C2B0A91008F1064 /* JSReportExecutionRequest.h in Headers */,
 				0849FCCB1C2B0A92008F1064 /* JSRequest.h in Headers */,
+				BD8AE89B1D356C4F006B5595 /* JSDashboard.h in Headers */,
 				0899C4491C3170AC00CFBD91 /* JSContentResource.h in Headers */,
+				BD8AE88E1D356047006B5595 /* JSDashboardParameter.h in Headers */,
 				0849FCC91C2B0A92008F1064 /* JSProfile.h in Headers */,
 				0849FC9F1C2B0A91008F1064 /* JSMandatoryValidationRule.h in Headers */,
 				0849FCC61C2B0A92008F1064 /* JSReportSaver.h in Headers */,
@@ -995,7 +1054,11 @@
 				A1478853DBB60C2FD9C3C7FB /* JSScheduleMetadata.h in Headers */,
 				A1478EF134484CF355BA4DF5 /* JSScheduleLookup.h in Headers */,
 				A1478FE74D5DDD802462C488 /* JSScheduleJobState.h in Headers */,
+				BD8AE88A1D355ED4006B5595 /* JSPatchResourceParameter.h in Headers */,
 				A147864DB8024087AD318145 /* JSScheduleTrigger.h in Headers */,
+				BD8AE89E1D357253006B5595 /* JSDashboardExtention.h in Headers */,
+				BD8AE8971D3569E8006B5595 /* JSDashboardSaver.h in Headers */,
+				BD3688F51D357AC5008837BE /* JSFileSaver.h in Headers */,
 				A1478449D2FAFA08F51A8C36 /* JSRESTBase+JSSchedule.h in Headers */,
 				A1478A75DCE4466F783BEEEB /* JSReportComponent.h in Headers */,
 				A14789D7C67ED26B7DED7A09 /* JSDateFormatterFactory.h in Headers */,
@@ -1300,6 +1363,7 @@
 				0849FCCA1C2B0A92008F1064 /* JSProfile.m in Sources */,
 				0849FC901C2B0A91008F1064 /* JSDateTimeFormatValidationRule.m in Sources */,
 				0849FC9A1C2B0A91008F1064 /* JSInputControlDescriptor.m in Sources */,
+				BD8AE8981D3569E8006B5595 /* JSDashboardSaver.m in Sources */,
 				0849FC8E1C2B0A91008F1064 /* JSDataType.m in Sources */,
 				0849FCBF1C2B0A92008F1064 /* JSReportExecutor.m in Sources */,
 				0849FCEE1C2C1D7D008F1064 /* JSUtils.m in Sources */,
@@ -1314,6 +1378,7 @@
 				0849FCAB1C2B0A91008F1064 /* JSReportOption.m in Sources */,
 				0899C4461C2D8FEE00CFBD91 /* JSErrorBuilder.m in Sources */,
 				0849FCA91C2B0A91008F1064 /* JSReportExecutionResponse.m in Sources */,
+				BD3688F61D357AC5008837BE /* JSFileSaver.m in Sources */,
 				0849FCDC1C2B0A93008F1064 /* JSEncryptionManager.m in Sources */,
 				0849FC9E1C2B0A91008F1064 /* JSInputControlState.m in Sources */,
 				0849FC961C2B0A91008F1064 /* JSExportExecutionRequest.m in Sources */,
@@ -1321,10 +1386,12 @@
 				0849FCB51C2B0A91008F1064 /* JSResourcePatchRequest.m in Sources */,
 				0849FCB91C2B0A92008F1064 /* JSServerInfo.m in Sources */,
 				0849FCBD1C2B0A92008F1064 /* JSReportExecutionConfiguration.m in Sources */,
+				BD8AE88B1D355ED4006B5595 /* JSPatchResourceParameter.m in Sources */,
 				BD0A8F071C7F646A00C63F44 /* JSMapping.m in Sources */,
 				0849FCC51C2B0A92008F1064 /* JSReportPagesRange.m in Sources */,
 				0849FCB11C2B0A91008F1064 /* JSResourceLookup.m in Sources */,
 				0849FCBB1C2B0A92008F1064 /* JSReport.m in Sources */,
+				BD8AE88F1D356047006B5595 /* JSDashboardParameter.m in Sources */,
 				0899C44E1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.m in Sources */,
 				08061B6D1C919187004F5E49 /* JSParameter.m in Sources */,
 				0849FCEB1C2C1D7D008F1064 /* JSConstants.m in Sources */,
@@ -1334,13 +1401,16 @@
 				0849FCD01C2B0A92008F1064 /* JSRESTBase+JSRESTResource.m in Sources */,
 				0849FCC71C2B0A92008F1064 /* JSReportSaver.m in Sources */,
 				0849FCCE1C2B0A92008F1064 /* JSRESTBase+JSRESTReport.m in Sources */,
+				BD8AE8871D352886006B5595 /* JSDashboardExportExecutionResource.m in Sources */,
 				0849FC941C2B0A91008F1064 /* JSExecutionStatus.m in Sources */,
 				0849FCA71C2B0A91008F1064 /* JSReportExecutionRequest.m in Sources */,
+				BD8AE8931D35670A006B5595 /* JSDashboardExportExecutionStatus.m in Sources */,
 				0849FCA01C2B0A91008F1064 /* JSMandatoryValidationRule.m in Sources */,
 				A1478CA432B170CFEDB4D4E4 /* JSRESTBase+JSRESTDashboard.m in Sources */,
 				A147807F7FC01CA5D92C4C37 /* JSDashboardComponent.m in Sources */,
 				A1478671113039DEF1D30ABE /* JSScheduleMetadata.m in Sources */,
 				A14789D7076E289DD1DBA342 /* JSScheduleLookup.m in Sources */,
+				BD8AE89C1D356C4F006B5595 /* JSDashboard.m in Sources */,
 				A1478CBCB217D3A4C19CDBE7 /* JSScheduleJobState.m in Sources */,
 				A147857A15CCC0EE16A3C2D3 /* JSScheduleTrigger.m in Sources */,
 				A1478FC814F76B3AD331F43B /* JSRESTBase+JSSchedule.m in Sources */,
@@ -1392,7 +1462,7 @@
 /* Begin XCBuildConfiguration section */
 		088BE3871CCF73FA004FEAA9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EA13BD645DD21B4259C8E1B8 /* Pods-JaspersoftSDK.debug.xcconfig */;
+			baseConfigurationReference = F873D00592B037B01451794E /* Pods-JaspersoftSDKTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1433,7 +1503,7 @@
 		};
 		088BE3881CCF73FA004FEAA9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CE241112233BFF779E325E40 /* Pods-JaspersoftSDK.release.xcconfig */;
+			baseConfigurationReference = 8B47219FE89A4B1BC9637BA0 /* Pods-JaspersoftSDKTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;

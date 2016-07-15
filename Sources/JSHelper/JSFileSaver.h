@@ -24,29 +24,22 @@
  */
 
 //
-//  JSReportSaver.h
+//  JSFileSaver.h
 //  Jaspersoft Corporation
 //
 
 /**
- @author Aleksandr Dakhno odahno@tibco.com
  @author Alexey Gubarev ogubarie@tibco.com
- @since 2.3
+ @since 2.6
  */
 
 #import <Foundation/Foundation.h>
-#import "JSReportExecutor.h"
-#import "JSReportPagesRange.h"
+#import "JSRESTBase.h"
 
-@class JSReport, JSRESTBase, JSReportExecutionResponse;
-
-typedef void(^JSSaveReportCompletion)(NSURL * _Nullable savedReportFolderURL, NSError * _Nullable error);
-
-@interface JSReportSaver : JSReportExecutor
-
-- (void) saveReportWithName:(nonnull NSString *)name format:(nonnull NSString *)format
-                 pagesRange:(nonnull JSReportPagesRange *)pagesRange completion:(nullable JSSaveReportCompletion)completionBlock;
-
-- (void) cancelSavingReport;
+@interface JSFileSaver : NSObject
++ (void)downloadResourceWithRestClient:(nonnull JSRESTBase *)restClient
+                         fromURLString:(nonnull NSString *)resourceURLString
+                       destinationPath:(nonnull NSString *)destinationPath
+                            completion:(void(^_Nullable)(NSError * _Nullable error))completion;
 
 @end

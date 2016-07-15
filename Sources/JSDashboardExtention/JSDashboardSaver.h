@@ -24,29 +24,33 @@
  */
 
 //
-//  JSReportSaver.h
+//  JSDashboardSaver.h
 //  Jaspersoft Corporation
 //
 
 /**
- @author Aleksandr Dakhno odahno@tibco.com
  @author Alexey Gubarev ogubarie@tibco.com
- @since 2.3
+ @since 2.6
  */
 
 #import <Foundation/Foundation.h>
-#import "JSReportExecutor.h"
-#import "JSReportPagesRange.h"
+#import "JSDashboard.h"
+#import "JSRESTBase.h"
+#import "JSFileSaver.h"
 
-@class JSReport, JSRESTBase, JSReportExecutionResponse;
+typedef void(^JSSaveDashboardCompletion)(NSURL * _Nullable savedDashboardFolderURL, NSError * _Nullable error);
 
-typedef void(^JSSaveReportCompletion)(NSURL * _Nullable savedReportFolderURL, NSError * _Nullable error);
 
-@interface JSReportSaver : JSReportExecutor
+@interface JSDashboardSaver : JSFileSaver
 
-- (void) saveReportWithName:(nonnull NSString *)name format:(nonnull NSString *)format
-                 pagesRange:(nonnull JSReportPagesRange *)pagesRange completion:(nullable JSSaveReportCompletion)completionBlock;
+@property (nonatomic, copy, readonly, nonnull) JSRESTBase *restClient;
+@property (nonatomic, copy, readonly, nonnull) JSDashboard *dashboard;
 
-- (void) cancelSavingReport;
+- (nonnull instancetype)initWithDashboard:(nonnull JSDashboard *)dashboard restClient:(nonnull JSRESTBase *)restClient;
++ (nonnull instancetype)saverWithDashboard:(nonnull JSDashboard *)dashboard restClient:(nonnull JSRESTBase *)restClient;
+
+
+- (void)saveDashboardWithName:(nonnull NSString *)name format:(nullable NSString *)format completion:(nonnull JSSaveDashboardCompletion)completionBlock;
+- (void)cancel;
 
 @end

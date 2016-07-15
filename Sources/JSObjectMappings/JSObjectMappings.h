@@ -58,6 +58,7 @@
 #import "JSContentResource.h"
 #import "JSResourceReportUnit.h"
 #import "JSParameter.h"
+#import "JSPatchResourceParameter.h"
 #import "JSResourcePatchRequest.h"
 
 // ServerInfo
@@ -66,6 +67,7 @@
 
 // Dashboard
 #import "JSDashboardComponent.h"
+#import "JSDashboardParameter.h"
 
 // Schedules
 #import "JSScheduleMetadata.h"

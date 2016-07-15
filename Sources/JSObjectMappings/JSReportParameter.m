@@ -32,25 +32,8 @@
 
 @implementation JSReportParameter
 #pragma mark - JSObjectMappingsProtocol
-+ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
-    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
-        [mapping mapPropertiesFromDictionary:@{
-                                               @"name": @"name",
-                                               @"value": @"value",
-                                               }];
-    }];
-}
-
 + (nonnull NSString *)requestObjectKeyPath {
     return @"reportParameter";
-}
-
-#pragma mark - NSCopying
-- (id)copyWithZone:(NSZone *)zone {
-    JSReportParameter *parameter = [super copyWithZone:zone];
-    parameter.name = [self.name copyWithZone:zone];
-    parameter.value = [self.value copyWithZone:zone];
-    return parameter;
 }
 
 @end
