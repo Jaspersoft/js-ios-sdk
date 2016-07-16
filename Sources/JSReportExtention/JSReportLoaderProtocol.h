@@ -46,6 +46,7 @@ typedef NS_ENUM(NSInteger, JSReportLoaderErrorType) {
 
 typedef NS_ENUM(NSInteger, JSReportLoaderState) {
     JSReportLoaderStateInitial,
+    JSReportLoaderStateConfigured,
     JSReportLoaderStateLoading,
     JSReportLoaderStateReady,
     JSReportLoaderStateFailed,
