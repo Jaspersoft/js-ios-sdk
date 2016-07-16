@@ -34,7 +34,7 @@
  @since 2.3
  */
 
-#import <UIKit/UIKit.h>;
+#import <UIKit/UIKit.h>
 #import "JSResourceLookup.h"
 
 extern NSString * __nonnull const JSReportIsMutlipageDidChangedNotification;
