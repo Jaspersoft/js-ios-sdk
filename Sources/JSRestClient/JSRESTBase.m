@@ -101,16 +101,16 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         // Delete cookies for current server profile. If don't do this old credentials will be used
         // instead new one
         [self deleteCookies];
-        
+
         self.keepSession = keepLogged;
         self.serverProfile = serverProfile;
-        
+
         self.requestSerializer = [AFJSONRequestSerializer serializer];
         [self.requestSerializer setValue:[JSUtils usedMimeType] forHTTPHeaderField:kJSRequestResponceType];
-        
+
         self.responseSerializer.acceptableStatusCodes = nil;
         self.responseSerializer.acceptableContentTypes = nil;
-                
+
         [self configureRequestRedirectionHandling];
     }
     return self;
@@ -156,7 +156,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         Class objectClass;
         EKObjectMapping *objectMapping;
         id serializedObject;
-        
+
         if ([jsRequest.body isKindOfClass:[NSArray class]]) {
             objectClass = [[jsRequest.body lastObject] class];
             objectMapping = [objectClass objectMappingForServerProfile:self.serverProfile];
@@ -166,7 +166,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
             objectMapping = [objectClass objectMappingForServerProfile:self.serverProfile];
             serializedObject = [EKSerializer serializeObject:jsRequest.body withMapping:objectMapping];
         }
-        
+
         if (serializedObject) {
             if ([serializedObject isKindOfClass:[NSArray class]]) {
                 parameters = serializedObject;
@@ -179,7 +179,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
             }
         }
     }
-    
+
     NSError *serializationError = nil;
 
     NSMutableURLRequest *request;
@@ -199,7 +199,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
             break;
         }
     }
-    
+
     // Merge HTTP headers
     for (NSString *headerKey in [jsRequest.additionalHeaders allKeys]) {
         [request setValue:jsRequest.additionalHeaders[headerKey] forHTTPHeaderField:headerKey];
@@ -208,12 +208,12 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     if (request.HTTPBody) {
         NSLog(@"BODY: %@", [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]);
     }
-    
+
     if (serializationError) {
         [self sendCallBackForRequest:jsRequest withOperationResult:[self operationResultForSerializationError:serializationError]];
         return;
     }
-    
+
     __weak typeof(self) weakSelf = self;
     NSURLSessionDataTask *dataTask = [self dataTaskWithRequest:request
                                                 uploadProgress:nil
@@ -281,7 +281,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         if (self) {
             self.serverProfile = serverProfile;
             self.keepSession = [aDecoder decodeBoolForKey:kJSSavedSessionKeepSessionKey];
-            
+
             [self configureRequestRedirectionHandling];
         }
         return self;
@@ -308,9 +308,9 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     JSOperationResult *result = [[JSOperationResult alloc] initWithStatusCode:response.statusCode
                                                               allHeaderFields:response.allHeaderFields
                                                                      MIMEType:response.MIMEType];
-    
+
     result.request = request;
-    
+
     if ([result.request.uri isEqualToString:kJS_REST_AUTHENTICATION_URI]) {
         BOOL isTokenFetchedSuccessful = YES;
         switch (response.statusCode) {
@@ -373,6 +373,13 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
                 } else {
                     result.error = [JSErrorBuilder errorWithCode:JSUnsupportedAcceptTypeErrorCode];
                 }
+            } else if([error.domain isEqualToString:NSCocoaErrorDomain]) {
+                if (error.code == 3840) {
+                    result.error = [JSErrorBuilder errorWithCode:JSDataMappingErrorCode];
+                } else {
+                    result.error = [JSErrorBuilder errorWithCode:JSOtherErrorCode
+                                                         message:error.userInfo[NSLocalizedDescriptionKey]];
+                }
             } else {
                 result.error = [JSErrorBuilder errorWithCode:JSOtherErrorCode
                                                      message:error.userInfo[NSLocalizedDescriptionKey]];
@@ -383,7 +390,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         if (!result.request.responseAsObjects && [responseObject isKindOfClass:[NSURL class]]) {
             NSString *destinationFilePath = result.request.downloadDestinationPath;
             NSString *sourceFilePath = [(NSURL *)responseObject absoluteString];
-            
+
             if (!result.error && sourceFilePath && destinationFilePath && [[NSFileManager defaultManager] fileExistsAtPath:sourceFilePath]) {
                 NSError *fileSavingError = nil;
                 [[NSFileManager defaultManager] moveItemAtPath:sourceFilePath toPath:destinationFilePath error:&fileSavingError];
@@ -403,12 +410,12 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
             if (!convertingError) {
                 result.body = jsonData;
             }
-            
+
             if (![result isSuccessful]) {
                 JSMapping *mapping = [JSMapping mappingWithObjectMapping:[[JSErrorDescriptor class] objectMappingForServerProfile:self.serverProfile] keyPath:nil];
                 result.objects = [self objectFromExternalRepresentation:responseObject
                                                             withMapping:mapping];
-                
+
                 NSString *message = @"";
                 for (JSErrorDescriptor *errDescriptor in result.objects) {
                     if ([errDescriptor isKindOfClass:[errDescriptor class]]) {
@@ -497,7 +504,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     } else {
         nestedRepresentation = responceObject;
     }
-    
+
     if (nestedRepresentation && nestedRepresentation != [NSNull null]) {
         // Found something to map
         if ([nestedRepresentation isKindOfClass:[NSArray class]]) {
