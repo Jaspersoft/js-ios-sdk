@@ -192,6 +192,7 @@ extern NSString *const kJS_CONTENT_TYPE_PPT;
 extern NSString *const kJS_CONTENT_TYPE_PPTX;
 extern NSString *const kJS_CONTENT_TYPE_DOC;
 extern NSString *const kJS_CONTENT_TYPE_DOCX;
+extern NSString *const kJS_CONTENT_TYPE_PNG;
 
 /** @} */
 

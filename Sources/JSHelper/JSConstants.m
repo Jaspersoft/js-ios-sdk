@@ -121,6 +121,7 @@ NSString *const kJS_CONTENT_TYPE_PPT = @"ppt";
 NSString *const kJS_CONTENT_TYPE_PPTX = @"pptx";
 NSString *const kJS_CONTENT_TYPE_DOC = @"doc";
 NSString *const kJS_CONTENT_TYPE_DOCX = @"docx";
+NSString *const kJS_CONTENT_TYPE_PNG = @"png";
 
 /** @} */
 
