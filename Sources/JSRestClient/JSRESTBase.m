@@ -373,6 +373,8 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
             if (response.statusCode == 401) {
                 result.error = [JSErrorBuilder httpErrorWithCode:JSSessionExpiredErrorCode
                                                         HTTPCode:response.statusCode];
+            } else if (response.statusCode == 403) {
+                result.error = [JSErrorBuilder errorWithCode:JSAccessDeniedErrorCode];
             } else if (response.statusCode && !error) {
                 result.error = [JSErrorBuilder httpErrorWithCode:JSHTTPErrorCode
                                                         HTTPCode:response.statusCode];

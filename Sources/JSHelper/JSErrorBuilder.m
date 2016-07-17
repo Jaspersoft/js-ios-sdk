@@ -79,6 +79,7 @@ NSString * const JSHTTPErrorResponseStatusKey = @"JSHTTPErrorResponseStatusKey";
         case JSRequestTimeOutErrorCode:
             return JSHTTPErrorDomain;
 
+        case JSAccessDeniedErrorCode:
         case JSClientErrorCode:
         case JSDataMappingErrorCode:
         case JSFileSavingErrorCode:
@@ -96,6 +97,7 @@ NSString * const JSHTTPErrorResponseStatusKey = @"JSHTTPErrorResponseStatusKey";
         case JSRequestTimeOutErrorCode:
             return JSCustomLocalizedString(@"error_http_504", nil);
         case JSInvalidCredentialsErrorCode:
+        case JSAccessDeniedErrorCode:
             return JSCustomLocalizedString(@"error_http_403", nil);
         case JSSessionExpiredErrorCode:
             return JSCustomLocalizedString(@"error_http_401", nil);

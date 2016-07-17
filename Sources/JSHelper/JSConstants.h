@@ -54,13 +54,15 @@ typedef NS_ENUM (NSInteger, JSErrorCode) {
     JSInvalidCredentialsErrorCode,          // Invalid Credentilas error
     JSSessionExpiredErrorCode,              // Session expired error
     
-    JSClientErrorCode,                      // Client error code
+    JSAccessDeniedErrorCode,                // Access denied error
+
+    JSClientErrorCode,                      // Client error code - when JSErrorDescriptor are received
     
     JSDataMappingErrorCode,                 // Data Mapping error code - when responce did load successfully, but can't be parsed
     
     JSUnsupportedAcceptTypeErrorCode,       // Unsupported Accept Type error code - when responce did load successfully, but can't be parsed because has unsupported accept code
 
-    JSFileSavingErrorCode,                  // Write to file and file saving error
+    JSFileSavingErrorCode                  // Write to file and file saving error
 };
 /** @} */
 
