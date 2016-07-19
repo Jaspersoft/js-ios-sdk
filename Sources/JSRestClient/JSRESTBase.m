@@ -373,13 +373,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
                 } else {
                     result.error = [JSErrorBuilder errorWithCode:JSUnsupportedAcceptTypeErrorCode];
                 }
-            } else if([error.domain isEqualToString:NSCocoaErrorDomain]) {
-                if (error.code == 3840) {
-                    result.error = [JSErrorBuilder errorWithCode:JSDataMappingErrorCode];
-                } else {
-                    result.error = [JSErrorBuilder errorWithCode:JSOtherErrorCode
-                                                         message:error.userInfo[NSLocalizedDescriptionKey]];
-                }
             } else {
                 result.error = [JSErrorBuilder errorWithCode:JSOtherErrorCode
                                                      message:error.userInfo[NSLocalizedDescriptionKey]];
