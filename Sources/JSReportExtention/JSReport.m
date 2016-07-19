@@ -49,7 +49,6 @@ NSString * const JSReportPartsDidUpdateNotification        = @"JSReportPartsDidU
 @property (nonatomic, assign, readwrite) NSInteger currentPage;
 @property (nonatomic, assign, readwrite) NSInteger countOfPages;
 @property (nonatomic, assign, readwrite) BOOL isMultiPageReport;
-@property (nonatomic, assign, readwrite) BOOL isReportEmpty;
 @property (nonatomic, strong, readwrite) NSString *requestId;
 
 // html
@@ -68,7 +67,6 @@ NSString * const JSReportPartsDidUpdateNotification        = @"JSReportPartsDidU
     if (self) {
         _resourceLookup = resourceLookup;
         [self restoreDefaultState];
-        _isReportEmpty = YES;
     }
     return self;
 }
@@ -83,7 +81,9 @@ NSString * const JSReportPartsDidUpdateNotification        = @"JSReportPartsDidU
 - (void)setIsMultiPageReport:(BOOL)isMultiPageReport
 {
     _isMultiPageReport = isMultiPageReport;
-    [self postNotificationMultipageReport];
+    if (isMultiPageReport) {
+        [self postNotificationMultipageReport];
+    }
 }
 
 - (void)setCountOfPages:(NSInteger)countOfPages
@@ -153,12 +153,7 @@ NSString * const JSReportPartsDidUpdateNotification        = @"JSReportPartsDidU
         return;
     }
 
-    self.isReportEmpty = countOfPages == 0 || countOfPages == NSNotFound;
     self.countOfPages = countOfPages;
-
-    if (countOfPages != NSNotFound) {
-        self.isMultiPageReport = countOfPages > 1;
-    }
 }
 
 - (void)updateHTMLString:(NSString *)HTMLString
@@ -175,7 +170,6 @@ NSString * const JSReportPartsDidUpdateNotification        = @"JSReportPartsDidU
 
 - (void)updateIsMultiPageReport:(BOOL)isMultiPageReport
 {
-    self.isReportEmpty = NO;
     self.isMultiPageReport = isMultiPageReport;
 }
 
@@ -206,7 +200,6 @@ NSString * const JSReportPartsDidUpdateNotification        = @"JSReportPartsDidU
     self.currentPage = NSNotFound;
     self.countOfPages = NSNotFound;
     self.isMultiPageReport = NO;
-    self.isReportEmpty = YES;
     self.reportParameters = nil;
     self.requestId = nil;
     self.bookmarks = nil;
@@ -216,7 +209,7 @@ NSString * const JSReportPartsDidUpdateNotification        = @"JSReportPartsDidU
 #pragma mark - Helpers
 - (NSString *)description
 {
-    NSString *description = [NSString stringWithFormat:@"\nReport: %@\ncount of pages: %@\nisEmpty: %@", self.resourceLookup.label, @(self.countOfPages), @(self.isReportEmpty)];
+    NSString *description = [NSString stringWithFormat:@"\nReport: %@\ncount of pages: %@", self.resourceLookup.label, @(self.countOfPages)];
     return description;
 }
 
@@ -227,7 +220,6 @@ NSString * const JSReportPartsDidUpdateNotification        = @"JSReportPartsDidU
     newReport.currentPage = self.currentPage;
     newReport.countOfPages = self.countOfPages;
     newReport.isMultiPageReport = self.isMultiPageReport;
-    newReport.isReportEmpty = self.isReportEmpty;
     newReport.requestId = [self.requestId copyWithZone:zone];
     newReport.HTMLString = [self.HTMLString copyWithZone:zone];
     newReport.baseURLString = [self.baseURLString copyWithZone:zone];

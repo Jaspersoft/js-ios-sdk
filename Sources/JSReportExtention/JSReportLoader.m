@@ -133,7 +133,7 @@ initialParameters:(nullable NSArray <JSReportParameter *> *)initialParameters
 {
     NSAssert(completion != nil, @"Completion is nil");
     NSAssert(page != nil, @"page is nil");
-    NSAssert(![page isKindOfClass:[NSNumber class]], @"Wrong class of initial page value");
+    NSAssert([page isKindOfClass:[NSNumber class]], @"Wrong class of initial page value");
 
     self.loadPageCompletionBlock = completion;
     [self.report updateCurrentPage:page.integerValue];
@@ -352,9 +352,18 @@ initialParameters:(nullable NSArray <JSReportParameter *> *)initialParameters
                                       if ([strongSelf.exportIdsDictionary count] == 1) {
                                           [strongSelf startExportExecutionForPage:2];
                                       }
-
                                       if (page == 2 && [strongSelf.exportIdsDictionary count] == 2) {
-                                          [strongSelf.report updateIsMultiPageReport:YES];
+                                          NSData *resultData = [result.bodyAsString dataUsingEncoding:NSUTF8StringEncoding];
+                                          NSError *error;
+                                          NSDictionary *json = [NSJSONSerialization JSONObjectWithData:resultData options:0 error:&error];
+                                          if (json) {
+                                              NSString *errorCode = json[@"errorCode"];
+                                              if ( !(errorCode || [errorCode isEqualToString:@"page.number.out.of.range"])) {
+                                                  // TODO: does this mean report could be multipage?
+                                              }
+                                          } else {
+                                              [strongSelf.report updateIsMultiPageReport:YES];
+                                          }
                                       }
                                   }
                               }

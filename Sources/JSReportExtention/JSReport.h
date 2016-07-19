@@ -53,7 +53,6 @@ extern NSString * __nonnull const JSReportPartsDidUpdateNotification;
 @property (nonatomic, assign, readonly) NSInteger currentPage;
 @property (nonatomic, assign, readonly) NSInteger countOfPages;
 @property (nonatomic, assign, readonly) BOOL isMultiPageReport;
-@property (nonatomic, assign, readonly) BOOL isReportEmpty;
 @property (nonatomic, strong, readonly) NSString * __nullable requestId;
 
 @property (nonatomic, copy) NSArray <JSReportParameter *> * __nullable reportParameters;
