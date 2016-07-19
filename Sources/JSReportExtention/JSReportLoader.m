@@ -58,7 +58,7 @@
 {
     self = [super init];
     if (self) {
-        _restClient = restClient;
+        _restClient = [restClient copy];
         _state = JSReportLoaderStateInitial;
     }
     return self;
@@ -99,7 +99,7 @@ initialParameters:(nullable NSArray <JSReportParameter *> *)initialParameters
     self.report = report;
     self.report.reportParameters = initialParameters;
     if (initialPage) {
-        NSAssert(![initialPage isKindOfClass:[NSNumber class]], @"Wrong class of initial page value");
+        NSAssert([initialPage isKindOfClass:[NSNumber class]], @"Wrong class of initial page value");
         [self.report updateCurrentPage:initialPage.integerValue];
     } else {
         [self.report updateCurrentPage:1];
