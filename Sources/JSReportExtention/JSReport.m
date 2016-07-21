@@ -95,7 +95,9 @@ NSString * const JSReportPartsDidUpdateNotification        = @"JSReportPartsDidU
 - (void)setCurrentPage:(NSInteger)currentPage
 {
     _currentPage = currentPage;
-    [self postNotificationCurrentPageChanged];
+    if (currentPage != NSNotFound) {
+        [self postNotificationCurrentPageChanged];
+    }
 }
 
 - (NSString *)reportURI
