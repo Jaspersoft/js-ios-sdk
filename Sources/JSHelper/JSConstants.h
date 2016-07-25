@@ -54,7 +54,7 @@ typedef NS_ENUM (NSInteger, JSErrorCode) {
     JSInvalidCredentialsErrorCode,          // Invalid Credentilas error
     JSSessionExpiredErrorCode,              // Session expired error
     
-    JSClientErrorCode,                      // Client error code - when JSErrorDescriptor are received
+    JSClientErrorCode,                      // Client error code
     
     JSDataMappingErrorCode,                 // Data Mapping error code - when responce did load successfully, but can't be parsed
     

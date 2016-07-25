@@ -250,6 +250,13 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 }
 
 - (void)deleteCookies {
+    NSURL *serverURL = [NSURL URLWithString:self.serverProfile.serverUrl];
+    if (serverURL) {
+        NSArray *hostCookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:serverURL];
+        for (NSHTTPCookie *cookie in hostCookies) {
+            [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+        }
+    }
     [self updateCookiesWithCookies:nil];
 }
 
