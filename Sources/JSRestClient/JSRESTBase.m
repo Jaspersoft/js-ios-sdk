@@ -365,7 +365,10 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
                         result.error = [JSErrorBuilder errorWithCode:JSHTTPErrorCode message:error.localizedDescription];
                     }
                 }
-            } else if ([error.domain isEqualToString:AFURLResponseSerializationErrorDomain]) {
+            } else if ([error.domain isEqualToString:AFURLResponseSerializationErrorDomain] ||
+                    ([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == 3840) ) {
+                // There are cases when afnetworking doesn't handle wrong json deserializing,
+                // so we have 'NSCocoaErrorDomain' with code 3840
                 result.body = [error.userInfo objectForKey:AFNetworkingOperationFailingURLResponseDataErrorKey];
 
                 if ([result.MIMEType isEqualToString:[JSUtils usedMimeType]]) {
