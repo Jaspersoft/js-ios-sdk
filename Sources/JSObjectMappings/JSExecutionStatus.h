@@ -28,10 +28,6 @@
 //  Jaspersoft Corporation
 //
 
-#import <Foundation/Foundation.h>
-#import "JSObjectMappingsProtocol.h"
-
-
 /**
  Represents a report or export execution status for convenient XML serialization process
  
@@ -40,8 +36,10 @@
  @since 1.8
  */
 
+#import <Foundation/Foundation.h>
+#import "JSObjectMappingsProtocol.h"
+#import "JSConstants.h"
+
 @interface JSExecutionStatus : NSObject <JSObjectMappingsProtocol>
-
 @property (nonatomic, assign) kJS_EXECUTION_STATUS status;
-
 @end
