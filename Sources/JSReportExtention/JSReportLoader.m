@@ -34,8 +34,6 @@
 #import "JSReportExecutionResponse.h"
 #import "JSExportExecutionResponse.h"
 
-NSString *const JSReportLoaderDidSetReportNotification = @"JSReportLoaderDidSetReportNotification";
-
 @interface JSReportLoader()
 @property (nonatomic, assign, readwrite) JSReportLoaderState state;
 @property (nonatomic, strong, readwrite) JSReport *report;

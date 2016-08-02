@@ -244,3 +244,4 @@ typedef NS_ENUM(NSInteger, JSMarkupType) {
 /** @} */
 
 extern NSString *const JSRestClientDidChangeCookies;
+extern NSString *const JSReportLoaderDidSetReportNotification;

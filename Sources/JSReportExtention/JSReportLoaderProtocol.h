@@ -54,8 +54,6 @@ typedef NS_ENUM(NSInteger, JSReportLoaderState) {
     JSReportLoaderStateCancel
 };
 
-extern NSString *const JSReportLoaderDidSetReportNotification;
-
 typedef void(^JSReportLoaderCompletionBlock)(BOOL success, NSError * __nullable error);
 
 @class JSRESTBase;

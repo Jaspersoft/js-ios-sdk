@@ -152,3 +152,4 @@ NSTimeInterval const kJSExecutionStatusCheckingInterval = 1.f;
 /** @} */
 
 NSString *const JSRestClientDidChangeCookies = @"JSRestClientDidChangeCookies";
+NSString *const JSReportLoaderDidSetReportNotification = @"JSReportLoaderDidSetReportNotification";
