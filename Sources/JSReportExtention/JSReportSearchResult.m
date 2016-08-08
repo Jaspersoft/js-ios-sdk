@@ -20,22 +20,23 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with Jaspersoft Mobile SDK for iOS. If not, see
- * <http://www.gnu.org/licenses/lgpl".
+ * <http://www.gnu.org/licenses/lgpl>.
  */
 
 //
-//  ReportExtention.h
+//  JSReportSearchResult.m
 //  Jaspersoft Corporation
 //
 
-#import "JSReport.h"
-#import "JSReportPagesRange.h"
-#import "JSReportBookmark.h"
-#import "JSReportPart.h"
-#import "JSReportDestination.h"
-#import "JSReportExecutionConfiguration.h"
-#import "JSReportLoaderProtocol.h"
-#import "JSReportExecutor.h"
-#import "JSReportSaver.h"
-#import "JSReportLoader.h"
 #import "JSReportSearchResult.h"
+
+@implementation JSReportSearchResult
+#pragma mark - JSObjectMappingsProtocol
+
++ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        [mapping mapPropertiesFromArray:@[@"hitCount", @"page"]];
+    }];
+}
+
+@end

@@ -20,22 +20,26 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with Jaspersoft Mobile SDK for iOS. If not, see
- * <http://www.gnu.org/licenses/lgpl".
+ * <http://www.gnu.org/licenses/lgpl>.
  */
 
 //
-//  ReportExtention.h
+//  JSReportSearchResult.h
 //  Jaspersoft Corporation
 //
 
-#import "JSReport.h"
-#import "JSReportPagesRange.h"
-#import "JSReportBookmark.h"
-#import "JSReportPart.h"
-#import "JSReportDestination.h"
-#import "JSReportExecutionConfiguration.h"
-#import "JSReportLoaderProtocol.h"
-#import "JSReportExecutor.h"
-#import "JSReportSaver.h"
-#import "JSReportLoader.h"
-#import "JSReportSearchResult.h"
+/**
+ @author Alexey Gubarev ogubarie@tibco.com
+ @since 2.6
+ */
+
+
+#import <Foundation/Foundation.h>
+#import "JSObjectMappingsProtocol.h"
+
+@interface JSReportSearchResult : NSObject <JSObjectMappingsProtocol>
+@property (nonatomic, strong) NSNumber *hitCount;
+@property (nonatomic, strong) NSNumber *page;
+@property (nonatomic, assign, getter=isSelected) BOOL selected;
+
+@end
