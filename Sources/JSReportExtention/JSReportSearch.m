@@ -24,21 +24,12 @@
  */
 
 //
-//  JSReportSearchResult.h
+//  JSReportSearch.m
 //  Jaspersoft Corporation
 //
 
-/**
- @author Alexey Gubarev ogubarie@tibco.com
- @since 2.6
- */
+#import "JSReportSearch.h"
 
-
-#import <Foundation/Foundation.h>
-#import "JSObjectMappingsProtocol.h"
-
-@interface JSReportSearchResult : NSObject <JSObjectMappingsProtocol>
-@property (nonatomic, assign) NSInteger hitCount;
-@property (nonatomic, assign) NSInteger page;
+@implementation JSReportSearch
 
 @end

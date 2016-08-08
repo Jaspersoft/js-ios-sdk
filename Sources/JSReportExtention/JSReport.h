@@ -42,12 +42,11 @@ extern NSString * __nonnull const JSReportCountOfPagesDidChangeNotification;
 extern NSString * __nonnull const JSReportCurrentPageDidChangeNotification;
 extern NSString * __nonnull const JSReportBookmarksDidUpdateNotification;
 extern NSString * __nonnull const JSReportPartsDidUpdateNotification;
-extern NSString * __nonnull const JSReportSearchResultsDidUpdateNotification;
 
 @class JSReportOption, JSInputControlDescriptor, JSReportParameter, JSReportComponent;
 @class JSReportBookmark;
 @class JSReportPart;
-@class JSReportSearchResult;
+@class JSReportSearch;
 
 @interface JSReport : NSObject <NSCopying>
 // getters
@@ -71,7 +70,7 @@ extern NSString * __nonnull const JSReportSearchResultsDidUpdateNotification;
 @property (nonatomic, strong) UIImage * __nullable thumbnailImage;
 @property (nonatomic, strong) NSArray <JSReportBookmark *>* __nullable bookmarks; /** @since 2.6 */
 @property (nonatomic, strong) NSArray <JSReportPart *>* __nullable parts; /** @since 2.6 */
-@property (nonatomic, strong) NSArray <JSReportSearchResult *>* __nullable searchResults; /** @since 2.6 */
+@property (nonatomic, strong, nullable) JSReportSearch *currentSearch; /** @since 2.6 */
 
 - (instancetype __nullable)initWithResourceLookup:(JSResourceLookup * __nullable)resourceLookup;
 + (instancetype __nullable)reportWithResourceLookup:(JSResourceLookup * __nullable)resourceLookup;

@@ -42,7 +42,6 @@ NSString * const JSReportCountOfPagesDidChangeNotification  = @"JSReportCountOfP
 NSString * const JSReportCurrentPageDidChangeNotification   = @"JSReportCurrentPageDidChangeNotification";
 NSString * const JSReportBookmarksDidUpdateNotification     = @"JSReportBookmarksDidUpdateNotification";
 NSString * const JSReportPartsDidUpdateNotification         = @"JSReportPartsDidUpdateNotification";
-NSString * const JSReportSearchResultsDidUpdateNotification = @"JSReportSearchResultsDidUpdateNotification";
 
 @interface JSReport()
 @property (nonatomic, strong) NSMutableArray *availableReportOptions;
@@ -136,13 +135,6 @@ NSString * const JSReportSearchResultsDidUpdateNotification = @"JSReportSearchRe
 {
     _parts = parts;
     [[NSNotificationCenter defaultCenter] postNotificationName:JSReportPartsDidUpdateNotification
-                                                        object:self];
-}
-
-- (void)setSearchResults:(NSArray<JSReportSearchResult *> *)searchResults
-{
-    _searchResults = searchResults;
-    [[NSNotificationCenter defaultCenter] postNotificationName:JSReportSearchResultsDidUpdateNotification
                                                         object:self];
 }
 

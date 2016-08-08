@@ -219,6 +219,8 @@
 		BD194F891C75D50100C99DA9 /* JSObjectMappingsProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = BD194F881C75D50100C99DA9 /* JSObjectMappingsProtocol.h */; };
 		BD5372501D58BF2400442361 /* JSReportSearchResult.h in Headers */ = {isa = PBXBuildFile; fileRef = BD53724E1D58BF2400442361 /* JSReportSearchResult.h */; };
 		BD5372511D58BF2400442361 /* JSReportSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = BD53724F1D58BF2400442361 /* JSReportSearchResult.m */; };
+		BD5372541D58D03400442361 /* JSReportSearch.h in Headers */ = {isa = PBXBuildFile; fileRef = BD5372521D58D03400442361 /* JSReportSearch.h */; };
+		BD5372551D58D03400442361 /* JSReportSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5372531D58D03400442361 /* JSReportSearch.m */; };
 		BD991C5A1CF76B5B00859145 /* NSString+JSURLEncodings.h in Headers */ = {isa = PBXBuildFile; fileRef = BD991C581CF76B5B00859145 /* NSString+JSURLEncodings.h */; };
 		BD991C5B1CF76B5B00859145 /* NSString+JSURLEncodings.m in Sources */ = {isa = PBXBuildFile; fileRef = BD991C591CF76B5B00859145 /* NSString+JSURLEncodings.m */; };
 		FFD65C5964595F50D9326C49 /* libPods-JaspersoftSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F85CFDE522786E932150FC50 /* libPods-JaspersoftSDK.a */; };
@@ -452,6 +454,8 @@
 		BD194F881C75D50100C99DA9 /* JSObjectMappingsProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSObjectMappingsProtocol.h; sourceTree = "<group>"; };
 		BD53724E1D58BF2400442361 /* JSReportSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportSearchResult.h; sourceTree = "<group>"; };
 		BD53724F1D58BF2400442361 /* JSReportSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportSearchResult.m; sourceTree = "<group>"; };
+		BD5372521D58D03400442361 /* JSReportSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportSearch.h; sourceTree = "<group>"; };
+		BD5372531D58D03400442361 /* JSReportSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportSearch.m; sourceTree = "<group>"; };
 		BD991C581CF76B5B00859145 /* NSString+JSURLEncodings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JSURLEncodings.h"; sourceTree = "<group>"; };
 		BD991C591CF76B5B00859145 /* NSString+JSURLEncodings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JSURLEncodings.m"; sourceTree = "<group>"; };
 		CE241112233BFF779E325E40 /* Pods-JaspersoftSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JaspersoftSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-JaspersoftSDK/Pods-JaspersoftSDK.release.xcconfig"; sourceTree = "<group>"; };
@@ -655,6 +659,8 @@
 				A1478BAC3C92E5793C65F8E9 /* JSReportPart.h */,
 				A1478A9FDC07CAC502A29AC7 /* JSReportDestination.m */,
 				A1478014B4C3C942E0467991 /* JSReportDestination.h */,
+				BD5372521D58D03400442361 /* JSReportSearch.h */,
+				BD5372531D58D03400442361 /* JSReportSearch.m */,
 				BD53724E1D58BF2400442361 /* JSReportSearchResult.h */,
 				BD53724F1D58BF2400442361 /* JSReportSearchResult.m */,
 			);
@@ -945,6 +951,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0849FCC01C2B0A92008F1064 /* JSReportExtention.h in Headers */,
+				BD5372541D58D03400442361 /* JSReportSearch.h in Headers */,
 				0849FC931C2B0A91008F1064 /* JSExecutionStatus.h in Headers */,
 				0849FCC41C2B0A92008F1064 /* JSReportPagesRange.h in Headers */,
 				0849FCC31C2B0A92008F1064 /* JSReportLoaderProtocol.h in Headers */,
@@ -1329,6 +1336,7 @@
 				0849FCB51C2B0A91008F1064 /* JSResourcePatchRequest.m in Sources */,
 				0849FCB91C2B0A92008F1064 /* JSServerInfo.m in Sources */,
 				0849FCBD1C2B0A92008F1064 /* JSReportExecutionConfiguration.m in Sources */,
+				BD5372551D58D03400442361 /* JSReportSearch.m in Sources */,
 				BD0A8F071C7F646A00C63F44 /* JSMapping.m in Sources */,
 				0849FCC51C2B0A92008F1064 /* JSReportPagesRange.m in Sources */,
 				0849FCB11C2B0A91008F1064 /* JSResourceLookup.m in Sources */,

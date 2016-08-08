@@ -24,7 +24,7 @@
  */
 
 //
-//  JSReportSearchResult.h
+//  JSReportSearch.h
 //  Jaspersoft Corporation
 //
 
@@ -35,10 +35,11 @@
 
 
 #import <Foundation/Foundation.h>
-#import "JSObjectMappingsProtocol.h"
+#import "JSReportSearchResult.h"
 
-@interface JSReportSearchResult : NSObject <JSObjectMappingsProtocol>
-@property (nonatomic, assign) NSInteger hitCount;
-@property (nonatomic, assign) NSInteger page;
+@interface JSReportSearch : NSObject
+@property (nonatomic, strong, nullable) NSString *searchText;
+@property (nonatomic, strong, nullable) JSReportSearchResult *selectedResult;
+@property (nonatomic, strong, nullable) NSArray <JSReportSearchResult *>* searchResults;
 
 @end
