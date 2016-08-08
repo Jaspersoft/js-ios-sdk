@@ -38,8 +38,8 @@
 #import "JSObjectMappingsProtocol.h"
 
 @interface JSReportSearchResult : NSObject <JSObjectMappingsProtocol>
-@property (nonatomic, strong) NSNumber *hitCount;
-@property (nonatomic, strong) NSNumber *page;
+@property (nonatomic, assign) NSInteger hitCount;
+@property (nonatomic, assign) NSInteger page;
 @property (nonatomic, assign, getter=isSelected) BOOL selected;
 
 @end
