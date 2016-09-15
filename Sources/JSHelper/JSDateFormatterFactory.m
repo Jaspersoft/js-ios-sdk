@@ -52,7 +52,7 @@
 
 - (NSDateFormatter *)formatterWithPattern:(NSString *)pattern timeZone:(NSTimeZone *)timeZone
 {
-    NSString *formatterKey = [timeZone name] ? [pattern stringByAppendingPathExtension:[timeZone name]] : pattern;
+    NSString *formatterKey = [timeZone name] ? [pattern stringByAppendingFormat:@".%@", [timeZone name]] : pattern;
     NSDateFormatter *formatter = self.formatters[formatterKey];
     if (!formatter) {
         formatter = [self createFormatterWithPattern:pattern timeZone:timeZone];

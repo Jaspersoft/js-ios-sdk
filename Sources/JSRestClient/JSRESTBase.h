@@ -34,7 +34,7 @@
 #import "JSRequest.h"
 #import "JSObjectMappingsProtocol.h"
 #import "JSServerInfo.h"
-#import <AFHTTPSessionManager.h>
+#import "AFHTTPSessionManager.h"
 
 extern NSString * const _Nonnull kJSRequestContentType;
 extern NSString * const _Nonnull kJSRequestResponceType;
