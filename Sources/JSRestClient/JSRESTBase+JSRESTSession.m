@@ -105,7 +105,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
                     result.error = [JSErrorBuilder errorWithCode:JSServerVersionNotSupportedErrorCode];
                 }
             } else {
-                result.error = [JSErrorBuilder errorWithCode:JSServerNotReachableErrorCode];
+                result.error = [JSErrorBuilder errorWithCode:JSClientErrorCode];
             }
         } else if (result.error.code == JSOtherErrorCode || result.error.code == JSUnsupportedAcceptTypeErrorCode) {
             result.error = [JSErrorBuilder errorWithCode:JSServerNotReachableErrorCode];

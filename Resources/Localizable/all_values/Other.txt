@@ -1,0 +1,45 @@
+
+[[Report Options]]
+    [report_options_default_option_title]
+        en = None
+        de = Keine
+        es = Ninguno
+        fr = Aucun
+        it = Nessuno
+        ja = なし
+        pt = Nenhum
+        zh = 无
+        tags = ios
+
+[[Input Controls. Data Type Validation error messages]]
+    [inputcontrol_datatype_validation_less_than]
+        en = Less-than validation failed.
+        tags = ios,new
+    [inputcontrol_datatype_validation_less_than_or_equal]
+        en = Less-than-or-Equal-to validation failed.
+        tags = ios,new
+    [inputcontrol_datatype_validation_greater_than]
+        en = Greater-than validation failed.
+        tags = ios,new
+    [inputcontrol_datatype_validation_greater_than_or_equal]
+        en = Greater-than-or-Equal-to validation failed.
+        tags = ios,new
+    [inputcontrol_datatype_validation_doesn't_match_pattern]
+        en = This field does not match the required pattern.
+        tags = ios,new
+    [inputcontrol_datatype_validation_very_long]
+        en = The string should be shotter.
+        tags = ios,new
+
+[[Sessions]]
+    [session_encription_key_data_empty]
+        en = Encription Key data is empty.
+        tags = ios,new
+    [session_encription_key_doesn't_valid]
+        en = Encription Key doesn't valid. Modulus or exponent is absent.
+        tags = ios,new
+
+[[Report loader]]
+    [report_viewer_emptyreport_title]
+        en = Report is empty.
+        tags = ios,new

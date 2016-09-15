@@ -36,11 +36,16 @@
 }
 
 - (void)testNSCodingProtocolSupport {
-    JSProfile *profile = [JSServerProfileProvider serverProfileWithVersion:kJS_SERVER_VERSION_CODE_UNKNOWN];
-    NSData *codedData = [NSKeyedArchiver archivedDataWithRootObject:profile];
-    JSProfile *encodedObject = [NSKeyedUnarchiver unarchiveObjectWithData:codedData];
+    NSInteger currentSystemVersion = [UIDevice currentDevice].systemVersion.integerValue;
     
-    [self isEqualProfile:profile toProfile:encodedObject];
+    // Here we need check system version and run this code for old system versions only, because in iOS 10 keychain is available only after adding such capability in target settings
+    if (currentSystemVersion < 10) {
+        JSProfile *profile = [JSServerProfileProvider serverProfileWithVersion:kJS_SERVER_VERSION_CODE_UNKNOWN];
+        NSData *codedData = [NSKeyedArchiver archivedDataWithRootObject:profile];
+        JSProfile *encodedObject = [NSKeyedUnarchiver unarchiveObjectWithData:codedData];
+        
+        [self isEqualProfile:profile toProfile:encodedObject];
+    }
 }
 
 - (void)testNSCopyingProtocolSupport {

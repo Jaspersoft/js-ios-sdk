@@ -92,25 +92,25 @@ NSString * const JSHTTPErrorResponseStatusKey = @"JSHTTPErrorResponseStatusKey";
 + (NSString *) localizedMessageForStatusCode:(JSErrorCode)errorCode {
     switch (errorCode) {
         case JSServerNotReachableErrorCode:
-            return JSCustomLocalizedString(@"error.http.502", nil);
+            return JSCustomLocalizedString(@"error_http_502", nil);
         case JSRequestTimeOutErrorCode:
-            return JSCustomLocalizedString(@"error.http.504", nil);
+            return JSCustomLocalizedString(@"error_http_504", nil);
         case JSInvalidCredentialsErrorCode:
-            return JSCustomLocalizedString(@"error.http.403", nil);
+            return JSCustomLocalizedString(@"error_http_403", nil);
         case JSSessionExpiredErrorCode:
-            return JSCustomLocalizedString(@"error.http.401", nil);
+            return JSCustomLocalizedString(@"error_http_401", nil);
         case JSClientErrorCode:
-            return JSCustomLocalizedString(@"error.reading.response.msg", nil);
+            return JSCustomLocalizedString(@"error_reading_response_msg", nil);
         case JSDataMappingErrorCode:
-            return JSCustomLocalizedString(@"error.data.mapping.msg", nil);
+            return JSCustomLocalizedString(@"error_data_mapping_msg", nil);
         case JSFileSavingErrorCode:
-            return JSCustomLocalizedString(@"error.file.saving.msg", nil);
+            return JSCustomLocalizedString(@"error_file_saving_msg", nil);
         case JSServerVersionNotSupportedErrorCode:
-            return JSCustomLocalizedString(@"error.server.version.not.supported", nil);
+            return JSCustomLocalizedString(@"error_server_version_not_supported", nil);
         case JSUnsupportedAcceptTypeErrorCode:
-            return JSCustomLocalizedString(@"error.accept.type.not.supported", nil);
+            return JSCustomLocalizedString(@"error_accept_type_not_supported", nil);
         default:
-            return JSCustomLocalizedString(@"error.other.msg", nil);
+            return JSCustomLocalizedString(@"error_other_msg", nil);
     }
 }
 

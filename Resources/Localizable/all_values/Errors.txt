@@ -1,0 +1,118 @@
+[[HTTP error messages]]
+    [error_http_400]
+        en = 400 - Bad Request. The request was invalid
+        de = 400 - Unzulässige Anforderung. Die Anforderung war ungültig.
+        fr = 400 - Requête incorrecte. La requête n’est pas valide
+        es = 400 - Solicitud incorrecta. La solicitud no era válida.
+        it = 400 - Richiesta non valida. La richiesta non è valida
+        pt = 400 - Solicitação Incorreta. A solicitação era inválida
+        ja = 400 - 不正なリクエスト。リクエストは無効です
+        zh = 400 - 错误的请求。请求无效
+        tags = ios
+    [error_http_401]
+        en = 401 - Unauthorized. Authorize please.
+        tags = ios,new
+    [error_http_403]
+        en = 403 - Permission Denied. The request is understood, but it has been refused
+        de = 403 - Berechtigung verweigert. Die Anforderung war gültig, wurde aber abgelehnt.
+        fr = 403 - Autorisation refusée. La requête est comprise, mais a été refusée
+        es = 403 - Permiso denegado. Se ha entendido la solicitud, pero se ha rechazado.
+        it = 403 - Permesso negato. La richiesta è stata compresa, ma è stata rifiutata
+        pt = 403 - Permissão Negada. A solicitação foi compreendida, mas foi recusada
+        ja = 403 - アクセスは拒否されました。リクエストは認識されましたが、拒否されました
+        zh = 403 - 权限被拒绝。请求已理解，但被拒绝
+        tags = ios
+    [error_http_404]
+        en = 404 - Not Found. The URI requested is invalid or the resource requested does not exists
+        de = 404 - Nicht gefunden. Der angeforderte URI ist ungültig, oder die angeforderte Ressource ist nicht vorhanden.
+        fr = 404 - Introuvable. L’URI demandée n’est pas valide ou la ressource demandée n’existe pas
+        es = 404 - No encontrado. El URI solicitado no es válido o el recurso solicitado no existe.
+        it = 404 - Non trovato. L'URI richiesto non è valido o la risorsa richiesta non esiste
+        pt = 404 - Não Encontrado. A URI solicitada é inválida ou o recurso solicitado não existe
+        ja = 404 - 見つかりませんでした。要求された URI が無効か、要求されたリソースが存在しません
+        zh = 404 - 找不到。请求的 URI 无效或请求的资源不存在
+        tags = ios
+    [error_http_500]
+        en = 500 - Internal Server Error
+        de = 500 - Interner Serverfehler
+        fr = 500 - Erreur serveur interne
+        es = 500 - Error interno del servidor
+        it = 500 - Errore interno del server
+        pt = 500 - Erro Interno do servidor
+        ja = 500 - サーバーの内部エラー
+        zh = 500 - 内部服务器错误
+        tags = ios
+    [error_http_502]
+        en = 502 - Bad Gateway
+        de = 502 - Ungültiges Gateway
+        fr = 502 - Passerelle incorrecte
+        es = 502 - Puerta de enlace incorrecta
+        it = 502 - Gateway non valido
+        pt = 502 - Gateway Incorreto
+        ja = 502 - 不正なゲートウェイ
+        zh = 502 - 错误的网关
+        tags = ios
+    [error_http_503]
+        en = 503 - Service Unavailable
+        de = 503 - Service nicht verfügbar
+        fr = 503 - Service non disponible
+        es = 503 - Servicio no disponible
+        it = 503 - Servizio non disponibile
+        pt = 503 - Serviço Indisponível
+        ja = 503 - サービスを利用できません
+        zh = 503 - 服务不可用
+        tags = ios
+    [error_http_504]
+        en = 504 - Gateway Timeout
+        de = 504 - Gateway-Timeout
+        fr = 504 - Délai d’attente de la passerelle
+        es = 504 - Se ha agotado el tiempo de espera de la puerta de enlace.
+        it = 504 - Timeout del gateway
+        pt = 504 - Tempo Limite do Gateway
+        ja = 504 - ゲートウェイのタイムアウト
+        zh = 504 - 网关超时
+        tags = ios
+
+[[Common error]]
+    [error_unknown_host]
+        en = The specified hostname could not be found.
+        de = Der angegebene Hostname konnte nicht gefunden werden.
+        fr = Le nom d’hôte spécifié est introuvable.
+        es = No se pudo encontrar el nombre de host especificado.
+        it = Impossibile trovare il nome host specificato.
+        pt = Não foi possível encontrar o nome de host especificado.
+        ja = 指定されたホスト名を見つけることができませんでした。
+        zh = 找不到指定主机名。
+        tags = ios
+    [error_server_version_not_supported]
+        en = The server version is not supported, or the URL is incorrect.
+        de = Die Serverversion ist älter als %_1f (nicht unterstützt), oder die URL ist falsch.
+        fr = La version du serveur est antérieure à %_1f (non prise en charge), ou l’URL est incorrecte.
+        es = La versión del servidor es anterior a la versión %_1f (no admitida) o la URL es incorrecta.
+        it = La versione del server è precedente alla %_1f (non supportata), oppure l'URL non è corretto.
+        pt = A versão do servidor é mais antiga que %_1f (não suportado), ou a URL está incorreta.
+        ja = サーバー バージョンが %_1f より古い (サポートされていない) か、URL が正しくありません。
+        zh = 服务器版本比 %_1f (不支持)更旧，或 URL 不正确。
+        tags = ios
+    [error_reading_response_msg]
+        en = Failed to load data!
+        de = Die Daten konnten nicht geladen werden.
+        fr = Echec du chargement des données !
+        es = Error al cargar los datos.
+        it = Impossibile caricare i dati.
+        pt = Falha ao carregar dados!
+        ja = データの読み込みが失敗しました。
+        zh = 加载数据失败！
+        tags = ios
+    [error_accept_type_not_supported]
+        en = Accept type isn't supported.
+        tags = ios,new
+    [error_data_mapping_msg]
+        en = Sorry, but response doesn't ready or invalid.
+        tags = ios,new
+    [error_file_saving_msg]
+        en = Sorry, failure to save file.
+        tags = ios,new
+    [error_other_msg]
+        en = Sorry, but something went wrong.
+        tags = ios,new

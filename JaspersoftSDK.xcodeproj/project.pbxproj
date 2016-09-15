@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		08008D7D1D2D690A00B8C227 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 08008D6F1D2D677200B8C227 /* Localizable.strings */; };
 		08061B6C1C919187004F5E49 /* JSParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = 08061B6A1C919187004F5E49 /* JSParameter.h */; };
 		08061B6D1C919187004F5E49 /* JSParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = 08061B6B1C919187004F5E49 /* JSParameter.m */; };
 		0817738C1CD376D600899B3A /* JSEncryptionDataTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0817738B1CD376D600899B3A /* JSEncryptionDataTest.m */; };
@@ -62,7 +63,6 @@
 		08414F5D1CDCD1F100140A83 /* ReportExecutionResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414F5C1CDCD1F100140A83 /* ReportExecutionResponse.json */; };
 		08414F5F1CDCD6DD00140A83 /* JSReportOptionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 08414F5E1CDCD6DD00140A83 /* JSReportOptionTest.m */; };
 		08414F611CDCD9D600140A83 /* ReportOption.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414F601CDCD9D600140A83 /* ReportOption.json */; };
-		08414F621CDCE04800140A83 /* JaspersoftSDK.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0811BCA31C08903D006D0ABF /* JaspersoftSDK.strings */; };
 		08414F641CE2160E00140A83 /* JSReportParameterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 08414F631CE2160E00140A83 /* JSReportParameterTest.m */; };
 		08414F661CE216D300140A83 /* ReportParameter.json in Resources */ = {isa = PBXBuildFile; fileRef = 08414F651CE216D300140A83 /* ReportParameter.json */; };
 		08414F681CE2178500140A83 /* JSReportOutputResourceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 08414F671CE2178500140A83 /* JSReportOutputResourceTest.m */; };
@@ -188,7 +188,6 @@
 		0899C44A1C3170AC00CFBD91 /* JSContentResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0899C4481C3170AC00CFBD91 /* JSContentResource.m */; };
 		0899C44D1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0899C44B1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.h */; };
 		0899C44E1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0899C44C1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.m */; };
-		722EF964428E5B92861DCAC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE65D84777378DA82ED7BA4 /* libPods.a */; };
 		A147800DD37B9AF78B86CEF8 /* JSRESTBase+JSRESTDashboard.h in Headers */ = {isa = PBXBuildFile; fileRef = A1478F16274972BB223D56F6 /* JSRESTBase+JSRESTDashboard.h */; };
 		A147807F7FC01CA5D92C4C37 /* JSDashboardComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = A147828C4698D5A889D3163B /* JSDashboardComponent.m */; };
 		A14783AEA5266354993F7F4C /* JSReportPart.h in Headers */ = {isa = PBXBuildFile; fileRef = A1478BAC3C92E5793C65F8E9 /* JSReportPart.h */; };
@@ -213,11 +212,13 @@
 		A1478EF134484CF355BA4DF5 /* JSScheduleLookup.h in Headers */ = {isa = PBXBuildFile; fileRef = A147879F9C5F9AE58DE2208B /* JSScheduleLookup.h */; };
 		A1478FC814F76B3AD331F43B /* JSRESTBase+JSSchedule.m in Sources */ = {isa = PBXBuildFile; fileRef = A147815111A4ADFCC724870F /* JSRESTBase+JSSchedule.m */; };
 		A1478FE74D5DDD802462C488 /* JSScheduleJobState.h in Headers */ = {isa = PBXBuildFile; fileRef = A147876D0CBB5A203071885F /* JSScheduleJobState.h */; };
+		AD67B1B75A10BF34E1FEF783 /* libPods-JaspersoftSDKPods-JaspersoftSDKTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF0E12B334C58831FF5D167 /* libPods-JaspersoftSDKPods-JaspersoftSDKTests.a */; };
 		BD0A8F061C7F646A00C63F44 /* JSMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = BD0A8F041C7F646A00C63F44 /* JSMapping.h */; };
 		BD0A8F071C7F646A00C63F44 /* JSMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = BD0A8F051C7F646A00C63F44 /* JSMapping.m */; };
 		BD194F891C75D50100C99DA9 /* JSObjectMappingsProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = BD194F881C75D50100C99DA9 /* JSObjectMappingsProtocol.h */; };
 		BD991C5A1CF76B5B00859145 /* NSString+JSURLEncodings.h in Headers */ = {isa = PBXBuildFile; fileRef = BD991C581CF76B5B00859145 /* NSString+JSURLEncodings.h */; };
 		BD991C5B1CF76B5B00859145 /* NSString+JSURLEncodings.m in Sources */ = {isa = PBXBuildFile; fileRef = BD991C591CF76B5B00859145 /* NSString+JSURLEncodings.m */; };
+		C814D774F7497ACD5892ACD9 /* libPods-JaspersoftSDKPods-JaspersoftSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB081ABD897C7358C69EB1F9 /* libPods-JaspersoftSDKPods-JaspersoftSDK.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -231,16 +232,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		08008D6C1D2D677200B8C227 /* Errors.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Errors.txt; sourceTree = "<group>"; };
+		08008D6D1D2D677200B8C227 /* Other.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Other.txt; sourceTree = "<group>"; };
+		08008D701D2D677200B8C227 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		08008D711D2D677200B8C227 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		08008D721D2D677200B8C227 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		08008D731D2D677200B8C227 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		08008D741D2D677200B8C227 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		08008D751D2D677200B8C227 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		08008D761D2D677200B8C227 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
+		08008D771D2D677200B8C227 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/Localizable.strings; sourceTree = "<group>"; };
+		08008D7A1D2D677200B8C227 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		08008D7B1D2D677200B8C227 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		08061B6A1C919187004F5E49 /* JSParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSParameter.h; sourceTree = "<group>"; };
 		08061B6B1C919187004F5E49 /* JSParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSParameter.m; sourceTree = "<group>"; };
-		0811BCA41C08903D006D0ABF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
-		0811BCA51C08903D006D0ABF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
-		0811BCA61C08903E006D0ABF /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
-		0811BCA71C08903E006D0ABF /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
-		0811BCA81C08903E006D0ABF /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
-		0811BCA91C08903E006D0ABF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
-		0811BCAA1C08903E006D0ABF /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
-		0811BCAB1C08903E006D0ABF /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/JaspersoftSDK.strings; sourceTree = "<group>"; };
 		0817738B1CD376D600899B3A /* JSEncryptionDataTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSEncryptionDataTest.m; sourceTree = "<group>"; };
 		0817738D1CD3774400899B3A /* JaspersoftSDKTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JaspersoftSDKTests-Prefix.pch"; sourceTree = "<group>"; };
 		0817738E1CD37C2200899B3A /* EncryptionData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EncryptionData.json; sourceTree = "<group>"; };
@@ -410,8 +415,10 @@
 		0899C4481C3170AC00CFBD91 /* JSContentResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSContentResource.m; sourceTree = "<group>"; };
 		0899C44B1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSRESTBase+JSRESTContentResource.h"; sourceTree = "<group>"; };
 		0899C44C1C3170C300CFBD91 /* JSRESTBase+JSRESTContentResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSRESTContentResource.m"; sourceTree = "<group>"; };
-		1AE65D84777378DA82ED7BA4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9B199A7873E268BCFDF3074C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		08DEB6E31D894DB200759EA8 /* libPods-JaspersoftSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-JaspersoftSDK.a"; path = "../../../Library/Developer/Xcode/DerivedData/JaspersoftSDK-hhkbabsitjqcnrchgeoccelllnfw/Build/Products/Debug-iphonesimulator/libPods-JaspersoftSDK.a"; sourceTree = "<group>"; };
+		2A74794DAC6F2BEFA34061F3 /* Pods-JaspersoftSDKPods-JaspersoftSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JaspersoftSDKPods-JaspersoftSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JaspersoftSDKPods-JaspersoftSDK/Pods-JaspersoftSDKPods-JaspersoftSDK.debug.xcconfig"; sourceTree = "<group>"; };
+		5DF0E12B334C58831FF5D167 /* libPods-JaspersoftSDKPods-JaspersoftSDKTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JaspersoftSDKPods-JaspersoftSDKTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F007E29B7D168D76B829C98 /* Pods-JaspersoftSDKPods-JaspersoftSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JaspersoftSDKPods-JaspersoftSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-JaspersoftSDKPods-JaspersoftSDK/Pods-JaspersoftSDKPods-JaspersoftSDK.release.xcconfig"; sourceTree = "<group>"; };
 		A1478014B4C3C942E0467991 /* JSReportDestination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportDestination.h; sourceTree = "<group>"; };
 		A14780CE0E752AD263D1C79E /* JSDashboardComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDashboardComponent.h; sourceTree = "<group>"; };
 		A147811960554DE953BB6FC7 /* JSScheduleTrigger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSScheduleTrigger.m; sourceTree = "<group>"; };
@@ -436,11 +443,15 @@
 		A1478F2F9E43E7F32310F7FB /* JSDateFormatterFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDateFormatterFactory.m; sourceTree = "<group>"; };
 		A1478FC0657A2C5AE60CA688 /* JSScheduleMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSScheduleMetadata.m; sourceTree = "<group>"; };
 		A1478FDBCBE0FE99F2512696 /* JSRESTBase+JSRESTDashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSRESTBase+JSRESTDashboard.m"; sourceTree = "<group>"; };
+		A39D77DB2619C1D030956A28 /* libPods-JaspersoftSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JaspersoftSDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5336163982AD3A7B66CC1F7 /* Pods-JaspersoftSDKPods-JaspersoftSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JaspersoftSDKPods-JaspersoftSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-JaspersoftSDKPods-JaspersoftSDKTests/Pods-JaspersoftSDKPods-JaspersoftSDKTests.release.xcconfig"; sourceTree = "<group>"; };
 		BD0A8F041C7F646A00C63F44 /* JSMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMapping.h; sourceTree = "<group>"; };
 		BD0A8F051C7F646A00C63F44 /* JSMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMapping.m; sourceTree = "<group>"; };
 		BD194F881C75D50100C99DA9 /* JSObjectMappingsProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSObjectMappingsProtocol.h; sourceTree = "<group>"; };
 		BD991C581CF76B5B00859145 /* NSString+JSURLEncodings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JSURLEncodings.h"; sourceTree = "<group>"; };
 		BD991C591CF76B5B00859145 /* NSString+JSURLEncodings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JSURLEncodings.m"; sourceTree = "<group>"; };
+		D9E789220066AAF2BF97E7C1 /* Pods-JaspersoftSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JaspersoftSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-JaspersoftSDK/Pods-JaspersoftSDK.release.xcconfig"; sourceTree = "<group>"; };
+		DFE4E93C5CFA79F81EAEDF44 /* Pods-JaspersoftSDKPods-JaspersoftSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JaspersoftSDKPods-JaspersoftSDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JaspersoftSDKPods-JaspersoftSDKTests/Pods-JaspersoftSDKPods-JaspersoftSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F5758F3D174E301800C355C1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		F5758F40174E302800C355C1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		F5758F42174E302E00C355C1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -453,7 +464,8 @@
 		F5F68E0D15E55EC000270103 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		F5F68E0E15E55EC000270103 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		F5F68E0F15E55EC000270103 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		FCA57FC99201E2C748050837 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		FB081ABD897C7358C69EB1F9 /* libPods-JaspersoftSDKPods-JaspersoftSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JaspersoftSDKPods-JaspersoftSDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB146130DF14F4A2AB04A62F /* Pods-JaspersoftSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JaspersoftSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JaspersoftSDK/Pods-JaspersoftSDK.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -462,6 +474,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				088BE3841CCF73FA004FEAA9 /* libJaspersoftSDK.a in Frameworks */,
+				AD67B1B75A10BF34E1FEF783 /* libPods-JaspersoftSDKPods-JaspersoftSDKTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,13 +482,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				722EF964428E5B92861DCAC8 /* libPods.a in Frameworks */,
+				C814D774F7497ACD5892ACD9 /* libPods-JaspersoftSDKPods-JaspersoftSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		08008D6B1D2D677200B8C227 /* all_values */ = {
+			isa = PBXGroup;
+			children = (
+				08008D6C1D2D677200B8C227 /* Errors.txt */,
+				08008D6D1D2D677200B8C227 /* Other.txt */,
+			);
+			path = all_values;
+			sourceTree = "<group>";
+		};
+		08008D6E1D2D677200B8C227 /* JaspersoftSDK.strings */ = {
+			isa = PBXGroup;
+			children = (
+				08008D6F1D2D677200B8C227 /* Localizable.strings */,
+			);
+			path = JaspersoftSDK.strings;
+			sourceTree = "<group>";
+		};
+		08008D781D2D677200B8C227 /* New_Strings */ = {
+			isa = PBXGroup;
+			children = (
+				08008D791D2D677200B8C227 /* Localizable.strings */,
+			);
+			path = New_Strings;
+			sourceTree = "<group>";
+		};
 		0811BC8D1C0889B7006D0ABF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -488,7 +526,10 @@
 		0811BCA21C08903D006D0ABF /* Localizable */ = {
 			isa = PBXGroup;
 			children = (
-				0811BCA31C08903D006D0ABF /* JaspersoftSDK.strings */,
+				08008D6B1D2D677200B8C227 /* all_values */,
+				08008D6E1D2D677200B8C227 /* JaspersoftSDK.strings */,
+				08008D781D2D677200B8C227 /* New_Strings */,
+				08008D7B1D2D677200B8C227 /* README.md */,
 			);
 			path = Localizable;
 			sourceTree = "<group>";
@@ -820,8 +861,12 @@
 		D919A263B01FF70A80C7A549 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				FCA57FC99201E2C748050837 /* Pods.debug.xcconfig */,
-				9B199A7873E268BCFDF3074C /* Pods.release.xcconfig */,
+				FB146130DF14F4A2AB04A62F /* Pods-JaspersoftSDK.debug.xcconfig */,
+				D9E789220066AAF2BF97E7C1 /* Pods-JaspersoftSDK.release.xcconfig */,
+				2A74794DAC6F2BEFA34061F3 /* Pods-JaspersoftSDKPods-JaspersoftSDK.debug.xcconfig */,
+				6F007E29B7D168D76B829C98 /* Pods-JaspersoftSDKPods-JaspersoftSDK.release.xcconfig */,
+				DFE4E93C5CFA79F81EAEDF44 /* Pods-JaspersoftSDKPods-JaspersoftSDKTests.debug.xcconfig */,
+				B5336163982AD3A7B66CC1F7 /* Pods-JaspersoftSDKPods-JaspersoftSDKTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -851,6 +896,7 @@
 		F59768BF15E3C75F004165A7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				08DEB6E31D894DB200759EA8 /* libPods-JaspersoftSDK.a */,
 				F5758F48174E303E00C355C1 /* QuartzCore.framework */,
 				F5758F46174E303900C355C1 /* libxml2.dylib */,
 				F5758F44174E303300C355C1 /* SystemConfiguration.framework */,
@@ -859,7 +905,9 @@
 				F5758F3D174E301800C355C1 /* CFNetwork.framework */,
 				F59768C015E3C75F004165A7 /* Foundation.framework */,
 				F5F68E0C15E55EC000270103 /* Other Frameworks */,
-				1AE65D84777378DA82ED7BA4 /* libPods.a */,
+				A39D77DB2619C1D030956A28 /* libPods-JaspersoftSDK.a */,
+				FB081ABD897C7358C69EB1F9 /* libPods-JaspersoftSDKPods-JaspersoftSDK.a */,
+				5DF0E12B334C58831FF5D167 /* libPods-JaspersoftSDKPods-JaspersoftSDKTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -963,9 +1011,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 088BE3891CCF73FA004FEAA9 /* Build configuration list for PBXNativeTarget "JaspersoftSDKTests" */;
 			buildPhases = (
+				1D272F0713417435EF20A06A /* [CP] Check Pods Manifest.lock */,
 				088BE37B1CCF73F9004FEAA9 /* Sources */,
 				088BE37C1CCF73F9004FEAA9 /* Frameworks */,
 				088BE37D1CCF73F9004FEAA9 /* Resources */,
+				6C3B6ABB4D566EA5C6E29DC7 /* [CP] Embed Pods Frameworks */,
+				360B1A0F26267BE9684AA2E2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -981,11 +1032,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F59768CA15E3C75F004165A7 /* Build configuration list for PBXNativeTarget "JaspersoftSDK" */;
 			buildPhases = (
-				5062EA71E05BB4AA8A505805 /* Check Pods Manifest.lock */,
+				5062EA71E05BB4AA8A505805 /* [CP] Check Pods Manifest.lock */,
+				08008D6A1D2D670E00B8C227 /* ShellScript */,
 				F59768B915E3C75F004165A7 /* Sources */,
 				F59768BA15E3C75F004165A7 /* Frameworks */,
 				F59768BB15E3C75F004165A7 /* Headers */,
-				936962AFE0075F3901B56B92 /* Copy Pods Resources */,
+				936962AFE0075F3901B56B92 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1003,7 +1055,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = JS;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "TIBCO JasperMobile";
 				TargetAttributes = {
 					088BE37E1CCF73F9004FEAA9 = {
@@ -1045,7 +1097,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				08414F621CDCE04800140A83 /* JaspersoftSDK.strings in Resources */,
+				08008D7D1D2D690A00B8C227 /* Localizable.strings in Resources */,
 				08414F3A1CDB955400140A83 /* ExportExecutionRequest.json in Resources */,
 				08414F6A1CE217F200140A83 /* ReportOutputResource.json in Resources */,
 				08414F941CE6049E00140A83 /* ScheduleLookup.json in Resources */,
@@ -1091,19 +1143,77 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5062EA71E05BB4AA8A505805 /* Check Pods Manifest.lock */ = {
+		08008D6A1D2D670E00B8C227 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "echo \"Start compiling localizations\"\nlocalizationFolderPath=${SRCROOT}/Resources/Localizable\nallLocalizationsFolderPath=$localizationFolderPath/all_values\nallLocalizationsFileName=locales.txt\noutputPathNewStrings=$localizationFolderPath/New_Strings\noutputPath=$localizationFolderPath/JaspersoftSDK.strings\ncat \"$allLocalizationsFolderPath/\"*.txt > $localizationFolderPath/$allLocalizationsFileName\n\nif [ -d \"$outputPath\" ]; then\necho \"$outputPath exist\"\nrm -r \"$outputPath\"\nrm -r \"$outputPathNewStrings\"\nfi\n\necho \"$outputPath doesn't exist\"\n#localizable strings\nmkdir \"$outputPath\"\nmkdir \"$outputPath/de.lproj\"\nmkdir \"$outputPath/en.lproj\"\nmkdir \"$outputPath/es.lproj\"\nmkdir \"$outputPath/fr.lproj\"\nmkdir \"$outputPath/it.lproj\"\nmkdir \"$outputPath/ja.lproj\"\nmkdir \"$outputPath/pt.lproj\"\nmkdir \"$outputPath/zh.lproj\"\n#new strings\nmkdir \"$outputPathNewStrings\"\nmkdir \"$outputPathNewStrings/en.lproj\"\n#create new localizables\n/usr/local/bin/twine generate-all-string-files \"$localizationFolderPath/$allLocalizationsFileName\" \"$outputPathNewStrings/\" --tags new\n/usr/local/bin/twine generate-all-string-files \"$localizationFolderPath/$allLocalizationsFileName\" \"$outputPath/\"\n\nrm \"$localizationFolderPath/$allLocalizationsFileName\"\necho \"Finish compiling localizations\"";
+		};
+		1D272F0713417435EF20A06A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		360B1A0F26267BE9684AA2E2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JaspersoftSDKPods-JaspersoftSDKTests/Pods-JaspersoftSDKPods-JaspersoftSDKTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5062EA71E05BB4AA8A505805 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6C3B6ABB4D566EA5C6E29DC7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JaspersoftSDKPods-JaspersoftSDKTests/Pods-JaspersoftSDKPods-JaspersoftSDKTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9363A1071B70E29A0068FC54 /* ShellScript */ = {
@@ -1119,19 +1229,19 @@
 			shellPath = /bin/sh;
 			shellScript = "buildNumber=\"2.5\"\n#appledoc Xcode script\n# Start constants\ncompany=\"TIBCO Jaspersoft\";\ncompanyID=\"com.Jaspersoft.TIBCO\";\ncompanyURL=\"http://TIBCO.com\";\ntarget=\"iphoneos\";\noutputPath=\"~/Developer/help/js-ios-sdk/$buildNumber\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--output \"${outputPath}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
 		};
-		936962AFE0075F3901B56B92 /* Copy Pods Resources */ = {
+		936962AFE0075F3901B56B92 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JaspersoftSDKPods-JaspersoftSDK/Pods-JaspersoftSDKPods-JaspersoftSDK-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1253,19 +1363,27 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		0811BCA31C08903D006D0ABF /* JaspersoftSDK.strings */ = {
+		08008D6F1D2D677200B8C227 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				0811BCA41C08903D006D0ABF /* de */,
-				0811BCA51C08903D006D0ABF /* en */,
-				0811BCA61C08903E006D0ABF /* es */,
-				0811BCA71C08903E006D0ABF /* fr */,
-				0811BCA81C08903E006D0ABF /* it */,
-				0811BCA91C08903E006D0ABF /* ja */,
-				0811BCAA1C08903E006D0ABF /* pt */,
-				0811BCAB1C08903E006D0ABF /* zh */,
+				08008D701D2D677200B8C227 /* de */,
+				08008D711D2D677200B8C227 /* en */,
+				08008D721D2D677200B8C227 /* es */,
+				08008D731D2D677200B8C227 /* fr */,
+				08008D741D2D677200B8C227 /* it */,
+				08008D751D2D677200B8C227 /* ja */,
+				08008D761D2D677200B8C227 /* pt */,
+				08008D771D2D677200B8C227 /* zh */,
 			);
-			name = JaspersoftSDK.strings;
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		08008D791D2D677200B8C227 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				08008D7A1D2D677200B8C227 /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1273,7 +1391,7 @@
 /* Begin XCBuildConfiguration section */
 		088BE3871CCF73FA004FEAA9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FCA57FC99201E2C748050837 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = DFE4E93C5CFA79F81EAEDF44 /* Pods-JaspersoftSDKPods-JaspersoftSDKTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1284,7 +1402,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = "JaspersoftSDKTests/Support Files/JaspersoftSDKTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1307,7 +1425,7 @@
 		};
 		088BE3881CCF73FA004FEAA9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9B199A7873E268BCFDF3074C /* Pods.release.xcconfig */;
+			baseConfigurationReference = B5336163982AD3A7B66CC1F7 /* Pods-JaspersoftSDKPods-JaspersoftSDKTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1320,7 +1438,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = "JaspersoftSDKTests/Support Files/JaspersoftSDKTests-Prefix.pch";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -1355,17 +1473,24 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1384,7 +1509,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"/**";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1400,16 +1525,23 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = __RELEASE__;
@@ -1422,7 +1554,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"/**";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -1436,9 +1568,10 @@
 		};
 		F59768CB15E3C75F004165A7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FCA57FC99201E2C748050837 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 2A74794DAC6F2BEFA34061F3 /* Pods-JaspersoftSDKPods-JaspersoftSDK.debug.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/jaspersoft_sdk.dst;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Support/JaspersoftSDK-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -1457,9 +1590,10 @@
 		};
 		F59768CC15E3C75F004165A7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9B199A7873E268BCFDF3074C /* Pods.release.xcconfig */;
+			baseConfigurationReference = 6F007E29B7D168D76B829C98 /* Pods-JaspersoftSDKPods-JaspersoftSDK.release.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/jaspersoft_sdk.dst;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Support/JaspersoftSDK-Prefix.pch";
 				HEADER_SEARCH_PATHS = (

@@ -455,7 +455,7 @@ initialParameters:(nullable NSArray <JSReportParameter *> *)initialParameters
 
 #pragma mark - Handlers
 - (void)handleEmptyReport {
-    NSDictionary *userInfo = @{NSLocalizedDescriptionKey : JSCustomLocalizedString(@"report.viewer.emptyreport.title", nil)};
+    NSDictionary *userInfo = @{NSLocalizedDescriptionKey : JSCustomLocalizedString(@"report_viewer_emptyreport_title", nil)};
     NSError *error = [NSError errorWithDomain:JSErrorDomain
                                          code:JSReportLoaderErrorTypeEmtpyReport
                                      userInfo:userInfo];
