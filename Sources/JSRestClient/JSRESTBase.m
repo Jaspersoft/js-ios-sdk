@@ -112,6 +112,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         self.responseSerializer.acceptableContentTypes = nil;
 
         [self configureRequestRedirectionHandling];
+        [self configureHTTPSAuthenticationChallengeHandling];
     }
     return self;
 }
@@ -136,6 +137,25 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         } else {
             return request;
         }
+    }];
+}
+
+- (void) configureHTTPSAuthenticationChallengeHandling
+{
+    __weak typeof(self) weakSelf = self;
+    [self setSessionDidReceiveAuthenticationChallengeBlock:^NSURLSessionAuthChallengeDisposition(NSURLSession * _Nonnull session, NSURLAuthenticationChallenge * _Nonnull challenge, NSURLCredential *__autoreleasing  _Nullable * _Nullable credential) {
+        
+        __strong typeof(self) strongSelf = weakSelf;
+        NSURLSessionAuthChallengeDisposition disposition = NSURLSessionAuthChallengePerformDefaultHandling;
+        if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
+            if ([strongSelf.securityPolicy evaluateServerTrust:challenge.protectionSpace.serverTrust forDomain:challenge.protectionSpace.host]) {
+                NSURLCredential *localCredential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+                if (localCredential) {
+                    disposition = NSURLSessionAuthChallengeUseCredential;
+                }
+            }
+        }
+        return (disposition);
     }];
 }
 
