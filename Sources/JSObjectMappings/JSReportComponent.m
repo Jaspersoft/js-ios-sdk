@@ -98,13 +98,15 @@
                 @"xAxisSettingService"           : @(JSHighchartServiceTypeXAxis),
                 @"yAxisSettingService"           : @(JSHighchartServiceTypeYAxis),
                 @"itemHyperlinkSettingService"   : @(JSHighchartServiceTypeItemHyperlink),
+                @"dualPieSettingService"         : @(JSHighchartServiceTypeDualPie),
+                @"treemapSettingService"         : @(JSHighchartServiceTypeTreeMap),
         };
 
         [mapping mapKeyPath:@"hcinstancedata.services" toProperty:@"services" withValueBlock:^id(NSString *key, NSArray *services) {
             NSMutableArray *serviceNames = [NSMutableArray array];
             for (NSDictionary *service in services) {
                 NSString *serviceName = service[@"service"];
-                if (serviceName) {
+                if (serviceName && serviceTypes[serviceName]) {
                     [serviceNames addObject:serviceTypes[serviceName]];
                 }
             }

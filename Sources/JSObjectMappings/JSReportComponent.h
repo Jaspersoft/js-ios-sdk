@@ -53,6 +53,8 @@ typedef NS_ENUM(NSInteger, JSHighchartServiceType) {
     JSHighchartServiceTypeXAxis,
     JSHighchartServiceTypeYAxis,
     JSHighchartServiceTypeItemHyperlink,
+    JSHighchartServiceTypeDualPie,
+    JSHighchartServiceTypeTreeMap,
 };
 
 @interface JSReportComponent: NSObject <JSObjectMappingsProtocol, NSCopying>

@@ -243,6 +243,8 @@
                                    @"xAxisSettingService"           : @(JSHighchartServiceTypeXAxis),
                                    @"yAxisSettingService"           : @(JSHighchartServiceTypeYAxis),
                                    @"itemHyperlinkSettingService"   : @(JSHighchartServiceTypeItemHyperlink),
+                                   @"dualPieSettingService"         : @(JSHighchartServiceTypeDualPie),
+                                   @"treemapSettingService"         : @(JSHighchartServiceTypeTreeMap),
                                    };
     
     NSArray *services = [self.jsonObject valueForKeyPath:@"hcinstancedata.services"];
