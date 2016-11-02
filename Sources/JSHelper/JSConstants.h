@@ -85,6 +85,9 @@ extern float const kJS_SERVER_VERSION_CODE_EMERALD_5_6_0;
 extern float const kJS_SERVER_VERSION_CODE_AMBER_6_0_0;
 extern float const kJS_SERVER_VERSION_CODE_AMBER_6_1_0;
 extern float const kJS_SERVER_VERSION_CODE_JADE_6_2_0;
+extern float const kJS_SERVER_VERSION_CODE_JADE_6_3_0;
+extern float const kJS_SERVER_VERSION_CODE_Moonstone_6_4_0;
+extern float const kJS_SERVER_VERSION_CODE_Moonstone_7_0_0;
 /** @} */
 
 /**
