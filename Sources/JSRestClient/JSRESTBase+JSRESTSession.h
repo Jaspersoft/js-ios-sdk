@@ -42,7 +42,7 @@
 /**
  Checks if session is authorized
  
- @return block The block to inform of the results
+ @param block The block to inform of the results
  
  @since 1.9
  */
@@ -51,7 +51,7 @@
 /**
  Fetch Server Info
  
- @return block The block to inform of the results
+ @param block The block to inform of the results
  
  @since 2.5
  */

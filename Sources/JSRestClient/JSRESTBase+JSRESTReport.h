@@ -74,7 +74,7 @@
 /**
  Gets the report options array for report
  
- @param reportUri repository URI of the report
+ @param reportURI repository URI of the report
  @param block The block to inform of the results
  
  @since 2.2
