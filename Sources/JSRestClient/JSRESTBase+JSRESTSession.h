@@ -46,7 +46,7 @@
  
  @since 1.9
  */
-- (void)verifyIsSessionAuthorizedWithCompletion:(JSRequestCompletionBlock)completion;
+- (void)verifyIsSessionAuthorizedWithCompletion:(JSRequestCompletionBlock)block;
 
 /**
  Fetch Server Info
@@ -55,7 +55,7 @@
  
  @since 2.5
  */
-- (void)fetchServerInfoWithCompletion:(JSRequestCompletionBlock)completion;
+- (void)fetchServerInfoWithCompletion:(JSRequestCompletionBlock)block;
 
 extern NSString * const kJSSessionDidAuthorized;
 

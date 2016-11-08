@@ -93,7 +93,6 @@
  @param statusCode The response HTTP code
  @param allHeaderFields A dictionary of the response's headers
  @param MIMEType The MIME Type of the response body
- @param error The error returned from the request call, if any.
  @return A configured JSOperationResult instance
  */
 - (nonnull instancetype)initWithStatusCode:(NSInteger)statusCode allHeaderFields:(nonnull NSDictionary *)allHeaderFields MIMEType:(nonnull NSString *)MIMEType;

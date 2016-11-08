@@ -85,18 +85,18 @@
  Delete existed report option
  
  @param reportOption the report option for deleting
- @param reportUri repository URI of the report
+ @param reportURI repository URI of the report
  @param block The block to inform of the results
  
  @since 2.2
  */
 
-- (void)deleteReportOption:(nonnull JSReportOption *)reportOption withReportURI:(nonnull NSString *)reportURI completion:(nullable JSRequestCompletionBlock)completion;
+- (void)deleteReportOption:(nonnull JSReportOption *)reportOption withReportURI:(nonnull NSString *)reportURI completion:(nullable JSRequestCompletionBlock)block;
 
 /**
  Create new report option
  
- @param reportUri repository URI of the report
+ @param reportURI repository URI of the report
  @param optionLabel the name for new report option
  @param reportParameters parameters for new report option creating
  @param block The block to inform of the results
@@ -104,7 +104,7 @@
  @since 2.2
  */
 
-- (void)createReportOptionWithReportURI:(nonnull NSString *)reportURI optionLabel:(nonnull NSString *)optionLabel reportParameters:(nonnull NSArray <JSReportParameter *> *)reportParameters completion:(nullable JSRequestCompletionBlock)completion;
+- (void)createReportOptionWithReportURI:(nonnull NSString *)reportURI optionLabel:(nonnull NSString *)optionLabel reportParameters:(nonnull NSArray <JSReportParameter *> *)reportParameters completion:(nullable JSRequestCompletionBlock)block;
 
 @end
 
@@ -264,7 +264,7 @@
  @param requestId A <b>requestId</b> parameter of the report execution response
  @param exportOutput Export parameters as string:
     - for JRS version smaller 5.6.0 it should be in the follow format: {reportFormat};pages={pageOrPagesRange};attachmentsPrefix={attachmentsPrefixUrlEncodedValue};
-    - for JRS version 5.6.0 and greater it should be GUID string; @param loadForSaving If TRUE, report output will be saved by path
+    - for JRS version 5.6.0 and greater it should be GUID string;
  @param loadForSaving If TRUE, report output will be saved by path
  @param path The path where the report output will be saved. Ignored, if loadForSaving is FALSE.
  @param block The block to inform of the results
