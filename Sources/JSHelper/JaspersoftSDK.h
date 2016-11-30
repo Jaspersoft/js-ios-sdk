@@ -38,6 +38,10 @@
 #import "JSReportExtention.h"
 #endif
 
+#if __has_include("JSDashboardExtention.h")
+#import "JSDashboardExtention.h"
+#endif
+
 #if __has_include("JSSecurity.h")
 #import "JSSecurity.h"
 #endif
