@@ -28,7 +28,7 @@ NSString *const kJSParameterTestValue = @"kJSParameterTestValue";
 
 - (void)testObjectMapping {
     JSParameter *expectedObject = [JSParameter new];
-    expectedObject.name = [self.jsonObject valueForKey:@"field"];
+    expectedObject.name = [self.jsonObject valueForKey:@"name"];
     expectedObject.value = [self.jsonObject valueForKey:@"value"];
     
     [self testObjectFromExternalRepresentation:self.jsonObject withMapping:self.mapping expectedObject:expectedObject];
@@ -36,7 +36,7 @@ NSString *const kJSParameterTestValue = @"kJSParameterTestValue";
 
 - (void)testObjectSerialization {
     JSParameter *expectedObject = [JSParameter new];
-    expectedObject.name = [self.jsonObject valueForKey:@"field"];
+    expectedObject.name = [self.jsonObject valueForKey:@"name"];
     expectedObject.value = [self.jsonObject valueForKey:@"value"];
     
     [self testSerializeObject:expectedObject withMapping:self.mapping expectedRepresentation:self.jsonObject];
