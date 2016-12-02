@@ -178,7 +178,9 @@
 		0849FCEC1C2C1D7D008F1064 /* JSHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 0849FCE61C2C1D7D008F1064 /* JSHelper.h */; };
 		0849FCED1C2C1D7D008F1064 /* JSUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 0849FCE71C2C1D7D008F1064 /* JSUtils.h */; };
 		0849FCEE1C2C1D7D008F1064 /* JSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849FCE81C2C1D7D008F1064 /* JSUtils.m */; };
-		088BE3841CCF73FA004FEAA9 /* libJaspersoftSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F59768BD15E3C75F004165A7 /* libJaspersoftSDK.a */; };
+		088663511DF1A76300B8009B /* libJaspersoftSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F59768BD15E3C75F004165A7 /* libJaspersoftSDK.a */; };
+		088663531DF1A76B00B8009B /* libAFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 088663521DF1A76B00B8009B /* libAFNetworking.a */; };
+		088663551DF1A77000B8009B /* libEasyMapping.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 088663541DF1A77000B8009B /* libEasyMapping.a */; };
 		088BE38F1CCF761E004FEAA9 /* JaspersoftSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 088BE38C1CCF761E004FEAA9 /* JaspersoftSDKTests.m */; };
 		088BE39E1CD0E93B004FEAA9 /* JSServerInfoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 088BE39D1CD0E93B004FEAA9 /* JSServerInfoTest.m */; };
 		088BE3A61CD10BB7004FEAA9 /* ServerInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = 088BE3A51CD10BB7004FEAA9 /* ServerInfo.json */; };
@@ -403,6 +405,9 @@
 		0849FCE61C2C1D7D008F1064 /* JSHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSHelper.h; sourceTree = "<group>"; };
 		0849FCE71C2C1D7D008F1064 /* JSUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSUtils.h; sourceTree = "<group>"; };
 		0849FCE81C2C1D7D008F1064 /* JSUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSUtils.m; sourceTree = "<group>"; };
+		0886634F1DF1A75200B8009B /* libPods-JaspersoftSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-JaspersoftSDK.a"; path = "../../../Library/Developer/Xcode/DerivedData/JaspersoftSDK-hhkbabsitjqcnrchgeoccelllnfw/Build/Products/Debug-iphonesimulator/libPods-JaspersoftSDK.a"; sourceTree = "<group>"; };
+		088663521DF1A76B00B8009B /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAFNetworking.a; path = "../../../Library/Developer/Xcode/DerivedData/JaspersoftSDK-hhkbabsitjqcnrchgeoccelllnfw/Build/Products/Debug-iphonesimulator/AFNetworking/libAFNetworking.a"; sourceTree = "<group>"; };
+		088663541DF1A77000B8009B /* libEasyMapping.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libEasyMapping.a; path = "../../../Library/Developer/Xcode/DerivedData/JaspersoftSDK-hhkbabsitjqcnrchgeoccelllnfw/Build/Products/Debug-iphonesimulator/EasyMapping/libEasyMapping.a"; sourceTree = "<group>"; };
 		088BE37F1CCF73F9004FEAA9 /* JaspersoftSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JaspersoftSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		088BE38C1CCF761E004FEAA9 /* JaspersoftSDKTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JaspersoftSDKTests.m; sourceTree = "<group>"; };
 		088BE38E1CCF761E004FEAA9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -468,7 +473,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				088BE3841CCF73FA004FEAA9 /* libJaspersoftSDK.a in Frameworks */,
+				088663551DF1A77000B8009B /* libEasyMapping.a in Frameworks */,
+				088663531DF1A76B00B8009B /* libAFNetworking.a in Frameworks */,
+				088663511DF1A76300B8009B /* libJaspersoftSDK.a in Frameworks */,
+				B24C4AC173770F1F0579BF93 /* libPods-JaspersoftSDKTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -888,6 +896,9 @@
 		F59768BF15E3C75F004165A7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				088663541DF1A77000B8009B /* libEasyMapping.a */,
+				088663521DF1A76B00B8009B /* libAFNetworking.a */,
+				0886634F1DF1A75200B8009B /* libPods-JaspersoftSDK.a */,
 				F5758F48174E303E00C355C1 /* QuartzCore.framework */,
 				F5758F46174E303900C355C1 /* libxml2.dylib */,
 				F5758F44174E303300C355C1 /* SystemConfiguration.framework */,
