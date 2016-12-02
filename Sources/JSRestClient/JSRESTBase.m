@@ -323,6 +323,11 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     newRestClient.keepSession = self.keepSession;
     newRestClient.serverProfile = [self.serverProfile copyWithZone:zone];
     [newRestClient configureRequestRedirectionHandling];
+    
+    // FIX: AFHTTPResponseSerializer implements NSCopying protocol incorrerrectly
+    newRestClient.responseSerializer.acceptableStatusCodes = self.responseSerializer.acceptableStatusCodes;
+    newRestClient.responseSerializer.acceptableContentTypes = self.responseSerializer.acceptableContentTypes;
+
     return newRestClient;
 }
 
