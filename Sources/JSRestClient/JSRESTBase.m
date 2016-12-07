@@ -108,8 +108,8 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         self.requestSerializer = [AFJSONRequestSerializer serializer];
         [self.requestSerializer setValue:[JSUtils usedMimeType] forHTTPHeaderField:kJSRequestResponceType];
 
+        self.responseSerializer = [AFHTTPResponseSerializer serializer];
         self.responseSerializer.acceptableStatusCodes = nil;
-        self.responseSerializer.acceptableContentTypes = nil;
 
         [self configureRequestRedirectionHandling];
         [self configureHTTPSAuthenticationChallengeHandling];
@@ -306,6 +306,13 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     if (serverProfile) {
         self = [super initWithCoder:aDecoder];
         if (self) {
+            // FIX: Now we use AFHTTPResponseSerializer instead AFJSONResponseSerializer
+            if ([self.responseSerializer isKindOfClass:[AFJSONResponseSerializer class]]) {
+                AFHTTPResponseSerializer *responseSerializer = [AFHTTPResponseSerializer serializer];
+                responseSerializer.acceptableStatusCodes = self.responseSerializer.acceptableStatusCodes;
+                self.responseSerializer = responseSerializer;
+            }
+            
             self.serverProfile = serverProfile;
             self.keepSession = [aDecoder decodeBoolForKey:kJSSavedSessionKeepSessionKey];
 
@@ -399,8 +406,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
                         result.error = [JSErrorBuilder errorWithCode:JSHTTPErrorCode message:error.localizedDescription];
                     }
                 }
-            } else if ([error.domain isEqualToString:AFURLResponseSerializationErrorDomain] ||
-                    ([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == 3840) ) {
+            } else if ([error.domain isEqualToString:AFURLResponseSerializationErrorDomain]) {
                 // There are cases when afnetworking doesn't handle wrong json deserializing,
                 // so we have 'NSCocoaErrorDomain' with code 3840
                 result.body = [error.userInfo objectForKey:AFNetworkingOperationFailingURLResponseDataErrorKey];
@@ -434,37 +440,36 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
             if (sourceFilePath && [[NSFileManager defaultManager] fileExistsAtPath:sourceFilePath]) {
                 [[NSFileManager defaultManager] removeItemAtPath:sourceFilePath error:nil];
             }
-        } else if(result.request.responseAsObjects && responseObject) { // Response object maping
-            NSError *convertingError = nil;
-            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:responseObject options:0 error:&convertingError];
-            if (!convertingError) {
-                result.body = jsonData;
-            }
+        } else if(responseObject && ![responseObject isEqualToData:[NSData dataWithBytes:" " length:1]]) { // Response object maping. Workaround for behavior of Rails to return a single space for `head :ok` (a workaround for a bug in Safari), which is not interpreted as valid input by NSJSONSerialization. See https://github.com/rails/rails/issues/1742
+            
+            result.body = responseObject;
 
-            if (![result isSuccessful]) {
-                JSMapping *mapping = [JSMapping mappingWithObjectMapping:[[JSErrorDescriptor class] objectMappingForServerProfile:self.serverProfile] keyPath:nil];
-                result.objects = [self objectFromExternalRepresentation:responseObject
-                                                            withMapping:mapping];
-
-                NSString *message = @"";
-                for (JSErrorDescriptor *errDescriptor in result.objects) {
-                    if ([errDescriptor isKindOfClass:[errDescriptor class]]) {
-                        NSString *formatString = message.length ? @",\n%@" : @"%@";
-                        message = [message stringByAppendingFormat:formatString, errDescriptor.message];
+            NSString *contentTypeRegex = [NSString stringWithFormat:@"application/([a-zA-Z.]+[+])?json(;.+)?"];
+            NSPredicate *jsonContentTypeValidator = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", contentTypeRegex];
+            
+            if (result.request.responseAsObjects && [jsonContentTypeValidator evaluateWithObject:response.MIMEType]) {
+                NSError *serializationError = nil;
+                id responseObjectRepresentation = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&serializationError];
+                
+                if (![result isSuccessful]) {
+                    JSMapping *mapping = [JSMapping mappingWithObjectMapping:[[JSErrorDescriptor class] objectMappingForServerProfile:self.serverProfile] keyPath:nil];
+                    result.objects = [self objectFromExternalRepresentation:responseObjectRepresentation
+                                                                withMapping:mapping];
+                    
+                    NSString *message = @"";
+                    for (JSErrorDescriptor *errDescriptor in result.objects) {
+                        if ([errDescriptor isKindOfClass:[errDescriptor class]]) {
+                            NSString *formatString = message.length ? @",\n%@" : @"%@";
+                            message = [message stringByAppendingFormat:formatString, errDescriptor.message];
+                        }
                     }
+                    if (message.length) {
+                        result.error = [JSErrorBuilder errorWithCode:JSClientErrorCode message:message];
+                    }
+                } else {
+                    result.objects = [self objectFromExternalRepresentation:responseObjectRepresentation
+                                                                withMapping:request.objectMapping];
                 }
-                if (message.length) {
-                    result.error = [JSErrorBuilder errorWithCode:JSClientErrorCode message:message];
-                }
-            } else {
-                result.objects = [self objectFromExternalRepresentation:responseObject
-                                                            withMapping:request.objectMapping];
-            }
-        } else if (!result.request.responseAsObjects && responseObject) { // Return raw data
-            NSError *convertingError = nil;
-            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:responseObject options:0 error:&convertingError];
-            if (!convertingError) {
-                result.body = jsonData;
             }
         }
     }
