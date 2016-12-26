@@ -60,7 +60,7 @@
             [strongSelf exportWithCompletion:^(JSExportExecutionResponse * _Nullable exportResponse, NSError * _Nullable error) {
                 __strong typeof(self)strongSelf = weakSelf;
                 if (error) {
-                    [self sendCallbackWithError:error];
+                    [strongSelf sendCallbackWithError:error];
                 } else {
                     NSString *exportID = exportResponse.uuid;
                     // Fix for JRS version smaller 5.6.0
@@ -73,18 +73,18 @@
                     
                     // save report to disk
                     NSString *tempAppDirectory = NSTemporaryDirectory();
-                    self.tempReportDirectory = [tempAppDirectory stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
-                    NSString *tempReportPath = [[self.tempReportDirectory stringByAppendingPathComponent:name] stringByAppendingPathExtension:format];
+                    strongSelf.tempReportDirectory = [tempAppDirectory stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
+                    NSString *tempReportPath = [[strongSelf.tempReportDirectory stringByAppendingPathComponent:name] stringByAppendingPathExtension:format];
                     __weak typeof(self)weakSelf = strongSelf;
-                    [JSReportSaver downloadResourceWithRestClient:self.restClient fromURLString:outputResourceURLString destinationPath:tempReportPath completion:^(NSError *error) {
+                    [JSReportSaver downloadResourceWithRestClient:strongSelf.restClient fromURLString:outputResourceURLString destinationPath:tempReportPath completion:^(NSError *error) {
                         __strong typeof(self)strongSelf = weakSelf;
                         if (error) {
-                            [self sendCallbackWithError:error];
+                            [strongSelf sendCallbackWithError:error];
                         } else {
                             // save attachments or exit
                             NSMutableArray *attachmentNames = [exportResponse.attachments valueForKeyPath:@"@unionOfObjects.fileName"];
                             [strongSelf downloadAttachments:attachmentNames forExport:exportResponse withCompletion:^(NSError *error) {
-                                [self sendCallbackWithError:error];
+                                [strongSelf sendCallbackWithError:error];
                             }];
                         }
                     }];
@@ -94,10 +94,12 @@
     }];
 }
 
-- (void)cancelSavingReport {
+- (void)cancel {
     self.saveReportCompletion = nil;
-    [self cancelReportExecution];
+    
     [self.restClient cancelAllRequests];
+
+    [self cancelReportExecution];
     
     [self removeTempReportDirectory];
 }
@@ -170,7 +172,7 @@
     if (self.saveReportCompletion) {
         if (error) {
             self.saveReportCompletion(nil , error);
-            [self cancelSavingReport];
+            [self cancel];
         } else {
             NSURL *reportURL = [NSURL fileURLWithPath:self.tempReportDirectory isDirectory:YES];
             self.saveReportCompletion(reportURL, nil);

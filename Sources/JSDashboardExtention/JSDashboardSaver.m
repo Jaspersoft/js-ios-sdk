@@ -42,7 +42,8 @@
 @property (nonatomic, copy, nonnull) NSString *name;
 @property (nonatomic, copy, nonnull) NSString *format;
 
-@property (nonatomic, copy, nonnull) JSSaveDashboardCompletion executeCompletion;
+@property (nonatomic, copy, nullable) JSSaveDashboardCompletion executeCompletion;
+@property (nonatomic, strong, nullable) NSString *tempDashboardDirectory;
 
 @end
 
@@ -120,22 +121,33 @@
     NSString *outputResourceURLString = [self.restClient generateDashboardOutputUrl:self.dashboardResource.identifier];
     
     NSString *tempAppDirectory = NSTemporaryDirectory();
-    NSString *tempDashboardDirectory = [tempAppDirectory stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
-    NSString *tempDashboardPath = [[tempDashboardDirectory stringByAppendingPathComponent:self.name] stringByAppendingPathExtension:self.format];
+    self.tempDashboardDirectory = [tempAppDirectory stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
+    NSString *tempDashboardPath = [[self.tempDashboardDirectory stringByAppendingPathComponent:self.name] stringByAppendingPathExtension:self.format];
     
     __weak typeof(self)weakSelf = self;
     [JSDashboardSaver downloadResourceWithRestClient:self.restClient fromURLString:outputResourceURLString destinationPath:tempDashboardPath completion:^(NSError *error) {
         __strong typeof(self)strongSelf = weakSelf;
         if (strongSelf.executeCompletion) {
-            NSURL *dashboardURL = [NSURL fileURLWithPath:tempDashboardDirectory isDirectory:YES];
+            NSURL *dashboardURL = [NSURL fileURLWithPath:strongSelf.tempDashboardDirectory isDirectory:YES];
             strongSelf.executeCompletion(dashboardURL, error);
         }
     }];
 }
 
 - (void)cancel {
+    self.executeCompletion = nil;
+    
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    
+    [self.restClient cancelAllRequests];
+
     [self.restClient cancelDashboardExportExecutionWithJobID:self.dashboardResource.identifier completion:nil];
+    
+    [self removeTempDirectory];
+}
+
+- (void) removeTempDirectory {
+    [[NSFileManager defaultManager] removeItemAtPath:self.tempDashboardDirectory error:nil];
 }
 
 @end

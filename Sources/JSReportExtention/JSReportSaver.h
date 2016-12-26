@@ -47,6 +47,6 @@ typedef void(^JSSaveReportCompletion)(NSURL * _Nullable savedReportFolderURL, NS
 - (void) saveReportWithName:(nonnull NSString *)name format:(nonnull NSString *)format
                  pagesRange:(nonnull JSReportPagesRange *)pagesRange completion:(nullable JSSaveReportCompletion)completionBlock;
 
-- (void) cancelSavingReport;
+- (void) cancel;
 
 @end
