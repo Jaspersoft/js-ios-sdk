@@ -242,7 +242,9 @@
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(exportStatusChecking) object:nil];
     
     [self.restClient cancelAllRequests];
-    [self.restClient cancelReportExecution:self.report.requestId completionBlock:nil];
+    if (self.executionResponse) {
+        [self.restClient cancelReportExecution:self.executionResponse.requestId completionBlock:nil];
+    }
 }
 
 @end
