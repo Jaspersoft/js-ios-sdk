@@ -43,7 +43,6 @@ NSString * const kJSRequestContentType = @"Content-Type";
 NSString * const kJSRequestResponceType = @"Accept";
 
 NSString * const kJSSavedSessionServerProfileKey    = @"JSSavedSessionServerProfileKey";
-NSString * const kJSSavedSessionKeepSessionKey      = @"JSSavedSessionKeepSessionKey";
 
 // Helper template message indicates that request was finished successfully
 NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nResponse: %@";
@@ -95,14 +94,13 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     [AFNetworkActivityIndicatorManager sharedManager].activationDelay = 0;
 }
 
-- (nonnull instancetype) initWithServerProfile:(nonnull JSProfile *)serverProfile keepLogged:(BOOL)keepLogged{
+- (nonnull instancetype) initWithServerProfile:(nonnull JSProfile *)serverProfile{
     self = [super initWithBaseURL:[NSURL URLWithString:serverProfile.serverUrl]];
     if (self) {
         // Delete cookies for current server profile. If don't do this old credentials will be used
         // instead new one
         [self deleteCookies];
 
-        self.keepSession = keepLogged;
         self.serverProfile = serverProfile;
 
         self.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -298,7 +296,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
     [aCoder encodeObject:self.serverProfile forKey:kJSSavedSessionServerProfileKey];
-    [aCoder encodeBool:self.keepSession forKey:kJSSavedSessionKeepSessionKey];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -314,7 +311,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
             }
             
             self.serverProfile = serverProfile;
-            self.keepSession = [aDecoder decodeBoolForKey:kJSSavedSessionKeepSessionKey];
 
             [self configureRequestRedirectionHandling];
         }
@@ -327,7 +323,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 
 - (id)copyWithZone:(NSZone *)zone {
     JSRESTBase *newRestClient = [super copyWithZone:zone];
-    newRestClient.keepSession = self.keepSession;
     newRestClient.serverProfile = [self.serverProfile copyWithZone:zone];
     [newRestClient configureRequestRedirectionHandling];
     
@@ -490,7 +485,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 #endif
     }
 
-    if (request.shouldResendRequestAfterSessionExpiration && result.error && result.error.code == JSSessionExpiredErrorCode && self.keepSession) {
+    if (request.shouldResendRequestAfterSessionExpiration && result.error && result.error.code == JSSessionExpiredErrorCode && self.serverProfile.keepSession) {
         __weak typeof(self)weakSelf = self;
         [self verifyIsSessionAuthorizedWithCompletion:^(JSOperationResult * _Nullable result) {
             __strong typeof(self)strongSelf = weakSelf;

@@ -10,11 +10,11 @@
 #import "JSProfile.h"
 #import "JSServerInfo.h"
 
-@interface JSProfileTest : XCTestCase
+@interface JSUserProfileTest : XCTestCase
 
 @end
 
-@implementation JSProfileTest
+@implementation JSUserProfileTest
 
 - (void)setUp {
     [super setUp];
@@ -22,7 +22,7 @@
 }
 
 - (void)testInit {
-    JSProfile *serverProfile = [[JSProfile alloc] initWithAlias:kJSTestProfileName serverUrl:kJSTestProfileUrl organization:kJSTestProfileOrganization username:kJSTestProfileUsername password:kJSTestProfilePassword];
+    JSUserProfile *serverProfile = [[JSUserProfile alloc] initWithAlias:kJSTestProfileName serverUrl:kJSTestProfileUrl organization:kJSTestProfileOrganization username:kJSTestProfileUsername password:kJSTestProfilePassword];
     XCTAssertEqualObjects(serverProfile.alias, kJSTestProfileName);
     XCTAssertEqualObjects(serverProfile.serverUrl, kJSTestProfileUrl);
     XCTAssertEqualObjects(serverProfile.username, kJSTestProfileUsername);
@@ -40,31 +40,31 @@
     
     // Here we need check system version and run this code for old system versions only, because in iOS 10 keychain is available only after adding such capability in target settings
     if (currentSystemVersion < 10) {
-        JSProfile *profile = [JSServerProfileProvider serverProfileWithVersion:kJS_SERVER_VERSION_CODE_UNKNOWN];
+        JSUserProfile *profile = [JSServerProfileProvider serverProfileWithVersion:kJS_SERVER_VERSION_CODE_UNKNOWN];
         NSData *codedData = [NSKeyedArchiver archivedDataWithRootObject:profile];
-        JSProfile *encodedObject = [NSKeyedUnarchiver unarchiveObjectWithData:codedData];
+        JSUserProfile *encodedObject = [NSKeyedUnarchiver unarchiveObjectWithData:codedData];
         
         [self isEqualProfile:profile toProfile:encodedObject];
     }
 }
 
 - (void)testNSCopyingProtocolSupport {
-    JSProfile *profile = [JSServerProfileProvider serverProfileWithVersion:kJS_SERVER_VERSION_CODE_UNKNOWN];
-    JSProfile *copiedObject = [profile copy];
+    JSUserProfile *profile = [JSServerProfileProvider serverProfileWithVersion:kJS_SERVER_VERSION_CODE_UNKNOWN];
+    JSUserProfile *copiedObject = [profile copy];
     
     [self isEqualProfile:profile toProfile:copiedObject];
 }
 
 - (void)testIsEqualProfileToProfile {
-    JSProfile *profile = [JSServerProfileProvider serverProfileWithVersion:kJS_SERVER_VERSION_CODE_UNKNOWN];
-    JSProfile *copiedObject = [profile copy];
+    JSUserProfile *profile = [JSServerProfileProvider serverProfileWithVersion:kJS_SERVER_VERSION_CODE_UNKNOWN];
+    JSUserProfile *copiedObject = [profile copy];
     
     [self isEqualProfile:profile toProfile:profile];
     [self isEqualProfile:profile toProfile:copiedObject];
 }
 
 #pragma mark - Helper
-- (void)isEqualProfile:(JSProfile *)profile toProfile:(JSProfile *)otherProfile {
+- (void)isEqualProfile:(JSUserProfile *)profile toProfile:(JSUserProfile *)otherProfile {
     XCTAssertTrue([profile isKindOfClass:[otherProfile class]]);
 
     if (profile == otherProfile) {

@@ -18,8 +18,8 @@ NSString * const kJSTestProfileOrganization = @"TestOrganization";
 
 @implementation JSServerProfileProvider
 
-+ (JSProfile *)serverProfileWithVersion:(float)serverVersion {
-    JSProfile *serverProfile = [[JSProfile alloc] initWithAlias:@"TestProfile" serverUrl:@"http://test.url" organization:@"TestOrganization" username:@"TestUsername" password:@"TestPassword"];
++ (JSUserProfile *)serverProfileWithVersion:(float)serverVersion {
+    JSUserProfile *serverProfile = [[JSUserProfile alloc] initWithAlias:@"TestProfile" serverUrl:@"http://test.url" organization:@"TestOrganization" username:@"TestUsername" password:@"TestPassword"];
     
     id serverInfoJSON = [JSObjectRepresentationProvider JSONObjectForClass:[JSServerInfo class]];
     EKObjectMapping *mapping = [JSServerInfo objectMappingForServerProfile:serverProfile];

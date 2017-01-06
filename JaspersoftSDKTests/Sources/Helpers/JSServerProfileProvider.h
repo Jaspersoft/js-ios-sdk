@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "JSProfile.h"
+#import "JSUserProfile.h"
 
 extern NSString * const kJSTestProfileName;
 extern NSString * const kJSTestProfileUrl;
@@ -17,6 +17,6 @@ extern NSString * const kJSTestProfileOrganization;
 
 @interface JSServerProfileProvider : NSObject
 
-+ (JSProfile *)serverProfileWithVersion:(float)serverVersion;
++ (JSUserProfile *)serverProfileWithVersion:(float)serverVersion;
 
 @end

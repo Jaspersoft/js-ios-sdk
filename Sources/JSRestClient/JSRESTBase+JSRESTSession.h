@@ -57,6 +57,6 @@
  */
 - (void)fetchServerInfoWithCompletion:(JSRequestCompletionBlock)block;
 
-extern NSString * const kJSSessionDidAuthorized;
+extern NSString * const kJSSessionDidAuthorizedNotification;
 
 @end

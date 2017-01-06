@@ -72,20 +72,12 @@ extern NSString * const _Nonnull kJSRequestResponceType;
 @property (nonatomic, readonly, null_unspecified) NSArray <NSHTTPCookie *> *cookies;
 
 /**
- If YES REST Client will try to recreate HTTP session.
- 
- @since 1.9
- */
-@property (nonatomic, assign) BOOL keepSession;
-
-/**
  Returns a rest base instance. 
  
  @param serverProfile The server profile instance contains connection details for JasperReports server
- @param keepLogged If YES REST Client will try to recreate HTTP session
  @return A fully configured JSRESTBase instance
  */
-- (nonnull instancetype) initWithServerProfile:(nonnull JSProfile *)serverProfile keepLogged:(BOOL)keepLogged;
+- (nonnull instancetype) initWithServerProfile:(nonnull JSProfile *)serverProfile;
 
 /**
  Sends asynchronous request. Result will be passed as <code>JSOperationResult</code> 

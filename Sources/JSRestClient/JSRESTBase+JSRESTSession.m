@@ -31,16 +31,19 @@
 
 #import "JSRESTBase+JSRESTSession.h"
 #import "JSEncryptionData.h"
+#import "JSUserProfile.h"
+#import "JSSSOProfile.h"
 
 #if __has_include("JSSecurity.h")
 #import "JSSecurity.h"
 #endif
 
-NSString * const kJSSessionDidAuthorized            = @"JSSessionDidAuthorized";
+NSString * const kJSSessionDidAuthorizedNotification            = @"JSSessionDidAuthorizedNotification";
 
 
 NSString * const kJSAuthenticationUsernameKey       = @"j_username";
 NSString * const kJSAuthenticationPasswordKey       = @"j_password";
+NSString * const kJSAuthenticationSSOTokenKey       = @"ticket";
 NSString * const kJSAuthenticationOrganizationKey   = @"orgId";
 NSString * const kJSAuthenticationLocaleKey         = @"userLocale";
 NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
@@ -57,36 +60,43 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     [self fetchServerInfoWithCompletion:^(JSOperationResult * _Nullable result) {
         if (!result.error && result.objects.count) {
             __strong typeof(self) strongSelf = weakSelf;
-            NSString *username = strongSelf.serverProfile.username;
-            NSString *password = strongSelf.serverProfile.password;
-            NSString *organization = strongSelf.serverProfile.organization;
-
             strongSelf.serverProfile.serverInfo = [result.objects firstObject];
 
             // Try to get authentication token
+            if ([strongSelf.serverProfile isKindOfClass:[JSUserProfile class]]) {
+                JSUserProfile *userServerProfile = (JSUserProfile *)strongSelf.serverProfile;
+                
 #if __has_include("JSSecurity.h")
-            __weak typeof(self)weakSelf = strongSelf;
-            [strongSelf fetchEncryptionKeyWithCompletion:^(JSEncryptionData *encryptionData, NSError *error) {
-                NSString *encPassword = password;
-                if (encryptionData.modulus && encryptionData.exponent) {
-                    JSEncryptionManager *encryptionManager = [JSEncryptionManager new];
-                    encPassword = [encryptionManager encryptText:password
-                                                     withModulus:encryptionData.modulus
-                                                        exponent:encryptionData.exponent];
-                }
-
-                __strong typeof(self)strongSelf = weakSelf;
-                [strongSelf fetchAuthenticationTokenWithUsername:username
-                                                        password:encPassword
-                                                    organization:organization
-                                                      completion:completion];
-            }];
+                __weak typeof(self)weakSelf = strongSelf;
+                [strongSelf fetchEncryptionKeyWithCompletion:^(JSEncryptionData *encryptionData, NSError *error) {
+                    NSString *encPassword = userServerProfile.password;
+                    if (encryptionData.modulus && encryptionData.exponent) {
+                        JSEncryptionManager *encryptionManager = [JSEncryptionManager new];
+                        encPassword = [encryptionManager encryptText:encPassword
+                                                         withModulus:encryptionData.modulus
+                                                            exponent:encryptionData.exponent];
+                    }
+                    
+                    __strong typeof(self)strongSelf = weakSelf;
+                    [strongSelf fetchAuthenticationTokenWithUsername:userServerProfile.username
+                                                            password:encPassword
+                                                        organization:userServerProfile.organization
+                                                          completion:completion];
+                }];
 #else
-            [strongSelf fetchAuthenticationTokenWithUsername:username
-                                                  password:password
-                                              organization:organization
-                                                completion:completion];
+                [strongSelf fetchAuthenticationTokenWithUsername:userServerProfile.username
+                                                        password:userServerProfile.password
+                                                    organization:userServerProfile.organization
+                                                      completion:completion];
 #endif
+            } else if ([strongSelf.serverProfile isKindOfClass:[JSSSOProfile class]]) {
+                JSSSOProfile *ssoServerProfile = (JSSSOProfile *)strongSelf.serverProfile;
+                [strongSelf fetchAuthenticationTokenWithSSOToken:ssoServerProfile.ssoToken completion:completion];
+            } else {
+                @throw ([NSException exceptionWithName:@"UnSupportedServerProfileType"
+                                                reason:[NSString stringWithFormat:@"Unsupported server profile type: %@", NSStringFromClass(strongSelf.serverProfile.class)]
+                                              userInfo:nil]);
+            }
         } else if(completion) {
             completion(result);
         }
@@ -148,19 +158,38 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
                                 organization:(NSString *)organization
                                   completion:(JSRequestCompletionBlock)completion
 {
+    JSRequest *request = [self authenticationRequestWithCompletion:completion];
+    
+    [request addParameter:kJSAuthenticationUsernameKey      withStringValue:username];
+    [request addParameter:kJSAuthenticationPasswordKey      withStringValue:password];
+    [request addParameter:kJSAuthenticationOrganizationKey  withStringValue:organization];
+    
+    [self sendRequest:request];
+}
+
+- (void)fetchAuthenticationTokenWithSSOToken:(NSString *)ssoToken
+                                  completion:(JSRequestCompletionBlock)completion
+{
+    JSRequest *request = [self authenticationRequestWithCompletion:completion];
+    [request addParameter:kJSAuthenticationSSOTokenKey withStringValue:ssoToken];
+    [self sendRequest:request];
+}
+
+
+- (JSRequest *)authenticationRequestWithCompletion:(JSRequestCompletionBlock)completion {
     JSRequest *request = [[JSRequest alloc] initWithUri:kJS_REST_AUTHENTICATION_URI];
     request.restVersion = JSRESTVersion_None;
     request.method = JSRequestHTTPMethodPOST;
     request.responseAsObjects = NO;
     request.redirectAllowed = NO;
     request.serializationType = JSRequestSerializationType_UrlEncoded;
-
+    
     NSURL *serverURL = [NSURL URLWithString:self.serverProfile.serverUrl];
     NSString *serverDomain = [NSString stringWithFormat:@"%@://%@%@", serverURL.scheme, serverURL.host, serverURL.port ? [NSString stringWithFormat:@":%@", serverURL.port] : @""];
     request.additionalHeaders = @{
-            @"x-jasper-xdm" : serverDomain
-    };
-
+                                  @"x-jasper-xdm" : serverDomain
+                                  };
+    
     // Add locale to session
     NSString *currentLanguage = [[NSLocale preferredLanguages] objectAtIndex:0];
     NSInteger dividerPosition = [currentLanguage rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"_-"]].location;
@@ -169,28 +198,24 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     }
     NSString *currentLocale = [[JSUtils supportedLocales] objectForKey:currentLanguage];
     
-    [request addParameter:kJSAuthenticationUsernameKey      withStringValue:username];
-    [request addParameter:kJSAuthenticationPasswordKey      withStringValue:password];
-    [request addParameter:kJSAuthenticationOrganizationKey  withStringValue:organization];
-    [request addParameter:kJSAuthenticationTimezoneKey      withStringValue:[[NSTimeZone localTimeZone] name]];
-    [request addParameter:kJSAuthenticationLocaleKey        withStringValue:currentLocale];
-    
+    [request addParameter:kJSAuthenticationTimezoneKey withStringValue:[[NSTimeZone localTimeZone] name]];
+    [request addParameter:kJSAuthenticationLocaleKey   withStringValue:currentLocale];
     
     [request setCompletionBlock:^(JSOperationResult *result) {
         if (!result.error) {
-
+            
             NSURL *url = [NSURL URLWithString:result.request.fullURI];
             NSArray *cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:result.allHeaderFields
                                                                       forURL:url];
             [self updateCookiesWithCookies:cookies];
-
-            [[NSNotificationCenter defaultCenter] postNotificationName:kJSSessionDidAuthorized object:self];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kJSSessionDidAuthorizedNotification object:self];
         }
         if (completion) {
             completion(result);
         }
     }];
-    [self sendRequest:request];
+    return request;
 }
 
 @end

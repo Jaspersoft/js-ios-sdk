@@ -20,25 +20,38 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with Jaspersoft Mobile SDK for iOS. If not, see
- * <http://www.gnu.org/licenses/lgpl".
+ * <http://www.gnu.org/licenses/lgpl>.
  */
 
 //
-//  JSRestClient.h
+//  JSSSOProfile.h
 //  Jaspersoft Corporation
 //
 
+/**
+ Uses to store connection details for JasperReports server with SSO
+ 
+ @author Alexey Gubarev ogubarie@tibco.com
+ @since 2.6
+ */
 
 #import "JSProfile.h"
-#import "JSUserProfile.h"
-#import "JSSSOProfile.h"
-#import "JSRestBase.h"
-#import "JSRESTBase+JSRESTReport.h"
-#import "JSRESTBase+JSRESTDashboard.h"
-#import "JSRESTBase+JSRESTResource.h"
-#import "JSRESTBase+JSRESTSession.h"
-#import "JSRESTBase+JSRESTContentResource.h"
-#import "JSRESTBase+JSRESTDashboard.h"
-#import "JSRESTBase+JSSchedule.h"
-#import "JSRequest.h"
-#import "JSObjectMappingsProtocol.h"
+
+@interface JSSSOProfile : JSProfile <NSCopying, NSSecureCoding>
+
+/**
+ The SSO token, must be a valid token for JasperReports Server
+ */
+@property (nonatomic, readonly, nullable) NSString *ssoToken;
+
+/**
+ Returns a profile with the specified parameters
+ 
+ @param alias The association name for server profile
+ @param serverUrl The serverUrl. Should match pattern http://hostname:port/jasperserver (port is not required)
+ @param ssoToken The SSO token
+ @return A configured JSProfile instance
+ */
+- (nonnull instancetype)initWithAlias:(nonnull NSString *)alias serverUrl:(nonnull NSString *)serverUrl ssoToken:(nullable NSString *)ssoToken;
+
+@end

@@ -14,10 +14,10 @@
 
 @implementation JSServerProfileProviderTest
 
-- (void)testServerProfileWithVersion {
+- (void)testUserServerProfileWithVersion {
     float serverVersion = kJS_SERVER_VERSION_CODE_JADE_6_2_0;
     
-    JSProfile *serverProfile = [JSServerProfileProvider serverProfileWithVersion:serverVersion];
+    JSUserProfile *serverProfile = [JSServerProfileProvider serverProfileWithVersion:serverVersion];
     XCTAssertNotNil(serverProfile.alias);
     XCTAssertNotNil(serverProfile.username);
     XCTAssertNotNil(serverProfile.password);
