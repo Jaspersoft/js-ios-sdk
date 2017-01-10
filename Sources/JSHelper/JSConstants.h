@@ -213,6 +213,8 @@ extern NSString *const kJS_REST_REPORT_OPTIONS_URI;
 extern NSString *const kJS_REST_INPUT_CONTROLS_URI;
 extern NSString *const kJS_REST_VALUES_URI;
 extern NSString *const kJS_REST_SERVER_INFO_URI;
+extern NSString *const kJS_REST_ORGANIZATIONS_URI;
+extern NSString *const kJS_REST_ROLES_URI;
 extern NSString *const kJS_REST_REPORT_EXECUTION_URI;
 extern NSString *const kJS_REST_REPORT_EXECUTION_STATUS_URI;
 extern NSString *const kJS_REST_EXPORT_EXECUTION_URI;

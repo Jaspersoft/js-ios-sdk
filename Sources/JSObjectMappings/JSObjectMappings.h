@@ -64,6 +64,8 @@
 // ServerInfo
 #import "JSEncryptionData.h"
 #import "JSServerInfo.h"
+#import "JSRole.h"
+#import "JSOrganization.h"
 
 // Dashboard
 #import "JSDashboardComponent.h"

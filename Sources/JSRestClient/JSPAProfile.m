@@ -24,35 +24,35 @@
  */
 
 //
-//  JSSSOProfile.m
+//  JSPAProfile.m
 //  Jaspersoft Corporation
 //
 
-#import "JSSSOProfile.h"
+#import "JSPAProfile.h"
 #import "KeychainItemWrapper.h"
 
-NSString * const kJSProfileSSOTokenKeyDefaultValue  = @"ticket";
-NSString * const kJSSavedProfileSSOTokenFieldKey    = @"kJSSavedProfileSSOTokenFieldKey";
+NSString * const kJSProfilePPTokenKeyDefaultValue  = @"pp";
+NSString * const kJSSavedProfilePPTokenFieldKey    = @"JSSavedProfilePPTokenFieldKey";
 
 
-@interface JSSSOProfile ()
-@property (nonatomic, readwrite, nullable) NSString *ssoToken;
+@interface JSPAProfile ()
+@property (nonatomic, readwrite, nullable) NSString *ppToken;
 @end
 
-@implementation JSSSOProfile
+@implementation JSPAProfile
 - (nonnull instancetype)initWithAlias:(nonnull NSString *)alias serverUrl:(nonnull NSString *)serverUrl ssoToken:(nullable NSString *)ssoToken {
     if (self = [super initWithAlias:alias serverUrl:serverUrl]) {
-        _ssoToken = ssoToken;
-        _ssoTokenField = kJSProfileSSOTokenKeyDefaultValue;
+        _ppToken = ssoToken;
+        _ppTokenField = kJSProfilePPTokenKeyDefaultValue;
     }
     return self;
 }
 
 #pragma mark - NSCopying
 - (id)copyWithZone:(NSZone *)zone {
-    JSSSOProfile *copiedProfile = [super copyWithZone:zone];
-    copiedProfile.ssoToken = [self.ssoToken copyWithZone:zone];
-    copiedProfile.ssoTokenField = [self.ssoTokenField copyWithZone:zone];
+    JSPAProfile *copiedProfile = [super copyWithZone:zone];
+    copiedProfile.ppToken = [self.ppToken copyWithZone:zone];
+    copiedProfile.ppTokenField = [self.ppTokenField copyWithZone:zone];
     return copiedProfile;
 }
 
@@ -66,9 +66,9 @@ NSString * const kJSSavedProfileSSOTokenFieldKey    = @"kJSSavedProfileSSOTokenF
     
     // Store ssoToken in Keychain
     KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:[JSUtils keychainIdentifier] accessGroup:nil];
-    [wrapper setObject:self.ssoToken forKey:(__bridge id)kSecAttrAccount];
+    [wrapper setObject:self.ppToken forKey:(__bridge id)kSecAttrAccount];
     
-    [aCoder encodeObject:self.ssoTokenField forKey:kJSSavedProfileSSOTokenFieldKey];
+    [aCoder encodeObject:self.ppTokenField forKey:kJSSavedProfilePPTokenFieldKey];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -78,14 +78,14 @@ NSString * const kJSSavedProfileSSOTokenFieldKey    = @"kJSSavedProfileSSOTokenF
         KeychainItemWrapper *wrapper;
         @try {
             wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:[JSUtils keychainIdentifier] accessGroup:nil];
-            _ssoToken = (NSString *)[wrapper objectForKey:(__bridge id)kSecAttrAccount];
+            _ppToken = (NSString *)[wrapper objectForKey:(__bridge id)kSecAttrAccount];
         }
         @catch (NSException *exception) {
             NSLog(@"\nException name: %@\nException reason: %@", exception.name, exception.reason);
             return nil;
         }
-        _ssoTokenField = [aDecoder decodeObjectForKey:kJSSavedProfileSSOTokenFieldKey];
+        _ppTokenField = [aDecoder decodeObjectForKey:kJSSavedProfilePPTokenFieldKey];
     }
-    return ([self.ssoToken length] > 0 && [self.ssoToken length] > 0) ? self : nil;
+    return ([self.ppToken length] > 0 && [self.ppToken length] > 0) ? self : nil;
 }
 @end

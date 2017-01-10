@@ -33,6 +33,8 @@
 #import "JSEncryptionData.h"
 #import "JSUserProfile.h"
 #import "JSSSOProfile.h"
+#import "JSPAProfile.h"
+#import "JSRESTBase+JSRESTServer.h"
 
 #if __has_include("JSSecurity.h")
 #import "JSSecurity.h"
@@ -43,7 +45,6 @@ NSString * const kJSSessionDidAuthorizedNotification            = @"JSSessionDid
 
 NSString * const kJSAuthenticationUsernameKey       = @"j_username";
 NSString * const kJSAuthenticationPasswordKey       = @"j_password";
-NSString * const kJSAuthenticationSSOTokenKey       = @"ticket";
 NSString * const kJSAuthenticationOrganizationKey   = @"orgId";
 NSString * const kJSAuthenticationLocaleKey         = @"userLocale";
 NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
@@ -89,9 +90,12 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
                                                     organization:userServerProfile.organization
                                                       completion:completion];
 #endif
+            } else if ([strongSelf.serverProfile isKindOfClass:[JSPAProfile class]]) {
+                JSPAProfile *paServerProfile = (JSPAProfile *)strongSelf.serverProfile;
+                [strongSelf fetchAuthenticationTokenWithSSOToken:paServerProfile.ppToken ssoTokenField:paServerProfile.ppTokenField completion:completion];
             } else if ([strongSelf.serverProfile isKindOfClass:[JSSSOProfile class]]) {
                 JSSSOProfile *ssoServerProfile = (JSSSOProfile *)strongSelf.serverProfile;
-                [strongSelf fetchAuthenticationTokenWithSSOToken:ssoServerProfile.ssoToken completion:completion];
+                [strongSelf fetchAuthenticationTokenWithSSOToken:ssoServerProfile.ssoToken ssoTokenField:ssoServerProfile.ssoTokenField completion:completion];
             } else {
                 @throw ([NSException exceptionWithName:@"UnSupportedServerProfileType"
                                                 reason:[NSString stringWithFormat:@"Unsupported server profile type: %@", NSStringFromClass(strongSelf.serverProfile.class)]
@@ -101,31 +105,6 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
             completion(result);
         }
     }];
-}
-
-- (void)fetchServerInfoWithCompletion:(JSRequestCompletionBlock)completion {
-    JSRequest *request = [[JSRequest alloc] initWithUri:kJS_REST_SERVER_INFO_URI];
-    request.objectMapping = [JSMapping mappingWithObjectMapping:[JSServerInfo objectMappingForServerProfile:self.serverProfile] keyPath:nil];
-    request.restVersion = JSRESTVersion_2;
-    request.completionBlock = ^(JSOperationResult *_Nullable result){
-        if (!result.error) {
-            if (result.objects.count) {
-                JSServerInfo *serverInfo = result.objects.lastObject;
-                if (serverInfo.versionAsFloat < [JSUtils minSupportedServerVersion]) {
-                    result.error = [JSErrorBuilder errorWithCode:JSServerVersionNotSupportedErrorCode];
-                }
-            } else {
-                result.error = [JSErrorBuilder errorWithCode:JSClientErrorCode];
-            }
-        } else if (result.error.code == JSOtherErrorCode || result.error.code == JSUnsupportedAcceptTypeErrorCode) {
-            result.error = [JSErrorBuilder errorWithCode:JSServerNotReachableErrorCode];
-        }
-        
-        if (completion) {
-            completion(result);
-        }
-    };
-    [self sendRequest:request];
 }
 
 #pragma mark - Private API
@@ -168,10 +147,11 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
 }
 
 - (void)fetchAuthenticationTokenWithSSOToken:(NSString *)ssoToken
+                               ssoTokenField:(NSString *)ssoTokenField
                                   completion:(JSRequestCompletionBlock)completion
 {
     JSRequest *request = [self authenticationRequestWithCompletion:completion];
-    [request addParameter:kJSAuthenticationSSOTokenKey withStringValue:ssoToken];
+    [request addParameter:ssoTokenField withStringValue:ssoToken];
     [self sendRequest:request];
 }
 

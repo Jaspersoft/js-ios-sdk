@@ -1,0 +1,11 @@
+{
+    "id" : "organizations",
+    "alias" : "organizations",
+    "parentId" : "",
+    "tenantName" : "root",
+    "tenantDesc" : "organizations",
+    "tenantNote" : " ",
+    "tenantUri" : "/",
+    "tenantFolderUri" : "/",
+    "theme" : "default"
+}

@@ -1,6 +1,6 @@
 /*
  * Jaspersoft Mobile SDK
- * Copyright (C) 2011 - 2014 Jaspersoft Corporation. All rights reserved.
+ * Copyright (C) 2011 - 2015 Jaspersoft Corporation. All rights reserved.
  * http://community.jaspersoft.com/project/mobile-sdk-ios
  *
  * Unless you have purchased a commercial license agreement from Jaspersoft,
@@ -24,30 +24,48 @@
  */
 
 //
-//  JSRESTBase+JSRESTSession.h
+//  JSRESTBase(JSRESTServer).h
 //  Jaspersoft Corporation
 //
 
-#import "JSRESTBase.h"
-
 /**
- Extention to <code>JSRESTBase</code> class for working with HTTP session.
- 
  @author Alexey Gubarev ogubarie@tibco.com
- @author Aleksandr Dakhno odahno@tibco.com
- @since 1.9
+ @since 2.6
  */
 
-@interface JSRESTBase(JSRESTSession)
+#import "JSRESTBase.h"
+@class JSOrganization;
+
+@interface JSRESTBase(JSRESTServer)
+
 /**
- Checks if session is authorized
+ Fetch Server Info
  
  @param block The block to inform of the results
  
- @since 1.9
+ @since 2.6
  */
-- (void)verifyIsSessionAuthorizedWithCompletion:(JSRequestCompletionBlock)block;
+- (void)fetchServerInfoWithCompletion:(JSRequestCompletionBlock)block;
 
-extern NSString * const kJSSessionDidAuthorizedNotification;
+/**
+ Fetch Server Organizations
+ 
+ @param block The block to inform of the results
+ 
+ @since 2.6
+ */
+- (void)fetchServerOrganizationsWithCompletion:(JSRequestCompletionBlock)block;
+
+/**
+ Fetch Server Roles
+ 
+ @param organization The organization for loading it roles
+ 
+ @param block The block to inform of the results
+ 
+ @since 2.6
+ */
+- (void)fetchServerRolesWithOrganization:(JSOrganization *)organization
+                              completion:(JSRequestCompletionBlock)block;
 
 @end

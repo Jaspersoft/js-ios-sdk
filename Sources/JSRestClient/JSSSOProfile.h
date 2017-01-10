@@ -42,7 +42,12 @@
 /**
  The SSO token, must be a valid token for JasperReports Server
  */
-@property (nonatomic, readonly, nullable) NSString *ssoToken;
+@property (nonatomic, readonly, nonnull) NSString *ssoToken;
+
+/**
+ The SSO token field, must be a valid token for JasperReports Server. Default parameter name for an authentication token is "ticket". This parameter name can be changed via Spring configuration in corresponding applicationContext-externalAuth-*.xml
+ */
+@property (nonatomic, nonnull) NSString *ssoTokenField;
 
 /**
  Returns a profile with the specified parameters

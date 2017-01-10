@@ -24,30 +24,24 @@
  */
 
 //
-//  JSRESTBase+JSRESTSession.h
+//  JSOrganization.m
 //  Jaspersoft Corporation
 //
 
-#import "JSRESTBase.h"
+#import "JSOrganization.h"
 
-/**
- Extention to <code>JSRESTBase</code> class for working with HTTP session.
- 
- @author Alexey Gubarev ogubarie@tibco.com
- @author Aleksandr Dakhno odahno@tibco.com
- @since 1.9
- */
+@implementation JSOrganization
 
-@interface JSRESTBase(JSRESTSession)
-/**
- Checks if session is authorized
- 
- @param block The block to inform of the results
- 
- @since 1.9
- */
-- (void)verifyIsSessionAuthorizedWithCompletion:(JSRequestCompletionBlock)block;
+#pragma mark - JSObjectMappingsProtocol
 
-extern NSString * const kJSSessionDidAuthorizedNotification;
++ (nonnull EKObjectMapping *)objectMappingForServerProfile:(nonnull JSProfile *)serverProfile {
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        [mapping mapPropertiesFromArray:@[@"alias", @"parentId", @"tenantName", @"parentId", @"tenantNote",
+                                          @"tenantUri", @"tenantFolderUri", @"theme"]];
+        
+        [mapping mapPropertiesFromDictionary:@{@"id"            : @"organizationId",
+                                               @"tenantDesc"    : @"tenantDescription"}];
+    }];
+}
 
 @end

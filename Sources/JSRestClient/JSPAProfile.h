@@ -24,30 +24,39 @@
  */
 
 //
-//  JSRESTBase+JSRESTSession.h
+//  JSPAProfile.h
 //  Jaspersoft Corporation
 //
 
-#import "JSRESTBase.h"
-
 /**
- Extention to <code>JSRESTBase</code> class for working with HTTP session.
+ Uses to store connection details for JasperReports server with SSO
  
  @author Alexey Gubarev ogubarie@tibco.com
- @author Aleksandr Dakhno odahno@tibco.com
- @since 1.9
+ @since 2.6
  */
 
-@interface JSRESTBase(JSRESTSession)
+#import "JSProfile.h"
+
+@interface JSPAProfile : JSProfile <NSCopying, NSSecureCoding>
+
 /**
- Checks if session is authorized
- 
- @param block The block to inform of the results
- 
- @since 1.9
+ The PP token, must be a valid token for JasperReports Server
  */
-- (void)verifyIsSessionAuthorizedWithCompletion:(JSRequestCompletionBlock)block;
+@property (nonatomic, readonly, nonnull) NSString *ppToken;
 
-extern NSString * const kJSSessionDidAuthorizedNotification;
+/**
+ The PP token field, must be a valid token for JasperReports Server. Default parameter name for a pre authentication token is "pp". This parameter name can be changed via Spring configuration in corresponding applicationContext-externalAuth-preAuth.xml
+ */
+@property (nonatomic, nonnull) NSString *ppTokenField;
+
+/**
+ Returns a profile with the specified parameters
+ 
+ @param alias The association name for server profile
+ @param serverUrl The serverUrl. Should match pattern http://hostname:port/jasperserver (port is not required)
+ @param ppToken The pre authentication token
+ @return A configured JSProfile instance
+ */
+- (nonnull instancetype)initWithAlias:(nonnull NSString *)alias serverUrl:(nonnull NSString *)serverUrl ssoToken:(nullable NSString *)ssoToken;
 
 @end
