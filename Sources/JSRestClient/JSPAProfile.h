@@ -57,6 +57,6 @@
  @param ppToken The pre authentication token
  @return A configured JSProfile instance
  */
-- (nonnull instancetype)initWithAlias:(nonnull NSString *)alias serverUrl:(nonnull NSString *)serverUrl ssoToken:(nullable NSString *)ssoToken;
+- (nonnull instancetype)initWithAlias:(nonnull NSString *)alias serverUrl:(nonnull NSString *)serverUrl ppToken:(nullable NSString *)ppToken;
 
 @end

@@ -92,7 +92,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
 #endif
             } else if ([strongSelf.serverProfile isKindOfClass:[JSPAProfile class]]) {
                 JSPAProfile *paServerProfile = (JSPAProfile *)strongSelf.serverProfile;
-                [strongSelf fetchAuthenticationTokenWithSSOToken:paServerProfile.ppToken ssoTokenField:paServerProfile.ppTokenField completion:completion];
+                [strongSelf fetchAuthenticationTokenWithPPToken:paServerProfile.ppToken ppTokenField:paServerProfile.ppTokenField completion:completion];
             } else if ([strongSelf.serverProfile isKindOfClass:[JSSSOProfile class]]) {
                 JSSSOProfile *ssoServerProfile = (JSSSOProfile *)strongSelf.serverProfile;
                 [strongSelf fetchAuthenticationTokenWithSSOToken:ssoServerProfile.ssoToken ssoTokenField:ssoServerProfile.ssoTokenField completion:completion];
@@ -115,7 +115,6 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     
     request.restVersion = JSRESTVersion_None;
     request.objectMapping = [JSMapping mappingWithObjectMapping:[JSEncryptionData objectMappingForServerProfile:self.serverProfile] keyPath:nil];
-    request.redirectAllowed = NO;
     request.shouldResendRequestAfterSessionExpiration = NO;
     
     [request setCompletionBlock:^(JSOperationResult *result) {
@@ -137,7 +136,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
                                 organization:(NSString *)organization
                                   completion:(JSRequestCompletionBlock)completion
 {
-    JSRequest *request = [self authenticationRequestWithCompletion:completion];
+    JSRequest *request = [self authenticationRequestWithURI:kJS_REST_AUTHENTICATION_URI method:JSRequestHTTPMethodPOST completion:completion];
     
     [request addParameter:kJSAuthenticationUsernameKey      withStringValue:username];
     [request addParameter:kJSAuthenticationPasswordKey      withStringValue:password];
@@ -150,16 +149,25 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
                                ssoTokenField:(NSString *)ssoTokenField
                                   completion:(JSRequestCompletionBlock)completion
 {
-    JSRequest *request = [self authenticationRequestWithCompletion:completion];
+    JSRequest *request = [self authenticationRequestWithURI:kJS_REST_AUTHENTICATION_URI method:JSRequestHTTPMethodPOST completion:completion];
     [request addParameter:ssoTokenField withStringValue:ssoToken];
     [self sendRequest:request];
 }
 
+- (void)fetchAuthenticationTokenWithPPToken:(NSString *)ppToken
+                               ppTokenField:(NSString *)ppTokenField
+                                  completion:(JSRequestCompletionBlock)completion
+{
+    JSRequest *request = [self authenticationRequestWithURI:nil method:JSRequestHTTPMethodGET completion:completion];
+    [request addParameter:ppTokenField withStringValue:ppToken];
+    [self sendRequest:request];
+}
 
-- (JSRequest *)authenticationRequestWithCompletion:(JSRequestCompletionBlock)completion {
-    JSRequest *request = [[JSRequest alloc] initWithUri:kJS_REST_AUTHENTICATION_URI];
+
+- (JSRequest *)authenticationRequestWithURI:(NSString *)uri method:(JSRequestHTTPMethod)method completion:(JSRequestCompletionBlock)completion {
+    JSRequest *request = [[JSRequest alloc] initWithUri:uri];
     request.restVersion = JSRESTVersion_None;
-    request.method = JSRequestHTTPMethodPOST;
+    request.method = method;
     request.responseAsObjects = NO;
     request.redirectAllowed = NO;
     request.serializationType = JSRequestSerializationType_UrlEncoded;

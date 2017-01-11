@@ -84,7 +84,9 @@ NSString * const _parameterForceFullPage = @"forceFullPage";
     }
     JSRequest *request = [[JSRequest alloc] initWithUri:uri];
     request.restVersion = JSRESTVersion_2;
-    request.objectMapping = [JSMapping mappingWithObjectMapping:[modelClass objectMappingForServerProfile:self.serverProfile] keyPath:nil];
+    if (modelClass) {
+        request.objectMapping = [JSMapping mappingWithObjectMapping:[modelClass objectMappingForServerProfile:self.serverProfile] keyPath:nil];
+    }
     request.completionBlock = block;
     NSString *responceType = [JSUtils usedMimeType];
     if (resourceType) {

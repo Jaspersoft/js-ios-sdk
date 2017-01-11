@@ -40,9 +40,9 @@ NSString * const kJSSavedProfilePPTokenFieldKey    = @"JSSavedProfilePPTokenFiel
 @end
 
 @implementation JSPAProfile
-- (nonnull instancetype)initWithAlias:(nonnull NSString *)alias serverUrl:(nonnull NSString *)serverUrl ssoToken:(nullable NSString *)ssoToken {
+- (nonnull instancetype)initWithAlias:(nonnull NSString *)alias serverUrl:(nonnull NSString *)serverUrl ppToken:(nullable NSString *)ppToken {
     if (self = [super initWithAlias:alias serverUrl:serverUrl]) {
-        _ppToken = ssoToken;
+        _ppToken = ppToken;
         _ppTokenField = kJSProfilePPTokenKeyDefaultValue;
     }
     return self;

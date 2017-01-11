@@ -35,6 +35,8 @@
 #import "JSErrorBuilder.h"
 #import "AFNetworkActivityIndicatorManager.h"
 
+#import "JSPAProfile.h"
+
 #import "EKSerializer.h"
 #import "EKMapper.h"
 
@@ -103,6 +105,8 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 
         self.serverProfile = serverProfile;
 
+        self.completionQueue = dispatch_get_global_queue(0, 0);
+        
         self.requestSerializer = [AFJSONRequestSerializer serializer];
         [self.requestSerializer setValue:[JSUtils usedMimeType] forHTTPHeaderField:kJSRequestResponceType];
 
@@ -231,7 +235,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         [self sendCallBackForRequest:jsRequest withOperationResult:[self operationResultForSerializationError:serializationError]];
         return;
     }
-
+    
     __weak typeof(self) weakSelf = self;
     NSURLSessionDataTask *dataTask = [self dataTaskWithRequest:request
                                                 uploadProgress:nil
@@ -246,7 +250,6 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
                                                      [strongSelf sendCallBackForRequest:jsRequest withOperationResult:operationResult];
                                                  }
                                              }];
-    // Creates bridge between RestKit's delegate and SDK delegate
     [self.requestCallBacks addObject:[[JSCallBack alloc] initWithDataTask:dataTask
                                                                   request:jsRequest]];
     [dataTask resume];
@@ -345,8 +348,8 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
 
     result.request = request;
 
-    if ([result.request.uri isEqualToString:kJS_REST_AUTHENTICATION_URI]) {
-        BOOL isTokenFetchedSuccessful = YES;
+    if ([self isAuthenticationRequest:result.request]) {
+        BOOL isTokenFetchedSuccessful = NO;
         switch (response.statusCode) {
             case 401: // Unauthorized
             case 403: { // Forbidden
@@ -355,9 +358,55 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
             }
             case 302: { // redirect
                 NSString *redirectURL = [response.allHeaderFields objectForKey:@"Location"];
-                NSString *redirectUrlRegex = [NSString stringWithFormat:@"(.*?)/login.html(;?)((jsessionid=.+)?)\\?error=1"];
+                NSString *redirectUrlRegex;
+                if ([self.serverProfile isKindOfClass:[JSPAProfile class]]) {
+                    redirectUrlRegex = [NSString stringWithFormat:@"(.*?)/login.html(.*?)"];
+                } else {
+                    redirectUrlRegex = [NSString stringWithFormat:@"(.*?)/login.html(;?)((jsessionid=.+)?)\\?error=1"];
+                }
                 NSPredicate *redirectUrlValidator = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", redirectUrlRegex];
                 isTokenFetchedSuccessful = ![redirectUrlValidator evaluateWithObject:redirectURL];
+                break;
+            }
+            case 200: {
+                if(responseObject && ![responseObject isEqualToData:[NSData dataWithBytes:" " length:1]]) {
+                    if ([response.MIMEType isEqualToString:@"text/html"]) {
+                        NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+                        if ([htmlString rangeOfString:@"window.location=\"home.html\""].location != NSNotFound) {
+                            NSURL *homePageURL = [NSURL URLWithString:@"home.html" relativeToURL:self.baseURL];
+                            NSURLRequest *homePageRequest = [NSURLRequest requestWithURL:homePageURL];
+                            
+                            dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+                            
+                            __block JSOperationResult *homePageResult;
+                            
+                            __weak typeof(self) weakSelf = self;
+                            NSURLSessionDataTask *dataTask = [self dataTaskWithRequest:homePageRequest completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                                __strong typeof(self) strongSelf = weakSelf;
+                                homePageResult = [strongSelf operationResultForRequest:request
+                                                                          withResponce:(NSHTTPURLResponse *)response
+                                                                        responseObject:responseObject
+                                                                                 error:error];
+                                dispatch_semaphore_signal(semaphore);
+                            }];
+
+                            JSCallBack *callback = [self callBackForRequest:request];
+                            callback.dataTask = dataTask;
+                            [dataTask resume];
+                            
+                            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+                            return homePageResult;
+                        }
+                    } else if ([response.MIMEType isEqualToString:@"application/json"]){
+                        result.body = responseObject;
+
+                        NSError *serializationError = nil;
+                        NSDictionary *responseObjectRepresentation = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&serializationError];
+                        if (!serializationError && responseObjectRepresentation) {
+                            isTokenFetchedSuccessful = [[responseObjectRepresentation valueForKey:@"success"] boolValue];
+                        }
+                    }
+                }
                 break;
             }
             default: {
@@ -560,6 +609,10 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     JSOperationResult *result = [JSOperationResult new];
     result.error = [NSError errorWithDomain:JSErrorDomain code:JSOtherErrorCode userInfo:serializationError.userInfo];
     return result;
+}
+
+- (BOOL)isAuthenticationRequest:(JSRequest *)request {
+    return ([request.uri isEqualToString:kJS_REST_AUTHENTICATION_URI] || ([self.serverProfile isKindOfClass:[JSPAProfile class]] && request.uri.length == 0));
 }
 
 @end
