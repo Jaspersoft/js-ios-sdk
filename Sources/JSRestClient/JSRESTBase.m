@@ -247,6 +247,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
                                                                                                                    withResponce:(NSHTTPURLResponse *)response
                                                                                                                  responseObject:responseObject
                                                                                                                           error:error];
+                                                     
                                                      [strongSelf sendCallBackForRequest:jsRequest withOperationResult:operationResult];
                                                  }
                                              }];
@@ -543,7 +544,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
                 [strongSelf sendRequest:request];
             } else {
                 if (request.completionBlock) {
-                    dispatch_async(self.completionQueue ?: dispatch_get_main_queue(), ^{
+                    dispatch_async(dispatch_get_main_queue(), ^{
                         request.completionBlock(result);
                     });
                 }
@@ -551,7 +552,7 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
         }];
     } else {
         if (request.completionBlock) {
-            dispatch_async(self.completionQueue ?: dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
                 request.completionBlock(result);
             });
         }

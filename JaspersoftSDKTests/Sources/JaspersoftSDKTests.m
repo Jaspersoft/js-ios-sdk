@@ -39,7 +39,7 @@
         [expectation fulfill];
     }];
     
-    [self waitForExpectationsWithTimeout:120.0 handler:nil];
+    [self waitForExpectationsWithTimeout:20.0 handler:nil];
 }
 
 - (void)testInCorrectPAauthorization {
@@ -55,7 +55,7 @@
         [expectation fulfill];
     }];
     
-    [self waitForExpectationsWithTimeout:120 handler:nil];
+    [self waitForExpectationsWithTimeout:20 handler:nil];
 }
 
 @end
