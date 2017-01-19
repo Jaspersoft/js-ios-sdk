@@ -49,8 +49,10 @@
             return;
         }
     }
-    NSURLRequest *request = [restClient.requestSerializer requestWithMethod:[JSRequest httpMethodStringRepresentation: JSRequestHTTPMethodGET]
-                                                                  URLString:resourceURLString parameters:nil error:nil];
+    NSMutableURLRequest *request = [restClient.requestSerializer requestWithMethod:[JSRequest httpMethodStringRepresentation: JSRequestHTTPMethodGET]
+                                                                         URLString:resourceURLString parameters:nil error:nil];
+    [request setCachePolicy:NSURLRequestReloadIgnoringCacheData];   // This fix is needed for correct images loading!!!
+    
     [[restClient downloadTaskWithRequest:request
                                 progress:nil
                              destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
