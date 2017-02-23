@@ -1,4 +1,4 @@
-Jaspersoft Mobile SDK for iOS version 2.5
+Jaspersoft Mobile SDK for iOS version 2.6
 Copyright (C) 2011 - 2014 Jaspersoft Corporation. All rights reserved.
 http://community.jaspersoft.com/project/mobile-sdk-ios
 
@@ -25,8 +25,8 @@ along with Jaspersoft Mobile SDK for iOS. If not, see
 THIRD PARTY COMPONENTS
 -------------------------------
 This software includes third party software subject to the associated copyrights, as follows:
-- AFNetworking v3.0.4 (MIT) - https://github.com/AFNetworking/AFNetworking
-- EasyMapping v0.16.1 (MIT) - https://github.com/lucasmedeirosleite/EasyMapping
+- AFNetworking v3.1.0 (MIT) - https://github.com/AFNetworking/AFNetworking
+- EasyMapping v0.17.0 (MIT) - https://github.com/lucasmedeirosleite/EasyMapping
 - BasicEncodingRules - https://github.com/StCredZero/SCZ-BasicEncodingRules-iOS
 
 The text of licenses for the above software is included with the

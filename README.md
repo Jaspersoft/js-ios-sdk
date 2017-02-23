@@ -15,7 +15,7 @@ http://community.jaspersoft.com/project/mobile-sdk-ios
 Installation
 ------------
 
-The recommended approach for installing JaspersoftSDK is via the [CocoaPods](http://cocoapods.org/) package manager, as it provides flexible dependency management and dead simple installation. For best results, it is recommended that you install via CocoaPods **>= ** 0.19.1g Git **>= 1.8.0** installed via Homebrew.
+The recommended approach for installing JaspersoftSDK is via the [CocoaPods](http://cocoapods.org/) package manager, as it provides flexible dependency management and dead simple installation. For best results, it is recommended that you install via the latest version of CocoaPods and Git **>= 1.8.0** installed via Homebrew.
 
 ### via CocoaPods
 
@@ -33,7 +33,7 @@ $ cd /path/to/MyProject
 $ touch Podfile
 $ edit Podfile
 
-platform :ios, '6.0' 
+platform :ios, '7.0' 
 # Or platform :osx, '10.7'
 pod 'JaspersoftSDK', :git => 'https://github.com/Jaspersoft/js-ios-sdk.git', :tag => '2.5', :subspecs => ['JSCore', 'JSSecurity', 'JSReportExtention']
 post_install do |installer_representation|
