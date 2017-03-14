@@ -1,10 +1,12 @@
-//
-//  JSOrganizationTest.m
-//  JaspersoftSDK
-//
-//  Created by Oleksii Gubariev on 01/06/17.
-//  Copyright © 2016 TIBCO JasperMobile. All rights reserved.
-//
+/*
+ * Copyright ©  2016 - 2017. TIBCO Software Inc. All Rights Reserved. Confidential & Proprietary.
+ */
+
+
+/**
+ @author Oleksii Gubariev ogubarie@tibco.com
+ @since 2.5
+ */
 
 #import <XCTest/XCTest.h>
 #import "JSOrganization.h"

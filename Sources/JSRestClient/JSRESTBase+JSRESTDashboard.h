@@ -1,38 +1,26 @@
 /*
- * Jaspersoft Mobile SDK
- * Copyright (C) 2011 - 2016 Jaspersoft Corporation. All rights reserved.
- * http://community.jaspersoft.com/project/mobile-sdk-ios
- *
- * Unless you have purchased a commercial license agreement from Jaspersoft,
- * the following license terms apply:
- *
- * This program is part of Jaspersoft Mobile SDK for iOS.
- *
- * Jaspersoft Mobile SDK is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Jaspersoft Mobile SDK is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with Jaspersoft Mobile SDK for iOS. If not, see
- * <http://www.gnu.org/licenses/lgpl>.
+ * Copyright © 2016 - 2017. TIBCO Software Inc. All Rights Reserved. Confidential & Proprietary.
  */
 
-//
-//  JSRESTBase+JSRESTDashboard.h
-//  Jaspersoft Corporation
-//
 
+/**
+ @author Oleksii Gubariev ogubarie@tibco.com
+ @author Olexandr Dahno odahno@tibco.com
+ @since 2.6
+ */
 
 #import "JSRESTBase.h"
 #import "JSDashboardParameter.h"
 
 @interface JSRESTBase (JSRESTDashboard)
+/**
+ Run dashboard export execution job on JRS
+ 
+ @param dashboardURI The repository URI (i.e. /dashboards/samples/)
+ @param block The block to inform of the results
+ 
+ @since 2.6
+ */
 
 - (void)fetchDashboardComponentsWithURI:(nonnull NSString *)dashboardURI
                              completion:(nullable JSRequestCompletionBlock)block;
@@ -61,16 +49,52 @@
 - (void)updatedInputControlValuesForDashboardWithParameters:(nullable NSArray <JSDashboardParameter *> *)params
                                             completionBlock:(nullable JSRequestCompletionBlock)block;
 
+/**
+ Run dashboard export execution job on JRS
+ 
+ @param dashboardURI The repository URI (i.e. /dashboards/samples/)
+ @param format The format for dashboard exporting (i.e. pdf)
+ @param params list of repository URIs of the dashboard with relative input controls selected values
+ @param block The block to inform of the results
+ 
+ @since 2.6
+ */
+
 - (void)runDashboardExportExecutionWithURI:(nonnull NSString *)dashboardURI
                                   toFormat:(nullable NSString *)format
                                 parameters:(nullable NSArray <JSDashboardParameter *> *)params
                                 completion:(nullable JSRequestCompletionBlock)block;
 
+/**
+ Get status of the dashboard export execution job
+ 
+ @param jobID The dashboard export execution job identifier
+ @param block The block to inform of the results
+ 
+ @since 2.6
+ */
+
 - (void)dashboardExportExecutionStatusWithJobID:(nonnull NSString *)jobID
                                      completion:(nullable JSRequestCompletionBlock)block;
+/**
+ Cancel the dashboard export execution job
+ 
+ @param jobID The dashboard export execution job identifier
+ @param block The block to inform of the results
+ 
+ @since 2.6
+ */
 
 - (void)cancelDashboardExportExecutionWithJobID:(nonnull NSString *)jobID
                                      completion:(nullable JSRequestCompletionBlock)block;
+
+/**
+ Generate the dashboard export output URL
+ 
+ @param jobID The dashboard export execution job identifier
+ 
+ @since 2.6
+ */
 
 - (nonnull NSString *)generateDashboardOutputUrl:(nonnull NSString *)jobID;
 
