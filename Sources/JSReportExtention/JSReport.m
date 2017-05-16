@@ -12,11 +12,11 @@
 #import "JSReportBookmark.h"
 #import "JSReportPart.h"
 
-NSString * const JSReportIsMutlipageDidChangedNotification = @"JSReportIsMutlipageDidChangedNotification";
-NSString * const JSReportCountOfPagesDidChangeNotification = @"JSReportCountOfPagesDidChangeNotification";
-NSString * const JSReportCurrentPageDidChangeNotification  = @"JSReportCurrentPageDidChangeNotification";
-NSString * const JSReportBookmarksDidUpdateNotification    = @"JSReportBookmarksDidUpdateNotification";
-NSString * const JSReportPartsDidUpdateNotification        = @"JSReportPartsDidUpdateNotification";
+NSString * const JSReportIsMutlipageDidChangedNotification  = @"JSReportIsMutlipageDidChangedNotification";
+NSString * const JSReportCountOfPagesDidChangeNotification  = @"JSReportCountOfPagesDidChangeNotification";
+NSString * const JSReportCurrentPageDidChangeNotification   = @"JSReportCurrentPageDidChangeNotification";
+NSString * const JSReportBookmarksDidUpdateNotification     = @"JSReportBookmarksDidUpdateNotification";
+NSString * const JSReportPartsDidUpdateNotification         = @"JSReportPartsDidUpdateNotification";
 
 @interface JSReport()
 @property (nonatomic, strong) NSMutableArray *availableReportOptions;

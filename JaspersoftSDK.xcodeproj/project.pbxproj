@@ -248,6 +248,10 @@
 		BD8AE89B1D356C4F006B5595 /* JSDashboard.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8AE8991D356C4F006B5595 /* JSDashboard.h */; };
 		BD8AE89C1D356C4F006B5595 /* JSDashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8AE89A1D356C4F006B5595 /* JSDashboard.m */; };
 		BD8AE89E1D357253006B5595 /* JSDashboardExtention.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8AE89D1D357253006B5595 /* JSDashboardExtention.h */; };
+		BD5372501D58BF2400442361 /* JSReportSearchResult.h in Headers */ = {isa = PBXBuildFile; fileRef = BD53724E1D58BF2400442361 /* JSReportSearchResult.h */; };
+		BD5372511D58BF2400442361 /* JSReportSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = BD53724F1D58BF2400442361 /* JSReportSearchResult.m */; };
+		BD5372541D58D03400442361 /* JSReportSearch.h in Headers */ = {isa = PBXBuildFile; fileRef = BD5372521D58D03400442361 /* JSReportSearch.h */; };
+		BD5372551D58D03400442361 /* JSReportSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5372531D58D03400442361 /* JSReportSearch.m */; };
 		BD991C5A1CF76B5B00859145 /* NSString+JSURLEncodings.h in Headers */ = {isa = PBXBuildFile; fileRef = BD991C581CF76B5B00859145 /* NSString+JSURLEncodings.h */; };
 		BD991C5B1CF76B5B00859145 /* NSString+JSURLEncodings.m in Sources */ = {isa = PBXBuildFile; fileRef = BD991C591CF76B5B00859145 /* NSString+JSURLEncodings.m */; };
 		FFD65C5964595F50D9326C49 /* libPods-JaspersoftSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F85CFDE522786E932150FC50 /* libPods-JaspersoftSDK.a */; };
@@ -510,6 +514,10 @@
 		BD8AE8991D356C4F006B5595 /* JSDashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDashboard.h; sourceTree = "<group>"; };
 		BD8AE89A1D356C4F006B5595 /* JSDashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDashboard.m; sourceTree = "<group>"; };
 		BD8AE89D1D357253006B5595 /* JSDashboardExtention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDashboardExtention.h; sourceTree = "<group>"; };
+		BD53724E1D58BF2400442361 /* JSReportSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportSearchResult.h; sourceTree = "<group>"; };
+		BD53724F1D58BF2400442361 /* JSReportSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportSearchResult.m; sourceTree = "<group>"; };
+		BD5372521D58D03400442361 /* JSReportSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSReportSearch.h; sourceTree = "<group>"; };
+		BD5372531D58D03400442361 /* JSReportSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSReportSearch.m; sourceTree = "<group>"; };
 		BD991C581CF76B5B00859145 /* NSString+JSURLEncodings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JSURLEncodings.h"; sourceTree = "<group>"; };
 		BD991C591CF76B5B00859145 /* NSString+JSURLEncodings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JSURLEncodings.m"; sourceTree = "<group>"; };
 		CE241112233BFF779E325E40 /* Pods-JaspersoftSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JaspersoftSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-JaspersoftSDK/Pods-JaspersoftSDK.release.xcconfig"; sourceTree = "<group>"; };
@@ -726,6 +734,10 @@
 				A14783C85F8A6E55B6A0FCCA /* JSReportPart.m */,
 				A1478014B4C3C942E0467991 /* JSReportDestination.h */,
 				A1478A9FDC07CAC502A29AC7 /* JSReportDestination.m */,
+				BD5372521D58D03400442361 /* JSReportSearch.h */,
+				BD5372531D58D03400442361 /* JSReportSearch.m */,
+				BD53724E1D58BF2400442361 /* JSReportSearchResult.h */,
+				BD53724F1D58BF2400442361 /* JSReportSearchResult.m */,
 			);
 			path = JSReportExtention;
 			sourceTree = "<group>";
@@ -1042,6 +1054,7 @@
 			files = (
 				0849FCC01C2B0A92008F1064 /* JSReportExtention.h in Headers */,
 				BD5A507B1E1FD45300B8A853 /* JSPAProfile.h in Headers */,
+				BD5372541D58D03400442361 /* JSReportSearch.h in Headers */,
 				0849FC931C2B0A91008F1064 /* JSExecutionStatus.h in Headers */,
 				0849FCC41C2B0A92008F1064 /* JSReportPagesRange.h in Headers */,
 				0849FCC31C2B0A92008F1064 /* JSReportLoaderProtocol.h in Headers */,
@@ -1067,6 +1080,7 @@
 				BD991C5A1CF76B5B00859145 /* NSString+JSURLEncodings.h in Headers */,
 				0899C4451C2D8FEE00CFBD91 /* JSErrorBuilder.h in Headers */,
 				0849FCAE1C2B0A91008F1064 /* JSReportParameter.h in Headers */,
+				BD5372501D58BF2400442361 /* JSReportSearchResult.h in Headers */,
 				0849FCDD1C2B0A93008F1064 /* JSSecurity.h in Headers */,
 				0849FCE91C2C1D7D008F1064 /* JaspersoftSDK.h in Headers */,
 				0849FCCD1C2B0A92008F1064 /* JSRESTBase+JSRESTReport.h in Headers */,
@@ -1420,6 +1434,7 @@
 				0849FCD41C2B0A92008F1064 /* JSRESTBase.m in Sources */,
 				0849FC9C1C2B0A91008F1064 /* JSInputControlOption.m in Sources */,
 				0849FCCA1C2B0A92008F1064 /* JSProfile.m in Sources */,
+				BD5372511D58BF2400442361 /* JSReportSearchResult.m in Sources */,
 				0849FC901C2B0A91008F1064 /* JSDateTimeFormatValidationRule.m in Sources */,
 				0849FC9A1C2B0A91008F1064 /* JSInputControlDescriptor.m in Sources */,
 				BD8AE8981D3569E8006B5595 /* JSDashboardSaver.m in Sources */,
@@ -1447,6 +1462,7 @@
 				0849FCB91C2B0A92008F1064 /* JSServerInfo.m in Sources */,
 				0849FCBD1C2B0A92008F1064 /* JSReportExecutionConfiguration.m in Sources */,
 				BD8AE88B1D355ED4006B5595 /* JSPatchResourceParameter.m in Sources */,
+				BD5372551D58D03400442361 /* JSReportSearch.m in Sources */,
 				BD0A8F071C7F646A00C63F44 /* JSMapping.m in Sources */,
 				0849FCC51C2B0A92008F1064 /* JSReportPagesRange.m in Sources */,
 				BD5A50781E1EA43700B8A853 /* JSSSOProfile.m in Sources */,
