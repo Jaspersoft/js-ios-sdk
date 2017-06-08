@@ -432,7 +432,7 @@ initialParameters:(nullable NSArray <JSReportParameter *> *)initialParameters
 - (void)handleEmptyReport {
     NSDictionary *userInfo = @{NSLocalizedDescriptionKey : JSCustomLocalizedString(@"report_viewer_emptyreport_title", nil)};
     NSError *error = [NSError errorWithDomain:JSErrorDomain
-                                         code:JSReportLoaderErrorTypeEmtpyReport
+                                         code:JSReportLoaderErrorTypeEmptyReport
                                      userInfo:userInfo];
     [self handleError:error withLoadedObjects:nil forPage:NSNotFound];
 }

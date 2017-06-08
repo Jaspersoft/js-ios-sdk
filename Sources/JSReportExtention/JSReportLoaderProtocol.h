@@ -14,9 +14,8 @@
 
 typedef NS_ENUM(NSInteger, JSReportLoaderErrorType) {
     JSReportLoaderErrorTypeUndefined,
-    JSReportLoaderErrorTypeEmtpyReport,
+    JSReportLoaderErrorTypeEmptyReport,
     JSReportLoaderErrorTypeSessionDidExpired,
-    JSReportLoaderErrorTypeSessionDidRestore,
     JSReportLoaderErrorTypeLoadingCanceled
 };
 

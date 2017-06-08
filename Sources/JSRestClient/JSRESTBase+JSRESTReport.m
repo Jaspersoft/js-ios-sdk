@@ -39,6 +39,7 @@
     request.method = ([selectedValues count]) ? JSRequestHTTPMethodPOST : JSRequestHTTPMethodGET;
     request.completionBlock = block;
     [self addReportParametersToRequest:request withSelectedValues:selectedValues];
+    request.shouldResendRequestAfterSessionExpiration = NO;
     [self sendRequest:request];
 }
 
@@ -50,6 +51,7 @@
     request.restVersion = JSRESTVersion_2;
     [self addReportParametersToRequest:request withSelectedValues:selectedValues];
     request.completionBlock = block;
+    request.shouldResendRequestAfterSessionExpiration = NO;
     [self sendRequest:request];
 }
 
@@ -59,6 +61,7 @@
     request.objectMapping = [JSMapping mappingWithObjectMapping:[JSReportOption objectMappingForServerProfile:self.serverProfile] keyPath:@"reportOptionsSummary"];
     request.restVersion = JSRESTVersion_2;
     request.completionBlock = block;
+    request.shouldResendRequestAfterSessionExpiration = NO;
     [self sendRequest:request];
 }
 
@@ -74,6 +77,7 @@
     request.restVersion = JSRESTVersion_2;
     request.method = JSRequestHTTPMethodDELETE;
     request.completionBlock = completion;
+    request.shouldResendRequestAfterSessionExpiration = NO;
     [self sendRequest:request];
 }
 
@@ -92,6 +96,7 @@
     request.method = JSRequestHTTPMethodPOST;
     [self addReportParametersToRequest:request withSelectedValues:reportParameters];
     request.completionBlock = completion;
+    request.shouldResendRequestAfterSessionExpiration = NO;
     [self sendRequest:request];
 }
 
@@ -185,6 +190,7 @@
     request.method = JSRequestHTTPMethodPOST;
     request.restVersion = JSRESTVersion_2;
     request.completionBlock = block;
+    request.shouldResendRequestAfterSessionExpiration = NO;
 
     JSReportExecutionRequest *executionRequest = [[JSReportExecutionRequest alloc] init];
     executionRequest.reportUnitUri = reportUnitUri;
@@ -197,7 +203,7 @@
     executionRequest.pages = pages;
     executionRequest.attachmentsPrefix = attachmentsPrefix;
     executionRequest.parameters = parameters;
-    
+
     if (ignorePagination) {
         executionRequest.ignorePagination = [JSUtils stringFromBOOL:ignorePagination];
     }
