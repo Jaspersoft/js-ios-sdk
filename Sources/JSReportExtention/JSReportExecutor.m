@@ -115,6 +115,9 @@
                                                                                             __strong typeof(self) strongSelf = weakSelf;
                                                                                             if (!result.error) {
                                                                                                 strongSelf.executionResponse = result.objects.firstObject;
+                                                                                                if (strongSelf.configuration.pagesRange.endPage > strongSelf.executionResponse.totalPages.integerValue) {
+                                                                                                    strongSelf.configuration.pagesRange.endPage = strongSelf.executionResponse.totalPages.integerValue;
+                                                                                                }
                                                                                             }
                                                                                             if (strongSelf.executeCompletion) {
                                                                                                 strongSelf.executeCompletion(strongSelf.executionResponse, result.error);

@@ -12,7 +12,7 @@
 #import "JSUserProfile.h"
 #import "JSSSOProfile.h"
 #import "JSPAProfile.h"
-#import "JSRestBase.h"
+#import "JSRESTBase.h"
 #import "JSRESTBase+JSRESTReport.h"
 #import "JSRESTBase+JSRESTDashboard.h"
 #import "JSRESTBase+JSRESTResource.h"
