@@ -9,6 +9,9 @@
 #import "JSSSOProfile.h"
 #import "JSPAProfile.h"
 #import "JSRESTBase+JSRESTServer.h"
+#import "AFAutoPurgingImageCache.h"
+#import "AFImageDownloader.h"
+#import "UIKit+AFNetworking.h"
 
 #if __has_include("JSSecurity.h")
 #import "JSSecurity.h"
@@ -30,6 +33,8 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
 - (void)verifyIsSessionAuthorizedWithCompletion:(JSRequestCompletionBlock)completion {
     [self deleteCookies];
 
+    [self clearImagesCache];
+    
     // Get server info
     __weak typeof(self)weakSelf = self;
     [self fetchServerInfoWithCompletion:^(JSOperationResult * _Nullable result) {
@@ -178,6 +183,13 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
         }
     }];
     return request;
+}
+
+- (void)clearImagesCache
+{
+    AFImageDownloader *downloader = [UIImageView sharedImageDownloader];
+    id <AFImageRequestCache> imageCache = downloader.imageCache;
+    [imageCache removeAllImages];
 }
 
 @end
