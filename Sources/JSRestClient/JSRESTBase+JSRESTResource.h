@@ -45,13 +45,15 @@ Gets resource lookup for resource.
 @param resourceURI The repository URI (i.e. /reports/samples/)
 @param resourceType Type of required resource
 @param modelClass expected model class
+@param autoCompleteSessionIfNeeded this parameter allows to recreate session if it was expired
 @param block The block to inform of the results
 
-@since 2.1
+@since 2.6
 */
 - (void)resourceLookupForURI:(nonnull NSString *)resourceURI
                 resourceType:(nonnull NSString *)resourceType
                   modelClass:(nonnull Class)modelClass
+ autoCompleteSessionIfNeeded:(BOOL)autoCompleteSessionIfNeeded
              completionBlock:(nullable JSRequestCompletionBlock)block;
 
 /**

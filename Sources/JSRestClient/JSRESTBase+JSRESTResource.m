@@ -51,6 +51,7 @@ NSString * const _parameterForceFullPage = @"forceFullPage";
 - (void)resourceLookupForURI:(NSString *)resourceURI
                 resourceType:(NSString *)resourceType
                    modelClass:(Class)modelClass
+autoCompleteSessionIfNeeded:(BOOL)autoCompleteSessionIfNeeded
              completionBlock:(nullable JSRequestCompletionBlock)block
 {
     NSString *uri = kJS_REST_RESOURCES_URI;
@@ -68,17 +69,9 @@ NSString * const _parameterForceFullPage = @"forceFullPage";
         responceType = [NSString stringWithFormat:@"application/repository.%@+json", resourceType];
     }
     request.additionalHeaders = @{kJSRequestResponceType : responceType};
+    request.shouldResendRequestAfterSessionExpiration = autoCompleteSessionIfNeeded;
+    
     [self sendRequest:request];
-}
-
-- (void)resourceLookupForURI:(NSString *)resourceURI
-                resourceType:(NSString *)resourceType
-             completionBlock:(nullable JSRequestCompletionBlock)block
-{
-    [self resourceLookupForURI:resourceURI
-                  resourceType:resourceType
-                    modelClass:[JSResourceLookup class]
-               completionBlock:block];
 }
 
 - (void)resourceLookups:(NSString *)folderUri

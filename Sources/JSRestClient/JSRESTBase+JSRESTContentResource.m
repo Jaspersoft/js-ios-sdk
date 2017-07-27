@@ -16,6 +16,7 @@
     [self resourceLookupForURI:resourceLookup.uri
                   resourceType:kJS_WS_TYPE_FILE
                     modelClass:[JSContentResource class]
+   autoCompleteSessionIfNeeded:YES
                completionBlock:^(JSOperationResult *result) {
                    if (result.error) {
                        completion(nil, result.error);
