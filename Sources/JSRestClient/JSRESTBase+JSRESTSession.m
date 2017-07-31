@@ -86,6 +86,13 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
     }];
 }
 
+- (void)logout
+{
+    JSRequest *request = [[JSRequest alloc] initWithUri:kJS_REST_LOGOUT_URI];
+    [self sendRequest:request];
+}
+
+
 #pragma mark - Private API
 
 - (void)fetchEncryptionKeyWithCompletion:(void(^)(JSEncryptionData *encryptionData, NSError *error))completion

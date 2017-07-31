@@ -26,6 +26,15 @@
  */
 - (void)verifyIsSessionAuthorizedWithCompletion:(JSRequestCompletionBlock)block;
 
+
+/**
+ Invalidate session
+ 
+ @since 2.6
+ */
+- (void)logout;
+
+
 extern NSString * const kJSSessionDidAuthorizedNotification;
 
 @end

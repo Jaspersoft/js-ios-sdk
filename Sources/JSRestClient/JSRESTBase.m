@@ -201,10 +201,12 @@ NSString * const _requestFinishedTemplateMessage = @"Request finished: %@\nRespo
     for (NSString *headerKey in [jsRequest.additionalHeaders allKeys]) {
         [request setValue:jsRequest.additionalHeaders[headerKey] forHTTPHeaderField:headerKey];
     }
-
+    
+#ifndef __RELEASE__
     if (request.HTTPBody) {
         NSLog(@"BODY: %@", [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]);
     }
+#endif
 
     if (serializationError) {
         [self sendCallBackForRequest:jsRequest withOperationResult:[self operationResultForSerializationError:serializationError]];

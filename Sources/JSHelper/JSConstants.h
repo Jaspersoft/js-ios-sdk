@@ -179,6 +179,7 @@ extern NSString *const kJS_CONTENT_TYPE_PNG;
  */
 extern NSString *const kJS_REST_ENCRYPTION_KEY_URI;
 extern NSString *const kJS_REST_AUTHENTICATION_URI;
+extern NSString *const kJS_REST_LOGOUT_URI;
 extern NSString *const kJS_REST_SERVICES_URI;
 extern NSString *const kJS_REST_SERVICES_V2_URI;
 extern NSString *const kJS_REST_RESOURCE_URI;

@@ -106,6 +106,7 @@ NSString *const kJS_CONTENT_TYPE_PNG = @"png";
  */
 NSString *const kJS_REST_ENCRYPTION_KEY_URI = @"GetEncryptionKey";
 NSString *const kJS_REST_AUTHENTICATION_URI = @"j_spring_security_check";
+NSString *const kJS_REST_LOGOUT_URI = @"logout.html";
 NSString *const kJS_REST_SERVICES_URI = @"rest";
 NSString *const kJS_REST_SERVICES_V2_URI = @"rest_v2";
 NSString *const kJS_REST_RESOURCE_URI = @"/resource";
