@@ -89,6 +89,7 @@ NSString * const kJSAuthenticationTimezoneKey       = @"userTimezone";
 - (void)logout
 {
     JSRequest *request = [[JSRequest alloc] initWithUri:kJS_REST_LOGOUT_URI];
+    request.restVersion = JSRESTVersion_None;
     [self sendRequest:request];
 }
 
