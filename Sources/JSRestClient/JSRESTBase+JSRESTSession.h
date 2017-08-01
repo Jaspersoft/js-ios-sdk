@@ -29,10 +29,11 @@
 
 /**
  Invalidate session
- 
+ @param completion The block to inform of the results
+
  @since 2.6
  */
-- (void)logout;
+- (void)logout:(void(^)(void))completion;
 
 
 extern NSString * const kJSSessionDidAuthorizedNotification;
